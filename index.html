@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="theme-color" content="#07080a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>GOSHA TURBOTECH | Лаборатория мировых рекордов скорости</title>
+  <meta name="description" content="GoshaTurboTech (GTT) — центр мощностного тюнинга гиперкаров и супербайков. Мировые рекорды 402м, 804м и ледовых трасс. Основатель: Георгий Зурабович Перцхелия.">
+  <link rel="icon" type="image/png" href="assets/photos/gtt_shield_logo.png">
+  <link rel="apple-touch-icon" href="assets/photos/gtt_shield_logo.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Original Cinematic Preloader -->
+  <div id="preloader">
+    <div class="preloader-inner">
+      <div class="preloader-logo-wrap">
+        <img src="assets/photos/gtt_shield_logo.png" alt="GoshaTurboTech Shield Logo" class="preloader-shield-img">
+        <div class="preloader-text-brand">GOSHA <span>TURBOTECH</span></div>
+      </div>
+      <div class="preloader-progress-bar">
+        <div class="preloader-progress-fill" id="preloaderFill"></div>
+      </div>
+      <div class="preloader-tag" data-i18n="preloader_tag">Engineering Speed & Power • Moscow</div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <a href="#" class="brand-logo">
+      <img src="assets/photos/gtt_shield_logo.png" alt="GTT Shield Logo" class="brand-shield-img">
+      <div class="brand-title">GOSHA <span>TURBOTECH</span></div>
+    </a>
+
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#garage" class="nav-link active" data-i18n="nav_garage">Гараж проектов</a></li>
+        <li><a href="#founder" class="nav-link" data-i18n="nav_founder">О Гоше</a></li>
+        <li><a href="#records" class="nav-link" data-i18n="nav_records">Рекорды RDRC</a></li>
+        <li><a href="#team" class="nav-link" data-i18n="nav_team">Команда GTT</a></li>
+        <li><a href="#moto" class="nav-link" data-i18n="nav_moto">Moto Division</a></li>
+        <li><a href="#gallery" class="nav-link" data-i18n="nav_gallery">Жизнь ателье</a></li>
+        <li><a href="#contact" class="nav-link" data-i18n="nav_contact">Связь</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-actions">
+      <!-- Language Switcher -->
+      <div class="lang-switch-group">
+        <button class="lang-btn active" id="langRu" onclick="setLanguage('ru')">RU</button>
+        <span class="lang-divider">/</span>
+        <button class="lang-btn" id="langEn" onclick="setLanguage('en')">EN</button>
+      </div>
+      <a href="https://t.me/goshaturbotech" target="_blank" class="btn-primary desktop-only-btn" data-i18n="nav_telegram">Telegram Канал</a>
+
+      <!-- Mobile Hamburger Button -->
+      <button class="mobile-burger-btn" id="mobileBurgerBtn" onclick="toggleMobileNav()" aria-label="Меню навигации">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="mobile-drawer-backdrop" onclick="toggleMobileNav(false)"></div>
+    <div class="mobile-drawer-content">
+      <div class="mobile-drawer-header">
+        <div class="brand-logo">
+          <img src="assets/photos/gtt_shield_logo.png" alt="GTT Shield Logo" class="brand-shield-img">
+          <div class="brand-title">GOSHA <span>TURBOTECH</span></div>
+        </div>
+        <button class="mobile-drawer-close" onclick="toggleMobileNav(false)">&times;</button>
+      </div>
+
+      <nav class="mobile-nav-list">
+        <a href="#garage" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_garage">Гараж проектов</a>
+        <a href="#founder" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_founder">О Гоше</a>
+        <a href="#records" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_records">Рекорды RDRC</a>
+        <a href="#team" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_team">Команда GTT</a>
+        <a href="#moto" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_moto">Moto Division</a>
+        <a href="#gallery" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_gallery">Жизнь ателье</a>
+        <a href="#contact" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_contact">Связь</a>
+      </nav>
+
+      <div class="mobile-drawer-footer">
+        <a href="https://t.me/goshaturbotech" target="_blank" class="btn-primary" style="width: 100%; justify-content: center;" data-i18n="nav_telegram">
+          Telegram Канал
+        </a>
+        <div class="mobile-drawer-contacts">
+          <a href="tel:+74959900077">📞 +7 (495) 99-000-77</a>
+          <span>г. Москва, Можайское шоссе, 168</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-bg-container">
+      <video class="hero-video-bg" autoplay loop muted playsinline poster="assets/cars/dodge_burnout_sunset.jpg">
+        <source src="assets/videos/hero_screen_record_2026-10-02.mov" type="video/quicktime">
+        <source src="assets/videos/hero_screen_record_2026-10-02.mov" type="video/mp4">
+        <source src="assets/videos/r8_launch_action.mp4" type="video/mp4">
+      </video>
+      <div class="hero-video-overlay"></div>
+    </div>
+
+    <!-- Hero Visual Focus -->
+
+    <div class="hero-content">
+      <div class="hero-tag">
+        <span class="pulse-dot"></span>
+        <span data-i18n="hero_tag">World Record Engineering • Moscow • RDRC</span>
+      </div>
+
+      <h1 class="hero-title" data-i18n="hero_title">
+        Инженерия <br>
+        <span class="gradient-text">запредельной</span> <br>
+        скорости
+      </h1>
+
+      <p class="hero-description" data-i18n="hero_desc">
+        Лаборатория спортивного инжиниринга Георгия Зурабовича Перцхелия (GoshaTurboTech). Победители Unlim 500+, триумфаторы Чемпионата России RDRC и абсолютные рекордсмены ледовых трасс Байкала. Мы форсируем суперкары BMW M, Nissan GT-R, Audi R8, Porsche и супербайки до 1800+ л.с.
+      </p>
+
+      <!-- Dynamic Live Telemetry Bar -->
+      <div class="hero-telemetry-bar">
+        <div class="telemetry-item">
+          <div class="value">7.810 <span class="unit" data-i18n="unit_sec">сек</span></div>
+          <div class="label" data-i18n="telemetry_gtr">1/4 мили (Nissan GT-R Moses)</div>
+        </div>
+        <div class="telemetry-item">
+          <div class="value">353 <span class="unit" data-i18n="unit_kmh">км/ч</span></div>
+          <div class="label" data-i18n="telemetry_record">Рекорд Европы (1/2 мили)</div>
+        </div>
+        <div class="telemetry-item">
+          <div class="value">3,000+ <span class="unit" data-i18n="unit_hp">л.с.</span></div>
+          <div class="label" data-i18n="telemetry_output">Предельная отдача автомобиля</div>
+        </div>
+      </div>
+
+      <div class="hero-cta">
+        <a href="#garage" class="btn-primary" data-i18n="hero_btn_explore">Исследовать проекты GTT</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- GTT Hangar / Garage Section -->
+  <section class="hangar-section" id="garage">
+    <div class="section-header">
+      <span class="section-tag" data-i18n="garage_tag">// SHOWROOM & MOTORSPORT BUILDS</span>
+      <h2 class="section-title" data-i18n="garage_title">Легендарные проекты GTT</h2>
+      <p class="section-subtitle" data-i18n="garage_subtitle">Каждый автомобиль собран вручную в лаборатории GoshaTurboTech с персональной калибровкой блоков управления и двойного турбонаддува.</p>
+    </div>
+
+    <!-- Filter Pills -->
+    <div class="filter-pills">
+      <button class="filter-pill active" data-filter="all" data-i18n="filter_all">Все проекты</button>
+      <button class="filter-pill" data-filter="bmw">BMW M-Power</button>
+      <button class="filter-pill" data-filter="gtr">Nissan GT-R R35</button>
+      <button class="filter-pill" data-filter="audi">Audi R8 V10 TT</button>
+      <button class="filter-pill" data-filter="lambo">Lamborghini TT</button>
+      <button class="filter-pill" data-filter="other">Dodge SRT</button>
+    </div>
+
+    <!-- Dynamic Cars Grid -->
+    <div class="garage-grid" id="garageGrid">
+      <!-- Populated via js/app.js -->
+    </div>
+  </section>
+
+  <!-- Founder & Vision Section (NEW CRISP HIGH-RES PHOTO) -->
+  <section class="founder-section" id="founder">
+    <div class="founder-container">
+      <div class="founder-visual">
+        <div class="founder-img-wrapper" id="founderGalleryWrapper">
+          <img src="assets/photos/gosha_strip_selfie.jpg" alt="Георгий Зурабович Перцхелия GoshaTurboTech" id="founderImg" class="founder-active-img">
+          
+          <!-- Interactive Photo Switcher Controls -->
+          <button class="founder-gallery-btn prev-btn" onclick="switchFounderPhoto(-1)" aria-label="Предыдущее фото">‹</button>
+          <button class="founder-gallery-btn next-btn" onclick="switchFounderPhoto(1)" aria-label="Следующее фото">›</button>
+
+          <div class="founder-gallery-dots">
+            <span class="gallery-dot active" onclick="setFounderPhoto(0)"></span>
+            <span class="gallery-dot" onclick="setFounderPhoto(1)"></span>
+            <span class="gallery-dot" onclick="setFounderPhoto(2)"></span>
+          </div>
+
+          <div class="founder-caption-tag" id="founderImgCaption" data-i18n="founder_caption">Георгий на стартовой полосе RDRC</div>
+        </div>
+        <div class="founder-floating-card">
+          <a href="https://www.instagram.com/goshaturbogeek/?hl=ru" target="_blank" class="ig-handle">
+            <span>📷</span> @goshaturbogeek
+          </a>
+          <div class="tagline" data-i18n="founder_tagline">Основатель & Главный идеолог GTT</div>
+        </div>
+      </div>
+
+      <div class="founder-content">
+        <span class="manifesto-tag" data-i18n="founder_manifesto">// THE FOUNDER & PHILOSOPHY</span>
+        <h2 class="founder-title" data-i18n="founder_name">Георгий Зурабович Перцхелия</h2>
+        <div class="founder-quote" data-i18n="founder_quote">
+          «Настоящий тюнинг — это не просто прикрутить турбину большего размера. Это искусство собрать сложнейший механизм так, чтобы он разгонялся до 350 км/ч на треке, а затем с абсолютным комфортом вез вас домой по вечернему городу».
+        </div>
+        <p class="founder-bio-text" data-i18n="founder_bio">
+          За 15+ лет увлечения предельной скоростью Георгий Зурабович Перцхелия (Гоша) прошел путь от первых кастомных турбо-проектов до постройки сложнейших 1800-сильных гиперкаров, признанных мировым сообществом энтузиастов. Он лично курирует инженерные разработки, калибрует электронные блоки управления и тестирует болиды на треках RDRC и ледовых просторах Байкала.
+        </p>
+
+        <div class="founder-stats">
+          <div class="founder-stat-item">
+            <div class="num">15+</div>
+            <div class="desc" data-i18n="founder_stat1">Лет в автоспорте</div>
+          </div>
+          <div class="founder-stat-item">
+            <div class="num">12+</div>
+            <div class="desc" data-i18n="founder_stat2">Мировых & Евро рекордов</div>
+          </div>
+          <div class="founder-stat-item">
+            <div class="num">100%</div>
+            <div class="desc" data-i18n="founder_stat3">Кастомный инжиниринг</div>
+          </div>
+        </div>
+
+        <!-- Founder & Atelier Milestones / Achievements -->
+        <div class="founder-achievements">
+          <div class="founder-achieve-tag" data-i18n="founder_achieve_tag">// КЛЮЧЕВЫЕ ВЕХИ И ИНЖЕНЕРНЫЕ ЗАСЛУГИ</div>
+          <div class="founder-achieve-grid">
+            <div class="achieve-pill">
+              <span class="achieve-icon">🏆</span>
+              <div class="achieve-details">
+                <strong data-i18n="achieve1_title">Абсолютный рекорд льда Байкала</strong>
+                <span data-i18n="achieve1_desc">Audi R8 Gyurza TT — 124 км/ч средняя скорость на льду с места</span>
+              </div>
+            </div>
+            <div class="achieve-pill">
+              <span class="achieve-icon">⚡</span>
+              <div class="achieve-details">
+                <strong data-i18n="achieve2_title">3000+ HP Pro-Mod «Draco»</strong>
+                <span data-i18n="achieve2_desc">Постройка быстрейшего кастомного дрэгстера в СНГ на VR38 Billet</span>
+              </div>
+            </div>
+            <div class="achieve-pill">
+              <span class="achieve-icon">⏱️</span>
+              <div class="achieve-details">
+                <strong data-i18n="achieve3_title">Европейский триумф на Unlim 500+</strong>
+                <span data-i18n="achieve3_desc">Nissan GT-R Moses 7.810 сек на Крите и 353 км/ч Huracan в Германии</span>
+              </div>
+            </div>
+            <div class="achieve-pill">
+              <span class="achieve-icon">⚙️</span>
+              <div class="achieve-details">
+                <strong data-i18n="achieve4_title">Собственная разработка Twin Turbo</strong>
+                <span data-i18n="achieve4_desc">Авторские киты с титановым выхлопом для Lambo Huracan, R8, BMW M и 911</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Records & Hall of Fame -->
+  <section class="records-section" id="records">
+    <!-- Authentic GTT Race Car Silhouette & Atmosphere Backdrop -->
+    <div class="records-bg-backdrop">
+      <div class="records-silhouette-layer"></div>
+      <div class="records-vignette-overlay"></div>
+    </div>
+
+    <div class="section-header" style="position: relative; z-index: 5;">
+      <span class="section-tag" data-i18n="records_tag">// HALL OF FAME • UNLIM 500+ & RDRC</span>
+      <h2 class="section-title" data-i18n="records_title">Мировые рекорды и победы RDRC</h2>
+      <p class="section-subtitle" data-i18n="records_subtitle">Более 15 лет непрерывных побед на дистанциях 402 м, 804 м, 1000 м и ледовых трассах.</p>
+    </div>
+
+    <div class="records-grid" style="position: relative; z-index: 5;">
+      <!-- 1. Porsche 992 GTT-IMBA -->
+      <div class="record-item">
+        <div class="record-photo-wrapper">
+          <img src="https://static.tildacdn.com/tild6539-3534-4834-b938-323035363066/7R204787_.jpg" 
+               alt="Porsche 911 Turbo S (992) GTT-IMBA" 
+               class="record-photo-img" 
+               loading="lazy"
+               style="object-position: center 55%;">
+        </div>
+        <div class="record-body">
+          <span class="record-year-badge" data-i18n="rec1_badge">2022 • Мировой рекорд</span>
+          <h3 class="record-title" data-i18n="rec1_title">Быстрейший Porsche 992 на заводских турбинах</h3>
+          <div class="record-car-name">PORSCHE 911 TURBO S (992) GTT-IMBA</div>
+          <div class="record-telemetry" data-i18n="rec1_telemetry">1/4 мили: 9.252 сек • 231.80 км/ч</div>
+          <p class="record-text" data-i18n="rec1_text">Официально подтвержденный рекорд RDRC для кузова 992 со стандартным блоком цилиндров, заводскими турбинами и коробкой PDK.</p>
+        </div>
+      </div>
+
+      <!-- 2. Audi R8 Gyurza Baikal -->
+      <div class="record-item">
+        <div class="record-photo-wrapper">
+          <img src="https://static.tildacdn.com/tild6631-3236-4965-a162-626231376136/maxresdefault.jpg" 
+               alt="Audi R8 V10 Plus Twin Turbo Gyurza на льду Байкала" 
+               class="record-photo-img" 
+               loading="lazy"
+               style="object-position: center 60%;">
+        </div>
+        <div class="record-body">
+          <span class="record-year-badge" data-i18n="rec2_badge">2022 • Абсолютный рекорд льда</span>
+          <h3 class="record-title" data-i18n="rec2_title">Дни скорости на льду озера Байкал</h3>
+          <div class="record-car-name">AUDI R8 V10 PLUS TWIN TURBO GYURZA</div>
+          <div class="record-telemetry" data-i18n="rec2_telemetry">1 км с места на льду: 124 км/ч средняя скорость</div>
+          <p class="record-text" data-i18n="rec2_text">Подготовленный совместно с Kiwamaru болид стал абсолютным триумфатором ледовых гонок за всю историю российского автоспорта.</p>
+        </div>
+      </div>
+
+      <!-- 3. Porsche 911 Turbo S Puncher -->
+      <div class="record-item">
+        <div class="record-photo-wrapper">
+          <img src="https://static.tildacdn.com/tild6238-6431-4433-a262-383434366339/7R8205127.jpg" 
+               alt="Porsche 911 Turbo S GTT-Puncher на Unlim Fest" 
+               class="record-photo-img" 
+               loading="lazy"
+               style="object-position: center 50%;">
+        </div>
+        <div class="record-body">
+          <span class="record-year-badge" data-i18n="rec3_badge">2021 • Мировой ориентир</span>
+          <h3 class="record-title" data-i18n="rec3_title">Триумф на фестивале Unlim Fest</h3>
+          <div class="record-car-name">PORSCHE 911 TURBO S GTT-PUNCHER</div>
+          <div class="record-telemetry" data-i18n="rec3_telemetry">1/4 мили: 9.303 сек • 235.83 км/ч</div>
+          <p class="record-text" data-i18n="rec3_text">Пилот Сергей Никитин установил рекорд соревнований, подтвердив статус Stage 2 от GTT как эталона точности настройки.</p>
+        </div>
+      </div>
+
+      <!-- 4. Nissan GT-R Korzhik -->
+      <div class="record-item">
+        <div class="record-photo-wrapper">
+          <img src="https://static.tildacdn.com/tild3365-3636-4135-b136-623937643037/korzhik2-min.png" 
+               alt="Nissan GT-R R35 GTT-Korzhik" 
+               class="record-photo-img" 
+               loading="lazy"
+               style="object-fit: contain; padding: 10px; background: radial-gradient(circle at center, #161c26 0%, #0d1117 80%);">
+        </div>
+        <div class="record-body">
+          <span class="record-year-badge" data-i18n="rec4_badge">2019 • Рекорд России SMP RDRC</span>
+          <h3 class="record-title" data-i18n="rec4_title">Чемпионат SMP RDRC FSL</h3>
+          <div class="record-car-name">NISSAN GT-R R35 GTT-KORZHIK</div>
+          <div class="record-telemetry" data-i18n="rec4_telemetry">1/2 мили: 13.435 сек • 334.41 км/ч</div>
+          <p class="record-text" data-i18n="rec4_text">Николай Коржов на легендарном GT-R занял 2-е место в абсолютном зачете Чемпионата SMP RDRC в классе FSL.</p>
+        </div>
+      </div>
+
+      <!-- 5. Lamborghini Huracan Bezzubik -->
+      <div class="record-item">
+        <div class="record-photo-wrapper">
+          <img src="assets/photos/huracan_rdrc_stage_line.jpg" 
+               alt="Lamborghini Huracan TT Bezzubik Race 1000" 
+               class="record-photo-img" 
+               loading="lazy"
+               style="object-position: center 60%;">
+        </div>
+        <div class="record-body">
+          <span class="record-year-badge" data-i18n="rec5_badge">2017 • Рекорд Европы</span>
+          <h3 class="record-title" data-i18n="rec5_title">Race 1000 Германия</h3>
+          <div class="record-car-name">LAMBORGHINI HURACAN TT BEZZUBIK</div>
+          <div class="record-telemetry" data-i18n="rec5_telemetry">1/2 мили (804 м): 353 км/ч</div>
+          <p class="record-text" data-i18n="rec5_text">Европейский рекорд скорости на 804 метра среди полноприводных суперкаров, построенных для дорог общего пользования.</p>
+        </div>
+      </div>
+
+      <!-- 6. Nissan GT-R Moses -->
+      <div class="record-item">
+        <div class="record-photo-wrapper">
+          <img src="https://static.tildacdn.com/tild3834-3466-4637-b632-636439343565/GTR-MOSES-min.png" 
+               alt="Nissan GT-R R35 GTT-1800 Moses Unlim 500+ Greece" 
+               class="record-photo-img" 
+               loading="lazy"
+               style="object-fit: contain; padding: 10px; background: radial-gradient(circle at center, #161c26 0%, #0d1117 80%);">
+        </div>
+        <div class="record-body">
+          <span class="record-year-badge" data-i18n="rec6_badge">2014 • Рекорд Европы</span>
+          <h3 class="record-title" data-i18n="rec6_title">UNLIM 500+ Greece (Остров Крит)</h3>
+          <div class="record-car-name">NISSAN GT-R R35 GTT-1800 MOSES</div>
+          <div class="record-telemetry" data-i18n="rec6_telemetry">1/4 мили: 7.810 сек • 287.65 км/ч</div>
+          <p class="record-text" data-i18n="rec6_text">Европейский рекорд времени и 3-й результат в мире на тот момент. Мощность более 1800 л.с. на топливе VP Racing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEDICATED TEAM SECTION -->
+  <section class="team-section" id="team">
+    <div class="section-header">
+      <span class="section-tag" data-i18n="team_tag">// RACING CREW & PILOTS</span>
+      <h2 class="section-title" data-i18n="team_title">Команда GoshaTurboTech</h2>
+      <p class="section-subtitle" data-i18n="team_subtitle">Люди, которые куют рекорды на дрэг-стрипе RDRC: инженеры, телеметристы, механики и пилоты.</p>
+    </div>
+
+    <div class="team-grid">
+      <!-- 1. Гоша -->
+      <div class="team-card">
+        <div class="team-card-photo">
+          <img src="https://static.tildacdn.com/tild3630-6231-4439-b763-373662653964/ncse4W-BrwAKR5pHQvkX.jpg" alt="Гоша" loading="lazy">
+        </div>
+        <div class="team-card-body">
+          <span class="team-role" data-i18n="team_role_1">Основатель</span>
+          <h3 class="team-name" data-i18n="team_name_1">Гоша</h3>
+          <a href="https://instagram.com/goshaturbogeek" target="_blank" class="team-social">@goshaturbogeek</a>
+        </div>
+      </div>
+
+      <!-- 2. Эдик -->
+      <div class="team-card">
+        <div class="team-card-photo">
+          <img src="https://static.tildacdn.com/tild6237-6430-4338-a236-626231306234/photo.jpg" alt="Эдик" loading="lazy">
+        </div>
+        <div class="team-card-body">
+          <span class="team-role" data-i18n="team_role_2">Технический директор</span>
+          <h3 class="team-name" data-i18n="team_name_2">Эдик</h3>
+          <a href="https://instagram.com/vip.hay" target="_blank" class="team-social">@vip.hay</a>
+        </div>
+      </div>
+
+      <!-- 3. Дмитрий -->
+      <div class="team-card">
+        <div class="team-card-photo">
+          <img src="https://static.tildacdn.com/tild6538-3832-4431-b761-636265323064/896A0858.jpg" alt="Дмитрий" loading="lazy">
+        </div>
+        <div class="team-card-body">
+          <span class="team-role" data-i18n="team_role_3">Администратор</span>
+          <h3 class="team-name" data-i18n="team_name_3">Дмитрий</h3>
+        </div>
+      </div>
+
+      <!-- 4. Мария -->
+      <div class="team-card">
+        <div class="team-card-photo">
+          <img src="https://static.tildacdn.com/tild3132-6639-4537-b432-323633653738/7R209573.jpg" alt="Мария" loading="lazy">
+        </div>
+        <div class="team-card-body">
+          <span class="team-role" data-i18n="team_role_4">Делопроизводитель</span>
+          <h3 class="team-name" data-i18n="team_name_4">Мария</h3>
+          <a href="https://instagram.com/_zm_zima_" target="_blank" class="team-social">@_zm_zima_</a>
+        </div>
+      </div>
+
+      <!-- 5. Павел -->
+      <div class="team-card">
+        <div class="team-card-photo">
+          <img src="https://static.tildacdn.com/tild3933-6664-4738-b164-626565346535/7R203219.jpg" alt="Павел" loading="lazy">
+        </div>
+        <div class="team-card-body">
+          <span class="team-role" data-i18n="team_role_5">Делопроизводитель</span>
+          <h3 class="team-name" data-i18n="team_name_5">Павел</h3>
+        </div>
+      </div>
+
+      <!-- 6. Георгий -->
+      <div class="team-card">
+        <div class="team-card-photo">
+          <img src="https://static.tildacdn.com/tild3561-3862-4562-b734-363034623936/photo.jpg" alt="Георгий" loading="lazy">
+        </div>
+        <div class="team-card-body">
+          <span class="team-role" data-i18n="team_role_6">Инженер-электрик</span>
+          <h3 class="team-name" data-i18n="team_name_6">Георгий</h3>
+        </div>
+      </div>
+
+      <!-- 7. Рустам -->
+      <div class="team-card">
+        <div class="team-card-photo">
+          <img src="https://static.tildacdn.com/tild6263-3266-4433-b264-626239376166/7R209460.jpg" alt="Рустам" loading="lazy">
+        </div>
+        <div class="team-card-body">
+          <span class="team-role" data-i18n="team_role_7">Моторист</span>
+          <h3 class="team-name" data-i18n="team_name_7">Рустам</h3>
+        </div>
+      </div>
+
+      <!-- 8. Никита -->
+      <div class="team-card">
+        <div class="team-card-photo">
+          <img src="https://static.tildacdn.com/tild3965-3435-4135-b437-386634613361/7R203125_2.jpg" alt="Никита" loading="lazy">
+        </div>
+        <div class="team-card-body">
+          <span class="team-role" data-i18n="team_role_8">Механик</span>
+          <h3 class="team-name" data-i18n="team_name_8">Никита</h3>
+        </div>
+      </div>
+
+      <!-- 9. Иван -->
+      <div class="team-card">
+        <div class="team-card-photo">
+          <img src="https://static.tildacdn.com/tild3737-3661-4365-b831-383634343036/7R203122_2.jpg" alt="Иван" loading="lazy">
+        </div>
+        <div class="team-card-body">
+          <span class="team-role" data-i18n="team_role_9">Механик</span>
+          <h3 class="team-name" data-i18n="team_name_9">Иван</h3>
+        </div>
+      </div>
+
+      <!-- 10. Алексей -->
+      <div class="team-card">
+        <div class="team-card-photo">
+          <img src="https://static.tildacdn.com/tild6639-3931-4563-a462-303263313765/7R209470.jpg" alt="Алексей" loading="lazy">
+        </div>
+        <div class="team-card-body">
+          <span class="team-role" data-i18n="team_role_10">Механик</span>
+          <h3 class="team-name" data-i18n="team_name_10">Алексей</h3>
+        </div>
+      </div>
+
+      <!-- 11. Фазик -->
+      <div class="team-card">
+        <div class="team-card-photo">
+          <img src="https://static.tildacdn.com/tild6464-3435-4433-b162-616263636632/7R209475.jpg" alt="Фазик" loading="lazy">
+        </div>
+        <div class="team-card-body">
+          <span class="team-role" data-i18n="team_role_11">Механик</span>
+          <h3 class="team-name" data-i18n="team_name_11">Фазик</h3>
+        </div>
+      </div>
+
+      <!-- 12. Степан -->
+      <div class="team-card">
+        <div class="team-card-photo">
+          <img src="https://static.tildacdn.com/tild3632-6234-4637-b431-653731376638/7R200607.jpg" alt="Степан" loading="lazy">
+        </div>
+        <div class="team-card-body">
+          <span class="team-role" data-i18n="team_role_12">Механик</span>
+          <h3 class="team-name" data-i18n="team_name_12">Степан</h3>
+        </div>
+      </div>
+
+      <!-- 13. Алексей -->
+      <div class="team-card">
+        <div class="team-card-photo">
+          <img src="https://static.tildacdn.com/tild6166-6166-4539-b731-363937393131/7R200882.jpg" alt="Алексей" loading="lazy">
+        </div>
+        <div class="team-card-body">
+          <span class="team-role" data-i18n="team_role_13">Механик</span>
+          <h3 class="team-name" data-i18n="team_name_13">Алексей</h3>
+        </div>
+      </div>
+
+      <!-- 14. Роман -->
+      <div class="team-card">
+        <div class="team-card-photo">
+          <img src="https://static.tildacdn.com/tild6537-6137-4239-a630-323765383839/7R201446.jpg" alt="Роман" loading="lazy">
+        </div>
+        <div class="team-card-body">
+          <span class="team-role" data-i18n="team_role_14">Сварщик-фабрикатор</span>
+          <h3 class="team-name" data-i18n="team_name_14">Роман</h3>
+        </div>
+      </div>
+
+      <!-- 15. Евгений -->
+      <div class="team-card">
+        <div class="team-card-photo">
+          <img src="https://static.tildacdn.com/tild3961-3566-4536-b334-636632383732/7R201128.jpg" alt="Евгений" loading="lazy">
+        </div>
+        <div class="team-card-body">
+          <span class="team-role" data-i18n="team_role_15">Диагност</span>
+          <h3 class="team-name" data-i18n="team_name_15">Евгений</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOTO DIVISION WITH AUTHENTIC SUPERBIKES -->
+  <section class="moto-section" id="moto">
+    <div class="section-header">
+      <span class="moto-badge" data-i18n="moto_badge">NEW DIVISION 2025</span>
+      <h2 class="section-title" data-i18n="moto_title">GTT Moto Division</h2>
+      <p class="section-subtitle" data-i18n="moto_subtitle">Сверхмощный инжиниринг теперь на двух колесах: личные супербайки Гоши, трековые болиды и титановые выхлопные системы.</p>
+    </div>
+
+    <!-- Authentic Moto Showcase Banner -->
+    <div class="moto-showcase-card">
+      <div class="moto-gallery-grid-duo">
+        <div class="moto-duo-photo-wrap">
+          <img src="assets/moto/bmw_m1000rr_cafe.jpg" alt="Личный супербайк Гоши BMW M1000RR M-Performance" class="moto-showcase-img">
+          <span class="moto-photo-badge">BMW M1000RR // GOSHATURBOTECH</span>
+        </div>
+        <div class="moto-duo-photo-wrap">
+          <img src="assets/moto/gtt_superbikes_trio_night.jpg" alt="Yamaha R1M & Ducati Panigale & BMW GTT Moto" class="moto-showcase-img">
+          <span class="moto-photo-badge">GTT MOTO FLEET</span>
+        </div>
+      </div>
+      <div class="moto-showcase-info">
+        <span class="moto-badge" data-i18n="moto_banner_badge">Личный супербайк Гоши BMW M1000RR & Флот GTT</span>
+        <h3 class="moto-showcase-title" data-i18n="moto_banner_title">Страсть к двум колесам</h3>
+        <p class="moto-showcase-text" data-i18n="moto_banner_text">
+          BMW M1000RR M-Performance, Yamaha R1M Carbon, Ducati Panigale V4. Полный спектр калибровок блоков управления, сухого карбона, выхлопа из титана и снятия лимитов оборотов.
+        </p>
+        <ul class="moto-bullets">
+          <li data-i18n="moto_bullet_1">Калибровка электронного дросселя и квикшифтера без задержек</li>
+          <li data-i18n="moto_bullet_2">Кастомный титановый выпуск GTT Moto с огненными отстрелами</li>
+          <li data-i18n="moto_bullet_3">Индивидуальные прошивки под 100 RON и гоночное топливо</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="moto-cards-grid">
+      <div class="moto-card">
+        <div class="moto-card-icon">⚡</div>
+        <h3 class="moto-card-title" data-i18n="moto_card1_title">Трековая калибровка ECU</h3>
+        <p class="moto-card-desc" data-i18n="moto_card1_desc">Индивидуальная настройка блоков управления для BMW S1000RR, Ducati Panigale V4, Yamaha R1. Снятие заводских ограничителей, квикшифтер, автоблип и контроль тяги.</p>
+        <ul class="moto-bullets">
+          <li data-i18n="moto_card1_b1">Индивидуальные топливные карты под 100 RON</li>
+          <li data-i18n="moto_card1_b2">Оптимизация Wheelie & Launch Control</li>
+          <li data-i18n="moto_card1_b3">Калибровка электронного дросселя без задержек</li>
+        </ul>
+      </div>
+
+      <div class="moto-card">
+        <div class="moto-card-icon">🔥</div>
+        <h3 class="moto-card-title" data-i18n="moto_card2_title">Титановый выпуск GTT Moto</h3>
+        <p class="moto-card-desc" data-i18n="moto_card2_desc">Ручная аргоновая сварка титана и инконеля для мотоциклов. Экстремальное снижение веса, породистый акустический звук и прибавка крутящего момента во всем диапазоне.</p>
+        <ul class="moto-bullets">
+          <li data-i18n="moto_card2_b1">Ультралегкие коллекторы из сплава Titan-Gr5</li>
+          <li data-i18n="moto_card2_b2">Кастомная фрезеровка насадок</li>
+          <li data-i18n="moto_card2_b3">Огненные отстрелы и сочный басовитый тон</li>
+        </ul>
+      </div>
+
+      <div class="moto-card">
+        <div class="moto-card-icon">🛠️</div>
+        <h3 class="moto-card-title" data-i18n="moto_card3_title">Bespoke кастомизация</h3>
+        <p class="moto-card-desc" data-i18n="moto_card3_desc">Полный цикл доработки премиальной мототехники: кованые сверхлегкие диски, сухое сцепление, карбоновое оперение и комплексное предсезонное ТО.</p>
+        <ul class="moto-bullets">
+          <li data-i18n="moto_card3_b1">Сухой автоклавный карбон 3K/12K</li>
+          <li data-i18n="moto_card3_b2">Тормозные системы Brembo Racing / GP4</li>
+          <li data-i18n="moto_card3_b3">Индивидуальный дизайн и покраска</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Atelier Life & RDRC Track Gallery (Flagship Large Marquee Stream) -->
+  <section class="atelier-gallery-section" id="gallery">
+    <div class="section-header" style="text-align: center; margin-bottom: 30px;">
+      <span class="section-tag" data-i18n="gallery_tag">// RDRC CHAMPIONSHIP & PADDOCK LIFE</span>
+      <h2 class="section-title" data-i18n="gallery_title">Хроника гонок & Мастерская GTT</h2>
+      <p class="section-subtitle" style="max-width: 680px; margin: 0 auto;" data-i18n="gallery_subtitle">Живые широкоформатные кадры с трассы Чемпионата России RDRC и из лаборатории GoshaTurboTech.</p>
+    </div>
+
+    <!-- Infinite High-Speed Track Stream -->
+    <div class="marquee-stream-wrapper">
+      <div class="marquee-track" id="marqueeTrackMain">
+<!-- 1. Huracan Zelenka -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/photos/huracan_zelenka_gtt.jpg', 'Легендарная Lamborghini Huracan TT «Зеленка» RDRC')">
+          <img src="assets/photos/huracan_zelenka_gtt.jpg" alt="Huracan Зеленка" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">RDRC CHAMPION</span>
+            <div class="marquee-card-title">Huracan TT «Зеленка» GTT</div>
+          </div>
+        </div>
+
+        <!-- 2. Dodge Hellcat Burnout -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/dodge_burnout_sunset.jpg', 'Dodge Challenger SRT Hellcat: дымный прогрев сликов на закате RDRC')">
+          <img src="assets/cars/dodge_burnout_sunset.jpg" alt="Dodge Hellcat Burnout" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">BURNOUT SMOKE</span>
+            <div class="marquee-card-title">Dodge Challenger SRT Hellcat</div>
+          </div>
+        </div>
+
+        <!-- 3. GT-R Draco Pro-Mod -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/gtr_draco_promod_front.jpg', '3000+ HP Nissan GT-R Draco Pro-Mod на сликах RDRC')">
+          <img src="assets/cars/gtr_draco_promod_front.jpg" alt="GT-R Draco Pro-Mod" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">3000+ HP PRO-MOD</span>
+            <div class="marquee-card-title">Nissan GT-R Draco Dragster</div>
+          </div>
+        </div>
+
+        <!-- 4. Audi R8 Launch -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/audi_r8_tsmr_launch.jpg', 'Audi R8 V10 Twin Turbo ЦМРБанк на стартовой черте RDRC')">
+          <img src="assets/cars/audi_r8_tsmr_launch.jpg" alt="Audi R8 Launch" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">1400+ HP V10 TT</span>
+            <div class="marquee-card-title">Audi R8 V10 Plus CMRBank</div>
+          </div>
+        </div>
+
+        <!-- 5. GT-R Lucifer Solo -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/gtr_lucifer_solo.jpg', 'GTR Lucifer: чемпионский победный болид Гоши RDRC')">
+          <img src="assets/cars/gtr_lucifer_solo.jpg" alt="GTR Lucifer Solo" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">CHAMPIONSHIP WINNER</span>
+            <div class="marquee-card-title">GTR Lucifer // Gosha RDRC</div>
+          </div>
+        </div>
+
+        <!-- 6. GT-R Red Chrome -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/gtr_red_front_rdrc.jpg', 'Красный хромированный Nissan GT-R R35 GTT Pro-Mod')">
+          <img src="assets/cars/gtr_red_front_rdrc.jpg" alt="Красный хром GT-R" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">AERODYNAMICS</span>
+            <div class="marquee-card-title">Red Chrome Nissan GT-R Pro-Mod</div>
+          </div>
+        </div>
+
+        <!-- 7. GT-R Blue 888 -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/photos/gtr_blue_888_rdrc.jpg', 'Боевой синий Nissan GT-R R35 #888 на закате RDRC')">
+          <img src="assets/photos/gtr_blue_888_rdrc.jpg" alt="GT-R Blue #888" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">MIDNIGHT BLUE</span>
+            <div class="marquee-card-title">Nissan GT-R R35 #888 Sunset Pass</div>
+          </div>
+        </div>
+
+        <!-- 8. Gosha on Track -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/photos/gosha_on_track.jpg', 'Георгий Перцхелия контролирует подготовку трассы RDRC')">
+          <img src="assets/photos/gosha_on_track.jpg" alt="Гоша на треке RDRC" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">CHIEF MOTORSPORT ENGINEER</span>
+            <div class="marquee-card-title">Георгий Перцхелия на стрипе RDRC</div>
+          </div>
+        </div>
+
+        <!-- 9. BMW M4 G82 Box -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/bmw_m4_g82_gtt.jpg', 'Бокс GTT: белая BMW M4 G82 и Nissan GT-R')">
+          <img src="assets/cars/bmw_m4_g82_gtt.jpg" alt="BMW M4 бокс" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">ATELIER GARAGE</span>
+            <div class="marquee-card-title">Бокс GTT: BMW M4 G82 & GT-R</div>
+          </div>
+        </div>
+
+        <!-- 10. BMW M5 RDRC Race -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/bmw_m5_rdrc_race.jpg', 'BMW M5 F90 GTT Stage 2 на боевом заезде RDRC')">
+          <img src="assets/cars/bmw_m5_rdrc_race.jpg" alt="BMW M5 RDRC" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">TWIN TURBO V8</span>
+            <div class="marquee-card-title">BMW M5 F90 Stage 2 GTT</div>
+          </div>
+        </div>
+
+        <!-- 11. Huracan Duo Track -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/huracan_green_bezzubik_track.jpg', 'Lamborghini Huracan Беззубик Twin Turbo на треке')">
+          <img src="assets/cars/huracan_green_bezzubik_track.jpg" alt="Huracan Беззубик" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">BEZZUBIK TT</span>
+            <div class="marquee-card-title">Huracan Twin Turbo «Беззубик»</div>
+          </div>
+        </div>
+
+        <!-- 12. Draco Wrap & Wheel Detail -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/gtr_draco_connections.jpg', 'Детали подвески и VR38 Billet дрэгстера Draco')">
+          <img src="assets/cars/gtr_draco_connections.jpg" alt="Draco Details" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">BILLET MOTORSPORT</span>
+            <div class="marquee-card-title">VR38 Billet & Drag Suspension</div>
+          </div>
+        </div>
+
+        <!-- 13. Sarkisyan Pilot Draco -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/photos/pilot_draco_sarkisyan.jpg', 'Пилот Саркисян и дрэгстер Draco в закрытом парке')">
+          <img src="assets/photos/pilot_draco_sarkisyan.jpg" alt="Draco Sarkisyan" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">PARC FERMÉ</span>
+            <div class="marquee-card-title">Пилот Саркисян & Draco GTT</div>
+          </div>
+        </div>
+
+        <!-- 14. GTR Lucifer Front -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/gtr_lucifer_front.jpg', 'Nissan GT-R Lucifer анфас перед стартом')">
+          <img src="assets/cars/gtr_lucifer_front.jpg" alt="GTR Lucifer Front" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">STAGING LINE</span>
+            <div class="marquee-card-title">GT-R Lucifer на прогреве</div>
+          </div>
+        </div>
+
+        <!-- 15. RDRC Challenger Smoke Burnout -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/gallery/rdrc_challenger_burnout.jpg', 'Dodge Challenger SRT: экстремальный прогрев сликов в облаке дыма RDRC')">
+          <img src="assets/gallery/rdrc_challenger_burnout.jpg" alt="Dodge Challenger Burnout Smoke" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">RDRC BURNOUT</span>
+            <div class="marquee-card-title">Challenger SRT // Cloud of Smoke</div>
+          </div>
+        </div>
+
+        <!-- 16. Green Lamborghini Huracan TT Staging -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/gallery/rdrc_lamborghini_green_front.jpg', 'Lamborghini Huracan Twin Turbo на стартовой решетке RDRC')">
+          <img src="assets/gallery/rdrc_lamborghini_green_front.jpg" alt="Lamborghini Huracan TT Staging" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">1500+ HP V10 TT</span>
+            <div class="marquee-card-title">Huracan TT на стартовом створе</div>
+          </div>
+        </div>
+
+        <!-- 17. Nissan GT-R Titanium Exhaust & RDRC Plate -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/gallery/rdrc_gtr_rear_exhaust.jpg', 'Красный Nissan GT-R: титановый выпуск GTT и официальная рамка RDRC')">
+          <img src="assets/gallery/rdrc_gtr_rear_exhaust.jpg" alt="Nissan GT-R GTT Titanium Exhaust" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">TITANIUM CRAFT</span>
+            <div class="marquee-card-title">GT-R R35 // GTT Titanium Exhaust</div>
+          </div>
+        </div>
+
+        <!-- 18. GTT Paddock BMW M5 & GT-R -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/gallery/rdrc_paddock_bmw_m5_gtr.jpg', 'Паддок GoshaTurboTech: матовая BMW M5 F90 и боевой GT-R у боксов')">
+          <img src="assets/gallery/rdrc_paddock_bmw_m5_gtr.jpg" alt="GTT Paddock BMW M5 & GT-R" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">GTT MOTORSPORT BOX</span>
+            <div class="marquee-card-title">Паддок GTT: BMW M5 F90 & GT-R</div>
+          </div>
+        </div>
+
+        <!-- 19. Twin Lamborghini Huracans Paddock -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/gallery/rdrc_lamborghinis_pair_paddock.jpg', 'Двойной удар V10 Twin Turbo: пара боевых Huracan команды GTT')">
+          <img src="assets/gallery/rdrc_lamborghinis_pair_paddock.jpg" alt="Lamborghini Huracan Duo GTT" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">TWIN V10 ARSENAL</span>
+            <div class="marquee-card-title">Пара Lamborghini Huracan TT GTT</div>
+          </div>
+        </div>
+
+        <!-- ================= Seamless Clones for Continuous Infinite Flow ================= -->
+<!-- 1. Huracan Zelenka -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/photos/huracan_zelenka_gtt.jpg', 'Легендарная Lamborghini Huracan TT «Зеленка» RDRC')">
+          <img src="assets/photos/huracan_zelenka_gtt.jpg" alt="Huracan Зеленка" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">RDRC CHAMPION</span>
+            <div class="marquee-card-title">Huracan TT «Зеленка» GTT</div>
+          </div>
+        </div>
+
+        <!-- 2. Dodge Hellcat Burnout -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/dodge_burnout_sunset.jpg', 'Dodge Challenger SRT Hellcat: дымный прогрев сликов на закате RDRC')">
+          <img src="assets/cars/dodge_burnout_sunset.jpg" alt="Dodge Hellcat Burnout" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">BURNOUT SMOKE</span>
+            <div class="marquee-card-title">Dodge Challenger SRT Hellcat</div>
+          </div>
+        </div>
+
+        <!-- 3. GT-R Draco Pro-Mod -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/gtr_draco_promod_front.jpg', '3000+ HP Nissan GT-R Draco Pro-Mod на сликах RDRC')">
+          <img src="assets/cars/gtr_draco_promod_front.jpg" alt="GT-R Draco Pro-Mod" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">3000+ HP PRO-MOD</span>
+            <div class="marquee-card-title">Nissan GT-R Draco Dragster</div>
+          </div>
+        </div>
+
+        <!-- 4. Audi R8 Launch -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/audi_r8_tsmr_launch.jpg', 'Audi R8 V10 Twin Turbo ЦМРБанк на стартовой черте RDRC')">
+          <img src="assets/cars/audi_r8_tsmr_launch.jpg" alt="Audi R8 Launch" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">1400+ HP V10 TT</span>
+            <div class="marquee-card-title">Audi R8 V10 Plus CMRBank</div>
+          </div>
+        </div>
+
+        <!-- 5. GT-R Lucifer Solo -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/gtr_lucifer_solo.jpg', 'GTR Lucifer: чемпионский победный болид Гоши RDRC')">
+          <img src="assets/cars/gtr_lucifer_solo.jpg" alt="GTR Lucifer Solo" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">CHAMPIONSHIP WINNER</span>
+            <div class="marquee-card-title">GTR Lucifer // Gosha RDRC</div>
+          </div>
+        </div>
+
+        <!-- 6. GT-R Red Chrome -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/gtr_red_front_rdrc.jpg', 'Красный хромированный Nissan GT-R R35 GTT Pro-Mod')">
+          <img src="assets/cars/gtr_red_front_rdrc.jpg" alt="Красный хром GT-R" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">AERODYNAMICS</span>
+            <div class="marquee-card-title">Red Chrome Nissan GT-R Pro-Mod</div>
+          </div>
+        </div>
+
+        <!-- 7. GT-R Blue 888 -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/photos/gtr_blue_888_rdrc.jpg', 'Боевой синий Nissan GT-R R35 #888 на закате RDRC')">
+          <img src="assets/photos/gtr_blue_888_rdrc.jpg" alt="GT-R Blue #888" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">MIDNIGHT BLUE</span>
+            <div class="marquee-card-title">Nissan GT-R R35 #888 Sunset Pass</div>
+          </div>
+        </div>
+
+        <!-- 8. Gosha on Track -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/photos/gosha_on_track.jpg', 'Георгий Перцхелия контролирует подготовку трассы RDRC')">
+          <img src="assets/photos/gosha_on_track.jpg" alt="Гоша на треке RDRC" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">CHIEF MOTORSPORT ENGINEER</span>
+            <div class="marquee-card-title">Георгий Перцхелия на стрипе RDRC</div>
+          </div>
+        </div>
+
+        <!-- 9. BMW M4 G82 Box -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/bmw_m4_g82_gtt.jpg', 'Бокс GTT: белая BMW M4 G82 и Nissan GT-R')">
+          <img src="assets/cars/bmw_m4_g82_gtt.jpg" alt="BMW M4 бокс" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">ATELIER GARAGE</span>
+            <div class="marquee-card-title">Бокс GTT: BMW M4 G82 & GT-R</div>
+          </div>
+        </div>
+
+        <!-- 10. BMW M5 RDRC Race -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/bmw_m5_rdrc_race.jpg', 'BMW M5 F90 GTT Stage 2 на боевом заезде RDRC')">
+          <img src="assets/cars/bmw_m5_rdrc_race.jpg" alt="BMW M5 RDRC" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">TWIN TURBO V8</span>
+            <div class="marquee-card-title">BMW M5 F90 Stage 2 GTT</div>
+          </div>
+        </div>
+
+        <!-- 11. Huracan Duo Track -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/huracan_green_bezzubik_track.jpg', 'Lamborghini Huracan Беззубик Twin Turbo на треке')">
+          <img src="assets/cars/huracan_green_bezzubik_track.jpg" alt="Huracan Беззубик" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">BEZZUBIK TT</span>
+            <div class="marquee-card-title">Huracan Twin Turbo «Беззубик»</div>
+          </div>
+        </div>
+
+        <!-- 12. Draco Wrap & Wheel Detail -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/gtr_draco_connections.jpg', 'Детали подвески и VR38 Billet дрэгстера Draco')">
+          <img src="assets/cars/gtr_draco_connections.jpg" alt="Draco Details" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">BILLET MOTORSPORT</span>
+            <div class="marquee-card-title">VR38 Billet & Drag Suspension</div>
+          </div>
+        </div>
+
+        <!-- 13. Sarkisyan Pilot Draco -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/photos/pilot_draco_sarkisyan.jpg', 'Пилот Саркисян и дрэгстер Draco в закрытом парке')">
+          <img src="assets/photos/pilot_draco_sarkisyan.jpg" alt="Draco Sarkisyan" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">PARC FERMÉ</span>
+            <div class="marquee-card-title">Пилот Саркисян & Draco GTT</div>
+          </div>
+        </div>
+
+        <!-- 14. GTR Lucifer Front -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/gtr_lucifer_front.jpg', 'Nissan GT-R Lucifer анфас перед стартом')">
+          <img src="assets/cars/gtr_lucifer_front.jpg" alt="GTR Lucifer Front" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">STAGING LINE</span>
+            <div class="marquee-card-title">GT-R Lucifer на прогреве</div>
+          </div>
+        </div>
+
+        <!-- 15. RDRC Challenger Smoke Burnout -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/gallery/rdrc_challenger_burnout.jpg', 'Dodge Challenger SRT: экстремальный прогрев сликов в облаке дыма RDRC')">
+          <img src="assets/gallery/rdrc_challenger_burnout.jpg" alt="Dodge Challenger Burnout Smoke" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">RDRC BURNOUT</span>
+            <div class="marquee-card-title">Challenger SRT // Cloud of Smoke</div>
+          </div>
+        </div>
+
+        <!-- 16. Green Lamborghini Huracan TT Staging -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/gallery/rdrc_lamborghini_green_front.jpg', 'Lamborghini Huracan Twin Turbo на стартовой решетке RDRC')">
+          <img src="assets/gallery/rdrc_lamborghini_green_front.jpg" alt="Lamborghini Huracan TT Staging" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">1500+ HP V10 TT</span>
+            <div class="marquee-card-title">Huracan TT на стартовом створе</div>
+          </div>
+        </div>
+
+        <!-- 17. Nissan GT-R Titanium Exhaust & RDRC Plate -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/gallery/rdrc_gtr_rear_exhaust.jpg', 'Красный Nissan GT-R: титановый выпуск GTT и официальная рамка RDRC')">
+          <img src="assets/gallery/rdrc_gtr_rear_exhaust.jpg" alt="Nissan GT-R GTT Titanium Exhaust" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">TITANIUM CRAFT</span>
+            <div class="marquee-card-title">GT-R R35 // GTT Titanium Exhaust</div>
+          </div>
+        </div>
+
+        <!-- 18. GTT Paddock BMW M5 & GT-R -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/gallery/rdrc_paddock_bmw_m5_gtr.jpg', 'Паддок GoshaTurboTech: матовая BMW M5 F90 и боевой GT-R у боксов')">
+          <img src="assets/gallery/rdrc_paddock_bmw_m5_gtr.jpg" alt="GTT Paddock BMW M5 & GT-R" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">GTT MOTORSPORT BOX</span>
+            <div class="marquee-card-title">Паддок GTT: BMW M5 F90 & GT-R</div>
+          </div>
+        </div>
+
+        <!-- 19. Twin Lamborghini Huracans Paddock -->
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/gallery/rdrc_lamborghinis_pair_paddock.jpg', 'Двойной удар V10 Twin Turbo: пара боевых Huracan команды GTT')">
+          <img src="assets/gallery/rdrc_lamborghinis_pair_paddock.jpg" alt="Lamborghini Huracan Duo GTT" loading="lazy">
+          <div class="marquee-card-meta">
+            <span class="marquee-card-tag">TWIN V10 ARSENAL</span>
+            <div class="marquee-card-title">Пара Lamborghini Huracan TT GTT</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="marquee-hint">⚡ Листайте ленту колесиком мыши, жестом смахивания или кликайте на кадр для открытия на весь экран.</div>
+  </section>
+
+  <!-- Contact & Atelier Hub Section (Interactive Map & Clean Direct Access) -->
+  <section class="contact-section" id="contact">
+    <div class="contact-container">
+      <div class="contact-info-block">
+        <span class="section-tag" data-i18n="contact_tag">// HEADQUARTERS & ATELIER</span>
+        <h2 class="c-title" data-i18n="contact_hq_title">Лаборатория GoshaTurboTech</h2>
+        <p data-i18n="contact_hq_desc">Центр спортивного инжиниринга и персональной доработки суперкаров и мотоциклов. Вы можете приехать на предварительный осмотр или связаться с нами онлайн.</p>
+
+        <div class="contact-items">
+          <a href="tel:+74959900077" class="c-item">
+            <div class="c-item-icon">📞</div>
+            <div>
+              <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-family: var(--font-mono);" data-i18n="contact_phone_lbl">Телефон мастерской</div>
+              <div style="font-family: var(--font-mono); font-weight: 700; font-size: 16px;">+7 (495) 99-000-77</div>
+            </div>
+          </a>
+
+          <a href="https://t.me/goshaturbotech" target="_blank" class="c-item">
+            <div class="c-item-icon">✈️</div>
+            <div>
+              <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-family: var(--font-mono);" data-i18n="contact_tg_lbl">Официальный Telegram канал</div>
+              <div style="font-family: var(--font-mono); font-weight: 700; font-size: 16px;">@goshaturbotech</div>
+            </div>
+          </a>
+
+          <div class="c-item">
+            <div class="c-item-icon">📍</div>
+            <div>
+              <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-family: var(--font-mono);" data-i18n="contact_loc_lbl">Локация ателье</div>
+              <div style="font-weight: 600; font-size: 15px;" data-i18n="contact_loc_val">г. Москва, Можайское шоссе, 168</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-actions-row">
+          <a href="https://t.me/goshaturbotech" target="_blank" class="btn-primary" style="justify-content: center; gap: 8px;" data-i18n="contact_btn_tg">
+            <span>✈️</span> Написать в Telegram GTT
+          </a>
+          <a href="https://yandex.ru/maps/?rtext=~55.708892,37.382897&rtt=auto" target="_blank" class="btn-outline" style="justify-content: center; gap: 8px;" data-i18n="contact_btn_navi">
+            <span>🗺️</span> Маршрут в Яндекс Навигаторе
+          </a>
+        </div>
+      </div>
+
+      <!-- Interactive Map Card -->
+      <div class="contact-map-card">
+        <div class="map-wrapper">
+          <iframe 
+            src="https://yandex.ru/map-widget/v1/?ll=37.382897%2C55.708892&z=15&pt=37.382897%2C55.708892,pm2rdm" 
+            width="100%" 
+            height="100%" 
+            frameborder="0" 
+            allowfullscreen="true" 
+            title="Интерактивная карта GoshaTurboTech"
+            class="yandex-map-iframe"
+          ></iframe>
+          <div class="map-badge">
+            <span class="map-badge-dot"></span>
+            <span>GTT DYNO & BOX // МОЖАЙСКОЕ Ш. 168</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Partners Section -->
+  <section class="partners-section reveal-init" id="partners">
+    <div class="partners-container">
+      <div class="section-header" style="text-align: center; margin-bottom: 36px;">
+        <span class="section-tag" data-i18n="partners_tag">// GTT TECHNICAL & MOTORSPORT PARTNERS</span>
+        <h2 class="section-title" data-i18n="partners_title">Партнеры</h2>
+        <p class="section-subtitle" style="margin: 0 auto; max-width: 640px;" data-i18n="partners_subtitle">Ведущие мировые бренды автоспорта, компонентов трансмиссии, турбонаддува и смазочных материалов, с которыми побеждает GoshaTurboTech.</p>
+      </div>
+
+      <div class="partners-banner-card">
+        <div class="partners-glow-effect"></div>
+        <img src="assets/photos/partners_banner.png" alt="Технические партнеры GoshaTurboTech" class="partners-img">
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Showreel Modal -->
+  <div class="modal-overlay" id="videoModal">
+    <div class="video-modal-container">
+      <button class="modal-close" onclick="closeVideoShowreel()">&times;</button>
+      <div id="videoContainer" style="width: 100%; height: 100%;">
+        <!-- Video injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Fullscreen Photo Lightbox Modal -->
+  <div class="modal-overlay" id="galleryLightbox">
+    <div class="lightbox-modal-content">
+      <button class="modal-close" onclick="closeGalleryLightbox()">&times;</button>
+      <img src="" alt="" id="lightboxImg" class="lightbox-main-img">
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+  </div>
+
+  <!-- Car Spec Passport Modal -->
+  <div class="modal-overlay" id="carModal">
+    <div class="modal-container">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <div id="modalBody">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <img src="assets/photos/gtt_shield_logo.png" alt="GTT Shield Logo" style="width: 24px; height: 24px; object-fit: contain;">
+      <div style="font-family: var(--font-display); font-size: 11px; letter-spacing: 0.1em;">
+        © GOSHATURBOTECH. SPEED & MOTORSPORT ENGINEERING.
+      </div>
+    </div>
+    <div class="footer-links">
+      <a href="https://www.instagram.com/goshaturbotech/?hl=ru" target="_blank" class="footer-link">Instagram GTT</a>
+      <a href="https://www.instagram.com/goshaturbogeek/?hl=ru" target="_blank" class="footer-link">Instagram Гоши</a>
+      <a href="https://t.me/goshaturbotech" target="_blank" class="footer-link">Telegram</a>
+    </div>
+  </footer>
+
+  <!-- Mobile Sticky Quick Action Bar -->
+  <div class="mobile-bottom-bar" id="mobileBottomBar">
+    <a href="https://t.me/goshaturbotech" target="_blank" class="mobile-bar-btn tg-action" rel="noopener">
+      <span class="bar-icon">✈️</span>
+      <span class="bar-label" data-i18n="mobile_bar_tg">Telegram GTT</span>
+    </a>
+    <a href="https://yandex.ru/maps/?text=Можайское+шоссе+168+Москва+GoshaTurboTech" target="_blank" class="mobile-bar-btn navi-action" rel="noopener">
+      <span class="bar-icon">🗺️</span>
+      <span class="bar-label" data-i18n="mobile_bar_navi">Навигатор</span>
+    </a>
+    <a href="tel:+74957640474" class="mobile-bar-btn call-action">
+      <span class="bar-icon">📞</span>
+      <span class="bar-label" data-i18n="mobile_bar_call">Позвонить</span>
+    </a>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
