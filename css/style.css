@@ -334,7 +334,46 @@ body::before {
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 14px;
+}
+
+/* Header Social Media Buttons */
+.header-social-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-social-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.nav-social-btn:hover {
+  transform: translateY(-2px) scale(1.08);
+}
+
+.nav-social-btn.yt-btn:hover {
+  background: rgba(255, 0, 0, 0.18);
+  border-color: #ff0000;
+  color: #ff3333;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+}
+
+.nav-social-btn.vk-btn:hover {
+  background: rgba(0, 119, 255, 0.18);
+  border-color: #0077ff;
+  color: #38bdf8;
+  box-shadow: 0 0 15px rgba(0, 119, 255, 0.4);
 }
 
 /* Language Switcher */
@@ -2469,6 +2508,17 @@ body::before {
   .brand-title {
     font-size: 13px;
     letter-spacing: 0.08em;
+  }
+  .nav-social-btn {
+    width: 32px;
+    height: 32px;
+  }
+  .nav-social-btn svg {
+    width: 15px;
+    height: 15px;
+  }
+  .header-social-links {
+    gap: 6px;
   }
   
   /* Hero Section */
