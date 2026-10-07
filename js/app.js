@@ -745,6 +745,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initGalleryMarqueeInteractions();
   initFounderGestures();
   initMobileStickyBar();
+  initTelemetryCounters();
 });
 
 // Clean Premium Motorsport Preloader (Silky Smooth 60fps Easing with video buffering)
@@ -1509,6 +1510,76 @@ function initMobileStickyBar() {
       observer.observe(el, { attributes: true, attributeFilter: ['class'] });
     }
   });
+}
+
+/* ==========================================================================
+   DYNAMIC TELEMETRY ACCELERATION & ODOMETER COUNTERS
+   ========================================================================== */
+function initTelemetryCounters() {
+  const counterEls = document.querySelectorAll('.hero-telemetry-bar .counter-val');
+  if (!counterEls.length) return;
+
+  let hasAnimated = false;
+
+  const animateCounters = () => {
+    if (hasAnimated) return;
+    hasAnimated = true;
+
+    counterEls.forEach((el, idx) => {
+      const targetStr = el.getAttribute('data-target');
+      if (!targetStr) return;
+      const targetVal = parseFloat(targetStr);
+      const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+      const suffix = el.getAttribute('data-suffix') || '';
+      
+      const duration = 1800; // ms
+      const startTime = performance.now() + (idx * 200); // Stagger each item
+
+      function update(currentTime) {
+        if (currentTime < startTime) {
+          requestAnimationFrame(update);
+          return;
+        }
+
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Quintic out easing for high performance race feeling
+        const easeOut = 1 - Math.pow(1 - progress, 4);
+        const currentVal = targetVal * easeOut;
+
+        let displayVal;
+        if (decimals > 0) {
+          displayVal = currentVal.toFixed(decimals);
+        } else {
+          displayVal = Math.round(currentVal).toLocaleString('en-US');
+        }
+
+        el.textContent = displayVal + (progress === 1 ? suffix : '');
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
+      }
+
+      requestAnimationFrame(update);
+    });
+  };
+
+  // Trigger when preloader finishes or after short delay
+  const preloaderEl = document.getElementById('preloader');
+  if (preloaderEl) {
+    const observer = new MutationObserver(() => {
+      if (preloaderEl.style.display === 'none' || preloaderEl.classList.contains('fade-out')) {
+        observer.disconnect();
+        setTimeout(animateCounters, 300);
+      }
+    });
+    observer.observe(preloaderEl, { attributes: true, attributeFilter: ['style', 'class'] });
+  }
+
+  // Fallback trigger
+  setTimeout(animateCounters, 1500);
 }
 
 

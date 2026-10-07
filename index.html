@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#07080a">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="referrer" content="no-referrer">
   <title>GOSHA TURBOTECH | Лаборатория мировых рекордов скорости</title>
   <meta name="description" content="GoshaTurboTech (GTT) — центр мощностного тюнинга гиперкаров и супербайков. Мировые рекорды 402м, 804м и ледовых трасс. Основатель: Георгий Зурабович Перцхелия.">
   <link rel="icon" type="image/png" href="assets/photos/gtt_shield_logo.png">
@@ -130,16 +131,16 @@
 
       <!-- Dynamic Live Telemetry Bar -->
       <div class="hero-telemetry-bar">
-        <div class="telemetry-item">
-          <div class="value">7.810 <span class="unit" data-i18n="unit_sec">сек</span></div>
+        <div class="telemetry-item" style="--item-index: 1;">
+          <div class="value"><span class="counter-val" data-target="7.810" data-decimals="3">7.810</span> <span class="unit" data-i18n="unit_sec">сек</span></div>
           <div class="label" data-i18n="telemetry_gtr">1/4 мили (Nissan GT-R Moses)</div>
         </div>
-        <div class="telemetry-item">
-          <div class="value">353 <span class="unit" data-i18n="unit_kmh">км/ч</span></div>
+        <div class="telemetry-item" style="--item-index: 2;">
+          <div class="value"><span class="counter-val" data-target="353" data-decimals="0">353</span> <span class="unit" data-i18n="unit_kmh">км/ч</span></div>
           <div class="label" data-i18n="telemetry_record">Рекорд Европы (1/2 мили)</div>
         </div>
-        <div class="telemetry-item">
-          <div class="value">3,000+ <span class="unit" data-i18n="unit_hp">л.с.</span></div>
+        <div class="telemetry-item" style="--item-index: 3;">
+          <div class="value"><span class="counter-val" data-target="3000" data-suffix="+" data-decimals="0">3,000+</span> <span class="unit" data-i18n="unit_hp">л.с.</span></div>
           <div class="label" data-i18n="telemetry_output">Предельная отдача автомобиля</div>
         </div>
       </div>
@@ -185,13 +186,14 @@
           <button class="founder-gallery-btn prev-btn" onclick="switchFounderPhoto(-1)" aria-label="Предыдущее фото">‹</button>
           <button class="founder-gallery-btn next-btn" onclick="switchFounderPhoto(1)" aria-label="Следующее фото">›</button>
 
-          <div class="founder-gallery-dots">
-            <span class="gallery-dot active" onclick="setFounderPhoto(0)"></span>
-            <span class="gallery-dot" onclick="setFounderPhoto(1)"></span>
-            <span class="gallery-dot" onclick="setFounderPhoto(2)"></span>
+          <div class="founder-gallery-topbar">
+            <div class="founder-caption-tag" id="founderImgCaption" data-i18n="founder_caption">Георгий на стартовой полосе RDRC</div>
+            <div class="founder-gallery-dots">
+              <span class="gallery-dot active" onclick="setFounderPhoto(0)"></span>
+              <span class="gallery-dot" onclick="setFounderPhoto(1)"></span>
+              <span class="gallery-dot" onclick="setFounderPhoto(2)"></span>
+            </div>
           </div>
-
-          <div class="founder-caption-tag" id="founderImgCaption" data-i18n="founder_caption">Георгий на стартовой полосе RDRC</div>
         </div>
         <div class="founder-floating-card">
           <a href="https://www.instagram.com/goshaturbogeek/?hl=ru" target="_blank" class="ig-handle">
