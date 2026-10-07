@@ -1065,7 +1065,7 @@ window.openYouTubePlayer = function(youtubeId, startSec, endSec, title) {
   modal.classList.add('active');
 };
 
-// Video Player Modal - Handles any video source dynamically
+// Video Player Modal - Handles any video source dynamically with fullscreen support
 window.openVideoPlayer = function(videoSrc, title) {
   const modal = document.getElementById('videoModal');
   const container = document.getElementById('videoContainer');
@@ -1074,17 +1074,44 @@ window.openVideoPlayer = function(videoSrc, title) {
   container.innerHTML = `
     <div style="position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #000; min-height: 240px;">
       ${title ? `<div class="video-overlay-title">${title}</div>` : ''}
-      <div id="videoSpinner" style="position: absolute; z-index: 1; color: var(--gtt-orange); font-family: var(--font-mono); font-size: 13px; display: flex; align-items: center; gap: 8px;">
-        <span style="display: inline-block; width: 20px; height: 20px; border: 2px solid rgba(255,100,37,0.3); border-top-color: var(--gtt-orange); border-radius: 50%; animation: spin 0.8s linear infinite;"></span>
-        Загрузка видео...
+      
+      <!-- Fullscreen Toggle Button -->
+      <button class="video-fullscreen-btn" onclick="togglePlayerFullscreen()" title="Во весь экран" aria-label="Во весь экран">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+        </svg>
+      </button>
+
+      <div id="videoSpinner" style="position: absolute; z-index: 1; color: var(--gtt-orange); font-family: var(--font-mono); font-size: 12px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; padding: 12px;">
+        <span style="display: inline-block; width: 24px; height: 24px; border: 2.5px solid rgba(255,100,37,0.3); border-top-color: var(--gtt-orange); border-radius: 50%; animation: spin 0.8s linear infinite;"></span>
+        <span>Буферизация боевого видео...</span>
+        <span style="font-size: 10px; color: var(--text-dim);">Секунду, поток подключается</span>
       </div>
-      <video controls autoplay playsinline preload="auto" oncanplay="const s=document.getElementById('videoSpinner'); if(s) s.style.display='none';" style="position: relative; z-index: 2; width: 100%; height: 100%; max-height: 80vh; object-fit: contain; background: #000;">
+
+      <video id="activeModalVideo" controls autoplay playsinline webkit-playsinline preload="auto" oncanplay="const s=document.getElementById('videoSpinner'); if(s) s.style.display='none';" style="position: relative; z-index: 2; width: 100%; height: 100%; max-height: 80vh; object-fit: contain; background: #000;">
         <source src="${videoSrc}" type="video/mp4">
         Ваш браузер не поддерживает видео.
       </video>
     </div>
   `;
   modal.classList.add('active');
+};
+
+// Fullscreen API helper for mobile and desktop
+window.togglePlayerFullscreen = function() {
+  const video = document.getElementById('activeModalVideo');
+  if (!video) return;
+
+  if (video.requestFullscreen) {
+    video.requestFullscreen().catch(() => {});
+  } else if (video.webkitRequestFullscreen) {
+    video.webkitRequestFullscreen();
+  } else if (video.webkitEnterFullscreen) {
+    // Native iOS Safari video player fullscreen
+    video.webkitEnterFullscreen();
+  } else if (video.msRequestFullscreen) {
+    video.msRequestFullscreen();
+  }
 };
 
 // Video Showreel Modal - Plays user's real R8 video or stream
