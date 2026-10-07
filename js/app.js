@@ -27,7 +27,7 @@ const gttProjects = [
     fallbackImg: 'assets/cars/gtr_lucifer_full.jpg',
     isPhoto: true,
     objectPosition: 'center 60%',
-    videoSrc: 'assets/videos/gosha_na_svoem_lucifer.mov',
+    videoSrc: 'assets/videos/gosha_na_svoem_lucifer_web.mp4',
     videoTitle: 'Гоша на своей // GT-R Lucifer RDRC',
     desc: {
       ru: 'Победоносный огненный болид Георгия Зурабовича Перцхелия (Гоши), борт №71. Построенный в лаборатории GoshaTurboTech драг-монстр в культовой ливрее адского пламени — триумфатор и победитель финалов чемпионата России RDRC. Максимальное облегчение, биллетовый блок и яростный старт.',
@@ -316,7 +316,7 @@ const gttProjects = [
     fallbackImg: 'assets/cars/gtr_blue_rdrc_888.jpg',
     isPhoto: true,
     objectPosition: 'center 45%',
-    videoSrc: 'assets/videos/gtr_blue_888_pass.mov',
+    videoSrc: 'assets/videos/gtr_blue_888_pass_web.mp4',
     videoTitle: 'Nissan GT-R #888 Midnight Blue GTT — боевой заезд RDRC',
     desc: {
       ru: 'Знаменитый синий Nissan GT-R R35 со стартовым номером #888, постоянный участник и призер этапов Чемпионата России RDRC. Калибровка лаунч-контроля GTT и кованый 3.8L VR38.',
@@ -353,7 +353,7 @@ const gttProjects = [
     fallbackImg: 'assets/cars/gtr_red_chrome_rdrc.jpg',
     isPhoto: true,
     objectPosition: 'center 62%',
-    videoSrc: 'assets/videos/gtr_red_g35_action.mov',
+    videoSrc: 'assets/videos/gtr_red_g35_action_web.mp4',
     videoTitle: 'Nissan GT-R GTT Red Chrome G35 — боевой заезд RDRC',
     desc: {
       ru: 'Один из самых ярких Nissan GT-R в российском дрэг-рейсинге. Кастомный хром-дизайн, усиленная подвеска и боевая трансмиссия GTT.',
@@ -747,22 +747,27 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileStickyBar();
 });
 
-// Clean Premium Motorsport Preloader (Silky Smooth 60fps Easing)
+// Clean Premium Motorsport Preloader (Silky Smooth 60fps Easing with video buffering)
 function initPreloader() {
   const preloader = document.getElementById('preloader');
   const fill = document.getElementById('preloaderFill');
+  const heroVideo = document.querySelector('.hero-video-bg');
   
   window.scrollTo(0, 0);
 
+  // Kickstart video playback immediately
+  if (heroVideo) {
+    heroVideo.play().catch(() => {});
+  }
+
   let finished = false;
   const startTime = performance.now();
-  const totalDuration = 1000; // ms
+  const totalDuration = 1400; // ms (gives video plenty of time to buffer and start playing behind)
 
   function frame(now) {
     if (finished) return;
     const elapsed = now - startTime;
     const progress = Math.min(elapsed / totalDuration, 1);
-    // Smooth ease-out cubic
     const eased = 1 - Math.pow(1 - progress, 3);
     const percent = Math.min(Math.round(eased * 100), 100);
 
@@ -774,6 +779,9 @@ function initPreloader() {
       finished = true;
       if (fill) fill.style.width = '100%';
       setTimeout(() => {
+        if (heroVideo && heroVideo.paused) {
+          heroVideo.play().catch(() => {});
+        }
         if (preloader) {
           preloader.classList.add('fade-out');
           window.scrollTo(0, 0);
@@ -1043,11 +1051,11 @@ window.openYouTubePlayer = function(youtubeId, startSec, endSec, title) {
   const embedUrl = `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&modestbranding=1${startParam}${endParam}`;
 
   container.innerHTML = `
-    <div style="position: relative; width: 100%; height: 100%; min-height: 480px; display: flex; flex-direction: column;">
-      ${title ? `<div style="position: absolute; top: 16px; left: 20px; z-index: 10; font-family: var(--font-display); font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: #fff; background: rgba(0,0,0,0.8); padding: 8px 16px; border-radius: 6px; border: 1px solid rgba(255,100,37,0.5); backdrop-filter: blur(8px);">${title}</div>` : ''}
+    <div style="position: relative; width: 100%; height: 100%; min-height: 240px; display: flex; flex-direction: column;">
+      ${title ? `<div class="video-overlay-title">${title}</div>` : ''}
       <iframe 
         src="${embedUrl}" 
-        style="width: 100%; height: 100%; min-height: 480px; border: 0; border-radius: 12px; background: #000;" 
+        style="width: 100%; height: 100%; min-height: 240px; border: 0; border-radius: 12px; background: #000;" 
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
         allowfullscreen>
       </iframe>
@@ -1063,9 +1071,9 @@ window.openVideoPlayer = function(videoSrc, title) {
   if (!modal || !container) return;
 
   container.innerHTML = `
-    <div style="position: relative; width: 100%; height: 100%;">
-      ${title ? `<div style="position: absolute; top: 16px; left: 20px; z-index: 10; font-family: var(--font-display); font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: #fff; background: rgba(0,0,0,0.7); padding: 6px 14px; border-radius: 6px; border: 1px solid rgba(255,100,37,0.4);">${title}</div>` : ''}
-      <video controls autoplay playsinline style="width: 100%; height: 100%; object-fit: contain; background: #000;">
+    <div style="position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #000;">
+      ${title ? `<div class="video-overlay-title">${title}</div>` : ''}
+      <video controls autoplay playsinline style="width: 100%; height: 100%; max-height: 80vh; object-fit: contain; background: #000;">
         <source src="${videoSrc}" type="${videoSrc.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'}">
         <source src="${videoSrc}" type="video/mp4">
         Ваш браузер не поддерживает видео.
@@ -1429,26 +1437,49 @@ function initMobileStickyBar() {
   const bar = document.getElementById('mobileBottomBar');
   if (!bar) return;
 
-  let lastScrollY = window.scrollY;
-  let isThrottled = false;
+  let isPreloaderActive = true;
+
+  // Reveal bar only after preloader is completely faded out
+  const preloaderEl = document.getElementById('preloader');
+  if (preloaderEl) {
+    const checkPreloader = setInterval(() => {
+      if (preloaderEl.style.display === 'none' || preloaderEl.classList.contains('fade-out')) {
+        clearInterval(checkPreloader);
+        setTimeout(() => {
+          isPreloaderActive = false;
+          bar.classList.add('visible');
+        }, 600);
+      }
+    }, 200);
+  } else {
+    isPreloaderActive = false;
+    bar.classList.add('visible');
+  }
 
   window.addEventListener('scroll', () => {
     if (isThrottled) return;
     isThrottled = true;
     requestAnimationFrame(() => {
+      if (isPreloaderActive) {
+        bar.classList.remove('visible');
+        isThrottled = false;
+        return;
+      }
+
       const currentScrollY = window.scrollY;
-      
-      // Auto-hide when any modal or drawer is active
       const anyModalActive = document.querySelector('.modal-overlay.active, .video-modal-overlay.active, .gallery-lightbox-modal.active, .mobile-drawer.active');
+      
       if (anyModalActive) {
         bar.classList.add('hidden');
+        bar.classList.remove('visible');
       } else {
-        // Hide if user is right at the very top (in hero before scrolling) or near the very bottom footer
         const isNearBottom = (window.innerHeight + currentScrollY) >= (document.documentElement.scrollHeight - 60);
         if (isNearBottom) {
           bar.classList.add('hidden');
+          bar.classList.remove('visible');
         } else {
           bar.classList.remove('hidden');
+          bar.classList.add('visible');
         }
       }
       lastScrollY = currentScrollY;
@@ -1458,11 +1489,14 @@ function initMobileStickyBar() {
 
   // Listen for modal state toggles
   const observer = new MutationObserver(() => {
+    if (isPreloaderActive) return;
     const anyModalActive = document.querySelector('.modal-overlay.active, .video-modal-overlay.active, .gallery-lightbox-modal.active, .mobile-drawer.active');
     if (anyModalActive) {
       bar.classList.add('hidden');
+      bar.classList.remove('visible');
     } else {
       bar.classList.remove('hidden');
+      bar.classList.add('visible');
     }
   });
 
