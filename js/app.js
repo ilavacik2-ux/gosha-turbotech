@@ -1071,10 +1071,13 @@ window.openVideoPlayer = function(videoSrc, title) {
   if (!modal || !container) return;
 
   container.innerHTML = `
-    <div style="position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #000;">
+    <div style="position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #000; min-height: 240px;">
       ${title ? `<div class="video-overlay-title">${title}</div>` : ''}
-      <video controls autoplay playsinline style="width: 100%; height: 100%; max-height: 80vh; object-fit: contain; background: #000;">
-        <source src="${videoSrc}" type="${videoSrc.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'}">
+      <div id="videoSpinner" style="position: absolute; z-index: 1; color: var(--gtt-orange); font-family: var(--font-mono); font-size: 13px; display: flex; align-items: center; gap: 8px;">
+        <span style="display: inline-block; width: 20px; height: 20px; border: 2px solid rgba(255,100,37,0.3); border-top-color: var(--gtt-orange); border-radius: 50%; animation: spin 0.8s linear infinite;"></span>
+        Загрузка видео...
+      </div>
+      <video controls autoplay playsinline preload="auto" oncanplay="const s=document.getElementById('videoSpinner'); if(s) s.style.display='none';" style="position: relative; z-index: 2; width: 100%; height: 100%; max-height: 80vh; object-fit: contain; background: #000;">
         <source src="${videoSrc}" type="video/mp4">
         Ваш браузер не поддерживает видео.
       </video>
