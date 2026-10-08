@@ -2314,13 +2314,19 @@ body::before {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
   .nav-links {
     display: none;
   }
   .desktop-only-btn {
     display: none;
   }
+  .mobile-burger-btn {
+    display: flex;
+  }
+}
+
+@media (max-width: 768px) {
   .hero-telemetry-bar {
     grid-template-columns: 1fr;
     gap: 14px;
