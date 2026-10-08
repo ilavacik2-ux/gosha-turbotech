@@ -11,7 +11,7 @@
   <meta name="description" content="GoshaTurboTech (GTT) — центр мощностного тюнинга гиперкаров и супербайков. Мировые рекорды 402м, 804м и ледовых трасс. Основатель: Георгий Зурабович Перцхелия.">
   <link rel="icon" type="image/png" href="assets/photos/gtt_shield_logo.png">
   <link rel="apple-touch-icon" href="assets/photos/gtt_shield_logo.png">
-  <link rel="stylesheet" href="css/style.css?v=2.1">
+  <link rel="stylesheet" href="css/style.css?v=2.2">
 </head>
 <body class="is-loading">
 
@@ -1091,66 +1091,6 @@
     </div>
   </footer>
 
-  <!-- Mobile Sticky Quick Action Bar -->
-  <div class="mobile-bottom-bar" id="mobileBottomBar">
-    <a href="https://t.me/goshaturbotech" target="_blank" class="mobile-bar-btn tg-action" rel="noopener">
-      <span class="bar-icon">✈️</span>
-      <span class="bar-label" data-i18n="mobile_bar_tg">Telegram GTT</span>
-    </a>
-    <a href="https://yandex.ru/maps/?text=Можайское+шоссе+168+Москва+GoshaTurboTech" target="_blank" class="mobile-bar-btn navi-action" rel="noopener">
-      <span class="bar-icon">🗺️</span>
-      <span class="bar-label" data-i18n="mobile_bar_navi">Навигатор</span>
-    </a>
-    <a href="tel:+74957640474" class="mobile-bar-btn call-action">
-      <span class="bar-icon">📞</span>
-      <span class="bar-label" data-i18n="mobile_bar_call">Позвонить</span>
-    </a>
-  </div>
-
-  <!-- Mobile Drawer Menu (Placed at end of DOM to guarantee no layout shifts) -->
-  <div class="mobile-drawer" id="mobileDrawer">
-    <div class="mobile-drawer-backdrop" onclick="toggleMobileNav(false)"></div>
-    <div class="mobile-drawer-content">
-      <div class="mobile-drawer-header">
-        <div class="brand-logo">
-          <img src="assets/photos/gtt_shield_logo.png" alt="GTT Shield Logo" class="brand-shield-img">
-          <div class="brand-title">GOSHA <span>TURBOTECH</span></div>
-        </div>
-        <button class="mobile-drawer-close" onclick="toggleMobileNav(false)">&times;</button>
-      </div>
-
-      <nav class="mobile-nav-list">
-        <a href="#garage" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_garage">Гараж проектов</a>
-        <a href="#founder" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_founder">О Гоше</a>
-        <a href="#records" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_records">Рекорды RDRC</a>
-        <a href="#team" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_team">Команда GTT</a>
-        <a href="#moto" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_moto">Moto Division</a>
-        <a href="#gallery" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_gallery">Жизнь ателье</a>
-        <a href="#contact" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_contact">Связь</a>
-      </nav>
-
-      <div class="mobile-drawer-footer">
-        <a href="https://t.me/goshaturbotech" target="_blank" class="btn-primary" style="width: 100%; justify-content: center; margin-bottom: 12px;" data-i18n="nav_telegram">
-          Telegram Канал
-        </a>
-        <div style="display: flex; gap: 10px; margin-bottom: 16px; justify-content: center;">
-          <a href="https://www.youtube.com/@GoshaTurboTech" target="_blank" rel="noopener" class="drawer-social-link" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px; background: rgba(255,0,0,0.12); border: 1px solid rgba(255,0,0,0.3); border-radius: 8px; color: #ff4d4d; font-family: var(--font-display); font-size: 11px; font-weight: 700; text-transform: uppercase;">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-            YouTube
-          </a>
-          <a href="https://vk.ru/goshaturbotech" target="_blank" rel="noopener" class="drawer-social-link" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px; background: rgba(0,119,255,0.12); border: 1px solid rgba(0,119,255,0.3); border-radius: 8px; color: #38bdf8; font-family: var(--font-display); font-size: 11px; font-weight: 700; text-transform: uppercase;">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12.785 17.5c-6.19 0-9.72-4.24-9.87-11.3h3.11c.1 5.18 2.39 7.37 4.2 7.82V6.2h2.93v4.46c1.8-.19 3.69-2.22 4.33-4.46h2.93a8.88 8.88 0 0 1-3.99 5.62 9.25 9.25 0 0 1 4.67 5.68h-3.23a5.77 5.77 0 0 0-4.85-4.16v4.16h-.2z"/></svg>
-            ВКонтакте
-          </a>
-        </div>
-        <div class="mobile-drawer-contacts">
-          <a href="tel:+74959900077">📞 +7 (495) 99-000-77</a>
-          <span>г. Москва, Можайское шоссе, 168</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script src="js/app.js?v=2.1"></script>
+  <script src="js/app.js?v=2.2"></script>
 </body>
 </html>
