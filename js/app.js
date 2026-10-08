@@ -785,6 +785,7 @@ function initPreloader() {
         }
         if (preloader) {
           preloader.classList.add('fade-out');
+          document.body.classList.remove('is-loading');
           window.scrollTo(0, 0);
           setTimeout(() => {
             preloader.style.display = 'none';

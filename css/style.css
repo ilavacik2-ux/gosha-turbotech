@@ -92,17 +92,31 @@ body::before {
   color: #fff;
 }
 
+body.is-loading {
+  overflow: hidden !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+}
+
 #preloader {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
   background: radial-gradient(circle at center, #11151f 0%, #060709 85%);
-  z-index: 9999;
+  background-color: #07080a;
+  z-index: 999999;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   opacity: 1;
   visibility: visible;
+  overflow: hidden;
   transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s ease;
 }
 
@@ -2383,14 +2397,18 @@ body::before {
   position: fixed;
   inset: 0;
   z-index: 2000;
+  display: none !important;
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0.4s ease, opacity 0.4s ease;
+  pointer-events: none;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
 }
 
 .mobile-drawer.active {
+  display: block !important;
   visibility: visible;
   opacity: 1;
+  pointer-events: auto;
 }
 
 .mobile-drawer-backdrop {
