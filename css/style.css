@@ -1574,8 +1574,8 @@ body.is-loading {
   cursor: grab;
   scrollbar-width: none; /* Hide scrollbar for Chrome/Firefox/Safari */
   -ms-overflow-style: none;
-  scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
 }
 
 .marquee-stream-wrapper::-webkit-scrollbar {

@@ -756,27 +756,35 @@ function initPreloader() {
   
   window.scrollTo(0, 0);
 
-  // Kickstart video playback immediately
+  // Seamless Video Buffering Guard
+  let isVideoReady = false;
   if (heroVideo) {
+    if (heroVideo.readyState >= 2) {
+      isVideoReady = true;
+    } else {
+      heroVideo.addEventListener('canplay', () => { isVideoReady = true; }, { once: true });
+      heroVideo.addEventListener('playing', () => { isVideoReady = true; }, { once: true });
+    }
     heroVideo.play().catch(() => {});
+  } else {
+    isVideoReady = true;
   }
 
   let finished = false;
   const startTime = performance.now();
-  const totalDuration = 1400; // ms (gives video plenty of time to buffer and start playing behind)
+  const minDuration = 1200;
 
   function frame(now) {
     if (finished) return;
     const elapsed = now - startTime;
-    const progress = Math.min(elapsed / totalDuration, 1);
+    const progress = Math.min(elapsed / minDuration, 1);
     const eased = 1 - Math.pow(1 - progress, 3);
     const percent = Math.min(Math.round(eased * 100), 100);
 
     if (fill) fill.style.width = `${percent}%`;
 
-    if (progress < 1) {
-      requestAnimationFrame(frame);
-    } else {
+    // Only dismiss preloader once minimum animation finished AND video is buffered and playing
+    if (progress >= 1 && (isVideoReady || elapsed > 3000)) {
       finished = true;
       if (fill) fill.style.width = '100%';
       setTimeout(() => {
@@ -791,7 +799,9 @@ function initPreloader() {
             preloader.style.display = 'none';
           }, 850);
         }
-      }, 150);
+      }, 100);
+    } else {
+      requestAnimationFrame(frame);
     }
   }
 
@@ -1363,14 +1373,21 @@ function initGalleryMarqueeInteractions() {
     }, 1800);
   }
 
-  // A. Mouse Wheel Navigation (Smooth natural scroll for macOS trackpad & mouse wheel)
+  // A. Mouse Wheel & Trackpad Navigation (Silky smooth macOS inertia)
   wrapper.addEventListener('wheel', (e) => {
-    // If the user scrolls with a mouse wheel or trackpad
-    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-    if (Math.abs(delta) > 1) {
+    // If predominantly vertical scroll, let normal page scrolling happen unless hovering directly to pan
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+      // Direct trackpad two-finger horizontal swipe -> Native smooth behavior
+      pauseAutoScroll();
+      scheduleResume();
+      return;
+    }
+
+    // Classic vertical mouse wheel over the gallery -> translate vertical wheel into horizontal movement
+    if (Math.abs(e.deltaY) > 2) {
       e.preventDefault();
       pauseAutoScroll();
-      wrapper.scrollBy({ left: delta * 1.8, behavior: 'auto' });
+      wrapper.scrollLeft += e.deltaY * 1.2;
       scheduleResume();
     }
   }, { passive: false });
