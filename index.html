@@ -11,7 +11,7 @@
   <meta name="description" content="GoshaTurboTech (GTT) — центр мощностного тюнинга гиперкаров и супербайков. Мировые рекорды 402м, 804м и ледовых трасс. Основатель: Георгий Зурабович Перцхелия.">
   <link rel="icon" type="image/png" href="assets/photos/gtt_shield_logo.png">
   <link rel="apple-touch-icon" href="assets/photos/gtt_shield_logo.png">
-  <link rel="stylesheet" href="css/style.css?v=2.2">
+  <link rel="stylesheet" href="css/style.css?v=2.6">
 </head>
 <body class="is-loading">
 
@@ -163,8 +163,12 @@
           <img src="assets/photos/gosha_strip_selfie.jpg" alt="Георгий Зурабович Перцхелия GoshaTurboTech" id="founderImg" class="founder-active-img">
           
           <!-- Interactive Photo Switcher Controls -->
-          <button class="founder-gallery-btn prev-btn" onclick="switchFounderPhoto(-1)" aria-label="Предыдущее фото">‹</button>
-          <button class="founder-gallery-btn next-btn" onclick="switchFounderPhoto(1)" aria-label="Следующее фото">›</button>
+          <button class="founder-gallery-btn prev-btn" onclick="switchFounderPhoto(-1)" aria-label="Предыдущее фото">
+            <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="founder-gallery-btn next-btn" onclick="switchFounderPhoto(1)" aria-label="Следующее фото">
+            <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
 
           <div class="founder-gallery-topbar">
             <div class="founder-caption-tag" id="founderImgCaption" data-i18n="founder_caption">Георгий на стартовой полосе RDRC</div>
@@ -1074,23 +1078,14 @@
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div style="display: flex; align-items: center; gap: 12px;">
-      <img src="assets/photos/gtt_shield_logo.png" alt="GTT Shield Logo" style="width: 24px; height: 24px; object-fit: contain;">
-      <div style="font-family: var(--font-display); font-size: 11px; letter-spacing: 0.1em;">
-        © GOSHATURBOTECH. SPEED & MOTORSPORT ENGINEERING.
-      </div>
-    </div>
-    <div class="footer-links">
-      <a href="https://www.youtube.com/@GoshaTurboTech" target="_blank" rel="noopener" class="footer-link">YouTube GTT</a>
-      <a href="https://vk.ru/goshaturbotech" target="_blank" rel="noopener" class="footer-link">VKontakte GTT</a>
-      <a href="https://t.me/goshaturbotech" target="_blank" rel="noopener" class="footer-link">Telegram GTT</a>
-      <a href="https://www.instagram.com/goshaturbotech/?hl=ru" target="_blank" rel="noopener" class="footer-link">Instagram GTT</a>
-      <a href="https://www.instagram.com/goshaturbogeek/?hl=ru" target="_blank" rel="noopener" class="footer-link">Instagram Гоши</a>
+  <!-- Sleek Centered Official Footer -->
+  <footer class="official-footer">
+    <div class="footer-center-content">
+      <img src="assets/photos/gtt_shield_logo.png" alt="GTT Shield" class="footer-mini-shield">
+      <span class="footer-copy-text">© GOSHATURBOTECH. SPEED & MOTORSPORT ENGINEERING.</span>
     </div>
   </footer>
 
-  <script src="js/app.js?v=2.2"></script>
+  <script src="js/app.js?v=2.5"></script>
 </body>
 </html>

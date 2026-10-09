@@ -1363,14 +1363,14 @@ function initGalleryMarqueeInteractions() {
     }, 1800);
   }
 
-  // A. Mouse Wheel Navigation (Scroll vertically or horizontally rotates track)
+  // A. Mouse Wheel Navigation (Smooth natural scroll for macOS trackpad & mouse wheel)
   wrapper.addEventListener('wheel', (e) => {
-    // If user wheels over the stream, scroll horizontally
+    // If the user scrolls with a mouse wheel or trackpad
     const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-    if (Math.abs(delta) > 2) {
+    if (Math.abs(delta) > 1) {
       e.preventDefault();
       pauseAutoScroll();
-      wrapper.scrollLeft += delta * 1.6;
+      wrapper.scrollBy({ left: delta * 1.8, behavior: 'auto' });
       scheduleResume();
     }
   }, { passive: false });
