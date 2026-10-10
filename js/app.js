@@ -371,12 +371,12 @@ const gttProjects = [
 // Full Bilingual Dictionary (Russian & English)
 const i18n = {
   ru: {
-    nav_garage: "Гараж",
+    nav_garage: "Гараж проектов",
     nav_founder: "О Гоше",
-    nav_records: "Рекорды",
-    nav_team: "Команда",
-    nav_moto: "Moto",
-    nav_gallery: "Ателье",
+    nav_records: "Рекорды RDRC",
+    nav_team: "Команда GTT",
+    nav_moto: "Moto Division",
+    nav_gallery: "Жизнь ателье",
     nav_contact: "Связь",
     nav_telegram: "Telegram Канал",
     preloader_tag: "Инженерия Скорости & Мощности • Москва",
@@ -537,12 +537,12 @@ const i18n = {
     gallery_cap_track: "Георгий Перцхелия контролирует подготовку трассы RDRC"
   },
   en: {
-    nav_garage: "Garage",
+    nav_garage: "Garage Builds",
     nav_founder: "About Gosha",
-    nav_records: "Records",
-    nav_team: "Crew",
-    nav_moto: "Moto",
-    nav_gallery: "Atelier",
+    nav_records: "RDRC Records",
+    nav_team: "GTT Crew",
+    nav_moto: "Moto Division",
+    nav_gallery: "Motorsport Life",
     nav_contact: "Contact",
     nav_telegram: "Telegram Channel",
     preloader_tag: "Speed & Power Engineering • Moscow",
@@ -1681,5 +1681,31 @@ function initTelemetryCounters() {
   // Fallback trigger
   setTimeout(animateCounters, 1500);
 }
+
+// Secret GTT Atelier Admin Entrance (Triple Click on Footer Shield)
+(function initSecretAdmin() {
+  let clicks = 0;
+  let timer = null;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const trigger = document.getElementById('secretAdminTrigger');
+    if (!trigger) return;
+
+    trigger.addEventListener('click', () => {
+      clicks++;
+      clearTimeout(timer);
+
+      if (clicks >= 3) {
+        clicks = 0;
+        window.location.href = 'admin.html';
+      } else {
+        timer = setTimeout(() => {
+          clicks = 0;
+        }, 800);
+      }
+    });
+  });
+})();
+
 
 
