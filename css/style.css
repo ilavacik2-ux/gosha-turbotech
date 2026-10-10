@@ -309,24 +309,31 @@ body.is-loading {
 .nav-links {
   display: flex;
   list-style: none;
-  gap: 28px;
+  gap: 32px;
+  align-items: center;
 }
 
 .nav-link {
   text-decoration: none;
-  color: var(--text-muted);
-  font-family: var(--font-body);
+  color: #94a3b8;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 13.5px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  transition: var(--transition-smooth);
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  transition: color 0.25s ease, opacity 0.25s ease;
   position: relative;
-  padding: 6px 0;
+  padding: 8px 0;
 }
 
-.nav-link:hover, .nav-link.active {
-  color: #fff;
+.nav-link:hover {
+  color: #ffffff;
+}
+
+.nav-link.active {
+  color: #ffffff;
+  font-weight: 600;
 }
 
 .nav-link::after {
@@ -337,8 +344,9 @@ body.is-loading {
   width: 0;
   height: 2px;
   background: var(--gtt-orange);
-  box-shadow: 0 0 10px var(--gtt-orange);
-  transition: var(--transition-smooth);
+  box-shadow: 0 0 8px var(--gtt-orange);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 2px;
 }
 
 .nav-link:hover::after, .nav-link.active::after {
@@ -2228,9 +2236,9 @@ body.modal-open {
   top: 24px !important;
   right: 28px !important;
   z-index: 2100 !important;
-  background: rgba(15, 18, 26, 0.85) !important;
-  border: 1px solid rgba(255, 100, 37, 0.5) !important;
-  color: #fff !important;
+  background: rgba(15, 18, 26, 0.88) !important;
+  border: 1px solid rgba(255, 100, 37, 0.45) !important;
+  color: #ffffff !important;
   width: 44px !important;
   height: 44px !important;
   border-radius: 50% !important;
@@ -2238,18 +2246,28 @@ body.modal-open {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  font-size: 26px !important;
-  line-height: 1 !important;
+  padding: 0 !important;
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
-  transition: all 0.25s ease !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8) !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease, border-color 0.25s ease !important;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.8) !important;
+}
+
+.modal-close-fixed svg {
+  display: block;
+  stroke: #ffffff;
+  transition: transform 0.25s ease;
 }
 
 .modal-close-fixed:hover {
   background: var(--gtt-orange) !important;
   border-color: var(--gtt-orange) !important;
-  transform: scale(1.1) !important;
+  transform: scale(1.08) !important;
+}
+
+.modal-close-fixed:hover svg {
+  stroke: #ffffff;
+  transform: rotate(90deg);
 }
 
 .video-overlay-title {
@@ -2324,7 +2342,7 @@ body.modal-open {
   position: absolute;
   top: 18px;
   right: 18px;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(14, 18, 25, 0.85);
   border: 1px solid var(--border-subtle);
   color: #fff;
   width: 36px;
@@ -2334,14 +2352,26 @@ body.modal-open {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  transition: var(--transition-smooth);
+  padding: 0;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease, border-color 0.25s ease;
   z-index: 30;
+}
+
+.modal-close svg {
+  display: block;
+  stroke: #ffffff;
+  transition: transform 0.25s ease;
 }
 
 .modal-close:hover {
   background: var(--gtt-orange);
   border-color: var(--gtt-orange);
+  transform: scale(1.08);
+}
+
+.modal-close:hover svg {
+  stroke: #ffffff;
+  transform: rotate(90deg);
 }
 
 /* Official Legal Footer (152-ФЗ, Оферта, Копирайт) */

@@ -11,7 +11,10 @@
   <meta name="description" content="GoshaTurboTech (GTT) — центр мощностного тюнинга гиперкаров и супербайков. Мировые рекорды 402м, 804м и ледовых трасс. Основатель: Георгий Зурабович Перцхелия.">
   <link rel="icon" type="image/png" href="assets/photos/gtt_shield_logo.png">
   <link rel="apple-touch-icon" href="assets/photos/gtt_shield_logo.png">
-  <link rel="stylesheet" href="css/style.css?v=2.9">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=3.0">
 </head>
 <body class="is-loading">
 
@@ -38,12 +41,12 @@
 
     <nav>
       <ul class="nav-links">
-        <li><a href="#garage" class="nav-link active" data-i18n="nav_garage">Гараж проектов</a></li>
+        <li><a href="#garage" class="nav-link active" data-i18n="nav_garage">Гараж</a></li>
         <li><a href="#founder" class="nav-link" data-i18n="nav_founder">О Гоше</a></li>
-        <li><a href="#records" class="nav-link" data-i18n="nav_records">Рекорды RDRC</a></li>
-        <li><a href="#team" class="nav-link" data-i18n="nav_team">Команда GTT</a></li>
-        <li><a href="#moto" class="nav-link" data-i18n="nav_moto">Moto Division</a></li>
-        <li><a href="#gallery" class="nav-link" data-i18n="nav_gallery">Жизнь ателье</a></li>
+        <li><a href="#records" class="nav-link" data-i18n="nav_records">Рекорды</a></li>
+        <li><a href="#team" class="nav-link" data-i18n="nav_team">Команда</a></li>
+        <li><a href="#moto" class="nav-link" data-i18n="nav_moto">Moto</a></li>
+        <li><a href="#gallery" class="nav-link" data-i18n="nav_gallery">Ателье</a></li>
         <li><a href="#contact" class="nav-link" data-i18n="nav_contact">Связь</a></li>
       </ul>
     </nav>
@@ -1046,7 +1049,12 @@
 
   <!-- Video Showreel Modal -->
   <div class="modal-overlay" id="videoModal">
-    <button class="modal-close modal-close-fixed" onclick="closeVideoShowreel()" aria-label="Закрыть видео">&times;</button>
+    <button class="modal-close modal-close-fixed" onclick="closeVideoShowreel()" aria-label="Закрыть видео">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
     <div class="video-modal-container">
       <div id="videoContainer" style="width: 100%; height: 100%;">
         <!-- Video injected dynamically -->
@@ -1057,7 +1065,12 @@
   <!-- Fullscreen Photo Lightbox Modal -->
   <div class="modal-overlay" id="galleryLightbox">
     <div class="lightbox-modal-content">
-      <button class="modal-close" onclick="closeGalleryLightbox()">&times;</button>
+      <button class="modal-close" onclick="closeGalleryLightbox()" aria-label="Закрыть">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
       <img src="" alt="" id="lightboxImg" class="lightbox-main-img">
       <div class="lightbox-caption" id="lightboxCaption"></div>
     </div>
@@ -1066,7 +1079,12 @@
   <!-- Car Spec Passport Modal -->
   <div class="modal-overlay" id="carModal">
     <div class="modal-container">
-      <button class="modal-close" id="modalClose">&times;</button>
+      <button class="modal-close" id="modalClose" aria-label="Закрыть">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
       <div id="modalBody">
         <!-- Rendered dynamically -->
       </div>
@@ -1094,7 +1112,12 @@
   <!-- Clean Legal Modal Document Reader -->
   <div class="modal-overlay" id="legalModal">
     <div class="modal-container legal-modal-container">
-      <button class="modal-close" onclick="closeLegalModal()">&times;</button>
+      <button class="modal-close" onclick="closeLegalModal()" aria-label="Закрыть">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
       <div id="legalModalTitle" class="legal-modal-title"></div>
       <div id="legalModalContent" class="legal-modal-content"></div>
     </div>
