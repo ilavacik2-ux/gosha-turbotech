@@ -427,6 +427,9 @@ function deleteCarProject(carId) {
   if (!confirm('Вы уверены, что хотите удалить этот проект из базы GTT?')) return;
   const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects).filter(c => c.id !== carId);
   saveDB(ADMIN_STORAGE_KEY, projects);
+  renderCarsTable();
+}
+
 // ================= MODULE 2: GALLERY (ЖИВЫЕ КАДРЫ) =================
 function renderGalleryTable() {
   const gallery = getDB(GALLERY_STORAGE_KEY, defaultGallery);
