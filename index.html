@@ -1095,7 +1095,13 @@
   <footer class="official-footer">
     <div class="footer-inner-container">
       <div class="footer-center-content">
-        <img src="assets/photos/gtt_shield_logo.png" alt="GTT Shield" class="footer-mini-shield" id="secretAdminTrigger" title="GTT Skunkworks" style="cursor: default; user-select: none;">
+        <img src="assets/photos/gtt_shield_logo.png" 
+             alt="GTT Shield" 
+             class="footer-mini-shield" 
+             id="secretAdminTrigger" 
+             title="GTT Skunkworks" 
+             onclick="window.__gttClicks = (window.__gttClicks || 0) + 1; clearTimeout(window.__gttTimer); if(window.__gttClicks >= 3){ window.__gttClicks = 0; window.location.href = 'admin.html'; } else { window.__gttTimer = setTimeout(function(){ window.__gttClicks = 0; }, 1000); }"
+             style="cursor: pointer; user-select: none;">
         <span class="footer-copy-text">© GOSHATURBOTECH. SPEED & MOTORSPORT ENGINEERING.</span>
       </div>
 
@@ -1123,6 +1129,6 @@
     </div>
   </div>
 
-  <script src="js/app.js?v=2.9"></script>
+  <script src="js/app.js?v=3.1"></script>
 </body>
 </html>
