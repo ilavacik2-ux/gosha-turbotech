@@ -25,14 +25,14 @@
         <div class="auth-badge">// ATELIER CONTROL HUB</div>
       </div>
       
-      <form id="loginForm" onsubmit="handleAdminLogin(event)">
+      <form id="loginForm" onsubmit="handleAdminLogin(event); return false;">
         <div class="input-group">
           <label for="adminPass">Пароль доступа инженера</label>
-          <input type="password" id="adminPass" placeholder="Введите ключ безопасности..." autocomplete="current-password" required>
+          <input type="password" id="adminPass" placeholder="Введите пароль..." autocomplete="current-password" autofocus required>
         </div>
-        <button type="submit" class="btn-primary auth-submit-btn">Войти в панель GTT</button>
-        <div id="authError" class="auth-error-msg">Неверный ключ доступа</div>
-        <div class="auth-hint">Ключ доступа выдается администратором мастерской GTT (пароль: gtt71)</div>
+        <button type="submit" id="loginBtn" class="btn-primary auth-submit-btn">Войти в панель GTT</button>
+        <div id="authError" class="auth-error-msg">⚠️ Вы ввели неверный пароль. Попробуйте снова.</div>
+        <div class="auth-hint">Подсказка: официальный ключ доступа — <strong>gtt71</strong> или <strong>gosha</strong></div>
       </form>
     </div>
   </div>

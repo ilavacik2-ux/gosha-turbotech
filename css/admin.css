@@ -152,22 +152,30 @@ body {
   box-shadow: 0 4px 20px var(--gtt-orange-glow);
 }
 
-.auth-submit-btn {
-  width: 100%;
-}
-
 .auth-error-msg {
   display: none;
-  color: #f87171;
-  font-size: 12px;
-  margin-top: 14px;
-  font-family: var(--font-mono);
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #ff6b6b;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-top: 16px;
+  font-family: var(--font-body);
+  animation: shake 0.3s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
 }
 
 .auth-hint {
   font-size: 11px;
   color: var(--text-dim);
-  margin-top: 20px;
+  margin-top: 18px;
 }
 
 /* Dashboard Layout */

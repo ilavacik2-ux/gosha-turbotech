@@ -248,11 +248,11 @@ function saveDB(key, data) {
 
 // Authentication
 function checkAuth() {
-  const isAuth = sessionStorage.getItem(AUTH_KEY);
+  const isAuth = sessionStorage.getItem(AUTH_KEY) === 'true' || localStorage.getItem(AUTH_KEY) === 'true';
   const loginScreen = document.getElementById('loginScreen');
   const dashboardScreen = document.getElementById('dashboardScreen');
 
-  if (isAuth === 'true') {
+  if (isAuth) {
     loginScreen.style.display = 'none';
     dashboardScreen.style.display = 'block';
     renderAllModules();
@@ -263,21 +263,31 @@ function checkAuth() {
 }
 
 function handleAdminLogin(e) {
-  e.preventDefault();
-  const input = document.getElementById('adminPass').value.trim();
+  if (e && e.preventDefault) e.preventDefault();
+  const inputEl = document.getElementById('adminPass');
+  const input = (inputEl ? inputEl.value : '').trim().toLowerCase();
   const errorEl = document.getElementById('authError');
 
-  if (input === DEFAULT_ACCESS_PIN || input.toLowerCase() === 'gosha') {
+  // Accepted passwords: gtt71, gosha, gtt, 71
+  if (input === 'gtt71' || input === 'gosha' || input === 'gtt' || input === '71') {
     sessionStorage.setItem(AUTH_KEY, 'true');
-    errorEl.style.display = 'none';
+    localStorage.setItem(AUTH_KEY, 'true'); // Dual storage for 100% persistence across tabs
+    if (errorEl) errorEl.style.display = 'none';
     checkAuth();
   } else {
-    errorEl.style.display = 'block';
+    if (errorEl) {
+      errorEl.style.display = 'block';
+    }
+    if (inputEl) {
+      inputEl.value = '';
+      inputEl.focus();
+    }
   }
 }
 
 function handleAdminLogout() {
   sessionStorage.removeItem(AUTH_KEY);
+  localStorage.removeItem(AUTH_KEY);
   checkAuth();
 }
 
