@@ -81,32 +81,32 @@ const gttProjects = [
     id: 'bmw_m5',
     brand: 'BMW M-POWER',
     name: {
-      ru: 'BMW M5 COMPETITION GTT-STAGE 3',
-      en: 'BMW M5 COMPETITION GTT-STAGE 3'
+      ru: 'BMW M5 G90 COMPETITION GTT-STAGE 3',
+      en: 'BMW M5 G90 COMPETITION GTT-STAGE 3'
     },
     type: 'bmw',
     tag: {
-      ru: 'RDRC ДРЭГ-КИЛЛЕР • СИНИЙ БОЛИД GTT',
-      en: 'RDRC DRAG WEAPON • BLUE GTT BULLET'
+      ru: 'RDRC ДРЭГ-КИЛЛЕР • БОЛИД GTT G90',
+      en: 'RDRC DRAG WEAPON • GTT G90 BULLET'
     },
     hp: '1,050+ HP',
     quarterMile: '9.420 сек',
     topSpeed: '340+ км/ч',
     badge: {
-      ru: 'Боевая BMW Гоши Турботех',
-      en: 'GoshaTurboTech Race BMW'
+      ru: 'Боевая BMW G90 Гоши Турботех',
+      en: 'GoshaTurboTech Race BMW G90'
     },
     img: 'assets/cars/bmw_m5_rdrc_race.jpg',
     fallbackImg: 'assets/cars/bmw_m5_rdrc_race.jpg',
     isPhoto: true,
     videoSrc: 'assets/videos/r8_acceleration.mp4',
-    videoTitle: 'BMW M5 Competition GTT — боевой разгон',
+    videoTitle: 'BMW M5 G90 Competition GTT — боевой разгон',
     desc: {
-      ru: 'Заряженная боевая BMW M5 от GoshaTurboTech, выступающая в чемпионате России по дрэг-рейсингу RDRC. Полный привод M xDrive, гибридные турбины GTT и кованый низ S63.',
-      en: 'Competition BMW M5 built by GoshaTurboTech competing in RDRC. M xDrive AWD system, custom GTT hybrid billet turbos, and forged S63 internals.'
+      ru: 'Заряженная боевая BMW M5 поколения G90 от GoshaTurboTech, выступающая в чемпионате России по дрэг-рейсингу RDRC. Полный привод M xDrive, гибридные турбины GTT и усиленная поршневая группа.',
+      en: 'Competition BMW M5 G90 built by GoshaTurboTech competing in RDRC. M xDrive AWD system, custom GTT hybrid billet turbos, and reinforced engine internals.'
     },
     specs: {
-      engine: '4.4L V8 TwinPower Turbo (S63B44T4) GTT Spec',
+      engine: '4.4L V8 TwinPower Turbo Hybrid Powertrain GTT Spec',
       turbos: 'GTT Custom Billet Hybrid Turbos',
       fuel: '100 RON + Methanol Direct Port Injected',
       ecu: 'GTT Custom Dual ECU & 8HP Transmission Flash',
@@ -451,7 +451,7 @@ const i18n = {
     founder_manifesto: "// THE FOUNDER & PHILOSOPHY",
     founder_name: "Георгий Зурабович Перцхелия",
     founder_quote: "«Настоящий тюнинг — это не просто прикрутить турбину большего размера. Это искусство собрать сложнейший механизм так, чтобы он разгонялся до 350 км/ч на треке, а затем с абсолютным комфортом вез вас домой по вечернему городу».",
-    founder_bio: "За 15+ лет увлечения предельной скоростью Георгий Зурабович Перцхелия (Гоша) прошел путь от первых кастомных турбо-проектов до постройки сложнейших 1800-сильных гиперкаров, признанных мировым сообществом энтузиастов. Он лично курирует инженерные разработки, калибрует электронные блоки управления и тестирует болиды на треках RDRC и ледовых просторах Байкала.",
+    founder_bio: "За 15+ лет увлечения предельной скоростью Георгий Зурабович Перцхелия (Гоша) прошел путь от первых кастомных турбо-проектов до постройки сложнейших гиперкаров и дрэгстеров, признанных мировым сообществом энтузиастов. Он лично курирует инженерные разработки, калибрует электронные блоки управления и тестирует болиды на треках RDRC и ледовых просторах Байкала.",
     founder_stat1: "Лет в автоспорте",
     founder_stat2: "Мировых & Евро рекордов",
     founder_stat3: "Кастомный инжиниринг",
@@ -617,7 +617,7 @@ const i18n = {
     founder_manifesto: "// THE FOUNDER & PHILOSOPHY",
     founder_name: "Georgy Zurabovich Pertskheliya",
     founder_quote: "“True tuning is never just about bolting on a larger turbocharger. It is the fine art of crafting a sophisticated machine that accelerates to 350 km/h on the track, yet drives you home in total comfort through city streets.”",
-    founder_bio: "Over 15+ years of chasing ultimate velocity, Georgy Zurabovich Pertskheliya (Gosha) evolved from custom turbo prototypes to building bespoke 1,800+ HP hypercars recognized worldwide. He personally oversees powertrain engineering, calibrates ECUs and tests builds on RDRC strips and Lake Baikal ice.",
+    founder_bio: "Over 15+ years of chasing ultimate velocity, Georgy Zurabovich Pertskheliya (Gosha) evolved from custom turbo prototypes to building bespoke world-record hypercars recognized globally. He personally oversees powertrain engineering, calibrates ECUs and tests builds on RDRC strips and Lake Baikal ice.",
     founder_stat1: "Years in Motorsport",
     founder_stat2: "World & Euro Records",
     founder_stat3: "Custom Engineering",
@@ -958,11 +958,13 @@ function initModal() {
   if (closeBtn && modal) {
     closeBtn.addEventListener('click', () => {
       modal.classList.remove('active');
+      document.body.classList.remove('modal-open');
     });
 
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
         modal.classList.remove('active');
+        document.body.classList.remove('modal-open');
       }
     });
   }
@@ -1041,6 +1043,7 @@ window.openCarModal = function(carId) {
   `;
 
   modal.classList.add('active');
+  document.body.classList.add('modal-open');
 };
 
 // Dedicated Car Video Launcher
@@ -1110,6 +1113,7 @@ window.openVideoPlayer = function(videoSrc, title) {
     </div>
   `;
   modal.classList.add('active');
+  document.body.classList.add('modal-open');
 };
 
 // Fullscreen API helper for mobile and desktop
@@ -1139,6 +1143,7 @@ window.closeVideoShowreel = function() {
   const container = document.getElementById('videoContainer');
   if (container) container.innerHTML = '';
   if (modal) modal.classList.remove('active');
+  document.body.classList.remove('modal-open');
 };
 
 // Legal Document Reader (152-ФЗ и Публичная оферта)
@@ -1178,11 +1183,13 @@ window.openLegalDoc = function(type) {
   }
 
   modal.classList.add('active');
+  document.body.classList.add('modal-open');
 };
 
 window.closeLegalModal = function() {
   const modal = document.getElementById('legalModal');
   if (modal) modal.classList.remove('active');
+  document.body.classList.remove('modal-open');
 };
 
 // 3-Mode Gallery Layout Switcher
