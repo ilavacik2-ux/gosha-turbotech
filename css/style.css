@@ -467,6 +467,10 @@ body.is-loading {
   box-shadow: 0 8px 25px rgba(255, 100, 37, 0.5);
 }
 
+.desktop-only-btn {
+  margin-left: 12px;
+}
+
 .btn-outline {
   background: transparent;
   color: #fff;
