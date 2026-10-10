@@ -888,6 +888,12 @@ const founderPhotos = [
   }
 ];
 
+// Preload all founder photos immediately into browser cache
+founderPhotos.forEach(item => {
+  const p = new Image();
+  p.src = item.src;
+});
+
 let currentFounderIndex = 0;
 
 window.switchFounderPhoto = function(step) {
@@ -907,8 +913,7 @@ function updateFounderPhoto() {
   
   if (!img) return;
 
-  img.style.opacity = '0';
-  img.style.transform = 'scale(0.97)';
+  img.style.opacity = '0.35';
 
   setTimeout(() => {
     img.src = founderPhotos[currentFounderIndex].src;
@@ -917,8 +922,7 @@ function updateFounderPhoto() {
       dot.classList.toggle('active', i === currentFounderIndex);
     });
     img.style.opacity = '1';
-    img.style.transform = 'scale(1)';
-  }, 200);
+  }, 60);
 }
 
 // Navigation Scroll Effect
@@ -1134,6 +1138,50 @@ window.closeVideoShowreel = function() {
   const modal = document.getElementById('videoModal');
   const container = document.getElementById('videoContainer');
   if (container) container.innerHTML = '';
+  if (modal) modal.classList.remove('active');
+};
+
+// Legal Document Reader (152-ФЗ и Публичная оферта)
+window.openLegalDoc = function(type) {
+  const modal = document.getElementById('legalModal');
+  const title = document.getElementById('legalModalTitle');
+  const content = document.getElementById('legalModalContent');
+  if (!modal || !title || !content) return;
+
+  if (type === 'privacy') {
+    title.textContent = 'Политика обработки персональных данных (152-ФЗ)';
+    content.innerHTML = `
+      <h4>1. Общие положения</h4>
+      <p>Настоящая Политика обработки персональных данных составлена в соответствии с требованиями Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных» и определяет порядок сбора, обработки и защиты информации лаборатории GoshaTurboTech (GTT).</p>
+      
+      <h4>2. Цели сбора данных</h4>
+      <p>Обработка персональных данных (имя, номер телефона, аккаунт в мессенджере Telegram) осуществляется исключительно в целях оперативной консультации по тюнинг-проектам, записи на замер мощности на диностенде и согласования технического задания.</p>
+      
+      <h4>3. Безопасность и хранение данных</h4>
+      <p>Персональные данные пользователей не передаются третьим лицам, за исключением случаев, предусмотренных действующим законодательством РФ. Данные хранятся на защищенных серверах на территории Российской Федерации (в соответствии с 242-ФЗ).</p>
+
+      <h4>4. Использование файлов Cookie</h4>
+      <p>Сайт использует технические файлы cookie для сохранения языковых настроек (RU/EN) и оптимизации отображения на мобильных устройствах.</p>
+    `;
+  } else if (type === 'offer') {
+    title.textContent = 'Уведомление и публичная оферта (ст. 437 ГК РФ)';
+    content.innerHTML = `
+      <h4>1. Информационный статус</h4>
+      <p>Все материалы, технические спецификации, показатели разгона, мощности (л.с.) и описания проектов, размещенные на официальном сайте GoshaTurboTech, носят исключительно ознакомительный и демонстрационный характер инженерных достижений.</p>
+      
+      <h4>2. Отказ от публичной оферты</h4>
+      <p>Никакие опубликованные данные, ориентировочные характеристики или перечни доработок ни при каких условиях не являются публичной офертой, определяемой положениями пункта 2 Статьи 437 Гражданского кодекса Российской Федерации.</p>
+      
+      <h4>3. Индивидуальный расчет</h4>
+      <p>Каждый проект спортивного инжиниринга, постройки Twin Turbo китов и калибровки блоков управления рассчитывается в индивидуальном порядке на основе официального договора и технического регламента ателье.</p>
+    `;
+  }
+
+  modal.classList.add('active');
+};
+
+window.closeLegalModal = function() {
+  const modal = document.getElementById('legalModal');
   if (modal) modal.classList.remove('active');
 };
 

@@ -11,7 +11,7 @@
   <meta name="description" content="GoshaTurboTech (GTT) — центр мощностного тюнинга гиперкаров и супербайков. Мировые рекорды 402м, 804м и ледовых трасс. Основатель: Георгий Зурабович Перцхелия.">
   <link rel="icon" type="image/png" href="assets/photos/gtt_shield_logo.png">
   <link rel="apple-touch-icon" href="assets/photos/gtt_shield_logo.png">
-  <link rel="stylesheet" href="css/style.css?v=2.7">
+  <link rel="stylesheet" href="css/style.css?v=2.8">
 </head>
 <body class="is-loading">
 
@@ -1073,14 +1073,33 @@
     </div>
   </div>
 
-  <!-- Sleek Centered Official Footer -->
+  <!-- Official Legal Footer (152-ФЗ, Публичная оферта, Регламент) -->
   <footer class="official-footer">
-    <div class="footer-center-content">
-      <img src="assets/photos/gtt_shield_logo.png" alt="GTT Shield" class="footer-mini-shield">
-      <span class="footer-copy-text">© GOSHATURBOTECH. SPEED & MOTORSPORT ENGINEERING.</span>
+    <div class="footer-inner-container">
+      <div class="footer-center-content">
+        <img src="assets/photos/gtt_shield_logo.png" alt="GTT Shield" class="footer-mini-shield">
+        <span class="footer-copy-text">© GOSHATURBOTECH. SPEED & MOTORSPORT ENGINEERING.</span>
+      </div>
+
+      <div class="footer-legal-bar">
+        <a href="#legalModal" onclick="openLegalDoc('privacy'); return false;" class="footer-legal-link">Политика обработки персональных данных</a>
+        <span class="legal-bullet">•</span>
+        <a href="#legalModal" onclick="openLegalDoc('offer'); return false;" class="footer-legal-link">Публичная оферта</a>
+        <span class="legal-bullet">•</span>
+        <span class="footer-legal-disclaimer">Информация на сайте не является публичной офертой (ст. 437 ГК РФ)</span>
+      </div>
     </div>
   </footer>
 
-  <script src="js/app.js?v=2.7"></script>
+  <!-- Clean Legal Modal Document Reader -->
+  <div class="modal-overlay" id="legalModal">
+    <div class="modal-container legal-modal-container">
+      <button class="modal-close" onclick="closeLegalModal()">&times;</button>
+      <div id="legalModalTitle" class="legal-modal-title"></div>
+      <div id="legalModalContent" class="legal-modal-content"></div>
+    </div>
+  </div>
+
+  <script src="js/app.js?v=2.8"></script>
 </body>
 </html>
