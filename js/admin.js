@@ -8,7 +8,30 @@ const RECORDS_STORAGE_KEY = 'gtt_admin_records_db';
 const MEDIA_STORAGE_KEY = 'gtt_admin_media_db';
 const TRAFFIC_STORAGE_KEY = 'gtt_traffic_telemetry';
 const AUTH_KEY = 'gtt_admin_authenticated';
-const DEFAULT_ACCESS_PIN = 'gtt71'; // Default pin
+const PASS_HASH_KEY = 'gtt_admin_custom_pin';
+const TG_CONFIG_KEY = 'gtt_admin_tg_config';
+const SECRET_URL_TOKEN = 'gtt_atelier_2026';
+const TOKEN_SESSION_KEY = 'gtt_token_authorized_session';
+
+// Immediate URL token verification (Anti-Bruteforce & Anti-Scan Shield)
+(function verifySecretUrlAccess() {
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    const isSessionAllowed = sessionStorage.getItem(TOKEN_SESSION_KEY) === 'granted' || 
+                             sessionStorage.getItem(AUTH_KEY) === 'true';
+
+    if (token === SECRET_URL_TOKEN) {
+      sessionStorage.setItem(TOKEN_SESSION_KEY, 'granted');
+    } else if (!isSessionAllowed) {
+      // Forbidden: redirect brute-forcers and URL scanners back to homepage
+      window.location.replace('index.html');
+      return;
+    }
+  } catch (e) {
+    console.error('Security token verification failed:', e);
+  }
+})();
 
 // 1. Initial Cars Seed
 const defaultProjects = [
@@ -271,25 +294,56 @@ function checkAuth() {
   }
 }
 
+function getStoredPin() {
+  return localStorage.getItem(PASS_HASH_KEY) || 'gtt71';
+}
+
+function sendTelegramAlert(text) {
+  try {
+    const raw = localStorage.getItem(TG_CONFIG_KEY);
+    if (!raw) return;
+    const config = JSON.parse(raw);
+    if (!config.botToken || !config.chatId) return;
+
+    fetch(`https://api.telegram.org/bot${config.botToken}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: config.chatId,
+        text: text,
+        parse_mode: 'HTML'
+      })
+    }).catch(err => console.warn('TG Alert send error:', err));
+  } catch (e) {
+    console.warn('TG notification failed:', e);
+  }
+}
+
 function handleAdminLogin(e) {
   if (e && e.preventDefault) e.preventDefault();
   const inputEl = document.getElementById('adminPass');
-  const input = (inputEl ? inputEl.value : '').trim().toLowerCase();
+  const input = (inputEl ? inputEl.value : '').trim();
   const errorEl = document.getElementById('authError');
 
-  // Accept official atelier pin
-  const allowedPins = ['gtt71'];
+  const currentPin = getStoredPin();
 
-  if (allowedPins.includes(input)) {
+  if (input === currentPin || input.toLowerCase() === currentPin.toLowerCase()) {
     sessionStorage.setItem(AUTH_KEY, 'true');
     localStorage.setItem(AUTH_KEY, 'true');
 
     if (errorEl) errorEl.style.display = 'none';
+    
+    // Telegram Security Notification
+    sendTelegramAlert(`🚨 <b>GTT Atelier Hub: Вход выполнен</b>\nУспешная авторизация в панели инженера.\nВремя: ${new Date().toLocaleString('ru-RU')}\nIP/Платформа: ${navigator.userAgent.slice(0, 80)}`);
+    
     checkAuth();
   } else {
     if (errorEl) {
       errorEl.style.display = 'block';
     }
+    // Telegram Alert on failed bruteforce attempt
+    sendTelegramAlert(`⚠️ <b>GTT Atelier Hub: Ошибка авторизации</b>\nПопытка ввода неверного пароля!\nВведенный пароль: <code>${input.slice(0, 15)}</code>\nВремя: ${new Date().toLocaleString('ru-RU')}`);
+
     if (inputEl) {
       inputEl.value = '';
       inputEl.focus();
@@ -329,8 +383,13 @@ function switchAdminTab(tabName) {
   } else if (tabName === 'media') {
     if (tabs[5]) tabs[5].classList.add('active');
     document.getElementById('tabMedia').style.display = 'block';
+  } else if (tabName === 'settings') {
+    if (tabs[6]) tabs[6].classList.add('active');
+    document.getElementById('tabSettings').style.display = 'block';
+    populateSettingsInputs();
   }
 }
+
 
 // Render All
 function renderAllModules() {
@@ -909,4 +968,136 @@ window.resetTrafficAnalytics = resetTrafficAnalytics;
 
 window.exportDataJSON = exportDataJSON;
 
+// ================= MODULE 5: SETTINGS & SECURITY =================
+function populateSettingsInputs() {
+  const urlDisplay = document.getElementById('secretUrlDisplay');
+  if (urlDisplay) {
+    const origin = window.location.origin;
+    const path = window.location.pathname.replace(/\/admin\.html$/, '/admin');
+    urlDisplay.textContent = `${origin}${path}?token=${SECRET_URL_TOKEN}`;
+  }
+
+  try {
+    const raw = localStorage.getItem(TG_CONFIG_KEY);
+    if (raw) {
+      const config = JSON.parse(raw);
+      if (document.getElementById('tgBotTokenInput')) document.getElementById('tgBotTokenInput').value = config.botToken || '';
+      if (document.getElementById('tgChatIdInput')) document.getElementById('tgChatIdInput').value = config.chatId || '';
+    }
+  } catch (e) {
+    console.error('Error loading TG config:', e);
+  }
+}
+
+function handlePasswordChange(e) {
+  e.preventDefault();
+  const currentInput = document.getElementById('currentPassInput');
+  const newInput = document.getElementById('newPassInput');
+  const statusEl = document.getElementById('passChangeStatus');
+  if (!currentInput || !newInput || !statusEl) return;
+
+  const currentPin = getStoredPin();
+  const enteredCurrent = currentInput.value.trim();
+  const enteredNew = newInput.value.trim();
+
+  if (enteredCurrent !== currentPin) {
+    statusEl.style.display = 'block';
+    statusEl.style.background = 'rgba(239, 68, 68, 0.15)';
+    statusEl.style.color = '#ef4444';
+    statusEl.style.border = '1px solid rgba(239, 68, 68, 0.3)';
+    statusEl.textContent = '❌ Неверный текущий пароль! Попробуйте снова.';
+    return;
+  }
+
+  if (enteredNew.length < 6) {
+    statusEl.style.display = 'block';
+    statusEl.style.background = 'rgba(239, 68, 68, 0.15)';
+    statusEl.style.color = '#ef4444';
+    statusEl.style.border = '1px solid rgba(239, 68, 68, 0.3)';
+    statusEl.textContent = '❌ Новый пароль должен содержать минимум 6 символов!';
+    return;
+  }
+
+  localStorage.setItem(PASS_HASH_KEY, enteredNew);
+  currentInput.value = '';
+  newInput.value = '';
+
+  statusEl.style.display = 'block';
+  statusEl.style.background = 'rgba(34, 197, 94, 0.15)';
+  statusEl.style.color = '#22c55e';
+  statusEl.style.border = '1px solid rgba(34, 197, 94, 0.3)';
+  statusEl.textContent = '✅ Новый пароль успешно установлен и сохранен!';
+
+  sendTelegramAlert(`🔑 <b>GTT Atelier Hub: Смена пароля</b>\nМастер-пароль администратора был успешно изменен.\nВремя: ${new Date().toLocaleString('ru-RU')}`);
+}
+
+function handleSaveTelegramConfig(e) {
+  e.preventDefault();
+  const botToken = (document.getElementById('tgBotTokenInput')?.value || '').trim();
+  const chatId = (document.getElementById('tgChatIdInput')?.value || '').trim();
+  const statusEl = document.getElementById('tgStatus');
+
+  const config = { botToken, chatId };
+  localStorage.setItem(TG_CONFIG_KEY, JSON.stringify(config));
+
+  if (statusEl) {
+    statusEl.style.display = 'block';
+    statusEl.style.background = 'rgba(34, 197, 94, 0.15)';
+    statusEl.style.color = '#22c55e';
+    statusEl.style.border = '1px solid rgba(34, 197, 94, 0.3)';
+    statusEl.textContent = '✅ Настройки Telegram сохранены!';
+    setTimeout(() => { statusEl.style.display = 'none'; }, 4000);
+  }
+}
+
+function testTelegramAlert() {
+  const statusEl = document.getElementById('tgStatus');
+  const botToken = (document.getElementById('tgBotTokenInput')?.value || '').trim();
+  const chatId = (document.getElementById('tgChatIdInput')?.value || '').trim();
+
+  if (!botToken || !chatId) {
+    alert('Пожалуйста, введите Telegram Bot Token и Chat ID перед отправкой теста!');
+    return;
+  }
+
+  fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      chat_id: chatId,
+      text: `🏎️ <b>GOSHA TURBOTECH • Atelier Hub</b>\n\nТестовое уведомление успешно доставлено!\nВаш бот привязан к системе безопасности.`,
+      parse_mode: 'HTML'
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.ok) {
+      if (statusEl) {
+        statusEl.style.display = 'block';
+        statusEl.style.background = 'rgba(34, 197, 94, 0.15)';
+        statusEl.style.color = '#22c55e';
+        statusEl.style.border = '1px solid rgba(34, 197, 94, 0.3)';
+        statusEl.textContent = '🚀 Тестовое сообщение успешно отправлено в Telegram!';
+      }
+    } else {
+      throw new Error(data.description || 'Не удалось отправить');
+    }
+  })
+  .catch(err => {
+    if (statusEl) {
+      statusEl.style.display = 'block';
+      statusEl.style.background = 'rgba(239, 68, 68, 0.15)';
+      statusEl.style.color = '#ef4444';
+      statusEl.style.border = '1px solid rgba(239, 68, 68, 0.3)';
+      statusEl.textContent = '❌ Ошибка Telegram: ' + err.message;
+    }
+  });
+}
+
+window.handlePasswordChange = handlePasswordChange;
+window.handleSaveTelegramConfig = handleSaveTelegramConfig;
+window.testTelegramAlert = testTelegramAlert;
+window.populateSettingsInputs = populateSettingsInputs;
+
 document.addEventListener('DOMContentLoaded', checkAuth);
+

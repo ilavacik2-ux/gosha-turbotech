@@ -1697,30 +1697,6 @@ function initTelemetryCounters() {
   setTimeout(animateCounters, 1500);
 }
 
-// Secret GTT Atelier Admin Entrance (Triple Click on Footer Shield)
-(function initSecretAdmin() {
-  let clicks = 0;
-  let timer = null;
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const trigger = document.getElementById('secretAdminTrigger');
-    if (!trigger) return;
-
-    trigger.addEventListener('click', () => {
-      clicks++;
-      clearTimeout(timer);
-
-      if (clicks >= 3) {
-        clicks = 0;
-        window.location.href = 'admin.html';
-      } else {
-        timer = setTimeout(() => {
-          clicks = 0;
-        }, 800);
-      }
-    });
-  });
-})();
 
 // GTT Traffic & Visitors Counter Engine (Local & Real-Time)
 (function trackGTTTraffic() {
