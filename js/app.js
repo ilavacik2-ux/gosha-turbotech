@@ -982,61 +982,72 @@ window.openCarModal = function(carId) {
   const badge = (typeof car.badge === 'object') ? (car.badge[currentLang] || car.badge.ru) : car.badge;
 
   modalBody.innerHTML = `
-    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
-      <span style="font-family: var(--font-mono); font-size: 12px; color: var(--gtt-orange); text-transform: uppercase;">
-        // GTT PROJECT PASSPORT
-      </span>
-      <span style="background: rgba(255,100,37,0.15); border: 1px solid var(--gtt-orange); color: var(--gtt-orange); font-size: 11px; padding: 2px 8px; border-radius: 4px; font-family: var(--font-mono);">
-        ${badge}
-      </span>
-    </div>
-    
-    <h2 style="font-family: var(--font-display); font-size: clamp(22px, 3.5vw, 30px); font-weight: 800; text-transform: uppercase; margin-bottom: 20px;">
-      ${name}
-    </h2>
-
-    <div style="text-align: center; background: radial-gradient(circle, rgba(255,100,37,0.06) 0%, transparent 70%); padding: 20px; border-radius: 12px; margin-bottom: 24px; border: 1px solid var(--border-subtle); max-height: 280px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
-      <img src="${car.img}" alt="${name}" style="max-width: 95%; max-height: 240px; object-fit: contain; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8));">
-    </div>
-
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px;">
-      <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); padding: 14px; border-radius: 8px; text-align: center;">
-        <div style="font-family: var(--font-display); font-size: 20px; font-weight: 700; color: #fff;">${car.hp}</div>
-        <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); text-transform: uppercase; margin-top: 4px;">${i18n[currentLang].spec_power}</div>
+    <!-- Top Header & Badges -->
+    <div class="carmodal-header">
+      <div class="carmodal-badges">
+        <span class="carmodal-passport-tag">GTT MOTORSPORT PASSPORT</span>
+        <span class="carmodal-car-badge">${badge}</span>
       </div>
-      <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); padding: 14px; border-radius: 8px; text-align: center;">
-        <div style="font-family: var(--font-display); font-size: 20px; font-weight: 700; color: #fff;">${car.quarterMile}</div>
-        <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); text-transform: uppercase; margin-top: 4px;">${i18n[currentLang].spec_402}</div>
+      <h2 class="carmodal-title">${name}</h2>
+    </div>
+
+    <!-- Hero Media Stage (Widescreen + Atmosphere Glow) -->
+    <div class="carmodal-hero-stage">
+      <div class="carmodal-glow"></div>
+      <img src="${car.img}" alt="${name}" class="carmodal-hero-img" onerror="if('${car.fallbackImg}'){this.src='${car.fallbackImg}'}">
+    </div>
+
+    <!-- Big 3 Telemetry Metrics Grid -->
+    <div class="carmodal-metrics-grid">
+      <div class="carmodal-metric-card">
+        <div class="carmodal-metric-icon">⚡</div>
+        <div class="carmodal-metric-val">${car.hp}</div>
+        <div class="carmodal-metric-lbl">${i18n[currentLang].spec_power}</div>
       </div>
-      <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); padding: 14px; border-radius: 8px; text-align: center;">
-        <div style="font-family: var(--font-display); font-size: 20px; font-weight: 700; color: #fff;">${car.topSpeed}</div>
-        <div style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); text-transform: uppercase; margin-top: 4px;">${i18n[currentLang].spec_speed}</div>
+      <div class="carmodal-metric-card">
+        <div class="carmodal-metric-icon">⏱️</div>
+        <div class="carmodal-metric-val">${car.quarterMile}</div>
+        <div class="carmodal-metric-lbl">${i18n[currentLang].spec_402}</div>
+      </div>
+      <div class="carmodal-metric-card">
+        <div class="carmodal-metric-icon">🏁</div>
+        <div class="carmodal-metric-val">${car.topSpeed}</div>
+        <div class="carmodal-metric-lbl">${i18n[currentLang].spec_speed}</div>
       </div>
     </div>
 
-    <p style="font-size: 14px; color: var(--text-muted); line-height: 1.7; margin-bottom: 24px;">
-      ${desc}
-    </p>
-
-    <h4 style="font-family: var(--font-mono); font-size: 12px; color: var(--gtt-orange); text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.1em;">
-      // ${currentLang === 'ru' ? 'Спецификация конфигурации' : 'Configuration Specs'}
-    </h4>
-    <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 16px; margin-bottom: 24px;">
-      ${Object.entries(car.specs).map(([key, val]) => `
-        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 13px;">
-          <span style="font-family: var(--font-mono); color: var(--text-dim); text-transform: uppercase;">${key}</span>
-          <span style="color: #fff; font-weight: 500; text-align: right;">${val}</span>
-        </div>
-      `).join('')}
+    <!-- Description & Engineering Story -->
+    <div class="carmodal-desc-box">
+      <div class="carmodal-desc-lbl">${currentLang === 'ru' ? 'Инженерная концепция' : 'Engineering Concept'}</div>
+      <p class="carmodal-desc-text">${desc}</p>
     </div>
 
-    <div style="display: flex; justify-content: flex-end; gap: 12px; flex-wrap: wrap;">
+    <!-- Technical Specification Passport -->
+    <div class="carmodal-specs-section">
+      <div class="carmodal-specs-header">
+        <span class="carmodal-specs-title">${currentLang === 'ru' ? 'Конфигурация и компоненты' : 'Configuration & Components'}</span>
+        <span class="carmodal-specs-badge">GTT RACE SPEC</span>
+      </div>
+      <div class="carmodal-specs-grid">
+        ${Object.entries(car.specs).map(([key, val]) => `
+          <div class="carmodal-spec-row">
+            <span class="carmodal-spec-key">${key}</span>
+            <span class="carmodal-spec-val">${val}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <!-- Modal Actions Footer -->
+    <div class="carmodal-footer-actions">
       ${(car.videoSrc || car.youtubeId) ? `
-        <button class="btn-outline" style="border-color: var(--gtt-orange); color: var(--gtt-orange); display: inline-flex; align-items: center; gap: 6px;" onclick="openCarVideo('${car.id}')">
-          <span>▶</span> ${currentLang === 'ru' ? 'Смотреть видео заезда' : 'Watch Race Video'}
+        <button class="carmodal-btn-video" onclick="openCarVideo('${car.id}')">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          ${currentLang === 'ru' ? 'Смотреть видео заезда' : 'Watch Race Video'}
         </button>
       ` : ''}
-      <a href="https://t.me/goshaturbotech" target="_blank" class="btn-primary">
+      <a href="https://t.me/goshaturbotech" target="_blank" class="carmodal-btn-tg">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
         ${i18n[currentLang].discuss_tg}
       </a>
     </div>

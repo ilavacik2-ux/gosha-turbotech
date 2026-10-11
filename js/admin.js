@@ -260,9 +260,8 @@ function checkAuth() {
     loginScreen.style.display = 'none';
     dashboardScreen.style.display = 'block';
 
-    const currentUserName = localStorage.getItem(USER_NAME_KEY) || 'Инженер GTT';
     if (welcomeTextEl) {
-      welcomeTextEl.innerHTML = `Добро пожаловать, <strong>${currentUserName}</strong>`;
+      welcomeTextEl.innerHTML = `Добро пожаловать в <strong>GTT Atelier Hub</strong>`;
     }
 
     renderAllModules();
@@ -278,24 +277,12 @@ function handleAdminLogin(e) {
   const input = (inputEl ? inputEl.value : '').trim().toLowerCase();
   const errorEl = document.getElementById('authError');
 
-  // Personalized user identification
-  let detectedName = null;
-  if (input === 'gosha' || input === '71' || input === 'гоша') {
-    detectedName = 'Георгий (Гоша)';
-  } else if (input === 'gtt71' || input === 'gtt' || input === 'admin') {
-    detectedName = 'Главный Инженер';
-  } else if (input === 'edik' || input === 'эдик') {
-    detectedName = 'Эдик (Тех. директор)';
-  } else if (input === 'daniil' || input === 'даниил') {
-    detectedName = 'Даниил (Brand & Product)';
-  } else if (input === 'rustam' || input === 'рустам') {
-    detectedName = 'Рустам (Моторист)';
-  }
+  // Accept official atelier pin
+  const allowedPins = ['gtt71'];
 
-  if (detectedName) {
+  if (allowedPins.includes(input)) {
     sessionStorage.setItem(AUTH_KEY, 'true');
     localStorage.setItem(AUTH_KEY, 'true');
-    localStorage.setItem(USER_NAME_KEY, detectedName);
 
     if (errorEl) errorEl.style.display = 'none';
     checkAuth();
