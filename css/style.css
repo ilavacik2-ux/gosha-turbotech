@@ -1805,21 +1805,14 @@ body.is-loading {
   padding: 20px;
 }
 
-@media (max-width: 640px) {
-  .moto-gallery-grid-duo {
-    grid-template-columns: 1fr;
-    padding: 14px;
-  }
-}
-
 .moto-duo-photo-wrap {
   position: relative;
   overflow: hidden;
   border-radius: 12px;
   background: #0d1118;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 16 / 11;
   height: 100%;
-  max-height: 560px;
+  max-height: 480px;
   display: flex;
 }
 
@@ -1827,9 +1820,21 @@ body.is-loading {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 40%;
+  object-position: center 50%;
   display: block;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (max-width: 640px) {
+  .moto-gallery-grid-duo {
+    grid-template-columns: 1fr;
+    padding: 12px;
+    gap: 12px;
+  }
+  .moto-duo-photo-wrap {
+    aspect-ratio: 16 / 12;
+    max-height: 320px;
+  }
 }
 
 .moto-duo-photo-wrap:hover .moto-showcase-img {
@@ -3748,9 +3753,9 @@ body.modal-open {
     display: flex;
   }
 
-  /* Extra bottom padding on footer so floating bar doesn't obscure content */
-  .footer {
-    padding-bottom: calc(90px + env(safe-area-inset-bottom, 0px)) !important;
+  /* Extra bottom padding on official-footer so floating bar doesn't obscure content */
+  .official-footer, .footer {
+    padding-bottom: calc(140px + env(safe-area-inset-bottom, 0px)) !important;
   }
 
   /* Ergonomic touch targets: min 44x44px per Apple Human Interface Guidelines */
