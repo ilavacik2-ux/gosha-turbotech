@@ -748,7 +748,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initTelemetryCounters();
 });
 
-// Clean Premium Motorsport Preloader (Silky Smooth 60fps Easing with video buffering)
+// Clean Premium Motorsport Preloader (Fast, Seamless & Silky Smooth)
 function initPreloader() {
   const preloader = document.getElementById('preloader');
   const fill = document.getElementById('preloaderFill');
@@ -756,23 +756,13 @@ function initPreloader() {
   
   window.scrollTo(0, 0);
 
-  // Seamless Video Buffering Guard
-  let isVideoReady = false;
   if (heroVideo) {
-    if (heroVideo.readyState >= 2) {
-      isVideoReady = true;
-    } else {
-      heroVideo.addEventListener('canplay', () => { isVideoReady = true; }, { once: true });
-      heroVideo.addEventListener('playing', () => { isVideoReady = true; }, { once: true });
-    }
     heroVideo.play().catch(() => {});
-  } else {
-    isVideoReady = true;
   }
 
   let finished = false;
   const startTime = performance.now();
-  const minDuration = 1200;
+  const minDuration = 700; // Fast and energetic
 
   function frame(now) {
     if (finished) return;
@@ -783,8 +773,7 @@ function initPreloader() {
 
     if (fill) fill.style.width = `${percent}%`;
 
-    // Only dismiss preloader once minimum animation finished AND video is buffered and playing
-    if (progress >= 1 && (isVideoReady || elapsed > 3000)) {
+    if (progress >= 1) {
       finished = true;
       if (fill) fill.style.width = '100%';
       setTimeout(() => {
@@ -797,9 +786,9 @@ function initPreloader() {
           window.scrollTo(0, 0);
           setTimeout(() => {
             preloader.style.display = 'none';
-          }, 850);
+          }, 600);
         }
-      }, 100);
+      }, 50);
     } else {
       requestAnimationFrame(frame);
     }
