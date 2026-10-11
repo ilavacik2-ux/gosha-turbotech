@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=3.4">
+  <link rel="stylesheet" href="css/style.css?v=3.5">
 </head>
 <body class="is-loading">
 
@@ -86,6 +86,38 @@
       </button>
     </div>
   </header>
+
+  <!-- Mobile Drawer Menu Overlay -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="mobile-drawer-backdrop" onclick="toggleMobileNav(false)"></div>
+    <div class="mobile-drawer-content">
+      <div class="mobile-drawer-header">
+        <div class="brand-logo">
+          <img src="assets/photos/gtt_shield_logo.svg" alt="GTT Shield Logo" class="brand-shield-img">
+          <div class="brand-title">GOSHA <span>TURBOTECH</span></div>
+        </div>
+        <button class="mobile-drawer-close" onclick="toggleMobileNav(false)" aria-label="Закрыть меню">✕</button>
+      </div>
+
+      <nav class="mobile-nav-list">
+        <a href="#garage" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_garage">Гараж проектов</a>
+        <a href="#founder" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_founder">О Гоше</a>
+        <a href="#records" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_records">Рекорды RDRC</a>
+        <a href="#team" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_team">Команда GTT</a>
+        <a href="#moto" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_moto">Moto Division</a>
+        <a href="#gallery" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_gallery">Жизнь ателье</a>
+        <a href="#contact" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_contact">Связь</a>
+      </nav>
+
+      <div class="mobile-drawer-footer">
+        <a href="https://t.me/goshaturbotech" target="_blank" rel="noopener" class="btn-primary" style="text-align: center;" data-i18n="nav_telegram">Telegram Канал</a>
+        <div class="mobile-drawer-contacts">
+          <div>Штаб: <a href="https://yandex.ru/maps/-/CDuWvQ2A" target="_blank" rel="noopener">Москва, 2-й Силикатный пр., 9, стр. 2</a></div>
+          <div>Связь: <a href="tel:+74950000000">+7 (495) 000-00-00</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Hero Section -->
   <section class="hero" id="hero">
@@ -1142,6 +1174,22 @@
     </div>
   </div>
 
-  <script src="js/app.js?v=3.4"></script>
+  <!-- Mobile Sticky Quick Action Bar (Floating Pill) -->
+  <div class="mobile-bottom-bar" id="mobileBottomBar">
+    <a href="https://t.me/goshaturbotech" target="_blank" rel="noopener" class="mobile-bar-btn tg-action">
+      <span class="bar-icon">✈</span>
+      <span>Telegram</span>
+    </a>
+    <a href="https://yandex.ru/maps/-/CDuWvQ2A" target="_blank" rel="noopener" class="mobile-bar-btn navi-action">
+      <span class="bar-icon">📍</span>
+      <span>Навигатор</span>
+    </a>
+    <a href="tel:+74950000000" class="mobile-bar-btn call-action">
+      <span class="bar-icon">📞</span>
+      <span>Позвонить</span>
+    </a>
+  </div>
+
+  <script src="js/app.js?v=3.5"></script>
 </body>
 </html>
