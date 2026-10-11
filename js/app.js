@@ -1090,23 +1090,22 @@ window.openVideoPlayer = function(videoSrc, title) {
   if (!modal || !container) return;
 
   container.innerHTML = `
-    <div style="position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #000; min-height: 240px;">
+    <div style="position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #000; min-height: 200px;">
       ${title ? `<div class="video-overlay-title">${title}</div>` : ''}
       
       <!-- Fullscreen Toggle Button -->
       <button class="video-fullscreen-btn" onclick="togglePlayerFullscreen()" title="Во весь экран" aria-label="Во весь экран">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
         </svg>
       </button>
 
-      <div id="videoSpinner" style="position: absolute; z-index: 1; color: var(--gtt-orange); font-family: var(--font-mono); font-size: 12px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; padding: 12px;">
+      <div id="videoSpinner" style="position: absolute; z-index: 1; color: var(--gtt-orange); font-family: var(--font-mono); font-size: 11px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; padding: 12px; pointer-events: none;">
         <span style="display: inline-block; width: 24px; height: 24px; border: 2.5px solid rgba(255,100,37,0.3); border-top-color: var(--gtt-orange); border-radius: 50%; animation: spin 0.8s linear infinite;"></span>
-        <span>Буферизация боевого видео...</span>
-        <span style="font-size: 10px; color: var(--text-dim);">Секунду, поток подключается</span>
+        <span>Загрузка боевого заезда...</span>
       </div>
 
-      <video id="activeModalVideo" controls autoplay playsinline webkit-playsinline preload="auto" oncanplay="const s=document.getElementById('videoSpinner'); if(s) s.style.display='none';" style="position: relative; z-index: 2; width: 100%; height: 100%; max-height: 80vh; object-fit: contain; background: #000;">
+      <video id="activeModalVideo" controls playsinline webkit-playsinline preload="metadata" style="position: relative; z-index: 2; width: 100%; height: 100%; object-fit: contain; background: #000;">
         <source src="${videoSrc}" type="video/mp4">
         Ваш браузер не поддерживает видео.
       </video>
@@ -1114,6 +1113,26 @@ window.openVideoPlayer = function(videoSrc, title) {
   `;
   modal.classList.add('active');
   document.body.classList.add('modal-open');
+
+  const videoEl = document.getElementById('activeModalVideo');
+  if (videoEl) {
+    const hideSpinner = () => {
+      const sp = document.getElementById('videoSpinner');
+      if (sp) sp.style.display = 'none';
+    };
+    videoEl.addEventListener('loadeddata', hideSpinner, { once: true });
+    videoEl.addEventListener('playing', hideSpinner, { once: true });
+    videoEl.addEventListener('error', hideSpinner, { once: true });
+    
+    // Attempt smooth play, fallback to user touch on mobile policies
+    const playPromise = videoEl.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Autoplay policy prevented playback, user can tap native play control
+        hideSpinner();
+      });
+    }
+  }
 };
 
 // Fullscreen API helper for mobile and desktop
