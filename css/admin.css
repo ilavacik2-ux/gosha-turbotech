@@ -290,6 +290,33 @@ body {
   gap: 12px;
 }
 
+.admin-user-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 100, 37, 0.08);
+  border: 1px solid rgba(255, 100, 37, 0.25);
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+.user-avatar-icon {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.user-welcome-text {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+
+.user-welcome-text strong {
+  color: var(--gtt-orange);
+}
+
 .topbar-btn {
   padding: 8px 16px;
   border-radius: 6px;

@@ -22,7 +22,6 @@
       <div class="auth-brand">
         <img src="assets/photos/gtt_shield_logo.png" alt="GTT Logo" class="auth-shield">
         <div class="auth-title">GOSHA <span>TURBOTECH</span></div>
-        <div class="auth-badge">// ATELIER CONTROL HUB</div>
       </div>
       
       <form id="loginForm" onsubmit="handleAdminLogin(event); return false;">
@@ -59,6 +58,10 @@
       </nav>
 
       <div class="topbar-actions">
+        <div class="admin-user-badge" id="adminUserBadge">
+          <span class="user-avatar-icon">👤</span>
+          <span class="user-welcome-text" id="userWelcomeText">Добро пожаловать, Инженер</span>
+        </div>
         <a href="index.html" class="topbar-btn outline-btn" target="_blank">Открыть сайт ↗</a>
         <button class="topbar-btn danger-btn" onclick="handleAdminLogout()">Выйти</button>
       </div>
@@ -444,6 +447,6 @@
     </div>
   </div>
 
-  <script src="js/admin.js?v=3.0"></script>
+  <script src="js/admin.js?v=3.2"></script>
 </body>
 </html>

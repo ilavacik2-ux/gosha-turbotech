@@ -246,15 +246,24 @@ function saveDB(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
 
+const USER_NAME_KEY = 'gtt_admin_user_name';
+
 // Authentication
 function checkAuth() {
   const isAuth = sessionStorage.getItem(AUTH_KEY) === 'true' || localStorage.getItem(AUTH_KEY) === 'true';
   const loginScreen = document.getElementById('loginScreen');
   const dashboardScreen = document.getElementById('dashboardScreen');
+  const welcomeTextEl = document.getElementById('userWelcomeText');
 
   if (isAuth) {
     loginScreen.style.display = 'none';
     dashboardScreen.style.display = 'block';
+
+    const currentUserName = localStorage.getItem(USER_NAME_KEY) || 'Инженер GTT';
+    if (welcomeTextEl) {
+      welcomeTextEl.innerHTML = `Добро пожаловать, <strong>${currentUserName}</strong>`;
+    }
+
     renderAllModules();
   } else {
     loginScreen.style.display = 'flex';
@@ -268,10 +277,25 @@ function handleAdminLogin(e) {
   const input = (inputEl ? inputEl.value : '').trim().toLowerCase();
   const errorEl = document.getElementById('authError');
 
-  // Accepted passwords: gtt71, gosha, gtt, 71
-  if (input === 'gtt71' || input === 'gosha' || input === 'gtt' || input === '71') {
+  // Personalized user identification
+  let detectedName = null;
+  if (input === 'gosha' || input === '71' || input === 'гоша') {
+    detectedName = 'Георгий (Гоша)';
+  } else if (input === 'gtt71' || input === 'gtt' || input === 'admin') {
+    detectedName = 'Главный Инженер';
+  } else if (input === 'edik' || input === 'эдик') {
+    detectedName = 'Эдик (Тех. директор)';
+  } else if (input === 'daniil' || input === 'даниил') {
+    detectedName = 'Даниил (Brand & Product)';
+  } else if (input === 'rustam' || input === 'рустам') {
+    detectedName = 'Рустам (Моторист)';
+  }
+
+  if (detectedName) {
     sessionStorage.setItem(AUTH_KEY, 'true');
-    localStorage.setItem(AUTH_KEY, 'true'); // Dual storage for 100% persistence across tabs
+    localStorage.setItem(AUTH_KEY, 'true');
+    localStorage.setItem(USER_NAME_KEY, detectedName);
+
     if (errorEl) errorEl.style.display = 'none';
     checkAuth();
   } else {
@@ -288,6 +312,7 @@ function handleAdminLogin(e) {
 function handleAdminLogout() {
   sessionStorage.removeItem(AUTH_KEY);
   localStorage.removeItem(AUTH_KEY);
+  localStorage.removeItem(USER_NAME_KEY);
   checkAuth();
 }
 
