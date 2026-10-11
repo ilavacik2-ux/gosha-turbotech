@@ -2634,6 +2634,10 @@ body.modal-open {
   }
 }
 
+#videoModal.modal-overlay {
+  z-index: 2500 !important;
+}
+
 .video-modal-container {
   background: #000;
   border: 1px solid rgba(255, 100, 37, 0.4);
@@ -3298,15 +3302,17 @@ body.modal-open {
   }
   .hero-video-bg {
     opacity: 0.96;
-    transform: scale(1.02);
+    transform: scale(1.22);
+    transform-origin: center 60%;
+    object-position: center 65%;
   }
   .hero-video-overlay {
     background: 
       linear-gradient(180deg, 
-        rgba(7, 8, 10, 0.45) 0%, 
-        rgba(7, 8, 10, 0.15) 30%, 
+        rgba(7, 8, 10, 0.75) 0%, 
+        rgba(7, 8, 10, 0.25) 25%, 
         rgba(7, 8, 10, 0.25) 55%, 
-        rgba(7, 8, 10, 0.75) 85%, 
+        rgba(7, 8, 10, 0.8) 85%, 
         var(--bg-deep) 100%
       );
   }
