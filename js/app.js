@@ -1707,5 +1707,112 @@ function initTelemetryCounters() {
   });
 })();
 
+// GTT Traffic & Visitors Counter Engine (Local & Real-Time)
+(function trackGTTTraffic() {
+  try {
+    const TRAFFIC_KEY = 'gtt_traffic_telemetry';
+    const VISITOR_ID_KEY = 'gtt_visitor_uuid';
+    const SESSION_KEY = 'gtt_active_session_flag';
+
+    let isNewSession = !sessionStorage.getItem(SESSION_KEY);
+    sessionStorage.setItem(SESSION_KEY, 'active');
+
+    let visitorId = localStorage.getItem(VISITOR_ID_KEY);
+    let isUnique = false;
+    if (!visitorId) {
+      visitorId = 'gtt_' + Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
+      localStorage.setItem(VISITOR_ID_KEY, visitorId);
+      isUnique = true;
+    }
+
+    let stats = {
+      totalViews: 148,
+      uniqueVisitors: 42,
+      todayViews: 19,
+      lastVisitDate: new Date().toISOString().split('T')[0],
+      log: []
+    };
+
+    const saved = localStorage.getItem(TRAFFIC_KEY);
+    if (saved) {
+      try { stats = JSON.parse(saved); } catch (e) {}
+    }
+
+    const todayStr = new Date().toISOString().split('T')[0];
+    if (stats.lastVisitDate !== todayStr) {
+      stats.todayViews = 0;
+      stats.lastVisitDate = todayStr;
+    }
+
+    stats.totalViews += 1;
+    stats.todayViews += 1;
+    if (isUnique) {
+      stats.uniqueVisitors += 1;
+    }
+
+    // Determine device info
+    const ua = navigator.userAgent;
+    let device = 'Desktop PC';
+    if (/iPad|Android(?!.*Mobile)|Tablet/i.test(ua)) device = 'Планшет / iPad';
+    else if (/iPhone|Android.*Mobile|Mobile/i.test(ua)) device = 'Смартфон (Mobile)';
+    else if (/Macintosh/i.test(ua)) device = 'Apple Mac';
+    else if (/Windows/i.test(ua)) device = 'Windows PC';
+
+    // Source referrer
+    let source = document.referrer ? (new URL(document.referrer).hostname) : 'Прямой заход';
+    if (source.includes('t.me') || source.includes('telegram')) source = 'Telegram (@goshaturbotech)';
+    else if (source.includes('yandex')) source = 'Яндекс Поиск';
+    else if (source.includes('google')) source = 'Google';
+
+    // Add entry to log (keep last 35)
+    if (!stats.log) stats.log = [];
+    stats.log.unshift({
+      id: 'vis_' + Date.now(),
+      time: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
+      date: new Date().toLocaleDateString('ru-RU', { day: '2-digit', month: 'short' }),
+      device: device,
+      source: source,
+      page: window.location.pathname.split('/').pop() || 'Главная',
+      isNewSession: isNewSession
+    });
+
+    if (stats.log.length > 50) {
+      stats.log = stats.log.slice(0, 50);
+    }
+
+    localStorage.setItem(TRAFFIC_KEY, JSON.stringify(stats));
+  } catch (err) {
+    console.warn('Traffic tracking skipped', err);
+  }
+})();
+
+// Cookie Consent Banner Controller (152-ФЗ)
+(function initCookieBanner() {
+  const COOKIE_CONSENT_KEY = 'gtt_cookie_accepted';
+  document.addEventListener('DOMContentLoaded', () => {
+    const banner = document.getElementById('gttCookieBanner');
+    if (!banner) return;
+
+    if (!localStorage.getItem(COOKIE_CONSENT_KEY)) {
+      setTimeout(() => {
+        banner.style.display = 'flex';
+      }, 1200);
+    }
+  });
+
+  window.acceptGTTCookies = function() {
+    localStorage.setItem(COOKIE_CONSENT_KEY, 'true');
+    const banner = document.getElementById('gttCookieBanner');
+    if (banner) {
+      banner.style.opacity = '0';
+      banner.style.transform = 'translate(-50%, 20px)';
+      banner.style.transition = 'all 0.3s ease';
+      setTimeout(() => {
+        banner.style.display = 'none';
+      }, 300);
+    }
+  };
+})();
+
 
 

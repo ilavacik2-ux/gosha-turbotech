@@ -214,7 +214,7 @@
 
         <!-- Founder & Atelier Milestones / Achievements -->
         <div class="founder-achievements">
-          <div class="founder-achieve-tag" data-i18n="founder_achieve_tag">// КЛЮЧЕВЫЕ ВЕХИ И ИНЖЕНЕРНЫЕ ЗАСЛУГИ</div>
+          <div class="founder-achieve-tag" data-i18n="founder_achieve_tag">КЛЮЧЕВЫЕ ВЕХИ И ИНЖЕНЕРНЫЕ ЗАСЛУГИ</div>
           <div class="founder-achieve-grid">
             <div class="achieve-pill">
               <span class="achieve-icon">🏆</span>
@@ -979,7 +979,6 @@
         </div>
       </div>
     </div>
-    <div class="marquee-hint">⚡ Листайте ленту колесиком мыши, жестом смахивания или кликайте на кадр для открытия на весь экран.</div>
   </section>
 
   <!-- Contact & Atelier Hub Section (Interactive Map & Clean Direct Access) -->
@@ -1123,6 +1122,20 @@
       </button>
       <div id="legalModalTitle" class="legal-modal-title"></div>
       <div id="legalModalContent" class="legal-modal-content"></div>
+    </div>
+  </div>
+
+  <!-- Cookie & Analytics Notice (152-ФЗ Compliance Banner) -->
+  <div id="gttCookieBanner" class="gtt-cookie-banner" style="display: none;">
+    <div class="cookie-banner-content">
+      <span class="cookie-icon">🍪</span>
+      <p class="cookie-text">
+        Мы используем технические файлы cookie и анонимную статистику посещений для корректной работы сайта и аналитики трафика (в соответствии с 152-ФЗ). Оставаясь на сайте, вы соглашаетесь с 
+        <a href="#legalModal" onclick="openLegalDoc('privacy'); return false;">Политикой конфиденциальности</a>.
+      </p>
+    </div>
+    <div class="cookie-banner-actions">
+      <button class="cookie-accept-btn" onclick="acceptGTTCookies()">Принять</button>
     </div>
   </div>
 

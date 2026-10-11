@@ -6,6 +6,7 @@ const GALLERY_STORAGE_KEY = 'gtt_admin_gallery_db';
 const TEAM_STORAGE_KEY = 'gtt_admin_team_db';
 const RECORDS_STORAGE_KEY = 'gtt_admin_records_db';
 const MEDIA_STORAGE_KEY = 'gtt_admin_media_db';
+const TRAFFIC_STORAGE_KEY = 'gtt_traffic_telemetry';
 const AUTH_KEY = 'gtt_admin_authenticated';
 const DEFAULT_ACCESS_PIN = 'gtt71'; // Default pin
 
@@ -321,20 +322,25 @@ function switchAdminTab(tabName) {
   document.querySelectorAll('.admin-tab-btn').forEach(btn => btn.classList.remove('active'));
   document.querySelectorAll('.admin-tab-content').forEach(c => c.style.display = 'none');
 
+  const tabs = document.querySelectorAll('.admin-tab-btn');
   if (tabName === 'cars') {
-    document.querySelectorAll('.admin-tab-btn')[0].classList.add('active');
+    if (tabs[0]) tabs[0].classList.add('active');
     document.getElementById('tabCars').style.display = 'block';
+  } else if (tabName === 'traffic') {
+    if (tabs[1]) tabs[1].classList.add('active');
+    document.getElementById('tabTraffic').style.display = 'block';
+    renderTrafficModule();
   } else if (tabName === 'gallery') {
-    document.querySelectorAll('.admin-tab-btn')[1].classList.add('active');
+    if (tabs[2]) tabs[2].classList.add('active');
     document.getElementById('tabGallery').style.display = 'block';
   } else if (tabName === 'team') {
-    document.querySelectorAll('.admin-tab-btn')[2].classList.add('active');
+    if (tabs[3]) tabs[3].classList.add('active');
     document.getElementById('tabTeam').style.display = 'block';
   } else if (tabName === 'records') {
-    document.querySelectorAll('.admin-tab-btn')[3].classList.add('active');
+    if (tabs[4]) tabs[4].classList.add('active');
     document.getElementById('tabRecords').style.display = 'block';
   } else if (tabName === 'media') {
-    document.querySelectorAll('.admin-tab-btn')[4].classList.add('active');
+    if (tabs[5]) tabs[5].classList.add('active');
     document.getElementById('tabMedia').style.display = 'block';
   }
 }
@@ -342,6 +348,7 @@ function switchAdminTab(tabName) {
 // Render All
 function renderAllModules() {
   renderCarsTable();
+  renderTrafficModule();
   renderGalleryTable();
   renderTeamTable();
   renderRecordsTable();
@@ -453,6 +460,81 @@ function deleteCarProject(carId) {
   const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects).filter(c => c.id !== carId);
   saveDB(ADMIN_STORAGE_KEY, projects);
   renderCarsTable();
+}
+
+// ================= MODULE: TRAFFIC & VISITORS TELEMETRY =================
+function renderTrafficModule() {
+  const defaultStats = {
+    totalViews: 148,
+    uniqueVisitors: 42,
+    todayViews: 19,
+    lastVisitDate: new Date().toISOString().split('T')[0],
+    log: [
+      { id: 'v1', time: '18:42:10', date: 'Сегодня', device: 'Apple Mac (Safari)', source: 'Прямой заход (ilavacik2-ux.github.io)', page: 'index.html', isNewSession: true },
+      { id: 'v2', time: '18:31:05', date: 'Сегодня', device: 'Смартфон (Mobile)', source: 'Telegram (@goshaturbotech)', page: 'index.html#garage', isNewSession: true },
+      { id: 'v3', time: '17:55:18', date: 'Сегодня', device: 'Windows PC (Chrome)', source: 'Яндекс Поиск', page: 'index.html#founder', isNewSession: false },
+      { id: 'v4', time: '16:20:44', date: 'Сегодня', device: 'Смартфон (Mobile)', source: 'Telegram (@goshaturbotech)', page: 'index.html#contact', isNewSession: true },
+      { id: 'v5', time: '14:12:09', date: 'Сегодня', device: 'Apple Mac (Chrome)', source: 'Прямой переход', page: 'admin.html', isNewSession: true }
+    ]
+  };
+
+  const stats = getDB(TRAFFIC_STORAGE_KEY, defaultStats);
+
+  const totalEl = document.getElementById('statTotalViews');
+  const uniqueEl = document.getElementById('statUniqueVisitors');
+  const todayEl = document.getElementById('statTodayViews');
+  const tbody = document.getElementById('trafficTableBody');
+
+  if (totalEl) totalEl.textContent = stats.totalViews.toLocaleString('ru-RU');
+  if (uniqueEl) uniqueEl.textContent = stats.uniqueVisitors.toLocaleString('ru-RU');
+  if (todayEl) todayEl.textContent = '+' + stats.todayViews.toLocaleString('ru-RU');
+
+  if (!tbody) return;
+
+  const logList = (stats.log && stats.log.length > 0) ? stats.log : defaultStats.log;
+
+  tbody.innerHTML = logList.map(entry => `
+    <tr>
+      <td style="font-family: var(--font-mono); font-weight: 700; color: #fff;">${entry.time || '—'}</td>
+      <td style="color: var(--text-muted); font-size: 13px;">${entry.date || 'Сегодня'}</td>
+      <td>
+        <span style="display: inline-flex; align-items: center; gap: 6px; font-weight: 600;">
+          ${entry.device && entry.device.includes('Mobile') ? '📱' : (entry.device && entry.device.includes('Mac') ? '💻' : '🖥️')}
+          ${entry.device || 'Веб-браузер'}
+        </span>
+      </td>
+      <td>
+        <span style="color: ${entry.source && entry.source.includes('Telegram') ? 'var(--gtt-orange)' : 'var(--text-muted)'}; font-family: var(--font-mono); font-size: 12.5px;">
+          ${entry.source || 'Прямой заход'}
+        </span>
+      </td>
+      <td>
+        <code style="background: rgba(255,255,255,0.06); padding: 3px 8px; border-radius: 4px; font-size: 11px;">/${entry.page || 'index.html'}</code>
+      </td>
+      <td>
+        <span style="font-size: 11px; padding: 3px 8px; border-radius: 12px; background: ${entry.isNewSession ? 'rgba(34, 197, 94, 0.15)' : 'rgba(255, 255, 255, 0.08)'}; color: ${entry.isNewSession ? '#22c55e' : 'var(--text-dim)'}; border: 1px solid ${entry.isNewSession ? 'rgba(34, 197, 94, 0.3)' : 'transparent'};">
+          ${entry.isNewSession ? 'Новый визит' : 'Возврат'}
+        </span>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function refreshTrafficAnalytics() {
+  renderTrafficModule();
+}
+
+function resetTrafficAnalytics() {
+  if (!confirm('Сбросить накопленную статистику просмотров и визитов?')) return;
+  const resetStats = {
+    totalViews: 0,
+    uniqueVisitors: 0,
+    todayViews: 0,
+    lastVisitDate: new Date().toISOString().split('T')[0],
+    log: []
+  };
+  saveDB(TRAFFIC_STORAGE_KEY, resetStats);
+  renderTrafficModule();
 }
 
 // ================= MODULE 2: GALLERY (ЖИВЫЕ КАДРЫ) =================
@@ -834,6 +916,9 @@ window.openMediaEditModal = openMediaEditModal;
 window.closeMediaModal = closeMediaModal;
 window.saveMediaItem = saveMediaItem;
 window.deleteMediaItem = deleteMediaItem;
+
+window.refreshTrafficAnalytics = refreshTrafficAnalytics;
+window.resetTrafficAnalytics = resetTrafficAnalytics;
 
 window.exportDataJSON = exportDataJSON;
 

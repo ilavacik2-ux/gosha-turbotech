@@ -51,6 +51,7 @@
       <!-- Navigation Tabs -->
       <nav class="admin-nav-tabs">
         <button class="admin-tab-btn active" onclick="switchAdminTab('cars')">🏎️ Гараж проектов</button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('traffic')">📊 Посетители & Трафик</button>
         <button class="admin-tab-btn" onclick="switchAdminTab('gallery')">📸 Живые кадры (Галерея)</button>
         <button class="admin-tab-btn" onclick="switchAdminTab('team')">👥 Команда GTT</button>
         <button class="admin-tab-btn" onclick="switchAdminTab('records')">⏱️ Рекорды RDRC</button>
@@ -113,6 +114,55 @@
               </tr>
             </thead>
             <tbody id="projectsTableBody">
+              <!-- Dynamically populated from JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================= TAB: TRAFFIC & VISITORS (ПОСЕТИТЕЛИ И АКТИВНОСТЬ) ================= -->
+      <section id="tabTraffic" class="admin-tab-content" style="display: none;">
+        <div class="admin-header-row">
+          <div>
+            <h1 class="admin-page-title">Аналитика посетителей & Активность сайта</h1>
+            <p class="admin-page-desc">Статистика просмотров, уникальных клиентов, используемых устройств и источников переходов.</p>
+          </div>
+          <div class="admin-actions-group">
+            <button class="topbar-btn outline-btn" onclick="refreshTrafficAnalytics()">🔄 Обновить данные</button>
+            <button class="topbar-btn danger-btn" onclick="resetTrafficAnalytics()">Сбросить счетчик</button>
+          </div>
+        </div>
+
+        <!-- Traffic Stats Grid -->
+        <div class="admin-stats-grid">
+          <div class="stat-card">
+            <div class="stat-num" id="statTotalViews">0</div>
+            <div class="stat-lbl">Всего просмотров страниц</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" id="statUniqueVisitors">0</div>
+            <div class="stat-lbl">Уникальных посетителей</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" id="statTodayViews">0</div>
+            <div class="stat-lbl">Визитов за сегодня</div>
+          </div>
+        </div>
+
+        <!-- Traffic Log Table -->
+        <div class="admin-table-wrapper">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Время визита</th>
+                <th>Дата</th>
+                <th>Устройство / Платформа</th>
+                <th>Источник перехода</th>
+                <th>Страница</th>
+                <th>Тип сессии</th>
+              </tr>
+            </thead>
+            <tbody id="trafficTableBody">
               <!-- Dynamically populated from JS -->
             </tbody>
           </table>
