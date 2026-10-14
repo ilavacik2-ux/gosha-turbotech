@@ -120,10 +120,6 @@
         <a href="#moto" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_moto">Moto Division</a>
         <a href="#gallery" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_gallery">Жизнь ателье</a>
         <a href="#contact" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_contact">Связь</a>
-        <a href="javascript:void(0)" class="mobile-nav-link mobile-eng-link" onclick="toggleMobileNav(false); openAdminKeypad();">
-          <span class="eng-access-dot"></span>
-          <span>Инженерный шлюз GTT</span>
-        </a>
       </nav>
 
       <div class="mobile-drawer-footer">
@@ -1396,10 +1392,6 @@
              onclick="onFooterSecretClick()"
              title="GoshaTurboTech">
         <span class="footer-copy-text" onclick="onFooterSecretClick()">© GOSHATURBOTECH. SPEED &amp; MOTORSPORT ENGINEERING.</span>
-        <button type="button" class="footer-telemetry-pill" onclick="openAdminKeypad()" title="Вход для инженеров ателье">
-          <span class="pill-led"></span>
-          <span>ENG ACCESS</span>
-        </button>
       </div>
 
       <div class="footer-legal-bar">
@@ -1413,63 +1405,6 @@
       </div>
     </div>
   </footer>
-
-  <!-- Secret Engineer Admin Keypad Modal -->
-  <div id="adminKeypadModal" class="admin-keypad-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="keypadTitle">
-    <div class="admin-keypad-backdrop" onclick="closeAdminKeypad()"></div>
-    <div class="admin-keypad-dialog">
-      <div class="keypad-header">
-        <div class="keypad-status-tag">
-          <span class="keypad-led"></span>
-          <span>GTT ATELIER SECURITY GATEWAY</span>
-        </div>
-        <button class="keypad-close-btn" onclick="closeAdminKeypad()" aria-label="Закрыть">✕</button>
-      </div>
-
-      <div class="keypad-branding">
-        <img src="assets/photos/gtt_shield_logo.svg" alt="GTT Shield" class="keypad-shield-icon">
-        <h3 id="keypadTitle" class="keypad-title">Вход для инженеров GTT</h3>
-        <p class="keypad-subtitle">Введите персональный 4-значный PIN или пароль ателье для авторизации в хабе управления</p>
-      </div>
-
-      <!-- PIN Display Indicator Dots -->
-      <div class="keypad-display">
-        <div class="pin-dot" id="pinDot0"></div>
-        <div class="pin-dot" id="pinDot1"></div>
-        <div class="pin-dot" id="pinDot2"></div>
-        <div class="pin-dot" id="pinDot3"></div>
-      </div>
-
-      <!-- Keyboard Input Support -->
-      <div class="keypad-input-wrap">
-        <input type="password" id="keypadDirectInput" class="keypad-input-field" maxlength="20" placeholder="••••" autocomplete="off" onkeydown="handleKeypadInputKey(event)">
-      </div>
-
-      <div id="keypadError" class="keypad-error-msg" style="display: none;">
-        <span>⚠️</span> <span id="keypadErrorText">Неверный PIN-код доступа</span>
-      </div>
-
-      <!-- Interactive Digital Keypad -->
-      <div class="keypad-grid">
-        <button type="button" class="num-key" onclick="pressKeypadNum('1')">1</button>
-        <button type="button" class="num-key" onclick="pressKeypadNum('2')">2</button>
-        <button type="button" class="num-key" onclick="pressKeypadNum('3')">3</button>
-        <button type="button" class="num-key" onclick="pressKeypadNum('4')">4</button>
-        <button type="button" class="num-key" onclick="pressKeypadNum('5')">5</button>
-        <button type="button" class="num-key" onclick="pressKeypadNum('6')">6</button>
-        <button type="button" class="num-key" onclick="pressKeypadNum('7')">7</button>
-        <button type="button" class="num-key" onclick="pressKeypadNum('8')">8</button>
-        <button type="button" class="num-key" onclick="pressKeypadNum('9')">9</button>
-        <button type="button" class="num-key action-key clear-key" onclick="clearKeypadPin()">C</button>
-        <button type="button" class="num-key" onclick="pressKeypadNum('0')">0</button>
-        <button type="button" class="num-key action-key enter-key" onclick="submitKeypadPin()">↵</button>
-      </div>
-
-      <div class="keypad-footer-note">
-        <span>🔐 Шлюз защищен от подбора. Токен сессии: GTT-SKUNKWORKS-2026</span>
-      </div>
-    </div>
-  </div>
 
   <!-- Clean Legal Modal Document Reader -->
   <div class="modal-overlay" id="legalModal">
