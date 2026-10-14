@@ -15,8 +15,8 @@
   <link rel="shortcut icon" href="assets/photos/favicon-32x32.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=4.1">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=4.2">
 </head>
 <body class="is-loading">
 
@@ -24,7 +24,11 @@
   <div id="preloader">
     <div class="preloader-inner">
       <div class="preloader-logo-wrap">
-        <img src="assets/photos/gtt_official_header_logo.png" alt="GoshaTurboTech" class="preloader-official-logo">
+        <img src="assets/photos/gtt_shield_logo.svg" alt="GoshaTurboTech Shield Logo" class="preloader-shield-img">
+        <div class="preloader-text-brand">
+          <span class="pre-gosha">GOSHA</span>
+          <span class="pre-turbo">TURBOTECH</span>
+        </div>
       </div>
       <div class="preloader-progress-bar">
         <div class="preloader-progress-fill" id="preloaderFill"></div>
@@ -36,7 +40,11 @@
   <!-- Navigation -->
   <header class="navbar">
     <a href="#" class="brand-logo" aria-label="GoshaTurboTech Главная">
-      <img src="assets/photos/gtt_official_header_logo.png" alt="GoshaTurboTech Official Logo" class="brand-official-logo">
+      <img src="assets/photos/gtt_shield_logo.svg" alt="GTT Shield Logo" class="brand-shield-img">
+      <div class="brand-title">
+        <span class="brand-word-gosha">GOSHA</span>
+        <span class="brand-word-turbo">TURBOTECH</span>
+      </div>
     </a>
 
     <nav>
@@ -90,7 +98,11 @@
     <div class="mobile-drawer-content">
       <div class="mobile-drawer-header">
         <a href="#" class="brand-logo" onclick="toggleMobileNav(false)" aria-label="GoshaTurboTech">
-          <img src="assets/photos/gtt_official_header_logo.png" alt="GoshaTurboTech" class="brand-official-logo">
+          <img src="assets/photos/gtt_shield_logo.svg" alt="GTT Shield Logo" class="brand-shield-img">
+          <div class="brand-title">
+            <span class="brand-word-gosha">GOSHA</span>
+            <span class="brand-word-turbo">TURBOTECH</span>
+          </div>
         </a>
         <button class="mobile-drawer-close" onclick="toggleMobileNav(false)" aria-label="Закрыть меню">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -108,13 +120,17 @@
         <a href="#moto" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_moto">Moto Division</a>
         <a href="#gallery" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_gallery">Жизнь ателье</a>
         <a href="#contact" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_contact">Связь</a>
+        <a href="javascript:void(0)" class="mobile-nav-link mobile-eng-link" onclick="toggleMobileNav(false); openAdminKeypad();">
+          <span class="eng-access-dot"></span>
+          <span>Инженерный шлюз GTT</span>
+        </a>
       </nav>
 
       <div class="mobile-drawer-footer">
         <a href="https://t.me/goshaturbotech" target="_blank" rel="noopener" class="btn-primary" style="text-align: center;" data-i18n="nav_telegram">Telegram Канал</a>
         <div class="mobile-drawer-contacts">
-          <div>Штаб: <a href="https://yandex.ru/maps/-/CDuWvQ2A" target="_blank" rel="noopener">Москва, 2-й Силикатный пр., 9, стр. 2</a></div>
-          <div>Связь: <a href="tel:+74950000000">+7 (495) 000-00-00</a></div>
+          <div>Штаб: <a href="https://yandex.ru/maps/?rtext=~55.708892,37.382897&rtt=auto" target="_blank" rel="noopener">Можайское ш., стр. 166В</a></div>
+          <div>Связь: <a href="tel:+74959900077">+7 (495) 990-00-77</a></div>
         </div>
       </div>
     </div>
@@ -423,9 +439,26 @@
   <!-- DEDICATED TEAM SECTION -->
   <section class="team-section" id="team">
     <div class="section-header">
-      <span class="section-tag" data-i18n="team_tag">// RACING CREW & PILOTS</span>
-      <h2 class="section-title" data-i18n="team_title">Команда GoshaTurboTech</h2>
-      <p class="section-subtitle" data-i18n="team_subtitle">Люди, которые куют рекорды на дрэг-стрипе RDRC: инженеры, телеметристы, механики и пилоты.</p>
+      <div class="section-tag-pill">
+        <span class="pulse-dot"></span>
+        <span>ATELIER CREW // 35+ СПЕЦИАЛИСТОВ</span>
+      </div>
+      <h2 class="section-title" data-i18n="team_title">Команда инженеров GoshaTurboTech</h2>
+      <p class="section-subtitle" data-i18n="team_subtitle">Люди, которые куют рекорды на дрэг-стрипе RDRC и в стенах ателье: 35+ мотористов, телеметристов, диагностов, мастеров шасси и пилотов.</p>
+    </div>
+
+    <!-- Official Team Photoshoot Notice Banner -->
+    <div class="team-photoshoot-banner">
+      <div class="shoot-banner-body">
+        <div class="shoot-banner-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        </div>
+        <div class="shoot-banner-text-wrap">
+          <div class="shoot-banner-badge">В ПРОЦЕССЕ СЪЕМКИ // ЧЕРЕЗ 2 НЕДЕЛИ</div>
+          <h4 class="shoot-banner-title">Официальная фотосессия команды в новых фирменных худи GTT</h4>
+          <p class="shoot-banner-desc">Команда ателье ожидает поставку новой фирменной униформы. В течение двух недель пройдет полная фотосессия всех 35 специалистов в едином стиле. Ниже представлены мастера цеха и профили инженерных позиций.</p>
+        </div>
+      </div>
     </div>
 
     <div class="team-grid" id="teamGrid">
@@ -596,6 +629,96 @@
           <h3 class="team-name" data-i18n="team_name_15">Евгений</h3>
         </div>
       </div>
+
+      <!-- 16. Инженер телеметрии (Teaser) -->
+      <div class="team-card team-teaser-card">
+        <div class="team-card-photo team-teaser-photo">
+          <div class="team-teaser-shield-wrap">
+            <img src="assets/photos/gtt_shield_logo.svg" alt="GTT Specialist" class="team-shield-teaser-img">
+            <span class="team-teaser-glow"></span>
+          </div>
+          <span class="team-teaser-badge">СКОРО В ХУДИ GTT</span>
+        </div>
+        <div class="team-card-body">
+          <span class="team-role">Инженер телеметрии & MoTeC</span>
+          <h3 class="team-name">GTT Race Engineer</h3>
+        </div>
+      </div>
+
+      <!-- 17. Оператор диностенда (Teaser) -->
+      <div class="team-card team-teaser-card">
+        <div class="team-card-photo team-teaser-photo">
+          <div class="team-teaser-shield-wrap">
+            <img src="assets/photos/gtt_shield_logo.svg" alt="GTT Specialist" class="team-shield-teaser-img">
+            <span class="team-teaser-glow"></span>
+          </div>
+          <span class="team-teaser-badge">СКОРО В ХУДИ GTT</span>
+        </div>
+        <div class="team-card-body">
+          <span class="team-role">Оператор диностенда Dyno</span>
+          <h3 class="team-name">GTT Calibration Pro</h3>
+        </div>
+      </div>
+
+      <!-- 18. Специалист по композитам (Teaser) -->
+      <div class="team-card team-teaser-card">
+        <div class="team-card-photo team-teaser-photo">
+          <div class="team-teaser-shield-wrap">
+            <img src="assets/photos/gtt_shield_logo.svg" alt="GTT Specialist" class="team-shield-teaser-img">
+            <span class="team-teaser-glow"></span>
+          </div>
+          <span class="team-teaser-badge">СКОРО В ХУДИ GTT</span>
+        </div>
+        <div class="team-card-body">
+          <span class="team-role">Сухой автоклавный карбон</span>
+          <h3 class="team-name">GTT Carbon Master</h3>
+        </div>
+      </div>
+
+      <!-- 19. Мастер спортивных трансмиссий (Teaser) -->
+      <div class="team-card team-teaser-card">
+        <div class="team-card-photo team-teaser-photo">
+          <div class="team-teaser-shield-wrap">
+            <img src="assets/photos/gtt_shield_logo.svg" alt="GTT Specialist" class="team-shield-teaser-img">
+            <span class="team-teaser-glow"></span>
+          </div>
+          <span class="team-teaser-badge">СКОРО В ХУДИ GTT</span>
+        </div>
+        <div class="team-card-body">
+          <span class="team-role">Сборщик трансмиссий PPG & Dodson</span>
+          <h3 class="team-name">GTT Drivetrain Tech</h3>
+        </div>
+      </div>
+
+      <!-- 20. Мастер титановой фабрикации (Teaser) -->
+      <div class="team-card team-teaser-card">
+        <div class="team-card-photo team-teaser-photo">
+          <div class="team-teaser-shield-wrap">
+            <img src="assets/photos/gtt_shield_logo.svg" alt="GTT Specialist" class="team-shield-teaser-img">
+            <span class="team-teaser-glow"></span>
+          </div>
+          <span class="team-teaser-badge">СКОРО В ХУДИ GTT</span>
+        </div>
+        <div class="team-card-body">
+          <span class="team-role">Фабрикатор титанового выпуска</span>
+          <h3 class="team-name">GTT Titan Welder</h3>
+        </div>
+      </div>
+
+      <!-- 21. Механик паддока RDRC (Teaser) -->
+      <div class="team-card team-teaser-card">
+        <div class="team-card-photo team-teaser-photo">
+          <div class="team-teaser-shield-wrap">
+            <img src="assets/photos/gtt_shield_logo.svg" alt="GTT Specialist" class="team-shield-teaser-img">
+            <span class="team-teaser-glow"></span>
+          </div>
+          <span class="team-teaser-badge">СКОРО В ХУДИ GTT</span>
+        </div>
+        <div class="team-card-body">
+          <span class="team-role">Механик боевого пит-лейна RDRC</span>
+          <h3 class="team-name">GTT Track Specialist</h3>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -645,7 +768,7 @@
     <!-- Scalable Superbikes Fleet Catalog (Ready for 7+ bikes) -->
     <div class="moto-fleet-header">
       <h3 class="moto-fleet-title">Флот супербайков GTT</h3>
-      <span class="moto-fleet-count">3 / 7+ В СБОРКЕ</span>
+      <span class="moto-fleet-count">3 ИЗ 7+ В РАБОТЕ // SECRET ATELIER FLEET</span>
     </div>
 
     <div class="moto-fleet-grid">
@@ -727,6 +850,130 @@
             </div>
           </div>
           <p class="moto-bike-desc">Легендарный крестообразный коленвал CP4 с породистым ревом Big Bang. Полный комплект сухого карбона, подвеска Öhlins ERS и автоблиппер без сброса газа.</p>
+        </div>
+      </div>
+
+      <!-- 4. GTT Secret Project #04 -->
+      <div class="moto-bike-card moto-teaser-card">
+        <div class="moto-bike-media moto-teaser-media">
+          <div class="moto-teaser-glow-orbit"></div>
+          <div class="moto-teaser-icon-wrap">
+            <span class="moto-teaser-qmark">?</span>
+            <span class="moto-teaser-radar"></span>
+          </div>
+          <span class="moto-bike-status teaser-status">SECRET PROJECT // #04</span>
+        </div>
+        <div class="moto-bike-body">
+          <div class="moto-bike-brand">GTT ATELIER • TRACK WEAPON</div>
+          <h4 class="moto-bike-name">GTT Secret Project #04</h4>
+          <div class="moto-bike-specs-row">
+            <div class="moto-mini-spec">
+              <span class="m-val teaser-classified">[ ЗАСЕКРЕЧЕНО ]</span>
+              <span class="m-lbl">Мощность</span>
+            </div>
+            <div class="moto-mini-spec">
+              <span class="m-val teaser-classified">[ СБОРКА ]</span>
+              <span class="m-lbl">Шасси</span>
+            </div>
+            <div class="moto-mini-spec">
+              <span class="m-val teaser-classified">315+ км/ч</span>
+              <span class="m-lbl">Расчетная Vmax</span>
+            </div>
+          </div>
+          <p class="moto-bike-desc">Секретный трековый супербайк в процессе сборки. Индивидуальный аэродинамический обвес из сухого карбона, титановая выхлопная трасса и калибровка гоночного блока управления.</p>
+        </div>
+      </div>
+
+      <!-- 5. GTT Secret Project #05 -->
+      <div class="moto-bike-card moto-teaser-card">
+        <div class="moto-bike-media moto-teaser-media">
+          <div class="moto-teaser-glow-orbit"></div>
+          <div class="moto-teaser-icon-wrap">
+            <span class="moto-teaser-qmark">?</span>
+            <span class="moto-teaser-radar"></span>
+          </div>
+          <span class="moto-bike-status teaser-status">IN CALIBRATION // #05</span>
+        </div>
+        <div class="moto-bike-body">
+          <div class="moto-bike-brand">SUPERBIKE 1000CC • CORSE</div>
+          <h4 class="moto-bike-name">GTT Secret Project #05</h4>
+          <div class="moto-bike-specs-row">
+            <div class="moto-mini-spec">
+              <span class="m-val teaser-classified">[ КАЛИБРОВКА ]</span>
+              <span class="m-lbl">Мощность</span>
+            </div>
+            <div class="moto-mini-spec">
+              <span class="m-val teaser-classified">[ ТИТАН GTT ]</span>
+              <span class="m-lbl">Выхлоп</span>
+            </div>
+            <div class="moto-mini-spec">
+              <span class="m-val teaser-classified">320+ км/ч</span>
+              <span class="m-lbl">Расчетная Vmax</span>
+            </div>
+          </div>
+          <p class="moto-bike-desc">Проект мощностного тюнинга супербайка класса Superbike 1000cc. Снятие электронных заводских лимитов, оптимизация зажигания и высокоточная калибровка на диностенде.</p>
+        </div>
+      </div>
+
+      <!-- 6. GTT Secret Project #06 -->
+      <div class="moto-bike-card moto-teaser-card">
+        <div class="moto-bike-media moto-teaser-media">
+          <div class="moto-teaser-glow-orbit"></div>
+          <div class="moto-teaser-icon-wrap">
+            <span class="moto-teaser-qmark">?</span>
+            <span class="moto-teaser-radar"></span>
+          </div>
+          <span class="moto-bike-status teaser-status">ENDURANCE // #06</span>
+        </div>
+        <div class="moto-bike-body">
+          <div class="moto-bike-brand">ENDURANCE SPEC • LIGHTWEIGHT</div>
+          <h4 class="moto-bike-name">GTT Secret Project #06</h4>
+          <div class="moto-bike-specs-row">
+            <div class="moto-mini-spec">
+              <span class="m-val teaser-classified">[ ЗАСЕКРЕЧЕНО ]</span>
+              <span class="m-lbl">Мощность</span>
+            </div>
+            <div class="moto-mini-spec">
+              <span class="m-val teaser-classified">[ КАРБОН M ]</span>
+              <span class="m-lbl">Колеса</span>
+            </div>
+            <div class="moto-mini-spec">
+              <span class="m-val teaser-classified">310+ км/ч</span>
+              <span class="m-lbl">Расчетная Vmax</span>
+            </div>
+          </div>
+          <p class="moto-bike-desc">Гоночный снаряд длительных заездов. Облегченная тормозная система, кастомные клипоны и титановые компоненты силовой установки с пламенными отстрелами GTT Flame-Tune.</p>
+        </div>
+      </div>
+
+      <!-- 7. GTT Secret Project #07 -->
+      <div class="moto-bike-card moto-teaser-card">
+        <div class="moto-bike-media moto-teaser-media">
+          <div class="moto-teaser-glow-orbit"></div>
+          <div class="moto-teaser-icon-wrap">
+            <span class="moto-teaser-qmark">?</span>
+            <span class="moto-teaser-radar"></span>
+          </div>
+          <span class="moto-bike-status teaser-status">TURBO BUILD // #07</span>
+        </div>
+        <div class="moto-bike-body">
+          <div class="moto-bike-brand">EXPERIMENTAL • FORCED INDUCTION</div>
+          <h4 class="moto-bike-name">GTT Turbo Superbike #07</h4>
+          <div class="moto-bike-specs-row">
+            <div class="moto-mini-spec">
+              <span class="m-val teaser-classified">250+ HP [EST]</span>
+              <span class="m-lbl">Мощность</span>
+            </div>
+            <div class="moto-mini-spec">
+              <span class="m-val teaser-classified">[ НАДДУВ GTT ]</span>
+              <span class="m-lbl">Турбина</span>
+            </div>
+            <div class="moto-mini-spec">
+              <span class="m-val teaser-classified">330+ км/ч</span>
+              <span class="m-lbl">Расчетная Vmax</span>
+            </div>
+          </div>
+          <p class="moto-bike-desc">Экспериментальный супербайк с системой турбонаддува GTT Moto Turbo. Абсолютная мощь и инженерный вызов лаборатории на двух колесах.</p>
         </div>
       </div>
     </div>
@@ -1145,8 +1392,14 @@
       <div class="footer-center-content">
         <img src="assets/photos/gtt_shield_logo.svg" 
              alt="GTT Shield" 
-             class="footer-mini-shield">
-        <span class="footer-copy-text">© GOSHATURBOTECH. SPEED & MOTORSPORT ENGINEERING.</span>
+             class="footer-mini-shield"
+             onclick="onFooterSecretClick()"
+             title="GoshaTurboTech">
+        <span class="footer-copy-text" onclick="onFooterSecretClick()">© GOSHATURBOTECH. SPEED &amp; MOTORSPORT ENGINEERING.</span>
+        <button type="button" class="footer-telemetry-pill" onclick="openAdminKeypad()" title="Вход для инженеров ателье">
+          <span class="pill-led"></span>
+          <span>ENG ACCESS</span>
+        </button>
       </div>
 
       <div class="footer-legal-bar">
@@ -1160,6 +1413,63 @@
       </div>
     </div>
   </footer>
+
+  <!-- Secret Engineer Admin Keypad Modal -->
+  <div id="adminKeypadModal" class="admin-keypad-overlay" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="keypadTitle">
+    <div class="admin-keypad-backdrop" onclick="closeAdminKeypad()"></div>
+    <div class="admin-keypad-dialog">
+      <div class="keypad-header">
+        <div class="keypad-status-tag">
+          <span class="keypad-led"></span>
+          <span>GTT ATELIER SECURITY GATEWAY</span>
+        </div>
+        <button class="keypad-close-btn" onclick="closeAdminKeypad()" aria-label="Закрыть">✕</button>
+      </div>
+
+      <div class="keypad-branding">
+        <img src="assets/photos/gtt_shield_logo.svg" alt="GTT Shield" class="keypad-shield-icon">
+        <h3 id="keypadTitle" class="keypad-title">Вход для инженеров GTT</h3>
+        <p class="keypad-subtitle">Введите персональный 4-значный PIN или пароль ателье для авторизации в хабе управления</p>
+      </div>
+
+      <!-- PIN Display Indicator Dots -->
+      <div class="keypad-display">
+        <div class="pin-dot" id="pinDot0"></div>
+        <div class="pin-dot" id="pinDot1"></div>
+        <div class="pin-dot" id="pinDot2"></div>
+        <div class="pin-dot" id="pinDot3"></div>
+      </div>
+
+      <!-- Keyboard Input Support -->
+      <div class="keypad-input-wrap">
+        <input type="password" id="keypadDirectInput" class="keypad-input-field" maxlength="20" placeholder="••••" autocomplete="off" onkeydown="handleKeypadInputKey(event)">
+      </div>
+
+      <div id="keypadError" class="keypad-error-msg" style="display: none;">
+        <span>⚠️</span> <span id="keypadErrorText">Неверный PIN-код доступа</span>
+      </div>
+
+      <!-- Interactive Digital Keypad -->
+      <div class="keypad-grid">
+        <button type="button" class="num-key" onclick="pressKeypadNum('1')">1</button>
+        <button type="button" class="num-key" onclick="pressKeypadNum('2')">2</button>
+        <button type="button" class="num-key" onclick="pressKeypadNum('3')">3</button>
+        <button type="button" class="num-key" onclick="pressKeypadNum('4')">4</button>
+        <button type="button" class="num-key" onclick="pressKeypadNum('5')">5</button>
+        <button type="button" class="num-key" onclick="pressKeypadNum('6')">6</button>
+        <button type="button" class="num-key" onclick="pressKeypadNum('7')">7</button>
+        <button type="button" class="num-key" onclick="pressKeypadNum('8')">8</button>
+        <button type="button" class="num-key" onclick="pressKeypadNum('9')">9</button>
+        <button type="button" class="num-key action-key clear-key" onclick="clearKeypadPin()">C</button>
+        <button type="button" class="num-key" onclick="pressKeypadNum('0')">0</button>
+        <button type="button" class="num-key action-key enter-key" onclick="submitKeypadPin()">↵</button>
+      </div>
+
+      <div class="keypad-footer-note">
+        <span>🔐 Шлюз защищен от подбора. Токен сессии: GTT-SKUNKWORKS-2026</span>
+      </div>
+    </div>
+  </div>
 
   <!-- Clean Legal Modal Document Reader -->
   <div class="modal-overlay" id="legalModal">

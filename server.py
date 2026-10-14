@@ -393,8 +393,8 @@ async def serve_admin(token: Optional[str] = None):
     secret_token = database.get_setting("secret_url_token", "gtt_atelier_2026")
     if token == secret_token:
         return FileResponse(os.path.join(BASE_DIR, "admin.html"))
-    # If no valid token, redirect to homepage immediately (Anti-Scan Shield)
-    return RedirectResponse(url="/?forbidden=1")
+    # If no valid token or accessed directly, serve the interactive Cyber PIN Security Gate
+    return FileResponse(os.path.join(BASE_DIR, "admin_gate.html"))
 
 if __name__ == "__main__":
     import uvicorn

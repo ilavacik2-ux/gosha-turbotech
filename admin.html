@@ -24,9 +24,12 @@
 
   <!-- Admin Login Screen -->
   <div id="loginScreen" class="admin-auth-container">
-    <div class="auth-card">
-      <div class="auth-brand">
-        <img src="assets/photos/gtt_official_header_logo.png" alt="GoshaTurboTech" class="auth-official-logo" style="height: 38px; width: auto; object-fit: contain;">
+      <div class="auth-brand" style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 24px;">
+        <img src="assets/photos/gtt_shield_logo.svg" alt="GoshaTurboTech" class="auth-shield-logo" style="width: 48px; height: 48px; object-fit: contain; filter: drop-shadow(0 0 12px rgba(234, 91, 12, 0.5));">
+        <div class="brand-title" style="text-align: center; line-height: 1.1;">
+          <div style="font-family: var(--font-display); font-size: 16px; font-weight: 800; font-style: italic; letter-spacing: 0.18em; color: #FFFFFF;">GOSHA</div>
+          <div style="font-family: var(--font-display); font-size: 14px; font-weight: 800; font-style: italic; letter-spacing: 0.14em; color: var(--gtt-orange);">TURBOTECH</div>
+        </div>
       </div>
       
       <form id="loginForm" onsubmit="handleAdminLogin(event); return false;">

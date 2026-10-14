@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="theme-color" content="#08090C">
+  <title>GTT Security Gateway | Вход в инженерный хаб</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/photos/favicon-32x32.png">
+  <link rel="shortcut icon" href="assets/photos/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gtt-orange: #EA5B0C;
+      --gtt-orange-glow: rgba(234, 91, 12, 0.45);
+      --bg-deep: #08090C;
+      --bg-card: rgba(16, 20, 28, 0.9);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --font-display: 'Chakra Petch', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      background: radial-gradient(circle at 50% 25%, rgba(234, 91, 12, 0.08) 0%, transparent 60%), var(--bg-deep);
+      font-family: var(--font-display);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .gate-container {
+      width: 100%;
+      max-width: 440px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 36px 30px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(234, 91, 12, 0.1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      text-align: center;
+      position: relative;
+    }
+
+    .gate-header-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gtt-orange);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      background: rgba(234, 91, 12, 0.1);
+      border: 1px solid rgba(234, 91, 12, 0.3);
+      padding: 4px 12px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+
+    .led-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gtt-orange);
+      box-shadow: 0 0 8px var(--gtt-orange-glow);
+      animation: pulseLed 1.6s infinite ease-in-out;
+    }
+
+    @keyframes pulseLed {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.3); }
+    }
+
+    .gate-shield {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      margin: 0 auto 12px;
+      filter: drop-shadow(0 0 16px rgba(234, 91, 12, 0.5));
+    }
+
+    .gate-brand-title {
+      font-size: 18px;
+      font-weight: 800;
+      font-style: italic;
+      letter-spacing: 0.16em;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .gate-brand-title span {
+      color: var(--gtt-orange);
+    }
+
+    .gate-subtitle {
+      font-size: 13px;
+      color: #b6b4b3;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .pin-display {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .pin-circle {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.04);
+      transition: all 0.2s ease;
+    }
+
+    .pin-circle.filled {
+      background: var(--gtt-orange);
+      border-color: var(--gtt-orange);
+      box-shadow: 0 0 10px var(--gtt-orange-glow);
+    }
+
+    .direct-input-wrap {
+      margin-bottom: 20px;
+    }
+
+    .direct-input {
+      width: 100%;
+      background: rgba(8, 9, 12, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 4px;
+      padding: 12px 14px;
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 15px;
+      text-align: center;
+      letter-spacing: 0.25em;
+      outline: none;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .direct-input:focus {
+      border-color: var(--gtt-orange);
+      box-shadow: 0 0 15px rgba(234, 91, 12, 0.35);
+    }
+
+    .gate-keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .gate-btn {
+      height: 52px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    .gate-btn:hover {
+      background: rgba(234, 91, 12, 0.15);
+      border-color: rgba(234, 91, 12, 0.4);
+      color: var(--gtt-orange);
+    }
+
+    .gate-btn:active {
+      transform: scale(0.96);
+    }
+
+    .gate-btn.action-enter {
+      background: var(--gtt-orange);
+      border-color: var(--gtt-orange);
+      color: #fff;
+      font-weight: 800;
+    }
+
+    .gate-btn.action-enter:hover {
+      background: #ff6f26;
+      box-shadow: 0 0 15px var(--gtt-orange-glow);
+    }
+
+    .gate-error {
+      color: #ff4757;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+      min-height: 18px;
+    }
+
+    .gate-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      font-size: 12px;
+      color: #b6b4b3;
+    }
+
+    .gate-links a {
+      color: #b6b4b3;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .gate-links a:hover {
+      color: var(--gtt-orange);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="gate-container">
+    <div class="gate-header-tag">
+      <span class="led-dot"></span>
+      <span>GTT ATELIER SECURITY GATE</span>
+    </div>
+
+    <img src="assets/photos/gtt_shield_logo.svg" alt="GTT Shield" class="gate-shield">
+    <div class="gate-brand-title">GOSHA <span>TURBOTECH</span></div>
+    <p class="gate-subtitle">Введите персональный ключ инженера (PIN) для входа в панель ателье</p>
+
+    <div class="pin-display">
+      <div class="pin-circle" id="dot0"></div>
+      <div class="pin-circle" id="dot1"></div>
+      <div class="pin-circle" id="dot2"></div>
+      <div class="pin-circle" id="dot3"></div>
+    </div>
+
+    <div class="direct-input-wrap">
+      <input type="password" id="gateInput" class="direct-input" maxlength="24" placeholder="••••" autocomplete="off" autofocus onkeydown="onInputKey(event)">
+    </div>
+
+    <div id="gateErrorMsg" class="gate-error"></div>
+
+    <div class="gate-keypad">
+      <button type="button" class="gate-btn" onclick="pressDigit('1')">1</button>
+      <button type="button" class="gate-btn" onclick="pressDigit('2')">2</button>
+      <button type="button" class="gate-btn" onclick="pressDigit('3')">3</button>
+      <button type="button" class="gate-btn" onclick="pressDigit('4')">4</button>
+      <button type="button" class="gate-btn" onclick="pressDigit('5')">5</button>
+      <button type="button" class="gate-btn" onclick="pressDigit('6')">6</button>
+      <button type="button" class="gate-btn" onclick="pressDigit('7')">7</button>
+      <button type="button" class="gate-btn" onclick="pressDigit('8')">8</button>
+      <button type="button" class="gate-btn" onclick="pressDigit('9')">9</button>
+      <button type="button" class="gate-btn" onclick="clearPin()">C</button>
+      <button type="button" class="gate-btn" onclick="pressDigit('0')">0</button>
+      <button type="button" class="gate-btn action-enter" onclick="submitGate()">↵</button>
+    </div>
+
+    <div class="gate-links">
+      <a href="/">← На главную сайта</a>
+    </div>
+  </div>
+
+  <script>
+    let enteredCode = '';
+    const VALID_PINS = ['2026', '077', 'gtt71', 'gtt_atelier_2026', 'admin'];
+
+    const inputEl = document.getElementById('gateInput');
+    const errEl = document.getElementById('gateErrorMsg');
+
+    inputEl.addEventListener('input', (e) => {
+      enteredCode = e.target.value;
+      updateDots();
+    });
+
+    function updateDots() {
+      for (let i = 0; i < 4; i++) {
+        const dot = document.getElementById('dot' + i);
+        if (dot) {
+          if (i < enteredCode.length) {
+            dot.classList.add('filled');
+          } else {
+            dot.classList.remove('filled');
+          }
+        }
+      }
+    }
+
+    function pressDigit(num) {
+      if (enteredCode.length < 20) {
+        enteredCode += num;
+        inputEl.value = enteredCode;
+        updateDots();
+        errEl.textContent = '';
+        if (enteredCode.length === 4) {
+          submitGate();
+        }
+      }
+    }
+
+    function clearPin() {
+      enteredCode = '';
+      inputEl.value = '';
+      updateDots();
+      errEl.textContent = '';
+    }
+
+    function onInputKey(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        submitGate();
+      }
+    }
+
+    function submitGate() {
+      const code = enteredCode.trim().toLowerCase();
+      if (!code) {
+        errEl.textContent = 'Введите PIN или пароль';
+        return;
+      }
+
+      if (VALID_PINS.includes(code)) {
+        errEl.style.color = '#2ed573';
+        errEl.textContent = 'Доступ разрешен. Перенаправление...';
+        try {
+          if (navigator.vibrate) navigator.vibrate([40, 60, 40]);
+        } catch(e) {}
+        setTimeout(() => {
+          window.location.href = '/admin?token=gtt_atelier_2026';
+        }, 350);
+      } else {
+        errEl.style.color = '#ff4757';
+        errEl.textContent = 'Неверный код доступа инженера';
+        enteredCode = '';
+        inputEl.value = '';
+        updateDots();
+        try {
+          if (navigator.vibrate) navigator.vibrate(150);
+        } catch(e) {}
+      }
+    }
+  </script>
+</body>
+</html>

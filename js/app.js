@@ -870,18 +870,157 @@ function renderTeamGrid(teamList) {
   }).join('');
 }
 
-// Secret Admin Access Shortcut for Atelier Owner
-// Shortcut: Keyboard combination Ctrl+Shift+A (or Cmd+Shift+A on Mac) or direct link
-function openAdminWithToken() {
-  window.location.href = '/admin?token=gtt_atelier_2026';
+// ================= SECRET ENGINEER ACCESS GATEWAY =================
+let enteredKeypadPin = '';
+let footerSecretClicks = 0;
+let footerSecretTimer = null;
+const VALID_ENGINEER_PINS = ['2026', '077', 'gtt71', 'gtt_atelier_2026', 'admin'];
+
+function openAdminKeypad() {
+  const modal = document.getElementById('adminKeypadModal');
+  const input = document.getElementById('keypadDirectInput');
+  const err = document.getElementById('keypadError');
+  if (!modal) return;
+  enteredKeypadPin = '';
+  if (input) input.value = '';
+  if (err) err.style.display = 'none';
+  updateKeypadDots();
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  if (input) setTimeout(() => input.focus(), 150);
 }
 
+function closeAdminKeypad() {
+  const modal = document.getElementById('adminKeypadModal');
+  if (!modal) return;
+  modal.style.display = 'none';
+  document.body.style.overflow = '';
+  enteredKeypadPin = '';
+}
+
+function updateKeypadDots() {
+  for (let i = 0; i < 4; i++) {
+    const dot = document.getElementById('pinDot' + i);
+    if (dot) {
+      if (i < enteredKeypadPin.length) {
+        dot.classList.add('filled');
+      } else {
+        dot.classList.remove('filled');
+      }
+    }
+  }
+}
+
+function pressKeypadNum(digit) {
+  const err = document.getElementById('keypadError');
+  if (err) err.style.display = 'none';
+  if (enteredKeypadPin.length < 20) {
+    enteredKeypadPin += digit;
+    const input = document.getElementById('keypadDirectInput');
+    if (input) input.value = enteredKeypadPin;
+    updateKeypadDots();
+    if (enteredKeypadPin.length === 4) {
+      submitKeypadPin();
+    }
+  }
+}
+
+function clearKeypadPin() {
+  enteredKeypadPin = '';
+  const input = document.getElementById('keypadDirectInput');
+  if (input) input.value = '';
+  const err = document.getElementById('keypadError');
+  if (err) err.style.display = 'none';
+  updateKeypadDots();
+}
+
+function handleKeypadInputKey(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    submitKeypadPin();
+  }
+}
+
+function submitKeypadPin() {
+  const input = document.getElementById('keypadDirectInput');
+  const code = (input && input.value ? input.value : enteredKeypadPin).trim().toLowerCase();
+  const err = document.getElementById('keypadError');
+  const errText = document.getElementById('keypadErrorText');
+
+  if (!code) {
+    if (err && errText) {
+      errText.textContent = 'Введите PIN или ключ доступа';
+      err.style.display = 'flex';
+    }
+    return;
+  }
+
+  if (VALID_ENGINEER_PINS.includes(code)) {
+    if (err && errText) {
+      err.style.display = 'flex';
+      err.style.color = '#2ed573';
+      errText.textContent = 'Ключ подтвержден. Переход в хаб...';
+    }
+    try {
+      if (navigator.vibrate) navigator.vibrate([40, 60, 40]);
+    } catch(e) {}
+    sessionStorage.setItem('gtt_engineer_session', '1');
+    setTimeout(() => {
+      window.location.href = '/admin?token=gtt_atelier_2026';
+    }, 400);
+  } else {
+    if (err && errText) {
+      err.style.display = 'flex';
+      err.style.color = '#ff4757';
+      errText.textContent = 'Неверный PIN-код доступа ателье';
+    }
+    const dialog = document.querySelector('.admin-keypad-dialog');
+    if (dialog) {
+      dialog.classList.add('shake-error');
+      setTimeout(() => dialog.classList.remove('shake-error'), 450);
+    }
+    enteredKeypadPin = '';
+    if (input) input.value = '';
+    updateKeypadDots();
+    try {
+      if (navigator.vibrate) navigator.vibrate(150);
+    } catch(e) {}
+  }
+}
+
+function onFooterSecretClick() {
+  footerSecretClicks++;
+  clearTimeout(footerSecretTimer);
+  footerSecretTimer = setTimeout(() => {
+    footerSecretClicks = 0;
+  }, 2200);
+
+  if (footerSecretClicks >= 5) {
+    footerSecretClicks = 0;
+    openAdminKeypad();
+  }
+}
+
+// Global Keyboard Shortcut: Ctrl+Shift+A or Cmd+Shift+A
 window.addEventListener('keydown', (e) => {
   if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a' || e.key === 'Ф' || e.key === 'ф')) {
     e.preventDefault();
-    openAdminWithToken();
+    openAdminKeypad();
+  } else if (e.key === 'Escape') {
+    const keypad = document.getElementById('adminKeypadModal');
+    if (keypad && keypad.style.display !== 'none') {
+      closeAdminKeypad();
+    }
   }
 });
+
+window.openAdminKeypad = openAdminKeypad;
+window.closeAdminKeypad = closeAdminKeypad;
+window.pressKeypadNum = pressKeypadNum;
+window.clearKeypadPin = clearKeypadPin;
+window.handleKeypadInputKey = handleKeypadInputKey;
+window.submitKeypadPin = submitKeypadPin;
+window.onFooterSecretClick = onFooterSecretClick;
 
 // Clean Premium Motorsport Preloader (Fast, Seamless & Silky Smooth)
 function initPreloader() {
