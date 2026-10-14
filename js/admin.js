@@ -12,17 +12,36 @@ const PASS_HASH_KEY = 'gtt_admin_custom_pin';
 const TG_CONFIG_KEY = 'gtt_admin_tg_config';
 const SECRET_URL_TOKEN = 'gtt_atelier_2026';
 const TOKEN_SESSION_KEY = 'gtt_token_authorized_session';
+const TOKEN_DEVICE_KEY = 'gtt_authorized_device_token';
 
-// Optional URL Token detection (persists token session if present)
-(function checkSecretUrlToken() {
+// Secret URL Token Gate: blocks all bots, scanners, and unauthorized visitors without the token
+(function verifySecretUrlAccess() {
   try {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
+
+    // 1. If valid secret token is provided in the URL
     if (token === SECRET_URL_TOKEN) {
       sessionStorage.setItem(TOKEN_SESSION_KEY, 'granted');
+      localStorage.setItem(TOKEN_DEVICE_KEY, SECRET_URL_TOKEN);
+      // Clean token from address bar so it does not leak in screenshots or browser history
+      const cleanPath = window.location.pathname;
+      window.history.replaceState({}, document.title, cleanPath);
+      return;
+    }
+
+    // 2. Check if this device or session was previously authorized by the secret token or is already logged in
+    const isDeviceAuthorized = localStorage.getItem(TOKEN_DEVICE_KEY) === SECRET_URL_TOKEN ||
+                               sessionStorage.getItem(TOKEN_SESSION_KEY) === 'granted' ||
+                               sessionStorage.getItem(AUTH_KEY) === 'true' ||
+                               localStorage.getItem(AUTH_KEY) === 'true';
+
+    // 3. Unauthorized stranger: immediately redirect back to homepage
+    if (!isDeviceAuthorized) {
+      window.location.replace('index.html');
     }
   } catch (e) {
-    console.error('Token check error:', e);
+    console.error('Security token verification failed:', e);
   }
 })();
 

@@ -2104,9 +2104,10 @@ body.is-loading {
 
 .teaser-classified {
   color: var(--gtt-orange) !important;
-  font-size: 11px !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
   letter-spacing: 0.05em;
-  font-family: var(--font-mono);
+  font-family: var(--font-display), var(--font-mono);
 }
 
 .teaser-status {

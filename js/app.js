@@ -870,79 +870,32 @@ function renderTeamGrid(teamList) {
   }).join('');
 }
 
-// Secret Admin Access (Ctrl+Shift+A / Cmd+Shift+A, typing "admin", or 3 rapid clicks on shield)
-let footerSecretClicks = 0;
-let footerSecretTimer = null;
-let brandShieldClicks = 0;
-let brandShieldTimer = null;
-let typedAdminKeys = '';
-let typedAdminTimer = null;
+// Secret Admin Access (Ctrl+Shift+A / Cmd+Shift+A with secret security token)
+const SECRET_ADMIN_TOKEN = 'gtt_atelier_2026';
 
 function openAdminDirect() {
   const currentPath = window.location.pathname;
-  let targetUrl = 'admin.html';
+  let targetUrl = 'admin.html?token=' + SECRET_ADMIN_TOKEN;
   if (currentPath.endsWith('/index.html')) {
-    targetUrl = currentPath.replace(/index\.html$/, 'admin.html');
+    targetUrl = currentPath.replace(/index\.html$/, 'admin.html?token=' + SECRET_ADMIN_TOKEN);
   } else if (currentPath.endsWith('/')) {
-    targetUrl = currentPath + 'admin.html';
+    targetUrl = currentPath + 'admin.html?token=' + SECRET_ADMIN_TOKEN;
   } else {
     const lastSlash = currentPath.lastIndexOf('/');
-    targetUrl = (lastSlash >= 0 ? currentPath.substring(0, lastSlash + 1) : '') + 'admin.html';
+    targetUrl = (lastSlash >= 0 ? currentPath.substring(0, lastSlash + 1) : '') + 'admin.html?token=' + SECRET_ADMIN_TOKEN;
   }
   window.location.href = targetUrl;
 }
 
-function onFooterSecretClick() {
-  footerSecretClicks++;
-  clearTimeout(footerSecretTimer);
-  footerSecretTimer = setTimeout(() => {
-    footerSecretClicks = 0;
-  }, 2000);
-
-  if (footerSecretClicks >= 3) {
-    footerSecretClicks = 0;
-    openAdminDirect();
-  }
-}
-
-function onBrandShieldClick(e) {
-  brandShieldClicks++;
-  clearTimeout(brandShieldTimer);
-  brandShieldTimer = setTimeout(() => {
-    brandShieldClicks = 0;
-  }, 1500);
-
-  if (brandShieldClicks >= 3) {
-    if (e && e.preventDefault) e.preventDefault();
-    brandShieldClicks = 0;
-    openAdminDirect();
-  }
-}
-
-// 1. Global Keyboard Shortcut: Cmd+Shift+A or Ctrl+Shift+A (EN / RU layouts)
+// Global Keyboard Shortcut: Cmd+Shift+A or Ctrl+Shift+A (EN / RU layouts)
 function handleAdminKeydown(e) {
-  // Check for modifier + Shift + A
-  const hasModifier = e.ctrlKey || e.metaKey || (e.altKey && e.shiftKey);
+  const hasModifier = e.ctrlKey || e.metaKey;
   const isKeyA = e.code === 'KeyA' || e.key === 'A' || e.key === 'a' || e.key === 'Ф' || e.key === 'ф';
   
-  if (hasModifier && (e.shiftKey || e.altKey) && isKeyA) {
+  if (hasModifier && e.shiftKey && isKeyA) {
     e.preventDefault();
     e.stopPropagation();
     openAdminDirect();
-    return;
-  }
-
-  // 2. Typing "admin" or "фвьшт" anywhere on the page
-  if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) return;
-  if (e.key && e.key.length === 1 && !e.ctrlKey && !e.metaKey) {
-    typedAdminKeys += e.key.toLowerCase();
-    clearTimeout(typedAdminTimer);
-    typedAdminTimer = setTimeout(() => { typedAdminKeys = ''; }, 2500);
-
-    if (typedAdminKeys.endsWith('admin') || typedAdminKeys.endsWith('фвьшт')) {
-      typedAdminKeys = '';
-      openAdminDirect();
-    }
   }
 }
 
@@ -950,8 +903,6 @@ window.addEventListener('keydown', handleAdminKeydown, true);
 document.addEventListener('keydown', handleAdminKeydown, true);
 
 window.openAdminDirect = openAdminDirect;
-window.onFooterSecretClick = onFooterSecretClick;
-window.onBrandShieldClick = onBrandShieldClick;
 
 // Clean Premium Motorsport Preloader (Fast, Seamless & Silky Smooth)
 function initPreloader() {

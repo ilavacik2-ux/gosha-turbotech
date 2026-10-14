@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=4.3">
+  <link rel="stylesheet" href="css/style.css?v=4.4">
 </head>
 <body class="is-loading">
 
@@ -42,7 +42,7 @@
   <!-- Navigation -->
   <header class="navbar">
     <a href="#" class="brand-logo" aria-label="GoshaTurboTech Главная">
-      <img src="assets/photos/gtt_shield_logo.svg" alt="GTT Shield Logo" class="brand-shield-img" onclick="onBrandShieldClick(event)" title="GTT Live Atelier Hub">
+      <img src="assets/photos/gtt_shield_logo.svg" alt="GTT Shield Logo" class="brand-shield-img">
       <div class="brand-title">
         <span class="brand-word-gosha">GOSHA</span>
         <span class="brand-word-turbo">TURBOTECH</span>
@@ -445,20 +445,6 @@
       <p class="section-subtitle" data-i18n="team_subtitle">Люди, которые куют рекорды на дрэг-стрипе RDRC и в стенах ателье: 35+ мотористов, телеметристов, диагностов, мастеров шасси и пилотов.</p>
     </div>
 
-    <!-- Official Team Photoshoot Notice Banner -->
-    <div class="team-photoshoot-banner">
-      <div class="shoot-banner-body">
-        <div class="shoot-banner-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-        </div>
-        <div class="shoot-banner-text-wrap">
-          <div class="shoot-banner-badge">В ПРОЦЕССЕ СЪЕМКИ // ЧЕРЕЗ 2 НЕДЕЛИ</div>
-          <h4 class="shoot-banner-title">Официальная фотосессия команды GoshaTurboTech</h4>
-          <p class="shoot-banner-desc">Команда ателье ожидает поставку новой фирменной экипировки. В течение двух недель пройдет полная фотосессия всех 35 специалистов в едином стиле. Ниже представлены мастера цеха и профили инженерных позиций.</p>
-        </div>
-      </div>
-    </div>
-
     <div class="team-grid" id="teamGrid">
       <!-- 1. Гоша -->
       <div class="team-card">
@@ -763,84 +749,96 @@
     </div>
 
     <div class="moto-fleet-grid">
-      <!-- 1. BMW M1000RR (Gosha's personal) -->
-      <div class="moto-bike-card">
-        <div class="moto-bike-media">
-          <img src="assets/moto/bmw_m1000rr_cafe.jpg" alt="BMW M1000RR M-Performance" class="moto-bike-img">
-          <span class="moto-bike-status">ЛИЧНЫЙ БАЙК ГОШИ</span>
+      <!-- 1. Superbike #01 (В работе) -->
+      <div class="moto-bike-card moto-teaser-card">
+        <div class="moto-bike-media moto-teaser-media">
+          <div class="moto-teaser-glow-orbit"></div>
+          <div class="moto-teaser-icon-wrap">
+            <span class="moto-teaser-qmark">?</span>
+            <span class="moto-teaser-radar"></span>
+          </div>
+          <span class="moto-bike-status teaser-status">SUPERBIKE // #01</span>
         </div>
         <div class="moto-bike-body">
-          <div class="moto-bike-brand">BMW MOTORRAD • GTT SPEC</div>
-          <h4 class="moto-bike-name">BMW M1000RR M-Performance #07</h4>
+          <div class="moto-bike-brand">GTT MOTO ATELIER • SPEC</div>
+          <h4 class="moto-bike-name">Супербайк GTT #01</h4>
           <div class="moto-bike-specs-row">
             <div class="moto-mini-spec">
-              <span class="m-val">212+ HP</span>
+              <span class="m-val teaser-classified">?</span>
               <span class="m-lbl">Мощность</span>
             </div>
             <div class="moto-mini-spec">
-              <span class="m-val">192 кг</span>
-              <span class="m-lbl">Снаряж. вес</span>
+              <span class="m-val teaser-classified">?</span>
+              <span class="m-lbl">Вес</span>
             </div>
             <div class="moto-mini-spec">
-              <span class="m-val">314+ км/ч</span>
-              <span class="m-lbl">Макс. скорость</span>
+              <span class="m-val teaser-classified">?</span>
+              <span class="m-lbl">Скорость</span>
             </div>
           </div>
-          <p class="moto-bike-desc">Личный супербайк Георгия Зурабовича. Карбоновые колеса M-Carbon, титановый выпуск GTT Titan-Flow, трековая прошивка ECU и пакет прижимных винглетов.</p>
+          <p class="moto-bike-desc">Проект в процессе подготовки и калибровки. Данные о конфигурации и модификациях будут опубликованы после финальных тестов.</p>
         </div>
       </div>
 
-      <!-- 2. Ducati Panigale V4 S -->
-      <div class="moto-bike-card">
-        <div class="moto-bike-media">
-          <img src="assets/moto/gtt_superbikes_night.jpg" alt="Ducati Panigale V4 S GTT" class="moto-bike-img">
-          <span class="moto-bike-status">TRACK WEAPON</span>
+      <!-- 2. Superbike #02 (В работе) -->
+      <div class="moto-bike-card moto-teaser-card">
+        <div class="moto-bike-media moto-teaser-media">
+          <div class="moto-teaser-glow-orbit"></div>
+          <div class="moto-teaser-icon-wrap">
+            <span class="moto-teaser-qmark">?</span>
+            <span class="moto-teaser-radar"></span>
+          </div>
+          <span class="moto-bike-status teaser-status">SUPERBIKE // #02</span>
         </div>
         <div class="moto-bike-body">
-          <div class="moto-bike-brand">DUCATI CORSE • V4 DESMO</div>
-          <h4 class="moto-bike-name">Ducati Panigale V4 S Corse</h4>
+          <div class="moto-bike-brand">GTT MOTO ATELIER • SPEC</div>
+          <h4 class="moto-bike-name">Супербайк GTT #02</h4>
           <div class="moto-bike-specs-row">
             <div class="moto-mini-spec">
-              <span class="m-val">228+ HP</span>
+              <span class="m-val teaser-classified">?</span>
               <span class="m-lbl">Мощность</span>
             </div>
             <div class="moto-mini-spec">
-              <span class="m-val">174 кг</span>
-              <span class="m-lbl">Сухой вес</span>
+              <span class="m-val teaser-classified">?</span>
+              <span class="m-lbl">Вес</span>
             </div>
             <div class="moto-mini-spec">
-              <span class="m-val">320+ км/ч</span>
-              <span class="m-lbl">Макс. скорость</span>
+              <span class="m-val teaser-classified">?</span>
+              <span class="m-lbl">Скорость</span>
             </div>
           </div>
-          <p class="moto-bike-desc">Итальянская ракета с мотором Desmosedici Stradale. Полная титановая трасса Akrapovic / GTT, сухое сцепление STM и кастомные топливные карты 100 RON.</p>
+          <p class="moto-bike-desc">Проект в процессе подготовки и калибровки. Данные о конфигурации и модификациях будут опубликованы после финальных тестов.</p>
         </div>
       </div>
 
-      <!-- 3. Yamaha YZF-R1M Carbon -->
-      <div class="moto-bike-card">
-        <div class="moto-bike-media">
-          <img src="assets/moto/gtt_moto_r1m_m1000rr_night.jpg" alt="Yamaha YZF-R1M Carbon GTT" class="moto-bike-img">
-          <span class="moto-bike-status">CROSSPLANE CP4</span>
+      <!-- 3. Superbike #03 (В работе) -->
+      <div class="moto-bike-card moto-teaser-card">
+        <div class="moto-bike-media moto-teaser-media">
+          <div class="moto-teaser-glow-orbit"></div>
+          <div class="moto-teaser-icon-wrap">
+            <span class="moto-teaser-qmark">?</span>
+            <span class="moto-teaser-radar"></span>
+          </div>
+          <span class="moto-bike-status teaser-status">SUPERBIKE // #03</span>
         </div>
         <div class="moto-bike-body">
-          <div class="moto-bike-brand">YAMAHA RACING • CP4 CROSSPLANE</div>
-          <h4 class="moto-bike-name">Yamaha YZF-R1M Full Carbon</h4>
+          <div class="moto-bike-brand">GTT MOTO ATELIER • SPEC</div>
+          <h4 class="moto-bike-name">Супербайк GTT #03</h4>
           <div class="moto-bike-specs-row">
             <div class="moto-mini-spec">
-              <span class="m-val">208+ HP</span>
+              <span class="m-val teaser-classified">?</span>
               <span class="m-lbl">Мощность</span>
             </div>
             <div class="moto-mini-spec">
-              <span class="m-val">188 кг</span>
-              <span class="m-lbl">Снаряж. вес</span>
+              <span class="m-val teaser-classified">?</span>
+              <span class="m-lbl">Вес</span>
             </div>
             <div class="moto-mini-spec">
-              <span class="m-val">305+ км/ч</span>
-              <span class="m-lbl">Макс. скорость</span>
+              <span class="m-val teaser-classified">?</span>
+              <span class="m-lbl">Скорость</span>
             </div>
           </div>
-          <p class="moto-bike-desc">Легендарный крестообразный коленвал CP4 с породистым ревом Big Bang. Полный комплект сухого карбона, подвеска Öhlins ERS и автоблиппер без сброса газа.</p>
+          <p class="moto-bike-desc">Проект в процессе подготовки и калибровки. Данные о конфигурации и модификациях будут опубликованы после финальных тестов.</p>
         </div>
       </div>
 
@@ -852,26 +850,26 @@
             <span class="moto-teaser-qmark">?</span>
             <span class="moto-teaser-radar"></span>
           </div>
-          <span class="moto-bike-status teaser-status">SECRET PROJECT // #04</span>
+          <span class="moto-bike-status teaser-status">SUPERBIKE // #04</span>
         </div>
         <div class="moto-bike-body">
-          <div class="moto-bike-brand">GTT ATELIER • TRACK WEAPON</div>
-          <h4 class="moto-bike-name">GTT Secret Project #04</h4>
+          <div class="moto-bike-brand">GTT MOTO ATELIER • SPEC</div>
+          <h4 class="moto-bike-name">Супербайк GTT #04</h4>
           <div class="moto-bike-specs-row">
             <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">[ ЗАСЕКРЕЧЕНО ]</span>
+              <span class="m-val teaser-classified">?</span>
               <span class="m-lbl">Мощность</span>
             </div>
             <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">[ СБОРКА ]</span>
-              <span class="m-lbl">Шасси</span>
+              <span class="m-val teaser-classified">?</span>
+              <span class="m-lbl">Вес</span>
             </div>
             <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">315+ км/ч</span>
-              <span class="m-lbl">Расчетная Vmax</span>
+              <span class="m-val teaser-classified">?</span>
+              <span class="m-lbl">Скорость</span>
             </div>
           </div>
-          <p class="moto-bike-desc">Секретный трековый супербайк в процессе сборки. Индивидуальный аэродинамический обвес из сухого карбона, титановая выхлопная трасса и калибровка гоночного блока управления.</p>
+          <p class="moto-bike-desc">Проект в процессе подготовки и калибровки. Данные о конфигурации и модификациях будут опубликованы после финальных тестов.</p>
         </div>
       </div>
 
@@ -883,26 +881,26 @@
             <span class="moto-teaser-qmark">?</span>
             <span class="moto-teaser-radar"></span>
           </div>
-          <span class="moto-bike-status teaser-status">IN CALIBRATION // #05</span>
+          <span class="moto-bike-status teaser-status">SUPERBIKE // #05</span>
         </div>
         <div class="moto-bike-body">
-          <div class="moto-bike-brand">SUPERBIKE 1000CC • CORSE</div>
-          <h4 class="moto-bike-name">GTT Secret Project #05</h4>
+          <div class="moto-bike-brand">GTT MOTO ATELIER • SPEC</div>
+          <h4 class="moto-bike-name">Супербайк GTT #05</h4>
           <div class="moto-bike-specs-row">
             <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">[ КАЛИБРОВКА ]</span>
+              <span class="m-val teaser-classified">?</span>
               <span class="m-lbl">Мощность</span>
             </div>
             <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">[ ТИТАН GTT ]</span>
-              <span class="m-lbl">Выхлоп</span>
+              <span class="m-val teaser-classified">?</span>
+              <span class="m-lbl">Вес</span>
             </div>
             <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">320+ км/ч</span>
-              <span class="m-lbl">Расчетная Vmax</span>
+              <span class="m-val teaser-classified">?</span>
+              <span class="m-lbl">Скорость</span>
             </div>
           </div>
-          <p class="moto-bike-desc">Проект мощностного тюнинга супербайка класса Superbike 1000cc. Снятие электронных заводских лимитов, оптимизация зажигания и высокоточная калибровка на диностенде.</p>
+          <p class="moto-bike-desc">Проект в процессе подготовки и калибровки. Данные о конфигурации и модификациях будут опубликованы после финальных тестов.</p>
         </div>
       </div>
 
@@ -914,26 +912,26 @@
             <span class="moto-teaser-qmark">?</span>
             <span class="moto-teaser-radar"></span>
           </div>
-          <span class="moto-bike-status teaser-status">ENDURANCE // #06</span>
+          <span class="moto-bike-status teaser-status">SUPERBIKE // #06</span>
         </div>
         <div class="moto-bike-body">
-          <div class="moto-bike-brand">ENDURANCE SPEC • LIGHTWEIGHT</div>
-          <h4 class="moto-bike-name">GTT Secret Project #06</h4>
+          <div class="moto-bike-brand">GTT MOTO ATELIER • SPEC</div>
+          <h4 class="moto-bike-name">Супербайк GTT #06</h4>
           <div class="moto-bike-specs-row">
             <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">[ ЗАСЕКРЕЧЕНО ]</span>
+              <span class="m-val teaser-classified">?</span>
               <span class="m-lbl">Мощность</span>
             </div>
             <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">[ КАРБОН M ]</span>
-              <span class="m-lbl">Колеса</span>
+              <span class="m-val teaser-classified">?</span>
+              <span class="m-lbl">Вес</span>
             </div>
             <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">310+ км/ч</span>
-              <span class="m-lbl">Расчетная Vmax</span>
+              <span class="m-val teaser-classified">?</span>
+              <span class="m-lbl">Скорость</span>
             </div>
           </div>
-          <p class="moto-bike-desc">Гоночный снаряд длительных заездов. Облегченная тормозная система, кастомные клипоны и титановые компоненты силовой установки с пламенными отстрелами GTT Flame-Tune.</p>
+          <p class="moto-bike-desc">Проект в процессе подготовки и калибровки. Данные о конфигурации и модификациях будут опубликованы после финальных тестов.</p>
         </div>
       </div>
 
@@ -945,26 +943,26 @@
             <span class="moto-teaser-qmark">?</span>
             <span class="moto-teaser-radar"></span>
           </div>
-          <span class="moto-bike-status teaser-status">TURBO BUILD // #07</span>
+          <span class="moto-bike-status teaser-status">SUPERBIKE // #07</span>
         </div>
         <div class="moto-bike-body">
-          <div class="moto-bike-brand">EXPERIMENTAL • FORCED INDUCTION</div>
-          <h4 class="moto-bike-name">GTT Turbo Superbike #07</h4>
+          <div class="moto-bike-brand">GTT MOTO ATELIER • SPEC</div>
+          <h4 class="moto-bike-name">Супербайк GTT #07</h4>
           <div class="moto-bike-specs-row">
             <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">250+ HP [EST]</span>
+              <span class="m-val teaser-classified">?</span>
               <span class="m-lbl">Мощность</span>
             </div>
             <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">[ НАДДУВ GTT ]</span>
-              <span class="m-lbl">Турбина</span>
+              <span class="m-val teaser-classified">?</span>
+              <span class="m-lbl">Вес</span>
             </div>
             <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">330+ км/ч</span>
-              <span class="m-lbl">Расчетная Vmax</span>
+              <span class="m-val teaser-classified">?</span>
+              <span class="m-lbl">Скорость</span>
             </div>
           </div>
-          <p class="moto-bike-desc">Экспериментальный супербайк с системой турбонаддува GTT Moto Turbo. Абсолютная мощь и инженерный вызов лаборатории на двух колесах.</p>
+          <p class="moto-bike-desc">Проект в процессе подготовки и калибровки. Данные о конфигурации и модификациях будут опубликованы после финальных тестов.</p>
         </div>
       </div>
     </div>
@@ -1384,9 +1382,8 @@
         <img src="assets/photos/gtt_shield_logo.svg" 
              alt="GTT Shield" 
              class="footer-mini-shield"
-             onclick="onFooterSecretClick()"
              title="GoshaTurboTech">
-        <span class="footer-copy-text" onclick="onFooterSecretClick()">© GOSHATURBOTECH. SPEED &amp; MOTORSPORT ENGINEERING.</span>
+        <span class="footer-copy-text">© GOSHATURBOTECH. SPEED &amp; MOTORSPORT ENGINEERING.</span>
       </div>
 
       <div class="footer-legal-bar">
@@ -1453,6 +1450,6 @@
     </a>
   </div>
 
-  <script src="js/app.js?v=4.6"></script>
+  <script src="js/app.js?v=4.7"></script>
 </body>
 </html>
