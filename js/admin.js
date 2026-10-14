@@ -13,23 +13,16 @@ const TG_CONFIG_KEY = 'gtt_admin_tg_config';
 const SECRET_URL_TOKEN = 'gtt_atelier_2026';
 const TOKEN_SESSION_KEY = 'gtt_token_authorized_session';
 
-// Immediate URL token verification (Anti-Bruteforce & Anti-Scan Shield)
-(function verifySecretUrlAccess() {
+// Optional URL Token detection (persists token session if present)
+(function checkSecretUrlToken() {
   try {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
-    const isSessionAllowed = sessionStorage.getItem(TOKEN_SESSION_KEY) === 'granted' || 
-                             sessionStorage.getItem(AUTH_KEY) === 'true';
-
     if (token === SECRET_URL_TOKEN) {
       sessionStorage.setItem(TOKEN_SESSION_KEY, 'granted');
-    } else if (!isSessionAllowed) {
-      // Forbidden: redirect brute-forcers and URL scanners back to homepage
-      window.location.replace('index.html');
-      return;
     }
   } catch (e) {
-    console.error('Security token verification failed:', e);
+    console.error('Token check error:', e);
   }
 })();
 
