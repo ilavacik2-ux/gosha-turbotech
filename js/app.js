@@ -3,7 +3,7 @@
  * Strictly visual, data-driven, authentic engineering showcase
  */
 
-const gttProjects = [
+let gttProjects = [
   {
     id: 'gtr_lucifer',
     brand: 'NISSAN & GTT',
@@ -406,14 +406,14 @@ const i18n = {
     mobile_bar_navi: "Навигатор",
     mobile_bar_call: "Позвонить",
     contact_tag: "// HEADQUARTERS & ATELIER",
-    contact_hq_title: "Лаборатория GoshaTurboTech",
-    contact_hq_desc: "Центр спортивного инжиниринга и персональной доработки суперкаров и мотоциклов. По вопросам постройки индивидуального проекта или консультации свяжитесь с командой напрямую.",
+    contact_hq_title: "GOSHATURBOTECH",
+    contact_hq_desc: "Центр спортивного инжиниринга и персональной доработки суперкаров и супербайков. Предварительный осмотр, диностенд и онлайн-согласование проектов.",
     contact_phone_lbl: "Телефон мастерской",
     contact_tg_lbl: "Официальный Telegram канал",
     contact_loc_lbl: "Локация ателье",
-    contact_loc_val: "г. Москва, Можайское шоссе, 168",
-    contact_btn_call: "<span>📞</span> Позвонить в GTT",
-    contact_btn_navi: "<span>🗺️</span> Маршрут в Яндекс Навигаторе",
+    contact_loc_val: "Можайское ш., стр. 166В (Новоивановское)",
+    contact_btn_call: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> <span>Позвонить в GTT</span>',
+    contact_btn_navi: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg> <span>Маршрут в Яндекс Навигаторе</span>',
     partners_tag: "// GTT TECHNICAL & MOTORSPORT PARTNERS",
     partners_title: "Партнеры",
     partners_subtitle: "Ведущие мировые бренды автоспорта, компонентов трансмиссии, турбонаддува и смазочных материалов, с которыми побеждает GoshaTurboTech.",
@@ -526,7 +526,7 @@ const i18n = {
     // Gallery captions
     gallery_tag: "// RDRC CHAMPIONSHIP & PADDOCK LIFE",
     gallery_title: "Хроника гонок & Мастерская GTT",
-    gallery_subtitle: "Живые кадры с трассы Чемпионата России RDRC и из лаборатории GoshaTurboTech.",
+    gallery_subtitle: "Живые кадры с трассы Чемпионата России RDRC и из ателье GoshaTurboTech.",
     gallery_cap_zelenka: "Легендарная Lamborghini Huracan TT «Зеленка» RDRC",
     gallery_cap_dodge: "Dodge Challenger SRT Hellcat: дымный прогрев сликов на закате RDRC",
     gallery_cap_draco: "3000+ HP Nissan GT-R Draco Pro-Mod на сликах RDRC",
@@ -572,14 +572,14 @@ const i18n = {
     mobile_bar_navi: "Navigator",
     mobile_bar_call: "Call Atelier",
     contact_tag: "// HEADQUARTERS & ATELIER",
-    contact_hq_title: "GoshaTurboTech Laboratory",
-    contact_hq_desc: "Motorsport engineering center and bespoke performance laboratory for supercars and superbikes. To inquire about a custom project or technical advice, contact our crew directly.",
+    contact_hq_title: "GOSHATURBOTECH",
+    contact_hq_desc: "Motorsport engineering center and bespoke performance laboratory for supercars and superbikes. Pre-tuning inspection, dyno hub and online project advisory.",
     contact_phone_lbl: "Workshop Direct Line",
     contact_tg_lbl: "Official Telegram Channel",
     contact_loc_lbl: "Atelier Location",
-    contact_loc_val: "168 Mozhayskoye Highway, Moscow, Russia",
-    contact_btn_call: "<span>📞</span> Call GTT Workshop",
-    contact_btn_navi: "<span>🗺️</span> Open in Yandex Navigator",
+    contact_loc_val: "166B Mozhayskoye Hwy (Novoivanovskoye)",
+    contact_btn_call: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> <span>Call GTT Workshop</span>',
+    contact_btn_navi: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg> <span>Open in Yandex Navigator</span>',
     partners_tag: "// GTT TECHNICAL & MOTORSPORT PARTNERS",
     partners_title: "Partners",
     partners_subtitle: "World-leading motorsport brands, transmission components, turbochargers and racing lubricants powering GoshaTurboTech victories.",
@@ -725,6 +725,9 @@ window.setLanguage = function(lang) {
   // Re-render garage grid with translated spec labels
   const activeFilter = document.querySelector('.filter-pill.active')?.getAttribute('data-filter') || 'all';
   renderGarageGrid(activeFilter);
+  if (cachedTeamData) {
+    renderTeamGrid(cachedTeamData);
+  }
 };
 
 // Ensure browser starts at top and disables scroll restoration
@@ -738,6 +741,8 @@ document.addEventListener('DOMContentLoaded', () => {
   window.scrollTo(0, 0);
   initPreloader();
   renderGarageGrid('all');
+  syncProjectsFromAPI();
+  syncTeamFromAPI();
   initNavigation();
   initFilters();
   initModal();
@@ -746,6 +751,136 @@ document.addEventListener('DOMContentLoaded', () => {
   initFounderGestures();
   initMobileStickyBar();
   initTelemetryCounters();
+});
+
+// Dynamic SQLite & FastAPI Projects Synchronization
+async function syncProjectsFromAPI() {
+  try {
+    const res = await fetch('/api/cars');
+    if (!res.ok) return;
+    const serverCars = await res.json();
+    if (Array.isArray(serverCars) && serverCars.length > 0) {
+      gttProjects = serverCars.map(c => ({
+        id: c.id,
+        brand: c.brand || '',
+        name: {
+          ru: c.name_ru || c.nameRu || (c.name && c.name.ru) || c.name || '',
+          en: c.name_en || c.nameEn || (c.name && c.name.en) || c.name_ru || c.nameRu || ''
+        },
+        type: c.type || 'other',
+        tag: {
+          ru: c.tag_ru || c.tagRu || (c.tag && c.tag.ru) || c.tag || 'RDRC БОЛИД',
+          en: c.tag_en || c.tagEn || (c.tag && c.tag.en) || c.tag || 'RDRC CAR'
+        },
+        hp: c.hp || '',
+        quarterMile: c.quarter_mile || c.quarterMile || '',
+        topSpeed: c.top_speed || c.topSpeed || '',
+        badge: {
+          ru: c.badge_ru || c.badgeRu || (c.badge && c.badge.ru) || c.badge || 'GTT Spec',
+          en: c.badge_en || c.badgeEn || (c.badge && c.badge.en) || c.badge || 'GTT Spec'
+        },
+        img: c.img || '',
+        fallbackImg: c.fallback_img || c.fallbackImg || c.img || '',
+        isPhoto: c.is_photo !== undefined ? Boolean(c.is_photo) : true,
+        objectPosition: c.object_position || c.objectPosition || 'center center',
+        videoSrc: c.video_src || c.videoSrc || '',
+        videoTitle: c.video_title || c.videoTitle || '',
+        desc: {
+          ru: c.desc_ru || c.descRu || (c.desc && c.desc.ru) || c.desc || '',
+          en: c.desc_en || c.descEn || (c.desc && c.desc.en) || c.desc_ru || c.descRu || ''
+        },
+        specs: (typeof c.specs === 'object' && c.specs !== null) ? c.specs : {}
+      }));
+
+      const activeFilter = document.querySelector('.filter-pill.active')?.getAttribute('data-filter') || 'all';
+      renderGarageGrid(activeFilter);
+    }
+  } catch (err) {
+    // Offline or static fallback
+  }
+}
+
+// Pre-configured official team assets & photos map
+const defaultTeamPhotos = {
+  m1: { photo: 'https://static.tildacdn.com/tild3630-6231-4439-b763-373662653964/ncse4W-BrwAKR5pHQvkX.jpg', social: '@goshaturbotech' },
+  m2: { photo: 'https://static.tildacdn.com/tild6237-6430-4338-a236-626231306234/photo.jpg', social: '@vip.hay' },
+  m3: { photo: 'https://static.tildacdn.com/tild6538-3832-4431-b761-636265323064/896A0858.jpg', social: '' },
+  m4: { photo: 'https://static.tildacdn.com/tild3132-6639-4537-b432-323633653738/7R209573.jpg', social: '@_zm_zima_' },
+  m5: { photo: 'https://static.tildacdn.com/tild3933-6664-4738-b164-626565346535/7R203219.jpg', social: '' },
+  m6: { photo: 'https://static.tildacdn.com/tild3561-3862-4562-b734-363034623936/photo.jpg', social: '' },
+  m7: { photo: 'https://static.tildacdn.com/tild6263-3266-4433-b264-626239376166/7R209460.jpg', social: '' },
+  m8: { photo: 'https://static.tildacdn.com/tild3965-3435-4135-b437-386634613361/7R203125_2.jpg', social: '' },
+  m9: { photo: 'https://static.tildacdn.com/tild3737-3661-4365-b831-383634343036/7R203122_2.jpg', social: '' },
+  m10: { photo: 'https://static.tildacdn.com/tild6639-3931-4563-a462-303263313765/7R209470.jpg', social: '' },
+  m11: { photo: 'https://static.tildacdn.com/tild6464-3435-4433-b162-616263636632/7R209475.jpg', social: '' },
+  m12: { photo: 'https://static.tildacdn.com/tild3632-6234-4637-b431-653731376638/7R200607.jpg', social: '' },
+  m13: { photo: 'https://static.tildacdn.com/tild6166-6166-4539-b731-363937393131/7R200882.jpg', social: '' },
+  m14: { photo: 'https://static.tildacdn.com/tild6537-6137-4239-a630-323765383839/7R201446.jpg', social: '' },
+  m15: { photo: 'https://static.tildacdn.com/tild3961-3566-4536-b334-636632383732/7R201128.jpg', social: '' }
+};
+
+let cachedTeamData = null;
+
+async function syncTeamFromAPI() {
+  // First check localStorage for instant render
+  try {
+    const local = localStorage.getItem('gtt_team_v2');
+    if (local) {
+      const parsed = JSON.parse(local);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        cachedTeamData = parsed;
+        renderTeamGrid(parsed);
+      }
+    }
+  } catch (e) {}
+
+  // Then fetch live authoritative data from SQLite backend
+  try {
+    const res = await fetch('/api/team');
+    if (!res.ok) return;
+    const serverTeam = await res.json();
+    if (Array.isArray(serverTeam) && serverTeam.length > 0) {
+      cachedTeamData = serverTeam;
+      renderTeamGrid(serverTeam);
+    }
+  } catch (err) {
+    // Offline / static fallback
+  }
+}
+
+function renderTeamGrid(teamList) {
+  const grid = document.getElementById('teamGrid');
+  if (!grid || !Array.isArray(teamList)) return;
+  grid.innerHTML = teamList.map(m => {
+    const asset = defaultTeamPhotos[m.id] || { photo: 'assets/photos/gtt_shield_logo.svg', social: '' };
+    const photo = m.photo || asset.photo;
+    const social = m.social !== undefined ? m.social : asset.social;
+    return `
+      <div class="team-card">
+        <div class="team-card-photo">
+          <img src="${photo}" alt="${m.name}" loading="lazy" onerror="this.src='assets/photos/gtt_shield_logo.svg'">
+        </div>
+        <div class="team-card-body">
+          <span class="team-role">${m.role}</span>
+          <h3 class="team-name">${m.name}</h3>
+          ${social ? `<span class="team-social">${social}</span>` : ''}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// Secret Admin Access Shortcut for Atelier Owner
+// Shortcut: Keyboard combination Ctrl+Shift+A (or Cmd+Shift+A on Mac) or direct link
+function openAdminWithToken() {
+  window.location.href = '/admin?token=gtt_atelier_2026';
+}
+
+window.addEventListener('keydown', (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a' || e.key === 'Ф' || e.key === 'ф')) {
+    e.preventDefault();
+    openAdminWithToken();
+  }
 });
 
 // Clean Premium Motorsport Preloader (Fast, Seamless & Silky Smooth)
@@ -989,17 +1124,23 @@ window.openCarModal = function(carId) {
     <!-- Big 3 Telemetry Metrics Grid -->
     <div class="carmodal-metrics-grid">
       <div class="carmodal-metric-card">
-        <div class="carmodal-metric-icon">⚡</div>
+        <div class="carmodal-metric-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
         <div class="carmodal-metric-val">${car.hp}</div>
         <div class="carmodal-metric-lbl">${i18n[currentLang].spec_power}</div>
       </div>
       <div class="carmodal-metric-card">
-        <div class="carmodal-metric-icon">⏱️</div>
+        <div class="carmodal-metric-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="9" y1="2" x2="15" y2="2"/></svg>
+        </div>
         <div class="carmodal-metric-val">${car.quarterMile}</div>
         <div class="carmodal-metric-lbl">${i18n[currentLang].spec_402}</div>
       </div>
       <div class="carmodal-metric-card">
-        <div class="carmodal-metric-icon">🏁</div>
+        <div class="carmodal-metric-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m16.2 7.8-4.2 4.2"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.9 4.9 1.4 1.4"/><path d="m17.7 17.7 1.4 1.4"/><path d="M2 12h2"/><path d="M20 12h2"/></svg>
+        </div>
         <div class="carmodal-metric-val">${car.topSpeed}</div>
         <div class="carmodal-metric-lbl">${i18n[currentLang].spec_speed}</div>
       </div>
@@ -1194,6 +1335,51 @@ window.openLegalDoc = function(type) {
       
       <h4>3. Индивидуальный расчет</h4>
       <p>Каждый проект спортивного инжиниринга, постройки Twin Turbo китов и калибровки блоков управления рассчитывается в индивидуальном порядке на основе официального договора и технического регламента ателье.</p>
+    `;
+  } else if (type === 'requisites') {
+    title.textContent = 'Реквизиты организации';
+    content.innerHTML = `
+      <h4>Общество с ограниченной ответственностью «ГОШАТУРБОТЕХ»</h4>
+      <table style="width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 13.5px; line-height: 1.8;">
+        <tbody>
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <td style="color: var(--text-muted); padding: 8px 0; width: 38%;">ОГРН:</td>
+            <td style="color: #fff; font-family: var(--font-mono); font-weight: 600;">1185053020162 от 10.08.2018</td>
+          </tr>
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <td style="color: var(--text-muted); padding: 8px 0;">ИНН / КПП:</td>
+            <td style="color: #fff; font-family: var(--font-mono); font-weight: 600;">5024187371 / 503201001</td>
+          </tr>
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <td style="color: var(--text-muted); padding: 8px 0;">Юридический адрес:</td>
+            <td style="color: #fff;">Московская обл., г.о. Одинцовский, р.п. Новоивановское, ш. Можайское, стр. 166В</td>
+          </tr>
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <td style="color: var(--text-muted); padding: 8px 0;">Банк:</td>
+            <td style="color: #fff;">ПАО «СБЕРБАНК»</td>
+          </tr>
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <td style="color: var(--text-muted); padding: 8px 0;">Расчетный счет:</td>
+            <td style="color: #fff; font-family: var(--font-mono); font-weight: 600;">40702810340000039770</td>
+          </tr>
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <td style="color: var(--text-muted); padding: 8px 0;">БИК:</td>
+            <td style="color: #fff; font-family: var(--font-mono); font-weight: 600;">044525225</td>
+          </tr>
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <td style="color: var(--text-muted); padding: 8px 0;">Корр. счет:</td>
+            <td style="color: #fff; font-family: var(--font-mono); font-weight: 600;">30101810400000000225</td>
+          </tr>
+          <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);">
+            <td style="color: var(--text-muted); padding: 8px 0;">Генеральный директор:</td>
+            <td style="color: #fff; font-weight: 600;">Перцхелия Гиви Зурабович (Действует на основании Устава)</td>
+          </tr>
+          <tr>
+            <td style="color: var(--text-muted); padding: 8px 0;">Электронная почта:</td>
+            <td><a href="mailto:info@goshaturbotech.com" style="color: var(--gtt-orange); text-decoration: underline;">info@goshaturbotech.com</a></td>
+          </tr>
+        </tbody>
+      </table>
     `;
   }
 
@@ -1419,95 +1605,220 @@ function initRevealOnScroll() {
   revealTargets.forEach(el => observer.observe(el));
 }
 
-// 6. Interactive Gallery Marquee (Mouse Wheel, Drag & Swipe Gestures)
+// 6. Interactive Gallery Filmstrip Slider (Infinite Seamless Circular Loop)
 function initGalleryMarqueeInteractions() {
   const wrapper = document.querySelector('.marquee-stream-wrapper');
   const track = document.getElementById('marqueeTrackMain');
+  const counterEl = document.getElementById('galleryCurrentIdx');
   if (!wrapper || !track) return;
 
+  const originalCards = Array.from(track.querySelectorAll('.marquee-card'));
+  const totalCards = originalCards.length;
+  if (!totalCards) return;
+
+  // Mark original indexes
+  originalCards.forEach((card, idx) => {
+    card.setAttribute('data-index', idx);
+  });
+
+  // Create infinite clone buffers (1 set before, 1 set after)
+  if (!track.dataset.infiniteInitialized) {
+    track.dataset.infiniteInitialized = 'true';
+    
+    // Post-clones (after)
+    originalCards.forEach((card, idx) => {
+      const clone = card.cloneNode(true);
+      clone.setAttribute('data-index', idx);
+      clone.classList.add('is-clone');
+      track.appendChild(clone);
+    });
+
+    // Pre-clones (before)
+    originalCards.slice().reverse().forEach((card, reverseIdx) => {
+      const idx = totalCards - 1 - reverseIdx;
+      const clone = card.cloneNode(true);
+      clone.setAttribute('data-index', idx);
+      clone.classList.add('is-clone');
+      track.insertBefore(clone, track.firstChild);
+    });
+  }
+
+  const allCards = Array.from(track.querySelectorAll('.marquee-card'));
+  let singleCycleWidth = 0;
   let isDown = false;
   let startX = 0;
-  let scrollLeft = 0;
-  let hasMoved = false;
-  let resumeTimer = null;
+  let startScrollLeft = 0;
+  let isDragging = false;
+  let autoTimer = null;
+  let isNormalizing = false;
 
-  function pauseAutoScroll() {
-    wrapper.classList.add('user-interacting');
-    if (resumeTimer) clearTimeout(resumeTimer);
+  function measureCycle() {
+    singleCycleWidth = originalCards[0].offsetLeft - allCards[0].offsetLeft;
+    if (singleCycleWidth <= 0) {
+      const cardW = originalCards[0].offsetWidth || 460;
+      singleCycleWidth = (cardW + 24) * totalCards;
+    }
   }
 
-  function scheduleResume() {
-    if (resumeTimer) clearTimeout(resumeTimer);
-    resumeTimer = setTimeout(() => {
-      wrapper.classList.remove('user-interacting');
-    }, 1800);
+  measureCycle();
+
+  // Position viewport at start of original set
+  const initOffset = originalCards[0].offsetLeft - (wrapper.clientWidth - originalCards[0].offsetWidth) / 2;
+  wrapper.scrollLeft = Math.max(0, initOffset);
+
+  function getActiveCard() {
+    const wrapperCenter = wrapper.scrollLeft + wrapper.clientWidth / 2;
+    let closestCard = originalCards[0];
+    let minDiff = Infinity;
+    
+    allCards.forEach(card => {
+      const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+      const diff = Math.abs(wrapperCenter - cardCenter);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestCard = card;
+      }
+    });
+    return closestCard;
   }
 
-  // A. Mouse Wheel & Trackpad Navigation (Silky smooth macOS inertia)
-  wrapper.addEventListener('wheel', (e) => {
-    // If predominantly vertical scroll, let normal page scrolling happen unless hovering directly to pan
-    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-      // Direct trackpad two-finger horizontal swipe -> Native smooth behavior
-      pauseAutoScroll();
-      scheduleResume();
-      return;
-    }
+  function updateCounter() {
+    if (!counterEl) return;
+    const card = getActiveCard();
+    const realIdx = parseInt(card.getAttribute('data-index') || '0', 10);
+    counterEl.textContent = String(realIdx + 1).padStart(2, '0');
+  }
 
-    // Classic vertical mouse wheel over the gallery -> translate vertical wheel into horizontal movement
-    if (Math.abs(e.deltaY) > 2) {
-      e.preventDefault();
-      pauseAutoScroll();
-      wrapper.scrollLeft += e.deltaY * 1.2;
-      scheduleResume();
-    }
-  }, { passive: false });
+  // Seamless Infinite Boundary Normalizer
+  function checkBoundaryWrap() {
+    if (isNormalizing || !singleCycleWidth) return;
+    const currentScroll = wrapper.scrollLeft;
+    const baseOffset = originalCards[0].offsetLeft - (wrapper.clientWidth - originalCards[0].offsetWidth) / 2;
+    const maxBoundary = baseOffset + singleCycleWidth - 40;
+    const minBoundary = baseOffset - 40;
 
-  // B. Mouse Drag Navigation
+    if (currentScroll >= maxBoundary) {
+      isNormalizing = true;
+      wrapper.scrollLeft -= singleCycleWidth;
+      if (isDown) startScrollLeft -= singleCycleWidth;
+      requestAnimationFrame(() => { isNormalizing = false; });
+    } else if (currentScroll < minBoundary) {
+      isNormalizing = true;
+      wrapper.scrollLeft += singleCycleWidth;
+      if (isDown) startScrollLeft += singleCycleWidth;
+      requestAnimationFrame(() => { isNormalizing = false; });
+    }
+  }
+
+  // Next / Prev Arrow Navigation with Infinite Circular Wrap
+  window.scrollGalleryTrack = function(direction) {
+    pauseAuto();
+    checkBoundaryWrap();
+    const currentCard = getActiveCard();
+    const currentIdx = allCards.indexOf(currentCard);
+    const targetIdx = currentIdx + direction;
+
+    if (targetIdx >= 0 && targetIdx < allCards.length) {
+      const targetCard = allCards[targetIdx];
+      const targetScroll = targetCard.offsetLeft - (wrapper.clientWidth - targetCard.offsetWidth) / 2;
+      wrapper.scrollTo({
+        left: targetScroll,
+        behavior: 'smooth'
+      });
+    }
+    resumeAuto();
+  };
+
+  // Scroll listener for counter & boundary check
+  let scrollTimeout = null;
+  wrapper.addEventListener('scroll', () => {
+    checkBoundaryWrap();
+    if (scrollTimeout) clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(updateCounter, 50);
+  }, { passive: true });
+
+  // Mouse drag-to-scroll
   wrapper.addEventListener('mousedown', (e) => {
     isDown = true;
-    hasMoved = false;
-    startX = e.pageX - wrapper.offsetLeft;
-    scrollLeft = wrapper.scrollLeft;
-    pauseAutoScroll();
+    isDragging = false;
+    startX = e.pageX;
+    startScrollLeft = wrapper.scrollLeft;
+    pauseAuto();
   });
 
   window.addEventListener('mouseup', () => {
     if (!isDown) return;
     isDown = false;
-    scheduleResume();
+    checkBoundaryWrap();
+    resumeAuto();
   });
 
   wrapper.addEventListener('mousemove', (e) => {
     if (!isDown) return;
-    e.preventDefault();
-    const x = e.pageX - wrapper.offsetLeft;
-    const walk = (x - startX) * 1.5;
-    if (Math.abs(walk) > 4) {
-      hasMoved = true;
+    const dx = e.pageX - startX;
+    if (Math.abs(dx) > 5) {
+      isDragging = true;
+      e.preventDefault();
+      wrapper.scrollLeft = startScrollLeft - dx;
+      checkBoundaryWrap();
     }
-    wrapper.scrollLeft = scrollLeft - walk;
   });
 
-  // Prevent accidental lightbox opening when dragging
-  wrapper.querySelectorAll('.marquee-card').forEach(card => {
+  // Prevent opening lightbox modal when dragging
+  allCards.forEach(card => {
     card.addEventListener('click', (e) => {
-      if (hasMoved) {
+      if (isDragging) {
         e.stopImmediatePropagation();
         e.preventDefault();
-        hasMoved = false;
+        isDragging = false;
       }
     }, true);
   });
 
-  // C. Touch Gestures (Mobile swipe & scroll)
+  // Touch handlers
   wrapper.addEventListener('touchstart', () => {
-    pauseAutoScroll();
+    pauseAuto();
   }, { passive: true });
 
   wrapper.addEventListener('touchend', () => {
-    scheduleResume();
+    checkBoundaryWrap();
+    resumeAuto();
   }, { passive: true });
+
+  // Gentle auto-advance (pauses on hover)
+  function pauseAuto() {
+    if (autoTimer) clearInterval(autoTimer);
+  }
+
+  function resumeAuto() {
+    pauseAuto();
+    autoTimer = setInterval(() => {
+      if (window.scrollGalleryTrack) {
+        window.scrollGalleryTrack(1);
+      }
+    }, 5500);
+  }
+
+  wrapper.addEventListener('mouseenter', pauseAuto);
+  wrapper.addEventListener('mouseleave', resumeAuto);
+
+  window.addEventListener('resize', () => {
+    measureCycle();
+    checkBoundaryWrap();
+  });
+
+  // Initialize
+  updateCounter();
+  resumeAuto();
 }
+
+window.scrollGalleryTrack = function(dir) {
+  const wrapper = document.querySelector('.marquee-stream-wrapper');
+  if (wrapper && window.scrollGalleryTrack) {
+    // Overridden inside initGalleryMarqueeInteractions
+  }
+};
+
 
 /* ==========================================================================
    TOUCH GESTURES FOR FOUNDER CAROUSEL
@@ -1575,48 +1886,42 @@ function initMobileStickyBar() {
     bar.classList.add('visible');
   }
 
-  window.addEventListener('scroll', () => {
-    if (isThrottled) return;
-    isThrottled = true;
-    requestAnimationFrame(() => {
-      if (isPreloaderActive) {
-        bar.classList.remove('visible');
-        isThrottled = false;
-        return;
-      }
+  function updateBarVisibility() {
+    if (isPreloaderActive) {
+      bar.classList.remove('visible');
+      return;
+    }
 
-      const currentScrollY = window.scrollY;
-      const anyModalActive = document.querySelector('.modal-overlay.active, .video-modal-overlay.active, .gallery-lightbox-modal.active, .mobile-drawer.active');
-      
-      if (anyModalActive) {
-        bar.classList.add('hidden');
-        bar.classList.remove('visible');
-      } else {
-        const isNearBottom = (window.innerHeight + currentScrollY) >= (document.documentElement.scrollHeight - 60);
-        if (isNearBottom) {
-          bar.classList.add('hidden');
-          bar.classList.remove('visible');
-        } else {
-          bar.classList.remove('hidden');
-          bar.classList.add('visible');
-        }
-      }
-      lastScrollY = currentScrollY;
-      isThrottled = false;
-    });
-  }, { passive: true });
-
-  // Listen for modal state toggles
-  const observer = new MutationObserver(() => {
-    if (isPreloaderActive) return;
     const anyModalActive = document.querySelector('.modal-overlay.active, .video-modal-overlay.active, .gallery-lightbox-modal.active, .mobile-drawer.active');
-    if (anyModalActive) {
+    const contactEl = document.getElementById('contact');
+    let isContactInView = false;
+    if (contactEl) {
+      const rect = contactEl.getBoundingClientRect();
+      isContactInView = (rect.top <= window.innerHeight * 0.75) && (rect.bottom >= 50);
+    }
+    const isNearBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 60);
+
+    if (anyModalActive || isContactInView || isNearBottom) {
       bar.classList.add('hidden');
       bar.classList.remove('visible');
     } else {
       bar.classList.remove('hidden');
       bar.classList.add('visible');
     }
+  }
+
+  window.addEventListener('scroll', () => {
+    if (isThrottled) return;
+    isThrottled = true;
+    requestAnimationFrame(() => {
+      updateBarVisibility();
+      isThrottled = false;
+    });
+  }, { passive: true });
+
+  // Listen for modal state toggles
+  const observer = new MutationObserver(() => {
+    updateBarVisibility();
   });
 
   ['carModal', 'videoModal', 'galleryLightbox', 'mobileDrawer'].forEach(id => {
@@ -1772,6 +2077,18 @@ function initTelemetryCounters() {
     }
 
     localStorage.setItem(TRAFFIC_KEY, JSON.stringify(stats));
+
+    // Async record to SQLite database engine
+    fetch('/api/traffic/visit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        device: device,
+        source: source,
+        page: window.location.pathname.split('/').pop() || 'index.html',
+        isNewSession: isNewSession
+      })
+    }).catch(() => {});
   } catch (err) {
     console.warn('Traffic tracking skipped', err);
   }

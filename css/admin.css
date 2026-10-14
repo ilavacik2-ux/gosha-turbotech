@@ -947,3 +947,190 @@ body {
   }
 }
 
+/* ==========================================================================
+   GTT MOTORSPORT TOAST NOTIFICATION ENGINE
+   ========================================================================== */
+.gtt-toast-container {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 100000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 420px;
+  width: calc(100vw - 32px);
+  pointer-events: none;
+}
+
+.gtt-toast {
+  pointer-events: auto;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px 18px;
+  background: rgba(14, 18, 25, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 4px solid var(--gtt-orange);
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 24px rgba(0, 0, 0, 0.5);
+  color: var(--text-main);
+  overflow: hidden;
+  transform: translateX(120%);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  user-select: none;
+}
+
+.gtt-toast.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.gtt-toast.hide {
+  transform: translateX(120%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Toast Variants */
+.gtt-toast.toast-success {
+  border-left-color: #22c55e;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(34, 197, 94, 0.15);
+}
+
+.gtt-toast.toast-error {
+  border-left-color: #ef4444;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(239, 68, 68, 0.18);
+}
+
+.gtt-toast.toast-warning {
+  border-left-color: #f59e0b;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 20px rgba(245, 158, 11, 0.15);
+}
+
+.gtt-toast.toast-info {
+  border-left-color: var(--gtt-orange);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 20px var(--gtt-orange-glow);
+}
+
+/* Toast Icon */
+.gtt-toast-icon {
+  font-size: 20px;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Toast Body */
+.gtt-toast-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.gtt-toast-title {
+  font-family: var(--font-display);
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.gtt-toast-desc {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--text-muted);
+  word-break: break-word;
+}
+
+/* Toast Close Button */
+.gtt-toast-close {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+  margin-top: -2px;
+  margin-right: -4px;
+  transition: color 0.2s ease, transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.gtt-toast-close:hover {
+  color: #fff;
+  transform: scale(1.15);
+}
+
+/* Toast Progress Bar */
+.gtt-toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: var(--gtt-orange);
+  opacity: 0.8;
+  transform-origin: left;
+  animation: gttToastTimer linear forwards;
+}
+
+.toast-success .gtt-toast-progress {
+  background: #22c55e;
+}
+
+.toast-error .gtt-toast-progress {
+  background: #ef4444;
+}
+
+.toast-warning .gtt-toast-progress {
+  background: #f59e0b;
+}
+
+.toast-info .gtt-toast-progress {
+  background: var(--gtt-orange);
+}
+
+@keyframes gttToastTimer {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
+}
+
+/* Pause timer on hover */
+.gtt-toast:hover .gtt-toast-progress {
+  animation-play-state: paused;
+}
+
+@media (max-width: 768px) {
+  .gtt-toast-container {
+    top: 16px;
+    right: 16px;
+    left: 16px;
+    width: auto;
+    max-width: none;
+  }
+
+  .gtt-toast {
+    transform: translateY(-40px);
+  }
+
+  .gtt-toast.show {
+    transform: translateY(0);
+  }
+
+  .gtt-toast.hide {
+    transform: translateY(-40px);
+  }
+}
+

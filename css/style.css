@@ -260,50 +260,72 @@ body.is-loading {
 .brand-logo {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   text-decoration: none;
   color: #fff;
-  transition: transform 0.3s ease;
+  transition: transform 0.25s ease;
 }
 
 .brand-logo:hover {
   transform: translateY(-1px);
 }
 
-.brand-shield-img {
-  width: 40px;
-  height: 40px;
+.brand-official-logo {
+  height: 36px;
+  width: auto;
+  max-width: 240px;
   object-fit: contain;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  display: block;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+  will-change: transform;
+}
+
+.brand-logo:hover .brand-official-logo {
+  transform: scale(1.03);
+  filter: drop-shadow(0 0 14px rgba(255, 80, 20, 0.55));
+}
+
+.preloader-official-logo {
+  height: 48px;
+  width: auto;
+  max-width: 280px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 0 20px rgba(255, 80, 20, 0.6));
+  animation: pulseLogo 2s ease-in-out infinite;
+}
+
+.brand-shield-img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(255, 80, 20, 0.45));
+  transition: transform 0.3s ease, filter 0.3s ease;
   will-change: transform;
 }
 
 .brand-logo:hover .brand-shield-img {
-  transform: scale(1.08);
-}
-
-.brand-badge {
-  background: var(--gtt-orange);
-  color: #fff;
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: 13px;
-  padding: 4px 8px;
-  border-radius: 4px;
-  letter-spacing: 0.1em;
-  transform: skewX(-12deg);
+  transform: scale(1.06);
+  filter: drop-shadow(0 0 16px rgba(255, 80, 20, 0.7));
 }
 
 .brand-title {
   font-family: var(--font-display);
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 800;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
+  color: #ffffff;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  line-height: 1;
 }
 
 .brand-title span {
-  color: var(--gtt-orange);
+  color: #ff5014;
+  font-weight: 800;
 }
 
 .nav-links {
@@ -1575,18 +1597,14 @@ body.is-loading {
 
 .marquee-stream-wrapper {
   position: relative;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 30px 0 45px;
-  mask-image: linear-gradient(90deg, transparent 0%, black 5%, black 95%, transparent 100%);
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 5%, black 95%, transparent 100%);
+  padding: 20px 0 35px;
   cursor: grab;
-  scrollbar-width: none; /* Hide scrollbar for Chrome/Firefox/Safari */
+  scrollbar-width: none; /* Hide scrollbar */
   -ms-overflow-style: none;
   -webkit-overflow-scrolling: touch;
-  overscroll-behavior-x: contain;
 }
 
 .marquee-stream-wrapper::-webkit-scrollbar {
@@ -1599,35 +1617,26 @@ body.is-loading {
 
 .marquee-track {
   display: flex;
-  gap: 28px;
+  gap: 24px;
   width: max-content;
-  animation: marqueeScroll 85s linear infinite;
-  will-change: transform;
+  padding: 0 max(24px, calc((100vw - 1300px) / 2));
 }
 
-.marquee-stream-wrapper:hover .marquee-track,
-.marquee-stream-wrapper.user-interacting .marquee-track {
-  animation-play-state: paused;
-}
-
-@keyframes marqueeScroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-/* Large Flagship Cards - Expanded format */
+/* Flagship Gallery Cards */
 .marquee-card {
   position: relative;
-  width: 580px;
-  height: 390px;
-  border-radius: 20px;
+  width: clamp(320px, 42vw, 540px);
+  aspect-ratio: 16 / 10;
+  height: auto;
+  border-radius: 18px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: #0d0f17;
   cursor: pointer;
   flex-shrink: 0;
-  transition: transform 0.45s var(--ease-out-expo), border-color 0.45s ease, box-shadow 0.45s ease;
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
+  scroll-snap-align: center;
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
   user-select: none;
   -webkit-user-select: none;
 }
@@ -1691,27 +1700,82 @@ body.is-loading {
   letter-spacing: 0.05em;
 }
 
+/* Gallery Controls & Touch Indicator Bar */
+.gallery-controls-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+  user-select: none;
+}
+
+.gallery-nav-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.gallery-nav-btn:hover {
+  background: var(--gtt-orange);
+  border-color: var(--gtt-orange);
+  box-shadow: 0 0 16px var(--gtt-orange-glow);
+  transform: scale(1.05);
+}
+
+.gallery-nav-btn:active {
+  transform: scale(0.95);
+}
+
+.gallery-counter-indicator {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  background: rgba(14, 17, 23, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px 18px;
+  border-radius: 20px;
+}
+
+.gallery-counter-indicator span:first-child {
+  color: var(--gtt-orange);
+}
+
+
 @media (max-width: 768px) {
   .marquee-card {
-    width: 380px;
-    height: 270px;
+    width: clamp(280px, 85vw, 420px);
+    aspect-ratio: 16 / 10;
+    height: auto;
     border-radius: 16px;
   }
   .marquee-card-meta {
-    padding: 16px 18px;
+    padding: 14px 16px;
   }
   .marquee-card-title {
-    font-size: 15px;
+    font-size: 14px;
   }
   .marquee-track {
-    gap: 18px;
+    gap: 16px;
   }
 }
 
 @media (max-width: 480px) {
   .marquee-card {
-    width: 320px;
-    height: 230px;
+    width: clamp(260px, 88vw, 340px);
+    aspect-ratio: 16 / 10;
+    height: auto;
     border-radius: 14px;
   }
 }
@@ -1772,116 +1836,270 @@ body.is-loading {
   margin-bottom: 16px;
 }
 
-.moto-showcase-card {
+/* New Scalable Moto Division Layout */
+.moto-hero-banner {
   max-width: 1400px;
-  margin: 0 auto 60px;
+  margin: 0 auto 50px;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: 18px;
+  border-radius: 20px;
   overflow: hidden;
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  align-items: stretch;
+  display: flex;
+  flex-direction: column;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
   transition: var(--transition-smooth);
 }
 
-@media (max-width: 1080px) {
-  .moto-showcase-card {
-    grid-template-columns: 1fr;
-  }
-}
-
-.moto-showcase-card:hover {
+.moto-hero-banner:hover {
   border-color: rgba(56, 189, 248, 0.35);
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(56, 189, 248, 0.12);
 }
 
-.moto-gallery-grid-duo {
+.moto-hero-media {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
   gap: 16px;
-  background: #090c12;
-  padding: 20px;
+  background: #080a0f;
+  padding: 18px;
 }
 
-.moto-duo-photo-wrap {
-  position: relative;
-  overflow: hidden;
-  border-radius: 12px;
-  background: #0d1118;
-  aspect-ratio: 16 / 11;
-  height: 100%;
-  max-height: 480px;
-  display: flex;
-}
-
-.moto-showcase-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 50%;
-  display: block;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@media (max-width: 640px) {
-  .moto-gallery-grid-duo {
+@media (max-width: 900px) {
+  .moto-hero-media {
     grid-template-columns: 1fr;
     padding: 12px;
     gap: 12px;
   }
-  .moto-duo-photo-wrap {
-    aspect-ratio: 16 / 12;
-    max-height: 320px;
+}
+
+.moto-hero-photo-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #0d1118;
+  aspect-ratio: 16 / 10;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .moto-hero-photo-wrap {
+    aspect-ratio: 1 / 1;
   }
 }
 
-.moto-duo-photo-wrap:hover .moto-showcase-img {
+.moto-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.moto-hero-photo-wrap:hover .moto-hero-img {
   transform: scale(1.04);
 }
 
-.moto-photo-badge {
+.moto-hero-badge {
   position: absolute;
   bottom: 12px;
   left: 12px;
-  background: rgba(7, 8, 10, 0.85);
+  background: rgba(7, 8, 10, 0.88);
   border: 1px solid rgba(56, 189, 248, 0.4);
   color: var(--gtt-cyan);
-  padding: 4px 10px;
+  padding: 5px 10px;
   border-radius: 6px;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 10.5px;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   backdrop-filter: blur(8px);
   pointer-events: none;
   z-index: 5;
+  white-space: nowrap;
 }
 
-.moto-showcase-info {
-  padding: 45px 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.moto-hero-info {
+  padding: 32px 36px 36px;
+  background: linear-gradient(180deg, rgba(16, 20, 28, 0.95) 0%, rgba(10, 13, 18, 0.98) 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.moto-showcase-title {
+.moto-hero-title {
   font-family: var(--font-display);
-  font-size: clamp(28px, 2.5vw, 36px);
+  font-size: clamp(24px, 2.5vw, 34px);
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   color: #fff;
-  line-height: 1.15;
+  line-height: 1.2;
 }
 
-.moto-showcase-text {
-  font-size: 16px;
+.moto-hero-desc {
+  font-size: 14.5px;
   color: var(--text-muted);
-  line-height: 1.8;
-  margin-bottom: 28px;
+  line-height: 1.7;
+  max-width: 1100px;
+  margin-bottom: 22px;
+}
+
+/* Superbikes Fleet Catalog (7+ Scalable Grid) */
+.moto-fleet-header {
+  max-width: 1400px;
+  margin: 0 auto 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0 4px;
+}
+
+.moto-fleet-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.moto-fleet-count {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gtt-cyan);
+  letter-spacing: 0.1em;
+}
+
+.moto-fleet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 28px;
+  max-width: 1400px;
+  margin: 0 auto 60px;
+}
+
+@media (max-width: 768px) {
+  .moto-fleet-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+.moto-bike-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s var(--ease-out-expo), border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.moto-bike-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 25px rgba(56, 189, 248, 0.15);
+}
+
+.moto-bike-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: #0d1118;
+  overflow: hidden;
+}
+
+.moto-bike-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  display: block;
+  transition: transform 0.6s var(--ease-out-expo);
+}
+
+.moto-bike-card:hover .moto-bike-img {
+  transform: scale(1.05);
+}
+
+.moto-bike-status {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(7, 8, 10, 0.88);
+  border: 1px solid var(--gtt-orange);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 4px;
+  letter-spacing: 0.08em;
+  backdrop-filter: blur(8px);
+}
+
+.moto-bike-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.moto-bike-brand {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gtt-cyan);
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.moto-bike-name {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 1.25;
+  margin-bottom: 16px;
+  letter-spacing: 0.03em;
+}
+
+.moto-bike-specs-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 12px 10px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.moto-mini-spec .m-val {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.03em;
+}
+
+.moto-mini-spec .m-lbl {
+  display: block;
+  font-size: 9.5px;
+  font-family: var(--font-mono);
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.moto-bike-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
 }
 
 .moto-cards-grid {
@@ -1925,18 +2143,42 @@ body.is-loading {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.75), 0 0 30px rgba(56, 189, 248, 0.2);
 }
 
+.moto-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
 .moto-card-icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 10px;
-  background: rgba(56, 189, 248, 0.1);
-  border: 1px solid rgba(56, 189, 248, 0.2);
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.14), rgba(56, 189, 248, 0.03));
+  border: 1px solid rgba(56, 189, 248, 0.28);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--gtt-cyan);
-  font-size: 24px;
-  margin-bottom: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.moto-card:hover .moto-card-icon {
+  transform: scale(1.06);
+  border-color: var(--gtt-cyan);
+}
+
+.moto-spec-code {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(56, 189, 248, 0.7);
+  background: rgba(56, 189, 248, 0.06);
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(56, 189, 248, 0.15);
 }
 
 .moto-card-title {
@@ -1955,23 +2197,70 @@ body.is-loading {
   margin-bottom: 20px;
 }
 
-.moto-bullets {
-  list-style: none;
-  font-size: 13px;
-  color: var(--text-main);
-}
-
-.moto-bullets li {
-  margin-bottom: 8px;
+/* Moto Telemetry Spec Strips */
+.moto-spec-strip {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 8px;
 }
 
-.moto-bullets li::before {
-  content: '▸';
-  color: var(--gtt-cyan);
-  font-size: 14px;
+.moto-spec-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-left: 2px solid var(--gtt-cyan);
+  border-radius: 6px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #cbd5e1;
+  transition: all 0.25s ease;
+}
+
+.moto-card:hover .moto-spec-item {
+  background: rgba(56, 189, 248, 0.05);
+  border-color: rgba(56, 189, 248, 0.2);
+  border-left-color: var(--gtt-cyan);
+  color: #fff;
+  transform: translateX(3px);
+}
+
+.spec-status-led {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gtt-cyan);
+  box-shadow: 0 0 8px var(--gtt-cyan);
+  flex-shrink: 0;
+}
+
+.spec-label {
+  flex: 1;
+  line-height: 1.35;
+}
+
+/* Moto Banner Specs */
+.moto-banner-specs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.moto-banner-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: #e2e8f0;
+}
+
+.moto-banner-item .spec-status-led {
+  background: var(--gtt-orange);
+  box-shadow: 0 0 8px var(--gtt-orange);
 }
 
 /* Contact & Info Hub */
@@ -1993,12 +2282,43 @@ body.is-loading {
   backdrop-filter: blur(20px);
 }
 
+.contact-lab-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  background: rgba(255, 100, 37, 0.08);
+  border: 1px solid rgba(255, 100, 37, 0.28);
+  border-radius: 20px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--gtt-orange);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.pulse-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gtt-orange);
+  box-shadow: 0 0 8px var(--gtt-orange);
+  animation: pulseGTT 2s infinite ease-in-out;
+}
+
+@keyframes pulseGTT {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
 .contact-info-block .c-title {
   font-family: var(--font-display);
   font-size: 32px;
   font-weight: 800;
   text-transform: uppercase;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   line-height: 1.2;
 }
 
@@ -2006,19 +2326,23 @@ body.is-loading {
   color: var(--text-muted);
   font-size: 15px;
   line-height: 1.7;
-  margin-bottom: 30px;
+  margin-bottom: 26px;
 }
 
 .contact-items {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 14px;
 }
 
 .c-item {
   display: flex;
   align-items: center;
   gap: 16px;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
   color: #fff;
   text-decoration: none;
   font-size: 15px;
@@ -2026,21 +2350,51 @@ body.is-loading {
 }
 
 .c-item:hover {
-  color: var(--gtt-orange);
+  background: rgba(255, 100, 37, 0.06);
+  border-color: rgba(255, 100, 37, 0.35);
+  transform: translateX(4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 100, 37, 0.12);
 }
 
 .c-item-icon {
-  width: 46px;
-  height: 46px;
-  border-radius: 10px;
-  background: var(--gtt-orange-subtle);
-  border: 1px solid rgba(255, 100, 37, 0.25);
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(255, 100, 37, 0.16), rgba(255, 100, 37, 0.04));
+  border: 1px solid rgba(255, 100, 37, 0.32);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--gtt-orange);
-  font-size: 18px;
   flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease;
+}
+
+.c-item:hover .c-item-icon {
+  transform: scale(1.06);
+  border-color: var(--gtt-orange);
+}
+
+.c-item-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.c-item-label {
+  font-size: 11px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+  margin-bottom: 2px;
+}
+
+.c-item-val {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 15px;
+  color: #f1f5f9;
 }
 
 .contact-actions-row {
@@ -3484,14 +3838,29 @@ body.modal-open {
     padding: 60px 0 70px;
   }
   .marquee-stream-wrapper {
-    padding: 15px 0 25px;
+    padding: 15px 0 20px;
     mask-image: none;
     -webkit-mask-image: none;
+  }
+  .marquee-card {
+    scroll-snap-align: center;
   }
   .marquee-hint {
     padding: 0 16px;
     font-size: 11px;
     line-height: 1.5;
+  }
+  .gallery-controls-bar {
+    margin-top: 16px;
+    gap: 12px;
+  }
+  .gallery-nav-btn {
+    width: 40px;
+    height: 40px;
+  }
+  .gallery-counter-indicator {
+    padding: 6px 14px;
+    font-size: 12px;
   }
 
   /* Moto Section */
@@ -3505,11 +3874,11 @@ body.modal-open {
   }
   .moto-duo-photo-wrap {
     height: auto;
-    aspect-ratio: 16 / 11;
+    aspect-ratio: 1 / 1;
     max-height: none;
   }
   .moto-showcase-img {
-    object-position: center center;
+    object-position: center bottom;
     object-fit: cover;
   }
   .moto-cards-grid {
@@ -3665,19 +4034,19 @@ body.modal-open {
   transform: translateX(-50%) translateY(140%);
   opacity: 0;
   width: calc(100% - 24px);
-  max-width: 440px;
-  background: rgba(10, 13, 18, 0.92);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255, 100, 37, 0.32);
-  border-radius: 40px;
+  max-width: 420px;
+  background: rgba(8, 10, 14, 0.94);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid rgba(255, 100, 37, 0.28);
+  border-radius: 100px;
   padding: 6px 8px;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.85), 0 0 20px rgba(255, 100, 37, 0.15);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9), 0 0 24px rgba(255, 100, 37, 0.12);
   z-index: 1500;
   justify-content: space-between;
   align-items: center;
   gap: 6px;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
   pointer-events: none;
 }
 
@@ -3698,15 +4067,15 @@ body.modal-open {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  padding: 8px 6px;
+  gap: 6px;
+  padding: 10px 8px;
   min-height: 42px;
-  border-radius: 30px;
+  border-radius: 100px;
   text-decoration: none;
   font-family: var(--font-display);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: #fff;
   transition: transform 0.2s ease, background 0.2s ease;
@@ -3720,8 +4089,13 @@ body.modal-open {
 }
 
 .mobile-bar-btn .bar-icon {
-  font-size: 13px;
-  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-bar-btn .bar-icon svg {
+  display: block;
 }
 
 .mobile-bar-btn.tg-action {

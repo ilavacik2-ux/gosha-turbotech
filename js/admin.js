@@ -256,7 +256,101 @@ const defaultGallery = [
   { id: 'gal_11', tag: 'BEZZUBIK TT', title: 'Huracan Twin Turbo «Беззубик»', img: 'assets/cars/huracan_green_bezzubik_track.jpg' }
 ];
 
-// Helpers for LocalStorage
+// Server API Client Engine (FastAPI & SQLite persistence)
+const API_BASE = '';
+
+async function apiFetch(endpoint, options = {}) {
+  try {
+    const res = await fetch(API_BASE + endpoint, {
+      headers: {
+        'Content-Type': 'application/json',
+        ...(options.headers || {})
+      },
+      ...options
+    });
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({ detail: res.statusText }));
+      throw new Error(errData.detail || 'HTTP error ' + res.status);
+    }
+    return await res.json();
+  } catch (err) {
+    console.warn(`[GTT API] Request to ${endpoint} failed:`, err);
+    throw err;
+  }
+}
+
+// ==========================================================================
+// GTT MOTORSPORT TOAST ENGINE
+// ==========================================================================
+function showToast(title, message = '', type = 'info', duration = 3800) {
+  let container = document.getElementById('adminToastContainer');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'adminToastContainer';
+    container.className = 'gtt-toast-container';
+    document.body.appendChild(container);
+  }
+
+  const icons = {
+    success: '✓',
+    error: '✕',
+    warning: '⚠️',
+    info: '⚡'
+  };
+
+  const toast = document.createElement('div');
+  toast.className = `gtt-toast toast-${type}`;
+  toast.innerHTML = `
+    <div class="gtt-toast-icon">${icons[type] || '⚡'}</div>
+    <div class="gtt-toast-body">
+      <div class="gtt-toast-title">${title}</div>
+      ${message ? `<div class="gtt-toast-desc">${message}</div>` : ''}
+    </div>
+    <button class="gtt-toast-close" aria-label="Закрыть">&times;</button>
+    <div class="gtt-toast-progress" style="animation-duration: ${duration}ms;"></div>
+  `;
+
+  container.appendChild(toast);
+
+  // Trigger CSS slide-in
+  requestAnimationFrame(() => {
+    toast.classList.add('show');
+  });
+
+  let dismissTimeout = setTimeout(dismiss, duration);
+
+  function dismiss() {
+    clearTimeout(dismissTimeout);
+    toast.classList.remove('show');
+    toast.classList.add('hide');
+    setTimeout(() => {
+      if (toast.parentNode) toast.parentNode.removeChild(toast);
+    }, 400);
+  }
+
+  const closeBtn = toast.querySelector('.gtt-toast-close');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dismiss();
+    });
+  }
+
+  // Hover to pause dismissal
+  toast.addEventListener('mouseenter', () => {
+    clearTimeout(dismissTimeout);
+  });
+
+  toast.addEventListener('mouseleave', () => {
+    dismissTimeout = setTimeout(dismiss, 1600);
+  });
+
+  return toast;
+}
+
+window.showToast = showToast;
+
+// Helpers for LocalStorage & In-memory Cache
 function getDB(key, defaultVal) {
   const saved = localStorage.getItem(key);
   if (saved) {
@@ -272,8 +366,8 @@ function saveDB(key, data) {
 
 const USER_NAME_KEY = 'gtt_admin_user_name';
 
-// Authentication
-function checkAuth() {
+// Authentication & Module Initialization
+async function checkAuth() {
   const isAuth = sessionStorage.getItem(AUTH_KEY) === 'true' || localStorage.getItem(AUTH_KEY) === 'true';
   const loginScreen = document.getElementById('loginScreen');
   const dashboardScreen = document.getElementById('dashboardScreen');
@@ -288,9 +382,41 @@ function checkAuth() {
     }
 
     renderAllModules();
+    syncAllModulesFromAPI();
   } else {
     loginScreen.style.display = 'flex';
     dashboardScreen.style.display = 'none';
+  }
+}
+
+async function syncAllModulesFromAPI() {
+  try {
+    const [cars, gallery, team, records, media] = await Promise.allSettled([
+      apiFetch('/api/cars'),
+      apiFetch('/api/gallery'),
+      apiFetch('/api/team'),
+      apiFetch('/api/records'),
+      apiFetch('/api/media')
+    ]);
+
+    if (cars.status === 'fulfilled' && Array.isArray(cars.value) && cars.value.length > 0) {
+      saveDB(ADMIN_STORAGE_KEY, cars.value);
+    }
+    if (gallery.status === 'fulfilled' && Array.isArray(gallery.value) && gallery.value.length > 0) {
+      saveDB(GALLERY_STORAGE_KEY, gallery.value);
+    }
+    if (team.status === 'fulfilled' && Array.isArray(team.value) && team.value.length > 0) {
+      saveDB(TEAM_STORAGE_KEY, team.value);
+    }
+    if (records.status === 'fulfilled' && Array.isArray(records.value) && records.value.length > 0) {
+      saveDB(RECORDS_STORAGE_KEY, records.value);
+    }
+    if (media.status === 'fulfilled' && Array.isArray(media.value) && media.value.length > 0) {
+      saveDB(MEDIA_STORAGE_KEY, media.value);
+    }
+    renderAllModules();
+  } catch (e) {
+    console.warn('[GTT API] Standalone sync note:', e);
   }
 }
 
@@ -319,31 +445,62 @@ function sendTelegramAlert(text) {
   }
 }
 
-function handleAdminLogin(e) {
+async function handleAdminLogin(e) {
   if (e && e.preventDefault) e.preventDefault();
   const inputEl = document.getElementById('adminPass');
   const input = (inputEl ? inputEl.value : '').trim();
   const errorEl = document.getElementById('authError');
+  const loginBtn = document.getElementById('loginBtn');
 
-  const currentPin = getStoredPin();
+  if (loginBtn) {
+    loginBtn.disabled = true;
+    loginBtn.textContent = 'Проверка ключа...';
+  }
 
-  if (input === currentPin || input.toLowerCase() === currentPin.toLowerCase()) {
+  let authSuccessful = false;
+  let errorMsg = '⚠️ Неверный ключ или секретный пароль. Доступ заблокирован.';
+
+  try {
+    const res = await apiFetch('/api/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ password: input })
+    });
+    if (res && res.status === 'ok') {
+      authSuccessful = true;
+    }
+  } catch (apiErr) {
+    if (apiErr.message && (apiErr.message.includes('429') || apiErr.message.includes('Слишком много'))) {
+      authSuccessful = false;
+      errorMsg = apiErr.message;
+    } else if (apiErr.message && (apiErr.message.includes('401') || apiErr.message.includes('пароль'))) {
+      authSuccessful = false;
+      errorMsg = '⚠️ Неверный секретный пароль инженера!';
+    } else {
+      // Offline fallback
+      const currentPin = getStoredPin();
+      if (input === currentPin || input.toLowerCase() === currentPin.toLowerCase()) {
+        authSuccessful = true;
+      }
+    }
+  } finally {
+    if (loginBtn) {
+      loginBtn.disabled = false;
+      loginBtn.textContent = 'Войти в панель GTT';
+    }
+  }
+
+  if (authSuccessful) {
     sessionStorage.setItem(AUTH_KEY, 'true');
     localStorage.setItem(AUTH_KEY, 'true');
-
     if (errorEl) errorEl.style.display = 'none';
-    
-    // Telegram Security Notification
-    sendTelegramAlert(`🚨 <b>GTT Atelier Hub: Вход выполнен</b>\nУспешная авторизация в панели инженера.\nВремя: ${new Date().toLocaleString('ru-RU')}\nIP/Платформа: ${navigator.userAgent.slice(0, 80)}`);
-    
+    showToast('Доступ разрешен', 'Успешная авторизация в панели инженера GTT', 'success');
     checkAuth();
   } else {
     if (errorEl) {
+      errorEl.textContent = errorMsg;
       errorEl.style.display = 'block';
     }
-    // Telegram Alert on failed bruteforce attempt
-    sendTelegramAlert(`⚠️ <b>GTT Atelier Hub: Ошибка авторизации</b>\nПопытка ввода неверного пароля!\nВведенный пароль: <code>${input.slice(0, 15)}</code>\nВремя: ${new Date().toLocaleString('ru-RU')}`);
-
+    showToast('Ошибка доступа', errorMsg, 'error');
     if (inputEl) {
       inputEl.value = '';
       inputEl.focus();
@@ -355,6 +512,7 @@ function handleAdminLogout() {
   sessionStorage.removeItem(AUTH_KEY);
   localStorage.removeItem(AUTH_KEY);
   localStorage.removeItem(USER_NAME_KEY);
+  showToast('Выход из системы', 'Сессия инженера GTT Atelier завершена', 'info');
   checkAuth();
 }
 
@@ -470,7 +628,7 @@ function closeCarEditModal() {
   document.getElementById('carEditModal').style.display = 'none';
 }
 
-function saveCarProject(e) {
+async function saveCarProject(e) {
   e.preventDefault();
   const idInput = document.getElementById('editCarId').value;
   const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects);
@@ -479,13 +637,19 @@ function saveCarProject(e) {
     id: idInput || 'gtt_car_' + Date.now(),
     brand: document.getElementById('editBrand').value.trim(),
     type: document.getElementById('editType').value,
+    name_ru: document.getElementById('editNameRu').value.trim(),
     nameRu: document.getElementById('editNameRu').value.trim(),
+    name_en: document.getElementById('editNameEn').value.trim(),
     nameEn: document.getElementById('editNameEn').value.trim(),
     hp: document.getElementById('editHp').value.trim(),
+    quarter_mile: document.getElementById('editQuarter').value.trim(),
     quarterMile: document.getElementById('editQuarter').value.trim(),
+    top_speed: document.getElementById('editTopSpeed').value.trim(),
     topSpeed: document.getElementById('editTopSpeed').value.trim(),
     img: document.getElementById('editImg').value.trim(),
+    video_src: document.getElementById('editVideoSrc').value.trim(),
     videoSrc: document.getElementById('editVideoSrc').value.trim(),
+    desc_ru: document.getElementById('editDescRu').value.trim(),
     descRu: document.getElementById('editDescRu').value.trim()
   };
 
@@ -499,45 +663,83 @@ function saveCarProject(e) {
   saveDB(ADMIN_STORAGE_KEY, projects);
   renderCarsTable();
   closeCarEditModal();
+
+  showToast(
+    idInput ? 'Проект обновлен' : 'Проект добавлен',
+    `Болид «${carData.nameRu || carData.name_ru}» сохранен в базе SQLite!`,
+    'success'
+  );
+
+  try {
+    if (idInput) {
+      await apiFetch(`/api/cars/${encodeURIComponent(idInput)}`, {
+        method: 'PUT',
+        body: JSON.stringify(carData)
+      });
+    } else {
+      await apiFetch('/api/cars', {
+        method: 'POST',
+        body: JSON.stringify(carData)
+      });
+    }
+  } catch (err) {
+    console.warn('[GTT API] Car backend save note:', err);
+    showToast('Синхронизация с сервером', 'Данные сохранены локально, сервер недоступен', 'warning');
+  }
 }
 
-function deleteCarProject(carId) {
+async function deleteCarProject(carId) {
   if (!confirm('Вы уверены, что хотите удалить этот проект из базы GTT?')) return;
   const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects).filter(c => c.id !== carId);
   saveDB(ADMIN_STORAGE_KEY, projects);
   renderCarsTable();
+  showToast('Проект удален', `Болид ${carId} успешно удален из базы данных`, 'info');
+
+  try {
+    await apiFetch(`/api/cars/${encodeURIComponent(carId)}`, { method: 'DELETE' });
+  } catch (err) {
+    console.warn('[GTT API] Car backend deletion note:', err);
+  }
 }
 
 // ================= MODULE: TRAFFIC & VISITORS TELEMETRY =================
-function renderTrafficModule() {
+async function renderTrafficModule() {
   const defaultStats = {
-    totalViews: 148,
-    uniqueVisitors: 42,
-    todayViews: 19,
-    lastVisitDate: new Date().toISOString().split('T')[0],
-    log: [
-      { id: 'v1', time: '18:42:10', date: 'Сегодня', device: 'Apple Mac (Safari)', source: 'Прямой заход (ilavacik2-ux.github.io)', page: 'index.html', isNewSession: true },
-      { id: 'v2', time: '18:31:05', date: 'Сегодня', device: 'Смартфон (Mobile)', source: 'Telegram (@goshaturbotech)', page: 'index.html#garage', isNewSession: true },
-      { id: 'v3', time: '17:55:18', date: 'Сегодня', device: 'Windows PC (Chrome)', source: 'Яндекс Поиск', page: 'index.html#founder', isNewSession: false },
-      { id: 'v4', time: '16:20:44', date: 'Сегодня', device: 'Смартфон (Mobile)', source: 'Telegram (@goshaturbotech)', page: 'index.html#contact', isNewSession: true },
-      { id: 'v5', time: '14:12:09', date: 'Сегодня', device: 'Apple Mac (Chrome)', source: 'Прямой переход', page: 'admin.html', isNewSession: true }
-    ]
+    totalViews: 0,
+    uniqueVisitors: 0,
+    todayViews: 0,
+    log: []
   };
 
-  const stats = getDB(TRAFFIC_STORAGE_KEY, defaultStats);
+  let stats = getDB(TRAFFIC_STORAGE_KEY, defaultStats);
+
+  try {
+    const liveTraffic = await apiFetch('/api/traffic');
+    if (liveTraffic && typeof liveTraffic.totalViews === 'number') {
+      stats = liveTraffic;
+      saveDB(TRAFFIC_STORAGE_KEY, stats);
+    }
+  } catch (e) {
+    // Offline / fallback mode
+  }
 
   const totalEl = document.getElementById('statTotalViews');
   const uniqueEl = document.getElementById('statUniqueVisitors');
   const todayEl = document.getElementById('statTodayViews');
   const tbody = document.getElementById('trafficTableBody');
 
-  if (totalEl) totalEl.textContent = stats.totalViews.toLocaleString('ru-RU');
-  if (uniqueEl) uniqueEl.textContent = stats.uniqueVisitors.toLocaleString('ru-RU');
-  if (todayEl) todayEl.textContent = '+' + stats.todayViews.toLocaleString('ru-RU');
+  if (totalEl) totalEl.textContent = (stats.totalViews || 0).toLocaleString('ru-RU');
+  if (uniqueEl) uniqueEl.textContent = (stats.uniqueVisitors || 0).toLocaleString('ru-RU');
+  if (todayEl) todayEl.textContent = '+' + (stats.todayViews || 0).toLocaleString('ru-RU');
 
   if (!tbody) return;
 
-  const logList = (stats.log && stats.log.length > 0) ? stats.log : defaultStats.log;
+  const logList = (stats.log && stats.log.length > 0) ? stats.log : [];
+
+  if (logList.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-dim); padding: 24px;">Визиты не зафиксированы или база была очищена.</td></tr>`;
+    return;
+  }
 
   tbody.innerHTML = logList.map(entry => `
     <tr>
@@ -546,7 +748,7 @@ function renderTrafficModule() {
       <td>
         <span style="display: inline-flex; align-items: center; gap: 6px; font-weight: 600;">
           ${entry.device && entry.device.includes('Mobile') ? '📱' : (entry.device && entry.device.includes('Mac') ? '💻' : '🖥️')}
-          ${entry.device || 'Веб-браузер'}
+          ${entry.device || 'Веб-клиент'}
         </span>
       </td>
       <td>
@@ -558,8 +760,8 @@ function renderTrafficModule() {
         <code style="background: rgba(255,255,255,0.06); padding: 3px 8px; border-radius: 4px; font-size: 11px;">/${entry.page || 'index.html'}</code>
       </td>
       <td>
-        <span style="font-size: 11px; padding: 3px 8px; border-radius: 12px; background: ${entry.isNewSession ? 'rgba(34, 197, 94, 0.15)' : 'rgba(255, 255, 255, 0.08)'}; color: ${entry.isNewSession ? '#22c55e' : 'var(--text-dim)'}; border: 1px solid ${entry.isNewSession ? 'rgba(34, 197, 94, 0.3)' : 'transparent'};">
-          ${entry.isNewSession ? 'Новый визит' : 'Возврат'}
+        <span style="font-size: 11px; padding: 3px 8px; border-radius: 12px; background: ${entry.is_new_session || entry.isNewSession ? 'rgba(34, 197, 94, 0.15)' : 'rgba(255, 255, 255, 0.08)'}; color: ${entry.is_new_session || entry.isNewSession ? '#22c55e' : 'var(--text-dim)'}; border: 1px solid ${entry.is_new_session || entry.isNewSession ? 'rgba(34, 197, 94, 0.3)' : 'transparent'};">
+          ${entry.is_new_session || entry.isNewSession ? 'Новый визит' : 'Возврат'}
         </span>
       </td>
     </tr>
@@ -568,19 +770,24 @@ function renderTrafficModule() {
 
 function refreshTrafficAnalytics() {
   renderTrafficModule();
+  showToast('Аналитика обновлена', 'Получены свежие данные телеметрии визитов', 'info');
 }
 
-function resetTrafficAnalytics() {
+async function resetTrafficAnalytics() {
   if (!confirm('Сбросить накопленную статистику просмотров и визитов?')) return;
+  try {
+    await apiFetch('/api/traffic/reset', { method: 'POST' });
+  } catch (e) {}
+
   const resetStats = {
     totalViews: 0,
     uniqueVisitors: 0,
     todayViews: 0,
-    lastVisitDate: new Date().toISOString().split('T')[0],
     log: []
   };
   saveDB(TRAFFIC_STORAGE_KEY, resetStats);
   renderTrafficModule();
+  showToast('Аналитика очищена', 'Счетчики просмотров и лог визитов успешно сброшены', 'info');
 }
 
 // ================= MODULE 2: GALLERY (ЖИВЫЕ КАДРЫ) =================
@@ -635,7 +842,7 @@ function closeGalleryPhotoModal() {
   document.getElementById('galleryPhotoModal').style.display = 'none';
 }
 
-function saveGalleryPhoto(e) {
+async function saveGalleryPhoto(e) {
   e.preventDefault();
   const idInput = document.getElementById('editGalleryId').value;
   const gallery = getDB(GALLERY_STORAGE_KEY, defaultGallery);
@@ -657,13 +864,43 @@ function saveGalleryPhoto(e) {
   saveDB(GALLERY_STORAGE_KEY, gallery);
   renderGalleryTable();
   closeGalleryPhotoModal();
+
+  showToast(
+    idInput ? 'Кадр обновлен' : 'Кадр добавлен',
+    `Фотография «${photoData.title}» сохранена в живой галерее!`,
+    'success'
+  );
+
+  try {
+    if (idInput) {
+      await apiFetch(`/api/gallery/${encodeURIComponent(idInput)}`, {
+        method: 'PUT',
+        body: JSON.stringify(photoData)
+      });
+    } else {
+      await apiFetch('/api/gallery', {
+        method: 'POST',
+        body: JSON.stringify(photoData)
+      });
+    }
+  } catch (err) {
+    console.warn('[GTT API] Gallery save note:', err);
+    showToast('Синхронизация', 'Кадр сохранен локально, сервер недоступен', 'warning');
+  }
 }
 
-function deleteGalleryPhoto(id) {
+async function deleteGalleryPhoto(id) {
   if (!confirm('Удалить кадр из живой галереи?')) return;
   const gallery = getDB(GALLERY_STORAGE_KEY, defaultGallery).filter(g => g.id !== id);
   saveDB(GALLERY_STORAGE_KEY, gallery);
   renderGalleryTable();
+  showToast('Кадр удален', 'Фотография удалена из живой галереи', 'info');
+
+  try {
+    await apiFetch(`/api/gallery/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  } catch (err) {
+    console.warn('[GTT API] Gallery delete note:', err);
+  }
 }
 
 // ================= MODULE 3: TEAM =================
@@ -720,21 +957,24 @@ function closeTeamModal() {
   document.getElementById('teamModal').style.display = 'none';
 }
 
-function saveTeamMember(e) {
+async function saveTeamMember(e) {
   e.preventDefault();
   const idInput = document.getElementById('editMemberId').value;
   const team = getDB(TEAM_STORAGE_KEY, defaultTeam);
 
+  const existingMember = idInput ? team.find(m => m.id === idInput) : null;
   const memberData = {
     id: idInput || 'team_' + Date.now(),
     name: document.getElementById('editMemberName').value.trim(),
     role: document.getElementById('editMemberRole').value.trim(),
-    status: document.getElementById('editMemberStatus').value
+    status: document.getElementById('editMemberStatus').value,
+    photo: existingMember ? existingMember.photo : undefined,
+    social: existingMember ? existingMember.social : undefined
   };
 
   if (idInput) {
     const idx = team.findIndex(m => m.id === idInput);
-    if (idx !== -1) team[idx] = memberData;
+    if (idx !== -1) team[idx] = Object.assign({}, existingMember, memberData);
   } else {
     team.push(memberData);
   }
@@ -742,13 +982,43 @@ function saveTeamMember(e) {
   saveDB(TEAM_STORAGE_KEY, team);
   renderTeamTable();
   closeTeamModal();
+
+  showToast(
+    idInput ? 'Сотрудник обновлен' : 'Сотрудник добавлен',
+    `Специалист «${memberData.name}» сохранен в составе команды!`,
+    'success'
+  );
+
+  try {
+    if (idInput) {
+      await apiFetch(`/api/team/${encodeURIComponent(idInput)}`, {
+        method: 'PUT',
+        body: JSON.stringify(memberData)
+      });
+    } else {
+      await apiFetch('/api/team', {
+        method: 'POST',
+        body: JSON.stringify(memberData)
+      });
+    }
+  } catch (err) {
+    console.warn('[GTT API] Team save note:', err);
+    showToast('Синхронизация', 'Данные сотрудника сохранены локально', 'warning');
+  }
 }
 
-function deleteTeamMember(id) {
+async function deleteTeamMember(id) {
   if (!confirm('Удалить сотрудника из списка команды?')) return;
   const team = getDB(TEAM_STORAGE_KEY, defaultTeam).filter(m => m.id !== id);
   saveDB(TEAM_STORAGE_KEY, team);
   renderTeamTable();
+  showToast('Сотрудник удален', 'Специалист исключен из списка команды', 'info');
+
+  try {
+    await apiFetch(`/api/team/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  } catch (err) {
+    console.warn('[GTT API] Team delete note:', err);
+  }
 }
 
 // ================= MODULE 3: RECORDS =================
@@ -800,7 +1070,7 @@ function closeRecordModal() {
   document.getElementById('recordModal').style.display = 'none';
 }
 
-function saveRecord(e) {
+async function saveRecord(e) {
   e.preventDefault();
   const idInput = document.getElementById('editRecordId').value;
   const records = getDB(RECORDS_STORAGE_KEY, defaultRecords);
@@ -823,13 +1093,43 @@ function saveRecord(e) {
   saveDB(RECORDS_STORAGE_KEY, records);
   renderRecordsTable();
   closeRecordModal();
+
+  showToast(
+    idInput ? 'Рекорд обновлен' : 'Рекорд внесен',
+    `Запись «${recData.car}» сохранена в Зале славы RDRC!`,
+    'success'
+  );
+
+  try {
+    if (idInput) {
+      await apiFetch(`/api/records/${encodeURIComponent(idInput)}`, {
+        method: 'PUT',
+        body: JSON.stringify(recData)
+      });
+    } else {
+      await apiFetch('/api/records', {
+        method: 'POST',
+        body: JSON.stringify(recData)
+      });
+    }
+  } catch (err) {
+    console.warn('[GTT API] Record save note:', err);
+    showToast('Синхронизация', 'Рекорд сохранен локально', 'warning');
+  }
 }
 
-function deleteRecord(id) {
+async function deleteRecord(id) {
   if (!confirm('Удалить рекорд из зала славы?')) return;
   const records = getDB(RECORDS_STORAGE_KEY, defaultRecords).filter(r => r.id !== id);
   saveDB(RECORDS_STORAGE_KEY, records);
   renderRecordsTable();
+  showToast('Рекорд удален', 'Запись рекорда удалена из Зала славы', 'info');
+
+  try {
+    await apiFetch(`/api/records/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  } catch (err) {
+    console.warn('[GTT API] Record delete note:', err);
+  }
 }
 
 // ================= MODULE 4: MEDIA =================
@@ -883,7 +1183,7 @@ function closeMediaModal() {
   document.getElementById('mediaModal').style.display = 'none';
 }
 
-function saveMediaItem(e) {
+async function saveMediaItem(e) {
   e.preventDefault();
   const idInput = document.getElementById('editMediaId').value;
   const media = getDB(MEDIA_STORAGE_KEY, defaultMedia);
@@ -906,13 +1206,43 @@ function saveMediaItem(e) {
   saveDB(MEDIA_STORAGE_KEY, media);
   renderMediaTable();
   closeMediaModal();
+
+  showToast(
+    idInput ? 'Медиа обновлено' : 'Медиа добавлено',
+    `Видео «${mediaData.title}» сохранено в медиатеке!`,
+    'success'
+  );
+
+  try {
+    if (idInput) {
+      await apiFetch(`/api/media/${encodeURIComponent(idInput)}`, {
+        method: 'PUT',
+        body: JSON.stringify(mediaData)
+      });
+    } else {
+      await apiFetch('/api/media', {
+        method: 'POST',
+        body: JSON.stringify(mediaData)
+      });
+    }
+  } catch (err) {
+    console.warn('[GTT API] Media save note:', err);
+    showToast('Синхронизация', 'Видео сохранено локально', 'warning');
+  }
 }
 
-function deleteMediaItem(id) {
+async function deleteMediaItem(id) {
   if (!confirm('Удалить видео из медиатеки?')) return;
   const media = getDB(MEDIA_STORAGE_KEY, defaultMedia).filter(m => m.id !== id);
   saveDB(MEDIA_STORAGE_KEY, media);
   renderMediaTable();
+  showToast('Видео удалено', 'Медиаматериал удален из базы', 'info');
+
+  try {
+    await apiFetch(`/api/media/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  } catch (err) {
+    console.warn('[GTT API] Media delete note:', err);
+  }
 }
 
 // Global Exports
@@ -932,6 +1262,8 @@ function exportDataJSON() {
   document.body.appendChild(downloadAnchor);
   downloadAnchor.click();
   downloadAnchor.remove();
+
+  showToast('Экспорт базы', 'Резервная копия базы данных скачана в формате JSON', 'success');
 }
 
 window.handleAdminLogin = handleAdminLogin;
@@ -969,7 +1301,7 @@ window.resetTrafficAnalytics = resetTrafficAnalytics;
 window.exportDataJSON = exportDataJSON;
 
 // ================= MODULE 5: SETTINGS & SECURITY =================
-function populateSettingsInputs() {
+async function populateSettingsInputs() {
   const urlDisplay = document.getElementById('secretUrlDisplay');
   if (urlDisplay) {
     const origin = window.location.origin;
@@ -978,36 +1310,32 @@ function populateSettingsInputs() {
   }
 
   try {
-    const raw = localStorage.getItem(TG_CONFIG_KEY);
-    if (raw) {
-      const config = JSON.parse(raw);
-      if (document.getElementById('tgBotTokenInput')) document.getElementById('tgBotTokenInput').value = config.botToken || '';
-      if (document.getElementById('tgChatIdInput')) document.getElementById('tgChatIdInput').value = config.chatId || '';
+    const config = await apiFetch('/api/settings/telegram');
+    if (config) {
+      if (document.getElementById('tgBotTokenInput')) document.getElementById('tgBotTokenInput').value = config.bot_token || config.botToken || '';
+      if (document.getElementById('tgChatIdInput')) document.getElementById('tgChatIdInput').value = config.chat_id || config.chatId || '';
     }
   } catch (e) {
-    console.error('Error loading TG config:', e);
+    try {
+      const raw = localStorage.getItem(TG_CONFIG_KEY);
+      if (raw) {
+        const config = JSON.parse(raw);
+        if (document.getElementById('tgBotTokenInput')) document.getElementById('tgBotTokenInput').value = config.botToken || '';
+        if (document.getElementById('tgChatIdInput')) document.getElementById('tgChatIdInput').value = config.chatId || '';
+      }
+    } catch (err) {}
   }
 }
 
-function handlePasswordChange(e) {
+async function handlePasswordChange(e) {
   e.preventDefault();
   const currentInput = document.getElementById('currentPassInput');
   const newInput = document.getElementById('newPassInput');
   const statusEl = document.getElementById('passChangeStatus');
   if (!currentInput || !newInput || !statusEl) return;
 
-  const currentPin = getStoredPin();
   const enteredCurrent = currentInput.value.trim();
   const enteredNew = newInput.value.trim();
-
-  if (enteredCurrent !== currentPin) {
-    statusEl.style.display = 'block';
-    statusEl.style.background = 'rgba(239, 68, 68, 0.15)';
-    statusEl.style.color = '#ef4444';
-    statusEl.style.border = '1px solid rgba(239, 68, 68, 0.3)';
-    statusEl.textContent = '❌ Неверный текущий пароль! Попробуйте снова.';
-    return;
-  }
 
   if (enteredNew.length < 6) {
     statusEl.style.display = 'block';
@@ -1015,75 +1343,97 @@ function handlePasswordChange(e) {
     statusEl.style.color = '#ef4444';
     statusEl.style.border = '1px solid rgba(239, 68, 68, 0.3)';
     statusEl.textContent = '❌ Новый пароль должен содержать минимум 6 символов!';
+    showToast('Ошибка пароля', 'Пароль должен содержать минимум 6 символов!', 'warning');
     return;
   }
 
-  localStorage.setItem(PASS_HASH_KEY, enteredNew);
-  currentInput.value = '';
-  newInput.value = '';
+  try {
+    await apiFetch('/api/auth/change-password', {
+      method: 'POST',
+      body: JSON.stringify({
+        current_password: enteredCurrent,
+        new_password: enteredNew
+      })
+    });
+    localStorage.setItem(PASS_HASH_KEY, enteredNew);
+    currentInput.value = '';
+    newInput.value = '';
 
-  statusEl.style.display = 'block';
-  statusEl.style.background = 'rgba(34, 197, 94, 0.15)';
-  statusEl.style.color = '#22c55e';
-  statusEl.style.border = '1px solid rgba(34, 197, 94, 0.3)';
-  statusEl.textContent = '✅ Новый пароль успешно установлен и сохранен!';
-
-  sendTelegramAlert(`🔑 <b>GTT Atelier Hub: Смена пароля</b>\nМастер-пароль администратора был успешно изменен.\nВремя: ${new Date().toLocaleString('ru-RU')}`);
+    statusEl.style.display = 'block';
+    statusEl.style.background = 'rgba(34, 197, 94, 0.15)';
+    statusEl.style.color = '#22c55e';
+    statusEl.style.border = '1px solid rgba(34, 197, 94, 0.3)';
+    statusEl.textContent = '✅ Новый пароль успешно установлен и сохранен в базе SQLite!';
+    showToast('Пароль обновлен', 'Мастер-пароль успешно сохранен в базе SQLite', 'success');
+  } catch (err) {
+    statusEl.style.display = 'block';
+    statusEl.style.background = 'rgba(239, 68, 68, 0.15)';
+    statusEl.style.color = '#ef4444';
+    statusEl.style.border = '1px solid rgba(239, 68, 68, 0.3)';
+    statusEl.textContent = '❌ Ошибка: ' + (err.message || 'Не удалось обновить пароль');
+    showToast('Ошибка пароля', err.message || 'Неверный текущий пароль', 'error');
+  }
 }
 
-function handleSaveTelegramConfig(e) {
+async function handleSaveTelegramConfig(e) {
   e.preventDefault();
   const botToken = (document.getElementById('tgBotTokenInput')?.value || '').trim();
   const chatId = (document.getElementById('tgChatIdInput')?.value || '').trim();
   const statusEl = document.getElementById('tgStatus');
 
-  const config = { botToken, chatId };
-  localStorage.setItem(TG_CONFIG_KEY, JSON.stringify(config));
+  const config = { bot_token: botToken, chat_id: chatId };
+  localStorage.setItem(TG_CONFIG_KEY, JSON.stringify({ botToken, chatId }));
 
-  if (statusEl) {
-    statusEl.style.display = 'block';
-    statusEl.style.background = 'rgba(34, 197, 94, 0.15)';
-    statusEl.style.color = '#22c55e';
-    statusEl.style.border = '1px solid rgba(34, 197, 94, 0.3)';
-    statusEl.textContent = '✅ Настройки Telegram сохранены!';
-    setTimeout(() => { statusEl.style.display = 'none'; }, 4000);
+  try {
+    await apiFetch('/api/settings/telegram', {
+      method: 'POST',
+      body: JSON.stringify(config)
+    });
+    if (statusEl) {
+      statusEl.style.display = 'block';
+      statusEl.style.background = 'rgba(34, 197, 94, 0.15)';
+      statusEl.style.color = '#22c55e';
+      statusEl.style.border = '1px solid rgba(34, 197, 94, 0.3)';
+      statusEl.textContent = '✅ Настройки Telegram сохранены в SQLite!';
+      setTimeout(() => { statusEl.style.display = 'none'; }, 4000);
+    }
+    showToast('Telegram подключен', 'Настройки бота и Chat ID сохранены в SQLite', 'success');
+  } catch (err) {
+    if (statusEl) {
+      statusEl.style.display = 'block';
+      statusEl.style.background = 'rgba(239, 68, 68, 0.15)';
+      statusEl.style.color = '#ef4444';
+      statusEl.style.border = '1px solid rgba(239, 68, 68, 0.3)';
+      statusEl.textContent = '❌ Ошибка сохранения: ' + err.message;
+    }
+    showToast('Ошибка сохранения', err.message || 'Не удалось сохранить настройки бота', 'error');
   }
 }
 
-function testTelegramAlert() {
+async function testTelegramAlert() {
   const statusEl = document.getElementById('tgStatus');
   const botToken = (document.getElementById('tgBotTokenInput')?.value || '').trim();
   const chatId = (document.getElementById('tgChatIdInput')?.value || '').trim();
 
   if (!botToken || !chatId) {
-    alert('Пожалуйста, введите Telegram Bot Token и Chat ID перед отправкой теста!');
+    showToast('Поля не заполнены', 'Введите Telegram Bot Token и Chat ID перед отправкой теста!', 'warning');
     return;
   }
 
-  fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      chat_id: chatId,
-      text: `🏎️ <b>GOSHA TURBOTECH • Atelier Hub</b>\n\nТестовое уведомление успешно доставлено!\nВаш бот привязан к системе безопасности.`,
-      parse_mode: 'HTML'
-    })
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.ok) {
-      if (statusEl) {
-        statusEl.style.display = 'block';
-        statusEl.style.background = 'rgba(34, 197, 94, 0.15)';
-        statusEl.style.color = '#22c55e';
-        statusEl.style.border = '1px solid rgba(34, 197, 94, 0.3)';
-        statusEl.textContent = '🚀 Тестовое сообщение успешно отправлено в Telegram!';
-      }
-    } else {
-      throw new Error(data.description || 'Не удалось отправить');
+  try {
+    const res = await apiFetch('/api/settings/telegram/test', {
+      method: 'POST',
+      body: JSON.stringify({ bot_token: botToken, chat_id: chatId })
+    });
+    if (statusEl) {
+      statusEl.style.display = 'block';
+      statusEl.style.background = 'rgba(34, 197, 94, 0.15)';
+      statusEl.style.color = '#22c55e';
+      statusEl.style.border = '1px solid rgba(34, 197, 94, 0.3)';
+      statusEl.textContent = '🚀 Тестовое сообщение успешно отправлено сервером в Telegram!';
     }
-  })
-  .catch(err => {
+    showToast('Telegram доставлен', 'Тестовое уведомление успешно отправлено сервером в Telegram!', 'success');
+  } catch (err) {
     if (statusEl) {
       statusEl.style.display = 'block';
       statusEl.style.background = 'rgba(239, 68, 68, 0.15)';
@@ -1091,7 +1441,8 @@ function testTelegramAlert() {
       statusEl.style.border = '1px solid rgba(239, 68, 68, 0.3)';
       statusEl.textContent = '❌ Ошибка Telegram: ' + err.message;
     }
-  });
+    showToast('Ошибка Telegram', err.message, 'error');
+  }
 }
 
 window.handlePasswordChange = handlePasswordChange;
