@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/admin.css?v=5.0">
+  <link rel="stylesheet" href="css/admin.css?v=5.1">
 </head>
 <body>
 
@@ -95,19 +95,25 @@
           </div>
         </div>
 
-        <!-- Quick Stats Counter -->
+        <!-- Quick Stats Counter with Edit Capability -->
         <div class="admin-stats-grid">
-          <div class="stat-card">
+          <div class="stat-card" style="position: relative;">
             <div class="stat-num" id="statTotalCars">10</div>
-            <div class="stat-lbl">Всего боевых болидов</div>
+            <div class="stat-lbl" id="statTotalCarsLbl">Всего боевых болидов</div>
           </div>
-          <div class="stat-card">
+          <div class="stat-card" style="position: relative;">
+            <button class="stat-edit-btn" onclick="openGarageStatsModal()" title="Редактировать показатели" aria-label="Редактировать">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            </button>
             <div class="stat-num" id="statMaxHp">3,000+ HP</div>
-            <div class="stat-lbl">Пиковая мощность (Draco Pro-Mod)</div>
+            <div class="stat-lbl" id="statMaxHpLbl">Пиковая мощность (Draco Pro-Mod)</div>
           </div>
-          <div class="stat-card">
+          <div class="stat-card" style="position: relative;">
+            <button class="stat-edit-btn" onclick="openGarageStatsModal()" title="Редактировать показатели" aria-label="Редактировать">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            </button>
             <div class="stat-num" id="statBestPass">6.850 сек</div>
-            <div class="stat-lbl">Рекордное время (402 м)</div>
+            <div class="stat-lbl" id="statBestPassLbl">Рекордное время (402 м)</div>
           </div>
         </div>
 
@@ -555,6 +561,40 @@
     </div>
   </div>
 
-  <script src="js/admin.js?v=4.6"></script>
+  <!-- Garage Stats Edit Modal -->
+  <div id="garageStatsModal" class="admin-modal-overlay" style="display: none;">
+    <div class="admin-modal-card">
+      <div class="admin-modal-header">
+        <h3>Редактировать показатели гаража GTT</h3>
+        <button class="modal-close-btn" onclick="closeGarageStatsModal()">&times;</button>
+      </div>
+      <form id="garageStatsForm" onsubmit="saveGarageStats(event)">
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label>Карточка 2: Пиковая мощность (Значение)</label>
+            <input type="text" id="editStatMaxHp" required placeholder="3,000+ HP">
+          </div>
+          <div class="form-group full-width">
+            <label>Карточка 2: Подпись / Модель</label>
+            <input type="text" id="editStatMaxHpLbl" required placeholder="Пиковая мощность (Draco Pro-Mod)">
+          </div>
+          <div class="form-group full-width">
+            <label>Карточка 3: Рекордное время 402м (Значение)</label>
+            <input type="text" id="editStatBestPass" required placeholder="6.850 сек">
+          </div>
+          <div class="form-group full-width">
+            <label>Карточка 3: Подпись / Дистанция</label>
+            <input type="text" id="editStatBestPassLbl" required placeholder="Рекордное время (402 м)">
+          </div>
+        </div>
+        <div class="admin-modal-actions">
+          <button type="button" class="topbar-btn outline-btn" onclick="closeGarageStatsModal()">Отмена</button>
+          <button type="submit" class="btn-primary">Сохранить показатели</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/admin.js?v=4.7"></script>
 </body>
 </html>

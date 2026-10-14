@@ -571,12 +571,75 @@ function renderAllModules() {
   renderMediaTable();
 }
 
+const GARAGE_STATS_KEY = 'gtt_garage_stats_custom';
+
+const defaultGarageStats = {
+  maxHp: '3,000+ HP',
+  maxHpLbl: 'Пиковая мощность (Draco Pro-Mod)',
+  bestPass: '6.850 сек',
+  bestPassLbl: 'Рекордное время (402 м)'
+};
+
+function getGarageStats() {
+  try {
+    const raw = localStorage.getItem(GARAGE_STATS_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) {}
+  return defaultGarageStats;
+}
+
+function renderGarageStats() {
+  const stats = getGarageStats();
+  const maxHpEl = document.getElementById('statMaxHp');
+  const maxHpLblEl = document.getElementById('statMaxHpLbl');
+  const bestPassEl = document.getElementById('statBestPass');
+  const bestPassLblEl = document.getElementById('statBestPassLbl');
+
+  if (maxHpEl) maxHpEl.textContent = stats.maxHp || defaultGarageStats.maxHp;
+  if (maxHpLblEl) maxHpLblEl.textContent = stats.maxHpLbl || defaultGarageStats.maxHpLbl;
+  if (bestPassEl) bestPassEl.textContent = stats.bestPass || defaultGarageStats.bestPass;
+  if (bestPassLblEl) bestPassLblEl.textContent = stats.bestPassLbl || defaultGarageStats.bestPassLbl;
+}
+
+function openGarageStatsModal() {
+  const stats = getGarageStats();
+  document.getElementById('editStatMaxHp').value = stats.maxHp || defaultGarageStats.maxHp;
+  document.getElementById('editStatMaxHpLbl').value = stats.maxHpLbl || defaultGarageStats.maxHpLbl;
+  document.getElementById('editStatBestPass').value = stats.bestPass || defaultGarageStats.bestPass;
+  document.getElementById('editStatBestPassLbl').value = stats.bestPassLbl || defaultGarageStats.bestPassLbl;
+  document.getElementById('garageStatsModal').style.display = 'flex';
+}
+
+function closeGarageStatsModal() {
+  document.getElementById('garageStatsModal').style.display = 'none';
+}
+
+function saveGarageStats(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  const newStats = {
+    maxHp: document.getElementById('editStatMaxHp').value.trim() || defaultGarageStats.maxHp,
+    maxHpLbl: document.getElementById('editStatMaxHpLbl').value.trim() || defaultGarageStats.maxHpLbl,
+    bestPass: document.getElementById('editStatBestPass').value.trim() || defaultGarageStats.bestPass,
+    bestPassLbl: document.getElementById('editStatBestPassLbl').value.trim() || defaultGarageStats.bestPassLbl
+  };
+
+  localStorage.setItem(GARAGE_STATS_KEY, JSON.stringify(newStats));
+  renderGarageStats();
+  closeGarageStatsModal();
+  showToast('Показатели обновлены', 'Статистика гаража GTT успешно сохранена!', 'success');
+}
+
+window.openGarageStatsModal = openGarageStatsModal;
+window.closeGarageStatsModal = closeGarageStatsModal;
+window.saveGarageStats = saveGarageStats;
+
 // ================= MODULE 1: CARS =================
 function renderCarsTable() {
   const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects);
   const tbody = document.getElementById('projectsTableBody');
   const totalCarsEl = document.getElementById('statTotalCars');
   if (totalCarsEl) totalCarsEl.textContent = projects.length;
+  renderGarageStats();
   if (!tbody) return;
 
   tbody.innerHTML = projects.map(car => `
