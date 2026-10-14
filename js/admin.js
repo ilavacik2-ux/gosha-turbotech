@@ -378,7 +378,7 @@ async function checkAuth() {
     dashboardScreen.style.display = 'block';
 
     if (welcomeTextEl) {
-      welcomeTextEl.innerHTML = `Добро пожаловать в <strong>GTT Atelier Hub</strong>`;
+      welcomeTextEl.innerHTML = `Добро пожаловать // <strong>GTT Atelier Hub</strong>`;
     }
 
     renderAllModules();

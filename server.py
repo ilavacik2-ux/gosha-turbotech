@@ -384,6 +384,7 @@ app.mount("/js", StaticFiles(directory=os.path.join(BASE_DIR, "js")), name="js")
 app.mount("/assets", StaticFiles(directory=os.path.join(BASE_DIR, "assets")), name="assets")
 
 @app.get("/")
+@app.get("/index.html")
 async def serve_index():
     return FileResponse(os.path.join(BASE_DIR, "index.html"))
 
@@ -391,6 +392,10 @@ async def serve_index():
 @app.get("/admin.html")
 async def serve_admin():
     return FileResponse(os.path.join(BASE_DIR, "admin.html"))
+
+@app.get("/favicon.ico")
+async def serve_favicon():
+    return FileResponse(os.path.join(BASE_DIR, "favicon.ico"))
 
 if __name__ == "__main__":
     import uvicorn

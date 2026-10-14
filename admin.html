@@ -5,14 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
   <meta name="theme-color" content="#07080a">
   <title>GTT Atelier Hub | Панель управления GoshaTurboTech</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/photos/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="assets/photos/favicon-192x192.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/photos/apple-touch-icon.png">
-  <link rel="shortcut icon" href="assets/photos/favicon-32x32.png">
+  <link rel="icon" type="image/svg+xml" href="assets/photos/gtt_shield_logo.svg?v=6.0">
+  <link rel="mask-icon" href="assets/photos/gtt_shield_logo.svg?v=6.0" color="#EA5B0C">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/photos/favicon-32x32.png?v=6.0">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/photos/favicon-192x192.png?v=6.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/photos/apple-touch-icon.png?v=6.0">
+  <link rel="shortcut icon" href="favicon.ico?v=6.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/admin.css?v=4.0">
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css?v=5.0">
 </head>
 <body>
 
@@ -59,18 +61,18 @@
       <!-- Navigation Tabs -->
       <nav class="admin-nav-tabs">
         <button class="admin-tab-btn active" onclick="switchAdminTab('cars')">🏎️ Гараж проектов</button>
-        <button class="admin-tab-btn" onclick="switchAdminTab('traffic')">📊 Посетители & Трафик</button>
-        <button class="admin-tab-btn" onclick="switchAdminTab('gallery')">📸 Живые кадры (Галерея)</button>
-        <button class="admin-tab-btn" onclick="switchAdminTab('team')">👥 Команда GTT</button>
-        <button class="admin-tab-btn" onclick="switchAdminTab('records')">⏱️ Рекорды RDRC</button>
-        <button class="admin-tab-btn" onclick="switchAdminTab('media')">🎥 Видео & Reels</button>
-        <button class="admin-tab-btn" onclick="switchAdminTab('settings')">⚙️ Безопасность & Доступ</button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('traffic')">📊 Трафик</button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('gallery')">📸 Галерея</button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('team')">👥 Команда</button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('records')">⏱️ Рекорды</button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('media')">🎥 Медиа</button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('settings')">⚙️ Безопасность</button>
       </nav>
 
       <div class="topbar-actions">
         <div class="admin-user-badge" id="adminUserBadge">
-          <span class="user-avatar-icon">⚡</span>
-          <span class="user-welcome-text" id="userWelcomeText">Добро пожаловать в <strong>GTT Atelier Hub</strong></span>
+          <span class="user-status-indicator"></span>
+          <span class="user-welcome-text" id="userWelcomeText">Добро пожаловать // <strong>GTT Atelier Hub</strong></span>
         </div>
         <a href="index.html" class="topbar-btn outline-btn" target="_blank">Открыть сайт ↗</a>
         <button class="topbar-btn danger-btn" onclick="handleAdminLogout()">Выйти</button>
