@@ -421,45 +421,47 @@ body.is-loading {
   box-shadow: 0 0 15px rgba(0, 119, 255, 0.4);
 }
 
-/* Language Switcher */
+/* Language Switcher - Sleek Typography Without Square Backgrounds */
 .lang-switch-group {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  padding: 3px 8px;
-  backdrop-filter: blur(10px);
+  background: transparent;
+  border: none;
+  padding: 0 4px;
+  gap: 2px;
 }
 
 .lang-btn {
   background: transparent;
   border: none;
-  color: var(--text-dim);
+  color: rgba(255, 255, 255, 0.42);
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 11.5px;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  padding: 4px 8px;
-  border-radius: 12px;
+  letter-spacing: 0.12em;
+  padding: 4px 6px;
+  border-radius: 0;
   cursor: pointer;
   transition: var(--transition-smooth);
 }
 
 .lang-btn:hover {
-  color: #fff;
+  color: #ffffff;
 }
 
 .lang-btn.active {
-  background: var(--gtt-orange);
-  color: #fff;
-  box-shadow: 0 0 10px var(--gtt-orange-glow);
+  background: transparent;
+  color: var(--gtt-orange);
+  font-weight: 800;
+  text-shadow: 0 0 12px rgba(234, 91, 12, 0.6);
+  box-shadow: none;
 }
 
 .lang-divider {
-  color: rgba(255, 255, 255, 0.2);
-  font-size: 10px;
-  margin: 0 2px;
+  color: rgba(255, 255, 255, 0.22);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  margin: 0 1px;
 }
 
 .btn-primary {
@@ -4367,17 +4369,19 @@ body.modal-open {
   }
 
   .lang-switch-group {
-    padding: 3px 6px;
-    height: 32px;
-    border-radius: 16px;
+    padding: 0 4px;
+    height: auto;
+    background: transparent;
+    border: none;
   }
 
   .lang-btn {
-    min-height: 26px;
-    min-width: 28px;
-    font-size: 10px;
-    padding: 2px 7px;
-    border-radius: 12px;
+    min-height: auto;
+    min-width: auto;
+    font-size: 11px;
+    padding: 4px 6px;
+    border-radius: 0;
+    background: transparent;
   }
 
   .modal-close, .lightbox-close, .mobile-drawer-close {
