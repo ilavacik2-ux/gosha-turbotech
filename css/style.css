@@ -1619,7 +1619,7 @@ body.is-loading {
   display: flex;
   gap: 24px;
   width: max-content;
-  padding: 0 max(24px, calc((100vw - 1300px) / 2));
+  padding: 0 16px;
 }
 
 /* Flagship Gallery Cards */
