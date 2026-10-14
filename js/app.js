@@ -875,7 +875,17 @@ let footerSecretClicks = 0;
 let footerSecretTimer = null;
 
 function openAdminDirect() {
-  window.location.href = '/admin.html';
+  const currentPath = window.location.pathname;
+  let targetUrl = 'admin.html';
+  if (currentPath.endsWith('/index.html')) {
+    targetUrl = currentPath.replace(/index\.html$/, 'admin.html');
+  } else if (currentPath.endsWith('/')) {
+    targetUrl = currentPath + 'admin.html';
+  } else {
+    const lastSlash = currentPath.lastIndexOf('/');
+    targetUrl = (lastSlash >= 0 ? currentPath.substring(0, lastSlash + 1) : '') + 'admin.html';
+  }
+  window.location.href = targetUrl;
 }
 
 function onFooterSecretClick() {
@@ -891,9 +901,9 @@ function onFooterSecretClick() {
   }
 }
 
-// Global Keyboard Shortcut: Ctrl+Shift+A or Cmd+Shift+A
+// Global Keyboard Shortcut: Ctrl+Shift+A or Cmd+Shift+A (Any layout: EN / RU)
 window.addEventListener('keydown', (e) => {
-  if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a' || e.key === 'Ф' || e.key === 'ф')) {
+  if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a' || e.key === 'Ф' || e.key === 'ф' || e.code === 'KeyA')) {
     e.preventDefault();
     openAdminDirect();
   }
