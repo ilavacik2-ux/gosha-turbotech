@@ -89,7 +89,7 @@ import secrets
 # Tracks failed attempts per IP address
 LOGIN_ATTEMPTS: Dict[str, List[float]] = {}
 MAX_FAILED_ATTEMPTS = 5
-LOCKOUT_WINDOW_SECONDS = 300  # 5 minutes block after 5 failed attempts
+LOCKOUT_WINDOW_SECONDS = 900  # 15 minutes lockout after 5 failed attempts
 ACTIVE_SESSIONS: set = set()
 
 def check_ip_rate_limit(ip: str):
@@ -111,6 +111,8 @@ def record_failed_attempt(ip: str):
     if ip not in LOGIN_ATTEMPTS:
         LOGIN_ATTEMPTS[ip] = []
     LOGIN_ATTEMPTS[ip].append(now)
+    # Progressive anti-dictionary delay
+    time.sleep(1.2)
 
 def reset_failed_attempts(ip: str):
     LOGIN_ATTEMPTS.pop(ip, None)
@@ -405,10 +407,19 @@ app.mount("/assets", StaticFiles(directory=os.path.join(BASE_DIR, "assets")), na
 async def serve_index():
     return FileResponse(os.path.join(BASE_DIR, "index.html"))
 
+# Secret GTT Staff Gateway (not /admin or /admine)
+@app.get("/gtt71")
+@app.get("/gtt-hub")
+@app.get("/staff-gate")
+async def serve_secret_admin():
+    return FileResponse(os.path.join(BASE_DIR, "admin.html"))
+
+# Block public guessing of /admin, /admine, /admin.html
 @app.get("/admin")
 @app.get("/admin.html")
-async def serve_admin():
-    return FileResponse(os.path.join(BASE_DIR, "admin.html"))
+@app.get("/admine")
+async def block_public_admin():
+    return RedirectResponse(url="/", status_code=302)
 
 @app.get("/favicon.ico")
 async def serve_favicon():

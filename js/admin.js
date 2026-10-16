@@ -392,6 +392,56 @@ function saveDB(key, data) {
 
 const USER_NAME_KEY = 'gtt_admin_user_name';
 
+const FAILED_ATTEMPTS_KEY = 'gtt_auth_fail_count';
+const LOCKOUT_TIMESTAMP_KEY = 'gtt_auth_lockout_until';
+const MAX_CLIENT_FAILS = 5;
+const CLIENT_LOCKOUT_MS = 15 * 60 * 1000; // 15 minutes lockout
+
+function checkClientLockout() {
+  const lockoutUntil = parseInt(localStorage.getItem(LOCKOUT_TIMESTAMP_KEY) || '0', 10);
+  const now = Date.now();
+  if (now < lockoutUntil) {
+    const remainingSec = Math.ceil((lockoutUntil - now) / 1000);
+    const min = Math.floor(remainingSec / 60);
+    const sec = remainingSec % 60;
+    const inputEl = document.getElementById('adminPass');
+    const loginBtn = document.getElementById('loginBtn');
+    const errorEl = document.getElementById('authError');
+    if (inputEl) {
+      inputEl.disabled = true;
+      inputEl.placeholder = 'Доступ заблокирован...';
+    }
+    if (loginBtn) {
+      loginBtn.disabled = true;
+      loginBtn.textContent = `Блокировка (${min}:${sec < 10 ? '0' : ''}${sec})`;
+    }
+    if (errorEl) {
+      errorEl.textContent = `🛑 Доступ заблокирован из-за 5 неверных попыток. Защита от перебора. Повторите через ${min} мин ${sec} сек.`;
+      errorEl.style.display = 'block';
+    }
+    setTimeout(checkClientLockout, 1000);
+    return true;
+  } else if (lockoutUntil > 0 && now >= lockoutUntil) {
+    localStorage.removeItem(LOCKOUT_TIMESTAMP_KEY);
+    localStorage.removeItem(FAILED_ATTEMPTS_KEY);
+    const inputEl = document.getElementById('adminPass');
+    const loginBtn = document.getElementById('loginBtn');
+    const errorEl = document.getElementById('authError');
+    if (inputEl) {
+      inputEl.disabled = false;
+      inputEl.placeholder = 'Введите пароль...';
+      inputEl.value = '';
+    }
+    if (loginBtn) {
+      loginBtn.disabled = false;
+      loginBtn.textContent = 'Войти в панель GTT';
+    }
+    if (errorEl) errorEl.style.display = 'none';
+    return false;
+  }
+  return false;
+}
+
 // Authentication & Module Initialization
 async function checkAuth() {
   const isAuth = sessionStorage.getItem(AUTH_KEY) === 'true' || localStorage.getItem(AUTH_KEY) === 'true';
@@ -412,6 +462,7 @@ async function checkAuth() {
   } else {
     loginScreen.style.display = 'flex';
     dashboardScreen.style.display = 'none';
+    checkClientLockout();
   }
 }
 
@@ -473,6 +524,8 @@ function sendTelegramAlert(text) {
 
 async function handleAdminLogin(e) {
   if (e && e.preventDefault) e.preventDefault();
+  if (checkClientLockout()) return;
+
   const inputEl = document.getElementById('adminPass');
   const input = (inputEl ? inputEl.value : '').trim();
   const errorEl = document.getElementById('authError');
@@ -485,6 +538,7 @@ async function handleAdminLogin(e) {
 
   let authSuccessful = false;
   let errorMsg = '⚠️ Неверный ключ или секретный пароль. Доступ заблокирован.';
+  let isRateLimited = false;
 
   try {
     const res = await apiFetch('/api/auth/login', {
@@ -497,6 +551,7 @@ async function handleAdminLogin(e) {
   } catch (apiErr) {
     if (apiErr.message && (apiErr.message.includes('429') || apiErr.message.includes('Слишком много'))) {
       authSuccessful = false;
+      isRateLimited = true;
       errorMsg = apiErr.message;
     } else if (apiErr.message && (apiErr.message.includes('401') || apiErr.message.includes('пароль'))) {
       authSuccessful = false;
@@ -510,27 +565,40 @@ async function handleAdminLogin(e) {
       }
     }
   } finally {
-    if (loginBtn) {
+    if (loginBtn && !isRateLimited) {
       loginBtn.disabled = false;
       loginBtn.textContent = 'Войти в панель GTT';
     }
   }
 
   if (authSuccessful) {
+    localStorage.removeItem(FAILED_ATTEMPTS_KEY);
+    localStorage.removeItem(LOCKOUT_TIMESTAMP_KEY);
     sessionStorage.setItem(AUTH_KEY, 'true');
     localStorage.setItem(AUTH_KEY, 'true');
     if (errorEl) errorEl.style.display = 'none';
     showToast('Доступ разрешен', 'Успешная авторизация в панели инженера GTT', 'success');
     checkAuth();
   } else {
-    if (errorEl) {
-      errorEl.textContent = errorMsg;
-      errorEl.style.display = 'block';
-    }
-    showToast('Ошибка доступа', errorMsg, 'error');
-    if (inputEl) {
-      inputEl.value = '';
-      inputEl.focus();
+    let failCount = parseInt(localStorage.getItem(FAILED_ATTEMPTS_KEY) || '0', 10) + 1;
+    localStorage.setItem(FAILED_ATTEMPTS_KEY, failCount.toString());
+
+    if (isRateLimited || failCount >= MAX_CLIENT_FAILS) {
+      localStorage.setItem(LOCKOUT_TIMESTAMP_KEY, (Date.now() + CLIENT_LOCKOUT_MS).toString());
+      checkClientLockout();
+      showToast('Блокировка доступа', 'Слишком много неверных попыток! Блокировка на 15 минут.', 'error');
+    } else {
+      const remainingAttempts = MAX_CLIENT_FAILS - failCount;
+      const warningText = `${errorMsg} Осталось попыток: ${remainingAttempts}`;
+      if (errorEl) {
+        errorEl.textContent = warningText;
+        errorEl.style.display = 'block';
+      }
+      showToast('Ошибка доступа', warningText, 'error');
+      if (inputEl) {
+        inputEl.value = '';
+        inputEl.focus();
+      }
     }
   }
 }

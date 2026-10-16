@@ -1127,20 +1127,10 @@ function renderTeamGrid(teamList) {
 function openAdminSecure(e) {
   if (e && e.preventDefault) e.preventDefault();
   if (e && e.stopPropagation) e.stopPropagation();
-  const currentPath = window.location.pathname;
-  let targetUrl = 'admin.html';
-  if (currentPath.endsWith('/index.html')) {
-    targetUrl = currentPath.replace(/index\.html$/, 'admin.html');
-  } else if (currentPath.endsWith('/')) {
-    targetUrl = currentPath + 'admin.html';
-  } else {
-    const lastSlash = currentPath.lastIndexOf('/');
-    targetUrl = (lastSlash >= 0 ? currentPath.substring(0, lastSlash + 1) : '') + 'admin.html';
-  }
-  window.location.href = targetUrl;
+  window.location.href = '/gtt71';
 }
 
-// 1. Global Keyboard Shortcut: Cmd+Shift+A or Ctrl+Shift+A (EN / RU layouts)
+// 1. Global Keyboard Shortcut for PC / Mac: Cmd+Shift+A or Ctrl+Shift+A
 function handleAdminKeydown(e) {
   const hasModifier = e.ctrlKey || e.metaKey;
   const isKeyA = e.code === 'KeyA' || e.key === 'A' || e.key === 'a' || e.key === 'Ф' || e.key === 'ф';
@@ -1166,7 +1156,34 @@ function handleSecretKeypress(e) {
   }
 }
 
-// 3. Stealth Triple-Click on Footer Copyright text
+// 3. Mobile Secret Touch Gesture (Hold brand logo for 3.5s)
+let logoPressTimer = null;
+function initMobileStaffGesture() {
+  const brandLogo = document.querySelector('.brand-logo');
+  if (!brandLogo) return;
+
+  const startPress = (e) => {
+    if (e.type === 'touchstart') {
+      logoPressTimer = setTimeout(() => {
+        if ('vibrate' in navigator) navigator.vibrate(60);
+        openAdminSecure();
+      }, 3500);
+    }
+  };
+
+  const cancelPress = () => {
+    if (logoPressTimer) {
+      clearTimeout(logoPressTimer);
+      logoPressTimer = null;
+    }
+  };
+
+  brandLogo.addEventListener('touchstart', startPress, { passive: true });
+  brandLogo.addEventListener('touchend', cancelPress, { passive: true });
+  brandLogo.addEventListener('touchmove', cancelPress, { passive: true });
+}
+
+// 4. Stealth Triple-Click on Footer Copyright text
 let footerCopyClicks = 0;
 let footerCopyTimer = null;
 function initFooterStaffAccess() {
@@ -1189,7 +1206,10 @@ function initFooterStaffAccess() {
 
 window.addEventListener('keydown', handleAdminKeydown, true);
 window.addEventListener('keypress', handleSecretKeypress, true);
-document.addEventListener('DOMContentLoaded', initFooterStaffAccess);
+document.addEventListener('DOMContentLoaded', () => {
+  initFooterStaffAccess();
+  initMobileStaffGesture();
+});
 
 window.openAdminDirect = openAdminSecure;
 
