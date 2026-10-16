@@ -146,8 +146,8 @@ def seed_initial_data(cursor):
             "type": "gtr",
             "name_ru": "GT-R R35 «LUCIFER» GTT #71 CHAMPION",
             "name_en": "GT-R R35 «LUCIFER» GTT #71 CHAMPION",
-            "tag_ru": "ЧЕМПИОН RDRC • ПИЛОТ ГЕОРГИЙ ПЕРЦХЕЛИЯ #71",
-            "tag_en": "RDRC CHAMPION • PILOT GEORGY PERTSKHELIYA #71",
+            "tag_ru": "ЧЕМПИОН RDRC • ПИЛОТ ГОША ПЕРЦХЕЛИЯ #71",
+            "tag_en": "RDRC CHAMPION • PILOT GOSHA PERTSKHELIYA #71",
             "hp": "1,850+ HP",
             "quarter_mile": "7.620 сек",
             "top_speed": "355+ км/ч",
@@ -157,8 +157,8 @@ def seed_initial_data(cursor):
             "fallback_img": "assets/cars/gtr_lucifer_full.jpg",
             "video_src": "assets/videos/gosha_na_svoem_lucifer_web.mp4",
             "video_title": "Гоша на своей // GT-R Lucifer RDRC",
-            "desc_ru": "Победоносный огненный болид Георгия Зурабовича Перцхелия (Гоши), борт №71. Построенный в лаборатории GoshaTurboTech драг-монстр в культовой ливрее адского пламени — триумфатор и победитель финалов чемпионата России RDRC.",
-            "desc_en": "Victorious hellfire-liveried race weapon piloted by Georgy Pertskheliya himself (race car #71). Built in the GoshaTurboTech skunkworks — champion and winner of Russian Drag Racing Championship (RDRC) finals.",
+            "desc_ru": "Победоносный огненный болид Гоши Перцхелия, борт №71. Построенный в лаборатории GoshaTurboTech драг-монстр в культовой ливрее адского пламени — триумфатор и победитель финалов чемпионата России RDRC.",
+            "desc_en": "Victorious hellfire-liveried race weapon piloted by Gosha Pertskheliya himself (race car #71). Built in the GoshaTurboTech skunkworks — champion and winner of Russian Drag Racing Championship (RDRC) finals.",
             "specs": {
                 "engine": "4.1L Billet Stroker VR38DETT GTT Race Spec",
                 "turbos": "Dual Precision 7675 Gen2 Pro Mod Billet Turbos",
@@ -418,6 +418,60 @@ def seed_initial_data(cursor):
                 "ecu": "Syvecs S8 ECU with Launch & Traction Control"
             },
             "sort_order": 10
+        },
+        {
+            "id": "bmw_m4",
+            "brand": "BMW M-POWER",
+            "type": "bmw",
+            "name_ru": "BMW M4 G82 COMPETITION GTT-850",
+            "name_en": "BMW M4 G82 COMPETITION GTT-850",
+            "tag_ru": "GTT TRACK & STREET SPEC • 850 HP",
+            "tag_en": "GTT TRACK & STREET SPEC • 850 HP",
+            "hp": "850+ HP",
+            "quarter_mile": "10.150 сек",
+            "top_speed": "325+ км/ч",
+            "badge_ru": "Track & Street Spec",
+            "badge_en": "Track & Street Spec",
+            "img": "assets/cars/bmw_m4_g82_gtt.jpg",
+            "fallback_img": "assets/cars/bmw_m4_g82_gtt.jpg",
+            "video_src": "",
+            "video_title": "",
+            "desc_ru": "Кастомный проект на базе BMW M4 G82. Доработанные турбокомпрессоры S58, впуск Eventuri, титановый выхлоп ручной работы и калибровка блока управления.",
+            "desc_en": "Custom build based on BMW M4 G82. Upgraded S58 turbos, Eventuri intake, bespoke titanium exhaust and custom ECU calibration.",
+            "specs": {
+                "engine": "3.0L S58 Twin-Turbo Inline-6",
+                "turbos": "Pure Turbos Stage 2+ Billet Core",
+                "cooling": "CSF Radiator & Charge Cooler Pack",
+                "ecu": "Custom Bootmod3 GTT Calibration"
+            },
+            "sort_order": 11
+        },
+        {
+            "id": "porsche_911_gtt",
+            "brand": "PORSCHE",
+            "type": "porsche",
+            "name_ru": "PORSCHE 911 TURBO S (992) GTT-IMBA",
+            "name_en": "PORSCHE 911 TURBO S (992) GTT-IMBA",
+            "tag_ru": "МИРОВОЙ РЕКОРД RDRC • 9.252 СЕК",
+            "tag_en": "WORLD RECORD RDRC • 9.252 SEC",
+            "hp": "1,050+ HP",
+            "quarter_mile": "9.252 сек",
+            "top_speed": "345+ км/ч",
+            "badge_ru": "Мировой Рекорд RDRC",
+            "badge_en": "World Record RDRC",
+            "img": "assets/cars/gtr_rdrc_red_panamera.jpg",
+            "fallback_img": "assets/cars/gtr_rdrc_red_panamera.jpg",
+            "video_src": "",
+            "video_title": "",
+            "desc_ru": "Официально подтвержденный рекордсмен RDRC среди Porsche 992. Кастомный интеркулер, метаноловый впрыск и экстремальный запуск с лаунча.",
+            "desc_en": "Officially verified RDRC record holder among Porsche 992 generation. Custom intercoolers, direct port methanol and ferocious launch control.",
+            "specs": {
+                "engine": "3.8L Twin-Turbo Boxer-6 GTT Spec",
+                "turbos": "GTT Billet High-Flow Turbos",
+                "fuel": "100 RON + Methanol Injection",
+                "ecu": "Syvecs S7 Plus Standalone Porsche Kit"
+            },
+            "sort_order": 12
         }
     ]
 
@@ -476,7 +530,7 @@ def seed_initial_data(cursor):
         {"id": "gal_5", "tag": "CHAMPIONSHIP WINNER", "title": "GTR Lucifer // Gosha RDRC", "img": "assets/cars/gtr_lucifer_solo.jpg"},
         {"id": "gal_6", "tag": "AERODYNAMICS", "title": "Red Chrome Nissan GT-R Pro-Mod", "img": "assets/cars/gtr_red_front_rdrc.jpg"},
         {"id": "gal_7", "tag": "MIDNIGHT BLUE", "title": "Nissan GT-R R35 #888 Sunset Pass", "img": "assets/photos/gtr_blue_888_rdrc.jpg"},
-        {"id": "gal_8", "tag": "CHIEF MOTORSPORT ENGINEER", "title": "Георгий Перцхелия на стрипе RDRC", "img": "assets/photos/gosha_on_track.jpg"},
+        {"id": "gal_8", "tag": "CHIEF MOTORSPORT ENGINEER", "title": "Гоша Перцхелия на стрипе RDRC", "img": "assets/photos/gosha_on_track.jpg"},
         {"id": "gal_9", "tag": "ATELIER GARAGE", "title": "Бокс GTT: BMW M4 G82 & GT-R", "img": "assets/cars/bmw_m4_g82_gtt.jpg"},
         {"id": "gal_10", "tag": "TWIN TURBO V8", "title": "BMW M5 G90 Stage 2 GTT", "img": "assets/cars/bmw_m5_rdrc_race.jpg"},
         {"id": "gal_11", "tag": "BEZZUBIK TT", "title": "Huracan Twin Turbo «Беззубик»", "img": "assets/cars/huracan_green_bezzubik_track.jpg"}
@@ -502,7 +556,7 @@ def seed_initial_data(cursor):
 def get_all_cars() -> List[Dict[str, Any]]:
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM cars ORDER BY sort_order ASC, rowid ASC")
+    cursor.execute("SELECT * FROM cars ORDER BY (CASE WHEN hp = '?' OR img IS NULL OR img = '' THEN 1 ELSE 0 END) ASC, sort_order ASC, rowid ASC")
     rows = cursor.fetchall()
     cars = []
     for r in rows:

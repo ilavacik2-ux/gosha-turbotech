@@ -13,8 +13,8 @@ let gttProjects = [
     },
     type: 'gtr',
     tag: {
-      ru: 'ЧЕМПИОН RDRC • ПИЛОТ ГЕОРГИЙ ПЕРЦХЕЛИЯ #71',
-      en: 'RDRC CHAMPION • PILOT GEORGY PERTSKHELIYA #71'
+      ru: 'ЧЕМПИОН RDRC • ПИЛОТ ГОША ПЕРЦХЕЛИЯ #71',
+      en: 'RDRC CHAMPION • PILOT GOSHA PERTSKHELIYA #71'
     },
     hp: '1,850+ HP',
     quarterMile: '7.620 сек',
@@ -30,8 +30,8 @@ let gttProjects = [
     videoSrc: 'assets/videos/gosha_na_svoem_lucifer_web.mp4',
     videoTitle: 'Гоша на своей // GT-R Lucifer RDRC',
     desc: {
-      ru: 'Победоносный огненный болид Георгия Зурабовича Перцхелия (Гоши), борт №71. Построенный в лаборатории GoshaTurboTech драг-монстр в культовой ливрее адского пламени — триумфатор и победитель финалов чемпионата России RDRC. Максимальное облегчение, биллетовый блок и яростный старт.',
-      en: 'Victorious hellfire-liveried race weapon piloted by Georgy Pertskheliya himself (race car #71). Built in the GoshaTurboTech skunkworks — champion and winner of Russian Drag Racing Championship (RDRC) finals. Billet engine, extreme lightweight drag chassis and brutal AWD launches.'
+      ru: 'Победоносный огненный болид Гоши Перцхелия, борт №71. Построенный в лаборатории GoshaTurboTech драг-монстр в культовой ливрее адского пламени — триумфатор и победитель финалов чемпионата России RDRC. Максимальное облегчение, биллетовый блок и яростный старт.',
+      en: 'Victorious hellfire-liveried race weapon piloted by Gosha Pertskheliya himself (race car #71). Built in the GoshaTurboTech skunkworks — champion and winner of Russian Drag Racing Championship (RDRC) finals. Billet engine, extreme lightweight drag chassis and brutal AWD launches.'
     },
     specs: {
       engine: '4.1L Billet Stroker VR38DETT GTT Race Spec',
@@ -365,6 +365,74 @@ let gttProjects = [
       cooling: 'Front Mount Massive Intercooler Core',
       ecu: 'Syvecs S8 ECU with Launch & Traction Control'
     }
+  },
+  {
+    id: 'bmw_m4',
+    brand: 'BMW M-POWER',
+    type: 'bmw',
+    name: {
+      ru: 'BMW M4 G82 COMPETITION GTT-850',
+      en: 'BMW M4 G82 COMPETITION GTT-850'
+    },
+    tag: {
+      ru: 'GTT TRACK & STREET SPEC • 850 HP',
+      en: 'GTT TRACK & STREET SPEC • 850 HP'
+    },
+    hp: '850+ HP',
+    quarterMile: '10.150 сек',
+    topSpeed: '325+ км/ч',
+    badge: {
+      ru: 'Track & Street Spec',
+      en: 'Track & Street Spec'
+    },
+    img: 'assets/cars/bmw_m4_g82_gtt.jpg',
+    fallbackImg: 'assets/cars/bmw_m4_g82_gtt.jpg',
+    isPhoto: true,
+    objectPosition: 'center center',
+    desc: {
+      ru: 'Кастомный проект на базе BMW M4 G82. Доработанные турбокомпрессоры S58, карбоновый впуск Eventuri, титановый выхлоп ручной работы и индивидуальная калибровка блока управления.',
+      en: 'Custom build based on BMW M4 G82. Upgraded S58 turbos, Eventuri carbon intake, bespoke titanium exhaust and custom ECU calibration.'
+    },
+    specs: {
+      engine: '3.0L S58 Twin-Turbo Inline-6',
+      turbos: 'Pure Turbos Stage 2+ Billet Core',
+      cooling: 'CSF Radiator & Charge Cooler Pack',
+      ecu: 'Custom Bootmod3 GTT Calibration'
+    }
+  },
+  {
+    id: 'porsche_911_gtt',
+    brand: 'PORSCHE',
+    type: 'porsche',
+    name: {
+      ru: 'PORSCHE 911 TURBO S (992) GTT-IMBA',
+      en: 'PORSCHE 911 TURBO S (992) GTT-IMBA'
+    },
+    tag: {
+      ru: 'МИРОВОЙ РЕКОРД RDRC • 9.252 СЕК',
+      en: 'WORLD RECORD RDRC • 9.252 SEC'
+    },
+    hp: '1,050+ HP',
+    quarterMile: '9.252 сек',
+    topSpeed: '345+ км/ч',
+    badge: {
+      ru: 'Мировой Рекорд RDRC',
+      en: 'World Record RDRC'
+    },
+    img: 'assets/cars/gtr_rdrc_red_panamera.jpg',
+    fallbackImg: 'assets/cars/gtr_rdrc_red_panamera.jpg',
+    isPhoto: true,
+    objectPosition: 'center center',
+    desc: {
+      ru: 'Официально подтвержденный рекордсмен RDRC среди Porsche поколения 992. Кастомный интеркулер, метаноловый впрыск и экстремальный запуск с лаунча.',
+      en: 'Officially verified RDRC record holder among Porsche 992 generation. Custom intercoolers, direct port methanol and ferocious launch control.'
+    },
+    specs: {
+      engine: '3.8L Twin-Turbo Boxer-6 GTT Spec',
+      turbos: 'GTT Billet High-Flow Turbos',
+      fuel: '100 RON + Methanol Injection',
+      ecu: 'Syvecs S7 Plus Standalone Porsche Kit'
+    }
   }
 ];
 
@@ -382,7 +450,7 @@ const i18n = {
     preloader_tag: "Инженерия Скорости & Мощности • Москва",
     hero_tag: "World Record Engineering • Moscow • RDRC",
     hero_title: `Инженерия <br><span class="gradient-text">запредельной</span> <br>скорости`,
-    hero_desc: "Лаборатория спортивного инжиниринга Георгия Зурабовича Перцхелия (GoshaTurboTech). Победители Unlim 500+, триумфаторы Чемпионата России RDRC и абсолютные рекордсмены ледовых трасс Байкала. Мы форсируем суперкары BMW M, Nissan GT-R, Audi R8, Lamborghini и супербайки.",
+    hero_desc: "Лаборатория спортивного инжиниринга Гоши Перцхелия (GoshaTurboTech). Победители Unlim 500+, триумфаторы Чемпионата России RDRC и абсолютные рекордсмены ледовых трасс Байкала. Мы форсируем суперкары BMW M, Nissan GT-R, Audi R8, Lamborghini и супербайки.",
     unit_sec: "сек",
     unit_kmh: "км/ч",
     unit_hp: "л.с.",
@@ -446,12 +514,12 @@ const i18n = {
     rec6_telemetry: "1/4 мили: 7.810 сек • 287.65 км/ч",
     rec6_text: "Европейский рекорд времени и 3-й результат в мире на тот момент. Мощность более 1800 л.с. на топливе VP Racing.",
     // Founder
-    founder_caption: "Георгий на стартовой полосе RDRC",
+    founder_caption: "Гоша на стартовой полосе RDRC",
     founder_tagline: "Основатель & Главный идеолог GTT",
     founder_manifesto: "// THE FOUNDER & PHILOSOPHY",
-    founder_name: "Георгий Зурабович Перцхелия",
+    founder_name: "Гоша Перцхелия",
     founder_quote: "«Настоящий тюнинг — это не просто прикрутить турбину большего размера. Это искусство собрать сложнейший механизм так, чтобы он разгонялся до 350 км/ч на треке, а затем с абсолютным комфортом вез вас домой по вечернему городу».",
-    founder_bio: "За 15+ лет увлечения предельной скоростью Георгий Зурабович Перцхелия (Гоша) прошел путь от первых кастомных турбо-проектов до постройки сложнейших гиперкаров и дрэгстеров, признанных мировым сообществом энтузиастов. Он лично курирует инженерные разработки, калибрует электронные блоки управления и тестирует болиды на треках RDRC и ледовых просторах Байкала.",
+    founder_bio: "За 15+ лет увлечения предельной скоростью Гоша Перцхелия прошел путь от первых кастомных турбо-проектов до постройки сложнейших гиперкаров и дрэгстеров, признанных мировым сообществом энтузиастов. Он лично курирует инженерные разработки, калибрует электронные блоки управления и тестирует болиды на треках RDRC и ледовых просторах Байкала.",
     founder_stat1: "Лет в автоспорте",
     founder_stat2: "Мировых & Евро рекордов",
     founder_stat3: "Кастомный инжиниринг",
@@ -534,7 +602,7 @@ const i18n = {
     gallery_cap_gtr_red: "Красный хромированный Nissan GT-R R35 GTT Pro-Mod",
     gallery_cap_gtr_blue: "Боевой синий Nissan GT-R R35 #888 на закате RDRC",
     gallery_cap_box: "Бокс GTT: белая BMW M4 G82 и Nissan GT-R",
-    gallery_cap_track: "Георгий Перцхелия контролирует подготовку трассы RDRC"
+    gallery_cap_track: "Гоша Перцхелия контролирует подготовку трассы RDRC"
   },
   en: {
     nav_garage: "Garage Builds",
@@ -548,7 +616,7 @@ const i18n = {
     preloader_tag: "Speed & Power Engineering • Moscow",
     hero_tag: "World Record Engineering • Moscow • RDRC",
     hero_title: `Engineering of <br><span class="gradient-text">ultimate</span> <br>velocity`,
-    hero_desc: "Georgy Zurabovich Pertskheliya's (Gosha) motorsport engineering laboratory. Champions of Unlim 500+, Russian Drag Racing Championship (RDRC) and Lake Baikal ice speed record holders. We engineer BMW M, Nissan GT-R, Audi R8, Lamborghini and superbikes.",
+    hero_desc: "Gosha Pertskheliya's motorsport engineering laboratory. Champions of Unlim 500+, Russian Drag Racing Championship (RDRC) and Lake Baikal ice speed record holders. We engineer BMW M, Nissan GT-R, Audi R8, Lamborghini and superbikes.",
     unit_sec: "sec",
     unit_kmh: "km/h",
     unit_hp: "HP",
@@ -612,12 +680,12 @@ const i18n = {
     rec6_telemetry: "1/4 Mile: 7.810 sec • 287.65 km/h",
     rec6_text: "European record time and 3rd fastest in the world at the time. Over 1,800 HP output on VP Racing fuel.",
     // Founder
-    founder_caption: "Georgy at the RDRC Starting Line",
+    founder_caption: "Gosha at the RDRC Starting Line",
     founder_tagline: "Founder & Chief Visionary of GTT",
     founder_manifesto: "// THE FOUNDER & PHILOSOPHY",
-    founder_name: "Georgy Zurabovich Pertskheliya",
+    founder_name: "Gosha Pertskheliya",
     founder_quote: "“True tuning is never just about bolting on a larger turbocharger. It is the fine art of crafting a sophisticated machine that accelerates to 350 km/h on the track, yet drives you home in total comfort through city streets.”",
-    founder_bio: "Over 15+ years of chasing ultimate velocity, Georgy Zurabovich Pertskheliya (Gosha) evolved from custom turbo prototypes to building bespoke world-record hypercars recognized globally. He personally oversees powertrain engineering, calibrates ECUs and tests builds on RDRC strips and Lake Baikal ice.",
+    founder_bio: "Over 15+ years of chasing ultimate velocity, Gosha Pertskheliya evolved from custom turbo prototypes to building bespoke world-record hypercars recognized globally. He personally oversees powertrain engineering, calibrates ECUs and tests builds on RDRC strips and Lake Baikal ice.",
     founder_stat1: "Years in Motorsport",
     founder_stat2: "World & Euro Records",
     founder_stat3: "Custom Engineering",
@@ -722,6 +790,10 @@ window.setLanguage = function(lang) {
     }
   });
 
+  if (typeof applyCustomHeroTelemetry === 'function') {
+    applyCustomHeroTelemetry();
+  }
+
   // Re-render garage grid with translated spec labels
   const activeFilter = document.querySelector('.filter-pill.active')?.getAttribute('data-filter') || 'all';
   renderGarageGrid(activeFilter);
@@ -743,6 +815,8 @@ document.addEventListener('DOMContentLoaded', () => {
   renderGarageGrid('all');
   syncProjectsFromAPI();
   syncTeamFromAPI();
+  syncGalleryFromAPI();
+  syncRecordsFromAPI();
   initNavigation();
   initFilters();
   initModal();
@@ -753,51 +827,72 @@ document.addEventListener('DOMContentLoaded', () => {
   initTelemetryCounters();
 });
 
-// Dynamic SQLite & FastAPI Projects Synchronization
+// Dynamic SQLite & LocalStorage Synchronization for Cars
 async function syncProjectsFromAPI() {
+  // 1. Instant render from local cache
+  try {
+    const local = localStorage.getItem('gtt_admin_cars_db') || localStorage.getItem('gtt_projects_v2');
+    if (local) {
+      const parsed = JSON.parse(local);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        applyCarsData(parsed);
+      }
+    }
+  } catch (e) {}
+
+  // 2. Fetch live data from SQLite backend
   try {
     const res = await fetch('/api/cars');
     if (!res.ok) return;
     const serverCars = await res.json();
     if (Array.isArray(serverCars) && serverCars.length > 0) {
-      gttProjects = serverCars.map(c => ({
-        id: c.id,
-        brand: c.brand || '',
-        name: {
-          ru: c.name_ru || c.nameRu || (c.name && c.name.ru) || c.name || '',
-          en: c.name_en || c.nameEn || (c.name && c.name.en) || c.name_ru || c.nameRu || ''
-        },
-        type: c.type || 'other',
-        tag: {
-          ru: c.tag_ru || c.tagRu || (c.tag && c.tag.ru) || c.tag || 'RDRC БОЛИД',
-          en: c.tag_en || c.tagEn || (c.tag && c.tag.en) || c.tag || 'RDRC CAR'
-        },
-        hp: c.hp || '',
-        quarterMile: c.quarter_mile || c.quarterMile || '',
-        topSpeed: c.top_speed || c.topSpeed || '',
-        badge: {
-          ru: c.badge_ru || c.badgeRu || (c.badge && c.badge.ru) || c.badge || 'GTT Spec',
-          en: c.badge_en || c.badgeEn || (c.badge && c.badge.en) || c.badge || 'GTT Spec'
-        },
-        img: c.img || '',
-        fallbackImg: c.fallback_img || c.fallbackImg || c.img || '',
-        isPhoto: c.is_photo !== undefined ? Boolean(c.is_photo) : true,
-        objectPosition: c.object_position || c.objectPosition || 'center center',
-        videoSrc: c.video_src || c.videoSrc || '',
-        videoTitle: c.video_title || c.videoTitle || '',
-        desc: {
-          ru: c.desc_ru || c.descRu || (c.desc && c.desc.ru) || c.desc || '',
-          en: c.desc_en || c.descEn || (c.desc && c.desc.en) || c.desc_ru || c.descRu || ''
-        },
-        specs: (typeof c.specs === 'object' && c.specs !== null) ? c.specs : {}
-      }));
-
-      const activeFilter = document.querySelector('.filter-pill.active')?.getAttribute('data-filter') || 'all';
-      renderGarageGrid(activeFilter);
+      localStorage.setItem('gtt_admin_cars_db', JSON.stringify(serverCars));
+      localStorage.setItem('gtt_projects_v2', JSON.stringify(serverCars));
+      applyCarsData(serverCars);
     }
   } catch (err) {
     // Offline or static fallback
   }
+}
+
+function applyCarsData(carList) {
+  const cleanList = Array.isArray(carList) ? carList.filter(c => c && c.hp !== '?' && c.img && !c.isTeaser) : [];
+  const listToUse = cleanList.length > 0 ? cleanList : carList;
+  gttProjects = listToUse.map(c => ({
+    id: c.id,
+    brand: c.brand || '',
+    name: {
+      ru: c.name_ru || c.nameRu || (c.name && c.name.ru) || c.name || '',
+      en: c.name_en || c.nameEn || (c.name && c.name.en) || c.name_ru || c.nameRu || ''
+    },
+    type: c.type || 'other',
+    tag: {
+      ru: c.tag_ru || c.tagRu || (c.tag && c.tag.ru) || c.tag || 'RDRC БОЛИД',
+      en: c.tag_en || c.tagEn || (c.tag && c.tag.en) || c.tag || 'RDRC CAR'
+    },
+    hp: c.hp || '',
+    quarterMile: c.quarter_mile || c.quarterMile || '',
+    topSpeed: c.top_speed || c.topSpeed || '',
+    badge: {
+      ru: c.badge_ru || c.badgeRu || (c.badge && c.badge.ru) || c.badge || 'GTT Spec',
+      en: c.badge_en || c.badgeEn || (c.badge && c.badge.en) || c.badge || 'GTT Spec'
+    },
+    img: c.img || '',
+    fallbackImg: c.fallback_img || c.fallbackImg || c.img || '',
+    isPhoto: c.is_photo !== undefined ? Boolean(c.is_photo) : true,
+    objectPosition: c.object_position || c.objectPosition || 'center center',
+    videoSrc: c.video_src || c.videoSrc || '',
+    videoTitle: c.video_title || c.videoTitle || '',
+    desc: {
+      ru: c.desc_ru || c.descRu || (c.desc && c.desc.ru) || c.desc || '',
+      en: c.desc_en || c.descEn || (c.desc && c.desc.en) || c.desc_ru || c.descRu || ''
+    },
+    specs: (typeof c.specs === 'object' && c.specs !== null) ? c.specs : {},
+    isTeaser: c.isTeaser || c.is_teaser || c.hp === '?' || !c.img
+  }));
+
+  const activeFilter = document.querySelector('#carsFilterPills .filter-pill.active')?.getAttribute('data-filter') || 'all';
+  renderGarageGrid(activeFilter);
 }
 
 // Pre-configured official team assets & photos map
@@ -822,9 +917,9 @@ const defaultTeamPhotos = {
 let cachedTeamData = null;
 
 async function syncTeamFromAPI() {
-  // First check localStorage for instant render
+  // 1. Instant check from admin localStorage
   try {
-    const local = localStorage.getItem('gtt_team_v2');
+    const local = localStorage.getItem('gtt_admin_team_db') || localStorage.getItem('gtt_team_v2');
     if (local) {
       const parsed = JSON.parse(local);
       if (Array.isArray(parsed) && parsed.length > 0) {
@@ -834,19 +929,175 @@ async function syncTeamFromAPI() {
     }
   } catch (e) {}
 
-  // Then fetch live authoritative data from SQLite backend
+  // 2. Fetch live data from SQLite backend
   try {
     const res = await fetch('/api/team');
     if (!res.ok) return;
     const serverTeam = await res.json();
     if (Array.isArray(serverTeam) && serverTeam.length > 0) {
       cachedTeamData = serverTeam;
+      localStorage.setItem('gtt_admin_team_db', JSON.stringify(serverTeam));
+      localStorage.setItem('gtt_team_v2', JSON.stringify(serverTeam));
       renderTeamGrid(serverTeam);
     }
   } catch (err) {
     // Offline / static fallback
   }
 }
+
+// Dynamic Gallery Synchronization
+async function syncGalleryFromAPI() {
+  try {
+    const local = localStorage.getItem('gtt_admin_gallery_db');
+    if (local) {
+      const parsed = JSON.parse(local);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        renderGalleryTrack(parsed);
+      }
+    }
+  } catch (e) {}
+
+  try {
+    const res = await fetch('/api/gallery');
+    if (!res.ok) return;
+    const serverGal = await res.json();
+    if (Array.isArray(serverGal) && serverGal.length > 0) {
+      localStorage.setItem('gtt_admin_gallery_db', JSON.stringify(serverGal));
+      renderGalleryTrack(serverGal);
+    }
+  } catch (err) {}
+}
+
+function renderGalleryTrack(items) {
+  const track = document.getElementById('marqueeTrackMain');
+  if (!track || !Array.isArray(items) || items.length === 0) return;
+  track.innerHTML = items.map(g => `
+    <div class="marquee-card" onclick="openGalleryLightbox('${g.img}', '${(g.title || '').replace(/'/g, "\\'")}')">
+      <img src="${g.img}" alt="${g.title || 'GTT'}" loading="lazy">
+      <div class="marquee-card-meta">
+        <span class="marquee-card-tag">${g.tag || 'RDRC'}</span>
+        <div class="marquee-card-title">${g.title || ''}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// Dynamic Records Synchronization
+async function syncRecordsFromAPI() {
+  try {
+    const local = localStorage.getItem('gtt_admin_records_db');
+    if (local) {
+      const parsed = JSON.parse(local);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        renderRecordsEditorial(parsed);
+      }
+    }
+  } catch (e) {}
+
+  try {
+    const res = await fetch('/api/records');
+    if (!res.ok) return;
+    const serverRecs = await res.json();
+    if (Array.isArray(serverRecs) && serverRecs.length > 0) {
+      localStorage.setItem('gtt_admin_records_db', JSON.stringify(serverRecs));
+      renderRecordsEditorial(serverRecs);
+    }
+  } catch (err) {}
+}
+
+function renderRecordsEditorial(recordsList) {
+  const container = document.querySelector('.records-editorial-table');
+  if (!container || !Array.isArray(recordsList) || recordsList.length === 0) return;
+  // Update editorial rows if rendered dynamically
+}
+
+// Multi-Tab Real-Time Sync Listener
+window.addEventListener('storage', (e) => {
+  if (e.key === 'gtt_admin_cars_db' || e.key === 'gtt_projects_v2') {
+    syncProjectsFromAPI();
+  } else if (e.key === 'gtt_admin_team_db' || e.key === 'gtt_team_v2') {
+    syncTeamFromAPI();
+  } else if (e.key === 'gtt_admin_gallery_db') {
+    syncGalleryFromAPI();
+  } else if (e.key === 'gtt_admin_records_db') {
+    syncRecordsFromAPI();
+  } else if (e.key === 'gtt_hero_telemetry_custom') {
+    if (typeof applyCustomHeroTelemetry === 'function') applyCustomHeroTelemetry();
+  }
+});
+
+let currentTeamDept = 'all';
+let isTeamExpanded = false;
+
+function getDeptByRole(role) {
+  if (!role) return 'reserve';
+  const r = role.toLowerCase();
+  if (r.includes('основатель') || r.includes('директор') || r.includes('администратор') || r.includes('делопроизводитель')) return 'management';
+  if (r.includes('инженер') || r.includes('моторист') || r.includes('диагност') || r.includes('электрик') || r.includes('калибровщик') || r.includes('телеметри')) return 'engineers';
+  if (r.includes('механик')) return 'mechanics';
+  if (r.includes('сварщик') || r.includes('фабрикатор')) return 'fab';
+  return 'reserve';
+}
+
+function updateTeamVisibility() {
+  const cards = document.querySelectorAll('#teamGrid .team-card');
+  const expandWrap = document.getElementById('teamExpandWrap');
+  const expandBtn = document.getElementById('btnTeamExpand');
+  const expandText = document.getElementById('teamExpandText');
+
+  let visibleCount = 0;
+  let totalMatching = 0;
+
+  cards.forEach(card => {
+    let dept = card.getAttribute('data-team-dept');
+    if (!dept) {
+      const roleText = card.querySelector('.team-role')?.textContent || '';
+      dept = getDeptByRole(roleText);
+      card.setAttribute('data-team-dept', dept);
+    }
+
+    const matches = (currentTeamDept === 'all') || (dept === currentTeamDept);
+    if (!matches) {
+      card.style.display = 'none';
+      return;
+    }
+
+    totalMatching++;
+    if (currentTeamDept === 'all' && !isTeamExpanded && totalMatching > 8) {
+      card.style.display = 'none';
+    } else {
+      card.style.display = 'flex';
+      visibleCount++;
+    }
+  });
+
+  if (expandWrap) {
+    if (currentTeamDept === 'all' && cards.length > 8) {
+      expandWrap.style.display = 'flex';
+      if (expandBtn) expandBtn.classList.toggle('is-expanded', isTeamExpanded);
+      if (expandText) {
+        expandText.textContent = isTeamExpanded 
+          ? 'Свернуть состав команды' 
+          : `Показать всю команду (ещё ${cards.length - 8} специалистов)`;
+      }
+    } else {
+      expandWrap.style.display = 'none';
+    }
+  }
+}
+
+window.filterTeamDepartment = function(dept) {
+  currentTeamDept = dept;
+  document.querySelectorAll('#teamFilterPills .filter-pill').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-team-dept') === dept);
+  });
+  updateTeamVisibility();
+};
+
+window.toggleTeamExpand = function() {
+  isTeamExpanded = !isTeamExpanded;
+  updateTeamVisibility();
+};
 
 function renderTeamGrid(teamList) {
   const grid = document.getElementById('teamGrid');
@@ -855,8 +1106,9 @@ function renderTeamGrid(teamList) {
     const asset = defaultTeamPhotos[m.id] || { photo: 'assets/photos/gtt_shield_logo.svg', social: '' };
     const photo = m.photo || asset.photo;
     const social = m.social !== undefined ? m.social : asset.social;
+    const dept = getDeptByRole(m.role);
     return `
-      <div class="team-card">
+      <div class="team-card" data-team-dept="${dept}">
         <div class="team-card-photo">
           <img src="${photo}" alt="${m.name}" loading="lazy" onerror="this.src='assets/photos/gtt_shield_logo.svg'">
         </div>
@@ -868,26 +1120,27 @@ function renderTeamGrid(teamList) {
       </div>
     `;
   }).join('');
+  updateTeamVisibility();
 }
 
-// Secret Admin Access (Ctrl+Shift+A / Cmd+Shift+A with secret security token)
-const SECRET_ADMIN_TOKEN = 'gtt_atelier_2026';
-
-function openAdminDirect() {
+// --- Engineering & Team Access Gateway (Stealth & Secure) ---
+function openAdminSecure(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  if (e && e.stopPropagation) e.stopPropagation();
   const currentPath = window.location.pathname;
-  let targetUrl = 'admin.html?token=' + SECRET_ADMIN_TOKEN;
+  let targetUrl = 'admin.html';
   if (currentPath.endsWith('/index.html')) {
-    targetUrl = currentPath.replace(/index\.html$/, 'admin.html?token=' + SECRET_ADMIN_TOKEN);
+    targetUrl = currentPath.replace(/index\.html$/, 'admin.html');
   } else if (currentPath.endsWith('/')) {
-    targetUrl = currentPath + 'admin.html?token=' + SECRET_ADMIN_TOKEN;
+    targetUrl = currentPath + 'admin.html';
   } else {
     const lastSlash = currentPath.lastIndexOf('/');
-    targetUrl = (lastSlash >= 0 ? currentPath.substring(0, lastSlash + 1) : '') + 'admin.html?token=' + SECRET_ADMIN_TOKEN;
+    targetUrl = (lastSlash >= 0 ? currentPath.substring(0, lastSlash + 1) : '') + 'admin.html';
   }
   window.location.href = targetUrl;
 }
 
-// Global Keyboard Shortcut: Cmd+Shift+A or Ctrl+Shift+A (EN / RU layouts)
+// 1. Global Keyboard Shortcut: Cmd+Shift+A or Ctrl+Shift+A (EN / RU layouts)
 function handleAdminKeydown(e) {
   const hasModifier = e.ctrlKey || e.metaKey;
   const isKeyA = e.code === 'KeyA' || e.key === 'A' || e.key === 'a' || e.key === 'Ф' || e.key === 'ф';
@@ -895,14 +1148,50 @@ function handleAdminKeydown(e) {
   if (hasModifier && e.shiftKey && isKeyA) {
     e.preventDefault();
     e.stopPropagation();
-    openAdminDirect();
+    openAdminSecure();
+  }
+}
+
+// 2. Secret Typist Code: type 'admin' or 'gtt' anywhere on page
+let secretCodeBuffer = '';
+function handleSecretKeypress(e) {
+  if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
+  if (e.key && e.key.length === 1) {
+    secretCodeBuffer += e.key.toLowerCase();
+    if (secretCodeBuffer.length > 12) secretCodeBuffer = secretCodeBuffer.slice(-12);
+    if (secretCodeBuffer.endsWith('admin') || secretCodeBuffer.endsWith('gtt') || secretCodeBuffer.endsWith('админ')) {
+      secretCodeBuffer = '';
+      openAdminSecure();
+    }
+  }
+}
+
+// 3. Stealth Triple-Click on Footer Copyright text
+let footerCopyClicks = 0;
+let footerCopyTimer = null;
+function initFooterStaffAccess() {
+  const footerCopy = document.getElementById('footerCopyStaffTrigger') || document.querySelector('.footer-copy-text');
+  if (footerCopy) {
+    footerCopy.addEventListener('click', () => {
+      footerCopyClicks++;
+      clearTimeout(footerCopyTimer);
+      if (footerCopyClicks >= 3) {
+        footerCopyClicks = 0;
+        openAdminSecure();
+      } else {
+        footerCopyTimer = setTimeout(() => {
+          footerCopyClicks = 0;
+        }, 1200);
+      }
+    });
   }
 }
 
 window.addEventListener('keydown', handleAdminKeydown, true);
-document.addEventListener('keydown', handleAdminKeydown, true);
+window.addEventListener('keypress', handleSecretKeypress, true);
+document.addEventListener('DOMContentLoaded', initFooterStaffAccess);
 
-window.openAdminDirect = openAdminDirect;
+window.openAdminDirect = openAdminSecure;
 
 // Clean Premium Motorsport Preloader (Fast, Seamless & Silky Smooth)
 function initPreloader() {
@@ -953,6 +1242,36 @@ function initPreloader() {
   requestAnimationFrame(frame);
 }
 
+// Master division switcher (Cars & Moto)
+window.switchShowroomDivision = function(type) {
+  const btnCars = document.getElementById('divBtnCars');
+  const btnMoto = document.getElementById('divBtnMoto');
+  const garageSection = document.getElementById('garage');
+  const motoSection = document.getElementById('moto');
+
+  if (type === 'cars') {
+    if (btnCars) btnCars.classList.add('active');
+    if (btnMoto) btnMoto.classList.remove('active');
+    if (garageSection) {
+      garageSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  } else if (type === 'moto') {
+    if (btnCars) btnCars.classList.remove('active');
+    if (btnMoto) btnMoto.classList.add('active');
+    if (motoSection) {
+      motoSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+};
+
+let isGarageExpanded = false;
+
+window.toggleGarageExpand = function() {
+  isGarageExpanded = !isGarageExpanded;
+  const activeFilter = document.querySelector('#carsFilterPills .filter-pill.active')?.getAttribute('data-filter') || 'all';
+  renderGarageGrid(activeFilter);
+};
+
 // Render Garage Grid with smooth animation & bilingual support
 function renderGarageGrid(filterType) {
   const container = document.getElementById('garageGrid');
@@ -960,19 +1279,44 @@ function renderGarageGrid(filterType) {
 
   container.classList.add('filtering');
 
-  setTimeout(() => {
-    const filtered = filterType === 'all' 
-      ? gttProjects 
-      : gttProjects.filter(item => item.type === filterType);
+  const countEl = document.getElementById('divCarsCount');
+  if (countEl) countEl.textContent = gttProjects.length;
 
-    container.innerHTML = filtered.map((car, idx) => {
+  setTimeout(() => {
+    // 1. Filter items
+    let filtered = (filterType === 'all')
+      ? [...gttProjects]
+      : gttProjects.filter(c => c.type === filterType);
+
+    // 2. Pagination for 'all' filter (12 builds total)
+    const expandWrap = document.getElementById('garageExpandWrap');
+    const expandBtn = document.getElementById('btnGarageExpand');
+    const expandText = document.getElementById('garageExpandText');
+
+    let displayList = filtered;
+    if (filterType === 'all') {
+      if (!isGarageExpanded && filtered.length > 9) {
+        displayList = filtered.slice(0, 9);
+        if (expandWrap) expandWrap.style.display = 'flex';
+        if (expandBtn) expandBtn.classList.remove('is-expanded');
+        if (expandText) expandText.textContent = `Показать все проекты (ещё ${filtered.length - 9} болида)`;
+      } else {
+        if (expandWrap) expandWrap.style.display = 'flex';
+        if (expandBtn) expandBtn.classList.add('is-expanded');
+        if (expandText) expandText.textContent = 'Свернуть каталог проектов';
+      }
+    } else {
+      if (expandWrap) expandWrap.style.display = 'none';
+    }
+
+    container.innerHTML = displayList.map((car, idx) => {
       const name = (typeof car.name === 'object') ? (car.name[currentLang] || car.name.ru) : car.name;
       const desc = (typeof car.desc === 'object') ? (car.desc[currentLang] || car.desc.ru) : car.desc;
       const badge = (typeof car.badge === 'object') ? (car.badge[currentLang] || car.badge.ru) : car.badge;
       const tag = (typeof car.tag === 'object') ? (car.tag[currentLang] || car.tag.ru) : car.tag;
 
       return `
-      <div class="car-card car-card-fade-in" data-id="${car.id}" style="animation-delay: ${idx * 0.08}s">
+      <div class="car-card car-card-fade-in" data-id="${car.id}" style="animation-delay: ${idx * 0.04}s">
         <span class="car-card-badge">${badge}</span>
         <div class="car-card-media">
           <img class="car-card-img ${car.isPhoto ? 'photo-fit' : ''}" 
@@ -1014,8 +1358,59 @@ function renderGarageGrid(filterType) {
 
     container.classList.remove('filtering');
     if (window.apply3DTiltCards) window.apply3DTiltCards();
-  }, 160);
+  }, 140);
 }
+
+// ==========================================================================
+// INTERACTIVE MOTO STAGE (BMW / YAMAHA / DUCATI) & EXHAUST SOUND SYNTHESIZER
+// ==========================================================================
+const superbikeModels = {
+  bmw: {
+    title: 'BMW M1000RR M-Performance',
+    desc: 'Личный боевой супербайк Гоши BMW M1000RR M-Performance. Полный цикл спортивной калибровки ECU, снятие заводских лимитов, титановые выхлопные трассы ручной сварки и сухой автоклавный карбон.',
+    spec1: '212 л.с. при 14 500 об/мин • Сухой вес 168 кг',
+    spec2: 'Титановый выпуск Akrapovic Full System с отстрелами огнем',
+    spec3: 'M-Winglets карбоновые крылья с прижимной силой 16.3 кг',
+    revPitch: 1.0
+  },
+  yamaha: {
+    title: 'Yamaha YZF-R1M Carbon Edition',
+    desc: 'Гоночная версия с полным карбоновым обвесом, крестообразным коленвалом Crossplane CP4 и активной подвеской Ohlins Electronic Racing Suspension.',
+    spec1: '200 л.с. при 13 500 об/мин • Сухой вес 170 кг',
+    spec2: 'Гоночный квикшифтер вверх/вниз без сцепления QSS',
+    spec3: 'Двухканальная телеметрия Y-TRAC с GPS-логгером углов наклона',
+    revPitch: 0.92
+  },
+  ducati: {
+    title: 'Ducati Panigale V4 RDRC Spec',
+    desc: 'Итальянский супербайк с двигателем Desmosedici Stradale V4 90°, сухим сцеплением STM EVO-SBK и аэродинамикой MotoGP.',
+    spec1: '215 л.с. при 13 000 об/мин • Сухой вес 172 кг',
+    spec2: 'Титановая система GTT Moto Exhaust с лаунч-отстрелами',
+    spec3: 'Сухое сцепление STM EVO-SBK с открытой крышкой карбон',
+    revPitch: 0.85
+  }
+};
+
+window.switchSuperbikeModel = function(modelKey) {
+  const model = superbikeModels[modelKey];
+  if (!model) return;
+
+  document.querySelectorAll('.moto-stage-tab').forEach(t => t.classList.remove('active'));
+  const activeTab = event?.currentTarget || document.querySelector(`.moto-stage-tab[onclick*="${modelKey}"]`);
+  if (activeTab) activeTab.classList.add('active');
+
+  const titleEl = document.getElementById('motoHeroTitle');
+  const descEl = document.getElementById('motoHeroDesc');
+  const s1 = document.getElementById('motoSpec1');
+  const s2 = document.getElementById('motoSpec2');
+  const s3 = document.getElementById('motoSpec3');
+
+  if (titleEl) titleEl.textContent = model.title;
+  if (descEl) descEl.textContent = model.desc;
+  if (s1) s1.textContent = model.spec1;
+  if (s2) s2.textContent = model.spec2;
+  if (s3) s3.textContent = model.spec3;
+};
 
 // Interactive Founder Photo Switcher
 const founderPhotos = [
@@ -1025,7 +1420,7 @@ const founderPhotos = [
   },
   {
     src: 'assets/photos/gosha_zadorkin_new.jpg',
-    caption: 'Георгий Зурабович Перцхелия — Основатель GTT'
+    caption: 'Гоша Перцхелия — Основатель GTT'
   },
   {
     src: 'assets/photos/gosha_on_track.jpg',
@@ -1070,21 +1465,62 @@ function updateFounderPhoto() {
   }, 60);
 }
 
-// Navigation Scroll Effect
+// Navigation Scroll Effect & Active Section Scroll Spy
 function initNavigation() {
   const navbar = document.querySelector('.navbar');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const sections = Array.from(navLinks).map(link => {
+    const hash = link.getAttribute('href');
+    if (hash && hash.startsWith('#') && hash.length > 1) {
+      return document.querySelector(hash);
+    }
+    return null;
+  });
+
+  function updateActiveNavLink() {
+    const scrollPos = window.scrollY + 120;
+    let currentIdx = -1;
+
+    for (let i = sections.length - 1; i >= 0; i--) {
+      const sec = sections[i];
+      if (sec && sec.offsetTop <= scrollPos) {
+        currentIdx = i;
+        break;
+      }
+    }
+
+    navLinks.forEach((link, idx) => {
+      if (idx === currentIdx) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+
   window.addEventListener('scroll', () => {
     if (window.scrollY > 40) {
       navbar.classList.add('scrolled');
     } else {
       navbar.classList.remove('scrolled');
     }
+    updateActiveNavLink();
+  }, { passive: true });
+
+  // Update on click as well
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
   });
+
+  updateActiveNavLink();
 }
 
 // Filter Navigation
 function initFilters() {
-  const pills = document.querySelectorAll('.filter-pill');
+  const pills = document.querySelectorAll('#carsFilterPills .filter-pill');
   pills.forEach(pill => {
     pill.addEventListener('click', () => {
       pills.forEach(p => p.classList.remove('active'));
@@ -1956,9 +2392,65 @@ function initMobileStickyBar() {
 /* ==========================================================================
    DYNAMIC TELEMETRY ACCELERATION & ODOMETER COUNTERS
    ========================================================================== */
+const HERO_TELEMETRY_KEY = 'gtt_hero_telemetry_custom';
+
+function applyCustomHeroTelemetry() {
+  let custom = null;
+  try {
+    const raw = localStorage.getItem(HERO_TELEMETRY_KEY);
+    if (raw) custom = JSON.parse(raw);
+  } catch (e) {}
+
+  if (!custom) return;
+
+  const bar = document.querySelector('.hero-telemetry-bar');
+  if (!bar) return;
+
+  const items = [custom.item1, custom.item2, custom.item3];
+  const itemEls = bar.querySelectorAll('.telemetry-item');
+
+  itemEls.forEach((itemEl, idx) => {
+    const data = items[idx];
+    if (!data) return;
+
+    const valEl = itemEl.querySelector('.value');
+    const lblEl = itemEl.querySelector('.label');
+
+    const rawVal = (data.val || '').trim();
+    let decimals = 0;
+    if (rawVal.includes('.')) {
+      const parts = rawVal.split('.');
+      decimals = parts[1].replace(/[^\d]/g, '').length;
+    }
+    const suffix = rawVal.includes('+') ? '+' : '';
+    const cleanNum = parseFloat(rawVal.replace(/[^\d.]/g, '')) || 0;
+
+    if (valEl) {
+      valEl.innerHTML = `<span class="counter-val" data-target="${cleanNum}" data-decimals="${decimals}" data-suffix="${suffix}">${rawVal}</span> <span class="unit">${data.unit || ''}</span>`;
+    }
+
+    if (lblEl) {
+      lblEl.textContent = data.label || '';
+      lblEl.removeAttribute('data-i18n');
+    }
+  });
+}
+
 function initTelemetryCounters() {
-  const counterEls = document.querySelectorAll('.hero-telemetry-bar .counter-val');
-  if (!counterEls.length) return;
+  applyCustomHeroTelemetry();
+
+  // Background server fetch to sync custom hero telemetry
+  try {
+    fetch('/api/settings/hero_telemetry')
+      .then(r => r.json())
+      .then(res => {
+        if (res && res.value) {
+          localStorage.setItem(HERO_TELEMETRY_KEY, res.value);
+          applyCustomHeroTelemetry();
+        }
+      })
+      .catch(() => {});
+  } catch (e) {}
 
   let hasAnimated = false;
 
@@ -1966,10 +2458,13 @@ function initTelemetryCounters() {
     if (hasAnimated) return;
     hasAnimated = true;
 
+    const counterEls = document.querySelectorAll('.hero-telemetry-bar .counter-val');
+    if (!counterEls.length) return;
+
     counterEls.forEach((el, idx) => {
       const targetStr = el.getAttribute('data-target');
       if (!targetStr) return;
-      const targetVal = parseFloat(targetStr);
+      const targetVal = parseFloat(targetStr.replace(/,/g, ''));
       const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
       const suffix = el.getAttribute('data-suffix') || '';
       

@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="referrer" content="no-referrer">
   <title>GOSHATURBOTECH | Официальный сайт ателье &amp; Мировые рекорды скорости</title>
-  <meta name="description" content="GoshaTurboTech (GTT) — центр мощностного тюнинга гиперкаров и супербайков. Мировые рекорды 402м, 804м и ледовых трасс. Основатель: Георгий Зурабович Перцхелия.">
+  <meta name="description" content="GoshaTurboTech (GTT) — центр мощностного тюнинга гиперкаров и супербайков. Мировые рекорды 402м, 804м и ледовых трасс. Основатель: Гоша Перцхелия.">
   <link rel="icon" type="image/svg+xml" href="assets/photos/gtt_shield_logo.svg?v=6.0">
   <link rel="mask-icon" href="assets/photos/gtt_shield_logo.svg?v=6.0" color="#EA5B0C">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/photos/favicon-32x32.png?v=6.0">
@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=4.5">
+  <link rel="stylesheet" href="css/style.css?v=8.0">
 </head>
 <body class="is-loading">
 
@@ -42,7 +42,7 @@
   <!-- Navigation -->
   <header class="navbar">
     <a href="#" class="brand-logo" aria-label="GoshaTurboTech Главная">
-      <img src="assets/photos/gtt_shield_logo.svg" alt="GTT Shield Logo" class="brand-shield-img">
+      <img src="assets/photos/gtt_shield_logo.svg" alt="GoshaTurboTech" class="brand-shield-img">
       <div class="brand-title">
         <span class="brand-word-gosha">GOSHA</span>
         <span class="brand-word-turbo">TURBOTECH</span>
@@ -51,7 +51,7 @@
 
     <nav>
       <ul class="nav-links">
-        <li><a href="#garage" class="nav-link active" data-i18n="nav_garage">Гараж проектов</a></li>
+        <li><a href="#garage" class="nav-link" data-i18n="nav_garage">Гараж проектов</a></li>
         <li><a href="#founder" class="nav-link" data-i18n="nav_founder">О Гоше</a></li>
         <li><a href="#records" class="nav-link" data-i18n="nav_records">Рекорды RDRC</a></li>
         <li><a href="#team" class="nav-link" data-i18n="nav_team">Команда GTT</a></li>
@@ -158,7 +158,7 @@
       </h1>
 
       <p class="hero-description" data-i18n="hero_desc">
-        Лаборатория спортивного инжиниринга Георгия Зурабовича Перцхелия (GoshaTurboTech). Победители Unlim 500+, триумфаторы Чемпионата России RDRC и абсолютные рекордсмены ледовых трасс Байкала. Мы форсируем суперкары BMW M, Nissan GT-R, Audi R8, Porsche и супербайки.
+        Лаборатория спортивного инжиниринга Гоши Перцхелия (GoshaTurboTech). Победители Unlim 500+, триумфаторы Чемпионата России RDRC и абсолютные рекордсмены ледовых трасс Байкала. Мы форсируем суперкары BMW M, Nissan GT-R, Audi R8, Porsche и супербайки.
       </p>
 
       <!-- Dynamic Live Telemetry Bar -->
@@ -187,22 +187,31 @@
   <section class="hangar-section" id="garage">
     <div class="section-header">
       <h2 class="section-title" data-i18n="garage_title">Легендарные проекты GTT</h2>
-      <p class="section-subtitle" data-i18n="garage_subtitle">Каждый автомобиль собран вручную в лаборатории GoshaTurboTech с персональной калибровкой блоков управления и двойного турбонаддува.</p>
+      <p class="section-subtitle" data-i18n="garage_subtitle">Кастомные биллетовые двигатели, двойной турбонаддув, блоки управления MoTeC и Syvecs, подготовка к Чемпионату России RDRC и рекордным заездам.</p>
     </div>
 
-    <!-- Filter Pills -->
-    <div class="filter-pills">
-      <button class="filter-pill active" data-filter="all" data-i18n="filter_all">Все проекты</button>
+    <!-- Filter Pills for Cars -->
+    <div class="filter-pills" id="carsFilterPills">
+      <button class="filter-pill active" data-filter="all" data-i18n="filter_all">Все (12)</button>
+      <button class="filter-pill" data-filter="gtr">Nissan GT-R</button>
       <button class="filter-pill" data-filter="bmw">BMW M-Power</button>
-      <button class="filter-pill" data-filter="gtr">Nissan GT-R R35</button>
-      <button class="filter-pill" data-filter="audi">Audi R8 V10 TT</button>
+      <button class="filter-pill" data-filter="porsche">Porsche GTT</button>
+      <button class="filter-pill" data-filter="audi">Audi R8 TT</button>
       <button class="filter-pill" data-filter="lambo">Lamborghini TT</button>
-      <button class="filter-pill" data-filter="other">Dodge SRT</button>
+      <button class="filter-pill" data-filter="other">Dodge / Другие</button>
     </div>
 
     <!-- Dynamic Cars Grid -->
     <div class="garage-grid" id="garageGrid">
       <!-- Populated via js/app.js -->
+    </div>
+
+    <!-- Expand / Collapse All Cars Wrap -->
+    <div class="garage-expand-wrap" id="garageExpandWrap">
+      <button class="btn-garage-expand" id="btnGarageExpand" onclick="toggleGarageExpand()">
+        <span class="expand-text" id="garageExpandText">Показать все проекты (ещё 21 болид в работе)</span>
+        <svg class="expand-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
     </div>
   </section>
 
@@ -211,7 +220,7 @@
     <div class="founder-container">
       <div class="founder-visual">
         <div class="founder-img-wrapper" id="founderGalleryWrapper">
-          <img src="assets/photos/gosha_strip_selfie.jpg" alt="Георгий Зурабович Перцхелия GoshaTurboTech" id="founderImg" class="founder-active-img">
+          <img src="assets/photos/gosha_strip_selfie.jpg" alt="Гоша Перцхелия GoshaTurboTech" id="founderImg" class="founder-active-img">
           
           <!-- Interactive Photo Switcher Controls -->
           <button class="founder-gallery-btn prev-btn" onclick="switchFounderPhoto(-1)" aria-label="Предыдущее фото">
@@ -222,7 +231,7 @@
           </button>
 
           <div class="founder-gallery-topbar">
-            <div class="founder-caption-tag" id="founderImgCaption" data-i18n="founder_caption">Георгий на стартовой полосе RDRC</div>
+            <div class="founder-caption-tag" id="founderImgCaption" data-i18n="founder_caption">Гоша на стартовой полосе RDRC</div>
             <div class="founder-gallery-dots">
               <span class="gallery-dot active" onclick="setFounderPhoto(0)"></span>
               <span class="gallery-dot" onclick="setFounderPhoto(1)"></span>
@@ -240,12 +249,12 @@
       </div>
 
       <div class="founder-content">
-        <h2 class="founder-title" data-i18n="founder_name">Георгий Зурабович Перцхелия</h2>
+        <h2 class="founder-title" data-i18n="founder_name">Гоша Перцхелия</h2>
         <div class="founder-quote" data-i18n="founder_quote">
           «Настоящий тюнинг — это не просто прикрутить турбину большего размера. Это искусство собрать сложнейший механизм так, чтобы он разгонялся до 350 км/ч на треке, а затем с абсолютным комфортом вез вас домой по вечернему городу».
         </div>
         <p class="founder-bio-text" data-i18n="founder_bio">
-          За 15+ лет увлечения предельной скоростью Георгий Зурабович Перцхелия (Гоша) прошел путь от первых кастомных турбо-проектов до постройки сложнейших гиперкаров и дрэгстеров, признанных мировым сообществом энтузиастов. Он лично курирует инженерные разработки, калибрует электронные блоки управления и тестирует болиды на треках RDRC и ледовых просторах Байкала.
+          За 15+ лет увлечения предельной скоростью Гоша Перцхелия прошел путь от первых кастомных турбо-проектов до постройки сложнейших гиперкаров и дрэгстеров, признанных мировым сообществом энтузиастов. Он лично курирует инженерные разработки, калибрует электронные блоки управления и тестирует болиды на треках RDRC и ледовых просторах Байкала.
         </p>
 
         <div class="founder-stats">
@@ -445,6 +454,15 @@
       <p class="section-subtitle" data-i18n="team_subtitle">Люди, которые куют рекорды на дрэг-стрипе RDRC и в стенах ателье: 35+ мотористов, телеметристов, диагностов, мастеров шасси и пилотов.</p>
     </div>
 
+    <!-- Department Filter Tabs -->
+    <div class="filter-pills" id="teamFilterPills" style="margin-bottom: 24px;">
+      <button class="filter-pill active" data-team-dept="all" onclick="filterTeamDepartment('all')">Все специалисты (15)</button>
+      <button class="filter-pill" data-team-dept="management" onclick="filterTeamDepartment('management')">Руководство & Тюнинг</button>
+      <button class="filter-pill" data-team-dept="engineers" onclick="filterTeamDepartment('engineers')">Инженеры & Мотористы</button>
+      <button class="filter-pill" data-team-dept="mechanics" onclick="filterTeamDepartment('mechanics')">Механики цеха</button>
+      <button class="filter-pill" data-team-dept="fab" onclick="filterTeamDepartment('fab')">Сварка & Фабрикация</button>
+    </div>
+
     <div class="team-grid" id="teamGrid">
       <!-- 1. Гоша -->
       <div class="team-card">
@@ -614,88 +632,24 @@
         </div>
       </div>
 
-      <!-- 16. Специалист команды (Teaser) -->
-      <div class="team-card team-teaser-card">
-        <div class="team-card-photo team-teaser-photo">
-          <div class="team-teaser-shield-wrap">
-            <span class="team-teaser-qmark">?</span>
-            <span class="team-teaser-radar"></span>
-          </div>
-        </div>
-        <div class="team-card-body">
-          <span class="team-role">Команда GTT</span>
-          <h3 class="team-name">Специалист #16</h3>
-        </div>
-      </div>
+    </div>
 
-      <!-- 17. Специалист команды (Teaser) -->
-      <div class="team-card team-teaser-card">
-        <div class="team-card-photo team-teaser-photo">
-          <div class="team-teaser-shield-wrap">
-            <span class="team-teaser-qmark">?</span>
-            <span class="team-teaser-radar"></span>
-          </div>
-        </div>
-        <div class="team-card-body">
-          <span class="team-role">Команда GTT</span>
-          <h3 class="team-name">Специалист #17</h3>
-        </div>
-      </div>
+    <!-- Team Expand / Collapse Wrap -->
+    <div class="garage-expand-wrap" id="teamExpandWrap" style="margin-top: 24px;">
+      <button class="btn-garage-expand" id="btnTeamExpand" onclick="toggleTeamExpand()">
+        <span class="expand-text" id="teamExpandText">Показать всю команду (15 специалистов)</span>
+        <svg class="expand-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+    </div>
 
-      <!-- 18. Специалист команды (Teaser) -->
-      <div class="team-card team-teaser-card">
-        <div class="team-card-photo team-teaser-photo">
-          <div class="team-teaser-shield-wrap">
-            <span class="team-teaser-qmark">?</span>
-            <span class="team-teaser-radar"></span>
-          </div>
-        </div>
-        <div class="team-card-body">
-          <span class="team-role">Команда GTT</span>
-          <h3 class="team-name">Специалист #18</h3>
-        </div>
+    <!-- Authentic Workshop Crew Summary Banner -->
+    <div class="team-summary-banner">
+      <div class="team-summary-stat">
+        <span class="stat-num">35+</span>
+        <span class="stat-label">Специалистов цеха и гонок</span>
       </div>
-
-      <!-- 19. Специалист команды (Teaser) -->
-      <div class="team-card team-teaser-card">
-        <div class="team-card-photo team-teaser-photo">
-          <div class="team-teaser-shield-wrap">
-            <span class="team-teaser-qmark">?</span>
-            <span class="team-teaser-radar"></span>
-          </div>
-        </div>
-        <div class="team-card-body">
-          <span class="team-role">Команда GTT</span>
-          <h3 class="team-name">Специалист #19</h3>
-        </div>
-      </div>
-
-      <!-- 20. Специалист команды (Teaser) -->
-      <div class="team-card team-teaser-card">
-        <div class="team-card-photo team-teaser-photo">
-          <div class="team-teaser-shield-wrap">
-            <span class="team-teaser-qmark">?</span>
-            <span class="team-teaser-radar"></span>
-          </div>
-        </div>
-        <div class="team-card-body">
-          <span class="team-role">Команда GTT</span>
-          <h3 class="team-name">Специалист #20</h3>
-        </div>
-      </div>
-
-      <!-- 21. Специалист команды (Teaser) -->
-      <div class="team-card team-teaser-card">
-        <div class="team-card-photo team-teaser-photo">
-          <div class="team-teaser-shield-wrap">
-            <span class="team-teaser-qmark">?</span>
-            <span class="team-teaser-radar"></span>
-          </div>
-        </div>
-        <div class="team-card-body">
-          <span class="team-role">Команда GTT</span>
-          <h3 class="team-name">Специалист #21</h3>
-        </div>
+      <div class="team-summary-desc">
+        Собственный сборочный цех, аргонная фабрикация выхлопных трасс из титана и инконеля, полноприводный диностенд Dyno Dynamics, лаборатория калибровки ЭБУ MoTeC и Syvecs, а также выездная гоночная команда паддока RDRC.
       </div>
     </div>
   </section>
@@ -703,7 +657,7 @@
   <!-- MOTO DIVISION WITH AUTHENTIC SUPERBIKES -->
   <section class="moto-section" id="moto">
     <div class="section-header">
-      <span class="moto-badge" data-i18n="moto_badge">NEW DIVISION 2025</span>
+      <span class="moto-badge" data-i18n="moto_badge">GTT MOTORSPORT // MOTO DIVISION</span>
       <h2 class="section-title" data-i18n="moto_title">GTT Moto Division</h2>
       <p class="section-subtitle" data-i18n="moto_subtitle">Сверхмощный инжиниринг теперь на двух колесах: личные супербайки Гоши, трековые болиды и титановые выхлопные системы.</p>
     </div>
@@ -722,250 +676,30 @@
       </div>
       <div class="moto-hero-info">
         <div class="moto-badge">GTT MOTO FLEET // 200+ HP</div>
-        <h3 class="moto-hero-title">Страсть к двум колесам</h3>
-        <p class="moto-hero-desc">
-          Личный боевой супербайк Гоши BMW M1000RR M-Performance, Yamaha R1M Carbon и Ducati Panigale V4. Полный цикл спортивной калибровки ECU, снятие заводских лимитов, титановые выхлопные трассы ручной сварки и сухой автоклавный карбон.
+        <h3 class="moto-hero-title" id="motoHeroTitle">BMW M1000RR M-Performance</h3>
+
+        <p class="moto-hero-desc" id="motoHeroDesc">
+          Личный боевой супербайк Гоши BMW M1000RR M-Performance. Полный цикл спортивной калибровки ECU, снятие заводских лимитов, титановые выхлопные трассы ручной сварки и сухой автоклавный карбон.
         </p>
-        <div class="moto-banner-specs">
+
+        <div class="moto-banner-specs" id="motoBannerSpecs">
           <div class="moto-banner-item">
             <span class="spec-status-led"></span>
-            <span class="spec-label">Мгновенный отклик электронного дросселя и безразрывный квикшифтер</span>
+            <span class="spec-label" id="motoSpec1">212 л.с. при 14 500 об/мин • Сухой вес 168 кг</span>
           </div>
           <div class="moto-banner-item">
             <span class="spec-status-led"></span>
-            <span class="spec-label">Кастомный титановый выпуск GTT Moto с огненными отстрелами</span>
+            <span class="spec-label" id="motoSpec2">Титановый выпуск Akrapovic Full System с отстрелами огнем</span>
           </div>
           <div class="moto-banner-item">
             <span class="spec-status-led"></span>
-            <span class="spec-label">Индивидуальные калибровки зажигания под 100 RON и гоночное топливо</span>
+            <span class="spec-label" id="motoSpec3">M-Winglets карбоновые крылья с прижимной силой 16.3 кг</span>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Scalable Superbikes Fleet Catalog (Ready for 7+ bikes) -->
-    <div class="moto-fleet-header">
-      <h3 class="moto-fleet-title">Флот супербайков GTT</h3>
-    </div>
 
-    <div class="moto-fleet-grid">
-      <!-- 1. Superbike #01 (В работе) -->
-      <div class="moto-bike-card moto-teaser-card">
-        <div class="moto-bike-media moto-teaser-media">
-          <div class="moto-teaser-glow-orbit"></div>
-          <div class="moto-teaser-icon-wrap">
-            <span class="moto-teaser-qmark">?</span>
-            <span class="moto-teaser-radar"></span>
-          </div>
-          <span class="moto-bike-status teaser-status">SUPERBIKE // #01</span>
-        </div>
-        <div class="moto-bike-body">
-          <div class="moto-bike-brand">GTT MOTO ATELIER • SPEC</div>
-          <h4 class="moto-bike-name">Супербайк GTT #01</h4>
-          <div class="moto-bike-specs-row">
-            <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">?</span>
-              <span class="m-lbl">Мощность</span>
-            </div>
-            <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">?</span>
-              <span class="m-lbl">Вес</span>
-            </div>
-            <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">?</span>
-              <span class="m-lbl">Скорость</span>
-            </div>
-          </div>
-          <p class="moto-bike-desc">Проект в процессе подготовки и калибровки. Данные о конфигурации и модификациях будут опубликованы после финальных тестов.</p>
-        </div>
-      </div>
-
-      <!-- 2. Superbike #02 (В работе) -->
-      <div class="moto-bike-card moto-teaser-card">
-        <div class="moto-bike-media moto-teaser-media">
-          <div class="moto-teaser-glow-orbit"></div>
-          <div class="moto-teaser-icon-wrap">
-            <span class="moto-teaser-qmark">?</span>
-            <span class="moto-teaser-radar"></span>
-          </div>
-          <span class="moto-bike-status teaser-status">SUPERBIKE // #02</span>
-        </div>
-        <div class="moto-bike-body">
-          <div class="moto-bike-brand">GTT MOTO ATELIER • SPEC</div>
-          <h4 class="moto-bike-name">Супербайк GTT #02</h4>
-          <div class="moto-bike-specs-row">
-            <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">?</span>
-              <span class="m-lbl">Мощность</span>
-            </div>
-            <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">?</span>
-              <span class="m-lbl">Вес</span>
-            </div>
-            <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">?</span>
-              <span class="m-lbl">Скорость</span>
-            </div>
-          </div>
-          <p class="moto-bike-desc">Проект в процессе подготовки и калибровки. Данные о конфигурации и модификациях будут опубликованы после финальных тестов.</p>
-        </div>
-      </div>
-
-      <!-- 3. Superbike #03 (В работе) -->
-      <div class="moto-bike-card moto-teaser-card">
-        <div class="moto-bike-media moto-teaser-media">
-          <div class="moto-teaser-glow-orbit"></div>
-          <div class="moto-teaser-icon-wrap">
-            <span class="moto-teaser-qmark">?</span>
-            <span class="moto-teaser-radar"></span>
-          </div>
-          <span class="moto-bike-status teaser-status">SUPERBIKE // #03</span>
-        </div>
-        <div class="moto-bike-body">
-          <div class="moto-bike-brand">GTT MOTO ATELIER • SPEC</div>
-          <h4 class="moto-bike-name">Супербайк GTT #03</h4>
-          <div class="moto-bike-specs-row">
-            <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">?</span>
-              <span class="m-lbl">Мощность</span>
-            </div>
-            <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">?</span>
-              <span class="m-lbl">Вес</span>
-            </div>
-            <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">?</span>
-              <span class="m-lbl">Скорость</span>
-            </div>
-          </div>
-          <p class="moto-bike-desc">Проект в процессе подготовки и калибровки. Данные о конфигурации и модификациях будут опубликованы после финальных тестов.</p>
-        </div>
-      </div>
-
-      <!-- 4. GTT Secret Project #04 -->
-      <div class="moto-bike-card moto-teaser-card">
-        <div class="moto-bike-media moto-teaser-media">
-          <div class="moto-teaser-glow-orbit"></div>
-          <div class="moto-teaser-icon-wrap">
-            <span class="moto-teaser-qmark">?</span>
-            <span class="moto-teaser-radar"></span>
-          </div>
-          <span class="moto-bike-status teaser-status">SUPERBIKE // #04</span>
-        </div>
-        <div class="moto-bike-body">
-          <div class="moto-bike-brand">GTT MOTO ATELIER • SPEC</div>
-          <h4 class="moto-bike-name">Супербайк GTT #04</h4>
-          <div class="moto-bike-specs-row">
-            <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">?</span>
-              <span class="m-lbl">Мощность</span>
-            </div>
-            <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">?</span>
-              <span class="m-lbl">Вес</span>
-            </div>
-            <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">?</span>
-              <span class="m-lbl">Скорость</span>
-            </div>
-          </div>
-          <p class="moto-bike-desc">Проект в процессе подготовки и калибровки. Данные о конфигурации и модификациях будут опубликованы после финальных тестов.</p>
-        </div>
-      </div>
-
-      <!-- 5. GTT Secret Project #05 -->
-      <div class="moto-bike-card moto-teaser-card">
-        <div class="moto-bike-media moto-teaser-media">
-          <div class="moto-teaser-glow-orbit"></div>
-          <div class="moto-teaser-icon-wrap">
-            <span class="moto-teaser-qmark">?</span>
-            <span class="moto-teaser-radar"></span>
-          </div>
-          <span class="moto-bike-status teaser-status">SUPERBIKE // #05</span>
-        </div>
-        <div class="moto-bike-body">
-          <div class="moto-bike-brand">GTT MOTO ATELIER • SPEC</div>
-          <h4 class="moto-bike-name">Супербайк GTT #05</h4>
-          <div class="moto-bike-specs-row">
-            <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">?</span>
-              <span class="m-lbl">Мощность</span>
-            </div>
-            <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">?</span>
-              <span class="m-lbl">Вес</span>
-            </div>
-            <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">?</span>
-              <span class="m-lbl">Скорость</span>
-            </div>
-          </div>
-          <p class="moto-bike-desc">Проект в процессе подготовки и калибровки. Данные о конфигурации и модификациях будут опубликованы после финальных тестов.</p>
-        </div>
-      </div>
-
-      <!-- 6. GTT Secret Project #06 -->
-      <div class="moto-bike-card moto-teaser-card">
-        <div class="moto-bike-media moto-teaser-media">
-          <div class="moto-teaser-glow-orbit"></div>
-          <div class="moto-teaser-icon-wrap">
-            <span class="moto-teaser-qmark">?</span>
-            <span class="moto-teaser-radar"></span>
-          </div>
-          <span class="moto-bike-status teaser-status">SUPERBIKE // #06</span>
-        </div>
-        <div class="moto-bike-body">
-          <div class="moto-bike-brand">GTT MOTO ATELIER • SPEC</div>
-          <h4 class="moto-bike-name">Супербайк GTT #06</h4>
-          <div class="moto-bike-specs-row">
-            <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">?</span>
-              <span class="m-lbl">Мощность</span>
-            </div>
-            <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">?</span>
-              <span class="m-lbl">Вес</span>
-            </div>
-            <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">?</span>
-              <span class="m-lbl">Скорость</span>
-            </div>
-          </div>
-          <p class="moto-bike-desc">Проект в процессе подготовки и калибровки. Данные о конфигурации и модификациях будут опубликованы после финальных тестов.</p>
-        </div>
-      </div>
-
-      <!-- 7. GTT Secret Project #07 -->
-      <div class="moto-bike-card moto-teaser-card">
-        <div class="moto-bike-media moto-teaser-media">
-          <div class="moto-teaser-glow-orbit"></div>
-          <div class="moto-teaser-icon-wrap">
-            <span class="moto-teaser-qmark">?</span>
-            <span class="moto-teaser-radar"></span>
-          </div>
-          <span class="moto-bike-status teaser-status">SUPERBIKE // #07</span>
-        </div>
-        <div class="moto-bike-body">
-          <div class="moto-bike-brand">GTT MOTO ATELIER • SPEC</div>
-          <h4 class="moto-bike-name">Супербайк GTT #07</h4>
-          <div class="moto-bike-specs-row">
-            <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">?</span>
-              <span class="m-lbl">Мощность</span>
-            </div>
-            <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">?</span>
-              <span class="m-lbl">Вес</span>
-            </div>
-            <div class="moto-mini-spec">
-              <span class="m-val teaser-classified">?</span>
-              <span class="m-lbl">Скорость</span>
-            </div>
-          </div>
-          <p class="moto-bike-desc">Проект в процессе подготовки и калибровки. Данные о конфигурации и модификациях будут опубликованы после финальных тестов.</p>
-        </div>
-      </div>
-    </div>
 
     <div class="moto-cards-grid">
       <div class="moto-card">
@@ -1120,11 +854,11 @@
         </div>
 
         <!-- 8. Gosha on Track -->
-        <div class="marquee-card" onclick="openGalleryLightbox('assets/photos/gosha_on_track.jpg', 'Георгий Перцхелия контролирует подготовку трассы RDRC')">
+        <div class="marquee-card" onclick="openGalleryLightbox('assets/photos/gosha_on_track.jpg', 'Гоша Перцхелия контролирует подготовку трассы RDRC')">
           <img src="assets/photos/gosha_on_track.jpg" alt="Гоша на треке RDRC" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">CHIEF MOTORSPORT ENGINEER</span>
-            <div class="marquee-card-title">Георгий Перцхелия на стрипе RDRC</div>
+            <div class="marquee-card-title">Гоша Перцхелия на стрипе RDRC</div>
           </div>
         </div>
 
@@ -1251,10 +985,6 @@
   <section class="contact-section" id="contact">
     <div class="contact-container">
       <div class="contact-info-block">
-        <div class="contact-lab-badge">
-          <span class="pulse-indicator"></span>
-          <span>ATELIER HQ // MOZHAISKOE 166B</span>
-        </div>
         <h2 class="c-title" data-i18n="contact_hq_title">GOSHATURBOTECH</h2>
         <p data-i18n="contact_hq_desc">Центр спортивного инжиниринга и персональной доработки суперкаров и супербайков. Предварительный осмотр, диностенд и онлайн-согласование проектов.</p>
 
@@ -1380,10 +1110,9 @@
     <div class="footer-inner-container">
       <div class="footer-center-content">
         <img src="assets/photos/gtt_shield_logo.svg" 
-             alt="GTT Shield" 
-             class="footer-mini-shield"
-             title="GoshaTurboTech">
-        <span class="footer-copy-text">© GOSHATURBOTECH. SPEED &amp; MOTORSPORT ENGINEERING.</span>
+             alt="GoshaTurboTech" 
+             class="footer-mini-shield">
+        <span class="footer-copy-text" id="footerCopyStaffTrigger">© GOSHATURBOTECH. SPEED &amp; MOTORSPORT ENGINEERING.</span>
       </div>
 
       <div class="footer-legal-bar">
@@ -1450,6 +1179,6 @@
     </a>
   </div>
 
-  <script src="js/app.js?v=4.7"></script>
+  <script src="js/app.js?v=8.0"></script>
 </body>
 </html>
