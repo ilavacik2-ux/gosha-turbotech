@@ -1188,9 +1188,9 @@ body.is-loading {
   line-height: 1.6;
 }
 
-/* Founder & Vision Section (Compact) */
+/* Founder & Vision Section (Compact & Sleek) */
 .founder-section {
-  padding: 55px 4%;
+  padding: 42px 4% 38px;
   position: relative;
   overflow: hidden;
   background: radial-gradient(circle at 10% 40%, rgba(255, 100, 37, 0.04) 0%, transparent 50%),
@@ -1205,7 +1205,7 @@ body.is-loading {
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1.25fr;
-  gap: 36px;
+  gap: 28px;
   align-items: center;
 }
 
@@ -1220,12 +1220,12 @@ body.is-loading {
   overflow: hidden;
   border: 1px solid var(--border-glow);
   background: #11141c;
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 35px rgba(255, 100, 37, 0.15);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75), 0 0 25px rgba(255, 100, 37, 0.12);
 }
 
 .founder-img-wrapper img {
   width: 100%;
-  height: 390px;
+  height: 330px;
   object-fit: cover;
   object-position: center 15%;
   filter: contrast(1.05) brightness(0.98);
@@ -1427,51 +1427,51 @@ body.is-loading {
 
 .founder-content .founder-title {
   font-family: var(--font-display);
-  font-size: clamp(30px, 4vw, 44px);
+  font-size: clamp(26px, 3.2vw, 36px);
   font-weight: 900;
   text-transform: uppercase;
   line-height: 1.15;
-  margin-bottom: 24px;
+  margin-bottom: 14px;
 }
 
 .founder-quote {
   border-left: 3px solid var(--gtt-orange);
-  padding-left: 20px;
-  font-size: 17px;
+  padding-left: 16px;
+  font-size: 15px;
   font-weight: 500;
   color: #fff;
-  line-height: 1.6;
-  margin-bottom: 24px;
+  line-height: 1.5;
+  margin-bottom: 14px;
   font-style: italic;
 }
 
 .founder-bio-text {
-  font-size: 15px;
+  font-size: 13.5px;
   color: var(--text-muted);
-  line-height: 1.8;
-  margin-bottom: 30px;
+  line-height: 1.6;
+  margin-bottom: 18px;
 }
 
 .founder-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  padding-top: 24px;
+  gap: 14px;
+  padding-top: 14px;
   border-top: 1px solid var(--border-subtle);
-  margin-bottom: 28px;
+  margin-bottom: 18px;
 }
 
 .founder-stat-item .num {
   font-family: var(--font-display);
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 900;
   color: var(--gtt-orange);
 }
 
 .founder-stat-item .desc {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-muted);
-  margin-top: 4px;
+  margin-top: 2px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -1480,33 +1480,33 @@ body.is-loading {
 .founder-achievements {
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--border-subtle);
-  border-radius: 14px;
-  padding: 20px;
+  border-radius: 12px;
+  padding: 14px 16px;
 }
 
 .founder-achieve-tag {
   font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.15em;
+  font-size: 10px;
+  letter-spacing: 0.14em;
   color: var(--gtt-orange);
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   text-transform: uppercase;
 }
 
 .founder-achieve-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 10px;
 }
 
 .achieve-pill {
   display: flex;
-  align-items: flex-start;
-  gap: 12px;
+  align-items: center;
+  gap: 10px;
   background: rgba(14, 18, 26, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.04);
-  padding: 12px 14px;
-  border-radius: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
   transition: var(--transition-smooth);
 }
 
@@ -1517,21 +1517,20 @@ body.is-loading {
 }
 
 .achieve-icon {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1;
   flex-shrink: 0;
-  margin-top: 2px;
 }
 
 .achieve-details {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
 }
 
 .achieve-details strong {
   font-family: var(--font-display);
-  font-size: 13px;
+  font-size: 12px;
   color: #fff;
   font-weight: 700;
   letter-spacing: 0.02em;
@@ -1539,8 +1538,8 @@ body.is-loading {
 
 .achieve-details span {
   font-size: 11px;
-  color: var(--text-muted);
-  line-height: 1.4;
+  color: var(--text-dim);
+  line-height: 1.35;
 }
 
 @media (max-width: 640px) {
@@ -1896,18 +1895,25 @@ body.is-loading {
   margin-bottom: 16px;
 }
 
-/* New Scalable Moto Division Layout */
+/* New Scalable Moto Division Layout (Compact Side-by-Side) */
 .moto-hero-banner {
   max-width: 1400px;
-  margin: 0 auto 36px;
+  margin: 0 auto 28px;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  align-items: stretch;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
   transition: var(--transition-smooth);
+}
+
+@media (max-width: 960px) {
+  .moto-hero-banner {
+    grid-template-columns: 1fr;
+  }
 }
 
 .moto-hero-banner:hover {
@@ -1917,17 +1923,17 @@ body.is-loading {
 
 .moto-hero-media {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
   background: #080a0f;
-  padding: 16px;
+  padding: 14px;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 600px) {
   .moto-hero-media {
     grid-template-columns: 1fr;
-    padding: 12px;
-    gap: 12px;
+    padding: 10px;
+    gap: 10px;
   }
 }
 
@@ -1936,15 +1942,15 @@ body.is-loading {
   overflow: hidden;
   border-radius: var(--radius-sm);
   background: #0d1118;
-  aspect-ratio: 16 / 10;
-  max-height: 330px;
+  aspect-ratio: 16 / 11;
+  max-height: 240px;
   width: 100%;
 }
 
 @media (max-width: 768px) {
   .moto-hero-photo-wrap {
     aspect-ratio: 16 / 10;
-    max-height: 240px;
+    max-height: 190px;
   }
 }
 
@@ -1963,15 +1969,15 @@ body.is-loading {
 
 .moto-hero-badge {
   position: absolute;
-  bottom: 12px;
-  left: 12px;
+  bottom: 10px;
+  left: 10px;
   background: rgba(7, 8, 10, 0.88);
   border: 1px solid rgba(56, 189, 248, 0.4);
   color: var(--gtt-cyan);
-  padding: 5px 10px;
-  border-radius: 6px;
+  padding: 4px 8px;
+  border-radius: 5px;
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 9.5px;
   font-weight: 700;
   letter-spacing: 0.06em;
   backdrop-filter: blur(8px);
@@ -1981,28 +1987,29 @@ body.is-loading {
 }
 
 .moto-hero-info {
-  padding: 32px 36px 36px;
+  padding: 24px 28px;
   background: linear-gradient(180deg, rgba(16, 20, 28, 0.95) 0%, rgba(10, 13, 18, 0.98) 100%);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .moto-hero-title {
   font-family: var(--font-display);
-  font-size: clamp(24px, 2.5vw, 34px);
+  font-size: clamp(20px, 2vw, 26px);
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   color: #fff;
   line-height: 1.2;
 }
 
 .moto-hero-desc {
-  font-size: 14.5px;
+  font-size: 13.5px;
   color: var(--text-muted);
-  line-height: 1.7;
-  max-width: 1100px;
-  margin-bottom: 22px;
+  line-height: 1.55;
+  margin-bottom: 14px;
 }
 
 /* Superbikes Fleet Catalog (7+ Scalable Grid) */

@@ -1125,20 +1125,38 @@ function renderTeamGrid(teamList) {
 
 // --- Engineering & Team Access Gateway (Stealth & Secure) ---
 function openAdminSecure(e) {
-  if (e && e.preventDefault) e.preventDefault();
-  if (e && e.stopPropagation) e.stopPropagation();
-  window.location.href = '/gtt71';
+  if (e) {
+    if (e.preventDefault) e.preventDefault();
+    if (e.stopPropagation) e.stopPropagation();
+  }
+  
+  // 1. Direct file:// protocol support (Safari on Mac / desktop)
+  if (window.location.protocol === 'file:') {
+    const href = window.location.href;
+    const base = href.substring(0, href.lastIndexOf('/') + 1);
+    window.location.href = base + 'admin.html';
+    return;
+  }
+  
+  // 2. HTTP / HTTPS web server support
+  window.location.href = 'admin.html';
 }
 
 // 1. Global Keyboard Shortcut for PC / Mac: Cmd+Shift+A or Ctrl+Shift+A
 function handleAdminKeydown(e) {
-  const hasModifier = e.ctrlKey || e.metaKey;
-  const isKeyA = e.code === 'KeyA' || e.key === 'A' || e.key === 'a' || e.key === 'Ф' || e.key === 'ф';
+  const isCmdOrCtrl = e.metaKey || e.ctrlKey;
+  const isShift = e.shiftKey;
+  const key = (e.key || '').toLowerCase();
+  const code = e.code || '';
+  const keyCode = e.keyCode || e.which;
   
-  if (hasModifier && e.shiftKey && isKeyA) {
-    e.preventDefault();
-    e.stopPropagation();
-    openAdminSecure();
+  const isKeyA = code === 'KeyA' || keyCode === 65 || key === 'a' || key === 'ф' || key === 'A' || key === 'Ф';
+  
+  if (isCmdOrCtrl && isShift && isKeyA) {
+    if (e.preventDefault) e.preventDefault();
+    if (e.stopPropagation) e.stopPropagation();
+    openAdminSecure(e);
+    return false;
   }
 }
 
@@ -1167,7 +1185,7 @@ function initMobileStaffGesture() {
       logoPressTimer = setTimeout(() => {
         if ('vibrate' in navigator) navigator.vibrate(60);
         openAdminSecure();
-      }, 3500);
+      }, 3000);
     }
   };
 
@@ -1205,6 +1223,7 @@ function initFooterStaffAccess() {
 }
 
 window.addEventListener('keydown', handleAdminKeydown, true);
+document.addEventListener('keydown', handleAdminKeydown, true);
 window.addEventListener('keypress', handleSecretKeypress, true);
 document.addEventListener('DOMContentLoaded', () => {
   initFooterStaffAccess();

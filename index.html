@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=8.0">
+  <link rel="stylesheet" href="css/style.css?v=9.0">
 </head>
 <body class="is-loading">
 
@@ -42,7 +42,7 @@
   <!-- Navigation -->
   <header class="navbar">
     <a href="#" class="brand-logo" aria-label="GoshaTurboTech Главная">
-      <img src="assets/photos/gtt_shield_logo.svg" alt="GoshaTurboTech" class="brand-shield-img">
+      <img src="assets/photos/gtt_shield_logo.svg" alt="GoshaTurboTech" class="brand-shield-img" onclick="openAdminDirect(event)" style="cursor: pointer;" title="GTT Staff Hub">
       <div class="brand-title">
         <span class="brand-word-gosha">GOSHA</span>
         <span class="brand-word-turbo">TURBOTECH</span>
@@ -1111,7 +1111,10 @@
       <div class="footer-center-content">
         <img src="assets/photos/gtt_shield_logo.svg" 
              alt="GoshaTurboTech" 
-             class="footer-mini-shield">
+             class="footer-mini-shield"
+             onclick="openAdminDirect(event)"
+             style="cursor: pointer;"
+             title="GTT Staff Hub">
         <span class="footer-copy-text" id="footerCopyStaffTrigger">© GOSHATURBOTECH. SPEED &amp; MOTORSPORT ENGINEERING.</span>
       </div>
 
@@ -1179,6 +1182,6 @@
     </a>
   </div>
 
-  <script src="js/app.js?v=8.0"></script>
+  <script src="js/app.js?v=9.0"></script>
 </body>
 </html>

@@ -407,16 +407,16 @@ app.mount("/assets", StaticFiles(directory=os.path.join(BASE_DIR, "assets")), na
 async def serve_index():
     return FileResponse(os.path.join(BASE_DIR, "index.html"))
 
-# Secret GTT Staff Gateway (not /admin or /admine)
+# Secret GTT Staff Gateway & Admin Page
 @app.get("/gtt71")
 @app.get("/gtt-hub")
 @app.get("/staff-gate")
+@app.get("/admin.html")
 async def serve_secret_admin():
     return FileResponse(os.path.join(BASE_DIR, "admin.html"))
 
-# Block public guessing of /admin, /admine, /admin.html
+# Block public guessing of /admin and /admine
 @app.get("/admin")
-@app.get("/admin.html")
 @app.get("/admine")
 async def block_public_admin():
     return RedirectResponse(url="/", status_code=302)
