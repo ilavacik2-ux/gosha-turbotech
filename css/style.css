@@ -876,7 +876,7 @@ body.is-loading {
 
 .car-card-media {
   position: relative;
-  height: 230px;
+  height: 260px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -945,19 +945,24 @@ body.is-loading {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 60%;
   transition: transform 0.6s var(--ease-out-expo), filter 0.6s ease;
   filter: contrast(1.06) brightness(0.96);
 }
 
-.car-card-img:not(.photo-fit) {
-  width: 90%;
-  height: 85%;
-  object-fit: contain;
-  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.8));
+/* Ensure isolated car renders (PNGs like Moses #712) sit uncropped with full wheels and body */
+.car-card-img:not(.photo-fit),
+.car-card-img[src*=".png"],
+.car-card-img[src*="-min.png"] {
+  width: 92% !important;
+  height: 88% !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.85));
 }
 
 .car-card:hover .car-card-img {
-  transform: scale(1.05);
+  transform: scale(1.04);
   filter: contrast(1.1) brightness(1.02);
 }
 
@@ -1220,14 +1225,14 @@ body.is-loading {
   overflow: hidden;
   border: 1px solid var(--border-glow);
   background: #11141c;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75), 0 0 25px rgba(255, 100, 37, 0.12);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 35px rgba(255, 100, 37, 0.15);
 }
 
 .founder-img-wrapper img {
   width: 100%;
-  height: 330px;
+  height: 520px;
   object-fit: cover;
-  object-position: center 15%;
+  object-position: center 46%;
   filter: contrast(1.05) brightness(0.98);
   display: block;
   transition: opacity 0.4s ease, transform 0.4s var(--ease-out-expo);
@@ -1895,25 +1900,18 @@ body.is-loading {
   margin-bottom: 16px;
 }
 
-/* New Scalable Moto Division Layout (Compact Side-by-Side) */
+/* Scalable Moto Division Layout (Uncropped & Authentic) */
 .moto-hero-banner {
   max-width: 1400px;
-  margin: 0 auto 28px;
+  margin: 0 auto 36px;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   overflow: hidden;
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  align-items: stretch;
+  display: flex;
+  flex-direction: column;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
   transition: var(--transition-smooth);
-}
-
-@media (max-width: 960px) {
-  .moto-hero-banner {
-    grid-template-columns: 1fr;
-  }
 }
 
 .moto-hero-banner:hover {
@@ -1924,16 +1922,16 @@ body.is-loading {
 .moto-hero-media {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 16px;
   background: #080a0f;
-  padding: 14px;
+  padding: 16px;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .moto-hero-media {
     grid-template-columns: 1fr;
-    padding: 10px;
-    gap: 10px;
+    padding: 12px;
+    gap: 12px;
   }
 }
 
@@ -1942,15 +1940,15 @@ body.is-loading {
   overflow: hidden;
   border-radius: var(--radius-sm);
   background: #0d1118;
-  aspect-ratio: 16 / 11;
-  max-height: 240px;
+  aspect-ratio: 4 / 3;
+  max-height: 440px;
   width: 100%;
 }
 
 @media (max-width: 768px) {
   .moto-hero-photo-wrap {
-    aspect-ratio: 16 / 10;
-    max-height: 190px;
+    aspect-ratio: 1 / 1;
+    max-height: 340px;
   }
 }
 
@@ -1958,26 +1956,26 @@ body.is-loading {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center center;
+  object-position: center 75%;
   display: block;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .moto-hero-photo-wrap:hover .moto-hero-img {
-  transform: scale(1.04);
+  transform: scale(1.03);
 }
 
 .moto-hero-badge {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  bottom: 12px;
+  left: 12px;
   background: rgba(7, 8, 10, 0.88);
   border: 1px solid rgba(56, 189, 248, 0.4);
   color: var(--gtt-cyan);
-  padding: 4px 8px;
-  border-radius: 5px;
+  padding: 5px 10px;
+  border-radius: 6px;
   font-family: var(--font-mono);
-  font-size: 9.5px;
+  font-size: 10.5px;
   font-weight: 700;
   letter-spacing: 0.06em;
   backdrop-filter: blur(8px);
@@ -1987,11 +1985,9 @@ body.is-loading {
 }
 
 .moto-hero-info {
-  padding: 24px 28px;
+  padding: 28px 36px 32px;
   background: linear-gradient(180deg, rgba(16, 20, 28, 0.95) 0%, rgba(10, 13, 18, 0.98) 100%);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .moto-hero-title {

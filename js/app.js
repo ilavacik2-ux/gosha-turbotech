@@ -879,7 +879,7 @@ function applyCarsData(carList) {
     },
     img: c.img || '',
     fallbackImg: c.fallback_img || c.fallbackImg || c.img || '',
-    isPhoto: c.is_photo !== undefined ? Boolean(c.is_photo) : true,
+    isPhoto: (c.is_photo !== undefined ? Boolean(c.is_photo) : true) && !(c.img || '').toLowerCase().includes('.png'),
     objectPosition: c.object_position || c.objectPosition || 'center center',
     videoSrc: c.video_src || c.videoSrc || '',
     videoTitle: c.video_title || c.videoTitle || '',
