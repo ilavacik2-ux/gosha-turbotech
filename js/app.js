@@ -26,6 +26,7 @@ let gttProjects = [
     img: 'assets/cars/gtr_lucifer_solo.jpg',
     fallbackImg: 'assets/cars/gtr_lucifer_full.jpg',
     isPhoto: true,
+    objectPosition: 'center 46%',
     objectPosition: 'center 60%',
     videoSrc: 'assets/videos/gosha_na_svoem_lucifer_web.mp4',
     videoTitle: 'Гоша на своей // GT-R Lucifer RDRC',
@@ -63,6 +64,7 @@ let gttProjects = [
     img: 'assets/cars/gtr_draco_promod_front.jpg',
     fallbackImg: 'assets/cars/gtr_draco_wrap_detail.jpg',
     isPhoto: true,
+    objectPosition: 'center 64%',
     videoSrc: 'assets/videos/draco_gtr_action.mp4',
     videoTitle: 'Nissan GT-R Draco Pro-Mod 3000+ HP — боевой заезд RDRC',
     desc: {
@@ -432,6 +434,481 @@ let gttProjects = [
       turbos: 'GTT Billet High-Flow Turbos',
       fuel: '100 RON + Methanol Injection',
       ecu: 'Syvecs S7 Plus Standalone Porsche Kit'
+    }
+  },
+  {
+    id: 'gtr_rocket',
+    brand: 'NISSAN & GTT',
+    type: 'gtr',
+    name: { ru: 'GT-R R35 GTT «ROCKET»', en: 'GT-R R35 GTT «ROCKET»' },
+    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
+    hp: 'TBD',
+    quarterMile: '—',
+    topSpeed: '—',
+    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
+    img: 'assets/cars/gtt_classified_car.svg',
+    fallbackImg: 'assets/cars/gtt_classified_car.svg',
+    isPhoto: false,
+    isClassified: true,
+    desc: {
+      ru: 'Экстремальный драг-проект Nissan GT-R R35 «Rocket» лаборатории GoshaTurboTech. Двухтурбинный наддув, титановый выхлоп и облегченная гоночная конфигурация кузова.',
+      en: 'Extreme drag racing project Nissan GT-R R35 Rocket by GoshaTurboTech skunkworks. Twin turbo package, titanium straight pipes and ultra-lightweight race setup.'
+    },
+    specs: {
+      engine: '3.8L VR38DETT Built by GTT',
+      turbos: 'Dual Precision High-Boost Turbos',
+      ecu: 'Motec M1 Drag Calibration',
+      fuel: '100 RON + Ethanol Map'
+    }
+  },
+  {
+    id: 'gtr_alpha12x',
+    brand: 'NISSAN & GTT',
+    type: 'gtr',
+    name: { ru: 'GT-R R35 GTT ALPHA12X SPEC', en: 'GT-R R35 GTT ALPHA12X SPEC' },
+    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
+    hp: 'TBD',
+    quarterMile: '—',
+    topSpeed: '—',
+    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
+    img: 'assets/cars/gtt_classified_car.svg',
+    fallbackImg: 'assets/cars/gtt_classified_car.svg',
+    isPhoto: false,
+    isClassified: true,
+    desc: {
+      ru: 'Проект на базе культового пакета Alpha 12X, доработанный инженерами GTT. Кастомное охлаждение, усиленная трансмиссия GR6 и индивидуальная прошивка блока управления.',
+      en: 'Build based on the legendary Alpha 12X package, heavily refined by GTT engineers. Upgraded GR6 transmission and bespoke engine management.'
+    },
+    specs: {
+      engine: '4.0L Stroker VR38 GTT Spec',
+      turbos: 'AMS Alpha 12X Turbo Kit',
+      transmission: 'ShepTrans Stage 4 GR6',
+      ecu: 'Syvecs S8 Dual ECU'
+    }
+  },
+  {
+    id: 'gtr_baloo',
+    brand: 'NISSAN & GTT',
+    type: 'gtr',
+    name: { ru: 'GT-R R35 GTT «BALOO»', en: 'GT-R R35 GTT «BALOO»' },
+    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
+    hp: 'TBD',
+    quarterMile: '—',
+    topSpeed: '—',
+    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
+    img: 'assets/cars/gtt_classified_car.svg',
+    fallbackImg: 'assets/cars/gtt_classified_car.svg',
+    isPhoto: false,
+    isClassified: true,
+    desc: {
+      ru: 'Уникальный проект «Baloo» с мощнейшим средним диапазоном оборотов и полным приводом для уличных дуэлей и заездов на 804 метра.',
+      en: 'Unique Baloo build optimized for high mid-range torque and lethal all-wheel-drive traction on street and half-mile events.'
+    },
+    specs: {
+      engine: '3.8L VR38 Reinforced GTT Block',
+      turbos: 'Garrett G30 Billet Turbos',
+      cooling: 'GTT Dual Radiator Pack',
+      fuel: 'Dual In-Tank Fuel Rail'
+    }
+  },
+  {
+    id: 'gtr_fifa',
+    brand: 'NISSAN & GTT',
+    type: 'gtr',
+    name: { ru: 'GT-R R35 GTT «FIFA» #10', en: 'GT-R R35 GTT «FIFA» #10' },
+    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
+    hp: 'TBD',
+    quarterMile: '—',
+    topSpeed: '—',
+    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
+    img: 'assets/cars/gtt_classified_car.svg',
+    fallbackImg: 'assets/cars/gtt_classified_car.svg',
+    isPhoto: false,
+    isClassified: true,
+    desc: {
+      ru: 'Именной болид «FIFA», созданный в ателье GoshaTurboTech. Сочетает комфортный салон и бескомпромиссные характеристики разгона из 8.5 секунд на квотере.',
+      en: 'Bespoke FIFA build crafted by GoshaTurboTech atelier, pairing premium cockpit refinement with sub-8.5 quarter-mile violence.'
+    },
+    specs: {
+      engine: '4.1L Billet Stroker VR38 GTT',
+      turbos: 'Precision Gen2 Turbochargers',
+      transmission: 'Dodson Motorsport Billet Gearset',
+      ecu: 'Motec M150'
+    }
+  },
+  {
+    id: 'gtr_kurdalagon',
+    brand: 'NISSAN & GTT',
+    type: 'gtr',
+    name: { ru: 'GT-R R35 GTT «KURDALAGON»', en: 'GT-R R35 GTT «KURDALAGON»' },
+    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
+    hp: 'TBD',
+    quarterMile: '—',
+    topSpeed: '—',
+    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
+    img: 'assets/cars/gtt_classified_car.svg',
+    fallbackImg: 'assets/cars/gtt_classified_car.svg',
+    isPhoto: false,
+    isClassified: true,
+    desc: {
+      ru: 'Легендарный GT-R «Курдалагон» — имя древнего бога-кузнеца. Полноценный драг-монстр на боевом топливе с экстремальной отдачей свыше 1600 л.с.',
+      en: 'Mythical Kurdalagon GT-R named after the blacksmith deity. A relentless race car on VP Racing fuel generating over 1,600 brake horsepower.'
+    },
+    specs: {
+      engine: '4.1L Billet VR38 Race Assembly',
+      turbos: 'Dual Precision 7275 Billet',
+      fuel: 'VP Racing Ethanol M5',
+      chassis: 'Drag Parachute & Beadlock Slicks'
+    }
+  },
+  {
+    id: 'porsche_991_1200',
+    brand: 'PORSCHE & GTT',
+    type: 'porsche',
+    name: { ru: 'PORSCHE 911 TURBO (991.1) GTT-1200', en: 'PORSCHE 911 TURBO (991.1) GTT-1200' },
+    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
+    hp: 'TBD',
+    quarterMile: '—',
+    topSpeed: '—',
+    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
+    img: 'assets/cars/gtt_classified_car.svg',
+    fallbackImg: 'assets/cars/gtt_classified_car.svg',
+    isPhoto: false,
+    isClassified: true,
+    desc: {
+      ru: 'Безумный 991.1 Turbo на кастомном турбо-ките GTT с биллетовыми компрессорными колесами и доработанной роботизированной коробкой PDK.',
+      en: 'Savage 991.1 Turbo sporting custom GTT twin billet turbo package and heavy-duty PDK clutch assembly.'
+    },
+    specs: {
+      engine: '3.8L Twin-Turbo Boxer-6 Built Internals',
+      turbos: 'GTT Dual Billet High-Flow Turbos',
+      transmission: 'Reinforced PDK Dual-Clutch Pack',
+      fuel: 'Methanol Direct Port Injection'
+    }
+  },
+  {
+    id: 'porsche_991_felix',
+    brand: 'PORSCHE & GTT',
+    type: 'porsche',
+    name: { ru: 'PORSCHE 911 TURBO S (991.2) FELIX FERRO', en: 'PORSCHE 911 TURBO S (991.2) FELIX FERRO' },
+    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
+    hp: 'TBD',
+    quarterMile: '—',
+    topSpeed: '—',
+    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
+    img: 'assets/cars/gtt_classified_car.svg',
+    fallbackImg: 'assets/cars/gtt_classified_car.svg',
+    isPhoto: false,
+    isClassified: true,
+    desc: {
+      ru: 'Лимитированная инженерная серия Felix Ferro Edition. Индивидуальный аэродинамический пакет, облегченные кованые диски и настройка блока управления Syvecs.',
+      en: 'Exclusive Felix Ferro Edition bespoke engineering build. Lightweight aero package, forged monoblocks and Syvecs ECU calibration.'
+    },
+    specs: {
+      engine: '3.8L Twin-Turbo Boxer-6 GTT RS Spec',
+      turbos: 'Billet Hybrid Turbos Gen2',
+      exhaust: 'Titanium Valved System Handcrafted',
+      ecu: 'Syvecs S7 Standalone Engine Management'
+    }
+  },
+  {
+    id: 'porsche_991_900',
+    brand: 'PORSCHE & GTT',
+    type: 'porsche',
+    name: { ru: 'PORSCHE 911 TURBO S (991.2) GTT-900', en: 'PORSCHE 911 TURBO S (991.2) GTT-900' },
+    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
+    hp: 'TBD',
+    quarterMile: '—',
+    topSpeed: '—',
+    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
+    img: 'assets/cars/gtt_classified_car.svg',
+    fallbackImg: 'assets/cars/gtt_classified_car.svg',
+    isPhoto: false,
+    isClassified: true,
+    desc: {
+      ru: 'Идеальный баланс повседневного суперкара и рекордного темпа. 900 сил на товарном 100-м бензине с ресурсом заводского мотора.',
+      en: 'The quintessential balance of daily driveability and track dominance. 900 reliable horsepower on pump 100 RON gasoline.'
+    },
+    specs: {
+      engine: '3.8L Boxer-6 Twin-Turbo GTT Stage 2',
+      turbos: 'Upgraded High-Efficiency Turbos',
+      intercoolers: 'CSF High-Capacity Charge Coolers',
+      ecu: 'Custom GTT ECU & TCU Map'
+    }
+  },
+  {
+    id: 'porsche_992_puncher',
+    brand: 'PORSCHE & GTT',
+    type: 'porsche',
+    name: { ru: 'PORSCHE 911 TURBO S (992) GTT «PUNCHER»', en: 'PORSCHE 911 TURBO S (992) GTT «PUNCHER»' },
+    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
+    hp: 'TBD',
+    quarterMile: '—',
+    topSpeed: '—',
+    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
+    img: 'assets/cars/gtt_classified_car.svg',
+    fallbackImg: 'assets/cars/gtt_classified_car.svg',
+    isPhoto: false,
+    isClassified: true,
+    desc: {
+      ru: 'Новейший Porsche 992 Turbo S «Puncher». Мощный спул на низах, кастомный впуск из углеволокна и разгон 0-100 км/ч быстрее 2.2 секунд.',
+      en: 'Latest 992 generation Turbo S Puncher. Instant boost response, carbon intake plenum and 0-100 km/h in under 2.2 seconds.'
+    },
+    specs: {
+      engine: '3.8L Boxer-6 992 GTT Spec',
+      turbos: 'Billet Precision Mirror Turbos',
+      intercooling: 'High-Flow Core Package',
+      fuel: 'Methanol Multi-Port System'
+    }
+  },
+  {
+    id: 'lambo_maxpain',
+    brand: 'LAMBORGHINI & GTT',
+    type: 'lambo',
+    name: { ru: 'HURACAN PERFORMANTE TT GTT-MAXPAIN', en: 'HURACAN PERFORMANTE TT GTT-MAXPAIN' },
+    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
+    hp: 'TBD',
+    quarterMile: '—',
+    topSpeed: '—',
+    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
+    img: 'assets/cars/gtt_classified_car.svg',
+    fallbackImg: 'assets/cars/gtt_classified_car.svg',
+    isPhoto: false,
+    isClassified: true,
+    desc: {
+      ru: 'Безупречный Performante в культовом кованом карбоне Forged Composites с установленным кастомным твин-турбо китом GTT на 1400 лошадиных сил.',
+      en: 'Forged Composites masterpiece Lamborghini Huracan Performante empowered by bespoke GTT 1400+ HP twin turbo system.'
+    },
+    specs: {
+      engine: '5.2L V10 FSI GTT Built Internals',
+      turbos: 'Mirror Twin Billet Precision Turbos',
+      clutch: 'GTT Dual-Clutch Billet Basket',
+      ecu: 'Syvecs S12 Standalone System'
+    }
+  },
+  {
+    id: 'lambo_spyder_800',
+    brand: 'LAMBORGHINI & GTT',
+    type: 'lambo',
+    name: { ru: 'HURACAN SPYDER GTT-800 STAGE 2', en: 'HURACAN SPYDER GTT-800 STAGE 2' },
+    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
+    hp: 'TBD',
+    quarterMile: '—',
+    topSpeed: '—',
+    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
+    img: 'assets/cars/gtt_classified_car.svg',
+    fallbackImg: 'assets/cars/gtt_classified_car.svg',
+    isPhoto: false,
+    isClassified: true,
+    desc: {
+      ru: 'Открытый родстер Huracan Spyder с доработанной выхлопной трассой Inconel и компрессорной системой GTT Stage 2 для чистейшего V10 звука под открытым небом.',
+      en: 'Atmospheric open-top roadster tuned with Inconel race exhaust and GTT Stage 2 package delivering intoxicating V10 symphonies.'
+    },
+    specs: {
+      engine: '5.2L V10 Naturally Aspirated GTT Tune',
+      exhaust: 'Inconel Valvetronic Full System',
+      intake: 'Carbon Ram-Air Box',
+      ecu: 'GTT Dual ECU Custom Calibration'
+    }
+  },
+  {
+    id: 'audi_rokot',
+    brand: 'AUDI & GTT',
+    type: 'audi',
+    name: { ru: 'AUDI R8 V10 TWINTURBO «ROKOT»', en: 'AUDI R8 V10 TWINTURBO «ROKOT»' },
+    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
+    hp: 'TBD',
+    quarterMile: '—',
+    topSpeed: '—',
+    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
+    img: 'assets/cars/gtt_classified_car.svg',
+    fallbackImg: 'assets/cars/gtt_classified_car.svg',
+    isPhoto: false,
+    isClassified: true,
+    desc: {
+      ru: 'Audi R8 V10 с двухтурбинным пакетом «Рокот». Выхлопные газы выведены в задний диффузор, звук работы напоминает реактивный истребитель.',
+      en: 'Audi R8 V10 with custom Rokot twin turbo setup. Jet-fighter exhaust architecture exiting through aggressive carbon aero diffuser.'
+    },
+    specs: {
+      engine: '5.2L FSI V10 GTT Reinforced',
+      turbos: 'Dual Billet Turbo System with Water-to-Air Cooling',
+      transmission: 'DL800 7-Speed Billet Upgraded Clutch',
+      ecu: 'Syvecs Powertrain Management'
+    }
+  },
+  {
+    id: 'audi_zlayazaya',
+    brand: 'AUDI & GTT',
+    type: 'audi',
+    name: { ru: 'AUDI R8 V10 TWINTURBO «ZLAYAZAYA»', en: 'AUDI R8 V10 TWINTURBO «ZLAYAZAYA»' },
+    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
+    hp: 'TBD',
+    quarterMile: '—',
+    topSpeed: '—',
+    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
+    img: 'assets/cars/gtt_classified_car.svg',
+    fallbackImg: 'assets/cars/gtt_classified_car.svg',
+    isPhoto: false,
+    isClassified: true,
+    desc: {
+      ru: 'Культовый проект ателье GTT «Злая Зая». Сверхбыстрый спул, колоссальный крутящий момент и стабильный запуск на любом дорожном покрытии.',
+      en: 'Iconic GTT atelier build ZlayaZaya. Instant throttle response, mountain of torque and razor-sharp launch control on all surfaces.'
+    },
+    specs: {
+      engine: '5.2L V10 Reinforced Rods & Pistons',
+      turbos: 'Mirror V-Band Turbochargers',
+      fuel: 'Direct Port Injected Dual Map',
+      ecu: 'Motec Dual M1 Engine Electronics'
+    }
+  },
+  {
+    id: 'bmw_m7_gtt',
+    brand: 'BMW M-POWER',
+    type: 'bmw',
+    name: { ru: 'BMW M7 GTT EXECUTIVE TWIN TURBO', en: 'BMW M7 GTT EXECUTIVE TWIN TURBO' },
+    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
+    hp: 'TBD',
+    quarterMile: '—',
+    topSpeed: '—',
+    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
+    img: 'assets/cars/gtt_classified_car.svg',
+    fallbackImg: 'assets/cars/gtt_classified_car.svg',
+    isPhoto: false,
+    isClassified: true,
+    desc: {
+      ru: 'Представительский флагман BMW 7 серии в глубокой доработке GoshaTurboTech. Двухтурбинный V8, бесшумный комфорт в салоне и ураганная динамика на автобане.',
+      en: 'Executive flagship 7-series heavily enhanced by GoshaTurboTech. Twin-turbocharged V8 offering silent luxury alongside autobahn supremacy.'
+    },
+    specs: {
+      engine: '4.4L V8 TwinPower Turbo GTT Stage 2',
+      turbos: 'Billet Hybrid Turbochargers',
+      exhaust: 'Bespoke Stainless Valvetronic System',
+      transmission: 'ZF 8HP Reinforced Calibration'
+    }
+  },
+  {
+    id: 'volga_kgb',
+    brand: 'ГАЗ & GTT',
+    type: 'other',
+    name: { ru: 'ВОЛГА ГАЗ-24 КГБ V8 GTT SLEEPER', en: 'VOLGA GAZ-24 KGB V8 GTT SLEEPER' },
+    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
+    hp: 'TBD',
+    quarterMile: '—',
+    topSpeed: '—',
+    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
+    img: 'assets/cars/gtt_classified_car.svg',
+    fallbackImg: 'assets/cars/gtt_classified_car.svg',
+    isPhoto: false,
+    isClassified: true,
+    desc: {
+      ru: 'Легендарный советский проект в кузове ГАЗ-24 «Догонялка». Внешне аутентичный хромированный силуэт спецслужб, внутри — современный турбированный V8 и кастомное шасси.',
+      en: 'Legendary Soviet KGB interceptor GAZ-24 sleeper. Factory classic exterior concealing modern twin-turbo V8 and motorsport chassis.'
+    },
+    specs: {
+      engine: 'V8 Twin Turbo Restomod Powertrain',
+      chassis: 'Bespoke Independent Suspension & Wilwood Brakes',
+      transmission: 'Reinforced 6-Speed Manual',
+      interior: 'Restored Factory Soviet Cockpit'
+    }
+  },
+  {
+    id: 'dodge_demon',
+    brand: 'DODGE SRT',
+    type: 'other',
+    name: { ru: 'DODGE CHALLENGER SRT DEMON GTT', en: 'DODGE CHALLENGER SRT DEMON GTT' },
+    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
+    hp: 'TBD',
+    quarterMile: '—',
+    topSpeed: '—',
+    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
+    img: 'assets/cars/gtt_classified_car.svg',
+    fallbackImg: 'assets/cars/gtt_classified_car.svg',
+    isPhoto: false,
+    isClassified: true,
+    desc: {
+      ru: 'Оригинальный заводской дрэгстер SRT Demon, доработанный в лаборатории GTT: шкив нагнетателя меньшего диаметра, спортивное топливо и кастомный лаунч-контроль.',
+      en: 'Authentic SRT Demon drag weapon upgraded by GTT: smaller supercharger pulley, race fuel map and transbrake optimization.'
+    },
+    specs: {
+      engine: '6.2L Supercharged HEMI Demon V8',
+      supercharger: '2.7L IHI Supercharger GTT Pulley',
+      fuel: '100 RON / Q16 Race Map',
+      driveshaft: 'Hardened Race Axles & Transbrake'
+    }
+  },
+  {
+    id: 'dodge_demon_170',
+    brand: 'DODGE SRT',
+    type: 'other',
+    name: { ru: 'DODGE CHALLENGER SRT DEMON 170 GTT', en: 'DODGE CHALLENGER SRT DEMON 170 GTT' },
+    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
+    hp: 'TBD',
+    quarterMile: '—',
+    topSpeed: '—',
+    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
+    img: 'assets/cars/gtt_classified_car.svg',
+    fallbackImg: 'assets/cars/gtt_classified_car.svg',
+    isPhoto: false,
+    isClassified: true,
+    desc: {
+      ru: 'Финальный шедевр эпохи HEMI — Demon 170. Калибровка датчиков этанола, усиленный задний редуктор и разгон с поднятием передних колес на драг-стрипе.',
+      en: 'The pinnacle of the HEMI era — Demon 170. Ethanol flex-fuel calibration, heavy-duty rear differential and wheelie-popping launches.'
+    },
+    specs: {
+      engine: '6.2L Supercharged HEMI 170 Crate Engine',
+      supercharger: '3.0L High-Helix Whipple Blower',
+      fuel: 'Ethanol E85 Sensor Auto-Tune',
+      parachute: 'Factory Drag Parachute Mounting'
+    }
+  },
+  {
+    id: 'ferrari_512tr',
+    brand: 'FERRARI & GTT',
+    type: 'other',
+    name: { ru: 'FERRARI 512 TR GTT HERITAGE CLASSIC', en: 'FERRARI 512 TR GTT HERITAGE CLASSIC' },
+    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
+    hp: 'TBD',
+    quarterMile: '—',
+    topSpeed: '—',
+    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
+    img: 'assets/cars/gtt_classified_car.svg',
+    fallbackImg: 'assets/cars/gtt_classified_car.svg',
+    isPhoto: false,
+    isClassified: true,
+    desc: {
+      ru: 'Итальянская икона 90-х с 12-цилиндровым оппозитным двигателем Flat-12. Полная реставрация в цехах GTT, индивидуальная титановая выхлопная система и филигранная калибровка впрыска.',
+      en: '1990s Italian legend powered by Flat-12 engine. Complete mechanical overhaul by GTT, bespoke titanium exhaust and precision injection mapping.'
+    },
+    specs: {
+      engine: '4.9L Flat-12 Naturally Aspirated Maranello',
+      exhaust: 'Handmade Titanium Valved Exhaust',
+      clutch: 'GTT Heavy Duty Multi-Plate Clutch',
+      brakes: 'Brembo Racing High-Friction Setup'
+    }
+  },
+  {
+    id: 'mercedes_e63',
+    brand: 'MERCEDES-AMG & GTT',
+    type: 'other',
+    name: { ru: 'MERCEDES-AMG E63S 4MATIC+ GTT-950', en: 'MERCEDES-AMG E63S 4MATIC+ GTT-950' },
+    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
+    hp: 'TBD',
+    quarterMile: '—',
+    topSpeed: '—',
+    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
+    img: 'assets/cars/gtt_classified_car.svg',
+    fallbackImg: 'assets/cars/gtt_classified_car.svg',
+    isPhoto: false,
+    isClassified: true,
+    desc: {
+      ru: 'Беспощадный бизнес-седан с 4.0L V8 Biturbo, форсированный до 950 л.с. Полный привод 4MATIC+ и выхлопная трасса без катализаторов с сочным фирменным рокотом AMG.',
+      en: 'Savage executive sedan boasting 950 horsepower from 4.0L V8 Biturbo. 4MATIC+ traction and catless straight pipes delivering menacing AMG thunder.'
+    },
+    specs: {
+      engine: '4.0L V8 Biturbo M177 Built by GTT',
+      turbos: 'Billet Upgraded Stage 3 Turbos',
+      downpipes: 'Inconel Catless Thermal-Wrapped Pipes',
+      transmission: 'AMG SPEEDSHIFT MCT 9G Flashed'
     }
   }
 ];
@@ -879,7 +1356,8 @@ function applyCarsData(carList) {
     },
     img: c.img || '',
     fallbackImg: c.fallback_img || c.fallbackImg || c.img || '',
-    isPhoto: (c.is_photo !== undefined ? Boolean(c.is_photo) : true) && !(c.img || '').toLowerCase().includes('.png'),
+    isPhoto: (c.is_photo !== undefined ? Boolean(c.is_photo) : true) && !(c.img || '').toLowerCase().includes('.png') && !(c.img || '').toLowerCase().includes('.svg'),
+    isClassified: Boolean(c.is_classified) || Boolean(c.isClassified) || (c.img || '').includes('classified') || c.is_photo === 0 || (c.img || '').toLowerCase().endsWith('.svg'),
     objectPosition: c.object_position || c.objectPosition || 'center center',
     videoSrc: c.video_src || c.videoSrc || '',
     videoTitle: c.video_title || c.videoTitle || '',
@@ -1353,11 +1831,12 @@ function renderGarageGrid(filterType) {
       const desc = (typeof car.desc === 'object') ? (car.desc[currentLang] || car.desc.ru) : car.desc;
       const badge = (typeof car.badge === 'object') ? (car.badge[currentLang] || car.badge.ru) : car.badge;
       const tag = (typeof car.tag === 'object') ? (car.tag[currentLang] || car.tag.ru) : car.tag;
+      const isClass = car.isClassified || (car.img && (car.img.includes('classified') || car.img.endsWith('.svg')));
 
       return `
-      <div class="car-card car-card-fade-in" data-id="${car.id}" style="animation-delay: ${idx * 0.04}s">
+      <div class="car-card car-card-fade-in ${isClass ? 'is-classified' : ''}" data-id="${car.id}" style="animation-delay: ${idx * 0.04}s">
         <span class="car-card-badge">${badge}</span>
-        <div class="car-card-media">
+        <div class="car-card-media ${isClass ? 'classified-media' : ''}">
           <img class="car-card-img ${car.isPhoto ? 'photo-fit' : ''}" 
                src="${car.img}" 
                alt="${name}" 

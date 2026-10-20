@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=10.0">
+  <link rel="stylesheet" href="css/style.css?v=12.0">
 </head>
 <body class="is-loading">
 
@@ -192,13 +192,13 @@
 
     <!-- Filter Pills for Cars -->
     <div class="filter-pills" id="carsFilterPills">
-      <button class="filter-pill active" data-filter="all" data-i18n="filter_all">Все (12)</button>
-      <button class="filter-pill" data-filter="gtr">Nissan GT-R</button>
-      <button class="filter-pill" data-filter="bmw">BMW M-Power</button>
-      <button class="filter-pill" data-filter="porsche">Porsche GTT</button>
-      <button class="filter-pill" data-filter="audi">Audi R8 TT</button>
-      <button class="filter-pill" data-filter="lambo">Lamborghini TT</button>
-      <button class="filter-pill" data-filter="other">Dodge / Другие</button>
+      <button class="filter-pill active" data-filter="all" data-i18n="filter_all">Все проекты (31)</button>
+      <button class="filter-pill" data-filter="gtr">Nissan GT-R (10)</button>
+      <button class="filter-pill" data-filter="porsche">Porsche GTT (5)</button>
+      <button class="filter-pill" data-filter="lambo">Lamborghini TT (4)</button>
+      <button class="filter-pill" data-filter="audi">Audi R8 TT (3)</button>
+      <button class="filter-pill" data-filter="bmw">BMW M-Power (3)</button>
+      <button class="filter-pill" data-filter="other">Эксклюзив &amp; Маслкары (6)</button>
     </div>
 
     <!-- Dynamic Cars Grid -->
@@ -209,7 +209,7 @@
     <!-- Expand / Collapse All Cars Wrap -->
     <div class="garage-expand-wrap" id="garageExpandWrap">
       <button class="btn-garage-expand" id="btnGarageExpand" onclick="toggleGarageExpand()">
-        <span class="expand-text" id="garageExpandText">Показать все проекты (ещё 21 болид в работе)</span>
+        <span class="expand-text" id="garageExpandText">Показать все проекты (ещё 22 болида)</span>
         <svg class="expand-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
     </div>
@@ -456,7 +456,7 @@
 
     <!-- Department Filter Tabs -->
     <div class="filter-pills" id="teamFilterPills" style="margin-bottom: 24px;">
-      <button class="filter-pill active" data-team-dept="all" onclick="filterTeamDepartment('all')">Все специалисты (15)</button>
+      <button class="filter-pill active" data-team-dept="all" onclick="filterTeamDepartment('all')">Все специалисты (35+)</button>
       <button class="filter-pill" data-team-dept="management" onclick="filterTeamDepartment('management')">Руководство & Тюнинг</button>
       <button class="filter-pill" data-team-dept="engineers" onclick="filterTeamDepartment('engineers')">Инженеры & Мотористы</button>
       <button class="filter-pill" data-team-dept="mechanics" onclick="filterTeamDepartment('mechanics')">Механики цеха</button>
@@ -637,7 +637,7 @@
     <!-- Team Expand / Collapse Wrap -->
     <div class="garage-expand-wrap" id="teamExpandWrap" style="margin-top: 24px;">
       <button class="btn-garage-expand" id="btnTeamExpand" onclick="toggleTeamExpand()">
-        <span class="expand-text" id="teamExpandText">Показать всю команду (15 специалистов)</span>
+        <span class="expand-text" id="teamExpandText">Показать весь штаб ателье (35 специалистов)</span>
         <svg class="expand-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
     </div>
@@ -1182,6 +1182,6 @@
     </a>
   </div>
 
-  <script src="js/app.js?v=10.0"></script>
+  <script src="js/app.js?v=12.0"></script>
 </body>
 </html>

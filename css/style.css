@@ -961,13 +961,31 @@ body.is-loading {
   filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.85));
 }
 
+/* Precise uncropped framing for Lucifer and Draco */
+.car-card[data-id="gtr_lucifer"] .car-card-img {
+  object-position: center 46% !important;
+}
+
+.car-card[data-id="draco_promod"] .car-card-img {
+  object-position: center 64% !important;
+}
+
+/* Classified Blueprint SVG Styling */
+.car-card-img[src*=".svg"] {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  filter: contrast(1.05) brightness(1.02);
+}
+
 .car-card:hover .car-card-img {
   transform: scale(1.04);
   filter: contrast(1.1) brightness(1.02);
 }
 
 .car-card-info {
-  padding: 18px 20px;
+  padding: 16px 18px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -975,7 +993,7 @@ body.is-loading {
 
 .car-brand {
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 10px;
   color: var(--gtt-orange);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -984,20 +1002,32 @@ body.is-loading {
 
 .car-model-title {
   font-family: var(--font-display);
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 800;
   text-transform: uppercase;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   color: #fff;
   line-height: 1.25;
+  min-height: 40px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
+/* Compact Card Architecture: text moved inside Engineering Passport modal */
 .car-card-desc {
-  font-size: 12.5px;
-  color: var(--text-muted);
-  line-height: 1.5;
-  margin-bottom: 14px;
-  flex: 1;
+  display: none !important;
+}
+
+.car-card.is-classified {
+  border-color: rgba(234, 91, 12, 0.28);
+  background: linear-gradient(180deg, #10141c 0%, #090b10 100%);
+}
+
+.car-card.is-classified:hover {
+  border-color: rgba(234, 91, 12, 0.65);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.8), 0 0 25px rgba(234, 91, 12, 0.18);
 }
 
 .car-specs-row {
