@@ -915,7 +915,15 @@ def seed_initial_data(cursor):
         {"id": "gal_8", "tag": "CHIEF MOTORSPORT ENGINEER", "title": "Гоша Перцхелия на стрипе RDRC", "img": "assets/photos/gosha_on_track.jpg"},
         {"id": "gal_9", "tag": "ATELIER GARAGE", "title": "Бокс GTT: BMW M4 G82 & GT-R", "img": "assets/cars/bmw_m4_g82_gtt.jpg"},
         {"id": "gal_10", "tag": "TWIN TURBO V8", "title": "BMW M5 G90 Stage 2 GTT", "img": "assets/cars/bmw_m5_rdrc_race.jpg"},
-        {"id": "gal_11", "tag": "BEZZUBIK TT", "title": "Huracan Twin Turbo «Беззубик»", "img": "assets/cars/huracan_green_bezzubik_track.jpg"}
+        {"id": "gal_11", "tag": "BEZZUBIK TT", "title": "Huracan Twin Turbo «Беззубик»", "img": "assets/cars/huracan_green_bezzubik_track.jpg"},
+        {"id": "gal_12", "tag": "BILLET MOTORSPORT", "title": "VR38 Billet & Дрэг-подвеска", "img": "assets/cars/gtr_draco_connections.jpg"},
+        {"id": "gal_13", "tag": "PARC FERMÉ", "title": "Пилот Саркисян & Draco GTT", "img": "assets/photos/pilot_draco_sarkisyan.jpg"},
+        {"id": "gal_14", "tag": "STAGING LINE", "title": "GT-R Lucifer на прогреве", "img": "assets/cars/gtr_lucifer_front.jpg"},
+        {"id": "gal_15", "tag": "RDRC BURNOUT", "title": "Challenger SRT // Облако дыма", "img": "assets/gallery/rdrc_challenger_burnout.jpg"},
+        {"id": "gal_16", "tag": "1500+ HP V10 TT", "title": "Huracan TT на стартовом створе", "img": "assets/gallery/rdrc_lamborghini_green_front.jpg"},
+        {"id": "gal_17", "tag": "TITANIUM CRAFT", "title": "GT-R R35 // GTT Titanium Exhaust", "img": "assets/gallery/rdrc_gtr_rear_exhaust.jpg"},
+        {"id": "gal_18", "tag": "GTT MOTORSPORT BOX", "title": "Паддок GTT: BMW M5 G90 & GT-R", "img": "assets/gallery/rdrc_paddock_bmw_m5_gtr.jpg"},
+        {"id": "gal_19", "tag": "TWIN V10 ARSENAL", "title": "Пара Lamborghini Huracan TT GTT", "img": "assets/gallery/rdrc_lamborghini_pair_paddock.jpg"}
     ]
     for idx, gal in enumerate(default_gallery):
         cursor.execute("INSERT INTO gallery (id, tag, title, img, sort_order) VALUES (?, ?, ?, ?, ?)",

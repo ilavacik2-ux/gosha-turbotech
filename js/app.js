@@ -940,6 +940,7 @@ const i18n = {
     garage_title: "Легендарные проекты GTT",
     garage_subtitle: "Каждый автомобиль собран вручную в лаборатории GoshaTurboTech с персональной калибровкой блоков управления и двойного турбонаддува.",
     filter_all: "Все проекты",
+    filter_other: "Эксклюзив &amp; Маслкары (6)",
     spec_power: "Мощность",
     spec_402: "1/4 мили",
     spec_speed: "Скорость",
@@ -991,7 +992,10 @@ const i18n = {
     rec6_telemetry: "1/4 мили: 7.810 сек • 287.65 км/ч",
     rec6_text: "Европейский рекорд времени и 3-й результат в мире на тот момент. Мощность более 1800 л.с. на топливе VP Racing.",
     // Founder
-    founder_caption: "Гоша на стартовой полосе RDRC",
+    founder_caption: "Гоша на дрэг-стрипе RDRC",
+    founder_caption_0: "Гоша на дрэг-стрипе RDRC",
+    founder_caption_1: "Гоша Перцхелия — Основатель GTT",
+    founder_caption_2: "Контроль боевого выезда на клей",
     founder_tagline: "Основатель & Главный идеолог GTT",
     founder_manifesto: "// THE FOUNDER & PHILOSOPHY",
     founder_name: "Гоша Перцхелия",
@@ -1000,6 +1004,9 @@ const i18n = {
     founder_stat1: "Лет в автоспорте",
     founder_stat2: "Мировых & Евро рекордов",
     founder_stat3: "Кастомный инжиниринг",
+    sig_name: "G. Pertskheliya",
+    sig_badge: "Личная подпись основателя GTT",
+    sig_replay: "Повторить росчерк",
     founder_achieve_tag: "// КЛЮЧЕВЫЕ ВЕХИ И ИНЖЕНЕРНЫЕ ЗАСЛУГИ",
     achieve1_title: "Абсолютный рекорд льда Байкала",
     achieve1_desc: "Audi R8 Gyurza TT — 124 км/ч средняя скорость на льду с места",
@@ -1010,9 +1017,17 @@ const i18n = {
     achieve4_title: "Собственная разработка Twin Turbo",
     achieve4_desc: "Авторские киты с титановым выхлопом для Lambo Huracan, R8, BMW M и 911",
     // Team (15 Members)
+    team_badge: "ATELIER CREW // 35+ СПЕЦИАЛИСТОВ",
     team_tag: "// RACING CREW & PILOTS",
-    team_title: "Команда GoshaTurboTech",
-    team_subtitle: "Люди, которые куют рекорды на дрэг-стрипе RDRC: инженеры, телеметристы, механики и пилоты.",
+    team_title: "Команда инженеров GoshaTurboTech",
+    team_subtitle: "Люди, которые куют рекорды на дрэг-стрипе RDRC и в стенах ателье: 35+ мотористов, телеметристов, диагностов, мастеров шасси и пилотов.",
+    team_pill_all: "Все специалисты (35+)",
+    team_pill_mgmt: "Руководство &amp; Тюнинг",
+    team_pill_eng: "Инженеры &amp; Мотористы",
+    team_pill_mech: "Механики цеха",
+    team_pill_fab: "Сварка &amp; Фабрикация",
+    team_stat_label: "Специалистов цеха и гонок",
+    team_summary_desc: "Собственный сборочный цех, аргонная фабрикация выхлопных трасс из титана и инконеля, полноприводный диностенд Dyno Dynamics, лаборатория калибровки ЭБУ MoTeC и Syvecs, а также выездная гоночная команда паддока RDRC.",
     team_role_1: "Основатель",
     team_name_1: "Гоша",
     team_role_2: "Технический директор",
@@ -1047,6 +1062,11 @@ const i18n = {
     moto_badge: "NEW DIVISION 2025",
     moto_title: "GTT Moto Division",
     moto_subtitle: "Сверхмощный инжиниринг теперь на двух колесах: личные супербайки Гоши, трековые болиды и титановые выхлопные системы.",
+    moto_hero_badge: "GTT MOTO FLEET // 200+ HP",
+    moto_hero_desc: "Личный боевой супербайк Гоши BMW M1000RR M-Performance. Полный цикл спортивной калибровки ECU, снятие заводских лимитов, титановые выхлопные трассы ручной сварки и сухой автоклавный карбон.",
+    moto_spec_1: "212 л.с. при 14 500 об/мин • Сухой вес 168 кг",
+    moto_spec_2: "Титановый выпуск Akrapovic Full System с отстрелами огнем",
+    moto_spec_3: "M-Winglets карбоновые крылья с прижимной силой 16.3 кг",
     moto_banner_badge: "Личный супербайк Гоши BMW M1000RR & Флот GTT",
     moto_banner_title: "Страсть к двум колесам",
     moto_banner_text: "BMW M1000RR M-Performance, Yamaha R1M Carbon, Ducati Panigale V4. Полный спектр калибровок блоков управления, сухого карбона, выхлопа из титана и снятия лимитов оборотов.",
@@ -1079,7 +1099,17 @@ const i18n = {
     gallery_cap_gtr_red: "Красный хромированный Nissan GT-R R35 GTT Pro-Mod",
     gallery_cap_gtr_blue: "Боевой синий Nissan GT-R R35 #888 на закате RDRC",
     gallery_cap_box: "Бокс GTT: белая BMW M4 G82 и Nissan GT-R",
-    gallery_cap_track: "Гоша Перцхелия контролирует подготовку трассы RDRC"
+    gallery_cap_track: "Гоша Перцхелия контролирует подготовку трассы RDRC",
+    // Contact & Footer Legal
+    contact_email_lbl: "Электронная почта",
+    footer_copy: "© GOSHATURBOTECH. SPEED & MOTORSPORT ENGINEERING.",
+    footer_privacy: "Политика обработки персональных данных",
+    footer_offer: "Публичная оферта",
+    footer_requisites: "Реквизиты организации",
+    footer_disclaimer: "Информация на сайте не является публичной офертой (ст. 437 ГК РФ)",
+    mobile_bar_tg: "Telegram",
+    mobile_bar_navi: "Навигатор",
+    mobile_bar_call: "Позвонить"
   },
   en: {
     nav_garage: "Garage Builds",
@@ -1106,6 +1136,7 @@ const i18n = {
     garage_title: "Legendary GTT Projects",
     garage_subtitle: "Hand-built in the GoshaTurboTech skunkworks facility with bespoke ECU calibration and twin turbo engineering.",
     filter_all: "All Projects",
+    filter_other: "Exclusive &amp; Muscle (6)",
     spec_power: "Output",
     spec_402: "1/4 Mile",
     spec_speed: "Top Speed",
@@ -1157,7 +1188,10 @@ const i18n = {
     rec6_telemetry: "1/4 Mile: 7.810 sec • 287.65 km/h",
     rec6_text: "European record time and 3rd fastest in the world at the time. Over 1,800 HP output on VP Racing fuel.",
     // Founder
-    founder_caption: "Gosha at the RDRC Starting Line",
+    founder_caption: "Gosha on the RDRC Drag Strip",
+    founder_caption_0: "Gosha on the RDRC Drag Strip",
+    founder_caption_1: "Gosha Pertskheliya — GTT Founder",
+    founder_caption_2: "Track VHT Glue Launch Prep",
     founder_tagline: "Founder & Chief Visionary of GTT",
     founder_manifesto: "// THE FOUNDER & PHILOSOPHY",
     founder_name: "Gosha Pertskheliya",
@@ -1166,6 +1200,9 @@ const i18n = {
     founder_stat1: "Years in Motorsport",
     founder_stat2: "World & Euro Records",
     founder_stat3: "Custom Engineering",
+    sig_name: "G. Pertskheliya",
+    sig_badge: "Verified GTT Founder Signature",
+    sig_replay: "Replay Stroke",
     founder_achieve_tag: "// KEY MILESTONES & ENGINEERING ACCOLADES",
     achieve1_title: "Absolute Baikal Ice Record",
     achieve1_desc: "Audi R8 Gyurza TT — 124 km/h standing-start average speed on natural ice",
@@ -1176,9 +1213,17 @@ const i18n = {
     achieve4_title: "Proprietary Twin Turbo Kits",
     achieve4_desc: "In-house titanium exhaust & TT packages for Huracan, R8, BMW M & 911",
     // Team (15 Members)
+    team_badge: "ATELIER CREW // 35+ SPECIALISTS",
     team_tag: "// RACING CREW & PILOTS",
-    team_title: "GoshaTurboTech Racing Crew",
-    team_subtitle: "The specialists forging records on the RDRC drag strip: engineers, telemetrists, mechanics and pilots.",
+    team_title: "GoshaTurboTech Engineering Crew",
+    team_subtitle: "The specialists forging records on the RDRC drag strip and inside the skunkworks: 35+ engine builders, telemetrists, mechanics and pilots.",
+    team_pill_all: "All Specialists (35+)",
+    team_pill_mgmt: "Management &amp; Tuning",
+    team_pill_eng: "Engineers &amp; Engine Builders",
+    team_pill_mech: "Workshop Mechanics",
+    team_pill_fab: "Fabrication &amp; Welding",
+    team_stat_label: "Specialists in Workshop & Racing",
+    team_summary_desc: "In-house assembly bays, titanium and Inconel TIG fabrication, Dyno Dynamics AWD dyno cell, MoTeC and Syvecs ECU calibration laboratory, plus the traveling RDRC trackside race crew.",
     team_role_1: "Founder",
     team_name_1: "Gosha",
     team_role_2: "Technical Director",
@@ -1213,6 +1258,11 @@ const i18n = {
     moto_badge: "NEW DIVISION 2025",
     moto_title: "GTT Moto Division",
     moto_subtitle: "Extreme engineering now unleashed on two wheels: Gosha's personal superbikes, track weapons, and bespoke titanium exhaust systems.",
+    moto_hero_badge: "GTT MOTO FLEET // 200+ HP",
+    moto_hero_desc: "Gosha's personal race-prepped BMW M1000RR M-Performance superbike. Complete motorsport ECU calibrations, factory rev limiter removal, custom handcrafted titanium exhaust, and autoclave dry carbon fiber.",
+    moto_spec_1: "212 HP @ 14,500 RPM • Dry Weight 168 kg",
+    moto_spec_2: "Akrapovic Full System Titanium Exhaust with flame backfires",
+    moto_spec_3: "M-Winglets carbon aerodynamic wings with 16.3 kg downforce",
     moto_banner_badge: "Gosha's Personal BMW M1000RR & GTT Fleet",
     moto_banner_title: "Passion for Two Wheels",
     moto_banner_text: "BMW M1000RR M-Performance, Yamaha R1M Carbon, Ducati Panigale V4. Complete ECU calibrations, autoclave carbon fiber, custom titanium exhausts and rev-limiter removal.",
@@ -1245,7 +1295,17 @@ const i18n = {
     gallery_cap_gtr_red: "Red Chrome Nissan GT-R R35 GTT Pro-Mod",
     gallery_cap_gtr_blue: "GTT Race Midnight Blue Nissan GT-R R35 #888 at RDRC",
     gallery_cap_box: "GTT Garage Pit: White BMW M4 G82 & Nissan GT-R",
-    gallery_cap_track: "Georgy Pertskheliya Supervising RDRC Track Glue Preparation"
+    gallery_cap_track: "Georgy Pertskheliya Supervising RDRC Track Glue Preparation",
+    // Contact & Footer Legal
+    contact_email_lbl: "Email Address",
+    footer_copy: "© GOSHATURBOTECH. SPEED & MOTORSPORT ENGINEERING.",
+    footer_privacy: "Privacy Policy & Data Processing",
+    footer_offer: "Public Offer",
+    footer_requisites: "Company Details & Requisites",
+    footer_disclaimer: "The information on this website is for reference only and does not constitute a public offer (Art. 437 Civil Code of the RF)",
+    mobile_bar_tg: "Telegram",
+    mobile_bar_navi: "Navigator",
+    mobile_bar_call: "Call Workshop"
   }
 };
 
@@ -1271,11 +1331,23 @@ window.setLanguage = function(lang) {
     applyCustomHeroTelemetry();
   }
 
+  // Update founder photo caption according to new language
+  if (typeof updateFounderPhoto === 'function') {
+    updateFounderPhoto();
+  }
+
+  // Update gallery cards titles and tags
+  if (typeof updateGalleryTranslations === 'function') {
+    updateGalleryTranslations();
+  }
+
   // Re-render garage grid with translated spec labels
   const activeFilter = document.querySelector('.filter-pill.active')?.getAttribute('data-filter') || 'all';
   renderGarageGrid(activeFilter);
   if (cachedTeamData) {
     renderTeamGrid(cachedTeamData);
+  } else {
+    updateTeamVisibility();
   }
 };
 
@@ -1298,6 +1370,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initFilters();
   initModal();
   initSpecialEffects();
+  updateFounderPhoto();
+  updateGalleryTranslations();
   initGalleryMarqueeInteractions();
   initFounderGestures();
   initMobileStickyBar();
@@ -1446,18 +1520,213 @@ async function syncGalleryFromAPI() {
   } catch (err) {}
 }
 
+function getGalleryBilingual(rawTitle, rawTag) {
+  let title = rawTitle || '';
+  let tag = rawTag || 'RDRC';
+
+  // Strip test artifacts like "проверка"
+  title = title.replace(/\s*проверка/gi, '').trim();
+
+  const titleDict = {
+    // 1. Zelenka
+    'Huracan TT «Зеленка» GTT': {
+      ru: 'Huracan TT «Зеленка» GTT',
+      en: 'Huracan TT «Zelenka» GTT'
+    },
+    'Huracan TT «Зеленка» GTT проверка': {
+      ru: 'Huracan TT «Зеленка» GTT',
+      en: 'Huracan TT «Zelenka» GTT'
+    },
+    'Легендарная Lamborghini Huracan TT «Зеленка» RDRC': {
+      ru: 'Легендарная Lamborghini Huracan TT «Зеленка» RDRC',
+      en: 'Legendary Lamborghini Huracan TT «Zelenka» RDRC'
+    },
+    // 2. Bezzubik
+    'Huracan Twin Turbo «Беззубик»': {
+      ru: 'Huracan Twin Turbo «Беззубик»',
+      en: 'Huracan Twin Turbo «Bezzubik»'
+    },
+    'Lamborghini Huracan Беззубик Twin Turbo на треке': {
+      ru: 'Lamborghini Huracan Беззубик Twin Turbo на треке',
+      en: 'Lamborghini Huracan Bezzubik Twin Turbo on Track'
+    },
+    // 3. Gosha
+    'Гоша Перцхелия на стрипе RDRC': {
+      ru: 'Гоша Перцхелия на стрипе RDRC',
+      en: 'Gosha Pertskheliya at RDRC Strip'
+    },
+    'Георгий Перцхелия на стрипе RDRC': {
+      ru: 'Гоша Перцхелия на стрипе RDRC',
+      en: 'Gosha Pertskheliya at RDRC Strip'
+    },
+    'Гоша Перцхелия контролирует подготовку трассы RDRC': {
+      ru: 'Гоша Перцхелия контролирует подготовку трассы RDRC',
+      en: 'Gosha Pertskheliya Supervising RDRC Glue Prep'
+    },
+    // 4. Box
+    'Бокс GTT: BMW M4 G82 & GT-R': {
+      ru: 'Бокс GTT: BMW M4 G82 & GT-R',
+      en: 'GTT Pit: BMW M4 G82 & GT-R'
+    },
+    'Бокс GTT: белая BMW M4 G82 и Nissan GT-R': {
+      ru: 'Бокс GTT: белая BMW M4 G82 и Nissan GT-R',
+      en: 'GTT Pit: White BMW M4 G82 & Nissan GT-R'
+    },
+    // 5. Sarkisyan
+    'Пилот Саркисян & Draco GTT': {
+      ru: 'Пилот Саркисян & Draco GTT',
+      en: 'Pilot Sarkisyan & Draco GTT'
+    },
+    'Пилот Саркисян и дрэгстер Draco в закрытом парке': {
+      ru: 'Пилот Саркисян и дрэгстер Draco в закрытом парке',
+      en: 'Pilot Sarkisyan & Draco Dragster in Parc Fermé'
+    },
+    // 6. Lucifer
+    'GT-R Lucifer на прогреве': {
+      ru: 'GT-R Lucifer на прогреве',
+      en: 'GT-R Lucifer in Staging'
+    },
+    'Nissan GT-R Lucifer анфас перед стартом': {
+      ru: 'Nissan GT-R Lucifer анфас перед стартом',
+      en: 'Nissan GT-R Lucifer Front View Before Launch'
+    },
+    // 7. Huracan on staging
+    'Huracan TT на стартовом створе': {
+      ru: 'Huracan TT на стартовом створе',
+      en: 'Huracan TT on Staging Lane'
+    },
+    'Lamborghini Huracan Twin Turbo на стартовой решетке RDRC': {
+      ru: 'Lamborghini Huracan Twin Turbo на стартовой решетке RDRC',
+      en: 'Lamborghini Huracan Twin Turbo on RDRC Starting Grid'
+    },
+    // 8. Titanium Exhaust
+    'GT-R R35 // GTT Titanium Exhaust': {
+      ru: 'GT-R R35 // GTT Titanium Exhaust',
+      en: 'GT-R R35 // GTT Titanium Exhaust'
+    },
+    'Красный Nissan GT-R: титановый выпуск GTT и официальная рамка RDRC': {
+      ru: 'Красный Nissan GT-R: титановый выпуск GTT и официальная рамка RDRC',
+      en: 'Red Nissan GT-R: GTT Titanium Exhaust & RDRC Plate'
+    },
+    // 9. Paddock
+    'Паддок GTT: BMW M5 G90 & GT-R': {
+      ru: 'Паддок GTT: BMW M5 G90 & GT-R',
+      en: 'GTT Paddock: BMW M5 G90 & GT-R'
+    },
+    'Паддок GoshaTurboTech: матовая BMW M5 G90 и боевой GT-R у боксов': {
+      ru: 'Паддок GoshaTurboTech: матовая BMW M5 G90 и боевой GT-R у боксов',
+      en: 'GoshaTurboTech Paddock: Matte BMW M5 G90 & Race GT-R'
+    },
+    // 10. Pair Huracans
+    'Пара Lamborghini Huracan TT GTT': {
+      ru: 'Пара Lamborghini Huracan TT GTT',
+      en: 'Pair of Lamborghini Huracan TT GTT'
+    },
+    'Двойной удар V10 Twin Turbo: пара боевых Huracan команды GTT': {
+      ru: 'Двойной удар V10 Twin Turbo: пара боевых Huracan команды GTT',
+      en: 'Twin V10 Strike: Pair of Race Huracans from GTT'
+    },
+    // 11. Billet Suspension
+    'VR38 Billet & Drag Suspension': {
+      ru: 'VR38 Billet & Drag Suspension',
+      en: 'VR38 Billet & Drag Suspension'
+    },
+    'VR38 Billet & Дрэг-подвеска': {
+      ru: 'VR38 Billet & Drag Suspension',
+      en: 'VR38 Billet & Drag Suspension'
+    },
+    // 12. Challenger Burnout
+    'Challenger SRT // Cloud of Smoke': {
+      ru: 'Challenger SRT // Cloud of Smoke',
+      en: 'Challenger SRT // Cloud of Smoke'
+    },
+    'Challenger SRT // Облако дыма': {
+      ru: 'Challenger SRT // Cloud of Smoke',
+      en: 'Challenger SRT // Cloud of Smoke'
+    }
+  };
+
+  const tagDict = {
+    'CHIEF MOTORSPORT ENGINEER': {
+      ru: 'CHIEF MOTORSPORT ENGINEER',
+      en: 'CHIEF MOTORSPORT ENGINEER'
+    },
+    'ГЛАВНЫЙ ИНЖЕНЕР': {
+      ru: 'ГЛАВНЫЙ ИНЖЕНЕР',
+      en: 'CHIEF MOTORSPORT ENGINEER'
+    }
+  };
+
+  let finalTitle = title;
+  let finalTag = tag;
+
+  if (titleDict[title]) {
+    finalTitle = titleDict[title][currentLang] || title;
+  } else if (currentLang === 'en') {
+    finalTitle = finalTitle
+      .replace(/«Зеленка»/gi, '«Zelenka»')
+      .replace(/Зеленка/gi, 'Zelenka')
+      .replace(/«Беззубик»/gi, '«Bezzubik»')
+      .replace(/Беззубик/gi, 'Bezzubik')
+      .replace(/Гоша Перцхелия/gi, 'Gosha Pertskheliya')
+      .replace(/Георгий Перцхелия/gi, 'Gosha Pertskheliya')
+      .replace(/на стрипе RDRC/gi, 'at RDRC Strip')
+      .replace(/на прогреве/gi, 'in Staging')
+      .replace(/на стартовом створе/gi, 'on Staging Lane')
+      .replace(/Бокс GTT:/gi, 'GTT Pit:')
+      .replace(/Паддок GTT:/gi, 'GTT Paddock:')
+      .replace(/Пара Lamborghini/gi, 'Pair of Lamborghini')
+      .replace(/Пилот Саркисян/gi, 'Pilot Sarkisyan')
+      .replace(/Дрэг-подвеска/gi, 'Drag Suspension')
+      .replace(/Облако дыма/gi, 'Cloud of Smoke')
+      .trim();
+  }
+
+  if (tagDict[tag]) {
+    finalTag = tagDict[tag][currentLang] || tag;
+  }
+
+  return { title: finalTitle, tag: finalTag };
+}
+
+function updateGalleryTranslations() {
+  const track = document.getElementById('marqueeTrackMain');
+  if (!track) return;
+  track.querySelectorAll('.marquee-card').forEach(card => {
+    const rawTitle = card.getAttribute('data-raw-title') || card.querySelector('.marquee-card-title')?.textContent || '';
+    const rawTag = card.getAttribute('data-raw-tag') || card.querySelector('.marquee-card-tag')?.textContent || '';
+    if (!card.getAttribute('data-raw-title')) {
+      card.setAttribute('data-raw-title', rawTitle);
+    }
+    if (!card.getAttribute('data-raw-tag')) {
+      card.setAttribute('data-raw-tag', rawTag);
+    }
+    const bilingual = getGalleryBilingual(rawTitle, rawTag);
+    const titleEl = card.querySelector('.marquee-card-title');
+    const tagEl = card.querySelector('.marquee-card-tag');
+    if (titleEl) titleEl.textContent = bilingual.title;
+    if (tagEl) tagEl.textContent = bilingual.tag;
+  });
+}
+
 function renderGalleryTrack(items) {
   const track = document.getElementById('marqueeTrackMain');
   if (!track || !Array.isArray(items) || items.length === 0) return;
-  track.innerHTML = items.map(g => `
-    <div class="marquee-card" onclick="openGalleryLightbox('${g.img}', '${(g.title || '').replace(/'/g, "\\'")}')">
-      <img src="${g.img}" alt="${g.title || 'GTT'}" loading="lazy">
+  track.innerHTML = items.map(g => {
+    const rawTitle = (g.title || '').replace(/\s*проверка/gi, '').trim();
+    const rawTag = g.tag || 'RDRC';
+    const bilingual = getGalleryBilingual(rawTitle, rawTag);
+    return `
+    <div class="marquee-card" data-raw-title="${rawTitle.replace(/"/g, '&quot;')}" data-raw-tag="${rawTag.replace(/"/g, '&quot;')}" onclick="openGalleryLightbox('${g.img}', '${rawTitle.replace(/'/g, "\\'")}')">
+      <img src="${g.img}" alt="${bilingual.title || 'GTT'}" loading="lazy">
       <div class="marquee-card-meta">
-        <span class="marquee-card-tag">${g.tag || 'RDRC'}</span>
-        <div class="marquee-card-title">${g.title || ''}</div>
+        <span class="marquee-card-tag">${bilingual.tag}</span>
+        <div class="marquee-card-title">${bilingual.title}</div>
       </div>
     </div>
-  `).join('');
+  `;
+  }).join('');
+  initGalleryMarqueeInteractions();
 }
 
 // Dynamic Records Synchronization
@@ -1554,9 +1823,15 @@ function updateTeamVisibility() {
       expandWrap.style.display = 'flex';
       if (expandBtn) expandBtn.classList.toggle('is-expanded', isTeamExpanded);
       if (expandText) {
-        expandText.textContent = isTeamExpanded 
-          ? 'Свернуть состав команды' 
-          : `Показать всю команду (ещё ${cards.length - 8} специалистов)`;
+        if (currentLang === 'en') {
+          expandText.textContent = isTeamExpanded 
+            ? 'Collapse Crew Roster' 
+            : `Show Full Crew (another ${cards.length - 8} specialists)`;
+        } else {
+          expandText.textContent = isTeamExpanded 
+            ? 'Свернуть состав команды' 
+            : `Показать всю команду (ещё ${cards.length - 8} специалистов)`;
+        }
       }
     } else {
       expandWrap.style.display = 'none';
@@ -1584,15 +1859,36 @@ function renderTeamGrid(teamList) {
     const asset = defaultTeamPhotos[m.id] || { photo: 'assets/photos/gtt_shield_logo.svg', social: '' };
     const photo = m.photo || asset.photo;
     const social = m.social !== undefined ? m.social : asset.social;
+    const rawId = m.id || '';
+    const num = rawId.replace(/\D/g, '');
     const dept = getDeptByRole(m.role);
+    let displayRole = m.role;
+    let displayName = m.name;
+
+    if (currentLang === 'en') {
+      if (num && i18n.en[`team_role_${num}`]) {
+        displayRole = i18n.en[`team_role_${num}`];
+      }
+      if (num && i18n.en[`team_name_${num}`]) {
+        displayName = i18n.en[`team_name_${num}`];
+      }
+    } else {
+      if (num && i18n.ru[`team_role_${num}`]) {
+        displayRole = i18n.ru[`team_role_${num}`];
+      }
+      if (num && i18n.ru[`team_name_${num}`]) {
+        displayName = i18n.ru[`team_name_${num}`];
+      }
+    }
+
     return `
       <div class="team-card" data-team-dept="${dept}">
         <div class="team-card-photo">
-          <img src="${photo}" alt="${m.name}" loading="lazy" onerror="this.src='assets/photos/gtt_shield_logo.svg'">
+          <img src="${photo}" alt="${displayName}" loading="lazy" onerror="this.src='assets/photos/gtt_shield_logo.svg'">
         </div>
         <div class="team-card-body">
-          <span class="team-role">${m.role}</span>
-          <h3 class="team-name">${m.name}</h3>
+          <span class="team-role">${displayRole}</span>
+          <h3 class="team-name">${displayName}</h3>
           ${social ? `<span class="team-social">${social}</span>` : ''}
         </div>
       </div>
@@ -1652,31 +1948,9 @@ function handleSecretKeypress(e) {
   }
 }
 
-// 3. Mobile Secret Touch Gesture (Hold brand logo for 3.5s)
-let logoPressTimer = null;
+// 3. Mobile Secret Gesture
 function initMobileStaffGesture() {
-  const brandLogo = document.querySelector('.brand-logo');
-  if (!brandLogo) return;
-
-  const startPress = (e) => {
-    if (e.type === 'touchstart') {
-      logoPressTimer = setTimeout(() => {
-        if ('vibrate' in navigator) navigator.vibrate(60);
-        openAdminSecure();
-      }, 3000);
-    }
-  };
-
-  const cancelPress = () => {
-    if (logoPressTimer) {
-      clearTimeout(logoPressTimer);
-      logoPressTimer = null;
-    }
-  };
-
-  brandLogo.addEventListener('touchstart', startPress, { passive: true });
-  brandLogo.addEventListener('touchend', cancelPress, { passive: true });
-  brandLogo.addEventListener('touchmove', cancelPress, { passive: true });
+  // Disabled auto-trigger on brandLogo to avoid unintended staff logins from mobile touches
 }
 
 // 4. Stealth Triple-Click on Footer Copyright text
@@ -1934,15 +2208,24 @@ window.switchSuperbikeModel = function(modelKey) {
 const founderPhotos = [
   {
     src: 'assets/photos/gosha_strip_selfie.jpg',
-    caption: 'Гоша на дрэг-стрипе RDRC'
+    caption: {
+      ru: 'Гоша на дрэг-стрипе RDRC',
+      en: 'Gosha on the RDRC Drag Strip'
+    }
   },
   {
     src: 'assets/photos/gosha_zadorkin_new.jpg',
-    caption: 'Гоша Перцхелия — Основатель GTT'
+    caption: {
+      ru: 'Гоша Перцхелия — Основатель GTT',
+      en: 'Gosha Pertskheliya — GTT Founder'
+    }
   },
   {
     src: 'assets/photos/gosha_on_track.jpg',
-    caption: 'Контроль боевого выезда на клей'
+    caption: {
+      ru: 'Контроль боевого выезда на клей',
+      en: 'Track VHT Glue Launch Prep'
+    }
   }
 ];
 
@@ -1971,14 +2254,30 @@ function updateFounderPhoto() {
   
   if (!img) return;
 
-  img.style.opacity = '0.35';
+  const cur = founderPhotos[currentFounderIndex];
+  if (!cur) return;
 
+  const capText = (typeof cur.caption === 'object')
+    ? (cur.caption[currentLang] || cur.caption.ru)
+    : cur.caption;
+
+  if (caption) {
+    caption.textContent = capText;
+  }
+
+  dots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === currentFounderIndex);
+  });
+
+  const curSrc = cur.src;
+  const currentImgSrc = img.getAttribute('src');
+  if (currentImgSrc && currentImgSrc.endsWith(curSrc)) {
+    return;
+  }
+
+  img.style.opacity = '0.35';
   setTimeout(() => {
-    img.src = founderPhotos[currentFounderIndex].src;
-    if (caption) caption.textContent = founderPhotos[currentFounderIndex].caption;
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === currentFounderIndex);
-    });
+    img.src = curSrc;
     img.style.opacity = '1';
   }, 60);
 }
@@ -2025,11 +2324,24 @@ function initNavigation() {
     updateActiveNavLink();
   }, { passive: true });
 
-  // Update on click as well
+  // Smooth scroll with precise navbar offset on click
   navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks.forEach(l => l.classList.remove('active'));
-      link.classList.add('active');
+    link.addEventListener('click', (e) => {
+      const hash = link.getAttribute('href');
+      if (hash && hash.startsWith('#') && hash.length > 1) {
+        const target = document.querySelector(hash);
+        if (target) {
+          e.preventDefault();
+          const navHeight = navbar ? navbar.offsetHeight : 80;
+          const targetTop = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 16;
+          window.scrollTo({
+            top: Math.max(0, targetTop),
+            behavior: 'smooth'
+          });
+          navLinks.forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+        }
+      }
     });
   });
 
@@ -2390,15 +2702,18 @@ window.scrollTrackSlider = function(direction) {
 };
 
 // Fullscreen Photo Lightbox
-window.openGalleryLightbox = function(src, caption) {
+window.openGalleryLightbox = function(src, rawCaption) {
   const modal = document.getElementById('galleryLightbox');
   const img = document.getElementById('lightboxImg');
   const cap = document.getElementById('lightboxCaption');
   if (!modal || !img) return;
 
+  const bilingual = getGalleryBilingual(rawCaption || '', '');
+  const displayCaption = bilingual.title || rawCaption || 'GoshaTurboTech Motorsport';
+
   img.src = src;
-  img.alt = caption || 'GoshaTurboTech Motorsport';
-  if (cap) cap.textContent = caption || '';
+  img.alt = displayCaption;
+  if (cap) cap.textContent = displayCaption;
   modal.classList.add('active');
 };
 
@@ -2580,217 +2895,166 @@ function initRevealOnScroll() {
   revealTargets.forEach(el => observer.observe(el));
 }
 
-// 6. Interactive Gallery Filmstrip Slider (Infinite Seamless Circular Loop)
+// 6. Interactive Gallery Filmstrip Slider (Pure Continuous Flow Marquee + Infinite Bounded Ticker)
+let galleryRafId = null;
+let galleryOffset = 0;
+let galleryIsPaused = false;
+let galleryIsDragging = false;
+let galleryStartX = 0;
+let galleryDragStartOffset = 0;
+let galleryHalfWidth = 0;
+let galleryHasMoved = false;
+const GALLERY_TICKER_SPEED = 0.85;
+
 function initGalleryMarqueeInteractions() {
   const wrapper = document.querySelector('.marquee-stream-wrapper');
   const track = document.getElementById('marqueeTrackMain');
-  const counterEl = document.getElementById('galleryCurrentIdx');
   if (!wrapper || !track) return;
 
-  const originalCards = Array.from(track.querySelectorAll('.marquee-card'));
+  // Ensure native wrapper scrollLeft remains 0 forever to prevent runaway displacement
+  wrapper.scrollLeft = 0;
+
+  // Clean old clones if re-initializing
+  track.querySelectorAll('.marquee-card.is-clone').forEach(el => el.remove());
+
+  const originalCards = Array.from(track.querySelectorAll('.marquee-card:not(.is-clone)'));
   const totalCards = originalCards.length;
   if (!totalCards) return;
 
-  // Mark original indexes
-  originalCards.forEach((card, idx) => {
-    card.setAttribute('data-index', idx);
+  // Duplicate cards for seamless 100% loop
+  originalCards.forEach(card => {
+    const clone = card.cloneNode(true);
+    clone.classList.add('is-clone');
+    track.appendChild(clone);
   });
 
-  // Create infinite clone buffers (1 set before, 1 set after)
-  if (!track.dataset.infiniteInitialized) {
-    track.dataset.infiniteInitialized = 'true';
-    
-    // Post-clones (after)
-    originalCards.forEach((card, idx) => {
-      const clone = card.cloneNode(true);
-      clone.setAttribute('data-index', idx);
-      clone.classList.add('is-clone');
-      track.appendChild(clone);
-    });
+  // Calculate halfWidth
+  function updateHalfWidth() {
+    galleryHalfWidth = track.scrollWidth / 2;
+  }
+  updateHalfWidth();
 
-    // Pre-clones (before)
-    originalCards.slice().reverse().forEach((card, reverseIdx) => {
-      const idx = totalCards - 1 - reverseIdx;
-      const clone = card.cloneNode(true);
-      clone.setAttribute('data-index', idx);
-      clone.classList.add('is-clone');
-      track.insertBefore(clone, track.firstChild);
-    });
+  // Reset transform to 0
+  galleryOffset = 0;
+  track.style.transform = 'translate3d(0, 0, 0)';
+
+  // Cancel any existing animation frame
+  if (galleryRafId) {
+    cancelAnimationFrame(galleryRafId);
+    galleryRafId = null;
   }
 
-  const allCards = Array.from(track.querySelectorAll('.marquee-card'));
-  let singleCycleWidth = 0;
-  let isDown = false;
-  let startX = 0;
-  let startScrollLeft = 0;
-  let isDragging = false;
-  let autoTimer = null;
-  let isNormalizing = false;
-
-  function measureCycle() {
-    singleCycleWidth = originalCards[0].offsetLeft - allCards[0].offsetLeft;
-    if (singleCycleWidth <= 0) {
-      const cardW = originalCards[0].offsetWidth || 460;
-      singleCycleWidth = (cardW + 24) * totalCards;
-    }
-  }
-
-  measureCycle();
-
-  // Position viewport at start of original set
-  const initOffset = originalCards[0].offsetLeft - (wrapper.clientWidth - originalCards[0].offsetWidth) / 2;
-  wrapper.scrollLeft = Math.max(0, initOffset);
-
-  function getActiveCard() {
-    const wrapperCenter = wrapper.scrollLeft + wrapper.clientWidth / 2;
-    let closestCard = originalCards[0];
-    let minDiff = Infinity;
-    
-    allCards.forEach(card => {
-      const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-      const diff = Math.abs(wrapperCenter - cardCenter);
-      if (diff < minDiff) {
-        minDiff = diff;
-        closestCard = card;
+  // Animation Loop (Continuous 60fps glide with strict mathematical bounds)
+  function tick() {
+    if (!galleryIsPaused && !galleryIsDragging && galleryHalfWidth > 0) {
+      galleryOffset -= GALLERY_TICKER_SPEED;
+      while (galleryOffset <= -galleryHalfWidth) {
+        galleryOffset += galleryHalfWidth;
       }
-    });
-    return closestCard;
-  }
-
-  function updateCounter() {
-    if (!counterEl) return;
-    const card = getActiveCard();
-    const realIdx = parseInt(card.getAttribute('data-index') || '0', 10);
-    counterEl.textContent = String(realIdx + 1).padStart(2, '0');
-  }
-
-  // Seamless Infinite Boundary Normalizer
-  function checkBoundaryWrap() {
-    if (isNormalizing || !singleCycleWidth) return;
-    const currentScroll = wrapper.scrollLeft;
-    const baseOffset = originalCards[0].offsetLeft - (wrapper.clientWidth - originalCards[0].offsetWidth) / 2;
-    const maxBoundary = baseOffset + singleCycleWidth - 40;
-    const minBoundary = baseOffset - 40;
-
-    if (currentScroll >= maxBoundary) {
-      isNormalizing = true;
-      wrapper.scrollLeft -= singleCycleWidth;
-      if (isDown) startScrollLeft -= singleCycleWidth;
-      requestAnimationFrame(() => { isNormalizing = false; });
-    } else if (currentScroll < minBoundary) {
-      isNormalizing = true;
-      wrapper.scrollLeft += singleCycleWidth;
-      if (isDown) startScrollLeft += singleCycleWidth;
-      requestAnimationFrame(() => { isNormalizing = false; });
+      while (galleryOffset > 0) {
+        galleryOffset -= galleryHalfWidth;
+      }
+      track.style.transform = `translate3d(${galleryOffset}px, 0, 0)`;
     }
+    galleryRafId = requestAnimationFrame(tick);
+  }
+  galleryRafId = requestAnimationFrame(tick);
+
+  // Recalculate width on resize or image loads
+  window.addEventListener('resize', updateHalfWidth);
+  track.querySelectorAll('img').forEach(img => {
+    if (!img.complete) {
+      img.addEventListener('load', updateHalfWidth, { once: true });
+    }
+  });
+
+  // Hover pauses the continuous glide
+  wrapper.addEventListener('mouseenter', () => {
+    galleryIsPaused = true;
+  });
+  wrapper.addEventListener('mouseleave', () => {
+    if (!galleryIsDragging) galleryIsPaused = false;
+  });
+
+  // Pointer drag helpers
+  function onPointerDown(pageX) {
+    galleryIsDragging = true;
+    galleryHasMoved = false;
+    galleryStartX = pageX;
+    galleryDragStartOffset = galleryOffset;
   }
 
-  // Next / Prev Arrow Navigation with Infinite Circular Wrap
-  window.scrollGalleryTrack = function(direction) {
-    pauseAuto();
-    checkBoundaryWrap();
-    const currentCard = getActiveCard();
-    const currentIdx = allCards.indexOf(currentCard);
-    const targetIdx = currentIdx + direction;
-
-    if (targetIdx >= 0 && targetIdx < allCards.length) {
-      const targetCard = allCards[targetIdx];
-      const targetScroll = targetCard.offsetLeft - (wrapper.clientWidth - targetCard.offsetWidth) / 2;
-      wrapper.scrollTo({
-        left: targetScroll,
-        behavior: 'smooth'
-      });
+  function onPointerMove(pageX, e) {
+    if (!galleryIsDragging) return;
+    const dx = pageX - galleryStartX;
+    if (Math.abs(dx) > 4) {
+      galleryHasMoved = true;
+      if (e && e.cancelable) e.preventDefault();
     }
-    resumeAuto();
-  };
+    galleryOffset = galleryDragStartOffset + dx;
+    if (galleryHalfWidth > 0) {
+      while (galleryOffset <= -galleryHalfWidth) {
+        galleryOffset += galleryHalfWidth;
+        galleryDragStartOffset += galleryHalfWidth;
+      }
+      while (galleryOffset > 0) {
+        galleryOffset -= galleryHalfWidth;
+        galleryDragStartOffset -= galleryHalfWidth;
+      }
+    }
+    track.style.transform = `translate3d(${galleryOffset}px, 0, 0)`;
+  }
 
-  // Scroll listener for counter & boundary check
-  let scrollTimeout = null;
-  wrapper.addEventListener('scroll', () => {
-    checkBoundaryWrap();
-    if (scrollTimeout) clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(updateCounter, 50);
+  function onPointerUp() {
+    if (!galleryIsDragging) return;
+    galleryIsDragging = false;
+    setTimeout(() => { galleryHasMoved = false; }, 100);
+  }
+
+  // Mouse events
+  wrapper.addEventListener('mousedown', (e) => {
+    onPointerDown(e.pageX);
+  });
+  window.addEventListener('mousemove', (e) => {
+    if (galleryIsDragging) onPointerMove(e.pageX, e);
+  });
+  window.addEventListener('mouseup', () => {
+    onPointerUp();
+  });
+
+  // Touch events
+  wrapper.addEventListener('touchstart', (e) => {
+    if (e.touches && e.touches[0]) {
+      onPointerDown(e.touches[0].pageX);
+    }
+  }, { passive: true });
+  wrapper.addEventListener('touchmove', (e) => {
+    if (galleryIsDragging && e.touches && e.touches[0]) {
+      onPointerMove(e.touches[0].pageX, e);
+    }
+  }, { passive: false });
+  wrapper.addEventListener('touchend', () => {
+    onPointerUp();
   }, { passive: true });
 
-  // Mouse drag-to-scroll
-  wrapper.addEventListener('mousedown', (e) => {
-    isDown = true;
-    isDragging = false;
-    startX = e.pageX;
-    startScrollLeft = wrapper.scrollLeft;
-    pauseAuto();
-  });
-
-  window.addEventListener('mouseup', () => {
-    if (!isDown) return;
-    isDown = false;
-    checkBoundaryWrap();
-    resumeAuto();
-  });
-
-  wrapper.addEventListener('mousemove', (e) => {
-    if (!isDown) return;
-    const dx = e.pageX - startX;
-    if (Math.abs(dx) > 5) {
-      isDragging = true;
-      e.preventDefault();
-      wrapper.scrollLeft = startScrollLeft - dx;
-      checkBoundaryWrap();
-    }
-  });
-
-  // Prevent opening lightbox modal when dragging
-  allCards.forEach(card => {
+  // Prevent card click if user dragged
+  track.querySelectorAll('.marquee-card').forEach(card => {
     card.addEventListener('click', (e) => {
-      if (isDragging) {
+      if (galleryHasMoved) {
         e.stopImmediatePropagation();
         e.preventDefault();
-        isDragging = false;
       }
     }, true);
   });
-
-  // Touch handlers
-  wrapper.addEventListener('touchstart', () => {
-    pauseAuto();
-  }, { passive: true });
-
-  wrapper.addEventListener('touchend', () => {
-    checkBoundaryWrap();
-    resumeAuto();
-  }, { passive: true });
-
-  // Gentle auto-advance (pauses on hover)
-  function pauseAuto() {
-    if (autoTimer) clearInterval(autoTimer);
-  }
-
-  function resumeAuto() {
-    pauseAuto();
-    autoTimer = setInterval(() => {
-      if (window.scrollGalleryTrack) {
-        window.scrollGalleryTrack(1);
-      }
-    }, 5500);
-  }
-
-  wrapper.addEventListener('mouseenter', pauseAuto);
-  wrapper.addEventListener('mouseleave', resumeAuto);
-
-  window.addEventListener('resize', () => {
-    measureCycle();
-    checkBoundaryWrap();
-  });
-
-  // Initialize
-  updateCounter();
-  resumeAuto();
 }
 
 window.scrollGalleryTrack = function(dir) {
-  const wrapper = document.querySelector('.marquee-stream-wrapper');
-  if (wrapper && window.scrollGalleryTrack) {
-    // Overridden inside initGalleryMarqueeInteractions
+  if (galleryHalfWidth > 0) {
+    galleryOffset += dir * 400;
+    while (galleryOffset <= -galleryHalfWidth) galleryOffset += galleryHalfWidth;
+    while (galleryOffset > 0) galleryOffset -= galleryHalfWidth;
+    const track = document.getElementById('marqueeTrackMain');
+    if (track) track.style.transform = `translate3d(${galleryOffset}px, 0, 0)`;
   }
 };
 

@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=12.0">
+  <link rel="stylesheet" href="css/style.css?v=19.0">
 </head>
 <body class="is-loading">
 
@@ -35,14 +35,13 @@
       <div class="preloader-progress-bar">
         <div class="preloader-progress-fill" id="preloaderFill"></div>
       </div>
-      <div class="preloader-tag" data-i18n="preloader_tag">Engineering Speed & Power • Moscow</div>
     </div>
   </div>
 
   <!-- Navigation -->
   <header class="navbar">
     <a href="#" class="brand-logo" aria-label="GoshaTurboTech Главная">
-      <img src="assets/photos/gtt_shield_logo.svg" alt="GoshaTurboTech" class="brand-shield-img" onclick="openAdminDirect(event)" style="cursor: pointer;" title="GTT Staff Hub">
+      <img src="assets/photos/gtt_shield_logo.svg" alt="GoshaTurboTech" class="brand-shield-img">
       <div class="brand-title">
         <span class="brand-word-gosha">GOSHA</span>
         <span class="brand-word-turbo">TURBOTECH</span>
@@ -198,7 +197,7 @@
       <button class="filter-pill" data-filter="lambo">Lamborghini TT (4)</button>
       <button class="filter-pill" data-filter="audi">Audi R8 TT (3)</button>
       <button class="filter-pill" data-filter="bmw">BMW M-Power (3)</button>
-      <button class="filter-pill" data-filter="other">Эксклюзив &amp; Маслкары (6)</button>
+      <button class="filter-pill" data-filter="other" data-i18n="filter_other">Эксклюзив &amp; Маслкары (6)</button>
     </div>
 
     <!-- Dynamic Cars Grid -->
@@ -447,8 +446,7 @@
   <section class="team-section" id="team">
     <div class="section-header">
       <div class="section-tag-pill">
-        <span class="pulse-dot"></span>
-        <span>ATELIER CREW // 35+ СПЕЦИАЛИСТОВ</span>
+        <span data-i18n="team_badge">ATELIER CREW // 35+ СПЕЦИАЛИСТОВ</span>
       </div>
       <h2 class="section-title" data-i18n="team_title">Команда инженеров GoshaTurboTech</h2>
       <p class="section-subtitle" data-i18n="team_subtitle">Люди, которые куют рекорды на дрэг-стрипе RDRC и в стенах ателье: 35+ мотористов, телеметристов, диагностов, мастеров шасси и пилотов.</p>
@@ -456,11 +454,11 @@
 
     <!-- Department Filter Tabs -->
     <div class="filter-pills" id="teamFilterPills" style="margin-bottom: 24px;">
-      <button class="filter-pill active" data-team-dept="all" onclick="filterTeamDepartment('all')">Все специалисты (35+)</button>
-      <button class="filter-pill" data-team-dept="management" onclick="filterTeamDepartment('management')">Руководство & Тюнинг</button>
-      <button class="filter-pill" data-team-dept="engineers" onclick="filterTeamDepartment('engineers')">Инженеры & Мотористы</button>
-      <button class="filter-pill" data-team-dept="mechanics" onclick="filterTeamDepartment('mechanics')">Механики цеха</button>
-      <button class="filter-pill" data-team-dept="fab" onclick="filterTeamDepartment('fab')">Сварка & Фабрикация</button>
+      <button class="filter-pill active" data-team-dept="all" data-i18n="team_pill_all" onclick="filterTeamDepartment('all')">Все специалисты (35+)</button>
+      <button class="filter-pill" data-team-dept="management" data-i18n="team_pill_mgmt" onclick="filterTeamDepartment('management')">Руководство &amp; Тюнинг</button>
+      <button class="filter-pill" data-team-dept="engineers" data-i18n="team_pill_eng" onclick="filterTeamDepartment('engineers')">Инженеры &amp; Мотористы</button>
+      <button class="filter-pill" data-team-dept="mechanics" data-i18n="team_pill_mech" onclick="filterTeamDepartment('mechanics')">Механики цеха</button>
+      <button class="filter-pill" data-team-dept="fab" data-i18n="team_pill_fab" onclick="filterTeamDepartment('fab')">Сварка &amp; Фабрикация</button>
     </div>
 
     <div class="team-grid" id="teamGrid">
@@ -646,9 +644,9 @@
     <div class="team-summary-banner">
       <div class="team-summary-stat">
         <span class="stat-num">35+</span>
-        <span class="stat-label">Специалистов цеха и гонок</span>
+        <span class="stat-label" data-i18n="team_stat_label">Специалистов цеха и гонок</span>
       </div>
-      <div class="team-summary-desc">
+      <div class="team-summary-desc" data-i18n="team_summary_desc">
         Собственный сборочный цех, аргонная фабрикация выхлопных трасс из титана и инконеля, полноприводный диностенд Dyno Dynamics, лаборатория калибровки ЭБУ MoTeC и Syvecs, а также выездная гоночная команда паддока RDRC.
       </div>
     </div>
@@ -675,25 +673,25 @@
         </div>
       </div>
       <div class="moto-hero-info">
-        <div class="moto-badge">GTT MOTO FLEET // 200+ HP</div>
+        <div class="moto-badge" data-i18n="moto_hero_badge">GTT MOTO FLEET // 200+ HP</div>
         <h3 class="moto-hero-title" id="motoHeroTitle">BMW M1000RR M-Performance</h3>
 
-        <p class="moto-hero-desc" id="motoHeroDesc">
+        <p class="moto-hero-desc" id="motoHeroDesc" data-i18n="moto_hero_desc">
           Личный боевой супербайк Гоши BMW M1000RR M-Performance. Полный цикл спортивной калибровки ECU, снятие заводских лимитов, титановые выхлопные трассы ручной сварки и сухой автоклавный карбон.
         </p>
 
         <div class="moto-banner-specs" id="motoBannerSpecs">
           <div class="moto-banner-item">
             <span class="spec-status-led"></span>
-            <span class="spec-label" id="motoSpec1">212 л.с. при 14 500 об/мин • Сухой вес 168 кг</span>
+            <span class="spec-label" id="motoSpec1" data-i18n="moto_spec_1">212 л.с. при 14 500 об/мин • Сухой вес 168 кг</span>
           </div>
           <div class="moto-banner-item">
             <span class="spec-status-led"></span>
-            <span class="spec-label" id="motoSpec2">Титановый выпуск Akrapovic Full System с отстрелами огнем</span>
+            <span class="spec-label" id="motoSpec2" data-i18n="moto_spec_2">Титановый выпуск Akrapovic Full System с отстрелами огнем</span>
           </div>
           <div class="moto-banner-item">
             <span class="spec-status-led"></span>
-            <span class="spec-label" id="motoSpec3">M-Winglets карбоновые крылья с прижимной силой 16.3 кг</span>
+            <span class="spec-label" id="motoSpec3" data-i18n="moto_spec_3">M-Winglets карбоновые крылья с прижимной силой 16.3 кг</span>
           </div>
         </div>
       </div>
@@ -791,7 +789,7 @@
     <div class="marquee-stream-wrapper">
       <div class="marquee-track" id="marqueeTrackMain">
 <!-- 1. Huracan Zelenka -->
-        <div class="marquee-card" onclick="openGalleryLightbox('assets/photos/huracan_zelenka_gtt.jpg', 'Легендарная Lamborghini Huracan TT «Зеленка» RDRC')">
+        <div class="marquee-card" data-raw-title="Huracan TT «Зеленка» GTT" data-raw-tag="RDRC CHAMPION" onclick="openGalleryLightbox('assets/photos/huracan_zelenka_gtt.jpg', 'Легендарная Lamborghini Huracan TT «Зеленка» RDRC')">
           <img src="assets/photos/huracan_zelenka_gtt.jpg" alt="Huracan Зеленка" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">RDRC CHAMPION</span>
@@ -800,7 +798,7 @@
         </div>
 
         <!-- 2. Dodge Hellcat Burnout -->
-        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/dodge_burnout_sunset.jpg', 'Dodge Challenger SRT Hellcat: дымный прогрев сликов на закате RDRC')">
+        <div class="marquee-card" data-raw-title="Dodge Challenger SRT Hellcat" data-raw-tag="BURNOUT SMOKE" onclick="openGalleryLightbox('assets/cars/dodge_burnout_sunset.jpg', 'Dodge Challenger SRT Hellcat: дымный прогрев сликов на закате RDRC')">
           <img src="assets/cars/dodge_burnout_sunset.jpg" alt="Dodge Hellcat Burnout" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">BURNOUT SMOKE</span>
@@ -809,7 +807,7 @@
         </div>
 
         <!-- 3. GT-R Draco Pro-Mod -->
-        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/gtr_draco_promod_front.jpg', '3000+ HP Nissan GT-R Draco Pro-Mod на сликах RDRC')">
+        <div class="marquee-card" data-raw-title="Nissan GT-R Draco Dragster" data-raw-tag="3000+ HP PRO-MOD" onclick="openGalleryLightbox('assets/cars/gtr_draco_promod_front.jpg', '3000+ HP Nissan GT-R Draco Pro-Mod на сликах RDRC')">
           <img src="assets/cars/gtr_draco_promod_front.jpg" alt="GT-R Draco Pro-Mod" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">3000+ HP PRO-MOD</span>
@@ -818,7 +816,7 @@
         </div>
 
         <!-- 4. Audi R8 Launch -->
-        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/audi_r8_tsmr_launch.jpg', 'Audi R8 V10 Twin Turbo ЦМРБанк на стартовой черте RDRC')">
+        <div class="marquee-card" data-raw-title="Audi R8 V10 Plus CMRBank" data-raw-tag="1400+ HP V10 TT" onclick="openGalleryLightbox('assets/cars/audi_r8_tsmr_launch.jpg', 'Audi R8 V10 Twin Turbo ЦМРБанк на стартовой черте RDRC')">
           <img src="assets/cars/audi_r8_tsmr_launch.jpg" alt="Audi R8 Launch" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">1400+ HP V10 TT</span>
@@ -827,7 +825,7 @@
         </div>
 
         <!-- 5. GT-R Lucifer Solo -->
-        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/gtr_lucifer_solo.jpg', 'GTR Lucifer: чемпионский победный болид Гоши RDRC')">
+        <div class="marquee-card" data-raw-title="GTR Lucifer // Gosha RDRC" data-raw-tag="CHAMPIONSHIP WINNER" onclick="openGalleryLightbox('assets/cars/gtr_lucifer_solo.jpg', 'GTR Lucifer: чемпионский победный болид Гоши RDRC')">
           <img src="assets/cars/gtr_lucifer_solo.jpg" alt="GTR Lucifer Solo" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">CHAMPIONSHIP WINNER</span>
@@ -836,7 +834,7 @@
         </div>
 
         <!-- 6. GT-R Red Chrome -->
-        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/gtr_red_front_rdrc.jpg', 'Красный хромированный Nissan GT-R R35 GTT Pro-Mod')">
+        <div class="marquee-card" data-raw-title="Red Chrome Nissan GT-R Pro-Mod" data-raw-tag="AERODYNAMICS" onclick="openGalleryLightbox('assets/cars/gtr_red_front_rdrc.jpg', 'Красный хромированный Nissan GT-R R35 GTT Pro-Mod')">
           <img src="assets/cars/gtr_red_front_rdrc.jpg" alt="Красный хром GT-R" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">AERODYNAMICS</span>
@@ -845,7 +843,7 @@
         </div>
 
         <!-- 7. GT-R Blue 888 -->
-        <div class="marquee-card" onclick="openGalleryLightbox('assets/photos/gtr_blue_888_rdrc.jpg', 'Боевой синий Nissan GT-R R35 #888 на закате RDRC')">
+        <div class="marquee-card" data-raw-title="Nissan GT-R R35 #888 Sunset Pass" data-raw-tag="MIDNIGHT BLUE" onclick="openGalleryLightbox('assets/photos/gtr_blue_888_rdrc.jpg', 'Боевой синий Nissan GT-R R35 #888 на закате RDRC')">
           <img src="assets/photos/gtr_blue_888_rdrc.jpg" alt="GT-R Blue #888" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">MIDNIGHT BLUE</span>
@@ -854,7 +852,7 @@
         </div>
 
         <!-- 8. Gosha on Track -->
-        <div class="marquee-card" onclick="openGalleryLightbox('assets/photos/gosha_on_track.jpg', 'Гоша Перцхелия контролирует подготовку трассы RDRC')">
+        <div class="marquee-card" data-raw-title="Гоша Перцхелия на стрипе RDRC" data-raw-tag="CHIEF MOTORSPORT ENGINEER" onclick="openGalleryLightbox('assets/photos/gosha_on_track.jpg', 'Гоша Перцхелия контролирует подготовку трассы RDRC')">
           <img src="assets/photos/gosha_on_track.jpg" alt="Гоша на треке RDRC" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">CHIEF MOTORSPORT ENGINEER</span>
@@ -863,7 +861,7 @@
         </div>
 
         <!-- 9. BMW M4 G82 Box -->
-        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/bmw_m4_g82_gtt.jpg', 'Бокс GTT: белая BMW M4 G82 и Nissan GT-R')">
+        <div class="marquee-card" data-raw-title="Бокс GTT: BMW M4 G82 & GT-R" data-raw-tag="ATELIER GARAGE" onclick="openGalleryLightbox('assets/cars/bmw_m4_g82_gtt.jpg', 'Бокс GTT: белая BMW M4 G82 и Nissan GT-R')">
           <img src="assets/cars/bmw_m4_g82_gtt.jpg" alt="BMW M4 бокс" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">ATELIER GARAGE</span>
@@ -872,7 +870,7 @@
         </div>
 
         <!-- 10. BMW M5 RDRC Race -->
-        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/bmw_m5_rdrc_race.jpg', 'BMW M5 G90 GTT Stage 2 на боевом заезде RDRC')">
+        <div class="marquee-card" data-raw-title="BMW M5 G90 Stage 2 GTT" data-raw-tag="TWIN TURBO V8" onclick="openGalleryLightbox('assets/cars/bmw_m5_rdrc_race.jpg', 'BMW M5 G90 GTT Stage 2 на боевом заезде RDRC')">
           <img src="assets/cars/bmw_m5_rdrc_race.jpg" alt="BMW M5 RDRC" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">TWIN TURBO V8</span>
@@ -881,7 +879,7 @@
         </div>
 
         <!-- 11. Huracan Duo Track -->
-        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/huracan_green_bezzubik_track.jpg', 'Lamborghini Huracan Беззубик Twin Turbo на треке')">
+        <div class="marquee-card" data-raw-title="Huracan Twin Turbo «Беззубик»" data-raw-tag="BEZZUBIK TT" onclick="openGalleryLightbox('assets/cars/huracan_green_bezzubik_track.jpg', 'Lamborghini Huracan Беззубик Twin Turbo на треке')">
           <img src="assets/cars/huracan_green_bezzubik_track.jpg" alt="Huracan Беззубик" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">BEZZUBIK TT</span>
@@ -890,7 +888,7 @@
         </div>
 
         <!-- 12. Draco Wrap & Wheel Detail -->
-        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/gtr_draco_connections.jpg', 'Детали подвески и VR38 Billet дрэгстера Draco')">
+        <div class="marquee-card" data-raw-title="VR38 Billet & Drag Suspension" data-raw-tag="BILLET MOTORSPORT" onclick="openGalleryLightbox('assets/cars/gtr_draco_connections.jpg', 'Детали подвески и VR38 Billet дрэгстера Draco')">
           <img src="assets/cars/gtr_draco_connections.jpg" alt="Draco Details" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">BILLET MOTORSPORT</span>
@@ -899,7 +897,7 @@
         </div>
 
         <!-- 13. Sarkisyan Pilot Draco -->
-        <div class="marquee-card" onclick="openGalleryLightbox('assets/photos/pilot_draco_sarkisyan.jpg', 'Пилот Саркисян и дрэгстер Draco в закрытом парке')">
+        <div class="marquee-card" data-raw-title="Пилот Саркисян & Draco GTT" data-raw-tag="PARC FERMÉ" onclick="openGalleryLightbox('assets/photos/pilot_draco_sarkisyan.jpg', 'Пилот Саркисян и дрэгстер Draco в закрытом парке')">
           <img src="assets/photos/pilot_draco_sarkisyan.jpg" alt="Draco Sarkisyan" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">PARC FERMÉ</span>
@@ -908,7 +906,7 @@
         </div>
 
         <!-- 14. GTR Lucifer Front -->
-        <div class="marquee-card" onclick="openGalleryLightbox('assets/cars/gtr_lucifer_front.jpg', 'Nissan GT-R Lucifer анфас перед стартом')">
+        <div class="marquee-card" data-raw-title="GT-R Lucifer на прогреве" data-raw-tag="STAGING LINE" onclick="openGalleryLightbox('assets/cars/gtr_lucifer_front.jpg', 'Nissan GT-R Lucifer анфас перед стартом')">
           <img src="assets/cars/gtr_lucifer_front.jpg" alt="GTR Lucifer Front" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">STAGING LINE</span>
@@ -917,7 +915,7 @@
         </div>
 
         <!-- 15. RDRC Challenger Smoke Burnout -->
-        <div class="marquee-card" onclick="openGalleryLightbox('assets/gallery/rdrc_challenger_burnout.jpg', 'Dodge Challenger SRT: экстремальный прогрев сликов в облаке дыма RDRC')">
+        <div class="marquee-card" data-raw-title="Challenger SRT // Cloud of Smoke" data-raw-tag="RDRC BURNOUT" onclick="openGalleryLightbox('assets/gallery/rdrc_challenger_burnout.jpg', 'Dodge Challenger SRT: экстремальный прогрев сликов в облаке дыма RDRC')">
           <img src="assets/gallery/rdrc_challenger_burnout.jpg" alt="Dodge Challenger Burnout Smoke" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">RDRC BURNOUT</span>
@@ -926,7 +924,7 @@
         </div>
 
         <!-- 16. Green Lamborghini Huracan TT Staging -->
-        <div class="marquee-card" onclick="openGalleryLightbox('assets/gallery/rdrc_lamborghini_green_front.jpg', 'Lamborghini Huracan Twin Turbo на стартовой решетке RDRC')">
+        <div class="marquee-card" data-raw-title="Huracan TT на стартовом створе" data-raw-tag="1500+ HP V10 TT" onclick="openGalleryLightbox('assets/gallery/rdrc_lamborghini_green_front.jpg', 'Lamborghini Huracan Twin Turbo на стартовой решетке RDRC')">
           <img src="assets/gallery/rdrc_lamborghini_green_front.jpg" alt="Lamborghini Huracan TT Staging" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">1500+ HP V10 TT</span>
@@ -935,7 +933,7 @@
         </div>
 
         <!-- 17. Nissan GT-R Titanium Exhaust & RDRC Plate -->
-        <div class="marquee-card" onclick="openGalleryLightbox('assets/gallery/rdrc_gtr_rear_exhaust.jpg', 'Красный Nissan GT-R: титановый выпуск GTT и официальная рамка RDRC')">
+        <div class="marquee-card" data-raw-title="GT-R R35 // GTT Titanium Exhaust" data-raw-tag="TITANIUM CRAFT" onclick="openGalleryLightbox('assets/gallery/rdrc_gtr_rear_exhaust.jpg', 'Красный Nissan GT-R: титановый выпуск GTT и официальная рамка RDRC')">
           <img src="assets/gallery/rdrc_gtr_rear_exhaust.jpg" alt="Nissan GT-R GTT Titanium Exhaust" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">TITANIUM CRAFT</span>
@@ -944,7 +942,7 @@
         </div>
 
         <!-- 18. GTT Paddock BMW M5 & GT-R -->
-        <div class="marquee-card" onclick="openGalleryLightbox('assets/gallery/rdrc_paddock_bmw_m5_gtr.jpg', 'Паддок GoshaTurboTech: матовая BMW M5 G90 и боевой GT-R у боксов')">
+        <div class="marquee-card" data-raw-title="Паддок GTT: BMW M5 G90 & GT-R" data-raw-tag="GTT MOTORSPORT BOX" onclick="openGalleryLightbox('assets/gallery/rdrc_paddock_bmw_m5_gtr.jpg', 'Паддок GoshaTurboTech: матовая BMW M5 G90 и боевой GT-R у боксов')">
           <img src="assets/gallery/rdrc_paddock_bmw_m5_gtr.jpg" alt="GTT Paddock BMW M5 & GT-R" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">GTT MOTORSPORT BOX</span>
@@ -953,7 +951,7 @@
         </div>
 
         <!-- 19. Twin Lamborghini Huracans Paddock -->
-        <div class="marquee-card" onclick="openGalleryLightbox('assets/gallery/rdrc_lamborghinis_pair_paddock.jpg', 'Двойной удар V10 Twin Turbo: пара боевых Huracan команды GTT')">
+        <div class="marquee-card" data-raw-title="Пара Lamborghini Huracan TT GTT" data-raw-tag="TWIN V10 ARSENAL" onclick="openGalleryLightbox('assets/gallery/rdrc_lamborghinis_pair_paddock.jpg', 'Двойной удар V10 Twin Turbo: пара боевых Huracan команды GTT')">
           <img src="assets/gallery/rdrc_lamborghinis_pair_paddock.jpg" alt="Lamborghini Huracan Duo GTT" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">TWIN V10 ARSENAL</span>
@@ -961,23 +959,6 @@
           </div>
         </div>
       </div>
-    </div>
-    
-    <!-- Gallery Navigation & Indicator Bar for Ergonomic Mobile Browsing -->
-    <div class="gallery-controls-bar">
-      <button class="gallery-nav-btn prev" onclick="scrollGalleryTrack(-1)" aria-label="Предыдущий кадр">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="15 18 9 12 15 6"></polyline>
-        </svg>
-      </button>
-      <div class="gallery-counter-indicator" id="galleryCounter">
-        <span id="galleryCurrentIdx">01</span> / <span>19</span>
-      </div>
-      <button class="gallery-nav-btn next" onclick="scrollGalleryTrack(1)" aria-label="Следующий кадр">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="9 18 15 12 9 6"></polyline>
-        </svg>
-      </button>
     </div>
   </section>
 
@@ -1014,7 +995,7 @@
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             </div>
             <div class="c-item-content">
-              <div class="c-item-label">Электронная почта</div>
+              <div class="c-item-label" data-i18n="contact_email_lbl">Электронная почта</div>
               <div class="c-item-val">info@goshaturbotech.com</div>
             </div>
           </a>
@@ -1111,21 +1092,18 @@
       <div class="footer-center-content">
         <img src="assets/photos/gtt_shield_logo.svg" 
              alt="GoshaTurboTech" 
-             class="footer-mini-shield"
-             onclick="openAdminDirect(event)"
-             style="cursor: pointer;"
-             title="GTT Staff Hub">
-        <span class="footer-copy-text" id="footerCopyStaffTrigger">© GOSHATURBOTECH. SPEED &amp; MOTORSPORT ENGINEERING.</span>
+             class="footer-mini-shield">
+        <span class="footer-copy-text" id="footerCopyStaffTrigger" data-i18n="footer_copy">© GOSHATURBOTECH. SPEED &amp; MOTORSPORT ENGINEERING.</span>
       </div>
 
       <div class="footer-legal-bar">
-        <a href="#legalModal" onclick="openLegalDoc('privacy'); return false;" class="footer-legal-link">Политика обработки персональных данных</a>
+        <a href="#legalModal" onclick="openLegalDoc('privacy'); return false;" class="footer-legal-link" data-i18n="footer_privacy">Политика обработки персональных данных</a>
         <span class="legal-bullet">•</span>
-        <a href="#legalModal" onclick="openLegalDoc('offer'); return false;" class="footer-legal-link">Публичная оферта</a>
+        <a href="#legalModal" onclick="openLegalDoc('offer'); return false;" class="footer-legal-link" data-i18n="footer_offer">Публичная оферта</a>
         <span class="legal-bullet">•</span>
-        <a href="#legalModal" onclick="openLegalDoc('requisites'); return false;" class="footer-legal-link">Реквизиты организации</a>
+        <a href="#legalModal" onclick="openLegalDoc('requisites'); return false;" class="footer-legal-link" data-i18n="footer_requisites">Реквизиты организации</a>
         <span class="legal-bullet">•</span>
-        <span class="footer-legal-disclaimer">Информация на сайте не является публичной офертой (ст. 437 ГК РФ)</span>
+        <span class="footer-legal-disclaimer" data-i18n="footer_disclaimer">Информация на сайте не является публичной офертой (ст. 437 ГК РФ)</span>
       </div>
     </div>
   </footer>
@@ -1182,6 +1160,6 @@
     </a>
   </div>
 
-  <script src="js/app.js?v=12.0"></script>
+  <script src="js/app.js?v=19.0"></script>
 </body>
 </html>
