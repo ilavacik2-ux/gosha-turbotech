@@ -74,9 +74,16 @@ def init_db():
         car TEXT NOT NULL,
         telemetry TEXT NOT NULL,
         desc TEXT NOT NULL,
+        img TEXT,
         sort_order INTEGER DEFAULT 0
     )
     """)
+    for col in ["img"]:
+        try:
+            cursor.execute(f"ALTER TABLE records ADD COLUMN {col} TEXT")
+        except Exception:
+            pass
+
 
     # 4. Gallery Table
     cursor.execute("""
@@ -1111,14 +1118,15 @@ def upsert_record(record: Dict[str, Any]) -> Dict[str, Any]:
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("""
-    INSERT INTO records (id, year, car, telemetry, desc)
-    VALUES (?, ?, ?, ?, ?)
+    INSERT INTO records (id, year, car, telemetry, desc, img)
+    VALUES (?, ?, ?, ?, ?, ?)
     ON CONFLICT(id) DO UPDATE SET
         year=excluded.year,
         car=excluded.car,
         telemetry=excluded.telemetry,
-        desc=excluded.desc
-    """, (record["id"], record["year"], record["car"], record["telemetry"], record["desc"]))
+        desc=excluded.desc,
+        img=excluded.img
+    """, (record["id"], record["year"], record["car"], record["telemetry"], record.get("desc", ""), record.get("img", "")))
     conn.commit()
     conn.close()
     return record

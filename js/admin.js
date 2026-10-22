@@ -923,7 +923,83 @@ function renderCarsTable() {
   }).join('');
 }
 
-// Native File Picker & Live Preview Engine
+// ==========================================================================
+// UNIVERSAL FILE UPLOAD & CROSS-PLATFORM OS FILE PICKER ENGINE (MAC & WIN)
+// ==========================================================================
+async function handleGenericUpload(file, { inputId, previewWrapId, previewImgId, previewNameId, previewInfoId, folder, isVideo, successMsg }) {
+  if (!file) return;
+
+  if (isVideo) {
+    const validVideo = file.type.startsWith('video/') || /\.(mp4|webm|mov|m4v)$/i.test(file.name);
+    if (!validVideo) {
+      showToast('Неверный формат', 'Пожалуйста, выберите видеофайл (MP4, WebM, MOV)', 'warning');
+      return;
+    }
+  } else {
+    const validImg = file.type.startsWith('image/') || /\.(jpg|jpeg|png|webp|avif|gif|svg)$/i.test(file.name);
+    if (!validImg) {
+      showToast('Неверный формат', 'Пожалуйста, выберите изображение (JPG, PNG, WebP, AVIF)', 'warning');
+      return;
+    }
+  }
+
+  const reader = new FileReader();
+  reader.onload = async (event) => {
+    const base64Data = event.target.result;
+    const sizeKb = (file.size / 1024).toFixed(1);
+
+    if (!isVideo && previewWrapId) {
+      const wrap = document.getElementById(previewWrapId);
+      const img = document.getElementById(previewImgId);
+      const nameEl = document.getElementById(previewNameId);
+      const infoEl = document.getElementById(previewInfoId);
+      if (wrap) wrap.style.display = 'block';
+      if (img) img.src = base64Data;
+      if (nameEl) nameEl.textContent = file.name;
+      if (infoEl) infoEl.textContent = `${sizeKb} КБ • Готово`;
+    }
+
+    const input = document.getElementById(inputId);
+    const safeName = file.name.replace(/[^a-zA-Z0-9_\-\.]/g, '_');
+    const targetFolder = folder || (isVideo ? 'videos' : 'cars');
+    const fallbackPath = `assets/${targetFolder}/${safeName}`;
+    if (input) input.value = fallbackPath;
+
+    // Upload to server if available
+    try {
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filename: file.name,
+          data: base64Data,
+          folder: targetFolder
+        })
+      });
+
+      if (res.ok) {
+        const uploadResult = await res.json();
+        if (uploadResult && uploadResult.url) {
+          if (input) input.value = uploadResult.url;
+          showToast('Файл сохранен', successMsg || `Файл «${file.name}» успешно сохранен в ${uploadResult.url}`, 'success');
+          return;
+        }
+      }
+    } catch (netErr) {
+      console.warn('Backend upload note (offline or static):', netErr);
+    }
+
+    // Static GitHub Pages or offline fallback
+    if (!isVideo && file.size <= 1.5 * 1024 * 1024 && input) {
+      input.value = base64Data;
+    }
+    showToast('Файл выбран', successMsg || `Файл «${file.name}» готов к сохранению`, 'success');
+  };
+
+  reader.readAsDataURL(file);
+}
+
+// 1. Car Photo & Video Handlers
 function triggerCarPhotoPicker() {
   const fileInput = document.getElementById('carPhotoFileInput');
   if (fileInput) {
@@ -935,60 +1011,29 @@ function triggerCarPhotoPicker() {
 function handleCarPhotoSelected(e) {
   const file = e.target.files && e.target.files[0];
   if (file) {
-    processCarPhotoFile(file);
+    handleGenericUpload(file, {
+      inputId: 'editImg',
+      previewWrapId: 'carImgPreviewWrap',
+      previewImgId: 'carImgPreview',
+      previewNameId: 'carImgMetaName',
+      previewInfoId: 'carImgMetaInfo',
+      folder: 'cars',
+      isVideo: false,
+      successMsg: `Фото «${file.name}» готово к сохранению`
+    });
   }
 }
 
-async function processCarPhotoFile(file) {
-  if (!file.type || !file.type.startsWith('image/')) {
-    showToast('Неверный формат', 'Пожалуйста, выберите изображение (JPG, PNG, WebP, AVIF)', 'warning');
-    return;
+function handleCarVideoSelected(e) {
+  const file = e.target.files && e.target.files[0];
+  if (file) {
+    handleGenericUpload(file, {
+      inputId: 'editVideoSrc',
+      folder: 'videos',
+      isVideo: true,
+      successMsg: `Видео «${file.name}» прикреплено к проекту`
+    });
   }
-
-  const reader = new FileReader();
-  reader.onload = async (event) => {
-    const base64Data = event.target.result;
-    const sizeKb = (file.size / 1024).toFixed(1);
-    updateCarPhotoPreviewUI(base64Data, file.name, `${sizeKb} КБ • Готово к сохранению`);
-
-    const editImgInput = document.getElementById('editImg');
-    const safeName = file.name.replace(/[^a-zA-Z0-9_\-\.]/g, '_');
-    const fallbackPath = 'assets/cars/' + safeName;
-    if (editImgInput) editImgInput.value = fallbackPath;
-
-    // Upload to local server if available
-    try {
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          filename: file.name,
-          data: base64Data
-        })
-      });
-
-      if (res.ok) {
-        const uploadResult = await res.json();
-        if (uploadResult && uploadResult.url) {
-          if (editImgInput) editImgInput.value = uploadResult.url;
-          showToast('Фото загружено', `Файл «${file.name}» успешно сохранен в ${uploadResult.url}`, 'success');
-          return;
-        }
-      }
-    } catch (netErr) {
-      console.warn('Backend upload note (offline or static):', netErr);
-    }
-
-    // Static GitHub Pages or offline fallback
-    if (file.size <= 1.5 * 1024 * 1024 && editImgInput) {
-      editImgInput.value = base64Data;
-      showToast('Фото прикреплено', `Фото «${file.name}» готово к сохранению`, 'success');
-    } else {
-      showToast('Файл выбран', `Указан путь к фото «${fallbackPath}»`, 'info');
-    }
-  };
-
-  reader.readAsDataURL(file);
 }
 
 function updateCarPhotoPreviewUI(imgSrc, name = '', meta = '') {
@@ -1025,6 +1070,120 @@ function clearCarPhotoPreview() {
   updateCarPhotoPreviewUI('');
 }
 
+// 2. Team Member Photo Handlers
+function handleTeamPhotoSelected(e) {
+  const file = e.target.files && e.target.files[0];
+  if (file) {
+    handleGenericUpload(file, {
+      inputId: 'editMemberPhoto',
+      previewWrapId: 'teamImgPreviewWrap',
+      previewImgId: 'teamImgPreview',
+      previewNameId: 'teamImgMetaName',
+      previewInfoId: 'teamImgMetaInfo',
+      folder: 'photos',
+      isVideo: false,
+      successMsg: `Фото специалиста «${file.name}» загружено`
+    });
+  }
+}
+
+function handleTeamPhotoInput(val) {
+  const trimmed = (val || '').trim();
+  const wrap = document.getElementById('teamImgPreviewWrap');
+  const img = document.getElementById('teamImgPreview');
+  const nameEl = document.getElementById('teamImgMetaName');
+  if (trimmed) {
+    if (wrap) wrap.style.display = 'block';
+    if (img) img.src = trimmed;
+    if (nameEl) nameEl.textContent = trimmed.split('/').pop();
+  } else {
+    if (wrap) wrap.style.display = 'none';
+  }
+}
+
+function clearTeamPhotoPreview() {
+  const input = document.getElementById('editMemberPhoto');
+  const fileInput = document.getElementById('teamPhotoFileInput');
+  const wrap = document.getElementById('teamImgPreviewWrap');
+  if (input) input.value = '';
+  if (fileInput) fileInput.value = '';
+  if (wrap) wrap.style.display = 'none';
+}
+
+// 3. Record Photo & Telemetry Handlers
+function handleRecordPhotoSelected(e) {
+  const file = e.target.files && e.target.files[0];
+  if (file) {
+    handleGenericUpload(file, {
+      inputId: 'editRecordImg',
+      previewWrapId: 'recordImgPreviewWrap',
+      previewImgId: 'recordImgPreview',
+      previewNameId: 'recordImgMetaName',
+      previewInfoId: 'recordImgMetaInfo',
+      folder: 'records',
+      isVideo: false,
+      successMsg: `Файл рекорда «${file.name}» загружен`
+    });
+  }
+}
+
+function handleRecordPhotoInput(val) {
+  const trimmed = (val || '').trim();
+  const wrap = document.getElementById('recordImgPreviewWrap');
+  const img = document.getElementById('recordImgPreview');
+  const nameEl = document.getElementById('recordImgMetaName');
+  if (trimmed) {
+    if (wrap) wrap.style.display = 'block';
+    if (img) img.src = trimmed;
+    if (nameEl) nameEl.textContent = trimmed.split('/').pop();
+  } else {
+    if (wrap) wrap.style.display = 'none';
+  }
+}
+
+function clearRecordPhotoPreview() {
+  const input = document.getElementById('editRecordImg');
+  const fileInput = document.getElementById('recordPhotoFileInput');
+  const wrap = document.getElementById('recordImgPreviewWrap');
+  if (input) input.value = '';
+  if (fileInput) fileInput.value = '';
+  if (wrap) wrap.style.display = 'none';
+}
+
+// 4. Media & Video Reels Handlers
+function handleMediaFileSelected(e) {
+  const file = e.target.files && e.target.files[0];
+  if (file) {
+    handleGenericUpload(file, {
+      inputId: 'editMediaUrl',
+      folder: 'videos',
+      isVideo: true,
+      successMsg: `Видео «${file.name}» прикреплено к медиатеке`
+    });
+  }
+}
+
+// 5. Gallery Photo Handlers
+function triggerGalleryPhotoPicker() {
+  const fileInput = document.getElementById('galleryPhotoFileInput');
+  if (fileInput) {
+    fileInput.value = '';
+    fileInput.click();
+  }
+}
+
+function handleGalleryPhotoSelected(e) {
+  const file = e.target.files && e.target.files[0];
+  if (file) {
+    handleGenericUpload(file, {
+      inputId: 'editGalleryImg',
+      folder: 'photos',
+      isVideo: false,
+      successMsg: `Кадр «${file.name}» сохранен в галерее`
+    });
+  }
+}
+
 let isDragDropInitialized = false;
 function setupCarPhotoDragDrop() {
   if (isDragDropInitialized) return;
@@ -1051,7 +1210,12 @@ function setupCarPhotoDragDrop() {
   dropZone.addEventListener('drop', (e) => {
     const dt = e.dataTransfer;
     if (dt && dt.files && dt.files.length > 0) {
-      processCarPhotoFile(dt.files[0]);
+      const file = dt.files[0];
+      if (file.type.startsWith('video/')) {
+        handleCarVideoSelected({ target: { files: [file] } });
+      } else {
+        handleCarPhotoSelected({ target: { files: [file] } });
+      }
     }
   });
 
@@ -1062,65 +1226,18 @@ function setupCarPhotoDragDrop() {
         const dt = e.dataTransfer;
         if (dt && dt.files && dt.files.length > 0) {
           e.preventDefault();
-          processCarPhotoFile(dt.files[0]);
+          const file = dt.files[0];
+          if (file.type.startsWith('video/')) {
+            handleCarVideoSelected({ target: { files: [file] } });
+          } else {
+            handleCarPhotoSelected({ target: { files: [file] } });
+          }
         }
       }
     }, false);
   }
 
   isDragDropInitialized = true;
-}
-
-// Gallery Photo Picker Helpers
-function triggerGalleryPhotoPicker() {
-  const fileInput = document.getElementById('galleryPhotoFileInput');
-  if (fileInput) {
-    fileInput.value = '';
-    fileInput.click();
-  }
-}
-
-async function handleGalleryPhotoSelected(e) {
-  const file = e.target.files && e.target.files[0];
-  if (!file) return;
-  if (!file.type || !file.type.startsWith('image/')) {
-    showToast('Неверный формат', 'Выберите файл изображения (JPG, PNG, WebP)', 'warning');
-    return;
-  }
-
-  const reader = new FileReader();
-  reader.onload = async (event) => {
-    const base64Data = event.target.result;
-    const input = document.getElementById('editGalleryImg');
-    const safeName = file.name.replace(/[^a-zA-Z0-9_\-\.]/g, '_');
-    const fallbackPath = 'assets/photos/' + safeName;
-    if (input) input.value = fallbackPath;
-
-    try {
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          filename: file.name,
-          data: base64Data
-        })
-      });
-      if (res.ok) {
-        const data = await res.json();
-        if (data && data.url) {
-          if (input) input.value = data.url;
-          showToast('Кадр загружен', `Файл сохранен в ${data.url}`, 'success');
-          return;
-        }
-      }
-    } catch (err) {}
-
-    if (file.size <= 1.5 * 1024 * 1024 && input) {
-      input.value = base64Data;
-    }
-    showToast('Кадр выбран', `Фото «${file.name}» прикреплено`, 'success');
-  };
-  reader.readAsDataURL(file);
 }
 
 function openCarEditModal(carId) {

@@ -426,17 +426,13 @@
             </label>
             <div class="file-picker-input-group" id="carPhotoDropZone">
               <input type="text" id="editImg" placeholder="assets/cars/bmw_m5_rdrc_race.jpg или выберите файл из папки" autocomplete="off" oninput="handleCarPhotoPathInput(this.value)">
-              <button type="button" class="btn-folder-browse" id="btnBrowseCarPhoto" title="Открыть папку на компьютере (Finder на Mac / Проводник на Windows)" onclick="triggerCarPhotoPicker()">
+              <label for="carPhotoFileInput" class="btn-folder-browse" title="Выбрать фото через Finder / Проводник">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
                 </svg>
                 <span>Папка</span>
-              </button>
-              <input type="file" id="carPhotoFileInput" accept="image/png,image/jpeg,image/jpg,image/webp,image/avif" style="display: none;" onchange="handleCarPhotoSelected(event)">
-            </div>
-            <div class="file-drop-hint">
-              <span>📁</span>
-              <span>Нажмите кнопку «Папка» для выбора фото через Finder / Проводник или перетащите файл прямо сюда</span>
+              </label>
+              <input type="file" id="carPhotoFileInput" class="visually-hidden-file-input" accept="image/png,image/jpeg,image/jpg,image/webp,image/avif" onchange="handleCarPhotoSelected(event)">
             </div>
             <!-- Live Image Preview Box -->
             <div class="admin-img-preview-wrap" id="carImgPreviewWrap" style="display: none;">
@@ -454,8 +450,17 @@
             </div>
           </div>
           <div class="form-group full-width">
-            <label>Путь к боевому видео (MP4)</label>
-            <input type="text" id="editVideoSrc" placeholder="assets/videos/hero_burnout_action.mp4">
+            <label for="editVideoSrc">Боевое видео проекта (MP4 / WebM / Файл)</label>
+            <div class="file-picker-input-group">
+              <input type="text" id="editVideoSrc" placeholder="assets/videos/hero_burnout_action.mp4 или выберите файл из папки">
+              <label for="carVideoFileInput" class="btn-folder-browse" title="Выбрать видео через Finder / Проводник">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>Папка</span>
+              </label>
+              <input type="file" id="carVideoFileInput" class="visually-hidden-file-input" accept="video/mp4,video/webm,video/quicktime,video/*" onchange="handleCarVideoSelected(event)">
+            </div>
           </div>
           <div class="form-group full-width">
             <label>Описание проекта (RU)</label>
@@ -496,6 +501,33 @@
               <option value="paddock">На выездном этапе</option>
             </select>
           </div>
+          <div class="form-group full-width">
+            <label for="editMemberPhoto">Фотография специалиста</label>
+            <div class="file-picker-input-group">
+              <input type="text" id="editMemberPhoto" placeholder="assets/photos/... или выберите файл из папки" oninput="handleTeamPhotoInput(this.value)">
+              <label for="teamPhotoFileInput" class="btn-folder-browse" title="Выбрать фото через Finder / Проводник">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>Папка</span>
+              </label>
+              <input type="file" id="teamPhotoFileInput" class="visually-hidden-file-input" accept="image/*" onchange="handleTeamPhotoSelected(event)">
+            </div>
+            <!-- Live Preview for Team Member -->
+            <div class="admin-img-preview-wrap" id="teamImgPreviewWrap" style="display: none;">
+              <div class="preview-header">
+                <span class="preview-label">Предпросмотр фото специалиста:</span>
+                <button type="button" class="btn-clear-preview" onclick="clearTeamPhotoPreview()">&times; Убрать</button>
+              </div>
+              <div class="preview-img-container">
+                <img id="teamImgPreview" src="" alt="Фото специалиста" style="width: 60px; height: 60px; border-radius: 50%;">
+                <div class="preview-meta">
+                  <span class="meta-name" id="teamImgMetaName">Специалист GTT</span>
+                  <span class="meta-info" id="teamImgMetaInfo">Готово к сохранению</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="admin-modal-actions">
           <button type="button" class="topbar-btn outline-btn" onclick="closeTeamModal()">Отмена</button>
@@ -526,6 +558,33 @@
           <div class="form-group full-width">
             <label>Показания телеметрии</label>
             <input type="text" id="editRecordTelemetry" placeholder="1/4 мили: 9.252 сек • 231.80 км/ч">
+          </div>
+          <div class="form-group full-width">
+            <label for="editRecordImg">Фото болида или скан телеметрии заезда</label>
+            <div class="file-picker-input-group">
+              <input type="text" id="editRecordImg" placeholder="assets/cars/... или выберите файл из папки" oninput="handleRecordPhotoInput(this.value)">
+              <label for="recordPhotoFileInput" class="btn-folder-browse" title="Выбрать файл через Finder / Проводник">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>Папка</span>
+              </label>
+              <input type="file" id="recordPhotoFileInput" class="visually-hidden-file-input" accept="image/*" onchange="handleRecordPhotoSelected(event)">
+            </div>
+            <!-- Live Preview for Record Photo -->
+            <div class="admin-img-preview-wrap" id="recordImgPreviewWrap" style="display: none;">
+              <div class="preview-header">
+                <span class="preview-label">Предпросмотр фото рекорда:</span>
+                <button type="button" class="btn-clear-preview" onclick="clearRecordPhotoPreview()">&times; Убрать</button>
+              </div>
+              <div class="preview-img-container">
+                <img id="recordImgPreview" src="" alt="Фото рекорда">
+                <div class="preview-meta">
+                  <span class="meta-name" id="recordImgMetaName">Фото заезда</span>
+                  <span class="meta-info" id="recordImgMetaInfo">Готово к сохранению</span>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="form-group full-width">
             <label>Краткое описание заезда</label>
@@ -567,8 +626,17 @@
             <input type="text" id="editMediaCar" placeholder="Huracan Зеленка / Draco">
           </div>
           <div class="form-group full-width">
-            <label>Ссылка или путь к файлу *</label>
-            <input type="text" id="editMediaUrl" placeholder="assets/videos/gosha_na_svoem_lucifer_web.mp4">
+            <label for="editMediaUrl">Ссылка или файл видео / Reels *</label>
+            <div class="file-picker-input-group">
+              <input type="text" id="editMediaUrl" placeholder="assets/videos/... или выберите файл из папки">
+              <label for="mediaFileInput" class="btn-folder-browse" title="Выбрать файл через Finder / Проводник">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>Папка</span>
+              </label>
+              <input type="file" id="mediaFileInput" class="visually-hidden-file-input" accept="video/mp4,video/webm,video/quicktime,video/*,image/*" onchange="handleMediaFileSelected(event)">
+            </div>
           </div>
         </div>
         <div class="admin-modal-actions">
@@ -601,13 +669,13 @@
             <label for="editGalleryImg">Путь к фото / URL</label>
             <div class="file-picker-input-group">
               <input type="text" id="editGalleryImg" placeholder="assets/photos/huracan_zelenka_gtt.jpg или выберите файл из папки">
-              <button type="button" class="btn-folder-browse" onclick="triggerGalleryPhotoPicker()" title="Выбрать файл через Finder / Проводник">
+              <label for="galleryPhotoFileInput" class="btn-folder-browse" title="Выбрать файл через Finder / Проводник">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
                 </svg>
                 <span>Папка</span>
-              </button>
-              <input type="file" id="galleryPhotoFileInput" accept="image/png,image/jpeg,image/jpg,image/webp,image/avif" style="display: none;" onchange="handleGalleryPhotoSelected(event)">
+              </label>
+              <input type="file" id="galleryPhotoFileInput" class="visually-hidden-file-input" accept="image/png,image/jpeg,image/jpg,image/webp,image/avif" onchange="handleGalleryPhotoSelected(event)">
             </div>
           </div>
         </div>
