@@ -847,6 +847,30 @@ window.closeHeroTelemetryModal = closeHeroTelemetryModal;
 window.saveHeroTelemetry = saveHeroTelemetry;
 
 // ================= MODULE 1: CARS =================
+function autoDetectBrand(name) {
+  if (!name) return 'GTT ATELIER';
+  const n = name.toUpperCase();
+  if (n.includes('GT-R') || n.includes('GTR') || n.includes('NISSAN') || n.includes('LUCIFER') || n.includes('DRACO')) return 'NISSAN & GTT';
+  if (n.includes('BMW') || n.includes('M5') || n.includes('M4') || n.includes('M3') || n.includes('M8') || n.includes('M2')) return 'BMW M-POWER';
+  if (n.includes('AUDI') || n.includes('R8') || n.includes('RS6') || n.includes('RS7')) return 'AUDI SPORT';
+  if (n.includes('PORSCHE') || n.includes('911') || n.includes('TURBO S') || n.includes('GT3') || n.includes('GT2')) return 'PORSCHE';
+  if (n.includes('LAMBORGHINI') || n.includes('HURACAN') || n.includes('AVENTADOR') || n.includes('URUS')) return 'LAMBORGHINI';
+  if (n.includes('DODGE') || n.includes('HELLCAT') || n.includes('DEMON') || n.includes('CHALLENGER') || n.includes('CHARGER')) return 'DODGE & SRT';
+  if (n.includes('MERCEDES') || n.includes('AMG')) return 'MERCEDES-AMG';
+  return 'GTT ATELIER';
+}
+
+function autoDetectType(name) {
+  if (!name) return 'other';
+  const n = name.toUpperCase();
+  if (n.includes('GT-R') || n.includes('GTR') || n.includes('NISSAN') || n.includes('LUCIFER') || n.includes('DRACO')) return 'gtr';
+  if (n.includes('BMW') || n.includes('M5') || n.includes('M4') || n.includes('M3')) return 'bmw';
+  if (n.includes('AUDI') || n.includes('R8')) return 'audi';
+  if (n.includes('PORSCHE') || n.includes('911')) return 'porsche';
+  if (n.includes('LAMBORGHINI') || n.includes('HURACAN')) return 'lambo';
+  return 'other';
+}
+
 function renderCarsTable() {
   const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects);
   const tbody = document.getElementById('projectsTableBody');
@@ -863,22 +887,30 @@ function renderCarsTable() {
     return aTeaser - bTeaser;
   });
 
-  tbody.innerHTML = sortedProjects.map(car => `
+  tbody.innerHTML = sortedProjects.map(car => {
+    const name = car.nameRu || car.name_ru || (car.name && (car.name.ru || car.name.en)) || car.id;
+    const brand = car.brand || autoDetectBrand(name);
+    const hp = car.hp || '—';
+    const quarter = car.quarterMile || car.quarter_mile || '—';
+    const img = car.img || 'assets/cars/bmw_m5_rdrc_race.jpg';
+    const hasVideo = !!(car.videoSrc || car.video_src);
+
+    return `
     <tr>
       <td>
         <div class="car-cell-flex">
-          <img src="${car.img}" alt="${car.nameRu}" class="car-thumb" onerror="this.src='assets/cars/bmw_m5_rdrc_race.jpg'">
+          <img src="${img}" alt="${name}" class="car-thumb" onerror="this.src='assets/cars/bmw_m5_rdrc_race.jpg'">
           <div>
-            <div class="car-title-text">${car.nameRu}</div>
+            <div class="car-title-text">${name}</div>
             <span class="tag-pill">${car.id}</span>
           </div>
         </div>
       </td>
-      <td><span class="tag-pill">${car.brand}</span></td>
-      <td style="color: var(--gtt-orange); font-weight: 700;">${car.hp}</td>
-      <td style="font-family: var(--font-mono);">${car.quarterMile}</td>
+      <td><span class="tag-pill">${brand}</span></td>
+      <td style="color: var(--gtt-orange); font-weight: 700;">${hp}</td>
+      <td style="font-family: var(--font-mono);">${quarter}</td>
       <td>
-        ${car.videoSrc ? '<span style="color: #22c55e; font-size: 11px;">● Подключено</span>' : '<span style="color: #64748b; font-size: 11px;">Нет</span>'}
+        ${hasVideo ? '<span style="color: #22c55e; font-size: 11px;">● Подключено</span>' : '<span style="color: #64748b; font-size: 11px;">Нет</span>'}
       </td>
       <td>
         <div class="row-actions">
@@ -887,86 +919,353 @@ function renderCarsTable() {
         </div>
       </td>
     </tr>
-  `).join('');
+    `;
+  }).join('');
+}
+
+// Native File Picker & Live Preview Engine
+function triggerCarPhotoPicker() {
+  const fileInput = document.getElementById('carPhotoFileInput');
+  if (fileInput) {
+    fileInput.value = '';
+    fileInput.click();
+  }
+}
+
+function handleCarPhotoSelected(e) {
+  const file = e.target.files && e.target.files[0];
+  if (file) {
+    processCarPhotoFile(file);
+  }
+}
+
+async function processCarPhotoFile(file) {
+  if (!file.type || !file.type.startsWith('image/')) {
+    showToast('Неверный формат', 'Пожалуйста, выберите изображение (JPG, PNG, WebP, AVIF)', 'warning');
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = async (event) => {
+    const base64Data = event.target.result;
+    const sizeKb = (file.size / 1024).toFixed(1);
+    updateCarPhotoPreviewUI(base64Data, file.name, `${sizeKb} КБ • Готово к сохранению`);
+
+    const editImgInput = document.getElementById('editImg');
+    const safeName = file.name.replace(/[^a-zA-Z0-9_\-\.]/g, '_');
+    const fallbackPath = 'assets/cars/' + safeName;
+    if (editImgInput) editImgInput.value = fallbackPath;
+
+    // Upload to local server if available
+    try {
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filename: file.name,
+          data: base64Data
+        })
+      });
+
+      if (res.ok) {
+        const uploadResult = await res.json();
+        if (uploadResult && uploadResult.url) {
+          if (editImgInput) editImgInput.value = uploadResult.url;
+          showToast('Фото загружено', `Файл «${file.name}» успешно сохранен в ${uploadResult.url}`, 'success');
+          return;
+        }
+      }
+    } catch (netErr) {
+      console.warn('Backend upload note (offline or static):', netErr);
+    }
+
+    // Static GitHub Pages or offline fallback
+    if (file.size <= 1.5 * 1024 * 1024 && editImgInput) {
+      editImgInput.value = base64Data;
+      showToast('Фото прикреплено', `Фото «${file.name}» готово к сохранению`, 'success');
+    } else {
+      showToast('Файл выбран', `Указан путь к фото «${fallbackPath}»`, 'info');
+    }
+  };
+
+  reader.readAsDataURL(file);
+}
+
+function updateCarPhotoPreviewUI(imgSrc, name = '', meta = '') {
+  const wrap = document.getElementById('carImgPreviewWrap');
+  const imgEl = document.getElementById('carImgPreview');
+  const nameEl = document.getElementById('carImgMetaName');
+  const infoEl = document.getElementById('carImgMetaInfo');
+
+  if (!imgSrc) {
+    if (wrap) wrap.style.display = 'none';
+    return;
+  }
+
+  if (imgEl) imgEl.src = imgSrc;
+  if (nameEl) nameEl.textContent = name || (imgSrc.startsWith('data:') ? 'Локальное изображение' : imgSrc.split('/').pop());
+  if (infoEl) infoEl.textContent = meta || 'Предпросмотр активен';
+  if (wrap) wrap.style.display = 'block';
+}
+
+function handleCarPhotoPathInput(val) {
+  const trimmed = (val || '').trim();
+  if (trimmed) {
+    updateCarPhotoPreviewUI(trimmed, trimmed.split('/').pop(), 'Путь к фото');
+  } else {
+    updateCarPhotoPreviewUI('');
+  }
+}
+
+function clearCarPhotoPreview() {
+  const editImgInput = document.getElementById('editImg');
+  const fileInput = document.getElementById('carPhotoFileInput');
+  if (editImgInput) editImgInput.value = '';
+  if (fileInput) fileInput.value = '';
+  updateCarPhotoPreviewUI('');
+}
+
+let isDragDropInitialized = false;
+function setupCarPhotoDragDrop() {
+  if (isDragDropInitialized) return;
+  const dropZone = document.getElementById('carPhotoDropZone');
+  const modal = document.getElementById('carEditModal');
+  if (!dropZone) return;
+
+  ['dragenter', 'dragover'].forEach(eventName => {
+    dropZone.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropZone.classList.add('drag-active');
+    }, false);
+  });
+
+  ['dragleave', 'drop'].forEach(eventName => {
+    dropZone.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dropZone.classList.remove('drag-active');
+    }, false);
+  });
+
+  dropZone.addEventListener('drop', (e) => {
+    const dt = e.dataTransfer;
+    if (dt && dt.files && dt.files.length > 0) {
+      processCarPhotoFile(dt.files[0]);
+    }
+  });
+
+  if (modal) {
+    modal.addEventListener('dragover', (e) => e.preventDefault(), false);
+    modal.addEventListener('drop', (e) => {
+      if (e.target && !e.target.closest('#carPhotoDropZone')) {
+        const dt = e.dataTransfer;
+        if (dt && dt.files && dt.files.length > 0) {
+          e.preventDefault();
+          processCarPhotoFile(dt.files[0]);
+        }
+      }
+    }, false);
+  }
+
+  isDragDropInitialized = true;
+}
+
+// Gallery Photo Picker Helpers
+function triggerGalleryPhotoPicker() {
+  const fileInput = document.getElementById('galleryPhotoFileInput');
+  if (fileInput) {
+    fileInput.value = '';
+    fileInput.click();
+  }
+}
+
+async function handleGalleryPhotoSelected(e) {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  if (!file.type || !file.type.startsWith('image/')) {
+    showToast('Неверный формат', 'Выберите файл изображения (JPG, PNG, WebP)', 'warning');
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = async (event) => {
+    const base64Data = event.target.result;
+    const input = document.getElementById('editGalleryImg');
+    const safeName = file.name.replace(/[^a-zA-Z0-9_\-\.]/g, '_');
+    const fallbackPath = 'assets/photos/' + safeName;
+    if (input) input.value = fallbackPath;
+
+    try {
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          filename: file.name,
+          data: base64Data
+        })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.url) {
+          if (input) input.value = data.url;
+          showToast('Кадр загружен', `Файл сохранен в ${data.url}`, 'success');
+          return;
+        }
+      }
+    } catch (err) {}
+
+    if (file.size <= 1.5 * 1024 * 1024 && input) {
+      input.value = base64Data;
+    }
+    showToast('Кадр выбран', `Фото «${file.name}» прикреплено`, 'success');
+  };
+  reader.readAsDataURL(file);
 }
 
 function openCarEditModal(carId) {
   const modal = document.getElementById('carEditModal');
   const title = document.getElementById('modalEditorTitle');
   const form = document.getElementById('carEditForm');
+  if (!modal) return;
   modal.style.display = 'flex';
+
+  setupCarPhotoDragDrop();
 
   if (carId) {
     const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects);
     const car = projects.find(c => c.id === carId);
     if (!car) return;
 
-    title.textContent = `Редактирование: ${car.nameRu}`;
+    const nameRu = car.nameRu || car.name_ru || (car.name && (car.name.ru || car.name.en)) || '';
+    const nameEn = car.nameEn || car.name_en || nameRu;
+    const brand = car.brand || autoDetectBrand(nameRu);
+    const type = car.type || autoDetectType(nameRu);
+    const hp = car.hp || '';
+    const quarterMile = car.quarterMile || car.quarter_mile || '';
+    const topSpeed = car.topSpeed || car.top_speed || '';
+    const img = car.img || '';
+    const videoSrc = car.videoSrc || car.video_src || '';
+    const descRu = car.descRu || car.desc_ru || '';
+
+    title.textContent = `Редактирование: ${nameRu}`;
     document.getElementById('editCarId').value = car.id;
-    document.getElementById('editBrand').value = car.brand || '';
-    document.getElementById('editType').value = car.type || 'other';
-    document.getElementById('editNameRu').value = car.nameRu || '';
-    document.getElementById('editNameEn').value = car.nameEn || car.nameRu || '';
-    document.getElementById('editHp').value = car.hp || '';
-    document.getElementById('editQuarter').value = car.quarterMile || '';
-    document.getElementById('editTopSpeed').value = car.topSpeed || '';
-    document.getElementById('editImg').value = car.img || '';
-    document.getElementById('editVideoSrc').value = car.videoSrc || '';
-    document.getElementById('editDescRu').value = car.descRu || '';
+    document.getElementById('editBrand').value = brand;
+    document.getElementById('editType').value = type;
+    document.getElementById('editNameRu').value = nameRu;
+    document.getElementById('editNameEn').value = nameEn;
+    document.getElementById('editHp').value = hp;
+    document.getElementById('editQuarter').value = quarterMile;
+    document.getElementById('editTopSpeed').value = topSpeed;
+    document.getElementById('editImg').value = img;
+    document.getElementById('editVideoSrc').value = videoSrc;
+    document.getElementById('editDescRu').value = descRu;
+
+    if (img) {
+      updateCarPhotoPreviewUI(img, img.split('/').pop(), 'Текущее фото автомобиля');
+    } else {
+      updateCarPhotoPreviewUI('');
+    }
   } else {
     title.textContent = 'Добавление нового проекта GTT';
-    form.reset();
+    if (form) form.reset();
     document.getElementById('editCarId').value = '';
+    updateCarPhotoPreviewUI('');
   }
 }
 
 function closeCarEditModal() {
-  document.getElementById('carEditModal').style.display = 'none';
+  const modal = document.getElementById('carEditModal');
+  if (modal) modal.style.display = 'none';
+  clearCarPhotoPreview();
 }
 
 async function saveCarProject(e) {
-  e.preventDefault();
-  const idInput = document.getElementById('editCarId').value;
+  if (e && e.preventDefault) e.preventDefault();
+  const idInput = document.getElementById('editCarId').value.trim();
   const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects);
 
+  const rawNameRu = document.getElementById('editNameRu').value.trim();
+  if (!rawNameRu) {
+    showToast('Укажите название', 'Пожалуйста, введите название автомобиля (например: BMW M5 GTT)', 'warning');
+    const inputRu = document.getElementById('editNameRu');
+    if (inputRu) {
+      inputRu.focus();
+      inputRu.style.borderColor = 'var(--gtt-orange)';
+    }
+    return;
+  }
+
+  const rawBrand = document.getElementById('editBrand').value.trim();
+  const finalBrand = rawBrand || autoDetectBrand(rawNameRu);
+
+  const rawType = document.getElementById('editType').value;
+  const finalType = rawType && rawType !== 'other' ? rawType : autoDetectType(rawNameRu);
+
+  const rawNameEn = document.getElementById('editNameEn').value.trim();
+  const finalNameEn = rawNameEn || rawNameRu;
+
+  const rawHp = document.getElementById('editHp').value.trim();
+  const finalHp = rawHp ? (rawHp.includes('HP') || rawHp.includes('л.с.') ? rawHp : rawHp + ' HP') : '1,050+ HP';
+
+  const rawQuarter = document.getElementById('editQuarter').value.trim();
+  const finalQuarter = rawQuarter ? (rawQuarter.includes('сек') ? rawQuarter : rawQuarter + ' сек') : '—';
+
+  const rawTopSpeed = document.getElementById('editTopSpeed').value.trim();
+  const finalTopSpeed = rawTopSpeed ? (rawTopSpeed.includes('км/ч') ? rawTopSpeed : rawTopSpeed + ' км/ч') : '320+ км/ч';
+
+  const rawImg = document.getElementById('editImg').value.trim();
+  const finalImg = rawImg || 'assets/cars/bmw_m5_rdrc_race.jpg';
+
+  const finalVideoSrc = document.getElementById('editVideoSrc').value.trim();
+  const finalDescRu = document.getElementById('editDescRu').value.trim() || `Спецпроект лаборатории GoshaTurboTech: ${rawNameRu}. Доработка силового агрегата, калибровка Motec/Syvecs и настройка телеметрии.`;
+
   const carData = {
-    id: idInput || 'gtt_car_' + Date.now(),
-    brand: document.getElementById('editBrand').value.trim(),
-    type: document.getElementById('editType').value,
-    name_ru: document.getElementById('editNameRu').value.trim(),
-    nameRu: document.getElementById('editNameRu').value.trim(),
-    name_en: document.getElementById('editNameEn').value.trim(),
-    nameEn: document.getElementById('editNameEn').value.trim(),
-    hp: document.getElementById('editHp').value.trim(),
-    quarter_mile: document.getElementById('editQuarter').value.trim(),
-    quarterMile: document.getElementById('editQuarter').value.trim(),
-    top_speed: document.getElementById('editTopSpeed').value.trim(),
-    topSpeed: document.getElementById('editTopSpeed').value.trim(),
-    img: document.getElementById('editImg').value.trim(),
-    video_src: document.getElementById('editVideoSrc').value.trim(),
-    videoSrc: document.getElementById('editVideoSrc').value.trim(),
-    desc_ru: document.getElementById('editDescRu').value.trim(),
-    descRu: document.getElementById('editDescRu').value.trim()
+    id: idInput || ('gtt_car_' + Date.now()),
+    brand: finalBrand,
+    type: finalType,
+    name_ru: rawNameRu,
+    nameRu: rawNameRu,
+    name_en: finalNameEn,
+    nameEn: finalNameEn,
+    hp: finalHp,
+    quarter_mile: finalQuarter,
+    quarterMile: finalQuarter,
+    top_speed: finalTopSpeed,
+    topSpeed: finalTopSpeed,
+    img: finalImg,
+    video_src: finalVideoSrc,
+    videoSrc: finalVideoSrc,
+    desc_ru: finalDescRu,
+    descRu: finalDescRu,
+    tag_ru: 'RDRC БОЛИД',
+    tag_en: 'RDRC CAR',
+    badge_ru: 'GTT Spec',
+    badge_en: 'GTT Spec'
   };
 
   if (idInput) {
     const idx = projects.findIndex(c => c.id === idInput);
     if (idx !== -1) projects[idx] = carData;
+    else projects.push(carData);
   } else {
     projects.push(carData);
   }
 
+  // Dual local storage save
   saveDB(ADMIN_STORAGE_KEY, projects);
   localStorage.setItem('gtt_projects_v2', JSON.stringify(projects));
+
   renderCarsTable();
   closeCarEditModal();
 
   showToast(
     idInput ? 'Проект обновлен' : 'Проект добавлен',
-    `Болид «${carData.nameRu || carData.name_ru}» сохранен в базе SQLite!`,
+    `Болид «${rawNameRu}» успешно сохранен!`,
     'success'
   );
 
+  // Sync to SQLite backend if server is accessible
   try {
     if (idInput) {
       await apiFetch(`/api/cars/${encodeURIComponent(idInput)}`, {
@@ -981,7 +1280,6 @@ async function saveCarProject(e) {
     }
   } catch (err) {
     console.warn('[GTT API] Car backend save note:', err);
-    showToast('Синхронизация с сервером', 'Данные сохранены локально, сервер недоступен', 'warning');
   }
 }
 
@@ -1750,5 +2048,40 @@ window.handleSaveTelegramConfig = handleSaveTelegramConfig;
 window.testTelegramAlert = testTelegramAlert;
 window.populateSettingsInputs = populateSettingsInputs;
 
+// Car modal & file picker exports
+window.openCarEditModal = openCarEditModal;
+window.closeCarEditModal = closeCarEditModal;
+window.saveCarProject = saveCarProject;
+window.deleteCarProject = deleteCarProject;
+window.triggerCarPhotoPicker = triggerCarPhotoPicker;
+window.handleCarPhotoSelected = handleCarPhotoSelected;
+window.processCarPhotoFile = processCarPhotoFile;
+window.handleCarPhotoPathInput = handleCarPhotoPathInput;
+window.clearCarPhotoPreview = clearCarPhotoPreview;
+
+// Gallery, Team, Records, Media exports
+window.triggerGalleryPhotoPicker = triggerGalleryPhotoPicker;
+window.handleGalleryPhotoSelected = handleGalleryPhotoSelected;
+window.openGalleryModal = typeof openGalleryModal !== 'undefined' ? openGalleryModal : null;
+window.closeGalleryPhotoModal = typeof closeGalleryPhotoModal !== 'undefined' ? closeGalleryPhotoModal : null;
+window.saveGalleryPhoto = typeof saveGalleryPhoto !== 'undefined' ? saveGalleryPhoto : null;
+window.deleteGalleryPhoto = typeof deleteGalleryPhoto !== 'undefined' ? deleteGalleryPhoto : null;
+
+window.openTeamModal = typeof openTeamModal !== 'undefined' ? openTeamModal : null;
+window.closeTeamModal = typeof closeTeamModal !== 'undefined' ? closeTeamModal : null;
+window.saveTeamMember = typeof saveTeamMember !== 'undefined' ? saveTeamMember : null;
+window.deleteTeamMember = typeof deleteTeamMember !== 'undefined' ? deleteTeamMember : null;
+
+window.openRecordModal = typeof openRecordModal !== 'undefined' ? openRecordModal : null;
+window.closeRecordModal = typeof closeRecordModal !== 'undefined' ? closeRecordModal : null;
+window.saveRecord = typeof saveRecord !== 'undefined' ? saveRecord : null;
+window.deleteRecord = typeof deleteRecord !== 'undefined' ? deleteRecord : null;
+
+window.openMediaEditModal = typeof openMediaEditModal !== 'undefined' ? openMediaEditModal : null;
+window.closeMediaModal = typeof closeMediaModal !== 'undefined' ? closeMediaModal : null;
+window.saveMediaItem = typeof saveMediaItem !== 'undefined' ? saveMediaItem : null;
+window.deleteMediaItem = typeof deleteMediaItem !== 'undefined' ? deleteMediaItem : null;
+
 document.addEventListener('DOMContentLoaded', checkAuth);
+
 

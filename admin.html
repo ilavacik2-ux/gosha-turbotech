@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/admin.css?v=5.1">
+  <link rel="stylesheet" href="css/admin.css?v=21.0">
 </head>
 <body>
 
@@ -381,12 +381,12 @@
         <h3 id="modalEditorTitle">Редактировать проект</h3>
         <button class="modal-close-btn" onclick="closeCarEditModal()">&times;</button>
       </div>
-      <form id="carEditForm" onsubmit="saveCarProject(event)">
+      <form id="carEditForm" novalidate onsubmit="saveCarProject(event)">
         <input type="hidden" id="editCarId">
         <div class="form-grid">
           <div class="form-group">
             <label>Марка (бренд)</label>
-            <input type="text" id="editBrand" required placeholder="NISSAN, BMW M-POWER, AUDI...">
+            <input type="text" id="editBrand" placeholder="NISSAN, BMW M-POWER, AUDI...">
           </div>
           <div class="form-group">
             <label>Тип фильтра</label>
@@ -395,32 +395,63 @@
               <option value="bmw">BMW M</option>
               <option value="audi">Audi R8</option>
               <option value="lambo">Lamborghini</option>
+              <option value="porsche">Porsche 911</option>
               <option value="other">Dodge / Другое</option>
             </select>
           </div>
           <div class="form-group full-width">
-            <label>Название проекта (RU)</label>
-            <input type="text" id="editNameRu" required placeholder="BMW M5 G90 COMPETITION GTT-STAGE 3">
+            <label>Название проекта (RU) *</label>
+            <input type="text" id="editNameRu" placeholder="BMW M5 G90 COMPETITION GTT-STAGE 3">
           </div>
           <div class="form-group full-width">
             <label>Название проекта (EN)</label>
-            <input type="text" id="editNameEn" required placeholder="BMW M5 G90 COMPETITION GTT-STAGE 3">
+            <input type="text" id="editNameEn" placeholder="BMW M5 G90 COMPETITION GTT-STAGE 3 (если пусто, совпадает с RU)">
           </div>
           <div class="form-group">
             <label>Мощность (HP)</label>
-            <input type="text" id="editHp" required placeholder="1,050+ HP">
+            <input type="text" id="editHp" placeholder="1,050+ HP">
           </div>
           <div class="form-group">
             <label>Время 1/4 мили</label>
-            <input type="text" id="editQuarter" required placeholder="9.420 сек">
+            <input type="text" id="editQuarter" placeholder="9.420 сек">
           </div>
           <div class="form-group">
             <label>Максимальная скорость</label>
-            <input type="text" id="editTopSpeed" required placeholder="340+ км/ч">
+            <input type="text" id="editTopSpeed" placeholder="340+ км/ч">
           </div>
-          <div class="form-group">
-            <label>Путь к фото авто</label>
-            <input type="text" id="editImg" required placeholder="assets/cars/bmw_m5_rdrc_race.jpg">
+          <div class="form-group full-width">
+            <label for="editImg" style="display: flex; justify-content: space-between; align-items: center;">
+              <span>Путь или файл фото автомобиля</span>
+              <span style="font-size: 11px; color: var(--text-dim); text-transform: none; font-weight: normal;">Finder (macOS) / Проводник (Windows)</span>
+            </label>
+            <div class="file-picker-input-group" id="carPhotoDropZone">
+              <input type="text" id="editImg" placeholder="assets/cars/bmw_m5_rdrc_race.jpg или выберите файл из папки" autocomplete="off" oninput="handleCarPhotoPathInput(this.value)">
+              <button type="button" class="btn-folder-browse" id="btnBrowseCarPhoto" title="Открыть папку на компьютере (Finder на Mac / Проводник на Windows)" onclick="triggerCarPhotoPicker()">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>Папка</span>
+              </button>
+              <input type="file" id="carPhotoFileInput" accept="image/png,image/jpeg,image/jpg,image/webp,image/avif" style="display: none;" onchange="handleCarPhotoSelected(event)">
+            </div>
+            <div class="file-drop-hint">
+              <span>📁</span>
+              <span>Нажмите кнопку «Папка» для выбора фото через Finder / Проводник или перетащите файл прямо сюда</span>
+            </div>
+            <!-- Live Image Preview Box -->
+            <div class="admin-img-preview-wrap" id="carImgPreviewWrap" style="display: none;">
+              <div class="preview-header">
+                <span class="preview-label">Предпросмотр фото:</span>
+                <button type="button" class="btn-clear-preview" onclick="clearCarPhotoPreview()">&times; Убрать фото</button>
+              </div>
+              <div class="preview-img-container">
+                <img id="carImgPreview" src="" alt="Предпросмотр фото" onerror="this.src='assets/cars/gtr_lucifer_solo.jpg'">
+                <div class="preview-meta" id="carImgMeta">
+                  <span class="meta-name" id="carImgMetaName">Файл не выбран</span>
+                  <span class="meta-info" id="carImgMetaInfo">Разрешение и размер</span>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="form-group full-width">
             <label>Путь к боевому видео (MP4)</label>
@@ -446,16 +477,16 @@
         <h3 id="teamModalTitle">Добавить специалиста</h3>
         <button class="modal-close-btn" onclick="closeTeamModal()">&times;</button>
       </div>
-      <form id="teamEditForm" onsubmit="saveTeamMember(event)">
+      <form id="teamEditForm" novalidate onsubmit="saveTeamMember(event)">
         <input type="hidden" id="editMemberId">
         <div class="form-grid">
           <div class="form-group">
-            <label>Имя специалиста</label>
-            <input type="text" id="editMemberName" required placeholder="Эдик, Рустам, Роман...">
+            <label>Имя специалиста *</label>
+            <input type="text" id="editMemberName" placeholder="Эдик, Рустам, Роман...">
           </div>
           <div class="form-group">
-            <label>Должность / Роль</label>
-            <input type="text" id="editMemberRole" required placeholder="Технический директор, Моторист...">
+            <label>Должность / Роль *</label>
+            <input type="text" id="editMemberRole" placeholder="Технический директор, Моторист...">
           </div>
           <div class="form-group">
             <label>Статус</label>
@@ -481,20 +512,20 @@
         <h3 id="recordModalTitle">Редактировать рекорд</h3>
         <button class="modal-close-btn" onclick="closeRecordModal()">&times;</button>
       </div>
-      <form id="recordEditForm" onsubmit="saveRecord(event)">
+      <form id="recordEditForm" novalidate onsubmit="saveRecord(event)">
         <input type="hidden" id="editRecordId">
         <div class="form-grid">
           <div class="form-group">
-            <label>Событие / Год</label>
-            <input type="text" id="editRecordYear" required placeholder="2022 • Мировой рекорд">
+            <label>Событие / Год *</label>
+            <input type="text" id="editRecordYear" placeholder="2022 • Мировой рекорд">
           </div>
           <div class="form-group">
-            <label>Автомобиль / Болид</label>
-            <input type="text" id="editRecordCar" required placeholder="Porsche 911 Turbo S (992)">
+            <label>Автомобиль / Болид *</label>
+            <input type="text" id="editRecordCar" placeholder="Porsche 911 Turbo S (992)">
           </div>
           <div class="form-group full-width">
             <label>Показания телеметрии</label>
-            <input type="text" id="editRecordTelemetry" required placeholder="1/4 мили: 9.252 сек • 231.80 км/ч">
+            <input type="text" id="editRecordTelemetry" placeholder="1/4 мили: 9.252 сек • 231.80 км/ч">
           </div>
           <div class="form-group full-width">
             <label>Краткое описание заезда</label>
@@ -516,12 +547,12 @@
         <h3 id="mediaModalTitle">Добавить видеоматериал</h3>
         <button class="modal-close-btn" onclick="closeMediaModal()">&times;</button>
       </div>
-      <form id="mediaEditForm" onsubmit="saveMediaItem(event)">
+      <form id="mediaEditForm" novalidate onsubmit="saveMediaItem(event)">
         <input type="hidden" id="editMediaId">
         <div class="form-grid">
           <div class="form-group full-width">
-            <label>Название ролика</label>
-            <input type="text" id="editMediaTitle" required placeholder="Боевой заезд Huracan TT «Зеленка» RDRC">
+            <label>Название ролика *</label>
+            <input type="text" id="editMediaTitle" placeholder="Боевой заезд Huracan TT «Зеленка» RDRC">
           </div>
           <div class="form-group">
             <label>Тип видео</label>
@@ -536,8 +567,8 @@
             <input type="text" id="editMediaCar" placeholder="Huracan Зеленка / Draco">
           </div>
           <div class="form-group full-width">
-            <label>Ссылка или путь к файлу</label>
-            <input type="text" id="editMediaUrl" required placeholder="assets/videos/gosha_na_svoem_lucifer_web.mp4">
+            <label>Ссылка или путь к файлу *</label>
+            <input type="text" id="editMediaUrl" placeholder="assets/videos/gosha_na_svoem_lucifer_web.mp4">
           </div>
         </div>
         <div class="admin-modal-actions">
@@ -555,20 +586,29 @@
         <h3 id="galleryModalTitle">Добавить кадр в галерею</h3>
         <button class="modal-close-btn" onclick="closeGalleryPhotoModal()">&times;</button>
       </div>
-      <form id="galleryPhotoForm" onsubmit="saveGalleryPhoto(event)">
+      <form id="galleryPhotoForm" novalidate onsubmit="saveGalleryPhoto(event)">
         <input type="hidden" id="editGalleryId">
         <div class="form-grid">
           <div class="form-group full-width">
-            <label>Подпись к фотографии</label>
-            <input type="text" id="editGalleryTitle" required placeholder="Легендарная Lamborghini Huracan TT «Зеленка» RDRC">
+            <label>Подпись к фотографии *</label>
+            <input type="text" id="editGalleryTitle" placeholder="Легендарная Lamborghini Huracan TT «Зеленка» RDRC">
           </div>
           <div class="form-group">
             <label>Тег / Бейдж кадра</label>
-            <input type="text" id="editGalleryTag" required placeholder="RDRC CHAMPION, BURNOUT SMOKE...">
+            <input type="text" id="editGalleryTag" placeholder="RDRC CHAMPION, BURNOUT SMOKE...">
           </div>
-          <div class="form-group">
-            <label>Путь к фото / URL</label>
-            <input type="text" id="editGalleryImg" required placeholder="assets/photos/huracan_zelenka_gtt.jpg">
+          <div class="form-group full-width">
+            <label for="editGalleryImg">Путь к фото / URL</label>
+            <div class="file-picker-input-group">
+              <input type="text" id="editGalleryImg" placeholder="assets/photos/huracan_zelenka_gtt.jpg или выберите файл из папки">
+              <button type="button" class="btn-folder-browse" onclick="triggerGalleryPhotoPicker()" title="Выбрать файл через Finder / Проводник">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>Папка</span>
+              </button>
+              <input type="file" id="galleryPhotoFileInput" accept="image/png,image/jpeg,image/jpg,image/webp,image/avif" style="display: none;" onchange="handleGalleryPhotoSelected(event)">
+            </div>
           </div>
         </div>
         <div class="admin-modal-actions">
@@ -586,23 +626,23 @@
         <h3>Редактировать показатели гаража GTT</h3>
         <button class="modal-close-btn" onclick="closeGarageStatsModal()">&times;</button>
       </div>
-      <form id="garageStatsForm" onsubmit="saveGarageStats(event)">
+      <form id="garageStatsForm" novalidate onsubmit="saveGarageStats(event)">
         <div class="form-grid">
           <div class="form-group full-width">
             <label>Карточка 2: Пиковая мощность (Значение)</label>
-            <input type="text" id="editStatMaxHp" required placeholder="3,000+ HP">
+            <input type="text" id="editStatMaxHp" placeholder="3,000+ HP">
           </div>
           <div class="form-group full-width">
             <label>Карточка 2: Подпись / Модель</label>
-            <input type="text" id="editStatMaxHpLbl" required placeholder="Пиковая мощность (Draco Pro-Mod)">
+            <input type="text" id="editStatMaxHpLbl" placeholder="Пиковая мощность (Draco Pro-Mod)">
           </div>
           <div class="form-group full-width">
             <label>Карточка 3: Рекордное время 402м (Значение)</label>
-            <input type="text" id="editStatBestPass" required placeholder="6.850 сек">
+            <input type="text" id="editStatBestPass" placeholder="6.850 сек">
           </div>
           <div class="form-group full-width">
             <label>Карточка 3: Подпись / Дистанция</label>
-            <input type="text" id="editStatBestPassLbl" required placeholder="Рекордное время (402 м)">
+            <input type="text" id="editStatBestPassLbl" placeholder="Рекордное время (402 м)">
           </div>
         </div>
         <div class="admin-modal-actions">
@@ -622,7 +662,7 @@
         </h3>
         <button class="modal-close-btn" onclick="closeHeroTelemetryModal()">&times;</button>
       </div>
-      <form id="heroTelemetryForm" onsubmit="saveHeroTelemetry(event)">
+      <form id="heroTelemetryForm" novalidate onsubmit="saveHeroTelemetry(event)">
         <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 18px; line-height: 1.5;">
           Эти 3 показателя отображаются на первом экране сайта под главным заголовком. Вы можете изменить числовые значения, единицы измерения и подписи к ним.
         </p>
@@ -633,16 +673,16 @@
           <div class="form-grid" style="grid-template-columns: 1fr 1fr;">
             <div class="form-group">
               <label>Числовое значение</label>
-              <input type="text" id="editHeroVal1" required placeholder="7.810">
+              <input type="text" id="editHeroVal1" placeholder="7.810">
             </div>
             <div class="form-group">
               <label>Единица измерения</label>
-              <input type="text" id="editHeroUnit1" required placeholder="сек">
+              <input type="text" id="editHeroUnit1" placeholder="сек">
             </div>
           </div>
           <div class="form-group full-width" style="margin-top: 8px;">
             <label>Текстовая подпись</label>
-            <input type="text" id="editHeroLbl1" required placeholder="1/4 мили (Nissan GT-R Moses)">
+            <input type="text" id="editHeroLbl1" placeholder="1/4 мили (Nissan GT-R Moses)">
           </div>
         </div>
 
@@ -652,16 +692,16 @@
           <div class="form-grid" style="grid-template-columns: 1fr 1fr;">
             <div class="form-group">
               <label>Числовое значение</label>
-              <input type="text" id="editHeroVal2" required placeholder="353">
+              <input type="text" id="editHeroVal2" placeholder="353">
             </div>
             <div class="form-group">
               <label>Единица измерения</label>
-              <input type="text" id="editHeroUnit2" required placeholder="км/ч">
+              <input type="text" id="editHeroUnit2" placeholder="км/ч">
             </div>
           </div>
           <div class="form-group full-width" style="margin-top: 8px;">
             <label>Текстовая подпись</label>
-            <input type="text" id="editHeroLbl2" required placeholder="Рекорд Европы (1/2 мили)">
+            <input type="text" id="editHeroLbl2" placeholder="Рекорд Европы (1/2 мили)">
           </div>
         </div>
 
@@ -671,16 +711,16 @@
           <div class="form-grid" style="grid-template-columns: 1fr 1fr;">
             <div class="form-group">
               <label>Числовое значение</label>
-              <input type="text" id="editHeroVal3" required placeholder="3,000+">
+              <input type="text" id="editHeroVal3" placeholder="3,000+">
             </div>
             <div class="form-group">
               <label>Единица измерения</label>
-              <input type="text" id="editHeroUnit3" required placeholder="л.с.">
+              <input type="text" id="editHeroUnit3" placeholder="л.с.">
             </div>
           </div>
           <div class="form-group full-width" style="margin-top: 8px;">
             <label>Текстовая подпись</label>
-            <input type="text" id="editHeroLbl3" required placeholder="Предельная отдача автомобиля">
+            <input type="text" id="editHeroLbl3" placeholder="Предельная отдача автомобиля">
           </div>
         </div>
 
@@ -692,6 +732,6 @@
     </div>
   </div>
 
-  <script src="js/admin.js?v=7.0"></script>
+  <script src="js/admin.js?v=21.0"></script>
 </body>
 </html>

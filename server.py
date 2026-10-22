@@ -383,6 +383,54 @@ async def reset_traffic():
     return {"status": "ok", "message": "Счетчик трафика сброшен"}
 
 
+# ================= MEDIA & IMAGE UPLOAD =================
+
+class ImageUploadPayload(BaseModel):
+    filename: str
+    data: str  # Base64 data string (with or without data:image/... prefix)
+
+@app.post("/api/upload")
+async def upload_image(payload: ImageUploadPayload):
+    try:
+        import base64
+        import re
+        
+        original_name = os.path.basename(payload.filename or "car_photo.jpg")
+        base_name, ext = os.path.splitext(original_name)
+        if not ext:
+            ext = ".jpg"
+        ext = ext.lower()
+        if ext not in [".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif"]:
+            ext = ".jpg"
+            
+        clean_base = re.sub(r'[^a-zA-Z0-9_\-]', '_', base_name)[:50]
+        timestamp = int(datetime.now().timestamp())
+        final_filename = f"{clean_base}_{timestamp}{ext}"
+        
+        data_str = payload.data
+        if "," in data_str:
+            data_str = data_str.split(",", 1)[1]
+            
+        file_bytes = base64.b64decode(data_str)
+        
+        cars_dir = os.path.join(BASE_DIR, "assets", "cars")
+        os.makedirs(cars_dir, exist_ok=True)
+        target_path = os.path.join(cars_dir, final_filename)
+        
+        with open(target_path, "wb") as f:
+            f.write(file_bytes)
+            
+        relative_url = f"assets/cars/{final_filename}"
+        return {
+            "status": "ok",
+            "filename": final_filename,
+            "url": relative_url,
+            "size": len(file_bytes)
+        }
+    except Exception as e:
+        print(f"[GTT UPLOAD ERROR] {e}")
+        raise HTTPException(status_code=500, detail=f"Ошибка сохранения файла: {str(e)}")
+
 # ================= BACKUP & EXPORT =================
 
 @app.get("/api/backup/export")

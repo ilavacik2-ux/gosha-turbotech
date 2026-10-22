@@ -945,6 +945,7 @@ const i18n = {
     spec_402: "1/4 мили",
     spec_speed: "Скорость",
     btn_passport: "Инженерный паспорт GTT",
+    gallery_drag_hint: "Листайте тачпадом, мышью или стрелками",
     discuss_tg: "Обсудить проект в Telegram GTT",
     contact_social_title: "Соцсети ателье",
     contact_social_desc: "Мы на связи в мессенджерах для обсуждения Stage-пакетов, Twin Turbo систем и обслуживания вашей техники.",
@@ -1141,6 +1142,7 @@ const i18n = {
     spec_402: "1/4 Mile",
     spec_speed: "Top Speed",
     btn_passport: "GTT Engineering Passport",
+    gallery_drag_hint: "Swipe with trackpad or drag with mouse",
     discuss_tg: "Discuss Project on Telegram GTT",
     contact_social_title: "Atelier Social Networks",
     contact_social_desc: "We are available on messaging platforms to discuss Stage packages, Twin Turbo setups, and supercar maintenance.",
@@ -2055,6 +2057,50 @@ window.switchShowroomDivision = function(type) {
   }
 };
 
+function formatSpecVal(val, lang, type) {
+  if (!val) return '—';
+  if (typeof val === 'object') {
+    return val[lang] || val.ru || val.en || '—';
+  }
+  let str = String(val);
+  if (lang === 'en') {
+    if (type === 'quarterMile') {
+      return str.replace(/сек\.?/gi, 'sec').replace(/\bс\b/gi, 'sec');
+    }
+    if (type === 'topSpeed') {
+      return str.replace(/км\/ч/gi, 'km/h');
+    }
+    if (type === 'hp') {
+      return str.replace(/л\.?с\.?/gi, 'HP');
+    }
+  } else {
+    if (type === 'quarterMile') {
+      return str.replace(/sec\.?/gi, 'сек').replace(/\bs\b/gi, 'сек');
+    }
+    if (type === 'topSpeed') {
+      return str.replace(/km\/h/gi, 'км/ч');
+    }
+  }
+  return str;
+}
+
+function formatGarageExpandText(remaining, isExpanded, lang) {
+  if (isExpanded) {
+    return lang === 'ru' ? 'Свернуть каталог проектов' : 'Collapse Projects Catalog';
+  }
+  if (lang === 'ru') {
+    const mod10 = remaining % 10;
+    const mod100 = remaining % 100;
+    let word = 'болидов';
+    if (mod100 < 11 || mod100 > 19) {
+      if (mod10 === 1) word = 'болид';
+      else if (mod10 >= 2 && mod10 <= 4) word = 'болида';
+    }
+    return `Показать все проекты (ещё ${remaining} ${word})`;
+  }
+  return `Show All Projects (+${remaining} builds)`;
+}
+
 let isGarageExpanded = false;
 
 window.toggleGarageExpand = function() {
@@ -2090,11 +2136,11 @@ function renderGarageGrid(filterType) {
         displayList = filtered.slice(0, 9);
         if (expandWrap) expandWrap.style.display = 'flex';
         if (expandBtn) expandBtn.classList.remove('is-expanded');
-        if (expandText) expandText.textContent = `Показать все проекты (ещё ${filtered.length - 9} болида)`;
+        if (expandText) expandText.textContent = formatGarageExpandText(filtered.length - 9, false, currentLang);
       } else {
         if (expandWrap) expandWrap.style.display = 'flex';
         if (expandBtn) expandBtn.classList.add('is-expanded');
-        if (expandText) expandText.textContent = 'Свернуть каталог проектов';
+        if (expandText) expandText.textContent = formatGarageExpandText(0, true, currentLang);
       }
     } else {
       if (expandWrap) expandWrap.style.display = 'none';
@@ -2123,15 +2169,15 @@ function renderGarageGrid(filterType) {
           <p class="car-card-desc">${desc}</p>
           <div class="car-specs-row">
             <div class="spec-cell">
-              <div class="spec-val">${car.hp}</div>
+              <div class="spec-val">${formatSpecVal(car.hp, currentLang, 'hp')}</div>
               <div class="spec-lbl">${i18n[currentLang].spec_power}</div>
             </div>
             <div class="spec-cell">
-              <div class="spec-val">${car.quarterMile}</div>
+              <div class="spec-val">${formatSpecVal(car.quarterMile, currentLang, 'quarterMile')}</div>
               <div class="spec-lbl">${i18n[currentLang].spec_402}</div>
             </div>
             <div class="spec-cell">
-              <div class="spec-val">${car.topSpeed}</div>
+              <div class="spec-val">${formatSpecVal(car.topSpeed, currentLang, 'topSpeed')}</div>
               <div class="spec-lbl">${i18n[currentLang].spec_speed}</div>
             </div>
           </div>
@@ -2414,21 +2460,21 @@ window.openCarModal = function(carId) {
         <div class="carmodal-metric-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
         </div>
-        <div class="carmodal-metric-val">${car.hp}</div>
+        <div class="carmodal-metric-val">${formatSpecVal(car.hp, currentLang, 'hp')}</div>
         <div class="carmodal-metric-lbl">${i18n[currentLang].spec_power}</div>
       </div>
       <div class="carmodal-metric-card">
         <div class="carmodal-metric-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="9" y1="2" x2="15" y2="2"/></svg>
         </div>
-        <div class="carmodal-metric-val">${car.quarterMile}</div>
+        <div class="carmodal-metric-val">${formatSpecVal(car.quarterMile, currentLang, 'quarterMile')}</div>
         <div class="carmodal-metric-lbl">${i18n[currentLang].spec_402}</div>
       </div>
       <div class="carmodal-metric-card">
         <div class="carmodal-metric-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m16.2 7.8-4.2 4.2"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.9 4.9 1.4 1.4"/><path d="m17.7 17.7 1.4 1.4"/><path d="M2 12h2"/><path d="M20 12h2"/></svg>
         </div>
-        <div class="carmodal-metric-val">${car.topSpeed}</div>
+        <div class="carmodal-metric-val">${formatSpecVal(car.topSpeed, currentLang, 'topSpeed')}</div>
         <div class="carmodal-metric-lbl">${i18n[currentLang].spec_speed}</div>
       </div>
     </div>
@@ -2904,7 +2950,18 @@ let galleryStartX = 0;
 let galleryDragStartOffset = 0;
 let galleryHalfWidth = 0;
 let galleryHasMoved = false;
+let galleryResumeTimer = null;
 const GALLERY_TICKER_SPEED = 0.85;
+
+function wrapGalleryOffset() {
+  if (galleryHalfWidth <= 0) return;
+  while (galleryOffset <= -galleryHalfWidth) {
+    galleryOffset += galleryHalfWidth;
+  }
+  while (galleryOffset > 0) {
+    galleryOffset -= galleryHalfWidth;
+  }
+}
 
 function initGalleryMarqueeInteractions() {
   const wrapper = document.querySelector('.marquee-stream-wrapper');
@@ -2948,12 +3005,7 @@ function initGalleryMarqueeInteractions() {
   function tick() {
     if (!galleryIsPaused && !galleryIsDragging && galleryHalfWidth > 0) {
       galleryOffset -= GALLERY_TICKER_SPEED;
-      while (galleryOffset <= -galleryHalfWidth) {
-        galleryOffset += galleryHalfWidth;
-      }
-      while (galleryOffset > 0) {
-        galleryOffset -= galleryHalfWidth;
-      }
+      wrapGalleryOffset();
       track.style.transform = `translate3d(${galleryOffset}px, 0, 0)`;
     }
     galleryRafId = requestAnimationFrame(tick);
@@ -2968,76 +3020,113 @@ function initGalleryMarqueeInteractions() {
     }
   });
 
-  // Hover pauses the continuous glide
-  wrapper.addEventListener('mouseenter', () => {
-    galleryIsPaused = true;
-  });
-  wrapper.addEventListener('mouseleave', () => {
-    if (!galleryIsDragging) galleryIsPaused = false;
-  });
-
-  // Pointer drag helpers
-  function onPointerDown(pageX) {
-    galleryIsDragging = true;
-    galleryHasMoved = false;
-    galleryStartX = pageX;
-    galleryDragStartOffset = galleryOffset;
+  function scheduleResume(delay = 1800) {
+    clearTimeout(galleryResumeTimer);
+    galleryResumeTimer = setTimeout(() => {
+      galleryIsPaused = false;
+    }, delay);
   }
 
-  function onPointerMove(pageX, e) {
-    if (!galleryIsDragging) return;
-    const dx = pageX - galleryStartX;
-    if (Math.abs(dx) > 4) {
-      galleryHasMoved = true;
-      if (e && e.cancelable) e.preventDefault();
-    }
-    galleryOffset = galleryDragStartOffset + dx;
-    if (galleryHalfWidth > 0) {
-      while (galleryOffset <= -galleryHalfWidth) {
-        galleryOffset += galleryHalfWidth;
-        galleryDragStartOffset += galleryHalfWidth;
-      }
-      while (galleryOffset > 0) {
-        galleryOffset -= galleryHalfWidth;
-        galleryDragStartOffset -= galleryHalfWidth;
-      }
-    }
-    track.style.transform = `translate3d(${galleryOffset}px, 0, 0)`;
-  }
-
-  function onPointerUp() {
-    if (!galleryIsDragging) return;
-    galleryIsDragging = false;
-    setTimeout(() => { galleryHasMoved = false; }, 100);
-  }
-
-  // Mouse events
-  wrapper.addEventListener('mousedown', (e) => {
-    onPointerDown(e.pageX);
-  });
-  window.addEventListener('mousemove', (e) => {
-    if (galleryIsDragging) onPointerMove(e.pageX, e);
-  });
-  window.addEventListener('mouseup', () => {
-    onPointerUp();
+  // Prevent browser native image ghost dragging
+  wrapper.addEventListener('dragstart', (e) => {
+    e.preventDefault();
+    return false;
   });
 
-  // Touch events
-  wrapper.addEventListener('touchstart', (e) => {
-    if (e.touches && e.touches[0]) {
-      onPointerDown(e.touches[0].pageX);
-    }
-  }, { passive: true });
-  wrapper.addEventListener('touchmove', (e) => {
-    if (galleryIsDragging && e.touches && e.touches[0]) {
-      onPointerMove(e.touches[0].pageX, e);
+  // Trackpad horizontal swipe & mouse wheel support
+  wrapper.addEventListener('wheel', (e) => {
+    const absX = Math.abs(e.deltaX);
+    const absY = Math.abs(e.deltaY);
+
+    // Trackpad horizontal scroll (two-finger swipe) OR Shift + mouse wheel
+    if (absX > 0 || (e.shiftKey && absY > 0)) {
+      if (e.cancelable) e.preventDefault();
+      galleryIsPaused = true;
+      const delta = (absX > 0) ? e.deltaX : e.deltaY;
+      galleryOffset -= delta * 1.15;
+      wrapGalleryOffset();
+      track.style.transform = `translate3d(${galleryOffset}px, 0, 0)`;
+      scheduleResume(1400);
     }
   }, { passive: false });
-  wrapper.addEventListener('touchend', () => {
-    onPointerUp();
-  }, { passive: true });
 
-  // Prevent card click if user dragged
+  // Modern Pointer Events for Mouse & Touch drag
+  let activePointerId = null;
+  let lastPointerX = 0;
+  let pointerVelocity = 0;
+
+  wrapper.addEventListener('pointerdown', (e) => {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    galleryIsDragging = true;
+    galleryHasMoved = false;
+    galleryStartX = e.clientX;
+    lastPointerX = e.clientX;
+    galleryDragStartOffset = galleryOffset;
+    pointerVelocity = 0;
+    galleryIsPaused = true;
+    activePointerId = e.pointerId;
+    wrapper.classList.add('is-dragging');
+    try {
+      wrapper.setPointerCapture(e.pointerId);
+    } catch (_) {}
+  });
+
+  wrapper.addEventListener('pointermove', (e) => {
+    if (!galleryIsDragging || (activePointerId !== null && e.pointerId !== activePointerId)) return;
+
+    const dx = e.clientX - galleryStartX;
+    if (Math.abs(dx) > 4) {
+      galleryHasMoved = true;
+      if (e.cancelable) e.preventDefault();
+    }
+    pointerVelocity = e.clientX - lastPointerX;
+    lastPointerX = e.clientX;
+    galleryOffset = galleryDragStartOffset + dx;
+    wrapGalleryOffset();
+    track.style.transform = `translate3d(${galleryOffset}px, 0, 0)`;
+  });
+
+  function onPointerEnd(e) {
+    if (!galleryIsDragging) return;
+    if (activePointerId !== null && e.pointerId !== activePointerId) return;
+    galleryIsDragging = false;
+    activePointerId = null;
+    wrapper.classList.remove('is-dragging');
+
+    try {
+      if (wrapper.hasPointerCapture(e.pointerId)) {
+        wrapper.releasePointerCapture(e.pointerId);
+      }
+    } catch (_) {}
+
+    // Smooth inertia coasting if flicked
+    if (Math.abs(pointerVelocity) > 2) {
+      let momentum = pointerVelocity * 7;
+      function coast() {
+        if (Math.abs(momentum) < 0.3) {
+          scheduleResume(1400);
+          return;
+        }
+        galleryOffset += momentum;
+        momentum *= 0.91;
+        wrapGalleryOffset();
+        track.style.transform = `translate3d(${galleryOffset}px, 0, 0)`;
+        requestAnimationFrame(coast);
+      }
+      requestAnimationFrame(coast);
+    } else {
+      scheduleResume(1400);
+    }
+
+    setTimeout(() => {
+      galleryHasMoved = false;
+    }, 100);
+  }
+
+  wrapper.addEventListener('pointerup', onPointerEnd);
+  wrapper.addEventListener('pointercancel', onPointerEnd);
+
+  // Prevent card click lightbox trigger if user was dragging
   track.querySelectorAll('.marquee-card').forEach(card => {
     card.addEventListener('click', (e) => {
       if (galleryHasMoved) {
@@ -3048,14 +3137,33 @@ function initGalleryMarqueeInteractions() {
   });
 }
 
+// Global animated scroll helper for Prev / Next arrows
 window.scrollGalleryTrack = function(dir) {
-  if (galleryHalfWidth > 0) {
-    galleryOffset += dir * 400;
-    while (galleryOffset <= -galleryHalfWidth) galleryOffset += galleryHalfWidth;
-    while (galleryOffset > 0) galleryOffset -= galleryHalfWidth;
+  if (galleryHalfWidth <= 0) return;
+  galleryIsPaused = true;
+  const amount = dir * 460;
+  const startOffset = galleryOffset;
+  const startTime = performance.now();
+  const duration = 380;
+
+  function step(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    galleryOffset = startOffset + (amount * ease);
+    wrapGalleryOffset();
     const track = document.getElementById('marqueeTrackMain');
     if (track) track.style.transform = `translate3d(${galleryOffset}px, 0, 0)`;
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      clearTimeout(galleryResumeTimer);
+      galleryResumeTimer = setTimeout(() => {
+        galleryIsPaused = false;
+      }, 1800);
+    }
   }
+  requestAnimationFrame(step);
 };
 
 
