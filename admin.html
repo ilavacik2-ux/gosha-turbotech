@@ -452,7 +452,7 @@
           <div class="form-group full-width">
             <label for="editVideoSrc">Боевое видео проекта (MP4 / WebM / Файл)</label>
             <div class="file-picker-input-group">
-              <input type="text" id="editVideoSrc" placeholder="assets/videos/hero_burnout_action.mp4 или выберите файл из папки">
+              <input type="text" id="editVideoSrc" placeholder="assets/videos/hero_burnout_action.mp4 или выберите файл из папки" oninput="handleCarVideoPathInput(this.value)">
               <label for="carVideoFileInput" class="btn-folder-browse" title="Выбрать видео через Finder / Проводник">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
@@ -460,6 +460,20 @@
                 <span>Папка</span>
               </label>
               <input type="file" id="carVideoFileInput" class="visually-hidden-file-input" accept="video/mp4,video/webm,video/quicktime,video/*" onchange="handleCarVideoSelected(event)">
+            </div>
+            <!-- Live Car Video Preview & Player -->
+            <div class="file-preview-wrap" id="carVideoPreviewWrap" style="display: none; margin-top: 10px;">
+              <div class="preview-header">
+                <span class="preview-label">Предпросмотр боевого видео:</span>
+                <button type="button" class="btn-clear-preview" onclick="clearCarVideoPreview()">&times; Убрать видео</button>
+              </div>
+              <div class="preview-video-container" style="background: #090c12; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.12); padding: 8px;">
+                <video id="carVideoPreview" controls playsinline preload="metadata" style="width: 100%; max-height: 220px; border-radius: 6px; background: #000; display: block;"></video>
+                <div class="preview-meta" id="carVideoMeta" style="margin-top: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: var(--text-muted); font-family: var(--font-mono);">
+                  <span class="meta-name" id="carVideoMetaName" style="color: #fff; max-width: 65%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Файл не выбран</span>
+                  <span class="meta-info" id="carVideoMetaInfo" style="color: #22c55e;">● Готово к воспроизведению</span>
+                </div>
+              </div>
             </div>
           </div>
           <div class="form-group full-width">
@@ -628,7 +642,7 @@
           <div class="form-group full-width">
             <label for="editMediaUrl">Ссылка или файл видео / Reels *</label>
             <div class="file-picker-input-group">
-              <input type="text" id="editMediaUrl" placeholder="assets/videos/... или выберите файл из папки">
+              <input type="text" id="editMediaUrl" placeholder="assets/videos/... или выберите файл из папки" oninput="handleMediaFileInput(this.value)">
               <label for="mediaFileInput" class="btn-folder-browse" title="Выбрать файл через Finder / Проводник">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
@@ -636,6 +650,21 @@
                 <span>Папка</span>
               </label>
               <input type="file" id="mediaFileInput" class="visually-hidden-file-input" accept="video/mp4,video/webm,video/quicktime,video/*,image/*" onchange="handleMediaFileSelected(event)">
+            </div>
+            <!-- Media Preview -->
+            <div class="file-preview-wrap" id="mediaFilePreviewWrap" style="display: none; margin-top: 10px;">
+              <div class="preview-header">
+                <span class="preview-label">Предпросмотр медиафайла:</span>
+                <button type="button" class="btn-clear-preview" onclick="clearMediaFilePreview()">&times; Убрать файл</button>
+              </div>
+              <div class="preview-video-container" style="background: #090c12; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.12); padding: 8px;">
+                <video id="mediaVideoPreview" controls playsinline preload="metadata" style="width: 100%; max-height: 200px; border-radius: 6px; background: #000; display: none;"></video>
+                <img id="mediaImgPreview" src="" alt="Превью" style="width: 100%; max-height: 200px; object-fit: contain; border-radius: 6px; background: #000; display: none;">
+                <div class="preview-meta" style="margin-top: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: var(--text-muted); font-family: var(--font-mono);">
+                  <span class="meta-name" id="mediaMetaName" style="color: #fff; max-width: 65%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Файл не выбран</span>
+                  <span class="meta-info" id="mediaMetaInfo" style="color: #22c55e;">● Готово</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -800,6 +829,7 @@
     </div>
   </div>
 
-  <script src="js/admin.js?v=21.0"></script>
+  <script src="js/media-db.js?v=22.0"></script>
+  <script src="js/admin.js?v=22.0"></script>
 </body>
 </html>

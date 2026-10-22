@@ -1024,15 +1024,108 @@ function handleCarPhotoSelected(e) {
   }
 }
 
-function handleCarVideoSelected(e) {
+async function updateCarVideoPreviewUI(videoSrc, name = '', meta = '') {
+  const wrap = document.getElementById('carVideoPreviewWrap');
+  const videoEl = document.getElementById('carVideoPreview');
+  const nameEl = document.getElementById('carVideoMetaName');
+  const infoEl = document.getElementById('carVideoMetaInfo');
+
+  if (!videoSrc) {
+    if (wrap) wrap.style.display = 'none';
+    if (videoEl) {
+      videoEl.pause();
+      videoEl.removeAttribute('src');
+      videoEl.load();
+    }
+    return;
+  }
+
+  let resolvedSrc = videoSrc;
+  if (typeof GTTMediaDB !== 'undefined') {
+    resolvedSrc = await GTTMediaDB.resolveMediaUrl(videoSrc);
+  }
+
+  if (videoEl) {
+    videoEl.src = resolvedSrc;
+    videoEl.load();
+  }
+  if (nameEl) nameEl.textContent = name || (videoSrc.startsWith('blob:') ? 'Локальный видеофайл' : videoSrc.split('/').pop());
+  if (infoEl) infoEl.textContent = meta || '● Готово к воспроизведению';
+  if (wrap) wrap.style.display = 'block';
+}
+
+async function handleCarVideoPathInput(val) {
+  const trimmed = (val || '').trim();
+  if (trimmed) {
+    await updateCarVideoPreviewUI(trimmed, trimmed.split('/').pop(), 'Путь к видео');
+  } else {
+    await updateCarVideoPreviewUI('');
+  }
+}
+
+function clearCarVideoPreview() {
+  const editVideoInput = document.getElementById('editVideoSrc');
+  const fileInput = document.getElementById('carVideoFileInput');
+  if (editVideoInput) editVideoInput.value = '';
+  if (fileInput) fileInput.value = '';
+  updateCarVideoPreviewUI('');
+}
+
+async function handleCarVideoSelected(e) {
   const file = e.target.files && e.target.files[0];
-  if (file) {
-    handleGenericUpload(file, {
-      inputId: 'editVideoSrc',
-      folder: 'videos',
-      isVideo: true,
-      successMsg: `Видео «${file.name}» прикреплено к проекту`
-    });
+  if (!file) return;
+
+  const validVideo = file.type.startsWith('video/') || /\.(mp4|webm|mov|m4v)$/i.test(file.name);
+  if (!validVideo) {
+    showToast('Неверный формат', 'Пожалуйста, выберите видеофайл (MP4, WebM, MOV)', 'warning');
+    return;
+  }
+
+  const blobUrl = URL.createObjectURL(file);
+  const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
+  const safeName = file.name.replace(/[^a-zA-Z0-9_\-\.]/g, '_');
+  const fallbackPath = `assets/videos/${safeName}`;
+
+  const input = document.getElementById('editVideoSrc');
+  if (input) input.value = fallbackPath;
+
+  // Save to IndexedDB so it can be played instantly across tabs, pages and reloads
+  if (typeof GTTMediaDB !== 'undefined') {
+    await GTTMediaDB.saveBlob(file.name, file);
+    await GTTMediaDB.saveBlob(safeName, file);
+    await GTTMediaDB.saveBlob(fallbackPath, file);
+  }
+
+  // Update live preview in modal
+  await updateCarVideoPreviewUI(blobUrl, file.name, `${sizeMb} МБ • Готово к воспроизведению`);
+
+  showToast('Видео загружено', `Видео «${file.name}» (${sizeMb} МБ) готово к просмотру! Нажмите Play для проверки.`, 'success');
+
+  // Background upload attempt if local server is active and file <= 45MB
+  if (file.size <= 45 * 1024 * 1024) {
+    try {
+      const reader = new FileReader();
+      reader.onload = async (evt) => {
+        try {
+          const res = await fetch('/api/upload', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              filename: file.name,
+              data: evt.target.result,
+              folder: 'videos'
+            })
+          });
+          if (res.ok) {
+            const data = await res.json();
+            if (data && data.url && input) {
+              input.value = data.url;
+            }
+          }
+        } catch (err) {}
+      };
+      reader.readAsDataURL(file);
+    } catch (e) {}
   }
 }
 
@@ -1150,17 +1243,95 @@ function clearRecordPhotoPreview() {
   if (wrap) wrap.style.display = 'none';
 }
 
-// 4. Media & Video Reels Handlers
-function handleMediaFileSelected(e) {
-  const file = e.target.files && e.target.files[0];
-  if (file) {
-    handleGenericUpload(file, {
-      inputId: 'editMediaUrl',
-      folder: 'videos',
-      isVideo: true,
-      successMsg: `Видео «${file.name}» прикреплено к медиатеке`
-    });
+async function updateMediaFilePreviewUI(src, name = '', meta = '') {
+  const wrap = document.getElementById('mediaFilePreviewWrap');
+  const videoEl = document.getElementById('mediaVideoPreview');
+  const imgEl = document.getElementById('mediaImgPreview');
+  const nameEl = document.getElementById('mediaMetaName');
+  const infoEl = document.getElementById('mediaMetaInfo');
+
+  if (!src) {
+    if (wrap) wrap.style.display = 'none';
+    if (videoEl) {
+      videoEl.pause();
+      videoEl.removeAttribute('src');
+      videoEl.style.display = 'none';
+    }
+    if (imgEl) {
+      imgEl.removeAttribute('src');
+      imgEl.style.display = 'none';
+    }
+    return;
   }
+
+  let resolved = src;
+  if (typeof GTTMediaDB !== 'undefined') {
+    resolved = await GTTMediaDB.resolveMediaUrl(src);
+  }
+
+  const isImg = /\.(jpg|jpeg|png|webp|gif|avif|svg)$/i.test(src) || src.startsWith('data:image/');
+
+  if (isImg) {
+    if (videoEl) {
+      videoEl.pause();
+      videoEl.style.display = 'none';
+    }
+    if (imgEl) {
+      imgEl.src = resolved;
+      imgEl.style.display = 'block';
+    }
+  } else {
+    if (imgEl) imgEl.style.display = 'none';
+    if (videoEl) {
+      videoEl.src = resolved;
+      videoEl.style.display = 'block';
+      videoEl.load();
+    }
+  }
+
+  if (nameEl) nameEl.textContent = name || (src.startsWith('blob:') ? 'Локальный файл' : src.split('/').pop());
+  if (infoEl) infoEl.textContent = meta || '● Готово';
+  if (wrap) wrap.style.display = 'block';
+}
+
+async function handleMediaFileInput(val) {
+  const trimmed = (val || '').trim();
+  if (trimmed) {
+    await updateMediaFilePreviewUI(trimmed, trimmed.split('/').pop(), 'Путь к файлу');
+  } else {
+    await updateMediaFilePreviewUI('');
+  }
+}
+
+function clearMediaFilePreview() {
+  const urlInput = document.getElementById('editMediaUrl');
+  const fileInput = document.getElementById('mediaFileInput');
+  if (urlInput) urlInput.value = '';
+  if (fileInput) fileInput.value = '';
+  updateMediaFilePreviewUI('');
+}
+
+async function handleMediaFileSelected(e) {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+
+  const isVideo = file.type.startsWith('video/') || /\.(mp4|webm|mov|m4v)$/i.test(file.name);
+  const blobUrl = URL.createObjectURL(file);
+  const safeName = file.name.replace(/[^a-zA-Z0-9_\-\.]/g, '_');
+  const fallbackPath = isVideo ? `assets/videos/${safeName}` : `assets/media/${safeName}`;
+
+  const input = document.getElementById('editMediaUrl');
+  if (input) input.value = fallbackPath;
+
+  if (typeof GTTMediaDB !== 'undefined') {
+    await GTTMediaDB.saveBlob(file.name, file);
+    await GTTMediaDB.saveBlob(safeName, file);
+    await GTTMediaDB.saveBlob(fallbackPath, file);
+  }
+
+  const sizeMb = (file.size / (1024 * 1024)).toFixed(1);
+  await updateMediaFilePreviewUI(blobUrl, file.name, `${sizeMb} МБ • Готово`);
+  showToast('Файл прикреплен', `Медиафайл «${file.name}» (${sizeMb} МБ) готов к сохранению`, 'success');
 }
 
 // 5. Gallery Photo Handlers
@@ -1283,11 +1454,18 @@ function openCarEditModal(carId) {
     } else {
       updateCarPhotoPreviewUI('');
     }
+
+    if (videoSrc) {
+      updateCarVideoPreviewUI(videoSrc, videoSrc.split('/').pop(), 'Текущее видео проекта');
+    } else {
+      updateCarVideoPreviewUI('');
+    }
   } else {
     title.textContent = 'Добавление нового проекта GTT';
     if (form) form.reset();
     document.getElementById('editCarId').value = '';
     updateCarPhotoPreviewUI('');
+    updateCarVideoPreviewUI('');
   }
 }
 
@@ -1295,6 +1473,7 @@ function closeCarEditModal() {
   const modal = document.getElementById('carEditModal');
   if (modal) modal.style.display = 'none';
   clearCarPhotoPreview();
+  clearCarVideoPreview();
 }
 
 async function saveCarProject(e) {
@@ -1922,15 +2101,22 @@ function openMediaEditModal(id) {
     document.getElementById('editMediaType').value = item.type;
     document.getElementById('editMediaCar').value = item.car;
     document.getElementById('editMediaUrl').value = item.url;
+    if (item.url) {
+      updateMediaFilePreviewUI(item.url, item.url.split('/').pop(), 'Текущий файл');
+    } else {
+      updateMediaFilePreviewUI('');
+    }
   } else {
     title.textContent = 'Добавить видеоматериал / Reels';
     form.reset();
     document.getElementById('editMediaId').value = '';
+    updateMediaFilePreviewUI('');
   }
 }
 
 function closeMediaModal() {
   document.getElementById('mediaModal').style.display = 'none';
+  clearMediaFilePreview();
 }
 
 async function saveMediaItem(e) {
@@ -2216,6 +2402,9 @@ window.deleteCarProject = deleteCarProject;
 window.triggerCarPhotoPicker = triggerCarPhotoPicker;
 window.handleCarPhotoSelected = handleCarPhotoSelected;
 window.handleCarVideoSelected = handleCarVideoSelected;
+window.handleCarVideoPathInput = handleCarVideoPathInput;
+window.clearCarVideoPreview = clearCarVideoPreview;
+window.updateCarVideoPreviewUI = updateCarVideoPreviewUI;
 window.handleCarPhotoPathInput = handleCarPhotoPathInput;
 window.clearCarPhotoPreview = clearCarPhotoPreview;
 
@@ -2243,6 +2432,9 @@ window.closeMediaModal = closeMediaModal;
 window.saveMediaItem = saveMediaItem;
 window.deleteMediaItem = deleteMediaItem;
 window.handleMediaFileSelected = handleMediaFileSelected;
+window.handleMediaFileInput = handleMediaFileInput;
+window.clearMediaFilePreview = clearMediaFilePreview;
+window.updateMediaFilePreviewUI = updateMediaFilePreviewUI;
 
 // Gallery modal & photo exports
 window.triggerGalleryPhotoPicker = triggerGalleryPhotoPicker;

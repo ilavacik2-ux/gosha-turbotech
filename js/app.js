@@ -2547,7 +2547,7 @@ window.openCarModal = function(carId) {
 };
 
 // Dedicated Car Video Launcher
-window.openCarVideo = function(carId) {
+window.openCarVideo = async function(carId) {
   const car = gttProjects.find(c => c.id === carId);
   if (!car) return;
   const name = (typeof car.name === 'object') ? (car.name[currentLang] || car.name.ru) : car.name;
@@ -2555,7 +2555,11 @@ window.openCarVideo = function(carId) {
   if (car.youtubeId) {
     window.openYouTubePlayer(car.youtubeId, car.videoStart, car.videoEnd, car.videoTitle || name);
   } else if (car.videoSrc) {
-    window.openVideoPlayer(car.videoSrc, car.videoTitle || name);
+    let finalSrc = car.videoSrc;
+    if (typeof GTTMediaDB !== 'undefined') {
+      finalSrc = await GTTMediaDB.resolveMediaUrl(car.videoSrc);
+    }
+    window.openVideoPlayer(finalSrc, car.videoTitle || name);
   }
 };
 
@@ -2583,11 +2587,16 @@ window.openYouTubePlayer = function(youtubeId, startSec, endSec, title) {
   modal.classList.add('active');
 };
 
-// Video Player Modal - Handles any video source dynamically with fullscreen support
-window.openVideoPlayer = function(videoSrc, title) {
+// Video Player Modal - Handles any video source dynamically with fullscreen support & IndexedDB resolution
+window.openVideoPlayer = async function(videoSrc, title) {
   const modal = document.getElementById('videoModal');
   const container = document.getElementById('videoContainer');
   if (!modal || !container) return;
+
+  let resolvedSrc = videoSrc;
+  if (typeof GTTMediaDB !== 'undefined') {
+    resolvedSrc = await GTTMediaDB.resolveMediaUrl(videoSrc);
+  }
 
   container.innerHTML = `
     <div style="position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #000; min-height: 200px;">
@@ -2605,8 +2614,16 @@ window.openVideoPlayer = function(videoSrc, title) {
         <span>Загрузка боевого заезда...</span>
       </div>
 
-      <video id="activeModalVideo" controls playsinline webkit-playsinline preload="metadata" style="position: relative; z-index: 2; width: 100%; height: 100%; object-fit: contain; background: #000;">
-        <source src="${videoSrc}" type="video/mp4">
+      <div id="videoErrorFallback" style="display: none; position: absolute; inset: 0; z-index: 5; background: #0a0d14; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px;">
+        <div style="font-size: 32px; margin-bottom: 10px;">🏁</div>
+        <div style="font-family: var(--font-display); font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px;">Видео заезда недоступно на удаленном сервере</div>
+        <p style="font-size: 12px; color: var(--text-muted); max-width: 380px; line-height: 1.5; margin-bottom: 16px;">
+          Файл не найден на сервере GitHub. Включите официальное видео ателье:
+        </p>
+        <button class="btn-primary" style="padding: 9px 20px; font-size: 12px; cursor: pointer;" onclick="window.openVideoShowreel()">Смотреть боевой лаунч R8 V10 TT</button>
+      </div>
+
+      <video id="activeModalVideo" src="${resolvedSrc}" controls playsinline webkit-playsinline preload="auto" style="position: relative; z-index: 2; width: 100%; height: 100%; object-fit: contain; background: #000;">
         Ваш браузер не поддерживает видео.
       </video>
     </div>
@@ -2621,14 +2638,19 @@ window.openVideoPlayer = function(videoSrc, title) {
       if (sp) sp.style.display = 'none';
     };
     videoEl.addEventListener('loadeddata', hideSpinner, { once: true });
+    videoEl.addEventListener('canplay', hideSpinner, { once: true });
     videoEl.addEventListener('playing', hideSpinner, { once: true });
-    videoEl.addEventListener('error', hideSpinner, { once: true });
+    videoEl.addEventListener('error', () => {
+      hideSpinner();
+      const errorBox = document.getElementById('videoErrorFallback');
+      if (errorBox) errorBox.style.display = 'flex';
+      videoEl.style.display = 'none';
+    }, { once: true });
     
     // Attempt smooth play, fallback to user touch on mobile policies
     const playPromise = videoEl.play();
     if (playPromise !== undefined) {
       playPromise.catch(() => {
-        // Autoplay policy prevented playback, user can tap native play control
         hideSpinner();
       });
     }
