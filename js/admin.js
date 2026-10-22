@@ -1648,6 +1648,7 @@ function openTeamMemberModal(id) {
   const modal = document.getElementById('teamModal');
   const title = document.getElementById('teamModalTitle');
   const form = document.getElementById('teamEditForm');
+  if (!modal) return;
   modal.style.display = 'flex';
 
   if (id) {
@@ -1659,35 +1660,53 @@ function openTeamMemberModal(id) {
     document.getElementById('editMemberName').value = m.name;
     document.getElementById('editMemberRole').value = m.role;
     document.getElementById('editMemberStatus').value = m.status;
+    const photo = m.photo || '';
+    if (document.getElementById('editMemberPhoto')) {
+      document.getElementById('editMemberPhoto').value = photo;
+      handleTeamPhotoInput(photo);
+    }
   } else {
     title.textContent = 'Добавить специалиста в команду';
-    form.reset();
+    if (form) form.reset();
     document.getElementById('editMemberId').value = '';
+    clearTeamPhotoPreview();
   }
 }
 
 function closeTeamModal() {
-  document.getElementById('teamModal').style.display = 'none';
+  const modal = document.getElementById('teamModal');
+  if (modal) modal.style.display = 'none';
+  clearTeamPhotoPreview();
 }
 
 async function saveTeamMember(e) {
-  e.preventDefault();
+  if (e && e.preventDefault) e.preventDefault();
   const idInput = document.getElementById('editMemberId').value;
   const team = getDB(TEAM_STORAGE_KEY, defaultTeam);
 
+  const rawName = document.getElementById('editMemberName').value.trim();
+  if (!rawName) {
+    showToast('Укажите имя', 'Введите имя специалиста команды GTT', 'warning');
+    document.getElementById('editMemberName')?.focus();
+    return;
+  }
+
   const existingMember = idInput ? team.find(m => m.id === idInput) : null;
+  const photoVal = document.getElementById('editMemberPhoto')?.value.trim() || (existingMember ? existingMember.photo : '');
+
   const memberData = {
     id: idInput || 'team_' + Date.now(),
-    name: document.getElementById('editMemberName').value.trim(),
-    role: document.getElementById('editMemberRole').value.trim(),
-    status: document.getElementById('editMemberStatus').value,
-    photo: existingMember ? existingMember.photo : undefined,
+    name: rawName,
+    role: document.getElementById('editMemberRole').value.trim() || 'Инженер GTT Atelier',
+    status: document.getElementById('editMemberStatus').value || 'active',
+    photo: photoVal || undefined,
     social: existingMember ? existingMember.social : undefined
   };
 
   if (idInput) {
     const idx = team.findIndex(m => m.id === idInput);
     if (idx !== -1) team[idx] = Object.assign({}, existingMember, memberData);
+    else team.push(memberData);
   } else {
     team.push(memberData);
   }
@@ -1717,7 +1736,6 @@ async function saveTeamMember(e) {
     }
   } catch (err) {
     console.warn('[GTT API] Team save note:', err);
-    showToast('Синхронизация', 'Данные сотрудника сохранены локально', 'warning');
   }
 }
 
@@ -1762,6 +1780,7 @@ function openRecordEditModal(id) {
   const modal = document.getElementById('recordModal');
   const title = document.getElementById('recordModalTitle');
   const form = document.getElementById('recordEditForm');
+  if (!modal) return;
   modal.style.display = 'flex';
 
   if (id) {
@@ -1774,33 +1793,50 @@ function openRecordEditModal(id) {
     document.getElementById('editRecordCar').value = rec.car;
     document.getElementById('editRecordTelemetry').value = rec.telemetry;
     document.getElementById('editRecordDesc').value = rec.desc;
+    const imgVal = rec.img || '';
+    if (document.getElementById('editRecordImg')) {
+      document.getElementById('editRecordImg').value = imgVal;
+      handleRecordPhotoInput(imgVal);
+    }
   } else {
     title.textContent = 'Внести новый рекорд в зал славы';
-    form.reset();
+    if (form) form.reset();
     document.getElementById('editRecordId').value = '';
+    clearRecordPhotoPreview();
   }
 }
 
 function closeRecordModal() {
-  document.getElementById('recordModal').style.display = 'none';
+  const modal = document.getElementById('recordModal');
+  if (modal) modal.style.display = 'none';
+  clearRecordPhotoPreview();
 }
 
 async function saveRecord(e) {
-  e.preventDefault();
+  if (e && e.preventDefault) e.preventDefault();
   const idInput = document.getElementById('editRecordId').value;
   const records = getDB(RECORDS_STORAGE_KEY, defaultRecords);
 
+  const rawCar = document.getElementById('editRecordCar').value.trim();
+  if (!rawCar) {
+    showToast('Укажите болид', 'Введите название автомобиля или болида рекорда', 'warning');
+    document.getElementById('editRecordCar')?.focus();
+    return;
+  }
+
   const recData = {
     id: idInput || 'rec_' + Date.now(),
-    year: document.getElementById('editRecordYear').value.trim(),
-    car: document.getElementById('editRecordCar').value.trim(),
-    telemetry: document.getElementById('editRecordTelemetry').value.trim(),
-    desc: document.getElementById('editRecordDesc').value.trim()
+    year: document.getElementById('editRecordYear').value.trim() || '2024 • Рекорд GTT',
+    car: rawCar,
+    telemetry: document.getElementById('editRecordTelemetry').value.trim() || '—',
+    desc: document.getElementById('editRecordDesc').value.trim() || 'Официально зафиксированный заезд GoshaTurboTech в RDRC.',
+    img: document.getElementById('editRecordImg')?.value.trim() || ''
   };
 
   if (idInput) {
     const idx = records.findIndex(r => r.id === idInput);
     if (idx !== -1) records[idx] = recData;
+    else records.push(recData);
   } else {
     records.push(recData);
   }
@@ -1829,7 +1865,6 @@ async function saveRecord(e) {
     }
   } catch (err) {
     console.warn('[GTT API] Record save note:', err);
-    showToast('Синхронизация', 'Рекорд сохранен локально', 'warning');
   }
 }
 
@@ -1899,21 +1934,30 @@ function closeMediaModal() {
 }
 
 async function saveMediaItem(e) {
-  e.preventDefault();
+  if (e && e.preventDefault) e.preventDefault();
   const idInput = document.getElementById('editMediaId').value;
   const media = getDB(MEDIA_STORAGE_KEY, defaultMedia);
 
+  const rawTitle = document.getElementById('editMediaTitle').value.trim();
+  if (!rawTitle) {
+    showToast('Укажите название', 'Введите название ролика или Reels', 'warning');
+    document.getElementById('editMediaTitle')?.focus();
+    return;
+  }
+
+  const rawUrl = document.getElementById('editMediaUrl').value.trim();
   const mediaData = {
     id: idInput || 'med_' + Date.now(),
-    title: document.getElementById('editMediaTitle').value.trim(),
-    type: document.getElementById('editMediaType').value,
-    car: document.getElementById('editMediaCar').value.trim(),
-    url: document.getElementById('editMediaUrl').value.trim()
+    title: rawTitle,
+    type: document.getElementById('editMediaType').value || 'mp4',
+    car: document.getElementById('editMediaCar').value.trim() || 'GTT Atelier Supercar',
+    url: rawUrl || 'assets/videos/hero_burnout_action.mp4'
   };
 
   if (idInput) {
     const idx = media.findIndex(m => m.id === idInput);
     if (idx !== -1) media[idx] = mediaData;
+    else media.push(mediaData);
   } else {
     media.push(mediaData);
   }
@@ -1942,7 +1986,6 @@ async function saveMediaItem(e) {
     }
   } catch (err) {
     console.warn('[GTT API] Media save note:', err);
-    showToast('Синхронизация', 'Видео сохранено локально', 'warning');
   }
 }
 
@@ -2172,32 +2215,42 @@ window.saveCarProject = saveCarProject;
 window.deleteCarProject = deleteCarProject;
 window.triggerCarPhotoPicker = triggerCarPhotoPicker;
 window.handleCarPhotoSelected = handleCarPhotoSelected;
-window.processCarPhotoFile = processCarPhotoFile;
+window.handleCarVideoSelected = handleCarVideoSelected;
 window.handleCarPhotoPathInput = handleCarPhotoPathInput;
 window.clearCarPhotoPreview = clearCarPhotoPreview;
 
-// Gallery, Team, Records, Media exports
+// Team modal & photo exports
+window.openTeamMemberModal = openTeamMemberModal;
+window.closeTeamModal = closeTeamModal;
+window.saveTeamMember = saveTeamMember;
+window.deleteTeamMember = deleteTeamMember;
+window.handleTeamPhotoSelected = handleTeamPhotoSelected;
+window.handleTeamPhotoInput = handleTeamPhotoInput;
+window.clearTeamPhotoPreview = clearTeamPhotoPreview;
+
+// Records modal & photo exports
+window.openRecordEditModal = openRecordEditModal;
+window.closeRecordModal = closeRecordModal;
+window.saveRecord = saveRecord;
+window.deleteRecord = deleteRecord;
+window.handleRecordPhotoSelected = handleRecordPhotoSelected;
+window.handleRecordPhotoInput = handleRecordPhotoInput;
+window.clearRecordPhotoPreview = clearRecordPhotoPreview;
+
+// Media modal & video exports
+window.openMediaEditModal = openMediaEditModal;
+window.closeMediaModal = closeMediaModal;
+window.saveMediaItem = saveMediaItem;
+window.deleteMediaItem = deleteMediaItem;
+window.handleMediaFileSelected = handleMediaFileSelected;
+
+// Gallery modal & photo exports
 window.triggerGalleryPhotoPicker = triggerGalleryPhotoPicker;
 window.handleGalleryPhotoSelected = handleGalleryPhotoSelected;
-window.openGalleryModal = typeof openGalleryModal !== 'undefined' ? openGalleryModal : null;
-window.closeGalleryPhotoModal = typeof closeGalleryPhotoModal !== 'undefined' ? closeGalleryPhotoModal : null;
-window.saveGalleryPhoto = typeof saveGalleryPhoto !== 'undefined' ? saveGalleryPhoto : null;
-window.deleteGalleryPhoto = typeof deleteGalleryPhoto !== 'undefined' ? deleteGalleryPhoto : null;
-
-window.openTeamModal = typeof openTeamModal !== 'undefined' ? openTeamModal : null;
-window.closeTeamModal = typeof closeTeamModal !== 'undefined' ? closeTeamModal : null;
-window.saveTeamMember = typeof saveTeamMember !== 'undefined' ? saveTeamMember : null;
-window.deleteTeamMember = typeof deleteTeamMember !== 'undefined' ? deleteTeamMember : null;
-
-window.openRecordModal = typeof openRecordModal !== 'undefined' ? openRecordModal : null;
-window.closeRecordModal = typeof closeRecordModal !== 'undefined' ? closeRecordModal : null;
-window.saveRecord = typeof saveRecord !== 'undefined' ? saveRecord : null;
-window.deleteRecord = typeof deleteRecord !== 'undefined' ? deleteRecord : null;
-
-window.openMediaEditModal = typeof openMediaEditModal !== 'undefined' ? openMediaEditModal : null;
-window.closeMediaModal = typeof closeMediaModal !== 'undefined' ? closeMediaModal : null;
-window.saveMediaItem = typeof saveMediaItem !== 'undefined' ? saveMediaItem : null;
-window.deleteMediaItem = typeof deleteMediaItem !== 'undefined' ? deleteMediaItem : null;
+window.openGalleryPhotoModal = openGalleryPhotoModal;
+window.closeGalleryPhotoModal = closeGalleryPhotoModal;
+window.saveGalleryPhoto = saveGalleryPhoto;
+window.deleteGalleryPhoto = deleteGalleryPhoto;
 
 document.addEventListener('DOMContentLoaded', checkAuth);
 
