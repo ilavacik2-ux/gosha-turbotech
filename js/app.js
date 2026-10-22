@@ -1754,10 +1754,40 @@ async function syncRecordsFromAPI() {
   } catch (err) {}
 }
 
+const defaultRecordImages = {
+  'rec_1': 'https://static.tildacdn.com/tild6539-3534-4834-b938-323035363066/7R204787_.jpg',
+  'rec_2': 'https://static.tildacdn.com/tild6631-3236-4965-a162-626231376136/maxresdefault.jpg',
+  'rec_3': 'https://static.tildacdn.com/tild6238-6431-4433-a262-383434366339/7R8205127.jpg',
+  'rec_4': 'https://static.tildacdn.com/tild3365-3636-4135-b136-623937643037/korzhik2-min.png',
+  'rec_5': 'assets/photos/huracan_rdrc_stage_line.jpg',
+  'rec_6': 'https://static.tildacdn.com/tild3834-3466-4637-b632-636439343565/GTR-MOSES-min.png'
+};
+
 function renderRecordsEditorial(recordsList) {
-  const container = document.querySelector('.records-editorial-table');
+  const container = document.querySelector('.records-grid');
   if (!container || !Array.isArray(recordsList) || recordsList.length === 0) return;
-  // Update editorial rows if rendered dynamically
+
+  container.innerHTML = recordsList.map((rec, idx) => {
+    const photo = rec.img || defaultRecordImages[rec.id] || 'assets/photos/huracan_rdrc_stage_line.jpg';
+    return `
+      <div class="record-item">
+        <div class="record-photo-wrapper">
+          <img src="${photo}" 
+               alt="${rec.car || 'GTT Record'}" 
+               class="record-photo-img" 
+               loading="lazy"
+               onerror="this.src='assets/photos/huracan_rdrc_stage_line.jpg'">
+        </div>
+        <div class="record-body">
+          <span class="record-year-badge">${rec.year || 'Рекорд GTT'}</span>
+          <h3 class="record-title">${rec.car || 'Болид GTT'}</h3>
+          <div class="record-car-name">${rec.car || 'GTT'}</div>
+          <div class="record-telemetry">${rec.telemetry || '—'}</div>
+          <p class="record-text">${rec.desc || ''}</p>
+        </div>
+      </div>
+    `;
+  }).join('');
 }
 
 // Multi-Tab Real-Time Sync Listener
