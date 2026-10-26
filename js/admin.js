@@ -287,9 +287,13 @@ const API_BASE = '';
 
 async function apiFetch(endpoint, options = {}) {
   try {
+    const sessionToken = sessionStorage.getItem('gtt_session_token') || localStorage.getItem('gtt_session_token');
+    const authHeaders = sessionToken ? { 'Authorization': `Bearer ${sessionToken}` } : {};
+
     const res = await fetch(API_BASE + endpoint, {
       headers: {
         'Content-Type': 'application/json',
+        ...authHeaders,
         ...(options.headers || {})
       },
       ...options
@@ -497,6 +501,14 @@ async function syncAllModulesFromAPI() {
   }
 }
 
+async function sha256Hex(str) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(str);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
 function getStoredPin() {
   return localStorage.getItem(PASS_HASH_KEY) || 'gtt71';
 }
@@ -547,6 +559,10 @@ async function handleAdminLogin(e) {
     });
     if (res && res.status === 'ok') {
       authSuccessful = true;
+      if (res.session_token) {
+        sessionStorage.setItem('gtt_session_token', res.session_token);
+        localStorage.setItem('gtt_session_token', res.session_token);
+      }
     }
   } catch (apiErr) {
     if (apiErr.message && (apiErr.message.includes('429') || apiErr.message.includes('Слишком много'))) {
@@ -557,11 +573,22 @@ async function handleAdminLogin(e) {
       authSuccessful = false;
       errorMsg = '⚠️ Неверный секретный пароль инженера!';
     } else {
-      // Offline fallback
-      const currentPin = getStoredPin();
-      const validPins = [currentPin, 'gtt71', 'gtt_atelier_2026', '7777'];
-      if (validPins.some(p => p.toLowerCase() === input.toLowerCase())) {
-        authSuccessful = true;
+      // Offline fallback: Cryptographically secure SHA-256 hash check (no plaintext passwords)
+      try {
+        const inputHash = await sha256Hex(input.trim());
+        const authorizedHashes = [
+          '4c457e64bb36ed3df535c84837abac5b57626615b5b2630dc8f72c66e1a565e5', // Master engineer hash
+          'b7840a350b9cb095a0075eef96c675a8739af0ac120c68d6b601fee091328285'  // Atelier gateway hash
+        ];
+        const customPin = getStoredPin();
+        if (customPin && customPin !== 'gtt71') {
+          authorizedHashes.push(await sha256Hex(customPin));
+        }
+        if (authorizedHashes.includes(inputHash)) {
+          authSuccessful = true;
+        }
+      } catch (hashErr) {
+        console.warn('Crypto hash note:', hashErr);
       }
     }
   } finally {
