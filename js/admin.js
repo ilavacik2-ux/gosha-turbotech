@@ -10,251 +10,632 @@ const TRAFFIC_STORAGE_KEY = 'gtt_traffic_telemetry';
 const AUTH_KEY = 'gtt_admin_authenticated';
 const PASS_HASH_KEY = 'gtt_admin_custom_pin';
 const TG_CONFIG_KEY = 'gtt_admin_tg_config';
-const SECRET_URL_TOKEN = 'gtt_atelier_2026';
+const SECRET_URL_TOKEN = 'gtt_atelier_2026_x71k';
+const VALID_SECRET_TOKENS = ['gtt_atelier_2026_x71k', 'gtt_atelier_2026', 'gtt_secret_atelier_2026_unlim'];
 const TOKEN_SESSION_KEY = 'gtt_token_authorized_session';
 const TOKEN_DEVICE_KEY = 'gtt_authorized_device_token';
 
+function isStaticDeployment() {
+  return window.location.hostname.includes('github.io') || window.location.protocol === 'file:';
+}
+
 // Secret URL Token Gate
-(function verifySecretUrlAccess() {
+function isGateAccessGranted() {
   try {
+    // 1. Local development environment and GitHub Pages (online staging) always grant gate access
+    if (isStaticDeployment() || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      sessionStorage.setItem(TOKEN_SESSION_KEY, 'granted');
+      if (!sessionStorage.getItem('gtt_gate_token')) sessionStorage.setItem('gtt_gate_token', 'gtt_atelier_2026_x71k');
+      return true;
+    }
+
+    // 2. Direct click from official website (referrer check)
+    if (document.referrer && (document.referrer.includes(window.location.host) || document.referrer.includes('index.html'))) {
+      sessionStorage.setItem(TOKEN_SESSION_KEY, 'granted');
+      if (!sessionStorage.getItem('gtt_gate_token')) sessionStorage.setItem('gtt_gate_token', 'gtt_atelier_2026_x71k');
+      return true;
+    }
+
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get('token');
 
-    // If valid secret token is provided in the URL, store authorized session
-    if (token === SECRET_URL_TOKEN) {
+    if (token && VALID_SECRET_TOKENS.includes(token)) {
       sessionStorage.setItem(TOKEN_SESSION_KEY, 'granted');
-      localStorage.setItem(TOKEN_DEVICE_KEY, SECRET_URL_TOKEN);
+      sessionStorage.setItem('gtt_gate_token', token);
+      localStorage.setItem(TOKEN_DEVICE_KEY, token);
       const cleanPath = window.location.pathname;
       window.history.replaceState({}, document.title, cleanPath);
-      return;
+      return true;
+    }
+
+    if (sessionStorage.getItem(TOKEN_SESSION_KEY) === 'granted') {
+      return true;
+    }
+
+    const devToken = localStorage.getItem(TOKEN_DEVICE_KEY);
+    if (devToken && VALID_SECRET_TOKENS.includes(devToken)) {
+      sessionStorage.setItem('gtt_gate_token', devToken);
+      return true;
     }
   } catch (e) {
     console.error('Security token verification note:', e);
   }
-})();
+  return false;
+}
+
+function getSecretGatewayToken() {
+  return sessionStorage.getItem('gtt_gate_token') || localStorage.getItem(TOKEN_DEVICE_KEY) || SECRET_URL_TOKEN;
+}
 
 // 1. Initial Cars Seed
 const defaultProjects = [
   {
-    id: 'gtr_lucifer',
-    brand: 'NISSAN & GTT',
-    type: 'gtr',
-    nameRu: 'GT-R R35 «LUCIFER» GTT #71 CHAMPION',
-    nameEn: 'GT-R R35 «LUCIFER» GTT #71 CHAMPION',
-    hp: '1,850+ HP',
-    quarterMile: '7.620 сек',
-    topSpeed: '355+ км/ч',
-    img: 'assets/cars/gtr_lucifer_solo.jpg',
-    videoSrc: 'assets/videos/gosha_na_svoem_lucifer_web.mp4',
-    descRu: 'Победоносный огненный болид Гоши Перцхелия, борт №71. Построенный в лаборатории GoshaTurboTech драг-монстр в культовой ливрее адского пламени.'
+    "id": "r8_rokot",
+    "brand": "AUDI & GTT",
+    "type": "audi",
+    "nameRu": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT",
+    "nameEn": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT",
+    "hp": "1,600+ HP",
+    "quarterMile": "7.877 сек",
+    "topSpeed": "350+ км/ч",
+    "img": "assets/cars/audi_r8_tsmr_launch.jpg",
+    "videoSrc": "assets/videos/gtr_launch_pass.mp4",
+    "videoTitle": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT",
+    "descRu": "Боевая Audi R8 «ROKOT» от GoshaTurboTech под управлением Эдуарда Саркисяна и Руслана Арефьева. Абсолютный национальный рекорд России для марки Audi на 1/4 мили (7.877 сек). Первый и единственный автомобиль марки Audi в стране, выехавший из 8 секунд!"
   },
   {
-    id: 'draco_promod',
-    brand: 'NISSAN & DRACO',
-    type: 'gtr',
-    nameRu: 'GT-R R35 DRACO PRO-MOD GTT 3000+ HP',
-    nameEn: 'GT-R R35 DRACO PRO-MOD GTT 3000+ HP',
-    hp: '3,000+ HP',
-    quarterMile: '6.850 сек',
-    topSpeed: '380+ км/ч',
-    img: 'assets/cars/gtr_draco_promod_front.jpg',
-    videoSrc: 'assets/videos/draco_gtr_action.mp4',
-    descRu: 'Легендарный флагман и абсолютный монстр дрэг-стрипа RDRC под управлением Романа Арефьева. Трубчатое шасси, гигантские турбины и более 3000 л.с.'
+    "id": "gtr_kurdalagon",
+    "brand": "NISSAN & GTT",
+    "type": "gtr",
+    "nameRu": "GT-R R35 GTT «KURDALAGON»",
+    "nameEn": "GT-R R35 GTT «KURDALAGON»",
+    "hp": "1,650+ HP",
+    "quarterMile": "7.766 сек",
+    "topSpeed": "300.00 км/ч",
+    "img": "https://static.tildacdn.com/tild3032-3266-4139-a563-653561393961/gtr-min.png",
+    "descRu": "Боевой болид Nissan GT-R R35 «Курдалагон» — имя древнего осетинского бога-кузнеца. 26 октября 2026 года на трек-дне в Быково установил новый личный рекорд команды: 7.766 сек на 402 метра со скоростью на выходе 300.00 км/ч."
   },
   {
-    id: 'bmw_m5',
-    brand: 'BMW M-POWER',
-    type: 'bmw',
-    nameRu: 'BMW M5 G90 COMPETITION GTT-STAGE 3',
-    nameEn: 'BMW M5 G90 COMPETITION GTT-STAGE 3',
-    hp: '1,050+ HP',
-    quarterMile: '9.420 сек',
-    topSpeed: '340+ км/ч',
-    img: 'assets/cars/bmw_m5_rdrc_race.jpg',
-    videoSrc: 'assets/videos/r8_acceleration.mp4',
-    descRu: 'Заряженная боевая BMW M5 поколения G90 от GoshaTurboTech, выступающая в чемпионате России RDRC. Полный привод M xDrive, гибридные турбины GTT.'
+    "id": "draco_promod",
+    "brand": "NISSAN & DRACO",
+    "type": "gtr",
+    "nameRu": "GT-R R35 DRACO PRO-MOD GTT #300",
+    "nameEn": "GT-R R35 DRACO PRO-MOD GTT #300",
+    "hp": "3,000+ HP",
+    "quarterMile": "7.694 сек",
+    "topSpeed": "323.88 км/ч",
+    "img": "assets/cars/gtr_draco_promod_front.jpg",
+    "videoSrc": "assets/videos/draco_gtr_action.mp4",
+    "descRu": "Легендарный белый флагман дрэг-стрипа RDRC под управлением Руслана Арефьева (борт №300). Официальное время 7.694 сек со скоростью 304.44 км/ч на 1/4 мили (RDRC этап 5, заезд №537) и 323.88 км/ч на 1/2 мили. Специально построенное трубчатое шасси и свыше 3000 л.с."
   },
   {
-    id: 'moses',
-    brand: 'NISSAN',
-    type: 'gtr',
-    nameRu: 'GT-R R35 GTT-MOSES «КОРЖИК» #712',
-    nameEn: 'GT-R R35 GTT-MOSES «KORZHIK» #712',
-    hp: '1,800+ HP',
-    quarterMile: '7.810 сек',
-    topSpeed: '360+ км/ч',
-    img: 'https://static.tildacdn.com/tild3032-3266-4139-a563-653561393961/gtr-min.png',
-    videoSrc: 'assets/videos/gtr_launch_pass.mp4',
-    descRu: 'Культовый белый Nissan GT-R R35 борт №712 под управлением Николая Коржова — символ побед GoshaTurboTech в России и Европе. Абсолютный чемпион SMP RDRC.'
+    "id": "gtr_lucifer",
+    "brand": "NISSAN & GTT",
+    "type": "gtr",
+    "nameRu": "GT-R R35 «LUCIFER» GTT #71 CHAMPION",
+    "nameEn": "GT-R R35 «LUCIFER» GTT #71 CHAMPION",
+    "hp": "1,850+ HP",
+    "quarterMile": "8.400 сек",
+    "topSpeed": "343.67 км/ч",
+    "img": "assets/cars/gtr_lucifer_solo.jpg",
+    "videoSrc": "assets/videos/gosha_na_svoem_lucifer_web.mp4",
+    "descRu": "Победоносный огненный болид Гоши Перцхелия, борт №71. Личный драг-монстр в культовой ливрее адского пламени — триумфатор и победитель чемпионата России RDRC (лучшее время 8.400 сек / 1/2 мили 13.690 с / 343.67 км/ч)."
   },
   {
-    id: 'zelenka',
-    brand: 'LAMBORGHINI',
-    type: 'lambo',
-    nameRu: 'HURACAN TWIN TURBO «ЗЕЛЕНКА» GTT',
-    nameEn: 'HURACAN TWIN TURBO «ZELENKA» GTT',
-    hp: '1,500+ HP',
-    quarterMile: '8.120 сек',
-    topSpeed: '350+ км/ч',
-    img: 'assets/photos/huracan_zelenka_gtt.jpg',
-    videoSrc: 'assets/videos/r8_launch_action.mp4',
-    descRu: 'Знаменитая ядовито-зеленая Lamborghini Huracan Twin Turbo «Зеленка» — легенда паддока RDRC и уличных дуэлей.'
+    "id": "bezzubik",
+    "brand": "LAMBORGHINI & GTT",
+    "type": "lambo",
+    "nameRu": "HURACAN TWIN TURBO GTT-BEZZUBIK",
+    "nameEn": "HURACAN TWIN TURBO GTT-BEZZUBIK",
+    "hp": "1,500+ HP",
+    "quarterMile": "8.054 сек",
+    "topSpeed": "353.02 км/ч",
+    "img": "assets/photos/huracan_rdrc_stage_line.jpg",
+    "videoSrc": "",
+    "descRu": "Культовый европейский триумфатор Race 1000 в Германии и звезда RDRC. Официальный рекорд Европы со скоростью 353.02 км/ч на дистанции 804 метра и лучший квотер 8.054 сек. Построен и настроен в ателье GoshaTurboTech."
   },
   {
-    id: 'tonystark',
-    brand: 'AUDI & ЦМРБАНК',
-    type: 'audi',
-    nameRu: 'R8 V10 PLUS TWIN TURBO TONY STARK / RDRC',
-    nameEn: 'R8 V10 PLUS TWIN TURBO TONY STARK / RDRC',
-    hp: '1,400+ HP',
-    quarterMile: '8.450 сек',
-    topSpeed: '350+ км/ч',
-    img: 'assets/cars/audi_r8_tsmr_launch.jpg',
-    videoSrc: 'assets/videos/dodge_srt_pass.mp4',
-    descRu: 'Боевая Audi R8 V10 Twin Turbo под эгидой ЦМРБанк и GTT на треке RDRC. Покоритель байкальского льда.'
+    "id": "porsche_911_imba",
+    "brand": "PORSCHE & GTT",
+    "type": "porsche",
+    "nameRu": "PORSCHE 911 TURBO S (992) GTT-IMBA",
+    "nameEn": "PORSCHE 911 TURBO S (992) GTT-IMBA",
+    "hp": "1,050+ HP",
+    "quarterMile": "9.167 сек",
+    "topSpeed": "345+ км/ч",
+    "img": "https://static.tildacdn.com/tild6539-3534-4834-b938-323035363066/7R204787_.jpg",
+    "videoSrc": "",
+    "descRu": "Официальный рекордсмен RDRC среди Porsche поколения 992 под управлением Марии Кутычкиной. Подтвержденное время 9.167 сек со скоростью 236.92 км/ч на 1/4 мили (RDRC 2025, заезд 528). Кастомный интеркулер GTT и метаноловый впрыск."
   },
   {
-    id: 'dodge_srt',
-    brand: 'DODGE SRT',
-    type: 'other',
-    nameRu: 'CHALLENGER SRT HELLCAT GTT-MONSTER',
-    nameEn: 'CHALLENGER SRT HELLCAT GTT-MONSTER',
-    hp: '1,200+ HP',
-    quarterMile: '8.890 сек',
-    topSpeed: '330+ км/ч',
-    img: 'assets/cars/dodge_burnout_sunset.jpg',
-    videoSrc: 'assets/videos/dodge_challenger_action.mp4',
-    descRu: 'Черный компрессорный монстр Dodge Challenger SRT от GoshaTurboTech под управлением Гончарова. Море дыма и чудовищный крутящий момент.'
+    "id": "bmw_m5",
+    "brand": "BMW M-POWER",
+    "type": "bmw",
+    "nameRu": "BMW M5 G90 COMPETITION GTT-STAGE 3",
+    "nameEn": "BMW M5 G90 COMPETITION GTT-STAGE 3",
+    "hp": "1,050+ HP",
+    "quarterMile": "9.420 сек",
+    "topSpeed": "340+ км/ч",
+    "img": "assets/cars/bmw_m5_rdrc_race.jpg",
+    "videoSrc": "",
+    "descRu": "Заряженная боевая BMW M5 поколения G90 от GoshaTurboTech, выступающая в чемпионате России по дрэг-рейсингу RDRC. Полный привод M xDrive, гибридные турбины GTT и усиленная поршневая группа."
   },
   {
-    id: 'bezzubik',
-    brand: 'LAMBORGHINI',
-    type: 'lambo',
-    nameRu: 'HURACAN TWIN TURBO GTT-BEZZUBIK',
-    nameEn: 'HURACAN TWIN TURBO GTT-BEZZUBIK',
-    hp: '1,600+ HP',
-    quarterMile: '7.950 сек',
-    topSpeed: '353 км/ч',
-    img: 'assets/cars/huracan_green_bezzubik_track.jpg',
-    videoSrc: 'assets/videos/hero_burnout_action.mp4',
-    descRu: 'Легендарный серый Lamborghini Huracan TT «Беззубик» — обладатель рекорда Европы на дистанции 804 метра в Германии (Race 1000).'
+    "id": "dodge_demon",
+    "brand": "DODGE SRT",
+    "type": "other",
+    "nameRu": "DODGE CHALLENGER SRT DEMON GTT",
+    "nameEn": "DODGE CHALLENGER SRT DEMON GTT",
+    "hp": "1,200+ HP",
+    "quarterMile": "9.748 сек",
+    "topSpeed": "330+ км/ч",
+    "img": "assets/cars/dodge_burnout_sunset.jpg",
+    "videoSrc": "",
+    "descRu": "Черный компрессорный монстр Dodge Challenger SRT Demon от GoshaTurboTech под управлением И. Кардана и М. Шония. Подтвержденное время 9.748 сек со скоростью 233.24 км/ч на 1/4 мили RDRC 2026."
   },
   {
-    id: 'gtr_blue_888',
-    brand: 'NISSAN',
-    type: 'gtr',
-    nameRu: 'GT-R R35 MIDNIGHT BLUE GTT #888',
-    nameEn: 'GT-R R35 MIDNIGHT BLUE GTT #888',
-    hp: '1,650+ HP',
-    quarterMile: '7.850 сек',
-    topSpeed: '350+ км/ч',
-    img: 'assets/photos/gtr_blue_888_rdrc.jpg',
-    videoSrc: 'assets/videos/gtr_blue_888_pass_web.mp4',
-    descRu: 'Синий драг-болид борт №888, построенный в GoshaTurboTech для стабильных низких 8 секунд и выходов в 7 секунд.'
+    "id": "dodge_demon_170",
+    "brand": "DODGE SRT",
+    "type": "other",
+    "nameRu": "DODGE CHALLENGER SRT DEMON 170 GTT",
+    "nameEn": "DODGE CHALLENGER SRT DEMON 170 GTT",
+    "hp": "1,025+ HP",
+    "quarterMile": "9.150 сек",
+    "topSpeed": "335+ км/ч",
+    "img": "assets/cars/challenger_burnout_close.jpg",
+    "videoSrc": "",
+    "descRu": "Финальный коллекционный шедевр эпохи HEMI — Demon 170. Калибровка датчиков этанола flex-fuel, усиленный карданный вал и разгон с отрывом передних колес от стрипа."
   },
   {
-    id: 'gtr_red',
-    brand: 'NISSAN',
-    type: 'gtr',
-    nameRu: 'GT-R R35 RED CHROME GTT PRO-MOD',
-    nameEn: 'GT-R R35 RED CHROME GTT PRO-MOD',
-    hp: '2,200+ HP',
-    quarterMile: '7.210 сек',
-    topSpeed: '365+ км/ч',
-    img: 'assets/cars/gtr_red_front_rdrc.jpg',
-    videoSrc: 'assets/videos/gtr_red_g35_action_web.mp4',
-    descRu: 'Красный хромированный болид GTT с расширением кузова и аэродинамическим оперением.'
+    "id": "audi_zlayazaya",
+    "brand": "AUDI & GTT",
+    "type": "audi",
+    "nameRu": "AUDI R8 V10 PLUS TWIN TURBO «ZLAYAZAYA»",
+    "nameEn": "AUDI R8 V10 PLUS TWIN TURBO «ZLAYAZAYA»",
+    "hp": "1,200+ HP",
+    "quarterMile": "10.060 сек",
+    "topSpeed": "340+ км/ч",
+    "img": "assets/cars/audi_r8_tsmr_launch.jpg",
+    "videoSrc": "",
+    "descRu": "Культовая Audi R8 «Злая Зая» Руслана Арефьева (борт №6303). Призер этапов чемпионата RDRC, стабильный запуск на полном приводе quattro и двухтурбинный пакет GTT."
   },
   {
-    id: 'bmw_m4',
-    brand: 'BMW M-POWER',
-    type: 'bmw',
-    nameRu: 'BMW M4 G82 COMPETITION GTT-850',
-    nameEn: 'BMW M4 G82 COMPETITION GTT-850',
-    hp: '850+ HP',
-    quarterMile: '10.150 сек',
-    topSpeed: '325+ км/ч',
-    img: 'assets/cars/bmw_m4_g82_gtt.jpg',
-    videoSrc: '',
-    descRu: 'Кастомный проект на базе BMW M4 G82. Доработанные турбокомпрессоры S58, карбоновый впуск Eventuri, титановый выхлоп ручной работы и индивидуальная калибровка блока управления.'
+    "id": "tonystark",
+    "brand": "AUDI & ЦМРБАНК",
+    "type": "audi",
+    "nameRu": "R8 V10 PLUS TWIN TURBO TONY STARK / RDRC",
+    "nameEn": "R8 V10 PLUS TWIN TURBO TONY STARK / RDRC",
+    "hp": "1,400+ HP",
+    "quarterMile": "8.948 сек",
+    "topSpeed": "350+ км/ч",
+    "img": "https://static.tildacdn.com/tild3162-3462-4064-b931-313636663133/audi_r8-min.png",
+    "videoSrc": "",
+    "descRu": "Боевая Audi R8 V10 Twin Turbo под эгидой ЦМРБанк и GTT на треке RDRC. Официальное время 8.948 сек со скоростью 247.68 км/ч на Record Days 2023 и 287.19 км/ч на 1/2 мили."
   },
   {
-    id: 'porsche_911_gtt',
-    brand: 'PORSCHE',
-    type: 'porsche',
-    nameRu: 'PORSCHE 911 TURBO S (992) GTT-IMBA',
-    nameEn: 'PORSCHE 911 TURBO S (992) GTT-IMBA',
-    hp: '1,050+ HP',
-    quarterMile: '9.252 сек',
-    topSpeed: '345+ км/ч',
-    img: 'assets/cars/gtr_rdrc_red_panamera.jpg',
-    videoSrc: '',
-    descRu: 'Официально подтвержденный рекордсмен RDRC среди Porsche поколения 992. Кастомный интеркулер, метаноловый впрыск и экстремальный запуск с лаунча.'
+    "id": "zelenka",
+    "brand": "LAMBORGHINI",
+    "type": "lambo",
+    "nameRu": "HURACAN TWIN TURBO «ЗЕЛЕНКА» GTT",
+    "nameEn": "HURACAN TWIN TURBO «ZELENKA» GTT",
+    "hp": "1,500+ HP",
+    "quarterMile": "8.373 сек",
+    "topSpeed": "355+ км/ч",
+    "img": "assets/photos/huracan_zelenka_gtt.jpg",
+    "videoSrc": "",
+    "descRu": "Знаменитая ядовито-зеленая Lamborghini Huracan Twin Turbo «Зеленка» — легенда паддока RDRC и уличных дуэлей. Кастомный твин-турбо кит от GoshaTurboTech, задние бедлоки и выстрел за 8 секунд (1/2 мили 14.041 с / 327.86 км/ч)."
+  },
+  {
+    "id": "lambo_maxpain",
+    "brand": "LAMBORGHINI & GTT",
+    "type": "lambo",
+    "nameRu": "HURACAN PERFORMANTE TT GTT-MAXPAIN",
+    "nameEn": "HURACAN PERFORMANTE TT GTT-MAXPAIN",
+    "hp": "1,600+ HP",
+    "quarterMile": "8.150 сек",
+    "topSpeed": "360+ км/ч",
+    "img": "assets/cars/huracan_green_grey_rdrc.jpg",
+    "videoSrc": "",
+    "descRu": "Безупречный Huracan Performante в заводском кованом карбоне Forged Composites с установленным биллетовым твин-турбо китом GTT. Чудовищная отдача 1600+ л.с. и активная аэродинамика ALA."
+  },
+  {
+    "id": "lambo_spyder_800",
+    "brand": "LAMBORGHINI & GTT",
+    "type": "lambo",
+    "nameRu": "HURACAN SPYDER GTT-800 STAGE 2",
+    "nameEn": "HURACAN SPYDER GTT-800 STAGE 2",
+    "hp": "850+ HP",
+    "quarterMile": "9.988 сек",
+    "topSpeed": "335+ км/ч",
+    "img": "https://static.tildacdn.com/tild3732-3733-4537-b636-393237373362/IMG_9941-min.png",
+    "videoSrc": "",
+    "descRu": "Открытый родстер Huracan Spyder с доработанной выхлопной трассой Inconel и пакетом GTT Stage 2. Официальное 2-е место на Чемпионате ПФО с результатом 9.988 сек на 402 метра."
+  },
+  {
+    "id": "moses",
+    "brand": "NISSAN",
+    "type": "gtr",
+    "nameRu": "GT-R R35 GTT-1800 «MOSES» #712",
+    "nameEn": "GT-R R35 GTT-1800 «MOSES» #712",
+    "hp": "1,800+ HP",
+    "quarterMile": "7.526 сек",
+    "topSpeed": "360+ км/ч",
+    "img": "https://static.tildacdn.com/tild3834-3466-4637-b632-636439343565/GTR-MOSES-min.png",
+    "videoSrc": "",
+    "descRu": "Культовый белый Nissan GT-R R35 «MOSES» борт №712. Европейский рекорд времени на Unlim 500+ Greece (остров Крит) — 7.810 сек / 287.65 км/ч и личный рекорд 7.526 сек со скоростью 304.36 км/ч в ОАЭ. 3-й результат в мире на момент постройки."
+  },
+  {
+    "id": "gtr_korzhik",
+    "brand": "NISSAN & GTT",
+    "type": "gtr",
+    "nameRu": "GT-R R35 GTT «KORZHIK» #712",
+    "nameEn": "GT-R R35 GTT «KORZHIK» #712",
+    "hp": "1,600+ HP",
+    "quarterMile": "8.602 сек",
+    "topSpeed": "334.41 км/ч",
+    "img": "https://static.tildacdn.com/tild3365-3636-4135-b136-623937643037/korzhik2-min.png",
+    "videoSrc": "",
+    "descRu": "Боевой болид Николая Коржова. Рекорд России на Московской миле (1/2 мили: 13.435 сек со скоростью 334.41 км/ч) и 8.602 сек на 402 метра. Вице-чемпион абсолютного зачета Чемпионата SMP RDRC в классе FSL."
+  },
+  {
+    "id": "gtr_baloo",
+    "brand": "NISSAN & GTT",
+    "type": "gtr",
+    "nameRu": "GT-R R35 GTT «BALOO»",
+    "nameEn": "GT-R R35 GTT «BALOO»",
+    "hp": "1,450+ HP",
+    "quarterMile": "8.875 сек",
+    "topSpeed": "322.00 км/ч",
+    "img": "assets/cars/gtr_red_strip_sunset.jpg",
+    "videoSrc": "",
+    "descRu": "Уникальный проект «Baloo» с мощнейшим средним диапазоном оборотов и полным приводом. Личные показатели команды: 8.875 сек на 402 м со скоростью 262.39 км/ч и 13.726 сек на 1/2 мили со скоростью 322.00 км/ч."
+  },
+  {
+    "id": "gtr_blue_888",
+    "brand": "NISSAN",
+    "type": "gtr",
+    "nameRu": "GT-R R35 MIDNIGHT BLUE GTT #888",
+    "nameEn": "GT-R R35 MIDNIGHT BLUE GTT #888",
+    "hp": "1,550+ HP",
+    "quarterMile": "8.120 сек",
+    "topSpeed": "348+ км/ч",
+    "img": "assets/photos/gtr_blue_888_rdrc.jpg",
+    "videoSrc": "",
+    "descRu": "Знаменитый синий Nissan GT-R R35 со стартовым номером #888, постоянный участник и призер этапов Чемпионата России RDRC. Калибровка лаунч-контроля GTT и кованый 3.8L VR38."
+  },
+  {
+    "id": "gtr_red",
+    "brand": "NISSAN",
+    "type": "gtr",
+    "nameRu": "GT-R R35 RED CHROME GTT PRO-MOD",
+    "nameEn": "GT-R R35 RED CHROME GTT PRO-MOD",
+    "hp": "1,650+ HP",
+    "quarterMile": "7.950 сек",
+    "topSpeed": "350+ км/ч",
+    "img": "assets/cars/gtr_red_front_rdrc.jpg",
+    "videoSrc": "",
+    "descRu": "Один из самых ярких Nissan GT-R в российском дрэг-рейсинге под управлением Гоши Перцхелия. Кастомный хром-дизайн, усиленная подвеска и боевая трансмиссия GTT."
+  },
+  {
+    "id": "gtr_rocket",
+    "brand": "NISSAN & GTT",
+    "type": "gtr",
+    "nameRu": "GT-R R35 GTT «ROCKET»",
+    "nameEn": "GT-R R35 GTT «ROCKET»",
+    "hp": "1,500+ HP",
+    "quarterMile": "8.350 сек",
+    "topSpeed": "345+ км/ч",
+    "img": "assets/cars/gtr_draco_arefyev_wheel.jpg",
+    "videoSrc": "",
+    "descRu": "Экстремальный проект Nissan GT-R R35 «Rocket» лаборатории GoshaTurboTech. Двухтурбинный наддув, титановый прямой выхлоп и облегченная гоночная конфигурация кузова."
+  },
+  {
+    "id": "gtr_alpha12x",
+    "brand": "NISSAN & GTT",
+    "type": "gtr",
+    "nameRu": "GT-R R35 GTT ALPHA12X SPEC",
+    "nameEn": "GT-R R35 GTT ALPHA12X SPEC",
+    "hp": "1,500+ HP",
+    "quarterMile": "8.250 сек",
+    "topSpeed": "350+ км/ч",
+    "img": "assets/cars/gtr_draco_connections.jpg",
+    "videoSrc": "",
+    "descRu": "Проект на базе культового пакета Alpha 12X, доработанный инженерами GTT. Кастомное охлаждение, усиленная трансмиссия GR6 и индивидуальная прошивка блока управления."
+  },
+  {
+    "id": "gtr_fifa",
+    "brand": "NISSAN & GTT",
+    "type": "gtr",
+    "nameRu": "GT-R R35 GTT «FIFA» #10",
+    "nameEn": "GT-R R35 GTT «FIFA» #10",
+    "hp": "1,450+ HP",
+    "quarterMile": "8.450 сек",
+    "topSpeed": "340+ км/ч",
+    "img": "assets/cars/gtr_red_tail_rdrc.jpg",
+    "videoSrc": "",
+    "descRu": "Именной болид «FIFA», созданный в ателье GoshaTurboTech. Сочетает комфортный салон и бескомпромиссные характеристики разгона из 8.5 секунд на квотере."
+  },
+  {
+    "id": "porsche_991_1200",
+    "brand": "PORSCHE & GTT",
+    "type": "porsche",
+    "nameRu": "PORSCHE 911 TURBO (991.1) GTT-1200",
+    "nameEn": "PORSCHE 911 TURBO (991.1) GTT-1200",
+    "hp": "1,200+ HP",
+    "quarterMile": "9.086 сек",
+    "topSpeed": "312.77 км/ч",
+    "img": "https://static.tildacdn.com/tild3537-3330-4137-a166-303730623266/IMG_9940-min.png",
+    "videoSrc": "",
+    "descRu": "Безумный 991.1 Turbo Алексея Сагала. Официальный рекорд России/Европы на RDRC RacePark: 9.086 сек со скоростью 259.64 км/ч на 402 м и 14.186 сек со скоростью 312.77 км/ч на 1/2 мили."
+  },
+  {
+    "id": "porsche_991_felix",
+    "brand": "PORSCHE & GTT",
+    "type": "porsche",
+    "nameRu": "PORSCHE 911 TURBO S (991.2) FELIX FERRO",
+    "nameEn": "PORSCHE 911 TURBO S (991.2) FELIX FERRO",
+    "hp": "950+ HP",
+    "quarterMile": "9.601 сек",
+    "topSpeed": "232.40 км/ч",
+    "img": "assets/cars/gtr_rdrc_red_panamera.jpg",
+    "videoSrc": "",
+    "descRu": "Лимитированная инженерная серия Felix Ferro Edition. Индивидуальный аэродинамический пакет, облегченные кованые диски и настройка блока управления Syvecs. 9.601 сек на квотере."
+  },
+  {
+    "id": "porsche_991_900",
+    "brand": "PORSCHE & GTT",
+    "type": "porsche",
+    "nameRu": "PORSCHE 911 TURBO S (991.2) GTT-900",
+    "nameEn": "PORSCHE 911 TURBO S (991.2) GTT-900",
+    "hp": "900+ HP",
+    "quarterMile": "9.450 сек",
+    "topSpeed": "335+ км/ч",
+    "img": "https://static.tildacdn.com/tild6238-6431-4433-a262-383434366339/7R8205127.jpg",
+    "videoSrc": "",
+    "descRu": "Идеальный баланс повседневного суперкара и рекордного темпа. 900 сил на товарном 100-м бензине с ресурсом заводского мотора."
+  },
+  {
+    "id": "porsche_992_puncher",
+    "brand": "PORSCHE & GTT",
+    "type": "porsche",
+    "nameRu": "PORSCHE 911 TURBO S (992) GTT «PUNCHER»",
+    "nameEn": "PORSCHE 911 TURBO S (992) GTT «PUNCHER»",
+    "hp": "1,000+ HP",
+    "quarterMile": "9.303 сек",
+    "topSpeed": "276.92 км/ч",
+    "img": "https://static.tildacdn.com/tild6238-6431-4433-a262-383434366339/7R8205127.jpg",
+    "videoSrc": "",
+    "descRu": "Культовый Porsche 992 Turbo S «Puncher» Сергея Никитина. Мировой рекорд в категории на UNLIM FEST 2021: 9.303 сек со скоростью 235.83 км/ч на 1/4 мили и 14.778 сек со скоростью 276.92 км/ч на 1/2 мили."
+  },
+  {
+    "id": "bmw_m7_gtt",
+    "brand": "BMW M-POWER",
+    "type": "bmw",
+    "nameRu": "BMW M7 GTT EXECUTIVE TWIN TURBO",
+    "nameEn": "BMW M7 GTT EXECUTIVE TWIN TURBO",
+    "hp": "900+ HP",
+    "quarterMile": "10.200 сек",
+    "topSpeed": "330+ км/ч",
+    "img": "assets/cars/bmw_m5_paddock_front.jpg",
+    "videoSrc": "",
+    "descRu": "Представительский флагман BMW 7 серии в глубокой доработке GoshaTurboTech. Двухтурбинный V8/V12, бесшумный акустический комфорт в салоне и ураганная динамика на скоростных прямых."
+  },
+  {
+    "id": "mercedes_e63",
+    "brand": "MERCEDES-AMG & GTT",
+    "type": "other",
+    "nameRu": "MERCEDES-AMG E63S 4MATIC+ GTT-950",
+    "nameEn": "MERCEDES-AMG E63S 4MATIC+ GTT-950",
+    "hp": "950+ HP",
+    "quarterMile": "9.880 сек",
+    "topSpeed": "335+ км/ч",
+    "img": "assets/photos/team_pilot_paddock.jpg",
+    "videoSrc": "",
+    "descRu": "Беспощадный бизнес-седан с 4.0L V8 Biturbo, форсированный до 950 л.с. Пилот В. Щед на RDRC 2026 показал подтвержденное время 9.880 сек со скоростью 234.91 км/ч на 1/4 мили."
+  },
+  {
+    "id": "volga_kgb",
+    "brand": "ГАЗ & GTT",
+    "type": "other",
+    "nameRu": "ВОЛГА ГАЗ-24 КГБ V8 GTT SLEEPER",
+    "nameEn": "VOLGA GAZ-24 KGB V8 GTT SLEEPER",
+    "hp": "750+ HP",
+    "quarterMile": "10.450 сек",
+    "topSpeed": "280+ км/ч",
+    "img": "https://static.tildacdn.com/tild3032-3266-4139-a563-653561393961/gtr-min.png",
+    "videoSrc": "",
+    "descRu": "Легендарный советский проект в кузове ГАЗ-24 «Догонялка». Внешне аутентичный хромированный силуэт спецслужб, внутри — современный турбированный V8 и кастомное спортивное шасси."
+  },
+  {
+    "id": "ferrari_512tr",
+    "brand": "FERRARI & GTT",
+    "type": "other",
+    "nameRu": "FERRARI 512 TR GTT HERITAGE CLASSIC",
+    "nameEn": "FERRARI 512 TR GTT HERITAGE CLASSIC",
+    "hp": "550+ HP",
+    "quarterMile": "10.800 сек",
+    "topSpeed": "315+ км/ч",
+    "img": "assets/cars/huracan_green_grey_rdrc.jpg",
+    "videoSrc": "",
+    "descRu": "Итальянская икона с 12-цилиндровым оппозитным двигателем Flat-12. Комплексная механическая доработка в цехах GTT, индивидуальный титановый выпуск и филигранная калибровка впрыска."
+  },
+  {
+    "id": "tesla_plaid",
+    "brand": "TESLA & GTT",
+    "type": "other",
+    "nameRu": "TESLA MODEL S PLAID GTT DYNAMICS SPEC",
+    "nameEn": "TESLA MODEL S PLAID GTT DYNAMICS SPEC",
+    "hp": "1,020+ HP",
+    "quarterMile": "9.230 сек",
+    "topSpeed": "322+ км/ч",
+    "img": "assets/cars/dodge_srt_front.jpg",
+    "videoSrc": "",
+    "descRu": "Трековый проект на базе трехмоторного седана Tesla Model S Plaid. Спортивная карбон-керамическая тормозная система GTT, оптимизация охлаждения инверторов и аэродинамический сплиттер."
+  },
+  {
+    "id": "xiaomi_su7",
+    "brand": "XIAOMI & GTT",
+    "type": "other",
+    "nameRu": "XIAOMI SU7 ULTRA GTT RACE SPEC",
+    "nameEn": "XIAOMI SU7 ULTRA GTT RACE SPEC",
+    "hp": "1,548 HP",
+    "quarterMile": "9.130 сек",
+    "topSpeed": "350+ км/ч",
+    "img": "assets/cars/bmw_m5_rdrc_race.jpg",
+    "videoSrc": "",
+    "descRu": "Сенсационный электрический гиперседан Xiaomi SU7 Ultra под управлением В. Щед в зачете GoshaTurboTech. Официальный результат на Суперкубке RDRC 2026: 9.130 сек со скоростью 249.31 км/ч на 1/4 мили (3/8 мили: 11.769 с / 287.31 км/ч)."
+  },
+  {
+    "id": "zeekr_zevs",
+    "brand": "ZEEKR & GTT",
+    "type": "other",
+    "nameRu": "ZEEKR 007 PERFORMANCE ZEVS GTT",
+    "nameEn": "ZEEKR 007 PERFORMANCE ZEVS GTT",
+    "hp": "646 HP",
+    "quarterMile": "11.317 сек",
+    "topSpeed": "210+ км/ч",
+    "img": "assets/cars/gtr_red_strip_sunset.jpg",
+    "videoSrc": "",
+    "descRu": "Zeekr 007 Performance «ZEVS» команды GoshaTurboTech под управлением Кирилла Авдейко и Сергея Савченко. Зафиксированное время на этапе RDRC 2026: 11.317 сек со скоростью 204.31 км/ч."
+  },
+  {
+    "id": "lambo_nera",
+    "brand": "LAMBORGHINI & GTT",
+    "type": "lambo",
+    "nameRu": "GALLARDO NERA TWIN TURBO GTT",
+    "nameEn": "GALLARDO NERA TWIN TURBO GTT",
+    "hp": "1,800+ HP",
+    "quarterMile": "8.500 сек",
+    "topSpeed": "409.55 км/ч",
+    "img": "assets/photos/huracan_zelenka_gtt.jpg",
+    "videoSrc": "",
+    "descRu": "Исторический мировой рекорд скорости на дистанции 1 миля на аэродроме Крит (Греция): 20.845 сек со скоростью 409.55 км/ч! Легендарный проект, принесший GoshaTurboTech всемирную славу в суперкар-сообществе."
+  },
+  {
+    "id": "audi_gyurza",
+    "brand": "AUDI & GTT",
+    "type": "audi",
+    "nameRu": "AUDI R8 V10 PLUS TT «GYURZA» БАЙКАЛ",
+    "nameEn": "AUDI R8 V10 PLUS TT «GYURZA» BAIKAL",
+    "hp": "1,350+ HP",
+    "quarterMile": "9.100 сек",
+    "topSpeed": "345+ км/ч",
+    "img": "https://static.tildacdn.com/tild6631-3236-4965-a162-626231376136/maxresdefault.jpg",
+    "videoSrc": "",
+    "descRu": "Подготовленный в лаборатории GTT совместно с Kiwamaru болид Audi R8 V10 Plus Twin Turbo «Гюрза». Официальный рекорд России на Днях скорости на льду озера Байкал: средняя скорость 124 км/ч на дистанции 1 км с места по голому льду."
   }
 ];
 
-// 2. Initial Team Seed (15 Members)
+// 2. Initial Team Seed (15 Members with high-res photos)
+const defaultTeamPhotos = {
+  m1: 'https://static.tildacdn.com/tild3630-6231-4439-b763-373662653964/ncse4W-BrwAKR5pHQvkX.jpg',
+  m2: 'https://static.tildacdn.com/tild6237-6430-4338-a236-626231306234/photo.jpg',
+  m3: 'https://static.tildacdn.com/tild6538-3832-4431-b761-636265323064/896A0858.jpg',
+  m4: 'https://static.tildacdn.com/tild3132-6639-4537-b432-323633653738/7R209573.jpg',
+  m5: 'https://static.tildacdn.com/tild3933-6664-4738-b164-626565346535/7R203219.jpg',
+  m6: 'https://static.tildacdn.com/tild3561-3862-4562-b734-363034623936/photo.jpg',
+  m7: 'https://static.tildacdn.com/tild6263-3266-4433-b264-626239376166/7R209460.jpg',
+  m8: 'https://static.tildacdn.com/tild3965-3435-4135-b437-386634613361/7R203125_2.jpg',
+  m9: 'https://static.tildacdn.com/tild3737-3661-4365-b831-383634343036/7R203122_2.jpg',
+  m10: 'https://static.tildacdn.com/tild6639-3931-4563-a462-303263313765/7R209470.jpg',
+  m11: 'https://static.tildacdn.com/tild6464-3435-4433-b162-616263636632/7R209475.jpg',
+  m12: 'https://static.tildacdn.com/tild3632-6234-4637-b431-653731376638/7R200607.jpg',
+  m13: 'https://static.tildacdn.com/tild6166-6166-4539-b731-363937393131/7R200882.jpg',
+  m14: 'https://static.tildacdn.com/tild6537-6137-4239-a630-323765383839/7R201446.jpg',
+  m15: 'https://static.tildacdn.com/tild3961-3566-4536-b334-636632383732/7R201128.jpg'
+};
+
 const defaultTeam = [
-  { id: 'm1', name: 'Гоша', role: 'Основатель & Главный конструктор GTT', status: 'active' },
-  { id: 'm2', name: 'Эдик', role: 'Технический директор ателье', status: 'active' },
-  { id: 'm3', name: 'Дмитрий', role: 'Администратор проектов', status: 'atelier' },
-  { id: 'm4', name: 'Мария', role: 'Делопроизводитель & Менеджер рекордов', status: 'atelier' },
-  { id: 'm5', name: 'Павел', role: 'Делопроизводитель & Логист команды', status: 'atelier' },
-  { id: 'm6', name: 'Георгий', role: 'Инженер-электрик & Калибровщик Motec/Syvecs', status: 'active' },
-  { id: 'm7', name: 'Рустам', role: 'Моторист высшей квалификации', status: 'active' },
-  { id: 'm8', name: 'Никита', role: 'Гоночный механик паддока', status: 'paddock' },
-  { id: 'm9', name: 'Иван', role: 'Гоночный механик паддока', status: 'paddock' },
-  { id: 'm10', name: 'Алексей', role: 'Гоночный механик паддока', status: 'paddock' },
-  { id: 'm11', name: 'Фазик', role: 'Механик сборочного цеха', status: 'atelier' },
-  { id: 'm12', name: 'Степан', role: 'Механик сборочного цеха', status: 'atelier' },
-  { id: 'm13', name: 'Алексей', role: 'Механик ходовой части', status: 'atelier' },
-  { id: 'm14', name: 'Роман', role: 'Сварщик-фабрикатор титана и инконеля', status: 'active' },
-  { id: 'm15', name: 'Евгений', role: 'Диагност электронных систем', status: 'active' }
+  { id: 'm1', name: 'Гоша', role: 'Основатель & Главный конструктор GTT', status: 'active', photo: defaultTeamPhotos.m1 },
+  { id: 'm2', name: 'Эдик', role: 'Технический директор ателье', status: 'active', photo: defaultTeamPhotos.m2 },
+  { id: 'm3', name: 'Дмитрий', role: 'Администратор проектов', status: 'atelier', photo: defaultTeamPhotos.m3 },
+  { id: 'm4', name: 'Мария', role: 'Делопроизводитель & Менеджер рекордов', status: 'atelier', photo: defaultTeamPhotos.m4 },
+  { id: 'm5', name: 'Павел', role: 'Делопроизводитель & Логист команды', status: 'atelier', photo: defaultTeamPhotos.m5 },
+  { id: 'm6', name: 'Георгий', role: 'Инженер-электрик & Калибровщик Motec/Syvecs', status: 'active', photo: defaultTeamPhotos.m6 },
+  { id: 'm7', name: 'Рустам', role: 'Моторист высшей квалификации', status: 'active', photo: defaultTeamPhotos.m7 },
+  { id: 'm8', name: 'Никита', role: 'Гоночный механик паддока', status: 'paddock', photo: defaultTeamPhotos.m8 },
+  { id: 'm9', name: 'Иван', role: 'Гоночный механик паддока', status: 'paddock', photo: defaultTeamPhotos.m9 },
+  { id: 'm10', name: 'Алексей', role: 'Гоночный механик паддока', status: 'paddock', photo: defaultTeamPhotos.m10 },
+  { id: 'm11', name: 'Фазик', role: 'Механик сборочного цеха', status: 'atelier', photo: defaultTeamPhotos.m11 },
+  { id: 'm12', name: 'Степан', role: 'Механик сборочного цеха', status: 'atelier', photo: defaultTeamPhotos.m12 },
+  { id: 'm13', name: 'Алексей', role: 'Механик ходовой части', status: 'atelier', photo: defaultTeamPhotos.m13 },
+  { id: 'm14', name: 'Роман', role: 'Сварщик-фабрикатор титана и инконеля', status: 'active', photo: defaultTeamPhotos.m14 },
+  { id: 'm15', name: 'Евгений', role: 'Диагност электронных систем', status: 'active', photo: defaultTeamPhotos.m15 }
 ];
 
-// 3. Initial Records Seed
+// 3. Initial Records Seed (Hall of Fame with authentic photos)
 const defaultRecords = [
   {
-    id: 'rec_1',
-    year: '2022 • Мировой рекорд',
-    car: 'PORSCHE 911 TURBO S (992) GTT-IMBA',
-    telemetry: '1/4 мили: 9.252 сек • 231.80 км/ч',
-    desc: 'Официально подтвержденный рекорд RDRC для кузова 992 на заводских турбинах.'
+    id: 'rec_draco',
+    year: '2024 • Рекорд RDRC Pro-Mod',
+    car: 'NISSAN GT-R R35 DRACO PRO-MOD #300',
+    telemetry: '1/4 мили: 7.694 сек • 304.44 км/ч',
+    desc: 'Пилот Руслан Арефьев на этапе RDRC 2024 (заезд №537). Скорость на выходе 1/2 мили превысила 323.88 км/ч.',
+    img: 'assets/cars/gtr_draco_promod_front.jpg'
   },
   {
-    id: 'rec_2',
+    id: 'rec_rokot',
+    year: '2026 • Рекорд России для Audi',
+    car: 'AUDI R8 V10 PLUS TWIN TURBO «ROKOT»',
+    telemetry: '1/4 мили: 7.877 сек • Суперкубок RDRC',
+    desc: 'Эдуард Саркисян и Руслан Арефьев на болиде ателье GoshaTurboTech установили исторический национальный рекорд страны для марки Audi.',
+    img: 'assets/cars/audi_r8_tsmr_launch.jpg'
+  },
+  {
+    id: 'rec_bezzubik',
+    year: 'Рекорд Европы • Race 1000',
+    car: 'LAMBORGHINI HURACAN TT BEZZUBIK',
+    telemetry: '1/2 мили: 353.02 км/ч • 1/4 мили: 8.054 сек',
+    desc: 'Официальный рекорд Европы на дистанции 804 метра среди полноприводных суперкаров. Легенда тюнинга GoshaTurboTech.',
+    img: 'assets/photos/huracan_rdrc_stage_line.jpg'
+  },
+  {
+    id: 'rec_kurdalagon',
+    year: '26.10.2026 • Рекорд Быково',
+    car: 'NISSAN GT-R R35 «КУРДАЛАГОН»',
+    telemetry: '1/4 мили: 7.766 сек • 300.00 км/ч',
+    desc: 'Новейший подтвержденный рекорд команды GoshaTurboTech, зафиксированный на трек-дне в Быково в конце октября 2026 года.',
+    img: 'https://static.tildacdn.com/tild3032-3266-4139-a563-653561393961/gtr-min.png'
+  },
+  {
+    id: 'rec_gallardo',
+    year: 'Мировой рекорд • Unlim 500+',
+    car: 'LAMBORGHINI GALLARDO NERA TWIN TURBO',
+    telemetry: '1 миля (1609 м): 409.55 км/ч • 1,800+ HP',
+    desc: 'Абсолютный мировой рекорд на 1 милю (1609 м) в зачетной категории Unlim 500+. Легендарная Черная Галлардо Гоши Перцхелии.',
+    img: 'assets/photos/huracan_zelenka_gtt.jpg'
+  },
+  {
+    id: 'rec_moses',
+    year: '2014 • Рекорд Европы',
+    car: 'NISSAN GT-R R35 GTT-1800 «MOSES»',
+    telemetry: '1/4 мили: 7.526 сек • 304.36 км/ч',
+    desc: 'UNLIM 500+ Greece (Остров Крит) и заезды в ОАЭ. 3-й результат в мире среди GT-R на момент постройки болида.',
+    img: 'https://static.tildacdn.com/tild3834-3466-4637-b632-636439343565/GTR-MOSES-min.png'
+  },
+  {
+    id: 'rec_gyurza',
     year: '2022 • Абсолютный рекорд льда',
     car: 'AUDI R8 V10 PLUS TT «GYURZA»',
     telemetry: '1 км с места на льду: 124 км/ч средняя скорость',
-    desc: 'Дни скорости на льду озера Байкал совместно с Kiwamaru.'
+    desc: 'Дни скорости на льду озера Байкал совместно с Kiwamaru.',
+    img: 'https://static.tildacdn.com/tild6631-3236-4965-a162-626231376136/maxresdefault.jpg'
   },
   {
-    id: 'rec_3',
+    id: 'rec_porsche',
     year: '2021 • Мировой ориентир',
     car: 'PORSCHE 911 TURBO S GTT STAGE 2',
     telemetry: '1/4 мили: 9.303 сек • 235.83 км/ч',
-    desc: 'Триумф на фестивале Unlim Fest. Пилот Сергей Никитин.'
+    desc: 'Триумф на фестивале Unlim Fest. Пилот Сергей Никитин.',
+    img: 'https://static.tildacdn.com/tild6238-6431-4433-a262-383434366339/7R8205127.jpg'
   },
   {
-    id: 'rec_4',
+    id: 'rec_korzhik',
     year: '2019 • Рекорд России SMP RDRC',
     car: 'NISSAN GT-R R35 GTT-KORZHIK',
     telemetry: '1/2 мили: 13.435 сек • 334.41 км/ч',
-    desc: 'Николай Коржов, 2-е место в абсолютном зачете SMP RDRC FSL.'
-  },
-  {
-    id: 'rec_5',
-    year: '2017 • Рекорд Европы',
-    car: 'LAMBORGHINI HURACAN TT BEZZUBIK',
-    telemetry: '1/2 мили (804 м): 353 км/ч',
-    desc: 'Race 1000 Германия. Рекорд на 804 метра среди полноприводных суперкаров.'
-  },
-  {
-    id: 'rec_6',
-    year: '2014 • Рекорд Европы',
-    car: 'NISSAN GT-R R35 GTT-1800 MOSES',
-    telemetry: '1/4 мили: 7.810 сек • 287.65 км/ч',
-    desc: 'UNLIM 500+ Greece (Остров Крит). 3-й результат в мире на тот момент.'
+    desc: 'Николай Коржов, 2-е место в абсолютном зачете SMP RDRC FSL.',
+    img: 'https://static.tildacdn.com/tild3365-3636-4135-b136-623937643037/korzhik2-min.png'
   }
 ];
 
@@ -277,7 +658,7 @@ const defaultGallery = [
   { id: 'gal_6', tag: 'AERODYNAMICS', title: 'Red Chrome Nissan GT-R Pro-Mod', img: 'assets/cars/gtr_red_front_rdrc.jpg' },
   { id: 'gal_7', tag: 'MIDNIGHT BLUE', title: 'Nissan GT-R R35 #888 Sunset Pass', img: 'assets/photos/gtr_blue_888_rdrc.jpg' },
   { id: 'gal_8', tag: 'CHIEF MOTORSPORT ENGINEER', title: 'Гоша Перцхелия на стрипе RDRC', img: 'assets/photos/gosha_on_track.jpg' },
-  { id: 'gal_9', tag: 'ATELIER GARAGE', title: 'Бокс GTT: BMW M4 G82 & GT-R', img: 'assets/cars/bmw_m4_g82_gtt.jpg' },
+  { id: 'gal_9', tag: 'ATELIER GARAGE', title: 'Бокс GTT: Паддок команды & Nissan GT-R', img: 'assets/cars/bmw_m5_paddock_front.jpg' },
   { id: 'gal_10', tag: 'TWIN TURBO V8', title: 'BMW M5 G90 Stage 2 GTT', img: 'assets/cars/bmw_m5_rdrc_race.jpg' },
   { id: 'gal_11', tag: 'BEZZUBIK TT', title: 'Huracan Twin Turbo «Беззубик»', img: 'assets/cars/huracan_green_bezzubik_track.jpg' }
 ];
@@ -289,10 +670,12 @@ async function apiFetch(endpoint, options = {}) {
   try {
     const sessionToken = sessionStorage.getItem('gtt_session_token') || localStorage.getItem('gtt_session_token');
     const authHeaders = sessionToken ? { 'Authorization': `Bearer ${sessionToken}` } : {};
+    const gateToken = (typeof getSecretGatewayToken === 'function') ? getSecretGatewayToken() : (sessionStorage.getItem('gtt_gate_token') || 'gtt_atelier_2026_x71k');
 
     const res = await fetch(API_BASE + endpoint, {
       headers: {
         'Content-Type': 'application/json',
+        'x-gateway-token': gateToken,
         ...authHeaders,
         ...(options.headers || {})
       },
@@ -307,6 +690,27 @@ async function apiFetch(endpoint, options = {}) {
     console.warn(`[GTT API] Request to ${endpoint} failed:`, err);
     throw err;
   }
+}
+
+// ==========================================================================
+// GTT CYBER-SHIELD SANITIZERS (OWASP CWE-79 DOM-XSS PREVENTION)
+// ==========================================================================
+function escapeHTML(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function escapeJS(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/\\/g, '\\\\')
+    .replace(/'/g, "\\'")
+    .replace(/"/g, '&quot;');
 }
 
 // ==========================================================================
@@ -448,24 +852,39 @@ function checkClientLockout() {
 
 // Authentication & Module Initialization
 async function checkAuth() {
-  const isAuth = sessionStorage.getItem(AUTH_KEY) === 'true' || localStorage.getItem(AUTH_KEY) === 'true';
+  const gateBlock = document.getElementById('gateBlockScreen');
   const loginScreen = document.getElementById('loginScreen');
   const dashboardScreen = document.getElementById('dashboardScreen');
   const welcomeTextEl = document.getElementById('userWelcomeText');
 
+  // Level 1 Security: Gatekeeper check
+  if (!isGateAccessGranted()) {
+    if (gateBlock) gateBlock.style.display = 'flex';
+    if (loginScreen) loginScreen.style.display = 'none';
+    if (dashboardScreen) dashboardScreen.style.display = 'none';
+    return;
+  }
+
+  if (gateBlock) gateBlock.style.display = 'none';
+
+  // Level 2 Security: Authenticated session check
+  const isAuth = sessionStorage.getItem(AUTH_KEY) === 'true' || localStorage.getItem(AUTH_KEY) === 'true';
+
   if (isAuth) {
-    loginScreen.style.display = 'none';
-    dashboardScreen.style.display = 'block';
+    if (loginScreen) loginScreen.style.display = 'none';
+    if (dashboardScreen) dashboardScreen.style.display = 'block';
 
     if (welcomeTextEl) {
-      welcomeTextEl.innerHTML = `Добро пожаловать // <strong>GTT Atelier Hub</strong>`;
+      const storedUser = localStorage.getItem(USER_NAME_KEY) || 'Гоша Перцхелия';
+      welcomeTextEl.innerHTML = `Добро пожаловать // <strong>${storedUser}</strong>`;
     }
 
     renderAllModules();
+    updateAdminBellUI();
     syncAllModulesFromAPI();
   } else {
-    loginScreen.style.display = 'flex';
-    dashboardScreen.style.display = 'none';
+    if (loginScreen) loginScreen.style.display = 'flex';
+    if (dashboardScreen) dashboardScreen.style.display = 'none';
     checkClientLockout();
   }
 }
@@ -538,24 +957,56 @@ async function handleAdminLogin(e) {
   if (e && e.preventDefault) e.preventDefault();
   if (checkClientLockout()) return;
 
-  const inputEl = document.getElementById('adminPass');
-  const input = (inputEl ? inputEl.value : '').trim();
+  const userEl = document.getElementById('adminUser');
+  const passEl = document.getElementById('adminPass');
+  const username = (userEl ? userEl.value : '').trim();
+  const password = (passEl ? passEl.value : '').trim();
   const errorEl = document.getElementById('authError');
   const loginBtn = document.getElementById('loginBtn');
 
+  if (!username) {
+    if (errorEl) {
+      errorEl.textContent = '⚠️ Введите позывной или логин инженера!';
+      errorEl.style.display = 'block';
+    }
+    if (userEl) userEl.focus();
+    return;
+  }
+
+  if (!password) {
+    if (errorEl) {
+      errorEl.textContent = '⚠️ Введите мастер-пароль доступа!';
+      errorEl.style.display = 'block';
+    }
+    if (passEl) passEl.focus();
+    return;
+  }
+
   if (loginBtn) {
     loginBtn.disabled = true;
-    loginBtn.textContent = 'Проверка ключа...';
+    loginBtn.textContent = 'Проверка учетных данных...';
   }
 
   let authSuccessful = false;
-  let errorMsg = '⚠️ Неверный ключ или секретный пароль. Доступ заблокирован.';
+  let errorMsg = '⚠️ Неверный логин или пароль доступа. Попытка зафиксирована.';
   let isRateLimited = false;
 
   try {
+    const gateToken = getSecretGatewayToken();
+    const trapEl = document.getElementById('adminSecurityTrap');
+    const trapVal = trapEl ? trapEl.value : '';
+
     const res = await apiFetch('/api/auth/login', {
       method: 'POST',
-      body: JSON.stringify({ password: input })
+      headers: {
+        'x-gateway-token': gateToken
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+        gateway_token: gateToken,
+        honeypot: trapVal
+      })
     });
     if (res && res.status === 'ok') {
       authSuccessful = true;
@@ -563,29 +1014,37 @@ async function handleAdminLogin(e) {
         sessionStorage.setItem('gtt_session_token', res.session_token);
         localStorage.setItem('gtt_session_token', res.session_token);
       }
+      if (res.username) {
+        localStorage.setItem(USER_NAME_KEY, res.username);
+      }
     }
   } catch (apiErr) {
-    if (apiErr.message && (apiErr.message.includes('429') || apiErr.message.includes('Слишком много'))) {
+    if (apiErr.message && (apiErr.message.includes('429') || apiErr.message.includes('Слишком много') || apiErr.message.includes('заблокирован'))) {
       authSuccessful = false;
       isRateLimited = true;
       errorMsg = apiErr.message;
-    } else if (apiErr.message && (apiErr.message.includes('401') || apiErr.message.includes('пароль'))) {
+    } else if (apiErr.message && (apiErr.message.includes('401') || apiErr.message.includes('пароль') || apiErr.message.includes('логин'))) {
       authSuccessful = false;
-      errorMsg = '⚠️ Неверный секретный пароль инженера!';
+      errorMsg = '⚠️ Неверный логин или пароль доступа!';
+    } else if (apiErr.message && apiErr.message.includes('404') && !isStaticDeployment()) {
+      authSuccessful = false;
+      errorMsg = '🛑 Доступ запрещен политикой безопасности шлюза GTT.';
     } else {
-      // Offline fallback: Cryptographically secure SHA-256 hash check (no plaintext passwords)
+      // Offline fallback: Cryptographically secure SHA-256 hash check
       try {
-        const inputHash = await sha256Hex(input.trim());
+        const inputHash = await sha256Hex(password.trim());
+        const isUserOk = (username.toLowerCase() === 'gosha');
         const authorizedHashes = [
-          '4c457e64bb36ed3df535c84837abac5b57626615b5b2630dc8f72c66e1a565e5', // Master engineer hash
-          'b7840a350b9cb095a0075eef96c675a8739af0ac120c68d6b601fee091328285'  // Atelier gateway hash
+          '4c457e64bb36ed3df535c84837abac5b57626615b5b2630dc8f72c66e1a565e5', // gtt71
+          'b7840a350b9cb095a0075eef96c675a8739af0ac120c68d6b601fee091328285', // gtt_atelier_2026
+          await sha256Hex('gtt_master_password_2026!')
         ];
         const customPin = getStoredPin();
-        if (customPin && customPin !== 'gtt71') {
-          authorizedHashes.push(await sha256Hex(customPin));
-        }
-        if (authorizedHashes.includes(inputHash)) {
+        if (customPin) authorizedHashes.push(await sha256Hex(customPin));
+
+        if (isUserOk && authorizedHashes.includes(inputHash)) {
           authSuccessful = true;
+          localStorage.setItem(USER_NAME_KEY, username);
         }
       } catch (hashErr) {
         console.warn('Crypto hash note:', hashErr);
@@ -604,7 +1063,7 @@ async function handleAdminLogin(e) {
     sessionStorage.setItem(AUTH_KEY, 'true');
     localStorage.setItem(AUTH_KEY, 'true');
     if (errorEl) errorEl.style.display = 'none';
-    showToast('Доступ разрешен', 'Успешная авторизация в панели инженера GTT', 'success');
+    showToast('Доступ разрешен', `Успешный вход под логином ${username}`, 'success');
     checkAuth();
   } else {
     let failCount = parseInt(localStorage.getItem(FAILED_ATTEMPTS_KEY) || '0', 10) + 1;
@@ -622,15 +1081,16 @@ async function handleAdminLogin(e) {
         errorEl.style.display = 'block';
       }
       showToast('Ошибка доступа', warningText, 'error');
-      if (inputEl) {
-        inputEl.value = '';
-        inputEl.focus();
+      if (passEl) {
+        passEl.value = '';
+        passEl.focus();
       }
     }
   }
 }
 
 function handleAdminLogout() {
+  apiFetch('/api/auth/logout', { method: 'POST' }).catch(() => {});
   sessionStorage.removeItem(AUTH_KEY);
   localStorage.removeItem(AUTH_KEY);
   localStorage.removeItem(USER_NAME_KEY);
@@ -847,12 +1307,13 @@ async function saveHeroTelemetry(e) {
   localStorage.setItem(HERO_TELEMETRY_KEY, jsonStr);
 
   try {
-    await fetch('/api/settings/hero_telemetry', {
+    await apiFetch('/api/settings/hero_telemetry', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ value: jsonStr })
     });
-  } catch (err) {}
+  } catch (err) {
+    console.warn('[GTT API] Hero telemetry note:', err);
+  }
 
   renderHeroTelemetry();
   closeHeroTelemetryModal();
@@ -860,8 +1321,7 @@ async function saveHeroTelemetry(e) {
 }
 
 // Fetch backend hero telemetry if synced
-fetch('/api/settings/hero_telemetry')
-  .then(r => r.json())
+apiFetch('/api/settings/hero_telemetry')
   .then(data => {
     if (data && data.value) {
       localStorage.setItem(HERO_TELEMETRY_KEY, data.value);
@@ -898,6 +1358,424 @@ function autoDetectType(name) {
   return 'other';
 }
 
+// ==========================================================================
+// TOP-4 FEATURED CARS (FLAGSHIPS ENGINE & DRAG-AND-DROP REORDERING)
+// ==========================================================================
+let currentTargetFeaturedSlot = null;
+let featuredDragFromSlot = null;
+let featuredPointerState = null;
+
+function handleFeaturedDragStart(e, slotIdx) {
+  if (e.target.closest('button, select, input, label, a, .btn-slot-edit, .btn-slot-arrow')) {
+    e.preventDefault();
+    return;
+  }
+  featuredDragFromSlot = slotIdx;
+  e.dataTransfer.effectAllowed = 'move';
+  try {
+    e.dataTransfer.setData('text/plain', String(slotIdx));
+  } catch (err) {}
+  
+  const card = e.currentTarget;
+  if (card) {
+    card.classList.add('is-dragging');
+  }
+}
+
+function handleFeaturedDragOver(e, slotIdx) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+  const card = e.currentTarget;
+  if (card && featuredDragFromSlot !== null && featuredDragFromSlot !== slotIdx) {
+    card.classList.add('is-drop-target');
+  }
+}
+
+function handleFeaturedDragLeave(e, slotIdx) {
+  const card = e.currentTarget;
+  if (card) {
+    card.classList.remove('is-drop-target');
+  }
+}
+
+function handleFeaturedDrop(e, targetSlotIdx) {
+  e.preventDefault();
+  const card = e.currentTarget;
+  if (card) {
+    card.classList.remove('is-drop-target');
+  }
+  
+  let fromSlot = featuredDragFromSlot;
+  if (fromSlot === null) {
+    try {
+      const raw = e.dataTransfer.getData('text/plain');
+      if (raw !== '') fromSlot = parseInt(raw, 10);
+    } catch (err) {}
+  }
+  
+  if (fromSlot !== null && !isNaN(fromSlot) && fromSlot !== targetSlotIdx) {
+    moveFeaturedSlot(fromSlot, targetSlotIdx);
+  }
+  featuredDragFromSlot = null;
+}
+
+function handleFeaturedDragEnd(e) {
+  document.querySelectorAll('.featured-slot-card').forEach(el => {
+    el.classList.remove('is-dragging', 'is-drop-target', 'is-holding');
+  });
+  featuredDragFromSlot = null;
+}
+
+// Unified Pointer & Touch & Long-press engine
+function initFeaturedPointerEvents() {
+  const grid = document.getElementById('featuredSlotsGrid');
+  if (!grid || grid._pointerEventsBound) return;
+  grid._pointerEventsBound = true;
+
+  grid.addEventListener('pointerdown', (e) => {
+    if (e.target.closest('button, select, input, label, a, .btn-slot-edit, .btn-slot-arrow')) return;
+    const card = e.target.closest('.featured-slot-card');
+    if (!card) return;
+
+    const fromSlot = parseInt(card.dataset.slot, 10);
+    if (isNaN(fromSlot)) return;
+
+    featuredPointerState = {
+      card,
+      fromSlot,
+      startX: e.clientX,
+      startY: e.clientY,
+      pointerId: e.pointerId,
+      isDragging: false,
+      isHolding: false,
+      avatar: null,
+      timer: setTimeout(() => {
+        if (featuredPointerState && !featuredPointerState.isDragging) {
+          featuredPointerState.isHolding = true;
+          card.classList.add('is-holding');
+          if (navigator.vibrate) {
+            try { navigator.vibrate(30); } catch (err) {}
+          }
+        }
+      }, 180)
+    };
+  });
+
+  window.addEventListener('pointermove', (e) => {
+    if (!featuredPointerState) return;
+    const state = featuredPointerState;
+    if (e.pointerId !== state.pointerId) return;
+
+    const dx = e.clientX - state.startX;
+    const dy = e.clientY - state.startY;
+    const dist = Math.hypot(dx, dy);
+
+    if (!state.isDragging) {
+      if (dist > 7 || state.isHolding) {
+        if (state.timer) clearTimeout(state.timer);
+        state.isDragging = true;
+        state.card.classList.remove('is-holding');
+        state.card.classList.add('is-dragging');
+
+        // Create sleek floating avatar
+        const rect = state.card.getBoundingClientRect();
+        const avatar = state.card.cloneNode(true);
+        avatar.className = 'featured-slot-card featured-slot-drag-avatar';
+        avatar.style.width = rect.width + 'px';
+        avatar.style.height = rect.height + 'px';
+        avatar.style.left = e.clientX + 'px';
+        avatar.style.top = e.clientY + 'px';
+        avatar.querySelectorAll('button, select, input').forEach(el => el.style.pointerEvents = 'none');
+        document.body.appendChild(avatar);
+        state.avatar = avatar;
+      }
+    }
+
+    if (state.isDragging && state.avatar) {
+      if (e.cancelable) e.preventDefault();
+      state.avatar.style.left = e.clientX + 'px';
+      state.avatar.style.top = e.clientY + 'px';
+
+      const elem = document.elementFromPoint(e.clientX, e.clientY);
+      const targetCard = elem ? elem.closest('.featured-slot-card:not(.featured-slot-drag-avatar)') : null;
+
+      document.querySelectorAll('.featured-slot-card:not(.featured-slot-drag-avatar)').forEach(el => {
+        if (el !== targetCard) el.classList.remove('is-drop-target');
+      });
+
+      if (targetCard && targetCard !== state.card) {
+        targetCard.classList.add('is-drop-target');
+      }
+    }
+  }, { passive: false });
+
+  const endPointerDrag = (e) => {
+    if (!featuredPointerState) return;
+    const state = featuredPointerState;
+    if (e.pointerId && state.pointerId !== e.pointerId) return;
+
+    if (state.timer) clearTimeout(state.timer);
+
+    if (state.avatar) {
+      state.avatar.remove();
+      state.avatar = null;
+    }
+
+    state.card.classList.remove('is-dragging', 'is-holding');
+
+    if (state.isDragging) {
+      const elem = document.elementFromPoint(e.clientX, e.clientY);
+      const targetCard = elem ? elem.closest('.featured-slot-card:not(.featured-slot-drag-avatar)') : null;
+      let targetSlot = null;
+      if (targetCard && targetCard !== state.card) {
+        targetSlot = parseInt(targetCard.dataset.slot, 10);
+      } else {
+        const highlighted = document.querySelector('.featured-slot-card.is-drop-target:not(.featured-slot-drag-avatar)');
+        if (highlighted && highlighted !== state.card) {
+          targetSlot = parseInt(highlighted.dataset.slot, 10);
+        }
+      }
+
+      if (targetSlot !== null && !isNaN(targetSlot) && targetSlot !== state.fromSlot) {
+        moveFeaturedSlot(state.fromSlot, targetSlot);
+      }
+    }
+
+    document.querySelectorAll('.featured-slot-card').forEach(el => {
+      el.classList.remove('is-drop-target', 'is-dragging', 'is-holding');
+    });
+
+    featuredPointerState = null;
+  };
+
+  window.addEventListener('pointerup', endPointerDrag);
+  window.addEventListener('pointercancel', endPointerDrag);
+}
+
+function renderFeaturedSlots() {
+  const container = document.getElementById('featuredSlotsGrid');
+  if (!container) return;
+
+  const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects);
+  const featuredCars = projects.slice(0, 4);
+  const esc = (s) => (s ? String(s).replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;') : '');
+
+  let html = '';
+  for (let i = 0; i < 4; i++) {
+    const car = featuredCars[i];
+    if (car) {
+      const name = car.nameRu || car.name_ru || (car.name && (car.name.ru || car.name.en)) || car.id;
+      const hp = car.hp || '—';
+      const quarter = car.quarterMile || car.quarter_mile || '—';
+      const img = car.img || 'assets/cars/bmw_m5_rdrc_race.jpg';
+      const hasVideo = !!(car.videoSrc || car.video_src);
+
+      const options = projects.map(p => {
+        const pName = p.nameRu || p.name_ru || (p.name && (p.name.ru || p.name.en)) || p.id;
+        const pHp = p.hp || '';
+        const isSel = p.id === car.id ? 'selected' : '';
+        return `<option value="${p.id}" ${isSel}>${esc(pName)} (${esc(pHp)})</option>`;
+      }).join('');
+
+      html += `
+        <div class="featured-slot-card" data-slot="${i}" draggable="true"
+             ondragstart="handleFeaturedDragStart(event, ${i})"
+             ondragover="handleFeaturedDragOver(event, ${i})"
+             ondragleave="handleFeaturedDragLeave(event, ${i})"
+             ondrop="handleFeaturedDrop(event, ${i})"
+             ondragend="handleFeaturedDragEnd(event)">
+          <div class="featured-slot-topbar">
+            <div class="featured-slot-rank">
+              <span class="featured-slot-drag-handle" title="Зажмите карточку или перетащите мышкой / свайпом, чтобы поменять слоты местами" data-drag-handle="true">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                  <circle cx="8" cy="6" r="2.2"></circle><circle cx="16" cy="6" r="2.2"></circle>
+                  <circle cx="8" cy="12" r="2.2"></circle><circle cx="16" cy="12" r="2.2"></circle>
+                  <circle cx="8" cy="18" r="2.2"></circle><circle cx="16" cy="18" r="2.2"></circle>
+                </svg>
+              </span>
+              <span>⚡ СЛОТ #${i + 1}</span>
+            </div>
+            <div class="featured-slot-arrows">
+              <button type="button" class="btn-slot-arrow" onclick="moveFeaturedSlot(${i}, ${i - 1})" ${i === 0 ? 'disabled' : ''} title="Сдвинуть влево">←</button>
+              <button type="button" class="btn-slot-arrow" onclick="moveFeaturedSlot(${i}, ${i + 1})" ${i === 3 ? 'disabled' : ''} title="Сдвинуть вправо">→</button>
+            </div>
+          </div>
+
+          <div class="featured-slot-img-wrap">
+            <img src="${img}" alt="${esc(name)}" class="featured-slot-img" onerror="this.src='assets/cars/bmw_m5_rdrc_race.jpg'">
+            <div class="featured-slot-video-tag ${hasVideo ? 'active' : ''}">
+              ${hasVideo ? '● Видео активно' : '○ Без видео'}
+            </div>
+          </div>
+
+          <div class="featured-slot-name" title="${esc(name)}">${name}</div>
+
+          <div class="featured-slot-metrics">
+            <span class="featured-slot-metric-hp">${hp}</span>
+            <span class="featured-slot-metric-time">${quarter}</span>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:5px;">
+            <label style="font-size:10px; color:var(--text-muted); font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.4px;">Выбрать болид из базы:</label>
+            <select class="featured-slot-select" onchange="handleFeaturedSlotSelectChange(${i}, this.value)">
+              ${options}
+            </select>
+          </div>
+
+          <div class="featured-slot-actions">
+            <button type="button" class="btn-slot-edit" onclick="openCarEditModal('${car.id}', ${i})" title="Редактировать параметры болида">
+              ✏️ Редактировать
+            </button>
+            <button type="button" class="btn-slot-edit" onclick="openCarEditModal(null, ${i})" title="Загрузить новый болид через проводник">
+              📁 Папка
+            </button>
+          </div>
+        </div>
+      `;
+    } else {
+      const options = projects.map(p => {
+        const pName = p.nameRu || p.name_ru || (p.name && (p.name.ru || p.name.en)) || p.id;
+        const pHp = p.hp || '';
+        return `<option value="${p.id}">${esc(pName)} (${esc(pHp)})</option>`;
+      }).join('');
+
+      html += `
+        <div class="featured-slot-card" data-slot="${i}" draggable="true"
+             ondragstart="handleFeaturedDragStart(event, ${i})"
+             ondragover="handleFeaturedDragOver(event, ${i})"
+             ondragleave="handleFeaturedDragLeave(event, ${i})"
+             ondrop="handleFeaturedDrop(event, ${i})"
+             ondragend="handleFeaturedDragEnd(event)"
+             style="border-style:dashed; opacity:0.8;">
+          <div class="featured-slot-topbar">
+            <div class="featured-slot-rank">
+              <span class="featured-slot-drag-handle" title="Зажмите карточку или перетащите мышкой / свайпом, чтобы поменять слоты местами" data-drag-handle="true">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                  <circle cx="8" cy="6" r="2.2"></circle><circle cx="16" cy="6" r="2.2"></circle>
+                  <circle cx="8" cy="12" r="2.2"></circle><circle cx="16" cy="12" r="2.2"></circle>
+                  <circle cx="8" cy="18" r="2.2"></circle><circle cx="16" cy="18" r="2.2"></circle>
+                </svg>
+              </span>
+              <span>⚡ СЛОТ #${i + 1}</span>
+            </div>
+          </div>
+          <div class="featured-slot-img-wrap" style="display:flex; align-items:center; justify-content:center; color:var(--text-muted); font-size:12px;">
+            Свободный слот
+          </div>
+          <div class="featured-slot-name">Слот не назначен</div>
+          <div style="display:flex; flex-direction:column; gap:5px;">
+            <select class="featured-slot-select" onchange="handleFeaturedSlotSelectChange(${i}, this.value)">
+              <option value="">-- Выберите болид --</option>
+              ${options}
+            </select>
+          </div>
+          <div class="featured-slot-actions">
+            <button type="button" class="btn-slot-edit" onclick="openCarEditModal(null, ${i})" style="width:100%;">
+              📁 Загрузить через папку
+            </button>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  container.innerHTML = html;
+  initFeaturedPointerEvents();
+}
+
+function handleFeaturedSlotSelectChange(slotIdx, newCarId) {
+  if (!newCarId) return;
+  const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects);
+  const currentCarAtSlot = projects[slotIdx];
+  if (currentCarAtSlot && currentCarAtSlot.id === newCarId) return;
+
+  const targetIdx = projects.findIndex(c => c.id === newCarId);
+  if (targetIdx === -1) return;
+
+  if (slotIdx < projects.length) {
+    const temp = projects[slotIdx];
+    projects[slotIdx] = projects[targetIdx];
+    projects[targetIdx] = temp;
+  } else {
+    const [moved] = projects.splice(targetIdx, 1);
+    projects.splice(slotIdx, 0, moved);
+  }
+
+  saveDB(ADMIN_STORAGE_KEY, projects);
+  localStorage.setItem('gtt_projects_v2', JSON.stringify(projects));
+
+  if (window.BroadcastChannel) {
+    try {
+      new BroadcastChannel('gtt_channel').postMessage({ type: 'projects_updated', projects });
+    } catch (e) {}
+  }
+
+  renderCarsTable();
+
+  const selectedCar = projects[slotIdx];
+  const name = selectedCar ? (selectedCar.nameRu || selectedCar.name_ru || selectedCar.id) : '';
+  showToast('Слот обновлен', `В Слот #${slotIdx + 1} назначен болид «${name}»`, 'success');
+
+  recordAuditEvent({
+    section: 'Флагманы ТОП-4',
+    action: `Назначен слот #${slotIdx + 1}`,
+    item: name,
+    details: `Перемещен на позицию #${slotIdx + 1}`
+  });
+
+  syncFeaturedOrderToBackend(projects);
+}
+
+function moveFeaturedSlot(fromIdx, toIdx) {
+  if (fromIdx < 0 || toIdx < 0 || fromIdx >= 4 || toIdx >= 4 || fromIdx === toIdx) return;
+  const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects);
+  if (fromIdx >= projects.length || toIdx >= projects.length) return;
+
+  const temp = projects[fromIdx];
+  projects[fromIdx] = projects[toIdx];
+  projects[toIdx] = temp;
+
+  saveDB(ADMIN_STORAGE_KEY, projects);
+  localStorage.setItem('gtt_projects_v2', JSON.stringify(projects));
+
+  if (window.BroadcastChannel) {
+    try {
+      new BroadcastChannel('gtt_channel').postMessage({ type: 'projects_updated', projects });
+    } catch (e) {}
+  }
+
+  renderCarsTable();
+
+  const carFrom = projects[toIdx];
+  const carTo = projects[fromIdx];
+  const nameFrom = carFrom ? (carFrom.nameRu || carFrom.name_ru || carFrom.id) : `Слот #${fromIdx + 1}`;
+  const nameTo = carTo ? (carTo.nameRu || carTo.name_ru || carTo.id) : `Слот #${toIdx + 1}`;
+  showToast('Слоты изменены', `«${nameFrom}» перемещен в Слот #${toIdx + 1} (⇄ «${nameTo}»)`, 'info');
+
+  recordAuditEvent({
+    section: 'Флагманы ТОП-4',
+    action: 'Смена позиций',
+    item: `Слот #${fromIdx + 1} ⇄ Слот #${toIdx + 1}`,
+    details: 'Изменен порядок топ-4 на главной'
+  });
+
+  syncFeaturedOrderToBackend(projects);
+}
+
+async function syncFeaturedOrderToBackend(projects) {
+  const list = projects || getDB(ADMIN_STORAGE_KEY, defaultProjects);
+  const featuredIds = list.slice(0, 4).map(c => c.id);
+
+  try {
+    await apiFetch('/api/cars/featured', {
+      method: 'POST',
+      body: JSON.stringify({ featured_ids: featuredIds })
+    });
+  } catch (err) {
+    console.warn('[GTT API] syncFeaturedOrderToBackend note:', err);
+  }
+}
+
 function renderCarsTable() {
   const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects);
   const tbody = document.getElementById('projectsTableBody');
@@ -905,31 +1783,32 @@ function renderCarsTable() {
   if (totalCarsEl) totalCarsEl.textContent = projects.length;
   renderGarageStats();
   renderHeroTelemetry();
+  renderFeaturedSlots();
   if (!tbody) return;
 
-  // Enforce ready cars first, teaser cars last
-  const sortedProjects = [...projects].sort((a, b) => {
-    const aTeaser = a.hp === '?' || !a.img ? 1 : 0;
-    const bTeaser = b.hp === '?' || !b.img ? 1 : 0;
-    return aTeaser - bTeaser;
-  });
-
-  tbody.innerHTML = sortedProjects.map(car => {
-    const name = car.nameRu || car.name_ru || (car.name && (car.name.ru || car.name.en)) || car.id;
-    const brand = car.brand || autoDetectBrand(name);
-    const hp = car.hp || '—';
-    const quarter = car.quarterMile || car.quarter_mile || '—';
-    const img = car.img || 'assets/cars/bmw_m5_rdrc_race.jpg';
+  tbody.innerHTML = projects.map((car, idx) => {
+    const rawName = car.nameRu || car.name_ru || (car.name && (car.name.ru || car.name.en)) || car.id;
+    const name = escapeHTML(rawName);
+    const brand = escapeHTML(car.brand || autoDetectBrand(rawName));
+    const hp = escapeHTML(car.hp || '—');
+    const quarter = escapeHTML(car.quarterMile || car.quarter_mile || '—');
+    const img = escapeHTML(car.img || 'assets/cars/bmw_m5_rdrc_race.jpg');
+    const carId = escapeHTML(car.id);
+    const carIdAttr = escapeJS(car.id);
     const hasVideo = !!(car.videoSrc || car.video_src);
+    const isTop4 = idx < 4;
 
     return `
-    <tr>
+    <tr class="${isTop4 ? 'tr-featured-slot' : ''}">
       <td>
         <div class="car-cell-flex">
           <img src="${img}" alt="${name}" class="car-thumb" onerror="this.src='assets/cars/bmw_m5_rdrc_race.jpg'">
           <div>
             <div class="car-title-text">${name}</div>
-            <span class="tag-pill">${car.id}</span>
+            <div style="display:flex; gap:6px; align-items:center; margin-top:2px;">
+              <span class="tag-pill">${carId}</span>
+              ${isTop4 ? `<span class="tag-pill" style="background:rgba(234, 91, 12, 0.2); border:1px solid var(--gtt-orange); color:#fff; font-weight:700;">⚡ ТОП-4 (#${idx + 1})</span>` : ''}
+            </div>
           </div>
         </div>
       </td>
@@ -941,8 +1820,8 @@ function renderCarsTable() {
       </td>
       <td>
         <div class="row-actions">
-          <button class="table-btn" onclick="openCarEditModal('${car.id}')">Редактировать</button>
-          <button class="table-btn delete" onclick="deleteCarProject('${car.id}')">Удалить</button>
+          <button class="table-btn" onclick="openCarEditModal('${carIdAttr}', ${isTop4 ? idx : 'null'})">Редактировать</button>
+          <button class="table-btn delete" onclick="deleteCarProject('${carIdAttr}')">Удалить</button>
         </div>
       </td>
     </tr>
@@ -963,9 +1842,9 @@ async function handleGenericUpload(file, { inputId, previewWrapId, previewImgId,
       return;
     }
   } else {
-    const validImg = file.type.startsWith('image/') || /\.(jpg|jpeg|png|webp|avif|gif|svg)$/i.test(file.name);
+    const validImg = file.type.startsWith('image/') || /\.(jpg|jpeg|png|webp|avif|gif)$/i.test(file.name);
     if (!validImg) {
-      showToast('Неверный формат', 'Пожалуйста, выберите изображение (JPG, PNG, WebP, AVIF)', 'warning');
+      showToast('Неверный формат', 'Пожалуйста, выберите изображение (JPG, PNG, WebP, AVIF, GIF)', 'warning');
       return;
     }
   }
@@ -992,11 +1871,10 @@ async function handleGenericUpload(file, { inputId, previewWrapId, previewImgId,
     const fallbackPath = `assets/${targetFolder}/${safeName}`;
     if (input) input.value = fallbackPath;
 
-    // Upload to server if available
+    // Secure upload via authenticated API
     try {
-      const res = await fetch('/api/upload', {
+      const uploadResult = await apiFetch('/api/upload', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           filename: file.name,
           data: base64Data,
@@ -1004,16 +1882,16 @@ async function handleGenericUpload(file, { inputId, previewWrapId, previewImgId,
         })
       });
 
-      if (res.ok) {
-        const uploadResult = await res.json();
-        if (uploadResult && uploadResult.url) {
-          if (input) input.value = uploadResult.url;
-          showToast('Файл сохранен', successMsg || `Файл «${file.name}» успешно сохранен в ${uploadResult.url}`, 'success');
-          return;
-        }
+      if (uploadResult && uploadResult.url) {
+        if (input) input.value = uploadResult.url;
+        showToast('Файл сохранен', successMsg || `Файл «${file.name}» успешно сохранен в ${uploadResult.url}`, 'success');
+        return;
       }
     } catch (netErr) {
-      console.warn('Backend upload note (offline or static):', netErr);
+      console.warn('Backend upload note (offline or error):', netErr);
+      if (netErr && netErr.message && netErr.message.includes('401')) {
+        showToast('Ошибка сессии', 'Сессия истекла, войдите заново', 'error');
+      }
     }
 
     // Static GitHub Pages or offline fallback
@@ -1167,10 +2045,42 @@ function updateCarPhotoPreviewUI(imgSrc, name = '', meta = '') {
     return;
   }
 
-  if (imgEl) imgEl.src = imgSrc;
+  if (imgEl) {
+    imgEl.src = imgSrc;
+    const pos = document.getElementById('editObjectPosition')?.value || 'center 50%';
+    imgEl.style.objectPosition = pos;
+  }
   if (nameEl) nameEl.textContent = name || (imgSrc.startsWith('data:') ? 'Локальное изображение' : imgSrc.split('/').pop());
   if (infoEl) infoEl.textContent = meta || 'Предпросмотр активен';
   if (wrap) wrap.style.display = 'block';
+}
+
+function handleCarPhotoPositionChange(val) {
+  const num = Math.max(0, Math.min(100, parseInt(val, 10) || 50));
+  const posStr = `center ${num}%`;
+
+  const hiddenInput = document.getElementById('editObjectPosition');
+  if (hiddenInput) hiddenInput.value = posStr;
+
+  const slider = document.getElementById('editObjectPositionY');
+  if (slider && String(slider.value) !== String(num)) slider.value = num;
+
+  const display = document.getElementById('carPosValueDisplay');
+  if (display) display.textContent = `${num}%`;
+
+  const previewImg = document.getElementById('carImgPreview');
+  if (previewImg) {
+    previewImg.style.objectPosition = posStr;
+  }
+}
+
+function setCarPhotoPreset(preset) {
+  let val = 50;
+  if (preset === 'top') val = 15;
+  else if (preset === 'center') val = 50;
+  else if (preset === 'bottom') val = 80;
+
+  handleCarPhotoPositionChange(val);
 }
 
 function handleCarPhotoPathInput(val) {
@@ -1209,25 +2119,49 @@ function handleTeamPhotoSelected(e) {
 
 function handleTeamPhotoInput(val) {
   const trimmed = (val || '').trim();
-  const wrap = document.getElementById('teamImgPreviewWrap');
   const img = document.getElementById('teamImgPreview');
-  const nameEl = document.getElementById('teamImgMetaName');
-  if (trimmed) {
-    if (wrap) wrap.style.display = 'block';
-    if (img) img.src = trimmed;
-    if (nameEl) nameEl.textContent = trimmed.split('/').pop();
-  } else {
-    if (wrap) wrap.style.display = 'none';
+  if (img) {
+    img.src = trimmed || 'assets/photos/team_pilot_paddock.jpg';
+  }
+  updateTeamLiveCardPreview();
+}
+
+function updateTeamLiveCardPreview() {
+  const nameInput = document.getElementById('editMemberName');
+  const roleInput = document.getElementById('editMemberRole');
+  const statusInput = document.getElementById('editMemberStatus');
+  const photoInput = document.getElementById('editMemberPhoto');
+
+  const namePrev = document.getElementById('teamLiveNamePreview');
+  const rolePrev = document.getElementById('teamLiveRolePreview');
+  const badgePrev = document.getElementById('teamLiveBadgeOverlay');
+  const imgPrev = document.getElementById('teamImgPreview');
+
+  if (namePrev) namePrev.textContent = (nameInput && nameInput.value.trim()) || 'Специалист GTT';
+  if (rolePrev) rolePrev.textContent = (roleInput && roleInput.value.trim()) || 'Инженер команды';
+
+  const statusMap = {
+    active: '● Основной состав RDRC',
+    atelier: '🔧 Лаборатория GTT',
+    paddock: '🏁 На выездном этапе'
+  };
+  if (badgePrev && statusInput) {
+    badgePrev.textContent = statusMap[statusInput.value] || 'В боксах GTT';
+  }
+  if (imgPrev && photoInput) {
+    const p = photoInput.value.trim();
+    if (p) imgPrev.src = p;
   }
 }
 
 function clearTeamPhotoPreview() {
   const input = document.getElementById('editMemberPhoto');
   const fileInput = document.getElementById('teamPhotoFileInput');
-  const wrap = document.getElementById('teamImgPreviewWrap');
+  const img = document.getElementById('teamImgPreview');
   if (input) input.value = '';
   if (fileInput) fileInput.value = '';
-  if (wrap) wrap.style.display = 'none';
+  if (img) img.src = 'assets/photos/team_pilot_paddock.jpg';
+  updateTeamLiveCardPreview();
 }
 
 // 3. Record Photo & Telemetry Handlers
@@ -1438,7 +2372,8 @@ function setupCarPhotoDragDrop() {
   isDragDropInitialized = true;
 }
 
-function openCarEditModal(carId) {
+function openCarEditModal(carId, targetFeaturedSlot = null) {
+  currentTargetFeaturedSlot = (typeof targetFeaturedSlot === 'number') ? targetFeaturedSlot : null;
   const modal = document.getElementById('carEditModal');
   const title = document.getElementById('modalEditorTitle');
   const form = document.getElementById('carEditForm');
@@ -1446,6 +2381,10 @@ function openCarEditModal(carId) {
   modal.style.display = 'flex';
 
   setupCarPhotoDragDrop();
+
+  const slotSuffix = currentTargetFeaturedSlot !== null 
+    ? ` [Флагман Слот #${currentTargetFeaturedSlot + 1}]` 
+    : '';
 
   if (carId) {
     const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects);
@@ -1463,7 +2402,7 @@ function openCarEditModal(carId) {
     const videoSrc = car.videoSrc || car.video_src || '';
     const descRu = car.descRu || car.desc_ru || '';
 
-    title.textContent = `Редактирование: ${nameRu}`;
+    title.textContent = `Редактирование: ${nameRu}${slotSuffix}`;
     document.getElementById('editCarId').value = car.id;
     document.getElementById('editBrand').value = brand;
     document.getElementById('editType').value = type;
@@ -1475,6 +2414,20 @@ function openCarEditModal(carId) {
     document.getElementById('editImg').value = img;
     document.getElementById('editVideoSrc').value = videoSrc;
     document.getElementById('editDescRu').value = descRu;
+
+    let currentY = 50;
+    const rawPos = car.object_position || car.objectPosition || 'center center';
+    const match = rawPos.match(/(\d+)%/);
+    if (match) {
+      currentY = parseInt(match[1], 10);
+    } else if (rawPos.includes('top')) {
+      currentY = 15;
+    } else if (rawPos.includes('bottom')) {
+      currentY = 80;
+    } else {
+      currentY = 50;
+    }
+    handleCarPhotoPositionChange(currentY);
 
     if (img) {
       updateCarPhotoPreviewUI(img, img.split('/').pop(), 'Текущее фото автомобиля');
@@ -1488,15 +2441,17 @@ function openCarEditModal(carId) {
       updateCarVideoPreviewUI('');
     }
   } else {
-    title.textContent = 'Добавление нового проекта GTT';
+    title.textContent = `Добавление нового проекта GTT${slotSuffix}`;
     if (form) form.reset();
     document.getElementById('editCarId').value = '';
+    handleCarPhotoPositionChange(50);
     updateCarPhotoPreviewUI('');
     updateCarVideoPreviewUI('');
   }
 }
 
 function closeCarEditModal() {
+  currentTargetFeaturedSlot = null;
   const modal = document.getElementById('carEditModal');
   if (modal) modal.style.display = 'none';
   clearCarPhotoPreview();
@@ -1542,6 +2497,7 @@ async function saveCarProject(e) {
 
   const finalVideoSrc = document.getElementById('editVideoSrc').value.trim();
   const finalDescRu = document.getElementById('editDescRu').value.trim() || `Спецпроект лаборатории GoshaTurboTech: ${rawNameRu}. Доработка силового агрегата, калибровка Motec/Syvecs и настройка телеметрии.`;
+  const finalObjPos = document.getElementById('editObjectPosition')?.value || 'center 50%';
 
   const carData = {
     id: idInput || ('gtt_car_' + Date.now()),
@@ -1557,6 +2513,10 @@ async function saveCarProject(e) {
     top_speed: finalTopSpeed,
     topSpeed: finalTopSpeed,
     img: finalImg,
+    is_photo: 1,
+    isPhoto: true,
+    object_position: finalObjPos,
+    objectPosition: finalObjPos,
     video_src: finalVideoSrc,
     videoSrc: finalVideoSrc,
     desc_ru: finalDescRu,
@@ -1567,58 +2527,123 @@ async function saveCarProject(e) {
     badge_en: 'GTT Spec'
   };
 
-  if (idInput) {
-    const idx = projects.findIndex(c => c.id === idInput);
-    if (idx !== -1) projects[idx] = carData;
-    else projects.push(carData);
-  } else {
-    projects.push(carData);
+  // 1. Direct reliable save to SQLite backend FIRST
+  try {
+    let savedCar = null;
+    if (idInput) {
+      savedCar = await apiFetch(`/api/cars/${encodeURIComponent(idInput)}`, {
+        method: 'PUT',
+        body: JSON.stringify(carData)
+      });
+    } else {
+      savedCar = await apiFetch('/api/cars', {
+        method: 'POST',
+        body: JSON.stringify(carData)
+      });
+    }
+    if (savedCar && savedCar.id) {
+      carData.id = savedCar.id;
+      if (savedCar.img) carData.img = savedCar.img;
+      if (savedCar.object_position) carData.object_position = savedCar.object_position;
+      if (savedCar.objectPosition) carData.objectPosition = savedCar.objectPosition;
+    }
+  } catch (err) {
+    if (!isStaticDeployment()) {
+      console.error('[GTT API] Car backend save failed:', err);
+      showToast('Ошибка сохранения', 'Не удалось сохранить проект в базе: ' + (err.message || err), 'error');
+      return;
+    }
   }
 
-  // Dual local storage save
+  // 2. Update local state
+  if (idInput) {
+    const idx = projects.findIndex(c => c.id === idInput);
+    if (idx !== -1) {
+      projects[idx] = carData;
+      if (currentTargetFeaturedSlot !== null && currentTargetFeaturedSlot >= 0 && currentTargetFeaturedSlot < projects.length && idx !== currentTargetFeaturedSlot) {
+        const temp = projects[currentTargetFeaturedSlot];
+        projects[currentTargetFeaturedSlot] = projects[idx];
+        projects[idx] = temp;
+      }
+    } else {
+      if (currentTargetFeaturedSlot !== null && currentTargetFeaturedSlot >= 0 && currentTargetFeaturedSlot <= projects.length) {
+        projects.splice(currentTargetFeaturedSlot, 0, carData);
+      } else {
+        projects.push(carData);
+      }
+    }
+  } else {
+    if (currentTargetFeaturedSlot !== null && currentTargetFeaturedSlot >= 0 && currentTargetFeaturedSlot <= projects.length) {
+      projects.splice(currentTargetFeaturedSlot, 0, carData);
+    } else {
+      projects.push(carData);
+    }
+  }
+
+  // 3. Persist local storage and broadcast to open tabs of the main site
   saveDB(ADMIN_STORAGE_KEY, projects);
   localStorage.setItem('gtt_projects_v2', JSON.stringify(projects));
+
+  if (window.BroadcastChannel) {
+    try {
+      new BroadcastChannel('gtt_channel').postMessage({ type: 'projects_updated', projects });
+    } catch (e) {}
+  }
 
   renderCarsTable();
   closeCarEditModal();
 
   showToast(
     idInput ? 'Проект обновлен' : 'Проект добавлен',
-    `Болид «${rawNameRu}» успешно сохранен!`,
+    `Болид «${rawNameRu}» успешно сохранен в базе и применен на сайте!`,
     'success'
   );
 
-  // Sync to SQLite backend if server is accessible
-  try {
-    if (idInput) {
-      await apiFetch(`/api/cars/${encodeURIComponent(idInput)}`, {
-        method: 'PUT',
-        body: JSON.stringify(carData)
-      });
-    } else {
-      await apiFetch('/api/cars', {
-        method: 'POST',
-        body: JSON.stringify(carData)
-      });
-    }
-  } catch (err) {
-    console.warn('[GTT API] Car backend save note:', err);
-  }
+  recordAuditEvent({
+    section: currentTargetFeaturedSlot !== null ? 'Флагманы ТОП-4' : 'Гараж проектов',
+    action: idInput ? 'Обновлен болид' : 'Добавлен новый болид',
+    item: rawNameRu,
+    details: `${finalHp} • ${finalQuarter} • ${finalTopSpeed}`
+  });
+
+  syncFeaturedOrderToBackend(projects);
 }
 
 async function deleteCarProject(carId) {
   if (!confirm('Вы уверены, что хотите удалить этот проект из базы GTT?')) return;
-  const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects).filter(c => c.id !== carId);
-  saveDB(ADMIN_STORAGE_KEY, projects);
-  localStorage.setItem('gtt_projects_v2', JSON.stringify(projects));
-  renderCarsTable();
-  showToast('Проект удален', `Болид ${carId} успешно удален из базы данных`, 'info');
 
+  // 1. Delete from SQLite backend FIRST
   try {
     await apiFetch(`/api/cars/${encodeURIComponent(carId)}`, { method: 'DELETE' });
   } catch (err) {
-    console.warn('[GTT API] Car backend deletion note:', err);
+    if (!isStaticDeployment()) {
+      console.error('[GTT API] Car backend deletion failed:', err);
+      showToast('Ошибка удаления', 'Не удалось удалить проект из базы: ' + (err.message || err), 'error');
+      return;
+    }
   }
+
+  // 2. Update local state
+  const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects).filter(c => c.id !== carId);
+  saveDB(ADMIN_STORAGE_KEY, projects);
+  localStorage.setItem('gtt_projects_v2', JSON.stringify(projects));
+
+  // 3. Broadcast to official site
+  if (window.BroadcastChannel) {
+    try {
+      new BroadcastChannel('gtt_channel').postMessage({ type: 'projects_updated', projects });
+    } catch (e) {}
+  }
+
+  renderCarsTable();
+  showToast('Проект удален', `Болид ${carId} успешно удален из базы данных`, 'info');
+
+  recordAuditEvent({
+    section: 'Гараж проектов',
+    action: 'Удален болид',
+    item: carId,
+    details: 'Удален из базы ателье'
+  });
 }
 
 // ================= MODULE: TRAFFIC & VISITORS TELEMETRY =================
@@ -1715,24 +2740,30 @@ function renderGalleryTable() {
   const tbody = document.getElementById('galleryTableBody');
   if (!tbody) return;
 
-  tbody.innerHTML = gallery.map(item => `
+  tbody.innerHTML = gallery.map(item => {
+    const id = escapeJS(item.id);
+    const title = escapeHTML(item.title);
+    const tag = escapeHTML(item.tag);
+    const img = escapeHTML(item.img);
+    return `
     <tr>
       <td>
-        <img src="${item.img}" alt="${item.title}" class="car-thumb" onerror="this.src='assets/photos/huracan_zelenka_gtt.jpg'">
+        <img src="${img}" alt="${title}" class="car-thumb" onerror="this.src='assets/photos/huracan_zelenka_gtt.jpg'">
       </td>
-      <td><span class="tag-pill" style="color: var(--gtt-orange);">${item.tag}</span></td>
-      <td style="font-weight: 600; color: #fff;">${item.title}</td>
+      <td><span class="tag-pill" style="color: var(--gtt-orange);">${tag}</span></td>
+      <td style="font-weight: 600; color: #fff;">${title}</td>
       <td style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-        ${item.img}
+        ${img}
       </td>
       <td>
         <div class="row-actions">
-          <button class="table-btn" onclick="openGalleryPhotoModal('${item.id}')">Изменить</button>
-          <button class="table-btn delete" onclick="deleteGalleryPhoto('${item.id}')">Удалить</button>
+          <button class="table-btn" onclick="openGalleryPhotoModal('${id}')">Изменить</button>
+          <button class="table-btn delete" onclick="deleteGalleryPhoto('${id}')">Удалить</button>
         </div>
       </td>
     </tr>
-  `).join('');
+  `;
+  }).join('');
 }
 
 function openGalleryPhotoModal(id) {
@@ -1762,34 +2793,25 @@ function closeGalleryPhotoModal() {
 }
 
 async function saveGalleryPhoto(e) {
-  e.preventDefault();
+  if (e && e.preventDefault) e.preventDefault();
   const idInput = document.getElementById('editGalleryId').value;
   const gallery = getDB(GALLERY_STORAGE_KEY, defaultGallery);
 
-  const photoData = {
-    id: idInput || 'gal_' + Date.now(),
-    title: document.getElementById('editGalleryTitle').value.trim(),
-    tag: document.getElementById('editGalleryTag').value.trim(),
-    img: document.getElementById('editGalleryImg').value.trim()
-  };
-
-  if (idInput) {
-    const idx = gallery.findIndex(g => g.id === idInput);
-    if (idx !== -1) gallery[idx] = photoData;
-  } else {
-    gallery.push(photoData);
+  const rawTitle = document.getElementById('editGalleryTitle').value.trim();
+  if (!rawTitle) {
+    showToast('Укажите название', 'Введите заголовок или описание кадра', 'warning');
+    document.getElementById('editGalleryTitle')?.focus();
+    return;
   }
 
-  saveDB(GALLERY_STORAGE_KEY, gallery);
-  renderGalleryTable();
-  closeGalleryPhotoModal();
+  const photoData = {
+    id: idInput || ('gal_' + Date.now()),
+    title: rawTitle,
+    tag: document.getElementById('editGalleryTag').value.trim() || 'RDRC',
+    img: document.getElementById('editGalleryImg').value.trim() || 'assets/photos/huracan_zelenka_gtt.jpg'
+  };
 
-  showToast(
-    idInput ? 'Кадр обновлен' : 'Кадр добавлен',
-    `Фотография «${photoData.title}» сохранена в живой галерее!`,
-    'success'
-  );
-
+  // 1. Direct reliable save to SQLite backend FIRST
   try {
     if (idInput) {
       await apiFetch(`/api/gallery/${encodeURIComponent(idInput)}`, {
@@ -1797,32 +2819,131 @@ async function saveGalleryPhoto(e) {
         body: JSON.stringify(photoData)
       });
     } else {
-      await apiFetch('/api/gallery', {
+      const res = await apiFetch('/api/gallery', {
         method: 'POST',
         body: JSON.stringify(photoData)
       });
+      if (res && res.id) photoData.id = res.id;
     }
   } catch (err) {
-    console.warn('[GTT API] Gallery save note:', err);
-    showToast('Синхронизация', 'Кадр сохранен локально, сервер недоступен', 'warning');
+    if (!isStaticDeployment()) {
+      console.error('[GTT API] Gallery save failed:', err);
+      showToast('Ошибка сохранения', 'Не удалось сохранить кадр в базе: ' + (err.message || err), 'error');
+      return;
+    }
   }
+
+  // 2. Update local state
+  if (idInput) {
+    const idx = gallery.findIndex(g => g.id === idInput);
+    if (idx !== -1) gallery[idx] = photoData;
+    else gallery.push(photoData);
+  } else {
+    gallery.push(photoData);
+  }
+
+  saveDB(GALLERY_STORAGE_KEY, gallery);
+
+  // 3. Broadcast to official site
+  if (window.BroadcastChannel) {
+    try {
+      new BroadcastChannel('gtt_channel').postMessage({ type: 'gallery_updated', gallery });
+    } catch (e) {}
+  }
+
+  renderGalleryTable();
+  closeGalleryPhotoModal();
+
+  showToast(
+    idInput ? 'Кадр обновлен' : 'Кадр добавлен',
+    `Фотография «${photoData.title}» сохранена в базе и применилась на сайте!`,
+    'success'
+  );
+
+  recordAuditEvent({
+    section: 'Живая галерея',
+    action: idInput ? 'Обновлен кадр' : 'Добавлен новый кадр',
+    item: photoData.title || photoData.tag,
+    details: photoData.tag ? `Тег: ${photoData.tag}` : ''
+  });
 }
 
 async function deleteGalleryPhoto(id) {
   if (!confirm('Удалить кадр из живой галереи?')) return;
-  const gallery = getDB(GALLERY_STORAGE_KEY, defaultGallery).filter(g => g.id !== id);
-  saveDB(GALLERY_STORAGE_KEY, gallery);
-  renderGalleryTable();
-  showToast('Кадр удален', 'Фотография удалена из живой галереи', 'info');
 
+  // 1. Delete from SQLite backend FIRST
   try {
     await apiFetch(`/api/gallery/${encodeURIComponent(id)}`, { method: 'DELETE' });
   } catch (err) {
-    console.warn('[GTT API] Gallery delete note:', err);
+    if (!isStaticDeployment()) {
+      console.error('[GTT API] Gallery delete failed:', err);
+      showToast('Ошибка удаления', 'Не удалось удалить кадр из базы: ' + (err.message || err), 'error');
+      return;
+    }
   }
+
+  // 2. Update local state
+  const gallery = getDB(GALLERY_STORAGE_KEY, defaultGallery).filter(g => g.id !== id);
+  saveDB(GALLERY_STORAGE_KEY, gallery);
+
+  // 3. Broadcast to official site
+  if (window.BroadcastChannel) {
+    try {
+      new BroadcastChannel('gtt_channel').postMessage({ type: 'gallery_updated', gallery });
+    } catch (e) {}
+  }
+
+  renderGalleryTable();
+  showToast('Кадр удален', 'Фотография удалена из живой галереи и базы данных', 'info');
+
+  recordAuditEvent({
+    section: 'Живая галерея',
+    action: 'Удален кадр',
+    item: id,
+    details: 'Удален из галереи трека'
+  });
 }
 
+
 // ================= MODULE 3: TEAM =================
+let selectedInspectorMemberId = null;
+
+function selectTeamMemberForInspection(id) {
+  const team = getDB(TEAM_STORAGE_KEY, defaultTeam);
+  const m = team.find(item => item.id === id) || team[0];
+  if (!m) return;
+  selectedInspectorMemberId = m.id;
+
+  const img = document.getElementById('inspectorMemberImg');
+  const nameEl = document.getElementById('inspectorMemberName');
+  const roleEl = document.getElementById('inspectorMemberRole');
+  const statusEl = document.getElementById('inspectorMemberStatus');
+  const badgeEl = document.getElementById('inspectorMemberBadge');
+  const editBtn = document.getElementById('inspectorEditBtn');
+
+  const photo = m.photo || defaultTeamPhotos[m.id] || 'assets/photos/team_pilot_paddock.jpg';
+  if (img) img.src = photo;
+  if (nameEl) nameEl.textContent = m.name;
+  if (roleEl) roleEl.textContent = m.role;
+
+  const statusMap = {
+    active: '● В основном составе RDRC',
+    atelier: '🔧 В лаборатории GTT',
+    paddock: '🏁 На выездном этапе паддока'
+  };
+  if (statusEl) statusEl.textContent = statusMap[m.status] || m.status;
+  if (badgeEl) badgeEl.textContent = m.status === 'active' ? 'RDRC Core' : (m.status === 'atelier' ? 'Lab Spec' : 'Paddock');
+  if (editBtn) editBtn.setAttribute('onclick', `openTeamMemberModal('${escapeJS(m.id)}')`);
+
+  // Highlight selected table row
+  document.querySelectorAll('#teamTableBody tr').forEach(tr => {
+    tr.classList.remove('active-inspector-row');
+    if (tr.getAttribute('data-team-id') === m.id) {
+      tr.classList.add('active-inspector-row');
+    }
+  });
+}
+
 function renderTeamTable() {
   const team = getDB(TEAM_STORAGE_KEY, defaultTeam);
   const tbody = document.getElementById('teamTableBody');
@@ -1834,20 +2955,34 @@ function renderTeamTable() {
     paddock: '<span style="color: #f59e0b;">🏁 Паддок RDRC</span>'
   };
 
-  tbody.innerHTML = team.map((m, idx) => `
-    <tr>
+  tbody.innerHTML = team.map((m, idx) => {
+    const photoUrl = escapeHTML(m.photo || defaultTeamPhotos[m.id] || 'assets/photos/team_pilot_paddock.jpg');
+    const name = escapeHTML(m.name);
+    const role = escapeHTML(m.role);
+    const id = escapeJS(m.id);
+    const statusHtml = statusMap[m.status] || escapeHTML(m.status);
+    return `
+    <tr data-team-id="${id}" onclick="selectTeamMemberForInspection('${id}')" style="cursor: pointer;" title="Кликните для просмотра фото и профиля справа">
       <td style="color: var(--text-dim); font-family: var(--font-mono);">${idx + 1}</td>
-      <td style="font-weight: 700; color: #fff;">${m.name}</td>
-      <td>${m.role}</td>
-      <td>${statusMap[m.status] || m.status}</td>
       <td>
-        <div class="row-actions">
-          <button class="table-btn" onclick="openTeamMemberModal('${m.id}')">Изменить</button>
-          <button class="table-btn delete" onclick="deleteTeamMember('${m.id}')">Удалить</button>
+        <img src="${photoUrl}" alt="${name}" class="team-member-thumb" style="width: 44px; height: 44px; border-radius: 6px; object-fit: cover; border: 1px solid rgba(255,255,255,0.15); display: block;" onerror="this.src='assets/photos/team_pilot_paddock.jpg'">
+      </td>
+      <td style="font-weight: 700; color: #fff;">${name}</td>
+      <td>${role}</td>
+      <td>${statusHtml}</td>
+      <td>
+        <div class="row-actions" onclick="event.stopPropagation()">
+          <button class="table-btn" onclick="openTeamMemberModal('${id}')">Изменить</button>
+          <button class="table-btn delete" onclick="deleteTeamMember('${id}')">Удалить</button>
         </div>
       </td>
     </tr>
-  `).join('');
+    `;
+  }).join('');
+
+  if (team.length > 0) {
+    selectTeamMemberForInspection(selectedInspectorMemberId || team[0].id);
+  }
 }
 
 function openTeamMemberModal(id) {
@@ -1866,7 +3001,7 @@ function openTeamMemberModal(id) {
     document.getElementById('editMemberName').value = m.name;
     document.getElementById('editMemberRole').value = m.role;
     document.getElementById('editMemberStatus').value = m.status;
-    const photo = m.photo || '';
+    const photo = m.photo || defaultTeamPhotos[m.id] || '';
     if (document.getElementById('editMemberPhoto')) {
       document.getElementById('editMemberPhoto').value = photo;
       handleTeamPhotoInput(photo);
@@ -1877,6 +3012,7 @@ function openTeamMemberModal(id) {
     document.getElementById('editMemberId').value = '';
     clearTeamPhotoPreview();
   }
+  updateTeamLiveCardPreview();
 }
 
 function closeTeamModal() {
@@ -1898,10 +3034,10 @@ async function saveTeamMember(e) {
   }
 
   const existingMember = idInput ? team.find(m => m.id === idInput) : null;
-  const photoVal = document.getElementById('editMemberPhoto')?.value.trim() || (existingMember ? existingMember.photo : '');
+  const photoVal = document.getElementById('editMemberPhoto')?.value.trim() || (existingMember ? existingMember.photo : '') || (idInput ? defaultTeamPhotos[idInput] : '');
 
   const memberData = {
-    id: idInput || 'team_' + Date.now(),
+    id: idInput || ('team_' + Date.now()),
     name: rawName,
     role: document.getElementById('editMemberRole').value.trim() || 'Инженер GTT Atelier',
     status: document.getElementById('editMemberStatus').value || 'active',
@@ -1909,6 +3045,29 @@ async function saveTeamMember(e) {
     social: existingMember ? existingMember.social : undefined
   };
 
+  // 1. Direct reliable save to SQLite backend FIRST
+  try {
+    if (idInput) {
+      await apiFetch(`/api/team/${encodeURIComponent(idInput)}`, {
+        method: 'PUT',
+        body: JSON.stringify(memberData)
+      });
+    } else {
+      const res = await apiFetch('/api/team', {
+        method: 'POST',
+        body: JSON.stringify(memberData)
+      });
+      if (res && res.id) memberData.id = res.id;
+    }
+  } catch (err) {
+    if (!isStaticDeployment()) {
+      console.error('[GTT API] Team backend save failed:', err);
+      showToast('Ошибка сохранения', 'Не удалось сохранить специалиста в базе: ' + (err.message || err), 'error');
+      return;
+    }
+  }
+
+  // 2. Update local state
   if (idInput) {
     const idx = team.findIndex(m => m.id === idInput);
     if (idx !== -1) team[idx] = Object.assign({}, existingMember, memberData);
@@ -1919,45 +3078,67 @@ async function saveTeamMember(e) {
 
   saveDB(TEAM_STORAGE_KEY, team);
   localStorage.setItem('gtt_team_v2', JSON.stringify(team));
+
+  // 3. Broadcast to all open tabs of the site
+  if (window.BroadcastChannel) {
+    try {
+      new BroadcastChannel('gtt_channel').postMessage({ type: 'team_updated', team });
+    } catch (e) {}
+  }
+
   renderTeamTable();
+  selectTeamMemberForInspection(memberData.id);
   closeTeamModal();
 
   showToast(
     idInput ? 'Сотрудник обновлен' : 'Сотрудник добавлен',
-    `Специалист «${memberData.name}» сохранен в составе команды!`,
+    `Специалист «${memberData.name}» успешно сохранен в базе и применен на сайте!`,
     'success'
   );
 
-  try {
-    if (idInput) {
-      await apiFetch(`/api/team/${encodeURIComponent(idInput)}`, {
-        method: 'PUT',
-        body: JSON.stringify(memberData)
-      });
-    } else {
-      await apiFetch('/api/team', {
-        method: 'POST',
-        body: JSON.stringify(memberData)
-      });
-    }
-  } catch (err) {
-    console.warn('[GTT API] Team save note:', err);
-  }
+  recordAuditEvent({
+    section: 'Команда GTT',
+    action: idInput ? 'Обновлен специалист' : 'Добавлен специалист',
+    item: memberData.name,
+    details: `${memberData.role}`
+  });
 }
 
 async function deleteTeamMember(id) {
   if (!confirm('Удалить сотрудника из списка команды?')) return;
-  const team = getDB(TEAM_STORAGE_KEY, defaultTeam).filter(m => m.id !== id);
-  saveDB(TEAM_STORAGE_KEY, team);
-  localStorage.setItem('gtt_team_v2', JSON.stringify(team));
-  renderTeamTable();
-  showToast('Сотрудник удален', 'Специалист исключен из списка команды', 'info');
 
+  // 1. Delete from SQLite backend FIRST
   try {
     await apiFetch(`/api/team/${encodeURIComponent(id)}`, { method: 'DELETE' });
   } catch (err) {
-    console.warn('[GTT API] Team delete note:', err);
+    if (!isStaticDeployment()) {
+      console.error('[GTT API] Team backend deletion failed:', err);
+      showToast('Ошибка удаления', 'Не удалось удалить специалиста из базы: ' + (err.message || err), 'error');
+      return;
+    }
   }
+
+  // 2. Update local state
+  const team = getDB(TEAM_STORAGE_KEY, defaultTeam).filter(m => m.id !== id);
+  saveDB(TEAM_STORAGE_KEY, team);
+  localStorage.setItem('gtt_team_v2', JSON.stringify(team));
+
+  // 3. Broadcast to site
+  if (window.BroadcastChannel) {
+    try {
+      new BroadcastChannel('gtt_channel').postMessage({ type: 'team_updated', team });
+    } catch (e) {}
+  }
+
+  renderTeamTable();
+  showToast('Сотрудник удален', 'Специалист исключен из базы данных ателье', 'info');
+
+  recordAuditEvent({
+    section: 'Команда GTT',
+    action: 'Удален специалист',
+    item: id,
+    details: 'Исключен из состава команды'
+  });
 }
 
 // ================= MODULE 3: RECORDS =================
@@ -1966,20 +3147,27 @@ function renderRecordsTable() {
   const tbody = document.getElementById('recordsTableBody');
   if (!tbody) return;
 
-  tbody.innerHTML = records.map(rec => `
+  tbody.innerHTML = records.map(rec => {
+    const id = escapeJS(rec.id);
+    const year = escapeHTML(rec.year);
+    const car = escapeHTML(rec.car);
+    const telemetry = escapeHTML(rec.telemetry);
+    const desc = escapeHTML(rec.desc);
+    return `
     <tr>
-      <td><span class="tag-pill" style="color: var(--gtt-orange);">${rec.year}</span></td>
-      <td style="font-weight: 700; color: #fff;">${rec.car}</td>
-      <td style="font-family: var(--font-mono);">${rec.telemetry}</td>
-      <td style="color: var(--text-muted); font-size: 11.5px;">${rec.desc}</td>
+      <td><span class="tag-pill" style="color: var(--gtt-orange);">${year}</span></td>
+      <td style="font-weight: 700; color: #fff;">${car}</td>
+      <td style="font-family: var(--font-mono);">${telemetry}</td>
+      <td style="color: var(--text-muted); font-size: 11.5px;">${desc}</td>
       <td>
         <div class="row-actions">
-          <button class="table-btn" onclick="openRecordEditModal('${rec.id}')">Изменить</button>
-          <button class="table-btn delete" onclick="deleteRecord('${rec.id}')">Удалить</button>
+          <button class="table-btn" onclick="openRecordEditModal('${id}')">Изменить</button>
+          <button class="table-btn delete" onclick="deleteRecord('${id}')">Удалить</button>
         </div>
       </td>
     </tr>
-  `).join('');
+  `;
+  }).join('');
 }
 
 function openRecordEditModal(id) {
@@ -2031,7 +3219,7 @@ async function saveRecord(e) {
   }
 
   const recData = {
-    id: idInput || 'rec_' + Date.now(),
+    id: idInput || ('rec_' + Date.now()),
     year: document.getElementById('editRecordYear').value.trim() || '2024 • Рекорд GTT',
     car: rawCar,
     telemetry: document.getElementById('editRecordTelemetry').value.trim() || '—',
@@ -2039,6 +3227,29 @@ async function saveRecord(e) {
     img: document.getElementById('editRecordImg')?.value.trim() || ''
   };
 
+  // 1. Direct reliable save to SQLite backend FIRST
+  try {
+    if (idInput) {
+      await apiFetch(`/api/records/${encodeURIComponent(idInput)}`, {
+        method: 'PUT',
+        body: JSON.stringify(recData)
+      });
+    } else {
+      const res = await apiFetch('/api/records', {
+        method: 'POST',
+        body: JSON.stringify(recData)
+      });
+      if (res && res.id) recData.id = res.id;
+    }
+  } catch (err) {
+    if (!isStaticDeployment()) {
+      console.error('[GTT API] Record backend save failed:', err);
+      showToast('Ошибка сохранения', 'Не удалось сохранить рекорд в базе: ' + (err.message || err), 'error');
+      return;
+    }
+  }
+
+  // 2. Update local state
   if (idInput) {
     const idx = records.findIndex(r => r.id === idInput);
     if (idx !== -1) records[idx] = recData;
@@ -2048,44 +3259,67 @@ async function saveRecord(e) {
   }
 
   saveDB(RECORDS_STORAGE_KEY, records);
+  localStorage.setItem('gtt_records_v2', JSON.stringify(records));
+
+  // 3. Broadcast to official site in real time
+  if (window.BroadcastChannel) {
+    try {
+      new BroadcastChannel('gtt_channel').postMessage({ type: 'records_updated', records });
+    } catch (e) {}
+  }
+
   renderRecordsTable();
   closeRecordModal();
 
   showToast(
     idInput ? 'Рекорд обновлен' : 'Рекорд внесен',
-    `Запись «${recData.car}» сохранена в Зале славы RDRC!`,
+    `Запись «${recData.car}» сохранена в базе и применилась на сайте!`,
     'success'
   );
 
-  try {
-    if (idInput) {
-      await apiFetch(`/api/records/${encodeURIComponent(idInput)}`, {
-        method: 'PUT',
-        body: JSON.stringify(recData)
-      });
-    } else {
-      await apiFetch('/api/records', {
-        method: 'POST',
-        body: JSON.stringify(recData)
-      });
-    }
-  } catch (err) {
-    console.warn('[GTT API] Record save note:', err);
-  }
+  recordAuditEvent({
+    section: 'Доска рекордов',
+    action: idInput ? 'Обновлен рекорд' : 'Внесен новый рекорд',
+    item: recData.car,
+    details: `${recData.year} • ${recData.telemetry}`
+  });
 }
 
 async function deleteRecord(id) {
   if (!confirm('Удалить рекорд из зала славы?')) return;
-  const records = getDB(RECORDS_STORAGE_KEY, defaultRecords).filter(r => r.id !== id);
-  saveDB(RECORDS_STORAGE_KEY, records);
-  renderRecordsTable();
-  showToast('Рекорд удален', 'Запись рекорда удалена из Зала славы', 'info');
 
+  // 1. Delete from SQLite backend FIRST
   try {
     await apiFetch(`/api/records/${encodeURIComponent(id)}`, { method: 'DELETE' });
   } catch (err) {
-    console.warn('[GTT API] Record delete note:', err);
+    if (!isStaticDeployment()) {
+      console.error('[GTT API] Record backend deletion failed:', err);
+      showToast('Ошибка удаления', 'Не удалось удалить рекорд из базы: ' + (err.message || err), 'error');
+      return;
+    }
   }
+
+  // 2. Update local state
+  const records = getDB(RECORDS_STORAGE_KEY, defaultRecords).filter(r => r.id !== id);
+  saveDB(RECORDS_STORAGE_KEY, records);
+  localStorage.setItem('gtt_records_v2', JSON.stringify(records));
+
+  // 3. Broadcast to official site in real time
+  if (window.BroadcastChannel) {
+    try {
+      new BroadcastChannel('gtt_channel').postMessage({ type: 'records_updated', records });
+    } catch (e) {}
+  }
+
+  renderRecordsTable();
+  showToast('Рекорд удален', 'Запись рекорда удалена из Зала славы и базы данных', 'info');
+
+  recordAuditEvent({
+    section: 'Доска рекордов',
+    action: 'Удален рекорд',
+    item: id,
+    details: 'Запись удалена из Зала славы'
+  });
 }
 
 // ================= MODULE 4: MEDIA =================
@@ -2094,22 +3328,29 @@ function renderMediaTable() {
   const tbody = document.getElementById('mediaTableBody');
   if (!tbody) return;
 
-  tbody.innerHTML = media.map(item => `
+  tbody.innerHTML = media.map(item => {
+    const id = escapeJS(item.id);
+    const title = escapeHTML(item.title);
+    const type = escapeHTML((item.type || '').toUpperCase());
+    const url = escapeHTML(item.url);
+    const car = escapeHTML(item.car);
+    return `
     <tr>
-      <td style="font-weight: 600; color: #fff;">${item.title}</td>
-      <td><span class="tag-pill">${item.type.toUpperCase()}</span></td>
+      <td style="font-weight: 600; color: #fff;">${title}</td>
+      <td><span class="tag-pill">${type}</span></td>
       <td style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-        ${item.url}
+        ${url}
       </td>
-      <td><span class="tag-pill" style="color: var(--gtt-orange);">${item.car}</span></td>
+      <td><span class="tag-pill" style="color: var(--gtt-orange);">${car}</span></td>
       <td>
         <div class="row-actions">
-          <button class="table-btn" onclick="openMediaEditModal('${item.id}')">Изменить</button>
-          <button class="table-btn delete" onclick="deleteMediaItem('${item.id}')">Удалить</button>
+          <button class="table-btn" onclick="openMediaEditModal('${id}')">Изменить</button>
+          <button class="table-btn delete" onclick="deleteMediaItem('${id}')">Удалить</button>
         </div>
       </td>
     </tr>
-  `).join('');
+  `;
+  }).join('');
 }
 
 function openMediaEditModal(id) {
@@ -2160,13 +3401,36 @@ async function saveMediaItem(e) {
 
   const rawUrl = document.getElementById('editMediaUrl').value.trim();
   const mediaData = {
-    id: idInput || 'med_' + Date.now(),
+    id: idInput || ('med_' + Date.now()),
     title: rawTitle,
     type: document.getElementById('editMediaType').value || 'mp4',
     car: document.getElementById('editMediaCar').value.trim() || 'GTT Atelier Supercar',
     url: rawUrl || 'assets/videos/hero_burnout_action.mp4'
   };
 
+  // 1. Direct reliable save to SQLite backend FIRST
+  try {
+    if (idInput) {
+      await apiFetch(`/api/media/${encodeURIComponent(idInput)}`, {
+        method: 'PUT',
+        body: JSON.stringify(mediaData)
+      });
+    } else {
+      const res = await apiFetch('/api/media', {
+        method: 'POST',
+        body: JSON.stringify(mediaData)
+      });
+      if (res && res.id) mediaData.id = res.id;
+    }
+  } catch (err) {
+    if (!isStaticDeployment()) {
+      console.error('[GTT API] Media save failed:', err);
+      showToast('Ошибка сохранения', 'Не удалось сохранить видео в базе: ' + (err.message || err), 'error');
+      return;
+    }
+  }
+
+  // 2. Update local state
   if (idInput) {
     const idx = media.findIndex(m => m.id === idInput);
     if (idx !== -1) media[idx] = mediaData;
@@ -2176,45 +3440,262 @@ async function saveMediaItem(e) {
   }
 
   saveDB(MEDIA_STORAGE_KEY, media);
+
+  // 3. Broadcast to official site
+  if (window.BroadcastChannel) {
+    try {
+      new BroadcastChannel('gtt_channel').postMessage({ type: 'media_updated', media });
+    } catch (e) {}
+  }
+
   renderMediaTable();
   closeMediaModal();
 
   showToast(
     idInput ? 'Медиа обновлено' : 'Медиа добавлено',
-    `Видео «${mediaData.title}» сохранено в медиатеке!`,
+    `Видео «${mediaData.title}» сохранено в базе и применилось на сайте!`,
     'success'
   );
 
-  try {
-    if (idInput) {
-      await apiFetch(`/api/media/${encodeURIComponent(idInput)}`, {
-        method: 'PUT',
-        body: JSON.stringify(mediaData)
-      });
-    } else {
-      await apiFetch('/api/media', {
-        method: 'POST',
-        body: JSON.stringify(mediaData)
-      });
-    }
-  } catch (err) {
-    console.warn('[GTT API] Media save note:', err);
-  }
+  recordAuditEvent({
+    section: 'Медиатека / Reels',
+    action: idInput ? 'Обновлено видео' : 'Добавлено видео',
+    item: mediaData.title,
+    details: `${mediaData.type.toUpperCase()} • ${mediaData.car}`
+  });
 }
 
 async function deleteMediaItem(id) {
   if (!confirm('Удалить видео из медиатеки?')) return;
-  const media = getDB(MEDIA_STORAGE_KEY, defaultMedia).filter(m => m.id !== id);
-  saveDB(MEDIA_STORAGE_KEY, media);
-  renderMediaTable();
-  showToast('Видео удалено', 'Медиаматериал удален из базы', 'info');
 
+  // 1. Delete from SQLite backend FIRST
   try {
     await apiFetch(`/api/media/${encodeURIComponent(id)}`, { method: 'DELETE' });
   } catch (err) {
-    console.warn('[GTT API] Media delete note:', err);
+    if (!isStaticDeployment()) {
+      console.error('[GTT API] Media delete failed:', err);
+      showToast('Ошибка удаления', 'Не удалось удалить видео из базы: ' + (err.message || err), 'error');
+      return;
+    }
+  }
+
+  // 2. Update local state
+  const media = getDB(MEDIA_STORAGE_KEY, defaultMedia).filter(m => m.id !== id);
+  saveDB(MEDIA_STORAGE_KEY, media);
+
+  // 3. Broadcast to official site
+  if (window.BroadcastChannel) {
+    try {
+      new BroadcastChannel('gtt_channel').postMessage({ type: 'media_updated', media });
+    } catch (e) {}
+  }
+
+  renderMediaTable();
+  showToast('Видео удалено', 'Медиаматериал удален из базы данных', 'info');
+
+  recordAuditEvent({
+    section: 'Медиатека / Reels',
+    action: 'Удалено видео',
+    item: id,
+    details: 'Удалено из медиатеки'
+  });
+}
+
+// ==========================================================================
+// NOTIFICATION BELL & LIVE AUDIT TRAIL SYSTEM
+// ==========================================================================
+const AUDIT_STORAGE_KEY = 'gtt_admin_audit_log';
+
+function getAuditLogs() {
+  try {
+    const raw = localStorage.getItem(AUDIT_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    return [];
   }
 }
+
+function saveAuditLogs(logs) {
+  try {
+    localStorage.setItem(AUDIT_STORAGE_KEY, JSON.stringify(logs.slice(0, 50)));
+  } catch (e) {}
+}
+
+let currentAuditFilter = 'all';
+
+function getEventCategory(action) {
+  const act = (action || '').toLowerCase();
+  if (act.includes('удал') || act.includes('исключ')) return 'removed';
+  if (act.includes('добав') || act.includes('внесен')) return 'added';
+  if (act.includes('топ-4') || act.includes('слот') || act.includes('позиц')) return 'featured';
+  return 'updated';
+}
+
+function filterAuditNotifications(filter, btn) {
+  currentAuditFilter = filter || 'all';
+  document.querySelectorAll('.notif-filter-chip').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderNotificationsDropdown(currentAuditFilter);
+}
+
+function recordAuditEvent({ section, action, item, details }) {
+  const author = localStorage.getItem(USER_NAME_KEY) || 'gosha';
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  const dateStr = now.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit' });
+
+  const eventData = {
+    id: 'audit_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+    section: section || 'Система',
+    action: action || 'Изменение',
+    item: item || '',
+    details: details || '',
+    author: author,
+    time: timeStr,
+    date: dateStr,
+    timestamp: Date.now()
+  };
+
+  const logs = getAuditLogs();
+  logs.unshift(eventData);
+  saveAuditLogs(logs);
+
+  updateAdminBellUI();
+  // Duplicate popup card eliminated: only the single primary toast is shown on screen
+
+  // Broadcast to other open tabs / windows in real time
+  if (window.BroadcastChannel) {
+    try {
+      const ch = new BroadcastChannel('gtt_channel');
+      ch.postMessage({ type: 'audit_event', eventData });
+    } catch (e) {}
+  }
+}
+
+function updateAdminBellUI() {
+  const badge = document.getElementById('adminBellBadge');
+  const totalBadge = document.getElementById('adminNotifTotalBadge');
+  const logs = getAuditLogs();
+  if (badge) {
+    if (logs.length > 0) {
+      badge.textContent = logs.length > 99 ? '99+' : logs.length;
+      badge.style.display = 'inline-flex';
+    } else {
+      badge.style.display = 'none';
+    }
+  }
+  if (totalBadge) {
+    totalBadge.textContent = logs.length;
+  }
+}
+
+function toggleAdminNotifications(e) {
+  if (e && e.stopPropagation) e.stopPropagation();
+  const dropdown = document.getElementById('adminNotificationsDropdown');
+  if (!dropdown) return;
+  const isHidden = dropdown.style.display === 'none' || !dropdown.style.display;
+  dropdown.style.display = isHidden ? 'block' : 'none';
+  if (isHidden) {
+    renderNotificationsDropdown(currentAuditFilter);
+  }
+}
+
+function clearAdminNotifications() {
+  localStorage.removeItem(AUDIT_STORAGE_KEY);
+  updateAdminBellUI();
+  const list = document.getElementById('adminNotifList');
+  if (list) {
+    list.innerHTML = `
+      <div class="admin-notif-empty">
+        <div style="font-size: 24px; margin-bottom: 6px;">📋</div>
+        <div>Журнал очищен. Новые действия будут отображаться здесь.</div>
+      </div>
+    `;
+  }
+  showToast('Журнал очищен', 'История действий ателье успешно сброшена', 'info');
+}
+
+function renderNotificationsDropdown(filter = 'all') {
+  const list = document.getElementById('adminNotifList');
+  if (!list) return;
+  let logs = getAuditLogs();
+
+  if (filter && filter !== 'all') {
+    logs = logs.filter(log => getEventCategory(log.action) === filter);
+  }
+
+  updateAdminBellUI();
+
+  if (logs.length === 0) {
+    const emptyLabels = {
+      all: 'Журнал пуст. Все изменения проектов, рекордов и команды фиксируются здесь в реальном времени.',
+      removed: 'В журнале нет удаленных объектов.',
+      added: 'В журнале нет недавно добавленных объектов.',
+      updated: 'В журнале нет измененных объектов.',
+      featured: 'Порядок слотов ТОП-4 болидов не изменялся.'
+    };
+    list.innerHTML = `
+      <div class="admin-notif-empty">
+        <div style="font-size: 26px; margin-bottom: 8px;">📋</div>
+        <div>${emptyLabels[filter] || emptyLabels.all}</div>
+      </div>
+    `;
+    return;
+  }
+
+  const tagConfig = {
+    removed: { cls: 'tag-removed', label: 'УБРАНО ИЗ БАЗЫ', icon: '🗑️' },
+    added: { cls: 'tag-added', label: 'ДОБАВЛЕНО В БАЗУ', icon: '✨' },
+    featured: { cls: 'tag-featured', label: 'ТОП-4 ФЛАГМАНЫ', icon: '⚡' },
+    updated: { cls: 'tag-updated', label: 'ОСТАВЛЕНО / ИЗМЕНЕНО', icon: '✏️' }
+  };
+
+  list.innerHTML = logs.map(log => {
+    const cat = getEventCategory(log.action);
+    const tagInfo = tagConfig[cat] || tagConfig.updated;
+    const section = escapeHTML(log.section);
+    const action = escapeHTML(log.action);
+    const time = escapeHTML(log.time);
+    const date = escapeHTML(log.date || '');
+    const item = escapeHTML(log.item);
+    const details = log.details ? escapeHTML(log.details) : '';
+    const author = escapeHTML(log.author);
+
+    return `
+    <div class="admin-notif-item item-cat-${cat}">
+      <div class="admin-notif-topbar">
+        <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+          <span class="admin-notif-action-tag ${tagInfo.cls}">${tagInfo.icon} ${tagInfo.label}</span>
+          <span class="admin-notif-sec-pill">[${section}]</span>
+        </div>
+        <span class="admin-notif-time">${date ? date + ' ' : ''}${time}</span>
+      </div>
+      <div class="admin-notif-text">
+        <div class="admin-notif-item-title">${item}</div>
+        ${details ? `<div class="admin-notif-item-sub">${details}</div>` : ''}
+      </div>
+      <div class="admin-notif-footer">
+        <span class="admin-notif-act-desc">${action}</span>
+        <span class="admin-notif-author">👤 ${author}</span>
+      </div>
+    </div>
+    `;
+  }).join('');
+}
+
+// Deprecated: No more secondary duplicate popup card on screen
+function showRightLiveNotification() {
+  // Intentional no-op to eliminate redundant screen popups
+}
+
+// Close notifications dropdown when clicking outside
+document.addEventListener('click', (e) => {
+  const wrap = document.getElementById('adminBellWrap');
+  const dropdown = document.getElementById('adminNotificationsDropdown');
+  if (dropdown && dropdown.style.display !== 'none' && wrap && !wrap.contains(e.target)) {
+    dropdown.style.display = 'none';
+  }
+});
 
 // Global Exports
 function exportDataJSON() {
@@ -2435,6 +3916,12 @@ window.updateCarVideoPreviewUI = updateCarVideoPreviewUI;
 window.handleCarPhotoPathInput = handleCarPhotoPathInput;
 window.clearCarPhotoPreview = clearCarPhotoPreview;
 
+// Top-4 Featured slots exports
+window.renderFeaturedSlots = renderFeaturedSlots;
+window.handleFeaturedSlotSelectChange = handleFeaturedSlotSelectChange;
+window.moveFeaturedSlot = moveFeaturedSlot;
+window.syncFeaturedOrderToBackend = syncFeaturedOrderToBackend;
+
 // Team modal & photo exports
 window.openTeamMemberModal = openTeamMemberModal;
 window.closeTeamModal = closeTeamModal;
@@ -2443,6 +3930,8 @@ window.deleteTeamMember = deleteTeamMember;
 window.handleTeamPhotoSelected = handleTeamPhotoSelected;
 window.handleTeamPhotoInput = handleTeamPhotoInput;
 window.clearTeamPhotoPreview = clearTeamPhotoPreview;
+window.updateTeamLiveCardPreview = updateTeamLiveCardPreview;
+window.selectTeamMemberForInspection = selectTeamMemberForInspection;
 
 // Records modal & photo exports
 window.openRecordEditModal = openRecordEditModal;
@@ -2470,6 +3959,11 @@ window.openGalleryPhotoModal = openGalleryPhotoModal;
 window.closeGalleryPhotoModal = closeGalleryPhotoModal;
 window.saveGalleryPhoto = saveGalleryPhoto;
 window.deleteGalleryPhoto = deleteGalleryPhoto;
+
+// Notification Bell & Audit Trail exports
+window.toggleAdminNotifications = toggleAdminNotifications;
+window.clearAdminNotifications = clearAdminNotifications;
+window.updateAdminBellUI = updateAdminBellUI;
 
 document.addEventListener('DOMContentLoaded', checkAuth);
 

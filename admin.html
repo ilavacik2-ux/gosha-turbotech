@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/admin.css?v=21.0">
+  <link rel="stylesheet" href="css/admin.css?v=23.0">
 </head>
 <body>
 
@@ -24,26 +24,39 @@
   <!-- Toast Notification Container -->
   <div id="adminToastContainer" class="gtt-toast-container" aria-live="polite" aria-atomic="true"></div>
 
+  <!-- 404 Gate Block Screen (Shield against direct unauthorized browsing) -->
+  <div id="gateBlockScreen" style="display: none; min-height: 100vh; align-items: center; justify-content: center; flex-direction: column; text-align: center; font-family: var(--font-sans); color: #8892b0; padding: 20px;">
+    <div style="font-size: 72px; font-weight: 800; font-family: var(--font-display); color: #232733; letter-spacing: 4px; margin-bottom: 8px;">404</div>
+    <h1 style="font-size: 20px; font-weight: 600; color: #ccd6f6; margin-bottom: 10px;">Страница не найдена</h1>
+    <p style="font-size: 14px; color: #5a647e; max-width: 380px; line-height: 1.5; margin-bottom: 24px;">Запрашиваемый ресурс не существует, отключен или был перемещен.</p>
+    <a href="/" style="display: inline-flex; align-items: center; padding: 10px 22px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; color: #8892b0; text-decoration: none; font-size: 13px; font-weight: 500; transition: all 0.2s;">На главную страницу</a>
+  </div>
+
   <!-- Admin Login Screen -->
   <div id="loginScreen" class="admin-auth-container">
-      <div class="auth-brand" style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 24px;">
-        <img src="assets/photos/gtt_shield_logo.svg" alt="GoshaTurboTech" class="auth-shield-logo" style="width: 48px; height: 48px; object-fit: contain; filter: drop-shadow(0 0 12px rgba(234, 91, 12, 0.5));">
-        <div class="brand-title" style="text-align: center; line-height: 1.1;">
-          <div style="font-family: var(--font-display); font-size: 16px; font-weight: 800; font-style: italic; letter-spacing: 0.18em; color: #FFFFFF;">GOSHA</div>
-          <div style="font-family: var(--font-display); font-size: 14px; font-weight: 800; font-style: italic; letter-spacing: 0.14em; color: var(--gtt-orange);">TURBOTECH</div>
-        </div>
+    <div class="auth-brand" style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 24px;">
+      <img src="assets/photos/gtt_shield_logo.svg" alt="GoshaTurboTech" class="auth-shield-logo" style="width: 48px; height: 48px; object-fit: contain; filter: drop-shadow(0 0 12px rgba(234, 91, 12, 0.5));">
+      <div class="brand-title" style="text-align: center; line-height: 1.1;">
+        <div style="font-family: var(--font-display); font-size: 16px; font-weight: 800; font-style: italic; letter-spacing: 0.18em; color: #FFFFFF;">GOSHA</div>
+        <div style="font-family: var(--font-display); font-size: 14px; font-weight: 800; font-style: italic; letter-spacing: 0.14em; color: var(--gtt-orange);">TURBOTECH</div>
       </div>
-      
-      <form id="loginForm" onsubmit="handleAdminLogin(event); return false;">
-        <div class="input-group">
-          <label for="adminPass">Пароль доступа инженера</label>
-          <input type="password" id="adminPass" placeholder="Введите пароль..." autocomplete="current-password" autofocus required>
-        </div>
-        <button type="submit" id="loginBtn" class="btn-primary auth-submit-btn">Войти в панель GTT</button>
-        <div id="authError" class="auth-error-msg">⚠️ Неверный ключ или секретный пароль. Доступ заблокирован.</div>
-        <div class="auth-hint">🔐 Защищенный шлюз GTT Atelier Skunkworks. Доступ строго по персональному ключу инженера.</div>
-      </form>
     </div>
+    
+    <form id="loginForm" onsubmit="handleAdminLogin(event); return false;">
+      <div class="input-group" style="margin-bottom: 14px;">
+        <label for="adminUser">Позывной / Логин инженера</label>
+        <input type="text" id="adminUser" placeholder="Введите логин..." autocomplete="username" autofocus required>
+      </div>
+      <div class="input-group">
+        <label for="adminPass">Пароль доступа (Master Pass)</label>
+        <input type="password" id="adminPass" placeholder="Введите пароль..." autocomplete="current-password" required>
+      </div>
+      <!-- Bot Defense Honeypot -->
+      <input type="text" name="sec_trap_check" id="adminSecurityTrap" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;pointer-events:none;" aria-hidden="true">
+      <button type="submit" id="loginBtn" class="btn-primary auth-submit-btn">Войти в панель GTT</button>
+      <div id="authError" class="auth-error-msg">⚠️ Неверный логин или пароль доступа. Попытка зафиксирована.</div>
+      <div class="auth-hint">🔐 Защищенный шлюз GTT Atelier Skunkworks. Двухуровневая аутентификация инженера.</div>
+    </form>
   </div>
 
   <!-- Admin Dashboard Screen -->
@@ -74,6 +87,42 @@
           <span class="user-status-indicator"></span>
           <span class="user-welcome-text" id="userWelcomeText">Добро пожаловать // <strong>GTT Atelier Hub</strong></span>
         </div>
+
+        <!-- Notification Bell & Audit Trail Dropdown -->
+        <div class="admin-bell-wrap" id="adminBellWrap">
+          <button type="button" class="admin-bell-btn" id="adminBellBtn" onclick="toggleAdminNotifications(event)" title="Журнал изменений ателье">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span class="admin-bell-badge" id="adminBellBadge" style="display: none;">0</span>
+          </button>
+          <div class="admin-notifications-dropdown" id="adminNotificationsDropdown" style="display: none;">
+            <div class="admin-notif-header">
+              <div class="admin-notif-title">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--gtt-orange)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                <span>Журнал действий ателье</span>
+                <span class="admin-notif-count-badge" id="adminNotifTotalBadge">0</span>
+              </div>
+              <button type="button" class="admin-notif-clear-btn" onclick="clearAdminNotifications()" title="Очистить историю">Очистить всё</button>
+            </div>
+            <!-- Quick Action Filters: Что убрано, что добавлено, что оставлено -->
+            <div class="admin-notif-filter-bar">
+              <button type="button" class="notif-filter-chip active" data-filter="all" onclick="filterAuditNotifications('all', this)">Все</button>
+              <button type="button" class="notif-filter-chip chip-removed" data-filter="removed" onclick="filterAuditNotifications('removed', this)">🗑️ Убрано</button>
+              <button type="button" class="notif-filter-chip chip-added" data-filter="added" onclick="filterAuditNotifications('added', this)">✨ Добавлено</button>
+              <button type="button" class="notif-filter-chip chip-updated" data-filter="updated" onclick="filterAuditNotifications('updated', this)">✏️ Оставлено</button>
+              <button type="button" class="notif-filter-chip chip-featured" data-filter="featured" onclick="filterAuditNotifications('featured', this)">⚡ ТОП-4</button>
+            </div>
+            <div class="admin-notif-list" id="adminNotifList">
+              <div class="admin-notif-empty">
+                <div style="font-size: 24px; margin-bottom: 6px;">📋</div>
+                <div>Журнал пуст. Все изменения проектов, рекордов и команды фиксируются здесь в реальном времени.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <a href="index.html" class="topbar-btn outline-btn" target="_blank">Открыть сайт ↗</a>
         <button class="topbar-btn danger-btn" onclick="handleAdminLogout()">Выйти</button>
       </div>
@@ -132,6 +181,39 @@
             </button>
             <div class="stat-num" id="adminHeroVal3">3,000+ л.с.</div>
             <div class="stat-lbl" id="adminHeroLbl3">Предельная отдача автомобиля</div>
+          </div>
+        </div>
+
+        <!-- ================= TOP-4 FEATURED CARS (САМЫЕ БЫСТРЫЕ БОЛИДЫ ПЕРВОГО ЭКРАНА) ================= -->
+        <div class="featured-slots-section" id="featuredSlotsSection">
+          <div class="featured-slots-header">
+            <div class="featured-slots-title-wrap">
+              <div class="featured-slots-badge">
+                <span>⚡</span> ФЛАГМАНЫ ПЕРВОГО ЭКРАНА САЙТА
+                <span class="badge" style="background: rgba(255, 85, 0, 0.14); color: #FF5500; border: 1px solid rgba(255, 85, 0, 0.35); font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600; text-transform: none; margin-left: 6px; letter-spacing: 0.3px;">🖐️ Drag & Drop / Мышь / Свайпы</span>
+              </div>
+              <h2 class="featured-slots-heading">
+                Топ-4 главных проекта (Самые быстрые болиды)
+              </h2>
+              <div class="featured-slots-desc">
+                Именно эти 4 автомобиля отображаются первыми в витрине на главной странице сайта до кнопки «Показать все проекты». Вы можете перетаскивать их мышкой или свайпом, зажать карточку для перемещения, поменять местами стрелками или выбрать из базы.
+              </div>
+            </div>
+            <div class="admin-actions-group">
+              <button type="button" class="btn-primary" onclick="openCarEditModal(null, 0)" style="font-size: 12px; padding: 7px 14px; display: inline-flex; align-items: center; gap: 6px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                  <line x1="12" y1="11" x2="12" y2="17"></line>
+                  <line x1="9" y1="14" x2="15" y2="14"></line>
+                </svg>
+                <span>+ Добавить болид через папку</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 4 Slots Grid -->
+          <div class="featured-slots-grid" id="featuredSlotsGrid">
+            <!-- Dynamically populated via renderFeaturedSlots() in js/admin.js -->
           </div>
         </div>
 
@@ -246,21 +328,44 @@
           </div>
         </div>
 
-        <div class="admin-table-wrapper">
-          <table class="admin-table">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Имя сотрудника</th>
-                <th>Должность / Специализация</th>
-                <th>Статус в боксах</th>
-                <th>Действия</th>
-              </tr>
-            </thead>
-            <tbody id="teamTableBody">
-              <!-- Dynamically populated from JS -->
-            </tbody>
-          </table>
+        <div class="team-roster-split-layout" style="display: flex; gap: 24px; align-items: flex-start;">
+          <div class="admin-table-wrapper" style="flex: 1; min-width: 0;">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th style="width: 45px;">#</th>
+                  <th style="width: 60px;">Фото</th>
+                  <th>Имя сотрудника</th>
+                  <th>Должность / Специализация</th>
+                  <th>Статус в боксах</th>
+                  <th>Действия</th>
+                </tr>
+              </thead>
+              <tbody id="teamTableBody">
+                <!-- Dynamically populated from JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Right-side Live Team Member Inspector Card -->
+          <div id="teamRosterInspectorCard" class="team-side-inspector" style="width: 280px; flex-shrink: 0; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-top: 2px solid var(--gtt-orange); border-radius: var(--radius-sm); padding: 18px; position: sticky; top: 20px;">
+            <div style="font-size: 11px; text-transform: uppercase; font-family: var(--font-mono); color: var(--gtt-orange); margin-bottom: 12px; letter-spacing: 0.05em; display: flex; align-items: center; justify-content: space-between;">
+              <span>👤 Профиль справа</span>
+              <span id="inspectorMemberBadge" class="tag-pill" style="font-size: 10px;">Crew</span>
+            </div>
+            <div style="width: 100%; height: 240px; border-radius: 8px; overflow: hidden; background: #000; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 14px; position: relative;">
+              <img id="inspectorMemberImg" src="assets/photos/team_pilot_paddock.jpg" alt="Фото специалиста" style="width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block;" onerror="this.src='assets/photos/team_pilot_paddock.jpg'">
+              <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 24px 12px 8px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);">
+                <div id="inspectorMemberStatus" style="font-size: 11px; color: #22c55e; font-weight: 600;">● В основном составе</div>
+              </div>
+            </div>
+            <h3 id="inspectorMemberName" style="font-size: 17px; font-weight: 700; color: #fff; margin: 0 0 4px 0; font-family: var(--font-display); letter-spacing: 0.03em;">Гоша</h3>
+            <p id="inspectorMemberRole" style="font-size: 12px; color: var(--text-muted); margin: 0 0 14px 0; line-height: 1.4;">Основатель & Главный конструктор GTT</p>
+            <div style="display: flex; gap: 8px;">
+              <button id="inspectorEditBtn" class="table-btn" style="flex: 1; padding: 7px 10px; font-size: 11px; text-align: center;" onclick="">Редактировать</button>
+            </div>
+            <p style="font-size: 10.5px; color: var(--text-dim); margin-top: 10px; margin-bottom: 0; text-align: center;">Кликните по сотруднику в таблице для инспекции</p>
+          </div>
         </div>
       </section>
 
@@ -355,6 +460,36 @@
               <div id="passChangeStatus" style="display: none; margin-top: 10px; font-size: 12px; padding: 8px 12px; border-radius: 6px;"></div>
             </form>
           </div>
+
+          <!-- Telegram Notifications Card -->
+          <div class="stat-card" style="display: block; margin-top: 20px;">
+            <div style="font-family: var(--font-display); font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 18px;">✈️</span> Привязка Telegram-оповещений
+              </div>
+              <span class="badge" style="background: rgba(34, 197, 94, 0.15); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.3); font-size: 11px; padding: 3px 8px; border-radius: 4px;">Киберщит</span>
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5;">
+              Моментальные оповещения о попытках брутфорса, блокировках атакующих IP, успешных входах, смене пароля и изменениях в гараже прямо в ваш Telegram.
+            </p>
+            <form onsubmit="handleSaveTelegramConfig(event)">
+              <div class="form-group" style="margin-bottom: 12px;">
+                <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 6px;">Токен Telegram-бота (от @BotFather)</label>
+                <input type="text" id="tgBotTokenInput" placeholder="Например: 7123456789:AAH..." autocomplete="off">
+              </div>
+              <div class="form-group" style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 6px;">ID чата получателя (Chat ID Гоши или группы ателье)</label>
+                <input type="text" id="tgChatIdInput" placeholder="Например: 123456789 (личный) или -100... (группа)" autocomplete="off">
+              </div>
+              <div style="display: flex; gap: 10px;">
+                <button type="submit" class="btn-primary" style="flex: 1;">Сохранить настройки Telegram</button>
+                <button type="button" class="topbar-btn outline-btn" onclick="testTelegramAlert()" style="display: inline-flex; align-items: center; gap: 6px; padding: 0 16px; white-space: nowrap;">
+                  <span>Тест отправки ✈️</span>
+                </button>
+              </div>
+              <div id="tgStatus" style="display: none; margin-top: 12px; font-size: 12px; padding: 8px 12px; border-radius: 6px; font-family: var(--font-mono);"></div>
+            </form>
+          </div>
         </div>
 
         <!-- Secret URL Token Info Card -->
@@ -440,13 +575,39 @@
                 <span class="preview-label">Предпросмотр фото:</span>
                 <button type="button" class="btn-clear-preview" onclick="clearCarPhotoPreview()">&times; Убрать фото</button>
               </div>
-              <div class="preview-img-container">
-                <img id="carImgPreview" src="" alt="Предпросмотр фото" onerror="this.src='assets/cars/gtr_lucifer_solo.jpg'">
+              <div class="preview-img-container" style="max-height: 220px; overflow: hidden; border-radius: 8px; background: #000; border: 1px solid rgba(255,255,255,0.12);">
+                <img id="carImgPreview" src="" alt="Предпросмотр фото" onerror="this.src='assets/cars/gtr_lucifer_solo.jpg'" style="width: 100%; height: 200px; object-fit: cover; object-position: center 50%; display: block;">
                 <div class="preview-meta" id="carImgMeta">
                   <span class="meta-name" id="carImgMetaName">Файл не выбран</span>
                   <span class="meta-info" id="carImgMetaInfo">Разрешение и размер</span>
                 </div>
               </div>
+            </div>
+
+            <!-- Vertical Photo Align / Height Adjustment Control -->
+            <div class="photo-position-control-box" style="margin-top: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px 14px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
+                <label style="font-size: 11px; text-transform: uppercase; color: #fff; font-family: var(--font-mono); margin: 0; display: flex; align-items: center; gap: 6px;">
+                  <span style="color: var(--gtt-orange);">📐</span> Регулировка фото по высоте:
+                </label>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span id="carPosValueDisplay" style="font-family: var(--font-mono); font-size: 12px; color: var(--gtt-orange); font-weight: 700; background: rgba(255,85,0,0.12); padding: 2px 7px; border-radius: 4px; border: 1px solid rgba(255,85,0,0.3);">50%</span>
+                  <div style="display: flex; gap: 4px;">
+                    <button type="button" class="btn-slot-arrow" style="width: auto; padding: 2px 8px; font-size: 10px;" onclick="setCarPhotoPreset('top')" title="Прижать к верху">⬆ Верх (15%)</button>
+                    <button type="button" class="btn-slot-arrow" style="width: auto; padding: 2px 8px; font-size: 10px;" onclick="setCarPhotoPreset('center')" title="По центру">🎯 Центр (50%)</button>
+                    <button type="button" class="btn-slot-arrow" style="width: auto; padding: 2px 8px; font-size: 10px;" onclick="setCarPhotoPreset('bottom')" title="Прижать к низу">⬇ Низ (80%)</button>
+                  </div>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <span style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">0% (Верх)</span>
+                <input type="range" id="editObjectPositionY" min="0" max="100" value="50" step="1" style="flex: 1; accent-color: var(--gtt-orange); cursor: pointer;" oninput="handleCarPhotoPositionChange(this.value)">
+                <span style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">100% (Низ)</span>
+              </div>
+              <input type="hidden" id="editObjectPosition" value="center 50%">
+              <p style="font-size: 11px; color: var(--text-muted); margin-top: 6px; margin-bottom: 0; line-height: 1.4;">
+                Регулируйте вертикальное положение изображения, чтобы колеса или крыша не срезались на карточке болида. Результат сразу виден в предпросмотре.
+              </p>
             </div>
           </div>
           <div class="form-group full-width">
@@ -498,52 +659,57 @@
       </div>
       <form id="teamEditForm" novalidate onsubmit="saveTeamMember(event)">
         <input type="hidden" id="editMemberId">
-        <div class="form-grid">
-          <div class="form-group">
-            <label>Имя специалиста *</label>
-            <input type="text" id="editMemberName" placeholder="Эдик, Рустам, Роман...">
-          </div>
-          <div class="form-group">
-            <label>Должность / Роль *</label>
-            <input type="text" id="editMemberRole" placeholder="Технический директор, Моторист...">
-          </div>
-          <div class="form-group">
-            <label>Статус</label>
-            <select id="editMemberStatus">
-              <option value="active">В основном составе RDRC</option>
-              <option value="atelier">В лаборатории GTT</option>
-              <option value="paddock">На выездном этапе</option>
-            </select>
-          </div>
-          <div class="form-group full-width">
-            <label for="editMemberPhoto">Фотография специалиста</label>
-            <div class="file-picker-input-group">
-              <input type="text" id="editMemberPhoto" placeholder="assets/photos/... или выберите файл из папки" oninput="handleTeamPhotoInput(this.value)">
-              <label for="teamPhotoFileInput" class="btn-folder-browse" title="Выбрать фото через Finder / Проводник">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-                </svg>
-                <span>Папка</span>
-              </label>
-              <input type="file" id="teamPhotoFileInput" class="visually-hidden-file-input" accept="image/*" onchange="handleTeamPhotoSelected(event)">
+        <div style="display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap;">
+          <!-- Left side inputs -->
+          <div style="flex: 1; min-width: 280px;">
+            <div class="form-group" style="margin-bottom: 14px;">
+              <label>Имя специалиста *</label>
+              <input type="text" id="editMemberName" placeholder="Эдик, Рустам, Роман..." oninput="updateTeamLiveCardPreview()">
             </div>
-            <!-- Live Preview for Team Member -->
-            <div class="admin-img-preview-wrap" id="teamImgPreviewWrap" style="display: none;">
-              <div class="preview-header">
-                <span class="preview-label">Предпросмотр фото специалиста:</span>
-                <button type="button" class="btn-clear-preview" onclick="clearTeamPhotoPreview()">&times; Убрать</button>
-              </div>
-              <div class="preview-img-container">
-                <img id="teamImgPreview" src="" alt="Фото специалиста" style="width: 60px; height: 60px; border-radius: 50%;">
-                <div class="preview-meta">
-                  <span class="meta-name" id="teamImgMetaName">Специалист GTT</span>
-                  <span class="meta-info" id="teamImgMetaInfo">Готово к сохранению</span>
-                </div>
+            <div class="form-group" style="margin-bottom: 14px;">
+              <label>Должность / Роль *</label>
+              <input type="text" id="editMemberRole" placeholder="Технический директор, Моторист..." oninput="updateTeamLiveCardPreview()">
+            </div>
+            <div class="form-group" style="margin-bottom: 14px;">
+              <label>Статус в паддоке</label>
+              <select id="editMemberStatus" onchange="updateTeamLiveCardPreview()">
+                <option value="active">В основном составе RDRC</option>
+                <option value="atelier">В лаборатории GTT</option>
+                <option value="paddock">На выездном этапе</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin-bottom: 14px;">
+              <label for="editMemberPhoto">Фотография специалиста (URL или локальный файл)</label>
+              <div class="file-picker-input-group">
+                <input type="text" id="editMemberPhoto" placeholder="assets/photos/... или выберите файл из папки" oninput="handleTeamPhotoInput(this.value)">
+                <label for="teamPhotoFileInput" class="btn-folder-browse" title="Выбрать фото через Finder / Проводник">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                  <span>Папка</span>
+                </label>
+                <input type="file" id="teamPhotoFileInput" class="visually-hidden-file-input" accept="image/*" onchange="handleTeamPhotoSelected(event)">
               </div>
             </div>
+          </div>
+
+          <!-- Right side Live Photo Card Preview -->
+          <div style="width: 240px; flex-shrink: 0; background: rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 14px; text-align: center;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-size: 10.5px; text-transform: uppercase; font-family: var(--font-mono); color: var(--gtt-orange); font-weight: 700;">Фото справа:</span>
+              <button type="button" class="btn-clear-preview" onclick="clearTeamPhotoPreview()" style="font-size: 11px;">&times; Сброс</button>
+            </div>
+            <div style="width: 100%; height: 210px; border-radius: 8px; overflow: hidden; background: #07090e; border: 1px solid rgba(255,85,0,0.35); margin-bottom: 10px; position: relative; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
+              <img id="teamImgPreview" src="assets/photos/team_pilot_paddock.jpg" alt="Фото специалиста" style="width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block;" onerror="this.src='assets/photos/team_pilot_paddock.jpg'">
+              <div id="teamLiveBadgeOverlay" style="position: absolute; bottom: 8px; left: 8px; right: 8px; padding: 4px 8px; background: rgba(0,0,0,0.82); backdrop-filter: blur(4px); border-radius: 4px; font-size: 10px; color: #22c55e; font-weight: 600; text-align: center;">
+                ● Основной состав RDRC
+              </div>
+            </div>
+            <div id="teamLiveNamePreview" style="font-weight: 700; color: #fff; font-size: 14px; margin-bottom: 2px;">Гоша</div>
+            <div id="teamLiveRolePreview" style="font-size: 11px; color: var(--text-muted); line-height: 1.3;">Основатель & Главный конструктор GTT</div>
           </div>
         </div>
-        <div class="admin-modal-actions">
+        <div class="admin-modal-actions" style="margin-top: 20px;">
           <button type="button" class="topbar-btn outline-btn" onclick="closeTeamModal()">Отмена</button>
           <button type="submit" class="btn-primary">Сохранить</button>
         </div>
@@ -830,6 +996,6 @@
   </div>
 
   <script src="js/media-db.js?v=22.0"></script>
-  <script src="js/admin.js?v=22.0"></script>
+  <script src="js/admin.js?v=23.0"></script>
 </body>
 </html>

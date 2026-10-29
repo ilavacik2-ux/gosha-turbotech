@@ -978,24 +978,21 @@ body.is-loading {
   filter: contrast(1.06) brightness(0.96);
 }
 
-/* Ensure isolated car renders (PNGs like Moses #712) sit uncropped with full wheels and body */
-.car-card-img:not(.photo-fit),
-.car-card-img[src*=".png"],
-.car-card-img[src*="-min.png"] {
-  width: 92% !important;
-  height: 88% !important;
-  object-fit: contain !important;
-  object-position: center center !important;
+/* Ensure isolated car renders (transparent cutouts) sit uncropped */
+.car-card-img[src*="-min.png"]:not(.photo-fit) {
+  width: 92%;
+  height: 88%;
+  object-fit: contain;
   filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.85));
 }
 
-/* Precise uncropped framing for Lucifer and Draco */
-.car-card[data-id="gtr_lucifer"] .car-card-img {
-  object-position: center 46% !important;
+/* Default framing fallback for Lucifer and Draco if not overridden inline */
+.car-card[data-id="gtr_lucifer"] .car-card-img:not([style*="object-position"]) {
+  object-position: center 46%;
 }
 
-.car-card[data-id="draco_promod"] .car-card-img {
-  object-position: center 64% !important;
+.car-card[data-id="draco_promod"] .car-card-img:not([style*="object-position"]) {
+  object-position: center 64%;
 }
 
 /* Classified Blueprint SVG Styling */
@@ -4854,6 +4851,81 @@ body.modal-open {
     font-size: 12px;
     padding: 12px 18px;
   }
+}
+
+/* ==========================================================================
+   NEW PROJECT CAR CARDS HIGHLIGHT & GIANT QUESTION MARK OVERLAY
+   ========================================================================== */
+.car-card.is-new-car-pending {
+  border-color: rgba(255, 170, 0, 0.5) !important;
+  box-shadow: 0 4px 24px rgba(255, 170, 0, 0.12);
+  background: linear-gradient(180deg, rgba(20, 24, 32, 0.95) 0%, rgba(12, 14, 20, 0.98) 100%);
+  position: relative;
+}
+
+.car-card.is-new-car-pending:hover {
+  border-color: #FFAA00 !important;
+  box-shadow: 0 8px 32px rgba(255, 170, 0, 0.28) !important;
+  transform: translateY(-4px);
+}
+
+.car-card-badge.is-new-badge {
+  background: rgba(255, 170, 0, 0.18) !important;
+  border-color: #FFAA00 !important;
+  color: #FFAA00 !important;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  animation: newBadgeGlow 2.5s infinite ease-in-out;
+}
+
+@keyframes newBadgeGlow {
+  0% { box-shadow: 0 0 4px rgba(255, 170, 0, 0.2); }
+  50% { box-shadow: 0 0 14px rgba(255, 170, 0, 0.6); }
+  100% { box-shadow: 0 0 4px rgba(255, 170, 0, 0.2); }
+}
+
+.card-question-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(10, 13, 20, 0.55) 0%, rgba(10, 13, 20, 0.82) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  z-index: 4;
+  backdrop-filter: blur(1.5px);
+  pointer-events: none;
+}
+
+.card-question-icon {
+  font-family: var(--font-display);
+  font-size: 52px;
+  font-weight: 900;
+  line-height: 1;
+  color: #FFAA00;
+  text-shadow: 0 0 24px rgba(255, 170, 0, 0.85), 0 0 45px rgba(255, 85, 0, 0.5);
+  animation: questionPulse 2s infinite ease-in-out;
+}
+
+@keyframes questionPulse {
+  0% { transform: scale(0.96); opacity: 0.9; }
+  50% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(0.96); opacity: 0.9; }
+}
+
+.card-question-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  color: #fff;
+  background: rgba(255, 170, 0, 0.25);
+  border: 1px solid #FFAA00;
+  padding: 3px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  box-shadow: 0 0 12px rgba(255, 170, 0, 0.35);
 }
 
 

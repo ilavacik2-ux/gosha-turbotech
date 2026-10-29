@@ -5,911 +5,1246 @@
 
 let gttProjects = [
   {
-    id: 'gtr_lucifer',
-    brand: 'NISSAN & GTT',
-    name: {
-      ru: 'GT-R R35 «LUCIFER» GTT #71 CHAMPION',
-      en: 'GT-R R35 «LUCIFER» GTT #71 CHAMPION'
+    "id": "r8_rokot",
+    "brand": "AUDI & GTT",
+    "type": "audi",
+    "name": {
+      "ru": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT",
+      "en": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT"
     },
-    type: 'gtr',
-    tag: {
-      ru: 'ЧЕМПИОН RDRC • ПИЛОТ ГОША ПЕРЦХЕЛИЯ #71',
-      en: 'RDRC CHAMPION • PILOT GOSHA PERTSKHELIYA #71'
+    "tag": {
+      "ru": "РЕКОРД РОССИИ ДЛЯ AUDI • 7.877 СЕК",
+      "en": "RUSSIAN RECORD FOR AUDI • 7.877 SEC"
     },
-    hp: '1,850+ HP',
-    quarterMile: '7.620 сек',
-    topSpeed: '355+ км/ч',
-    badge: {
-      ru: 'Боевой Огненный Болид Гоши #71',
-      en: 'Gosha Fire Drag Weapon #71'
+    "hp": "1,600+ HP",
+    "quarterMile": "7.877 сек",
+    "topSpeed": "350+ км/ч",
+    "badge": {
+      "ru": "Рекорд России для Audi 7.877s",
+      "en": "Russia Audi Record 7.877s"
     },
-    img: 'assets/cars/gtr_lucifer_solo.jpg',
-    fallbackImg: 'assets/cars/gtr_lucifer_full.jpg',
-    isPhoto: true,
-    objectPosition: 'center 46%',
-    objectPosition: 'center 60%',
-    videoSrc: 'assets/videos/gosha_na_svoem_lucifer_web.mp4',
-    videoTitle: 'Гоша на своей // GT-R Lucifer RDRC',
-    desc: {
-      ru: 'Победоносный огненный болид Гоши Перцхелия, борт №71. Построенный в лаборатории GoshaTurboTech драг-монстр в культовой ливрее адского пламени — триумфатор и победитель финалов чемпионата России RDRC. Максимальное облегчение, биллетовый блок и яростный старт.',
-      en: 'Victorious hellfire-liveried race weapon piloted by Gosha Pertskheliya himself (race car #71). Built in the GoshaTurboTech skunkworks — champion and winner of Russian Drag Racing Championship (RDRC) finals. Billet engine, extreme lightweight drag chassis and brutal AWD launches.'
+    "img": "assets/cars/audi_r8_tsmr_launch.jpg",
+    "fallbackImg": "https://static.tildacdn.com/tild3162-3462-4064-b931-313636663133/audi_r8-min.png",
+    "isPhoto": true,
+    "objectPosition": "center 75%",
+    "videoSrc": "assets/videos/gtr_launch_pass.mp4",
+    "videoTitle": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT",
+    "desc": {
+      "ru": "Боевая Audi R8 «ROKOT» от GoshaTurboTech под управлением Эдуарда Саркисяна и Руслана Арефьева. Абсолютный национальный рекорд России для марки Audi на 1/4 мили (7.877 сек). Первый и единственный автомобиль марки Audi в стране, выехавший из 8 секунд!",
+      "en": "Competition Audi R8 «ROKOT» by GoshaTurboTech piloted by Eduard Sarkisyan and Ruslan Arefyev. Absolute Russian National Record for Audi on the 1/4 mile (7.877 sec). The first and only Audi in Russia to conquer the 7-second barrier!"
     },
-    specs: {
-      engine: '4.1L Billet Stroker VR38DETT GTT Race Spec',
-      turbos: 'Dual Precision 7675 Gen2 Pro Mod Billet Turbos',
-      fuel: 'VP Racing Ethanol M5 / Dual In-Tank 1700cc Injection',
-      ecu: 'Motec M150 Drag AWD Management + GTT Flame Map',
-      chassis: 'Full Drag Suspension, Parachute System & Weld Beadlocks'
+    "specs": {
+      "engine": "5.2L FSI V10 Twin Turbo Mid-Engine GTT Stage 3",
+      "turbos": "Mirror Twin Turbo Kit with Air-to-Water Intercooling",
+      "cooling": "CSF Triple Billet Heat Exchangers",
+      "ecu": "Syvecs S12 Standalone Motorsport Setup",
+      "clutch": "GTT Upgraded Billet 9-Plate Dual Clutch"
     }
   },
   {
-    id: 'draco_promod',
-    brand: 'NISSAN & DRACO',
-    name: {
-      ru: 'GT-R R35 DRACO PRO-MOD GTT 3000+ HP',
-      en: 'GT-R R35 DRACO PRO-MOD GTT 3000+ HP'
+    "id": "gtr_kurdalagon",
+    "brand": "NISSAN & GTT",
+    "type": "gtr",
+    "name": {
+      "ru": "GT-R R35 GTT «KURDALAGON»",
+      "en": "GT-R R35 GTT «KURDALAGON»"
     },
-    type: 'gtr',
-    tag: {
-      ru: 'RDRC PRO-MOD RECORD • ПИЛОТ Р. АРЕФЬЕВ',
-      en: 'RDRC PRO-MOD RECORD • PILOT R. AREFYEV'
+    "tag": {
+      "ru": "РЕКОРД БЫКОВО 26.10.2026 • 7.766 СЕК",
+      "en": "BYKOVO RECORD 26.10.2026 • 7.766 SEC"
     },
-    hp: '3,000+ HP',
-    quarterMile: '6.850 сек',
-    topSpeed: '380+ км/ч',
-    badge: {
-      ru: 'Болид RDRC Pro-Mod 3000+ HP',
-      en: 'RDRC Pro-Mod 3000+ HP Weapon'
+    "hp": "1,650+ HP",
+    "quarterMile": "7.766 сек",
+    "topSpeed": "300.00 км/ч",
+    "badge": {
+      "ru": "Рекорд трек-дня 7.766s",
+      "en": "Track-Day Record 7.766s"
     },
-    img: 'assets/cars/gtr_draco_promod_front.jpg',
-    fallbackImg: 'assets/cars/gtr_draco_wrap_detail.jpg',
-    isPhoto: true,
-    objectPosition: 'center 64%',
-    videoSrc: 'assets/videos/draco_gtr_action.mp4',
-    videoTitle: 'Nissan GT-R Draco Pro-Mod 3000+ HP — боевой заезд RDRC',
-    desc: {
-      ru: 'Легендарный флагман и абсолютный монстр дрэг-стрипа RDRC под управлением Романа Арефьева. Специально построенное трубчатое шасси, гигантские улитки турбонаддува и более 3000 л.с.',
-      en: 'Legendary flagship and absolute ruler of the RDRC drag strip piloted by Roman Arefyev. Bespoke chrome-moly tube chassis, massive twin pro-mod turbochargers and over 3,000 brake horsepower.'
+    "img": "https://static.tildacdn.com/tild3032-3266-4139-a563-653561393961/gtr-min.png",
+    "fallbackImg": "assets/cars/gtr_red_front_rdrc.jpg",
+    "isPhoto": false,
+    "desc": {
+      "ru": "Боевой болид Nissan GT-R R35 «Курдалагон» — имя древнего осетинского бога-кузнеца. 26 октября 2026 года на трек-дне в Быково установил новый личный рекорд команды: 7.766 сек на 402 метра со скоростью на выходе 300.00 км/ч.",
+      "en": "Mythical Kurdalagon GT-R named after the ancient blacksmith deity. Set a brand new personal best of 7.766 sec at 300.00 km/h on October 26, 2026 at Bykovo Drag Track."
     },
-    specs: {
-      engine: '4.3L Billet VR38 Race Block GTT / Draco Spec',
-      turbos: 'Dual Precision 88mm Pro-Mod Turbochargers',
-      fuel: 'Methanol M1 Injected + Dual Billet Fuel Rails',
-      ecu: 'Motec M150 Standalone Pro Drag System',
-      chassis: 'Full Chrome-Moly Tube Chassis & Carbon Body'
+    "specs": {
+      "engine": "4.1L Billet VR38 Race Assembly GTT Spec",
+      "turbos": "Dual Precision 7275 Billet Gen2",
+      "fuel": "VP Racing Ethanol M5",
+      "ecu": "Motec M150 Standalone Drag Management",
+      "chassis": "Drag Parachute & Weld Racing Beadlocks"
     }
   },
   {
-    id: 'bmw_m5',
-    brand: 'BMW M-POWER',
-    name: {
-      ru: 'BMW M5 G90 COMPETITION GTT-STAGE 3',
-      en: 'BMW M5 G90 COMPETITION GTT-STAGE 3'
+    "id": "draco_promod",
+    "brand": "NISSAN & DRACO",
+    "type": "gtr",
+    "name": {
+      "ru": "GT-R R35 DRACO PRO-MOD GTT #300",
+      "en": "GT-R R35 DRACO PRO-MOD GTT #300"
     },
-    type: 'bmw',
-    tag: {
-      ru: 'RDRC ДРЭГ-КИЛЛЕР • БОЛИД GTT G90',
-      en: 'RDRC DRAG WEAPON • GTT G90 BULLET'
+    "tag": {
+      "ru": "РЕКОРД RDRC 7.694 СЕК • ПИЛОТ Р. АРЕФЬЕВ #300",
+      "en": "RDRC RECORD 7.694 SEC • PILOT R. AREFYEV #300"
     },
-    hp: '1,050+ HP',
-    quarterMile: '9.420 сек',
-    topSpeed: '340+ км/ч',
-    badge: {
-      ru: 'Боевая BMW G90 Гоши Турботех',
-      en: 'GoshaTurboTech Race BMW G90'
+    "hp": "3,000+ HP",
+    "quarterMile": "7.694 сек",
+    "topSpeed": "323.88 км/ч",
+    "badge": {
+      "ru": "Белый Рекордный GT-R #300",
+      "en": "White Record GT-R #300"
     },
-    img: 'assets/cars/bmw_m5_rdrc_race.jpg',
-    fallbackImg: 'assets/cars/bmw_m5_rdrc_race.jpg',
-    isPhoto: true,
-    videoSrc: 'assets/videos/r8_acceleration.mp4',
-    videoTitle: 'BMW M5 G90 Competition GTT — боевой разгон',
-    desc: {
-      ru: 'Заряженная боевая BMW M5 поколения G90 от GoshaTurboTech, выступающая в чемпионате России по дрэг-рейсингу RDRC. Полный привод M xDrive, гибридные турбины GTT и усиленная поршневая группа.',
-      en: 'Competition BMW M5 G90 built by GoshaTurboTech competing in RDRC. M xDrive AWD system, custom GTT hybrid billet turbos, and reinforced engine internals.'
+    "img": "assets/cars/gtr_draco_promod_front.jpg",
+    "fallbackImg": "assets/cars/gtr_draco_wrap_detail.jpg",
+    "isPhoto": true,
+    "objectPosition": "center 64%",
+    "videoSrc": "assets/videos/draco_gtr_action.mp4",
+    "videoTitle": "Nissan GT-R Draco Pro-Mod 3000+ HP — боевой рекордный заезд RDRC",
+    "desc": {
+      "ru": "Легендарный белый флагман дрэг-стрипа RDRC под управлением Руслана Арефьева (борт №300). Официальное время 7.694 сек со скоростью 304.44 км/ч на 1/4 мили (RDRC этап 5, заезд №537) и 323.88 км/ч на 1/2 мили. Специально построенное трубчатое шасси и свыше 3000 л.с.",
+      "en": "Legendary white flagship of the RDRC drag strip piloted by Ruslan Arefyev (race car #300). Official verified time 7.694 sec at 304.44 km/h on the 1/4 mile (RDRC Stage 5, pass #537) and 323.88 km/h on the 1/2 mile."
     },
-    specs: {
-      engine: '4.4L V8 TwinPower Turbo Hybrid Powertrain GTT Spec',
-      turbos: 'GTT Custom Billet Hybrid Turbos',
-      fuel: '100 RON + Methanol Direct Port Injected',
-      ecu: 'GTT Custom Dual ECU & 8HP Transmission Flash',
-      exhaust: 'Inconel Catless Downpipes + Full Titanium System'
+    "specs": {
+      "engine": "4.3L Billet VR38 Race Block GTT / Draco Spec",
+      "turbos": "Dual Precision 88mm Pro-Mod Turbochargers",
+      "fuel": "Methanol M1 Injected + Dual Billet Fuel Rails",
+      "ecu": "Motec M150 Standalone Pro Drag System",
+      "chassis": "Full Chrome-Moly Tube Chassis & Carbon Body"
     }
   },
   {
-    id: 'moses',
-    brand: 'NISSAN',
-    name: {
-      ru: 'GT-R R35 GTT-MOSES «КОРЖИК» #712',
-      en: 'GT-R R35 GTT-MOSES «KORZHIK» #712'
+    "id": "gtr_lucifer",
+    "brand": "NISSAN & GTT",
+    "type": "gtr",
+    "name": {
+      "ru": "GT-R R35 «LUCIFER» GTT #71 CHAMPION",
+      "en": "GT-R R35 «LUCIFER» GTT #71 CHAMPION"
     },
-    type: 'gtr',
-    tag: {
-      ru: 'ЛЕГЕНДА UNLIM 500+ & RDRC • БОРТ #712',
-      en: 'UNLIM 500+ & RDRC LEGEND • RACING #712'
+    "tag": {
+      "ru": "ЧЕМПИОН RDRC • ПИЛОТ ГОША ПЕРЦХЕЛИЯ #71",
+      "en": "RDRC CHAMPION • PILOT GOSHA PERTSKHELIYA #71"
     },
-    hp: '1,800+ HP',
-    quarterMile: '7.810 сек',
-    topSpeed: '360+ км/ч',
-    badge: {
-      ru: 'Легендарный Белый GT-R #712',
-      en: 'Legendary White GT-R #712'
+    "hp": "1,850+ HP",
+    "quarterMile": "8.400 сек",
+    "topSpeed": "343.67 км/ч",
+    "badge": {
+      "ru": "Боевой Огненный Болид Гоши #71",
+      "en": "Gosha Fire Drag Weapon #71"
     },
-    img: 'https://static.tildacdn.com/tild3032-3266-4139-a563-653561393961/gtr-min.png',
-    fallbackImg: 'assets/cars/gtr_red_chrome_rdrc.jpg',
-    isPhoto: false,
-    desc: {
-      ru: 'Культовый белый Nissan GT-R R35 борт №712 под управлением Николая Коржова — символ побед GoshaTurboTech в России и Европе. Абсолютный чемпион SMP RDRC и призер Unlim 500+ на Крите.',
-      en: 'Iconic white Nissan GT-R R35 #712 driven by Nikolay Korzhov — emblem of GoshaTurboTech victories across Europe and Russia. SMP RDRC champion and Unlim 500+ podium finisher in Crete.'
+    "img": "assets/cars/gtr_lucifer_solo.jpg",
+    "fallbackImg": "assets/cars/gtr_lucifer_full.jpg",
+    "isPhoto": true,
+    "objectPosition": "center 46%",
+    "videoSrc": "assets/videos/gosha_na_svoem_lucifer_web.mp4",
+    "videoTitle": "Гоша на своей // GT-R Lucifer RDRC",
+    "desc": {
+      "ru": "Победоносный огненный болид Гоши Перцхелия, борт №71. Личный драг-монстр в культовой ливрее адского пламени — триумфатор и победитель чемпионата России RDRC (лучшее время 8.400 сек / 1/2 мили 13.690 с / 343.67 км/ч).",
+      "en": "Victorious hellfire-liveried race weapon piloted by Gosha Pertskheliya himself (race car #71). Built in the GoshaTurboTech skunkworks — champion and winner of Russian Drag Racing Championship (RDRC) finals."
     },
-    specs: {
-      engine: '4.1L Billet Stroker VR38DETT GTT Spec',
-      turbos: 'Dual Precision Ball-Bearing Race Turbos',
-      fuel: 'VP Racing C16 / 100 RON Dual Fuel Map',
-      ecu: 'Motec M1 + Custom GTT Drag AWD Logic',
-      trans: 'GTT Billet PPG Sequential Dog-Box'
+    "specs": {
+      "engine": "4.1L Billet Stroker VR38DETT GTT Race Spec",
+      "turbos": "Dual Precision 7675 Gen2 Pro Mod Billet Turbos",
+      "fuel": "VP Racing Ethanol M5 / Dual In-Tank 1700cc Injection",
+      "ecu": "Motec M150 Drag AWD Management + GTT Flame Map",
+      "chassis": "Full Drag Suspension, Parachute System & Weld Beadlocks"
     }
   },
   {
-    id: 'zelenka',
-    brand: 'LAMBORGHINI',
-    name: {
-      ru: 'HURACAN TWIN TURBO «ЗЕЛЕНКА» GTT',
-      en: 'HURACAN TWIN TURBO «ZELENKA» GTT'
+    "id": "bezzubik",
+    "brand": "LAMBORGHINI & GTT",
+    "type": "lambo",
+    "name": {
+      "ru": "HURACAN TWIN TURBO GTT-BEZZUBIK",
+      "en": "HURACAN TWIN TURBO GTT-BEZZUBIK"
     },
-    type: 'lambo',
-    tag: {
-      ru: 'КУЛЬТОВЫЙ 1500+ СИЛЬНЫЙ БОЛИД RDRC',
-      en: 'CULT 1500+ HP RDRC CHAMPIONSHIP BULLET'
+    "tag": {
+      "ru": "РЕКОРД ЕВРОПЫ 353 КМ/Ч • RACE 1000",
+      "en": "EUROPE RECORD 353 KM/H • RACE 1000"
     },
-    hp: '1,500+ HP',
-    quarterMile: '8.180 сек',
-    topSpeed: '355+ км/ч',
-    badge: {
-      ru: 'Легендарная «Зеленка» GTT',
-      en: 'Legendary «Zelenka» GTT'
+    "hp": "1,500+ HP",
+    "quarterMile": "8.054 сек",
+    "topSpeed": "353.02 км/ч",
+    "badge": {
+      "ru": "Рекорд Европы 353 км/ч",
+      "en": "Race 1000 Europe Record"
     },
-    img: 'assets/photos/huracan_zelenka_gtt.jpg',
-    fallbackImg: 'assets/cars/huracan_green_grey_rdrc.jpg',
-    isPhoto: true,
-    objectPosition: 'center 45%',
-    videoSrc: 'assets/videos/r8_launch_action.mp4',
-    videoTitle: 'Lamborghini Huracan Twin Turbo «Зеленка» GTT — боевой заезд RDRC',
-    desc: {
-      ru: 'Знаменитая ядовито-зеленая Lamborghini Huracan Twin Turbo «Зеленка» — легенда паддока RDRC и уличных дуэлей. Кастомный твин-турбо кит от GoshaTurboTech, бедлоки и выстрел за 8 секунд.',
-      en: 'The legendary acid-green Lamborghini Huracan Twin Turbo «Zelenka» — racing icon of the RDRC paddock. Built by GoshaTurboTech with custom mirror turbos, rear beadlock drag wheels and low 8-second 1/4 mile passes.'
+    "img": "assets/photos/huracan_rdrc_stage_line.jpg",
+    "fallbackImg": "assets/cars/huracan_green_grey_rdrc.jpg",
+    "isPhoto": true,
+    "objectPosition": "center 65%",
+    "videoSrc": "",
+    "desc": {
+      "ru": "Культовый европейский триумфатор Race 1000 в Германии и звезда RDRC. Официальный рекорд Европы со скоростью 353.02 км/ч на дистанции 804 метра и лучший квотер 8.054 сек. Построен и настроен в ателье GoshaTurboTech.",
+      "en": "Iconic European champion of Race 1000 in Germany and RDRC superstar. Official European record with 353.02 km/h on 804m distance and 8.054 sec best 1/4 mile. Built and tuned by GoshaTurboTech."
     },
-    specs: {
-      engine: '5.2L V10 FSI GTT Built Engine',
-      turbos: 'Precision Mirror Dual Ball-Bearing Turbos',
-      fuel: 'Dual Billet Fuel Rails + 100 RON / E85 Maps',
-      trans: 'GTT Upgraded Billet Dual Clutch 10-Plate',
-      wheels: 'Weld Racing Rear Beadlocks with Mickey Thompson ET'
+    "specs": {
+      "engine": "5.2L V10 FSI Twin Turbo GTT Stage 3",
+      "turbos": "Precision Dual Mirror V-Band Turbos",
+      "exhaust": "GTT Inconel Custom Straight System",
+      "ecu": "Syvecs Dual-CAN Motorsport Management",
+      "fuel": "100 RON Daily / Ethanol E85 Race Map"
     }
   },
   {
-    id: 'tonystark',
-    brand: 'AUDI & ЦМРБАНК',
-    name: {
-      ru: 'R8 V10 PLUS TWIN TURBO TONY STARK / RDRC',
-      en: 'R8 V10 PLUS TWIN TURBO TONY STARK / RDRC'
+    "id": "porsche_911_imba",
+    "brand": "PORSCHE & GTT",
+    "type": "porsche",
+    "name": {
+      "ru": "PORSCHE 911 TURBO S (992) GTT-IMBA",
+      "en": "PORSCHE 911 TURBO S (992) GTT-IMBA"
     },
-    type: 'audi',
-    tag: {
-      ru: 'РЕКОРД БАЙКАЛА & RDRC СТРИТ-КИЛЛЕР',
-      en: 'BAIKAL ICE RECORD & RDRC STREET WEAPON'
+    "tag": {
+      "ru": "РЕКОРД RDRC 992 • 9.167 СЕК • М. КУТЫЧКИНА",
+      "en": "RDRC 992 RECORD • 9.167 SEC • M. KUTYCHKINA"
     },
-    hp: '1,400+ HP',
-    quarterMile: '8.450 сек',
-    topSpeed: '350+ км/ч',
-    badge: {
-      ru: 'V10 Twin Turbo Flagship',
-      en: 'V10 Twin Turbo Flagship'
+    "hp": "1,050+ HP",
+    "quarterMile": "9.167 сек",
+    "topSpeed": "345+ км/ч",
+    "badge": {
+      "ru": "Рекорд RDRC 992 • 9.167s",
+      "en": "RDRC 992 Record • 9.167s"
     },
-    img: 'assets/cars/audi_r8_tsmr_launch.jpg',
-    fallbackImg: 'https://static.tildacdn.com/tild3162-3462-4064-b931-313636663133/audi_r8-min.png',
-    isPhoto: true,
-    objectPosition: 'center 75%',
-    videoSrc: 'assets/videos/dodge_srt_pass.mp4',
-    videoTitle: 'Audi R8 V10 Twin Turbo GTT — боевой заезд',
-    desc: {
-      ru: 'Боевая Audi R8 V10 Twin Turbo под эгидой ЦМРБанк и GTT на треке RDRC. Покоритель байкальского льда и один из самых стабильных болидов чемпионата.',
-      en: 'Race Audi R8 V10 Twin Turbo backed by CMRBank and GTT on the RDRC strip. Record setter on Lake Baikal ice and one of the most reliable twin-turbo builds in Russian motorsport.'
+    "img": "https://static.tildacdn.com/tild6539-3534-4834-b938-323035363066/7R204787_.jpg",
+    "fallbackImg": "assets/cars/gtr_rdrc_red_panamera.jpg",
+    "isPhoto": true,
+    "objectPosition": "center 55%",
+    "videoSrc": "",
+    "videoTitle": "Porsche 911 Turbo S IMBA — заезд RDRC 9.167 сек",
+    "desc": {
+      "ru": "Официальный рекордсмен RDRC среди Porsche поколения 992 под управлением Марии Кутычкиной. Подтвержденное время 9.167 сек со скоростью 236.92 км/ч на 1/4 мили (RDRC 2025, заезд 528). Кастомный интеркулер GTT и метаноловый впрыск.",
+      "en": "Official RDRC record holder among Porsche 992 generation piloted by Maria Kutychkina. Verified time 9.167 sec at 236.92 km/h on 1/4 mile (RDRC 2025, pass 528). Custom GTT intercoolers and direct port methanol injection."
     },
-    specs: {
-      engine: '5.2L FSI V10 Twin Turbo Mid-Engine',
-      turbos: 'Mirror Twin Turbo Kit with Air-to-Water Intercooling',
-      cooling: 'CSF Triple Billet Heat Exchangers',
-      ecu: 'Syvecs S12 Standalone Motorsport Setup',
-      clutch: 'GTT Upgraded Billet 9-Plate Dual Clutch'
+    "specs": {
+      "engine": "3.8L Twin-Turbo Boxer-6 GTT Spec",
+      "turbos": "GTT Billet High-Flow Turbos",
+      "fuel": "100 RON + Methanol Injection",
+      "ecu": "Syvecs S7 Plus Standalone Porsche Kit"
     }
   },
   {
-    id: 'dodge_srt',
-    brand: 'DODGE SRT',
-    name: {
-      ru: 'CHALLENGER SRT HELLCAT GTT-MONSTER',
-      en: 'CHALLENGER SRT HELLCAT GTT-MONSTER'
+    "id": "bmw_m5",
+    "brand": "BMW M-POWER",
+    "type": "bmw",
+    "name": {
+      "ru": "BMW M5 G90 COMPETITION GTT-STAGE 3",
+      "en": "BMW M5 G90 COMPETITION GTT-STAGE 3"
     },
-    type: 'other',
-    tag: {
-      ru: 'RDRC BURNOUT KING • 1,200+ HP',
-      en: 'RDRC BURNOUT KING • 1,200+ HP'
+    "tag": {
+      "ru": "RDRC ДРЭГ-КИЛЛЕР • БОЛИД GTT G90",
+      "en": "RDRC DRAG WEAPON • GTT G90 BULLET"
     },
-    hp: '1,200+ HP',
-    quarterMile: '8.890 сек',
-    topSpeed: '330+ км/ч',
-    badge: {
-      ru: 'Американский маслкар GTT',
-      en: 'GTT American Muscle Monster'
+    "hp": "1,050+ HP",
+    "quarterMile": "9.420 сек",
+    "topSpeed": "340+ км/ч",
+    "badge": {
+      "ru": "Боевая BMW G90 Гоши Турботех",
+      "en": "GoshaTurboTech Race BMW G90"
     },
-    img: 'assets/cars/dodge_burnout_sunset.jpg',
-    fallbackImg: 'assets/cars/challenger_srt_gtt.jpg',
-    isPhoto: true,
-    objectPosition: 'center 70%',
-    videoSrc: 'assets/videos/dodge_challenger_action.mp4',
-    videoTitle: 'Dodge Challenger SRT Hellcat GTT — дымный бернаут RDRC',
-    desc: {
-      ru: 'Черный компрессорный монстр Dodge Challenger SRT от GoshaTurboTech, зажигающий на прямых RDRC под управлением Гончарова. Море дыма и чудовищный крутящий момент.',
-      en: 'Supercharged black Dodge Challenger SRT built by GoshaTurboTech, dominating RDRC straight lines under pilot Goncharov. Enormous smoke, torque and American V8 thunder.'
+    "img": "assets/cars/bmw_m5_rdrc_race.jpg",
+    "fallbackImg": "assets/cars/bmw_m5_paddock_front.jpg",
+    "isPhoto": true,
+    "objectPosition": "center center",
+    "videoSrc": "",
+    "videoTitle": "BMW M5 G90 Competition GTT — боевой разгон",
+    "desc": {
+      "ru": "Заряженная боевая BMW M5 поколения G90 от GoshaTurboTech, выступающая в чемпионате России по дрэг-рейсингу RDRC. Полный привод M xDrive, гибридные турбины GTT и усиленная поршневая группа.",
+      "en": "Competition BMW M5 G90 built by GoshaTurboTech competing in RDRC. M xDrive AWD system, custom GTT hybrid billet turbos, and reinforced engine internals."
     },
-    specs: {
-      engine: '6.2L Supercharged HEMI V8 Built by GTT',
-      blower: 'Whipple 3.8L Gen 5 Supercharger Kit',
-      fuel: 'Triple Fore Innovations Fuel Pumps + 1700cc Injectors',
-      driveshaft: 'QA1 Carbon Fiber Driveshaft + GTT 9-inch Rear End',
-      tires: 'Mickey Thompson ET Street R Drag Radials'
+    "specs": {
+      "engine": "4.4L V8 TwinPower Turbo Hybrid Powertrain GTT Spec",
+      "turbos": "GTT Custom Billet Hybrid Turbos",
+      "fuel": "100 RON + Methanol Direct Port Injected",
+      "ecu": "GTT Custom Dual ECU & 8HP Transmission Flash",
+      "exhaust": "Inconel Catless Downpipes + Full Titanium System"
     }
   },
   {
-    id: 'bezzubik',
-    brand: 'LAMBORGHINI',
-    name: {
-      ru: 'HURACAN TWIN TURBO GTT-BEZZUBIK',
-      en: 'HURACAN TWIN TURBO GTT-BEZZUBIK'
+    "id": "dodge_demon",
+    "brand": "DODGE SRT",
+    "type": "other",
+    "name": {
+      "ru": "DODGE CHALLENGER SRT DEMON GTT",
+      "en": "DODGE CHALLENGER SRT DEMON GTT"
     },
-    type: 'lambo',
-    tag: {
-      ru: 'РЕКОРД ЕВРОПЫ 353 КМ/Ч • RDRC STAGE',
-      en: 'EUROPE RECORD 353 KM/H • RDRC STAGE'
+    "tag": {
+      "ru": "RDRC БЕРНАУТ КИНГ • 9.748 СЕК",
+      "en": "RDRC BURNOUT KING • 9.748 SEC"
     },
-    hp: '1,500+ HP',
-    quarterMile: '8.200 сек',
-    topSpeed: '353 км/ч',
-    badge: {
-      ru: 'Race 1000 Champion',
-      en: 'Race 1000 Champion'
+    "hp": "1,200+ HP",
+    "quarterMile": "9.748 сек",
+    "topSpeed": "330+ км/ч",
+    "badge": {
+      "ru": "SRT Demon 1200+ HP",
+      "en": "SRT Demon 1200+ HP"
     },
-    img: 'assets/photos/huracan_rdrc_stage_line.jpg',
-    fallbackImg: 'assets/cars/huracan_green_grey_rdrc.jpg',
-    isPhoto: true,
-    objectPosition: 'center 65%',
-    desc: {
-      ru: 'Европейский триумфатор Race 1000 и гроза трассы RDRC. Скорость 353 км/ч на дистанции 804 метра среди быстрейших полноприводных суперкаров мира с двойным турбонаддувом GTT.',
-      en: 'European champion of Race 1000 in Germany and RDRC star. 353 km/h on 804m distance among the fastest street-legal AWD supercars in the world with GTT Twin Turbo systems.'
+    "img": "assets/cars/dodge_burnout_sunset.jpg",
+    "fallbackImg": "assets/cars/challenger_srt_gtt.jpg",
+    "isPhoto": true,
+    "objectPosition": "center 70%",
+    "videoSrc": "",
+    "videoTitle": "Dodge Challenger SRT Demon GTT — дымный бернаут RDRC",
+    "desc": {
+      "ru": "Черный компрессорный монстр Dodge Challenger SRT Demon от GoshaTurboTech под управлением И. Кардана и М. Шония. Подтвержденное время 9.748 сек со скоростью 233.24 км/ч на 1/4 мили RDRC 2026.",
+      "en": "Supercharged black Dodge Challenger SRT Demon built by GoshaTurboTech, piloted by I. Kardan and M. Shoniya. Verified 9.748 sec at 233.24 km/h on RDRC 2026."
     },
-    specs: {
-      engine: '5.2L V10 FSI Twin Turbo GTT Stage 3',
-      turbos: 'Precision Dual Mirror V-Band Turbos',
-      exhaust: 'GTT Inconel Custom Straight System',
-      ecu: 'Syvecs Dual-CAN Motorsport Management',
-      fuel: '100 RON Daily / Ethanol E85 Race Map'
+    "specs": {
+      "engine": "6.2L Supercharged HEMI V8 Built by GTT",
+      "blower": "Whipple 3.8L Gen 5 Supercharger Kit",
+      "fuel": "Triple Fore Innovations Fuel Pumps + 1700cc Injectors",
+      "driveshaft": "QA1 Carbon Fiber Driveshaft + GTT 9-inch Rear End",
+      "tires": "Mickey Thompson ET Street R Drag Radials"
     }
   },
   {
-    id: 'gtr_blue_888',
-    brand: 'NISSAN',
-    name: {
-      ru: 'GT-R R35 MIDNIGHT BLUE GTT #888',
-      en: 'GT-R R35 MIDNIGHT BLUE GTT #888'
+    "id": "dodge_demon_170",
+    "brand": "DODGE SRT",
+    "type": "other",
+    "name": {
+      "ru": "DODGE CHALLENGER SRT DEMON 170 GTT",
+      "en": "DODGE CHALLENGER SRT DEMON 170 GTT"
     },
-    type: 'gtr',
-    tag: {
-      ru: 'RDRC ЧЕМПИОНАТ РОССИИ • БОРТ #888',
-      en: 'RDRC RUSSIAN CHAMPIONSHIP • CAR #888'
+    "tag": {
+      "ru": "ЗАВОДСКОЙ ВЫХОД НА ВИЛЛИ • 1025 HP",
+      "en": "FACTORY WHEELIE DRAG MONSTER • 1025 HP"
     },
-    hp: '1,550+ HP',
-    quarterMile: '8.120 сек',
-    topSpeed: '348+ км/ч',
-    badge: {
-      ru: 'Синий GT-R #888',
-      en: 'Blue GT-R #888'
+    "hp": "1,025+ HP",
+    "quarterMile": "9.150 сек",
+    "topSpeed": "335+ км/ч",
+    "badge": {
+      "ru": "Demon 170 Crate",
+      "en": "Demon 170 Crate"
     },
-    img: 'assets/photos/gtr_blue_888_rdrc.jpg',
-    fallbackImg: 'assets/cars/gtr_blue_rdrc_888.jpg',
-    isPhoto: true,
-    objectPosition: 'center 45%',
-    videoSrc: 'assets/videos/gtr_blue_888_pass_web.mp4',
-    videoTitle: 'Nissan GT-R #888 Midnight Blue GTT — боевой заезд RDRC',
-    desc: {
-      ru: 'Знаменитый синий Nissan GT-R R35 со стартовым номером #888, постоянный участник и призер этапов Чемпионата России RDRC. Калибровка лаунч-контроля GTT и кованый 3.8L VR38.',
-      en: 'The renowned Midnight Blue Nissan GT-R R35 carrying race #888, competing consistently on RDRC stages. Calibrated GTT launch control algorithms and bulletproof forged 3.8L VR38.'
+    "img": "assets/cars/challenger_burnout_close.jpg",
+    "fallbackImg": "assets/cars/dodge_srt_front.jpg",
+    "isPhoto": true,
+    "objectPosition": "center center",
+    "desc": {
+      "ru": "Финальный коллекционный шедевр эпохи HEMI — Demon 170. Калибровка датчиков этанола flex-fuel, усиленный карданный вал и разгон с отрывом передних колес от стрипа.",
+      "en": "The pinnacle of the HEMI era — Demon 170. Flex-fuel ethanol auto-tuning, reinforced drivetrain and wheelie-popping launches on VHT prepped tracks."
     },
-    specs: {
-      engine: '3.8L Forged VR38DETT GTT Spec',
-      turbos: 'Dual Garrett G30-900 Turbochargers',
-      cooling: 'ETS 4-inch Race Intercooler Kit',
-      ecu: 'Syvecs S6+ ECU with GTT Drag Launch Strategy',
-      trans: 'Dodson Pro-Max 8-Plate Drag Clutch'
+    "specs": {
+      "engine": "6.2L Supercharged D170 HEMI Crate Engine",
+      "blower": "3.0L High-Helix Whipple Supercharger",
+      "fuel": "Ethanol E85 Flex Fuel Auto-Calibration",
+      "chassis": "Transbrake Pro Drag Launch System"
+    },
+    "videoSrc": ""
+  },
+  {
+    "id": "audi_zlayazaya",
+    "brand": "AUDI & GTT",
+    "type": "audi",
+    "name": {
+      "ru": "AUDI R8 V10 PLUS TWIN TURBO «ZLAYAZAYA»",
+      "en": "AUDI R8 V10 PLUS TWIN TURBO «ZLAYAZAYA»"
+    },
+    "tag": {
+      "ru": "RDRC БОЕВОЙ БОЛИД • ПИЛОТ Р. АРЕФЬЕВ",
+      "en": "RDRC WEAPON • PILOT R. AREFYEV"
+    },
+    "hp": "1,200+ HP",
+    "quarterMile": "10.060 сек",
+    "topSpeed": "340+ км/ч",
+    "badge": {
+      "ru": "R8 «Злая Зая» GTT",
+      "en": "R8 «ZlayaZaya» GTT"
+    },
+    "img": "assets/cars/audi_r8_tsmr_launch.jpg",
+    "fallbackImg": "https://static.tildacdn.com/tild3162-3462-4064-b931-313636663133/audi_r8-min.png",
+    "isPhoto": true,
+    "objectPosition": "center 70%",
+    "videoSrc": "",
+    "videoTitle": "Audi R8 «Злая Зая» — боевой выезд RDRC",
+    "desc": {
+      "ru": "Культовая Audi R8 «Злая Зая» Руслана Арефьева (борт №6303). Призер этапов чемпионата RDRC, стабильный запуск на полном приводе quattro и двухтурбинный пакет GTT.",
+      "en": "Renowned Audi R8 ZlayaZaya piloted by Ruslan Arefyev (#6303). RDRC podium finisher with custom twin turbo package and relentless quattro AWD launches."
+    },
+    "specs": {
+      "engine": "5.2L V10 FSI Reinforced Internals GTT",
+      "turbos": "Dual Mirror Precision Turbos",
+      "fuel": "Direct Port Fuel Injected 100 RON",
+      "ecu": "Syvecs Powertrain Management"
     }
   },
   {
-    id: 'gtr_red',
-    brand: 'NISSAN',
-    name: {
-      ru: 'GT-R R35 RED CHROME GTT PRO-MOD',
-      en: 'GT-R R35 RED CHROME GTT PRO-MOD'
+    "id": "tonystark",
+    "brand": "AUDI & ЦМРБАНК",
+    "type": "audi",
+    "name": {
+      "ru": "R8 V10 PLUS TWIN TURBO TONY STARK / RDRC",
+      "en": "R8 V10 PLUS TWIN TURBO TONY STARK / RDRC"
     },
-    type: 'gtr',
-    tag: {
-      ru: 'RDRC ЧЕМПИОНАТ РОССИИ',
-      en: 'RDRC RUSSIAN CHAMPIONSHIP'
+    "tag": {
+      "ru": "ПОКОРИТЕЛЬ БАЙКАЛА & RDRC • 8.948 СЕК",
+      "en": "BAIKAL ICE & RDRC FIGHTER • 8.948 SEC"
     },
-    hp: '1,650+ HP',
-    quarterMile: '7.950 сек',
-    topSpeed: '350+ км/ч',
-    badge: {
-      ru: 'Красный Хром RDRC',
-      en: 'Red Chrome RDRC'
+    "hp": "1,400+ HP",
+    "quarterMile": "8.948 сек",
+    "topSpeed": "350+ км/ч",
+    "badge": {
+      "ru": "Tony Stark 1400+ HP",
+      "en": "Tony Stark 1400+ HP"
     },
-    img: 'assets/cars/gtr_red_front_rdrc.jpg',
-    fallbackImg: 'assets/cars/gtr_red_chrome_rdrc.jpg',
-    isPhoto: true,
-    objectPosition: 'center 62%',
-    videoSrc: 'assets/videos/gtr_red_g35_action_web.mp4',
-    videoTitle: 'Nissan GT-R GTT Red Chrome G35 — боевой заезд RDRC',
-    desc: {
-      ru: 'Один из самых ярких Nissan GT-R в российском дрэг-рейсинге. Кастомный хром-дизайн, усиленная подвеска и боевая трансмиссия GTT.',
-      en: 'One of the most striking Nissan GT-R cars in Russian drag racing. Custom red chrome livery, reinforced motorsport suspension and bulletproof GTT race transmission.'
+    "img": "https://static.tildacdn.com/tild3162-3462-4064-b931-313636663133/audi_r8-min.png",
+    "fallbackImg": "assets/cars/audi_r8_tsmr_launch.jpg",
+    "isPhoto": false,
+    "objectPosition": "center center",
+    "videoSrc": "",
+    "videoTitle": "Audi R8 V10 Twin Turbo Tony Stark — боевой заезд",
+    "desc": {
+      "ru": "Боевая Audi R8 V10 Twin Turbo под эгидой ЦМРБанк и GTT на треке RDRC. Официальное время 8.948 сек со скоростью 247.68 км/ч на Record Days 2023 и 287.19 км/ч на 1/2 мили.",
+      "en": "Race Audi R8 V10 Twin Turbo backed by CMRBank and GTT on the RDRC strip. Record Days 2023 8.948 sec pass at 247.68 km/h."
     },
-    specs: {
-      engine: '3.8L VR38DETT Custom GTT Billet Assembly',
-      turbos: 'Garrett G35-1050 Turbochargers',
-      cooling: 'Front Mount Massive Intercooler Core',
-      ecu: 'Syvecs S8 ECU with Launch & Traction Control'
+    "specs": {
+      "engine": "5.2L FSI V10 Twin Turbo Mid-Engine",
+      "turbos": "Mirror Twin Turbo Kit with Air-to-Water Intercooling",
+      "cooling": "CSF Triple Billet Heat Exchangers",
+      "ecu": "Syvecs S12 Standalone Motorsport Setup"
     }
   },
   {
-    id: 'bmw_m4',
-    brand: 'BMW M-POWER',
-    type: 'bmw',
-    name: {
-      ru: 'BMW M4 G82 COMPETITION GTT-850',
-      en: 'BMW M4 G82 COMPETITION GTT-850'
+    "id": "zelenka",
+    "brand": "LAMBORGHINI",
+    "type": "lambo",
+    "name": {
+      "ru": "HURACAN TWIN TURBO «ЗЕЛЕНКА» GTT",
+      "en": "HURACAN TWIN TURBO «ZELENKA» GTT"
     },
-    tag: {
-      ru: 'GTT TRACK & STREET SPEC • 850 HP',
-      en: 'GTT TRACK & STREET SPEC • 850 HP'
+    "tag": {
+      "ru": "КУЛЬТОВЫЙ 1500+ СИЛЬНЫЙ БОЛИД RDRC",
+      "en": "CULT 1500+ HP RDRC CHAMPIONSHIP BULLET"
     },
-    hp: '850+ HP',
-    quarterMile: '10.150 сек',
-    topSpeed: '325+ км/ч',
-    badge: {
-      ru: 'Track & Street Spec',
-      en: 'Track & Street Spec'
+    "hp": "1,500+ HP",
+    "quarterMile": "8.373 сек",
+    "topSpeed": "355+ км/ч",
+    "badge": {
+      "ru": "Легендарная «Зеленка» GTT",
+      "en": "Legendary «Zelenka» GTT"
     },
-    img: 'assets/cars/bmw_m4_g82_gtt.jpg',
-    fallbackImg: 'assets/cars/bmw_m4_g82_gtt.jpg',
-    isPhoto: true,
-    objectPosition: 'center center',
-    desc: {
-      ru: 'Кастомный проект на базе BMW M4 G82. Доработанные турбокомпрессоры S58, карбоновый впуск Eventuri, титановый выхлоп ручной работы и индивидуальная калибровка блока управления.',
-      en: 'Custom build based on BMW M4 G82. Upgraded S58 turbos, Eventuri carbon intake, bespoke titanium exhaust and custom ECU calibration.'
+    "img": "assets/photos/huracan_zelenka_gtt.jpg",
+    "fallbackImg": "assets/cars/huracan_green_grey_rdrc.jpg",
+    "isPhoto": true,
+    "objectPosition": "center 45%",
+    "videoSrc": "",
+    "videoTitle": "Lamborghini Huracan Twin Turbo «Зеленка» GTT — боевой заезд RDRC",
+    "desc": {
+      "ru": "Знаменитая ядовито-зеленая Lamborghini Huracan Twin Turbo «Зеленка» — легенда паддока RDRC и уличных дуэлей. Кастомный твин-турбо кит от GoshaTurboTech, задние бедлоки и выстрел за 8 секунд (1/2 мили 14.041 с / 327.86 км/ч).",
+      "en": "The legendary acid-green Lamborghini Huracan Twin Turbo «Zelenka» — racing icon of the RDRC paddock. Built by GoshaTurboTech with custom mirror turbos, rear beadlock drag wheels and low 8-second passes."
     },
-    specs: {
-      engine: '3.0L S58 Twin-Turbo Inline-6',
-      turbos: 'Pure Turbos Stage 2+ Billet Core',
-      cooling: 'CSF Radiator & Charge Cooler Pack',
-      ecu: 'Custom Bootmod3 GTT Calibration'
+    "specs": {
+      "engine": "5.2L V10 FSI GTT Built Engine",
+      "turbos": "Precision Mirror Dual Ball-Bearing Turbos",
+      "fuel": "Dual Billet Fuel Rails + 100 RON / E85 Maps",
+      "trans": "GTT Upgraded Billet Dual Clutch 10-Plate",
+      "wheels": "Weld Racing Rear Beadlocks with Mickey Thompson ET"
     }
   },
   {
-    id: 'porsche_911_gtt',
-    brand: 'PORSCHE',
-    type: 'porsche',
-    name: {
-      ru: 'PORSCHE 911 TURBO S (992) GTT-IMBA',
-      en: 'PORSCHE 911 TURBO S (992) GTT-IMBA'
+    "id": "lambo_maxpain",
+    "brand": "LAMBORGHINI & GTT",
+    "type": "lambo",
+    "name": {
+      "ru": "HURACAN PERFORMANTE TT GTT-MAXPAIN",
+      "en": "HURACAN PERFORMANTE TT GTT-MAXPAIN"
     },
-    tag: {
-      ru: 'МИРОВОЙ РЕКОРД RDRC • 9.252 СЕК',
-      en: 'WORLD RECORD RDRC • 9.252 SEC'
+    "tag": {
+      "ru": "FORGED COMPOSITES • 1600+ HP TWIN TURBO",
+      "en": "FORGED COMPOSITES • 1600+ HP TWIN TURBO"
     },
-    hp: '1,050+ HP',
-    quarterMile: '9.252 сек',
-    topSpeed: '345+ км/ч',
-    badge: {
-      ru: 'Мировой Рекорд RDRC',
-      en: 'World Record RDRC'
+    "hp": "1,600+ HP",
+    "quarterMile": "8.150 сек",
+    "topSpeed": "360+ км/ч",
+    "badge": {
+      "ru": "GTT-MAXPAIN Performante",
+      "en": "GTT-MAXPAIN Performante"
     },
-    img: 'assets/cars/gtr_rdrc_red_panamera.jpg',
-    fallbackImg: 'assets/cars/gtr_rdrc_red_panamera.jpg',
-    isPhoto: true,
-    objectPosition: 'center center',
-    desc: {
-      ru: 'Официально подтвержденный рекордсмен RDRC среди Porsche поколения 992. Кастомный интеркулер, метаноловый впрыск и экстремальный запуск с лаунча.',
-      en: 'Officially verified RDRC record holder among Porsche 992 generation. Custom intercoolers, direct port methanol and ferocious launch control.'
+    "img": "assets/cars/huracan_green_grey_rdrc.jpg",
+    "fallbackImg": "assets/cars/huracan_rdrc_duo.jpg",
+    "isPhoto": true,
+    "objectPosition": "center center",
+    "desc": {
+      "ru": "Безупречный Huracan Performante в заводском кованом карбоне Forged Composites с установленным биллетовым твин-турбо китом GTT. Чудовищная отдача 1600+ л.с. и активная аэродинамика ALA.",
+      "en": "Forged Composites masterpiece Lamborghini Huracan Performante empowered by bespoke GTT 1600+ HP twin turbo system and calibrated ALA active aero."
     },
-    specs: {
-      engine: '3.8L Twin-Turbo Boxer-6 GTT Spec',
-      turbos: 'GTT Billet High-Flow Turbos',
-      fuel: '100 RON + Methanol Injection',
-      ecu: 'Syvecs S7 Plus Standalone Porsche Kit'
+    "specs": {
+      "engine": "5.2L V10 FSI GTT Billet Rods & Pistons",
+      "turbos": "Mirror Twin Billet Precision Turbos Gen2",
+      "clutch": "GTT Dual-Clutch Billet 10-Plate Basket",
+      "ecu": "Syvecs S12 Standalone Motorsport Management"
+    },
+    "videoSrc": ""
+  },
+  {
+    "id": "lambo_spyder_800",
+    "brand": "LAMBORGHINI & GTT",
+    "type": "lambo",
+    "name": {
+      "ru": "HURACAN SPYDER GTT-800 STAGE 2",
+      "en": "HURACAN SPYDER GTT-800 STAGE 2"
+    },
+    "tag": {
+      "ru": "ЧЕМПИОНАТ ПФО 2 МЕСТО • 9.988 СЕК",
+      "en": "PFO CHAMPIONSHIP PODIUM • 9.988 SEC"
+    },
+    "hp": "850+ HP",
+    "quarterMile": "9.988 сек",
+    "topSpeed": "335+ км/ч",
+    "badge": {
+      "ru": "Spyder GTT-800",
+      "en": "Spyder GTT-800"
+    },
+    "img": "https://static.tildacdn.com/tild3732-3733-4537-b636-393237373362/IMG_9941-min.png",
+    "fallbackImg": "assets/cars/huracan_green_bezzubik_side.jpg",
+    "isPhoto": false,
+    "objectPosition": "center center",
+    "desc": {
+      "ru": "Открытый родстер Huracan Spyder с доработанной выхлопной трассой Inconel и пакетом GTT Stage 2. Официальное 2-е место на Чемпионате ПФО с результатом 9.988 сек на 402 метра.",
+      "en": "Atmospheric open-top roadster tuned with Inconel race exhaust and GTT Stage 2 package. PFO Championship podium with 9.988 sec quarter mile pass."
+    },
+    "specs": {
+      "engine": "5.2L V10 Naturally Aspirated GTT Tune",
+      "exhaust": "Inconel Valvetronic Full System Handcrafted",
+      "intake": "Carbon Ram-Air Box",
+      "ecu": "GTT Dual ECU Custom Calibration"
+    },
+    "videoSrc": ""
+  },
+  {
+    "id": "moses",
+    "brand": "NISSAN",
+    "type": "gtr",
+    "name": {
+      "ru": "GT-R R35 GTT-1800 «MOSES» #712",
+      "en": "GT-R R35 GTT-1800 «MOSES» #712"
+    },
+    "tag": {
+      "ru": "РЕКОРД ЕВРОПЫ UNLIM 500+ КРИТ • 7.810 СЕК",
+      "en": "UNLIM 500+ CRETE EUROPE RECORD • 7.810 SEC"
+    },
+    "hp": "1,800+ HP",
+    "quarterMile": "7.526 сек",
+    "topSpeed": "360+ км/ч",
+    "badge": {
+      "ru": "Легендарный Moses #712",
+      "en": "Legendary Moses #712"
+    },
+    "img": "https://static.tildacdn.com/tild3834-3466-4637-b632-636439343565/GTR-MOSES-min.png",
+    "fallbackImg": "assets/cars/gtr_draco_connections.jpg",
+    "isPhoto": false,
+    "desc": {
+      "ru": "Культовый белый Nissan GT-R R35 «MOSES» борт №712. Европейский рекорд времени на Unlim 500+ Greece (остров Крит) — 7.810 сек / 287.65 км/ч и личный рекорд 7.526 сек со скоростью 304.36 км/ч в ОАЭ. 3-й результат в мире на момент постройки.",
+      "en": "Iconic white Nissan GT-R R35 MOSES #712. European record holder at Unlim 500+ Greece (Crete) with 7.810 sec pass and personal best 7.526 sec at 304.36 km/h in UAE tests."
+    },
+    "specs": {
+      "engine": "4.1L Billet Stroker VR38DETT GTT Spec",
+      "turbos": "Dual Precision Ball-Bearing Race Turbos",
+      "fuel": "VP Racing C16 / 100 RON Dual Fuel Map",
+      "ecu": "Motec M1 + Custom GTT Drag AWD Logic",
+      "trans": "GTT Billet PPG Sequential Dog-Box"
+    },
+    "videoSrc": ""
+  },
+  {
+    "id": "gtr_korzhik",
+    "brand": "NISSAN & GTT",
+    "type": "gtr",
+    "name": {
+      "ru": "GT-R R35 GTT «KORZHIK» #712",
+      "en": "GT-R R35 GTT «KORZHIK» #712"
+    },
+    "tag": {
+      "ru": "РЕКОРД РОССИИ 334 КМ/Ч • Н. КОРЖОВ",
+      "en": "RUSSIAN RECORD 334 KM/H • N. KORZHOV"
+    },
+    "hp": "1,600+ HP",
+    "quarterMile": "8.602 сек",
+    "topSpeed": "334.41 км/ч",
+    "badge": {
+      "ru": "Рекорд России 334 км/ч",
+      "en": "Russian Record 334 km/h"
+    },
+    "img": "https://static.tildacdn.com/tild3365-3636-4135-b136-623937643037/korzhik2-min.png",
+    "fallbackImg": "assets/cars/gtr_red_chrome_rdrc.jpg",
+    "isPhoto": false,
+    "desc": {
+      "ru": "Боевой болид Николая Коржова. Рекорд России на Московской миле (1/2 мили: 13.435 сек со скоростью 334.41 км/ч) и 8.602 сек на 402 метра. Вице-чемпион абсолютного зачета Чемпионата SMP RDRC в классе FSL.",
+      "en": "Competition build piloted by Nikolay Korzhov. Russian Record at Moscow Mile (1/2 mile: 13.435 sec at 334.41 km/h) and 8.602 sec 1/4 mile. Vice-champion of SMP RDRC FSL class."
+    },
+    "specs": {
+      "engine": "4.0L Forged VR38 GTT Spec",
+      "turbos": "Precision Gen2 Billet Race Turbos",
+      "fuel": "VP Racing Ethanol Map",
+      "transmission": "Dodson Promax Heavy Duty Clutch"
+    },
+    "videoSrc": ""
+  },
+  {
+    "id": "gtr_baloo",
+    "brand": "NISSAN & GTT",
+    "type": "gtr",
+    "name": {
+      "ru": "GT-R R35 GTT «BALOO»",
+      "en": "GT-R R35 GTT «BALOO»"
+    },
+    "tag": {
+      "ru": "МОСКОВСКАЯ МИЛЯ • 8.875 СЕК • 322 КМ/Ч",
+      "en": "MOSCOW MILE • 8.875 SEC • 322 KM/H"
+    },
+    "hp": "1,450+ HP",
+    "quarterMile": "8.875 сек",
+    "topSpeed": "322.00 км/ч",
+    "badge": {
+      "ru": "GT-R Baloo GTT",
+      "en": "GT-R Baloo GTT"
+    },
+    "img": "assets/cars/gtr_red_strip_sunset.jpg",
+    "fallbackImg": "assets/cars/gtr_draco_connections.jpg",
+    "isPhoto": true,
+    "objectPosition": "center 60%",
+    "desc": {
+      "ru": "Уникальный проект «Baloo» с мощнейшим средним диапазоном оборотов и полным приводом. Личные показатели команды: 8.875 сек на 402 м со скоростью 262.39 км/ч и 13.726 сек на 1/2 мили со скоростью 322.00 км/ч.",
+      "en": "Unique Baloo build optimized for high mid-range torque and lethal AWD traction. Official team records: 8.875 sec at 262.39 km/h on 1/4 mile and 13.726 sec at 322.00 km/h on 1/2 mile."
+    },
+    "specs": {
+      "engine": "3.8L VR38 Reinforced GTT Block",
+      "turbos": "Garrett G30 Billet Turbos",
+      "cooling": "GTT Dual Radiator Pack",
+      "fuel": "Dual In-Tank Fuel Rail"
+    },
+    "videoSrc": ""
+  },
+  {
+    "id": "gtr_blue_888",
+    "brand": "NISSAN",
+    "type": "gtr",
+    "name": {
+      "ru": "GT-R R35 MIDNIGHT BLUE GTT #888",
+      "en": "GT-R R35 MIDNIGHT BLUE GTT #888"
+    },
+    "tag": {
+      "ru": "RDRC ЧЕМПИОНАТ РОССИИ • БОРТ #888",
+      "en": "RDRC RUSSIAN CHAMPIONSHIP • CAR #888"
+    },
+    "hp": "1,550+ HP",
+    "quarterMile": "8.120 сек",
+    "topSpeed": "348+ км/ч",
+    "badge": {
+      "ru": "Синий GT-R #888",
+      "en": "Blue GT-R #888"
+    },
+    "img": "assets/photos/gtr_blue_888_rdrc.jpg",
+    "fallbackImg": "assets/cars/gtr_blue_rdrc_888.jpg",
+    "isPhoto": true,
+    "objectPosition": "center 45%",
+    "videoSrc": "",
+    "videoTitle": "Nissan GT-R #888 Midnight Blue GTT — боевой заезд RDRC",
+    "desc": {
+      "ru": "Знаменитый синий Nissan GT-R R35 со стартовым номером #888, постоянный участник и призер этапов Чемпионата России RDRC. Калибровка лаунч-контроля GTT и кованый 3.8L VR38.",
+      "en": "The renowned Midnight Blue Nissan GT-R R35 carrying race #888, competing consistently on RDRC stages. Calibrated GTT launch control algorithms and bulletproof forged 3.8L VR38."
+    },
+    "specs": {
+      "engine": "3.8L Forged VR38DETT GTT Spec",
+      "turbos": "Dual Garrett G30-900 Turbochargers",
+      "cooling": "ETS 4-inch Race Intercooler Kit",
+      "ecu": "Syvecs S6+ ECU with GTT Drag Launch Strategy",
+      "trans": "Dodson Pro-Max 8-Plate Drag Clutch"
     }
   },
   {
-    id: 'gtr_rocket',
-    brand: 'NISSAN & GTT',
-    type: 'gtr',
-    name: { ru: 'GT-R R35 GTT «ROCKET»', en: 'GT-R R35 GTT «ROCKET»' },
-    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
-    hp: 'TBD',
-    quarterMile: '—',
-    topSpeed: '—',
-    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
-    img: 'assets/cars/gtt_classified_car.svg',
-    fallbackImg: 'assets/cars/gtt_classified_car.svg',
-    isPhoto: false,
-    isClassified: true,
-    desc: {
-      ru: 'Экстремальный драг-проект Nissan GT-R R35 «Rocket» лаборатории GoshaTurboTech. Двухтурбинный наддув, титановый выхлоп и облегченная гоночная конфигурация кузова.',
-      en: 'Extreme drag racing project Nissan GT-R R35 Rocket by GoshaTurboTech skunkworks. Twin turbo package, titanium straight pipes and ultra-lightweight race setup.'
+    "id": "gtr_red",
+    "brand": "NISSAN",
+    "type": "gtr",
+    "name": {
+      "ru": "GT-R R35 RED CHROME GTT PRO-MOD",
+      "en": "GT-R R35 RED CHROME GTT PRO-MOD"
     },
-    specs: {
-      engine: '3.8L VR38DETT Built by GTT',
-      turbos: 'Dual Precision High-Boost Turbos',
-      ecu: 'Motec M1 Drag Calibration',
-      fuel: '100 RON + Ethanol Map'
+    "tag": {
+      "ru": "RDRC ЧЕМПИОНАТ РОССИИ • КРАСНЫЙ ХРОМ",
+      "en": "RDRC RUSSIAN CHAMPIONSHIP • RED CHROME"
+    },
+    "hp": "1,650+ HP",
+    "quarterMile": "7.950 сек",
+    "topSpeed": "350+ км/ч",
+    "badge": {
+      "ru": "Красный Хром RDRC",
+      "en": "Red Chrome RDRC"
+    },
+    "img": "assets/cars/gtr_red_front_rdrc.jpg",
+    "fallbackImg": "assets/cars/gtr_red_chrome_rdrc.jpg",
+    "isPhoto": true,
+    "objectPosition": "center 62%",
+    "videoSrc": "",
+    "videoTitle": "Nissan GT-R GTT Red Chrome G35 — боевой заезд RDRC",
+    "desc": {
+      "ru": "Один из самых ярких Nissan GT-R в российском дрэг-рейсинге под управлением Гоши Перцхелия. Кастомный хром-дизайн, усиленная подвеска и боевая трансмиссия GTT.",
+      "en": "One of the most striking Nissan GT-R cars in Russian drag racing piloted by Gosha Pertskheliya. Custom red chrome livery, reinforced suspension and bulletproof GTT race transmission."
+    },
+    "specs": {
+      "engine": "3.8L VR38DETT Custom GTT Billet Assembly",
+      "turbos": "Garrett G35-1050 Turbochargers",
+      "cooling": "Front Mount Massive Intercooler Core",
+      "ecu": "Syvecs S8 ECU with Launch & Traction Control"
     }
   },
   {
-    id: 'gtr_alpha12x',
-    brand: 'NISSAN & GTT',
-    type: 'gtr',
-    name: { ru: 'GT-R R35 GTT ALPHA12X SPEC', en: 'GT-R R35 GTT ALPHA12X SPEC' },
-    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
-    hp: 'TBD',
-    quarterMile: '—',
-    topSpeed: '—',
-    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
-    img: 'assets/cars/gtt_classified_car.svg',
-    fallbackImg: 'assets/cars/gtt_classified_car.svg',
-    isPhoto: false,
-    isClassified: true,
-    desc: {
-      ru: 'Проект на базе культового пакета Alpha 12X, доработанный инженерами GTT. Кастомное охлаждение, усиленная трансмиссия GR6 и индивидуальная прошивка блока управления.',
-      en: 'Build based on the legendary Alpha 12X package, heavily refined by GTT engineers. Upgraded GR6 transmission and bespoke engine management.'
+    "id": "gtr_rocket",
+    "brand": "NISSAN & GTT",
+    "type": "gtr",
+    "name": {
+      "ru": "GT-R R35 GTT «ROCKET»",
+      "en": "GT-R R35 GTT «ROCKET»"
     },
-    specs: {
-      engine: '4.0L Stroker VR38 GTT Spec',
-      turbos: 'AMS Alpha 12X Turbo Kit',
-      transmission: 'ShepTrans Stage 4 GR6',
-      ecu: 'Syvecs S8 Dual ECU'
-    }
+    "tag": {
+      "ru": "СПЕЦПРОЕКТ GTT • КАРБОНОВЫЙ БОДИКИТ",
+      "en": "GTT ATELIER SPEC • FULL CARBON AERO"
+    },
+    "hp": "1,500+ HP",
+    "quarterMile": "8.350 сек",
+    "topSpeed": "345+ км/ч",
+    "badge": {
+      "ru": "GTT Rocket Spec",
+      "en": "GTT Rocket Spec"
+    },
+    "img": "assets/cars/gtr_draco_arefyev_wheel.jpg",
+    "fallbackImg": "assets/cars/gtr_draco_promod_front.jpg",
+    "isPhoto": true,
+    "objectPosition": "center center",
+    "desc": {
+      "ru": "Экстремальный проект Nissan GT-R R35 «Rocket» лаборатории GoshaTurboTech. Двухтурбинный наддув, титановый прямой выхлоп и облегченная гоночная конфигурация кузова.",
+      "en": "Extreme project Nissan GT-R R35 Rocket by GoshaTurboTech skunkworks. Twin turbo package, titanium straight pipes and ultra-lightweight race setup."
+    },
+    "specs": {
+      "engine": "3.8L VR38DETT Built by GTT",
+      "turbos": "Dual Precision High-Boost Turbos",
+      "ecu": "Motec M1 Drag Calibration",
+      "fuel": "100 RON + Ethanol Map"
+    },
+    "videoSrc": ""
   },
   {
-    id: 'gtr_baloo',
-    brand: 'NISSAN & GTT',
-    type: 'gtr',
-    name: { ru: 'GT-R R35 GTT «BALOO»', en: 'GT-R R35 GTT «BALOO»' },
-    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
-    hp: 'TBD',
-    quarterMile: '—',
-    topSpeed: '—',
-    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
-    img: 'assets/cars/gtt_classified_car.svg',
-    fallbackImg: 'assets/cars/gtt_classified_car.svg',
-    isPhoto: false,
-    isClassified: true,
-    desc: {
-      ru: 'Уникальный проект «Baloo» с мощнейшим средним диапазоном оборотов и полным приводом для уличных дуэлей и заездов на 804 метра.',
-      en: 'Unique Baloo build optimized for high mid-range torque and lethal all-wheel-drive traction on street and half-mile events.'
+    "id": "gtr_alpha12x",
+    "brand": "NISSAN & GTT",
+    "type": "gtr",
+    "name": {
+      "ru": "GT-R R35 GTT ALPHA12X SPEC",
+      "en": "GT-R R35 GTT ALPHA12X SPEC"
     },
-    specs: {
-      engine: '3.8L VR38 Reinforced GTT Block',
-      turbos: 'Garrett G30 Billet Turbos',
-      cooling: 'GTT Dual Radiator Pack',
-      fuel: 'Dual In-Tank Fuel Rail'
-    }
+    "tag": {
+      "ru": "КУЛЬТОВАЯ АЛЬФА GTT • 1500 HP",
+      "en": "CULT ALPHA GTT • 1500 HP"
+    },
+    "hp": "1,500+ HP",
+    "quarterMile": "8.250 сек",
+    "topSpeed": "350+ км/ч",
+    "badge": {
+      "ru": "Alpha 12X GTT",
+      "en": "Alpha 12X GTT"
+    },
+    "img": "assets/cars/gtr_draco_connections.jpg",
+    "fallbackImg": "assets/cars/gtr_red_front_rdrc.jpg",
+    "isPhoto": true,
+    "objectPosition": "center center",
+    "desc": {
+      "ru": "Проект на базе культового пакета Alpha 12X, доработанный инженерами GTT. Кастомное охлаждение, усиленная трансмиссия GR6 и индивидуальная прошивка блока управления.",
+      "en": "Build based on the legendary Alpha 12X package, heavily refined by GTT engineers. Upgraded GR6 transmission and bespoke engine management."
+    },
+    "specs": {
+      "engine": "4.0L Stroker VR38 GTT Spec",
+      "turbos": "AMS Alpha 12X Turbo Kit",
+      "transmission": "ShepTrans Stage 4 GR6",
+      "ecu": "Syvecs S8 Dual ECU"
+    },
+    "videoSrc": ""
   },
   {
-    id: 'gtr_fifa',
-    brand: 'NISSAN & GTT',
-    type: 'gtr',
-    name: { ru: 'GT-R R35 GTT «FIFA» #10', en: 'GT-R R35 GTT «FIFA» #10' },
-    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
-    hp: 'TBD',
-    quarterMile: '—',
-    topSpeed: '—',
-    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
-    img: 'assets/cars/gtt_classified_car.svg',
-    fallbackImg: 'assets/cars/gtt_classified_car.svg',
-    isPhoto: false,
-    isClassified: true,
-    desc: {
-      ru: 'Именной болид «FIFA», созданный в ателье GoshaTurboTech. Сочетает комфортный салон и бескомпромиссные характеристики разгона из 8.5 секунд на квотере.',
-      en: 'Bespoke FIFA build crafted by GoshaTurboTech atelier, pairing premium cockpit refinement with sub-8.5 quarter-mile violence.'
+    "id": "gtr_fifa",
+    "brand": "NISSAN & GTT",
+    "type": "gtr",
+    "name": {
+      "ru": "GT-R R35 GTT «FIFA» #10",
+      "en": "GT-R R35 GTT «FIFA» #10"
     },
-    specs: {
-      engine: '4.1L Billet Stroker VR38 GTT',
-      turbos: 'Precision Gen2 Turbochargers',
-      transmission: 'Dodson Motorsport Billet Gearset',
-      ecu: 'Motec M150'
-    }
+    "tag": {
+      "ru": "ИМЕННОЙ БОЛИД • LUXURY & DRAG",
+      "en": "BESPOKE BUILD • LUXURY & DRAG"
+    },
+    "hp": "1,450+ HP",
+    "quarterMile": "8.450 сек",
+    "topSpeed": "340+ км/ч",
+    "badge": {
+      "ru": "GT-R FIFA #10",
+      "en": "GT-R FIFA #10"
+    },
+    "img": "assets/cars/gtr_red_tail_rdrc.jpg",
+    "fallbackImg": "assets/cars/gtr_lucifer_solo.jpg",
+    "isPhoto": true,
+    "objectPosition": "center center",
+    "desc": {
+      "ru": "Именной болид «FIFA», созданный в ателье GoshaTurboTech. Сочетает комфортный салон и бескомпромиссные характеристики разгона из 8.5 секунд на квотере.",
+      "en": "Bespoke FIFA build crafted by GoshaTurboTech atelier, pairing premium cockpit refinement with sub-8.5 quarter-mile violence."
+    },
+    "specs": {
+      "engine": "4.1L Billet Stroker VR38 GTT",
+      "turbos": "Precision Gen2 Turbochargers",
+      "transmission": "Dodson Motorsport Billet Gearset",
+      "ecu": "Motec M150"
+    },
+    "videoSrc": ""
   },
   {
-    id: 'gtr_kurdalagon',
-    brand: 'NISSAN & GTT',
-    type: 'gtr',
-    name: { ru: 'GT-R R35 GTT «KURDALAGON»', en: 'GT-R R35 GTT «KURDALAGON»' },
-    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
-    hp: 'TBD',
-    quarterMile: '—',
-    topSpeed: '—',
-    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
-    img: 'assets/cars/gtt_classified_car.svg',
-    fallbackImg: 'assets/cars/gtt_classified_car.svg',
-    isPhoto: false,
-    isClassified: true,
-    desc: {
-      ru: 'Легендарный GT-R «Курдалагон» — имя древнего бога-кузнеца. Полноценный драг-монстр на боевом топливе с экстремальной отдачей свыше 1600 л.с.',
-      en: 'Mythical Kurdalagon GT-R named after the blacksmith deity. A relentless race car on VP Racing fuel generating over 1,600 brake horsepower.'
+    "id": "porsche_991_1200",
+    "brand": "PORSCHE & GTT",
+    "type": "porsche",
+    "name": {
+      "ru": "PORSCHE 911 TURBO (991.1) GTT-1200",
+      "en": "PORSCHE 911 TURBO (991.1) GTT-1200"
     },
-    specs: {
-      engine: '4.1L Billet VR38 Race Assembly',
-      turbos: 'Dual Precision 7275 Billet',
-      fuel: 'VP Racing Ethanol M5',
-      chassis: 'Drag Parachute & Beadlock Slicks'
-    }
+    "tag": {
+      "ru": "РЕКОРД РОССИИ/ЕВРОПЫ • А. САГАЛ",
+      "en": "RUSSIA/EUROPE RECORD • A. SAGAL"
+    },
+    "hp": "1,200+ HP",
+    "quarterMile": "9.086 сек",
+    "topSpeed": "312.77 км/ч",
+    "badge": {
+      "ru": "991.1 GTT-1200",
+      "en": "991.1 GTT-1200"
+    },
+    "img": "https://static.tildacdn.com/tild3537-3330-4137-a166-303730623266/IMG_9940-min.png",
+    "fallbackImg": "assets/cars/gtr_rdrc_red_panamera.jpg",
+    "isPhoto": false,
+    "objectPosition": "center center",
+    "desc": {
+      "ru": "Безумный 991.1 Turbo Алексея Сагала. Официальный рекорд России/Европы на RDRC RacePark: 9.086 сек со скоростью 259.64 км/ч на 402 м и 14.186 сек со скоростью 312.77 км/ч на 1/2 мили.",
+      "en": "Savage 991.1 Turbo piloted by Alexey Sagal. Official Russia/Europe Record at RDRC RacePark: 9.086 sec at 259.64 km/h on 1/4 mile and 14.186 sec at 312.77 km/h on 1/2 mile."
+    },
+    "specs": {
+      "engine": "3.8L Twin-Turbo Boxer-6 Built Internals",
+      "turbos": "GTT Dual Billet High-Flow Turbos",
+      "transmission": "Reinforced PDK Dual-Clutch Pack",
+      "fuel": "Methanol Direct Port Injection"
+    },
+    "videoSrc": ""
   },
   {
-    id: 'porsche_991_1200',
-    brand: 'PORSCHE & GTT',
-    type: 'porsche',
-    name: { ru: 'PORSCHE 911 TURBO (991.1) GTT-1200', en: 'PORSCHE 911 TURBO (991.1) GTT-1200' },
-    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
-    hp: 'TBD',
-    quarterMile: '—',
-    topSpeed: '—',
-    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
-    img: 'assets/cars/gtt_classified_car.svg',
-    fallbackImg: 'assets/cars/gtt_classified_car.svg',
-    isPhoto: false,
-    isClassified: true,
-    desc: {
-      ru: 'Безумный 991.1 Turbo на кастомном турбо-ките GTT с биллетовыми компрессорными колесами и доработанной роботизированной коробкой PDK.',
-      en: 'Savage 991.1 Turbo sporting custom GTT twin billet turbo package and heavy-duty PDK clutch assembly.'
+    "id": "porsche_991_felix",
+    "brand": "PORSCHE & GTT",
+    "type": "porsche",
+    "name": {
+      "ru": "PORSCHE 911 TURBO S (991.2) FELIX FERRO",
+      "en": "PORSCHE 911 TURBO S (991.2) FELIX FERRO"
     },
-    specs: {
-      engine: '3.8L Twin-Turbo Boxer-6 Built Internals',
-      turbos: 'GTT Dual Billet High-Flow Turbos',
-      transmission: 'Reinforced PDK Dual-Clutch Pack',
-      fuel: 'Methanol Direct Port Injection'
-    }
+    "tag": {
+      "ru": "FELIX FERRO EDITION • 9.601 СЕК",
+      "en": "FELIX FERRO EDITION • 9.601 SEC"
+    },
+    "hp": "950+ HP",
+    "quarterMile": "9.601 сек",
+    "topSpeed": "232.40 км/ч",
+    "badge": {
+      "ru": "Felix Ferro Edition",
+      "en": "Felix Ferro Edition"
+    },
+    "img": "assets/cars/gtr_rdrc_red_panamera.jpg",
+    "fallbackImg": "https://static.tildacdn.com/tild6539-3534-4834-b938-323035363066/7R204787_.jpg",
+    "isPhoto": true,
+    "objectPosition": "center center",
+    "desc": {
+      "ru": "Лимитированная инженерная серия Felix Ferro Edition. Индивидуальный аэродинамический пакет, облегченные кованые диски и настройка блока управления Syvecs. 9.601 сек на квотере.",
+      "en": "Exclusive Felix Ferro Edition bespoke engineering build. Lightweight aero package, forged monoblocks and Syvecs ECU calibration. 9.601 sec quarter mile."
+    },
+    "specs": {
+      "engine": "3.8L Twin-Turbo Boxer-6 GTT RS Spec",
+      "turbos": "Billet Hybrid Turbos Gen2",
+      "exhaust": "Titanium Valved System Handcrafted",
+      "ecu": "Syvecs S7 Standalone Engine Management"
+    },
+    "videoSrc": ""
   },
   {
-    id: 'porsche_991_felix',
-    brand: 'PORSCHE & GTT',
-    type: 'porsche',
-    name: { ru: 'PORSCHE 911 TURBO S (991.2) FELIX FERRO', en: 'PORSCHE 911 TURBO S (991.2) FELIX FERRO' },
-    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
-    hp: 'TBD',
-    quarterMile: '—',
-    topSpeed: '—',
-    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
-    img: 'assets/cars/gtt_classified_car.svg',
-    fallbackImg: 'assets/cars/gtt_classified_car.svg',
-    isPhoto: false,
-    isClassified: true,
-    desc: {
-      ru: 'Лимитированная инженерная серия Felix Ferro Edition. Индивидуальный аэродинамический пакет, облегченные кованые диски и настройка блока управления Syvecs.',
-      en: 'Exclusive Felix Ferro Edition bespoke engineering build. Lightweight aero package, forged monoblocks and Syvecs ECU calibration.'
+    "id": "porsche_991_900",
+    "brand": "PORSCHE & GTT",
+    "type": "porsche",
+    "name": {
+      "ru": "PORSCHE 911 TURBO S (991.2) GTT-900",
+      "en": "PORSCHE 911 TURBO S (991.2) GTT-900"
     },
-    specs: {
-      engine: '3.8L Twin-Turbo Boxer-6 GTT RS Spec',
-      turbos: 'Billet Hybrid Turbos Gen2',
-      exhaust: 'Titanium Valved System Handcrafted',
-      ecu: 'Syvecs S7 Standalone Engine Management'
-    }
+    "tag": {
+      "ru": "GTT STAGE 2+ • 900 HP НА 100 БЕНЗИНЕ",
+      "en": "GTT STAGE 2+ • 900 HP PUMP FUEL"
+    },
+    "hp": "900+ HP",
+    "quarterMile": "9.450 сек",
+    "topSpeed": "335+ км/ч",
+    "badge": {
+      "ru": "GTT-900 Stage 2+",
+      "en": "GTT-900 Stage 2+"
+    },
+    "img": "https://static.tildacdn.com/tild6238-6431-4433-a262-383434366339/7R8205127.jpg",
+    "fallbackImg": "assets/cars/gtr_rdrc_red_panamera.jpg",
+    "isPhoto": true,
+    "objectPosition": "center 50%",
+    "desc": {
+      "ru": "Идеальный баланс повседневного суперкара и рекордного темпа. 900 сил на товарном 100-м бензине с ресурсом заводского мотора.",
+      "en": "The quintessential balance of daily driveability and track dominance. 900 reliable horsepower on pump 100 RON gasoline."
+    },
+    "specs": {
+      "engine": "3.8L Boxer-6 Twin-Turbo GTT Stage 2",
+      "turbos": "Upgraded High-Efficiency Turbos",
+      "intercoolers": "CSF High-Capacity Charge Coolers",
+      "ecu": "Custom GTT ECU & TCU Map"
+    },
+    "videoSrc": ""
   },
   {
-    id: 'porsche_991_900',
-    brand: 'PORSCHE & GTT',
-    type: 'porsche',
-    name: { ru: 'PORSCHE 911 TURBO S (991.2) GTT-900', en: 'PORSCHE 911 TURBO S (991.2) GTT-900' },
-    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
-    hp: 'TBD',
-    quarterMile: '—',
-    topSpeed: '—',
-    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
-    img: 'assets/cars/gtt_classified_car.svg',
-    fallbackImg: 'assets/cars/gtt_classified_car.svg',
-    isPhoto: false,
-    isClassified: true,
-    desc: {
-      ru: 'Идеальный баланс повседневного суперкара и рекордного темпа. 900 сил на товарном 100-м бензине с ресурсом заводского мотора.',
-      en: 'The quintessential balance of daily driveability and track dominance. 900 reliable horsepower on pump 100 RON gasoline.'
+    "id": "porsche_992_puncher",
+    "brand": "PORSCHE & GTT",
+    "type": "porsche",
+    "name": {
+      "ru": "PORSCHE 911 TURBO S (992) GTT «PUNCHER»",
+      "en": "PORSCHE 911 TURBO S (992) GTT «PUNCHER»"
     },
-    specs: {
-      engine: '3.8L Boxer-6 Twin-Turbo GTT Stage 2',
-      turbos: 'Upgraded High-Efficiency Turbos',
-      intercoolers: 'CSF High-Capacity Charge Coolers',
-      ecu: 'Custom GTT ECU & TCU Map'
-    }
+    "tag": {
+      "ru": "МИРОВОЙ РЕКОРД В КАТЕГОРИИ • 9.303 СЕК",
+      "en": "WORLD CATEGORY RECORD • 9.303 SEC"
+    },
+    "hp": "1,000+ HP",
+    "quarterMile": "9.303 сек",
+    "topSpeed": "276.92 км/ч",
+    "badge": {
+      "ru": "Puncher 992 GTT",
+      "en": "Puncher 992 GTT"
+    },
+    "img": "https://static.tildacdn.com/tild6238-6431-4433-a262-383434366339/7R8205127.jpg",
+    "fallbackImg": "assets/cars/gtr_rdrc_red_panamera.jpg",
+    "isPhoto": true,
+    "objectPosition": "center 50%",
+    "desc": {
+      "ru": "Культовый Porsche 992 Turbo S «Puncher» Сергея Никитина. Мировой рекорд в категории на UNLIM FEST 2021: 9.303 сек со скоростью 235.83 км/ч на 1/4 мили и 14.778 сек со скоростью 276.92 км/ч на 1/2 мили.",
+      "en": "Iconic Porsche 992 Turbo S Puncher driven by Sergey Nikitin. World Category Record at UNLIM FEST 2021: 9.303 sec at 235.83 km/h on 1/4 mile and 14.778 sec at 276.92 km/h on 1/2 mile."
+    },
+    "specs": {
+      "engine": "3.8L Boxer-6 992 GTT Spec",
+      "turbos": "Billet Precision Mirror Turbos",
+      "intercooling": "High-Flow Core Package",
+      "fuel": "Methanol Multi-Port System"
+    },
+    "videoSrc": ""
   },
   {
-    id: 'porsche_992_puncher',
-    brand: 'PORSCHE & GTT',
-    type: 'porsche',
-    name: { ru: 'PORSCHE 911 TURBO S (992) GTT «PUNCHER»', en: 'PORSCHE 911 TURBO S (992) GTT «PUNCHER»' },
-    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
-    hp: 'TBD',
-    quarterMile: '—',
-    topSpeed: '—',
-    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
-    img: 'assets/cars/gtt_classified_car.svg',
-    fallbackImg: 'assets/cars/gtt_classified_car.svg',
-    isPhoto: false,
-    isClassified: true,
-    desc: {
-      ru: 'Новейший Porsche 992 Turbo S «Puncher». Мощный спул на низах, кастомный впуск из углеволокна и разгон 0-100 км/ч быстрее 2.2 секунд.',
-      en: 'Latest 992 generation Turbo S Puncher. Instant boost response, carbon intake plenum and 0-100 km/h in under 2.2 seconds.'
+    "id": "bmw_m7_gtt",
+    "brand": "BMW M-POWER",
+    "type": "bmw",
+    "name": {
+      "ru": "BMW M7 GTT EXECUTIVE TWIN TURBO",
+      "en": "BMW M7 GTT EXECUTIVE TWIN TURBO"
     },
-    specs: {
-      engine: '3.8L Boxer-6 992 GTT Spec',
-      turbos: 'Billet Precision Mirror Turbos',
-      intercooling: 'High-Flow Core Package',
-      fuel: 'Methanol Multi-Port System'
-    }
+    "tag": {
+      "ru": "EXECUTIVE FLAGSHIP • 900 HP V12",
+      "en": "EXECUTIVE FLAGSHIP • 900 HP V12"
+    },
+    "hp": "900+ HP",
+    "quarterMile": "10.200 сек",
+    "topSpeed": "330+ км/ч",
+    "badge": {
+      "ru": "M7 Executive GTT",
+      "en": "M7 Executive GTT"
+    },
+    "img": "assets/cars/bmw_m5_paddock_front.jpg",
+    "fallbackImg": "assets/cars/bmw_m5_rdrc_race.jpg",
+    "isPhoto": true,
+    "objectPosition": "center center",
+    "desc": {
+      "ru": "Представительский флагман BMW 7 серии в глубокой доработке GoshaTurboTech. Двухтурбинный V8/V12, бесшумный акустический комфорт в салоне и ураганная динамика на скоростных прямых.",
+      "en": "Executive flagship 7-series heavily enhanced by GoshaTurboTech. Twin-turbocharged powertrain offering silent luxury alongside autobahn supremacy."
+    },
+    "specs": {
+      "engine": "4.4L V8 TwinPower Turbo GTT Stage 2",
+      "turbos": "Billet Hybrid Turbochargers",
+      "exhaust": "Bespoke Stainless Valvetronic System",
+      "transmission": "ZF 8HP Reinforced Calibration"
+    },
+    "videoSrc": ""
   },
   {
-    id: 'lambo_maxpain',
-    brand: 'LAMBORGHINI & GTT',
-    type: 'lambo',
-    name: { ru: 'HURACAN PERFORMANTE TT GTT-MAXPAIN', en: 'HURACAN PERFORMANTE TT GTT-MAXPAIN' },
-    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
-    hp: 'TBD',
-    quarterMile: '—',
-    topSpeed: '—',
-    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
-    img: 'assets/cars/gtt_classified_car.svg',
-    fallbackImg: 'assets/cars/gtt_classified_car.svg',
-    isPhoto: false,
-    isClassified: true,
-    desc: {
-      ru: 'Безупречный Performante в культовом кованом карбоне Forged Composites с установленным кастомным твин-турбо китом GTT на 1400 лошадиных сил.',
-      en: 'Forged Composites masterpiece Lamborghini Huracan Performante empowered by bespoke GTT 1400+ HP twin turbo system.'
+    "id": "mercedes_e63",
+    "brand": "MERCEDES-AMG & GTT",
+    "type": "other",
+    "name": {
+      "ru": "MERCEDES-AMG E63S 4MATIC+ GTT-950",
+      "en": "MERCEDES-AMG E63S 4MATIC+ GTT-950"
     },
-    specs: {
-      engine: '5.2L V10 FSI GTT Built Internals',
-      turbos: 'Mirror Twin Billet Precision Turbos',
-      clutch: 'GTT Dual-Clutch Billet Basket',
-      ecu: 'Syvecs S12 Standalone System'
-    }
+    "tag": {
+      "ru": "RDRC 2026 • 9.880 СЕК • ПИЛОТ В. ЩЕД",
+      "en": "RDRC 2026 • 9.880 SEC • PILOT V. SHCHED"
+    },
+    "hp": "950+ HP",
+    "quarterMile": "9.880 сек",
+    "topSpeed": "335+ км/ч",
+    "badge": {
+      "ru": "E63S GTT-950",
+      "en": "E63S GTT-950"
+    },
+    "img": "assets/photos/team_pilot_paddock.jpg",
+    "fallbackImg": "assets/cars/dodge_srt_front.jpg",
+    "isPhoto": true,
+    "objectPosition": "center center",
+    "desc": {
+      "ru": "Беспощадный бизнес-седан с 4.0L V8 Biturbo, форсированный до 950 л.с. Пилот В. Щед на RDRC 2026 показал подтвержденное время 9.880 сек со скоростью 234.91 км/ч на 1/4 мили.",
+      "en": "Savage executive sedan boasting 950 horsepower from 4.0L V8 Biturbo. Piloted by V. Shched on RDRC 2026 with verified 9.880 sec pass at 234.91 km/h."
+    },
+    "specs": {
+      "engine": "4.0L V8 Biturbo M177 Built by GTT",
+      "turbos": "Billet Upgraded Stage 3 Turbos",
+      "downpipes": "Inconel Catless Thermal-Wrapped Pipes",
+      "transmission": "AMG SPEEDSHIFT MCT 9G Flashed"
+    },
+    "videoSrc": ""
   },
   {
-    id: 'lambo_spyder_800',
-    brand: 'LAMBORGHINI & GTT',
-    type: 'lambo',
-    name: { ru: 'HURACAN SPYDER GTT-800 STAGE 2', en: 'HURACAN SPYDER GTT-800 STAGE 2' },
-    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
-    hp: 'TBD',
-    quarterMile: '—',
-    topSpeed: '—',
-    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
-    img: 'assets/cars/gtt_classified_car.svg',
-    fallbackImg: 'assets/cars/gtt_classified_car.svg',
-    isPhoto: false,
-    isClassified: true,
-    desc: {
-      ru: 'Открытый родстер Huracan Spyder с доработанной выхлопной трассой Inconel и компрессорной системой GTT Stage 2 для чистейшего V10 звука под открытым небом.',
-      en: 'Atmospheric open-top roadster tuned with Inconel race exhaust and GTT Stage 2 package delivering intoxicating V10 symphonies.'
+    "id": "volga_kgb",
+    "brand": "ГАЗ & GTT",
+    "type": "other",
+    "name": {
+      "ru": "ВОЛГА ГАЗ-24 КГБ V8 GTT SLEEPER",
+      "en": "VOLGA GAZ-24 KGB V8 GTT SLEEPER"
     },
-    specs: {
-      engine: '5.2L V10 Naturally Aspirated GTT Tune',
-      exhaust: 'Inconel Valvetronic Full System',
-      intake: 'Carbon Ram-Air Box',
-      ecu: 'GTT Dual ECU Custom Calibration'
-    }
+    "tag": {
+      "ru": "ЛЕГЕНДАРНЫЙ СЛИПЕР • V8 TWIN TURBO",
+      "en": "LEGENDARY SLEEPER • V8 TWIN TURBO"
+    },
+    "hp": "750+ HP",
+    "quarterMile": "10.450 сек",
+    "topSpeed": "280+ км/ч",
+    "badge": {
+      "ru": "Волга КГБ V8",
+      "en": "Volga KGB V8"
+    },
+    "img": "https://static.tildacdn.com/tild3032-3266-4139-a563-653561393961/gtr-min.png",
+    "fallbackImg": "assets/cars/bmw_m5_paddock_front.jpg",
+    "isPhoto": false,
+    "objectPosition": "center center",
+    "desc": {
+      "ru": "Легендарный советский проект в кузове ГАЗ-24 «Догонялка». Внешне аутентичный хромированный силуэт спецслужб, внутри — современный турбированный V8 и кастомное спортивное шасси.",
+      "en": "Legendary Soviet KGB interceptor GAZ-24 sleeper. Factory classic exterior concealing modern twin-turbo V8 and motorsport chassis."
+    },
+    "specs": {
+      "engine": "V8 Twin Turbo Restomod Powertrain",
+      "chassis": "Bespoke Independent Suspension & Wilwood Brakes",
+      "transmission": "Reinforced 6-Speed Manual",
+      "interior": "Restored Factory Soviet Cockpit"
+    },
+    "videoSrc": ""
   },
   {
-    id: 'audi_rokot',
-    brand: 'AUDI & GTT',
-    type: 'audi',
-    name: { ru: 'AUDI R8 V10 TWINTURBO «ROKOT»', en: 'AUDI R8 V10 TWINTURBO «ROKOT»' },
-    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
-    hp: 'TBD',
-    quarterMile: '—',
-    topSpeed: '—',
-    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
-    img: 'assets/cars/gtt_classified_car.svg',
-    fallbackImg: 'assets/cars/gtt_classified_car.svg',
-    isPhoto: false,
-    isClassified: true,
-    desc: {
-      ru: 'Audi R8 V10 с двухтурбинным пакетом «Рокот». Выхлопные газы выведены в задний диффузор, звук работы напоминает реактивный истребитель.',
-      en: 'Audi R8 V10 with custom Rokot twin turbo setup. Jet-fighter exhaust architecture exiting through aggressive carbon aero diffuser.'
+    "id": "ferrari_512tr",
+    "brand": "FERRARI & GTT",
+    "type": "other",
+    "name": {
+      "ru": "FERRARI 512 TR GTT HERITAGE CLASSIC",
+      "en": "FERRARI 512 TR GTT HERITAGE CLASSIC"
     },
-    specs: {
-      engine: '5.2L FSI V10 GTT Reinforced',
-      turbos: 'Dual Billet Turbo System with Water-to-Air Cooling',
-      transmission: 'DL800 7-Speed Billet Upgraded Clutch',
-      ecu: 'Syvecs Powertrain Management'
-    }
+    "tag": {
+      "ru": "ИТАЛЬЯНСКАЯ ИКОНА • FLAT-12 ENGINE",
+      "en": "ITALIAN ICON • FLAT-12 ENGINE"
+    },
+    "hp": "550+ HP",
+    "quarterMile": "10.800 сек",
+    "topSpeed": "315+ км/ч",
+    "badge": {
+      "ru": "Ferrari 512 TR",
+      "en": "Ferrari 512 TR"
+    },
+    "img": "assets/cars/huracan_green_grey_rdrc.jpg",
+    "fallbackImg": "assets/photos/huracan_zelenka_gtt.jpg",
+    "isPhoto": true,
+    "objectPosition": "center center",
+    "desc": {
+      "ru": "Итальянская икона с 12-цилиндровым оппозитным двигателем Flat-12. Комплексная механическая доработка в цехах GTT, индивидуальный титановый выпуск и филигранная калибровка впрыска.",
+      "en": "Italian legend powered by Flat-12 engine. Complete mechanical overhaul by GTT, bespoke titanium exhaust and precision injection mapping."
+    },
+    "specs": {
+      "engine": "4.9L Flat-12 Naturally Aspirated Maranello",
+      "exhaust": "Handmade Titanium Valved Exhaust",
+      "clutch": "GTT Heavy Duty Multi-Plate Clutch",
+      "brakes": "Brembo Racing High-Friction Setup"
+    },
+    "videoSrc": ""
   },
   {
-    id: 'audi_zlayazaya',
-    brand: 'AUDI & GTT',
-    type: 'audi',
-    name: { ru: 'AUDI R8 V10 TWINTURBO «ZLAYAZAYA»', en: 'AUDI R8 V10 TWINTURBO «ZLAYAZAYA»' },
-    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
-    hp: 'TBD',
-    quarterMile: '—',
-    topSpeed: '—',
-    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
-    img: 'assets/cars/gtt_classified_car.svg',
-    fallbackImg: 'assets/cars/gtt_classified_car.svg',
-    isPhoto: false,
-    isClassified: true,
-    desc: {
-      ru: 'Культовый проект ателье GTT «Злая Зая». Сверхбыстрый спул, колоссальный крутящий момент и стабильный запуск на любом дорожном покрытии.',
-      en: 'Iconic GTT atelier build ZlayaZaya. Instant throttle response, mountain of torque and razor-sharp launch control on all surfaces.'
+    "id": "tesla_plaid",
+    "brand": "TESLA & GTT",
+    "type": "other",
+    "name": {
+      "ru": "TESLA MODEL S PLAID GTT DYNAMICS SPEC",
+      "en": "TESLA MODEL S PLAID GTT DYNAMICS SPEC"
     },
-    specs: {
-      engine: '5.2L V10 Reinforced Rods & Pistons',
-      turbos: 'Mirror V-Band Turbochargers',
-      fuel: 'Direct Port Injected Dual Map',
-      ecu: 'Motec Dual M1 Engine Electronics'
-    }
+    "tag": {
+      "ru": "ЭЛЕКТРО-ГИПЕРКАР • 1020 HP • 9.230 СЕК",
+      "en": "ELECTRIC HYPERCAR • 1020 HP • 9.230 SEC"
+    },
+    "hp": "1,020+ HP",
+    "quarterMile": "9.230 сек",
+    "topSpeed": "322+ км/ч",
+    "badge": {
+      "ru": "Tesla Plaid GTT",
+      "en": "Tesla Plaid GTT"
+    },
+    "img": "assets/cars/dodge_srt_front.jpg",
+    "fallbackImg": "assets/cars/bmw_m5_paddock_front.jpg",
+    "isPhoto": true,
+    "objectPosition": "center center",
+    "desc": {
+      "ru": "Трековый проект на базе трехмоторного седана Tesla Model S Plaid. Спортивная карбон-керамическая тормозная система GTT, оптимизация охлаждения инверторов и аэродинамический сплиттер.",
+      "en": "Track project based on tri-motor Tesla Model S Plaid. GTT carbon-ceramic braking package, inverter thermal optimization and high-downforce aero."
+    },
+    "specs": {
+      "engine": "Tri-Motor Carbon-Sleeved Electric Powertrain",
+      "power": "1,020 HP / 1,420 Nm Instant Torque",
+      "brakes": "GTT Carbon Ceramic 410mm Track Rotors",
+      "suspension": "Lowered Active Air Suspension Calibration"
+    },
+    "videoSrc": ""
   },
   {
-    id: 'bmw_m7_gtt',
-    brand: 'BMW M-POWER',
-    type: 'bmw',
-    name: { ru: 'BMW M7 GTT EXECUTIVE TWIN TURBO', en: 'BMW M7 GTT EXECUTIVE TWIN TURBO' },
-    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
-    hp: 'TBD',
-    quarterMile: '—',
-    topSpeed: '—',
-    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
-    img: 'assets/cars/gtt_classified_car.svg',
-    fallbackImg: 'assets/cars/gtt_classified_car.svg',
-    isPhoto: false,
-    isClassified: true,
-    desc: {
-      ru: 'Представительский флагман BMW 7 серии в глубокой доработке GoshaTurboTech. Двухтурбинный V8, бесшумный комфорт в салоне и ураганная динамика на автобане.',
-      en: 'Executive flagship 7-series heavily enhanced by GoshaTurboTech. Twin-turbocharged V8 offering silent luxury alongside autobahn supremacy.'
+    "id": "xiaomi_su7",
+    "brand": "XIAOMI & GTT",
+    "type": "other",
+    "name": {
+      "ru": "XIAOMI SU7 ULTRA GTT RACE SPEC",
+      "en": "XIAOMI SU7 ULTRA GTT RACE SPEC"
     },
-    specs: {
-      engine: '4.4L V8 TwinPower Turbo GTT Stage 2',
-      turbos: 'Billet Hybrid Turbochargers',
-      exhaust: 'Bespoke Stainless Valvetronic System',
-      transmission: 'ZF 8HP Reinforced Calibration'
-    }
+    "tag": {
+      "ru": "RDRC СУПЕРКУБОК 2026 • 9.130 СЕК",
+      "en": "RDRC SUPERCUP 2026 • 9.130 SEC"
+    },
+    "hp": "1,548 HP",
+    "quarterMile": "9.130 сек",
+    "topSpeed": "350+ км/ч",
+    "badge": {
+      "ru": "SU7 Ultra 9.130s",
+      "en": "SU7 Ultra 9.130s"
+    },
+    "img": "assets/cars/bmw_m5_rdrc_race.jpg",
+    "fallbackImg": "assets/cars/bmw_m5_rdrc_race.jpg",
+    "isPhoto": true,
+    "objectPosition": "center center",
+    "desc": {
+      "ru": "Сенсационный электрический гиперседан Xiaomi SU7 Ultra под управлением В. Щед в зачете GoshaTurboTech. Официальный результат на Суперкубке RDRC 2026: 9.130 сек со скоростью 249.31 км/ч на 1/4 мили (3/8 мили: 11.769 с / 287.31 км/ч).",
+      "en": "Sensational Xiaomi SU7 Ultra hyper-sedan piloted by V. Shched for GoshaTurboTech. Official RDRC Supercup 2026 pass: 9.130 sec at 249.31 km/h on 1/4 mile."
+    },
+    "specs": {
+      "engine": "Triple V8s Electric Hyper-Motor System",
+      "power": "1,548 HP / 0-100 km/h in 1.97 sec",
+      "brakes": "Carbon Ceramic 6-Piston AP Racing",
+      "aero": "Carbon Rear Wing Generating 285 kg Downforce"
+    },
+    "videoSrc": ""
   },
   {
-    id: 'volga_kgb',
-    brand: 'ГАЗ & GTT',
-    type: 'other',
-    name: { ru: 'ВОЛГА ГАЗ-24 КГБ V8 GTT SLEEPER', en: 'VOLGA GAZ-24 KGB V8 GTT SLEEPER' },
-    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
-    hp: 'TBD',
-    quarterMile: '—',
-    topSpeed: '—',
-    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
-    img: 'assets/cars/gtt_classified_car.svg',
-    fallbackImg: 'assets/cars/gtt_classified_car.svg',
-    isPhoto: false,
-    isClassified: true,
-    desc: {
-      ru: 'Легендарный советский проект в кузове ГАЗ-24 «Догонялка». Внешне аутентичный хромированный силуэт спецслужб, внутри — современный турбированный V8 и кастомное шасси.',
-      en: 'Legendary Soviet KGB interceptor GAZ-24 sleeper. Factory classic exterior concealing modern twin-turbo V8 and motorsport chassis.'
+    "id": "zeekr_zevs",
+    "brand": "ZEEKR & GTT",
+    "type": "other",
+    "name": {
+      "ru": "ZEEKR 007 PERFORMANCE ZEVS GTT",
+      "en": "ZEEKR 007 PERFORMANCE ZEVS GTT"
     },
-    specs: {
-      engine: 'V8 Twin Turbo Restomod Powertrain',
-      chassis: 'Bespoke Independent Suspension & Wilwood Brakes',
-      transmission: 'Reinforced 6-Speed Manual',
-      interior: 'Restored Factory Soviet Cockpit'
-    }
+    "tag": {
+      "ru": "RDRC 2026 • 11.317 СЕК • К. АВДЕЙКО",
+      "en": "RDRC 2026 • 11.317 SEC • K. AVDEYKO"
+    },
+    "hp": "646 HP",
+    "quarterMile": "11.317 сек",
+    "topSpeed": "210+ км/ч",
+    "badge": {
+      "ru": "Zeekr ZEVS",
+      "en": "Zeekr ZEVS"
+    },
+    "img": "assets/cars/gtr_red_strip_sunset.jpg",
+    "fallbackImg": "assets/cars/dodge_srt_front.jpg",
+    "isPhoto": true,
+    "objectPosition": "center center",
+    "desc": {
+      "ru": "Zeekr 007 Performance «ZEVS» команды GoshaTurboTech под управлением Кирилла Авдейко и Сергея Савченко. Зафиксированное время на этапе RDRC 2026: 11.317 сек со скоростью 204.31 км/ч.",
+      "en": "Zeekr 007 Performance ZEVS competing for GoshaTurboTech under K. Avdeyko and S. Savchenko. Official RDRC 2026 best pass: 11.317 sec at 204.31 km/h."
+    },
+    "specs": {
+      "engine": "Dual Silicon Carbide Electric Motors",
+      "power": "646 HP Silicon Carbide AWD",
+      "battery": "800V Golden Battery Technology",
+      "chassis": "CCD Electromagnetic Active Suspension"
+    },
+    "videoSrc": ""
   },
   {
-    id: 'dodge_demon',
-    brand: 'DODGE SRT',
-    type: 'other',
-    name: { ru: 'DODGE CHALLENGER SRT DEMON GTT', en: 'DODGE CHALLENGER SRT DEMON GTT' },
-    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
-    hp: 'TBD',
-    quarterMile: '—',
-    topSpeed: '—',
-    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
-    img: 'assets/cars/gtt_classified_car.svg',
-    fallbackImg: 'assets/cars/gtt_classified_car.svg',
-    isPhoto: false,
-    isClassified: true,
-    desc: {
-      ru: 'Оригинальный заводской дрэгстер SRT Demon, доработанный в лаборатории GTT: шкив нагнетателя меньшего диаметра, спортивное топливо и кастомный лаунч-контроль.',
-      en: 'Authentic SRT Demon drag weapon upgraded by GTT: smaller supercharger pulley, race fuel map and transbrake optimization.'
+    "id": "lambo_nera",
+    "brand": "LAMBORGHINI & GTT",
+    "type": "lambo",
+    "name": {
+      "ru": "GALLARDO NERA TWIN TURBO GTT",
+      "en": "GALLARDO NERA TWIN TURBO GTT"
     },
-    specs: {
-      engine: '6.2L Supercharged HEMI Demon V8',
-      supercharger: '2.7L IHI Supercharger GTT Pulley',
-      fuel: '100 RON / Q16 Race Map',
-      driveshaft: 'Hardened Race Axles & Transbrake'
-    }
+    "tag": {
+      "ru": "МИРОВОЙ РЕКОРД 1 МИЛЯ • 409.55 КМ/Ч",
+      "en": "WORLD 1-MILE RECORD • 409.55 KM/H"
+    },
+    "hp": "1,800+ HP",
+    "quarterMile": "8.500 сек",
+    "topSpeed": "409.55 км/ч",
+    "badge": {
+      "ru": "Мировой Рекорд 409 км/ч",
+      "en": "World Record 409 km/h"
+    },
+    "img": "assets/photos/huracan_zelenka_gtt.jpg",
+    "fallbackImg": "assets/photos/huracan_rdrc_stage_line.jpg",
+    "isPhoto": true,
+    "objectPosition": "center center",
+    "desc": {
+      "ru": "Исторический мировой рекорд скорости на дистанции 1 миля на аэродроме Крит (Греция): 20.845 сек со скоростью 409.55 км/ч! Легендарный проект, принесший GoshaTurboTech всемирную славу в суперкар-сообществе.",
+      "en": "Historic World Record on 1 Mile distance at Crete airfield (Greece): 20.845 sec at 409.55 km/h! The legendary build that cemented GoshaTurboTech on the global motorsport stage."
+    },
+    "specs": {
+      "engine": "5.0L V10 Billet Internals GTT Spec",
+      "turbos": "Dual Precision High-Flow Turbochargers",
+      "fuel": "VP Racing C16 Race Gasoline",
+      "aero": "High-Speed Salt-Flat Style Rear Wing"
+    },
+    "videoSrc": ""
   },
   {
-    id: 'dodge_demon_170',
-    brand: 'DODGE SRT',
-    type: 'other',
-    name: { ru: 'DODGE CHALLENGER SRT DEMON 170 GTT', en: 'DODGE CHALLENGER SRT DEMON 170 GTT' },
-    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
-    hp: 'TBD',
-    quarterMile: '—',
-    topSpeed: '—',
-    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
-    img: 'assets/cars/gtt_classified_car.svg',
-    fallbackImg: 'assets/cars/gtt_classified_car.svg',
-    isPhoto: false,
-    isClassified: true,
-    desc: {
-      ru: 'Финальный шедевр эпохи HEMI — Demon 170. Калибровка датчиков этанола, усиленный задний редуктор и разгон с поднятием передних колес на драг-стрипе.',
-      en: 'The pinnacle of the HEMI era — Demon 170. Ethanol flex-fuel calibration, heavy-duty rear differential and wheelie-popping launches.'
+    "id": "audi_gyurza",
+    "brand": "AUDI & GTT",
+    "type": "audi",
+    "name": {
+      "ru": "AUDI R8 V10 PLUS TT «GYURZA» БАЙКАЛ",
+      "en": "AUDI R8 V10 PLUS TT «GYURZA» BAIKAL"
     },
-    specs: {
-      engine: '6.2L Supercharged HEMI 170 Crate Engine',
-      supercharger: '3.0L High-Helix Whipple Blower',
-      fuel: 'Ethanol E85 Sensor Auto-Tune',
-      parachute: 'Factory Drag Parachute Mounting'
-    }
-  },
-  {
-    id: 'ferrari_512tr',
-    brand: 'FERRARI & GTT',
-    type: 'other',
-    name: { ru: 'FERRARI 512 TR GTT HERITAGE CLASSIC', en: 'FERRARI 512 TR GTT HERITAGE CLASSIC' },
-    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
-    hp: 'TBD',
-    quarterMile: '—',
-    topSpeed: '—',
-    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
-    img: 'assets/cars/gtt_classified_car.svg',
-    fallbackImg: 'assets/cars/gtt_classified_car.svg',
-    isPhoto: false,
-    isClassified: true,
-    desc: {
-      ru: 'Итальянская икона 90-х с 12-цилиндровым оппозитным двигателем Flat-12. Полная реставрация в цехах GTT, индивидуальная титановая выхлопная система и филигранная калибровка впрыска.',
-      en: '1990s Italian legend powered by Flat-12 engine. Complete mechanical overhaul by GTT, bespoke titanium exhaust and precision injection mapping.'
+    "tag": {
+      "ru": "РЕКОРД РОССИИ НА ЛЬДУ БАЙКАЛА • 124 КМ/Ч",
+      "en": "BAIKAL ICE SPEED RECORD • 124 KM/H"
     },
-    specs: {
-      engine: '4.9L Flat-12 Naturally Aspirated Maranello',
-      exhaust: 'Handmade Titanium Valved Exhaust',
-      clutch: 'GTT Heavy Duty Multi-Plate Clutch',
-      brakes: 'Brembo Racing High-Friction Setup'
-    }
-  },
-  {
-    id: 'mercedes_e63',
-    brand: 'MERCEDES-AMG & GTT',
-    type: 'other',
-    name: { ru: 'MERCEDES-AMG E63S 4MATIC+ GTT-950', en: 'MERCEDES-AMG E63S 4MATIC+ GTT-950' },
-    tag: { ru: 'СПЕЦПРОЕКТ GTT • В КАЛИБРОВКЕ', en: 'GTT ATELIER • IN CALIBRATION' },
-    hp: 'TBD',
-    quarterMile: '—',
-    topSpeed: '—',
-    badge: { ru: 'Данные уточняются', en: 'Pending Verification' },
-    img: 'assets/cars/gtt_classified_car.svg',
-    fallbackImg: 'assets/cars/gtt_classified_car.svg',
-    isPhoto: false,
-    isClassified: true,
-    desc: {
-      ru: 'Беспощадный бизнес-седан с 4.0L V8 Biturbo, форсированный до 950 л.с. Полный привод 4MATIC+ и выхлопная трасса без катализаторов с сочным фирменным рокотом AMG.',
-      en: 'Savage executive sedan boasting 950 horsepower from 4.0L V8 Biturbo. 4MATIC+ traction and catless straight pipes delivering menacing AMG thunder.'
+    "hp": "1,350+ HP",
+    "quarterMile": "9.100 сек",
+    "topSpeed": "345+ км/ч",
+    "badge": {
+      "ru": "Рекорд льда Байкала",
+      "en": "Baikal Ice Record"
     },
-    specs: {
-      engine: '4.0L V8 Biturbo M177 Built by GTT',
-      turbos: 'Billet Upgraded Stage 3 Turbos',
-      downpipes: 'Inconel Catless Thermal-Wrapped Pipes',
-      transmission: 'AMG SPEEDSHIFT MCT 9G Flashed'
-    }
+    "img": "https://static.tildacdn.com/tild6631-3236-4965-a162-626231376136/maxresdefault.jpg",
+    "fallbackImg": "assets/cars/audi_r8_tsmr_launch.jpg",
+    "isPhoto": true,
+    "objectPosition": "center 60%",
+    "desc": {
+      "ru": "Подготовленный в лаборатории GTT совместно с Kiwamaru болид Audi R8 V10 Plus Twin Turbo «Гюрза». Официальный рекорд России на Днях скорости на льду озера Байкал: средняя скорость 124 км/ч на дистанции 1 км с места по голому льду.",
+      "en": "Engineered by GTT alongside Kiwamaru. Official Russian record at Speed Days on Lake Baikal ice: 124 km/h average speed across 1 km from standing start on bare ice."
+    },
+    "specs": {
+      "engine": "5.2L V10 FSI Twin Turbo Winter Spec",
+      "turbos": "Custom Fast-Spool Billet Turbochargers",
+      "tires": "Studded Competition Ice Rally Rubber",
+      "ecu": "GTT Ice-Traction Electronic Calibration"
+    },
+    "videoSrc": ""
   }
 ];
 
@@ -939,8 +1274,8 @@ const i18n = {
     garage_tag: "// SHOWROOM & MOTORSPORT BUILDS",
     garage_title: "Легендарные проекты GTT",
     garage_subtitle: "Каждый автомобиль собран вручную в лаборатории GoshaTurboTech с персональной калибровкой блоков управления и двойного турбонаддува.",
-    filter_all: "Все проекты",
-    filter_other: "Эксклюзив &amp; Маслкары (6)",
+    filter_all: "Все проекты (35)",
+    filter_other: "Эксклюзив &amp; Маслкары (8)",
     spec_power: "Мощность",
     spec_402: "1/4 мили",
     spec_speed: "Скорость",
@@ -1099,7 +1434,7 @@ const i18n = {
     gallery_cap_r8: "Audi R8 V10 Twin Turbo ЦМРБанк на стартовой черте RDRC",
     gallery_cap_gtr_red: "Красный хромированный Nissan GT-R R35 GTT Pro-Mod",
     gallery_cap_gtr_blue: "Боевой синий Nissan GT-R R35 #888 на закате RDRC",
-    gallery_cap_box: "Бокс GTT: белая BMW M4 G82 и Nissan GT-R",
+    gallery_cap_box: "Бокс GTT: Паддок команды и Nissan GT-R",
     gallery_cap_track: "Гоша Перцхелия контролирует подготовку трассы RDRC",
     // Contact & Footer Legal
     contact_email_lbl: "Электронная почта",
@@ -1136,8 +1471,8 @@ const i18n = {
     garage_tag: "// SHOWROOM & MOTORSPORT BUILDS",
     garage_title: "Legendary GTT Projects",
     garage_subtitle: "Hand-built in the GoshaTurboTech skunkworks facility with bespoke ECU calibration and twin turbo engineering.",
-    filter_all: "All Projects",
-    filter_other: "Exclusive &amp; Muscle (6)",
+    filter_all: "All Projects (35)",
+    filter_other: "Exclusive &amp; Muscle (8)",
     spec_power: "Output",
     spec_402: "1/4 Mile",
     spec_speed: "Top Speed",
@@ -1296,7 +1631,7 @@ const i18n = {
     gallery_cap_r8: "Audi R8 V10 Twin Turbo CMRBank on the RDRC Starting Line",
     gallery_cap_gtr_red: "Red Chrome Nissan GT-R R35 GTT Pro-Mod",
     gallery_cap_gtr_blue: "GTT Race Midnight Blue Nissan GT-R R35 #888 at RDRC",
-    gallery_cap_box: "GTT Garage Pit: White BMW M4 G82 & Nissan GT-R",
+    gallery_cap_box: "GTT Garage Pit: Team Paddock & Nissan GT-R",
     gallery_cap_track: "Georgy Pertskheliya Supervising RDRC Track Glue Preparation",
     // Contact & Footer Legal
     contact_email_lbl: "Email Address",
@@ -1346,10 +1681,16 @@ window.setLanguage = function(lang) {
   // Re-render garage grid with translated spec labels
   const activeFilter = document.querySelector('.filter-pill.active')?.getAttribute('data-filter') || 'all';
   renderGarageGrid(activeFilter);
+  if (typeof updateFilterPillsCounts === 'function') {
+    updateFilterPillsCounts();
+  }
   if (cachedTeamData) {
     renderTeamGrid(cachedTeamData);
   } else {
     updateTeamVisibility();
+  }
+  if (cachedRecordsData && typeof renderRecordsEditorial === 'function') {
+    renderRecordsEditorial(cachedRecordsData);
   }
 };
 
@@ -1364,6 +1705,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.scrollTo(0, 0);
   initPreloader();
   renderGarageGrid('all');
+  updateFilterPillsCounts();
   syncProjectsFromAPI();
   syncTeamFromAPI();
   syncGalleryFromAPI();
@@ -1411,6 +1753,13 @@ async function syncProjectsFromAPI() {
 function applyCarsData(carList) {
   const cleanList = Array.isArray(carList) ? carList.filter(c => c && c.hp !== '?' && c.img && !c.isTeaser) : [];
   const listToUse = cleanList.length > 0 ? cleanList : carList;
+  const top4FeaturedSet = new Set(listToUse.slice(0, 4).map(c => c.id));
+  const originalCarIds = new Set([
+    'r8_rokot', 'gtr_kurdalagon', 'draco_promod', 'gtr_lucifer',
+    'bezzubik', 'moses', 'zelenka', 'tonystark', 'dodge_srt',
+    'gtr_blue_888', 'gtr_red', 'bmw_m5'
+  ]);
+
   gttProjects = listToUse.map(c => ({
     id: c.id,
     brand: c.brand || '',
@@ -1432,21 +1781,55 @@ function applyCarsData(carList) {
     },
     img: c.img || '',
     fallbackImg: c.fallback_img || c.fallbackImg || c.img || '',
-    isPhoto: (c.is_photo !== undefined ? Boolean(c.is_photo) : true) && !(c.img || '').toLowerCase().includes('.png') && !(c.img || '').toLowerCase().includes('.svg'),
-    isClassified: Boolean(c.is_classified) || Boolean(c.isClassified) || (c.img || '').includes('classified') || c.is_photo === 0 || (c.img || '').toLowerCase().endsWith('.svg'),
+    isPhoto: (c.is_photo !== undefined ? Boolean(c.is_photo) : true) && !(c.img || '').toLowerCase().includes('.svg'),
+    isClassified: Boolean(c.is_classified) || Boolean(c.isClassified) || (c.img || '').includes('classified') || (c.img || '').toLowerCase().endsWith('.svg'),
     objectPosition: c.object_position || c.objectPosition || 'center center',
-    videoSrc: c.video_src || c.videoSrc || '',
-    videoTitle: c.video_title || c.videoTitle || '',
+    videoSrc: top4FeaturedSet.has(c.id) ? (c.video_src || c.videoSrc || '') : '',
+    videoTitle: top4FeaturedSet.has(c.id) ? (c.video_title || c.videoTitle || '') : '',
     desc: {
       ru: c.desc_ru || c.descRu || (c.desc && c.desc.ru) || c.desc || '',
       en: c.desc_en || c.descEn || (c.desc && c.desc.en) || c.desc_ru || c.descRu || ''
     },
     specs: (typeof c.specs === 'object' && c.specs !== null) ? c.specs : {},
-    isTeaser: c.isTeaser || c.is_teaser || c.hp === '?' || !c.img
+    isTeaser: c.isTeaser || c.is_teaser || c.hp === '?' || !c.img,
+    isNew: false
   }));
 
   const activeFilter = document.querySelector('#carsFilterPills .filter-pill.active')?.getAttribute('data-filter') || 'all';
   renderGarageGrid(activeFilter);
+  updateFilterPillsCounts();
+}
+
+function updateFilterPillsCounts() {
+  if (!Array.isArray(gttProjects)) return;
+  const gtrCount = gttProjects.filter(c => c.type === 'gtr').length;
+  const porscheCount = gttProjects.filter(c => c.type === 'porsche').length;
+  const lamboCount = gttProjects.filter(c => c.type === 'lambo').length;
+  const audiCount = gttProjects.filter(c => c.type === 'audi').length;
+  const bmwCount = gttProjects.filter(c => c.type === 'bmw').length;
+  const otherCount = gttProjects.filter(c => c.type === 'other').length;
+  const allCount = gttProjects.length;
+
+  const pillAll = document.querySelector('#carsFilterPills .filter-pill[data-filter="all"]');
+  if (pillAll) pillAll.textContent = currentLang === 'ru' ? `Все проекты (${allCount})` : `All Projects (${allCount})`;
+
+  const pillGtr = document.querySelector('#carsFilterPills .filter-pill[data-filter="gtr"]');
+  if (pillGtr) pillGtr.textContent = `Nissan GT-R (${gtrCount})`;
+
+  const pillPorsche = document.querySelector('#carsFilterPills .filter-pill[data-filter="porsche"]');
+  if (pillPorsche) pillPorsche.textContent = `Porsche GTT (${porscheCount})`;
+
+  const pillLambo = document.querySelector('#carsFilterPills .filter-pill[data-filter="lambo"]');
+  if (pillLambo) pillLambo.textContent = `Lamborghini TT (${lamboCount})`;
+
+  const pillAudi = document.querySelector('#carsFilterPills .filter-pill[data-filter="audi"]');
+  if (pillAudi) pillAudi.textContent = `Audi R8 TT (${audiCount})`;
+
+  const pillBmw = document.querySelector('#carsFilterPills .filter-pill[data-filter="bmw"]');
+  if (pillBmw) pillBmw.textContent = `BMW M-Power (${bmwCount})`;
+
+  const pillOther = document.querySelector('#carsFilterPills .filter-pill[data-filter="other"]');
+  if (pillOther) pillOther.textContent = currentLang === 'ru' ? `Эксклюзив & Маслкары (${otherCount})` : `Exclusive & Muscle (${otherCount})`;
 }
 
 // Pre-configured official team assets & photos map
@@ -1732,30 +2115,10 @@ function renderGalleryTrack(items) {
 }
 
 // Dynamic Records Synchronization
-async function syncRecordsFromAPI() {
-  try {
-    const local = localStorage.getItem('gtt_admin_records_db');
-    if (local) {
-      const parsed = JSON.parse(local);
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        renderRecordsEditorial(parsed);
-      }
-    }
-  } catch (e) {}
-
-  try {
-    const res = await fetch('/api/records');
-    if (!res.ok) return;
-    const serverRecs = await res.json();
-    if (Array.isArray(serverRecs) && serverRecs.length > 0) {
-      localStorage.setItem('gtt_admin_records_db', JSON.stringify(serverRecs));
-      renderRecordsEditorial(serverRecs);
-    }
-  } catch (err) {}
-}
+let cachedRecordsData = null;
 
 const defaultRecordImages = {
-  'rec_1': 'https://static.tildacdn.com/tild6539-3534-4834-b938-323035363066/7R204787_.jpg',
+  'rec_1': 'https://static.tildacdn.com/tild3032-3266-4139-a563-653561393961/gtr-min.png',
   'rec_2': 'https://static.tildacdn.com/tild6631-3236-4965-a162-626231376136/maxresdefault.jpg',
   'rec_3': 'https://static.tildacdn.com/tild6238-6431-4433-a262-383434366339/7R8205127.jpg',
   'rec_4': 'https://static.tildacdn.com/tild3365-3636-4135-b136-623937643037/korzhik2-min.png',
@@ -1763,27 +2126,95 @@ const defaultRecordImages = {
   'rec_6': 'https://static.tildacdn.com/tild3834-3466-4637-b632-636439343565/GTR-MOSES-min.png'
 };
 
+const recordTranslationsEn = {
+  'rec_1': {
+    year: '26.10.2026 • Bykovo Record',
+    title: 'New GTT Track Day Record',
+    desc: 'Fresh official track day benchmark established by the GoshaTurboTech skunkworks at Bykovo aerodrome in late October 2026.'
+  },
+  'rec_2': {
+    year: '2022 • Absolute Ice Record',
+    title: 'Lake Baikal Speed Festival',
+    desc: 'Days of Speed on the pure ice of Lake Baikal built in collaboration with Kiwamaru.'
+  },
+  'rec_3': {
+    year: '2021 • World Benchmark',
+    title: 'Unlim Fest Stock Turbo Benchmark',
+    desc: 'Triumph at the Unlim Fest drag event. Piloted by Sergey Nikitin on stock turbos.'
+  },
+  'rec_4': {
+    year: '2019 • Russian Record SMP RDRC',
+    title: 'SMP RDRC National Podium',
+    desc: 'Nikolay Korzhov, 2nd place absolute standing in SMP RDRC FSL championship.'
+  },
+  'rec_5': {
+    year: '2017 • European Record',
+    title: 'Race 1000 Victory in Germany',
+    desc: 'Race 1000 Germany. Official European 804-meter record among AWD supercars.'
+  },
+  'rec_6': {
+    year: '2014 • European Record',
+    title: 'UNLIM 500+ Greece Record',
+    desc: 'UNLIM 500+ Greece (Crete). 3rd fastest drag result in the world at the time.'
+  }
+};
+
+async function syncRecordsFromAPI() {
+  // 1. Instant check from localStorage for fast initial paint
+  try {
+    const local = localStorage.getItem('gtt_admin_records_db') || localStorage.getItem('gtt_records_v2');
+    if (local) {
+      const parsed = JSON.parse(local);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        cachedRecordsData = parsed;
+        renderRecordsEditorial(parsed);
+      }
+    }
+  } catch (e) {}
+
+  // 2. Fetch live data from SQLite backend (authoritative single source of truth)
+  try {
+    const res = await fetch('/api/records');
+    if (!res.ok) return;
+    const serverRecs = await res.json();
+    if (Array.isArray(serverRecs) && serverRecs.length > 0) {
+      cachedRecordsData = serverRecs;
+      localStorage.setItem('gtt_admin_records_db', JSON.stringify(serverRecs));
+      localStorage.setItem('gtt_records_v2', JSON.stringify(serverRecs));
+      renderRecordsEditorial(serverRecs);
+    }
+  } catch (err) {}
+}
+
 function renderRecordsEditorial(recordsList) {
   const container = document.querySelector('.records-grid');
   if (!container || !Array.isArray(recordsList) || recordsList.length === 0) return;
+  cachedRecordsData = recordsList;
 
   container.innerHTML = recordsList.map((rec, idx) => {
     const photo = rec.img || defaultRecordImages[rec.id] || 'assets/photos/huracan_rdrc_stage_line.jpg';
+    const enMeta = recordTranslationsEn[rec.id] || {};
+    const yearText = (currentLang === 'en' && enMeta.year) ? enMeta.year : (rec.year || 'GTT Record');
+    const titleText = (currentLang === 'en' && enMeta.title) ? enMeta.title : (rec.title || rec.desc || rec.car || 'GTT Record');
+    const descText = (currentLang === 'en' && enMeta.desc) ? enMeta.desc : (rec.desc || '');
+    const carName = rec.car || 'GTT Spec';
+    const telemetry = rec.telemetry || '—';
+
     return `
-      <div class="record-item">
+      <div class="record-item" data-id="${rec.id || idx}">
         <div class="record-photo-wrapper">
           <img src="${photo}" 
-               alt="${rec.car || 'GTT Record'}" 
+               alt="${carName}" 
                class="record-photo-img" 
                loading="lazy"
                onerror="this.src='assets/photos/huracan_rdrc_stage_line.jpg'">
         </div>
         <div class="record-body">
-          <span class="record-year-badge">${rec.year || 'Рекорд GTT'}</span>
-          <h3 class="record-title">${rec.car || 'Болид GTT'}</h3>
-          <div class="record-car-name">${rec.car || 'GTT'}</div>
-          <div class="record-telemetry">${rec.telemetry || '—'}</div>
-          <p class="record-text">${rec.desc || ''}</p>
+          <span class="record-year-badge">${yearText}</span>
+          <h3 class="record-title">${titleText !== carName ? titleText : (rec.year || 'Официальный рекорд RDRC')}</h3>
+          <div class="record-car-name">${carName}</div>
+          <div class="record-telemetry">${telemetry}</div>
+          <p class="record-text">${descText}</p>
         </div>
       </div>
     `;
@@ -1798,12 +2229,30 @@ window.addEventListener('storage', (e) => {
     syncTeamFromAPI();
   } else if (e.key === 'gtt_admin_gallery_db') {
     syncGalleryFromAPI();
-  } else if (e.key === 'gtt_admin_records_db') {
+  } else if (e.key === 'gtt_admin_records_db' || e.key === 'gtt_records_v2') {
     syncRecordsFromAPI();
   } else if (e.key === 'gtt_hero_telemetry_custom') {
     if (typeof applyCustomHeroTelemetry === 'function') applyCustomHeroTelemetry();
   }
 });
+
+if (window.BroadcastChannel) {
+  try {
+    const ch = new BroadcastChannel('gtt_channel');
+    ch.onmessage = (e) => {
+      if (e.data && e.data.type === 'records_updated' && Array.isArray(e.data.records)) {
+        cachedRecordsData = e.data.records;
+        renderRecordsEditorial(e.data.records);
+      } else if (e.data && e.data.type === 'projects_updated' && Array.isArray(e.data.projects)) {
+        applyCarsData(e.data.projects);
+      } else if (e.data && e.data.type === 'team_updated') {
+        syncTeamFromAPI();
+      } else if (e.data && e.data.type === 'gallery_updated') {
+        syncGalleryFromAPI();
+      }
+    };
+  } catch (err) {}
+}
 
 let currentTeamDept = 'all';
 let isTeamExpanded = false;
@@ -1928,93 +2377,6 @@ function renderTeamGrid(teamList) {
   }).join('');
   updateTeamVisibility();
 }
-
-// --- Engineering & Team Access Gateway (Stealth & Secure) ---
-function openAdminSecure(e) {
-  if (e) {
-    if (e.preventDefault) e.preventDefault();
-    if (e.stopPropagation) e.stopPropagation();
-  }
-  
-  // 1. Direct file:// protocol support (Safari on Mac / desktop)
-  if (window.location.protocol === 'file:') {
-    const href = window.location.href;
-    const base = href.substring(0, href.lastIndexOf('/') + 1);
-    window.location.href = base + 'admin.html';
-    return;
-  }
-  
-  // 2. HTTP / HTTPS web server support
-  window.location.href = 'admin.html';
-}
-
-// 1. Global Keyboard Shortcut for PC / Mac: Cmd+Shift+A or Ctrl+Shift+A
-function handleAdminKeydown(e) {
-  const isCmdOrCtrl = e.metaKey || e.ctrlKey;
-  const isShift = e.shiftKey;
-  const key = (e.key || '').toLowerCase();
-  const code = e.code || '';
-  const keyCode = e.keyCode || e.which;
-  
-  const isKeyA = code === 'KeyA' || keyCode === 65 || key === 'a' || key === 'ф' || key === 'A' || key === 'Ф';
-  
-  if (isCmdOrCtrl && isShift && isKeyA) {
-    if (e.preventDefault) e.preventDefault();
-    if (e.stopPropagation) e.stopPropagation();
-    openAdminSecure(e);
-    return false;
-  }
-}
-
-// 2. Secret Typist Code: type 'admin' or 'gtt' anywhere on page
-let secretCodeBuffer = '';
-function handleSecretKeypress(e) {
-  if (['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) return;
-  if (e.key && e.key.length === 1) {
-    secretCodeBuffer += e.key.toLowerCase();
-    if (secretCodeBuffer.length > 12) secretCodeBuffer = secretCodeBuffer.slice(-12);
-    if (secretCodeBuffer.endsWith('admin') || secretCodeBuffer.endsWith('gtt') || secretCodeBuffer.endsWith('админ')) {
-      secretCodeBuffer = '';
-      openAdminSecure();
-    }
-  }
-}
-
-// 3. Mobile Secret Gesture
-function initMobileStaffGesture() {
-  // Disabled auto-trigger on brandLogo to avoid unintended staff logins from mobile touches
-}
-
-// 4. Stealth Triple-Click on Footer Copyright text
-let footerCopyClicks = 0;
-let footerCopyTimer = null;
-function initFooterStaffAccess() {
-  const footerCopy = document.getElementById('footerCopyStaffTrigger') || document.querySelector('.footer-copy-text');
-  if (footerCopy) {
-    footerCopy.addEventListener('click', () => {
-      footerCopyClicks++;
-      clearTimeout(footerCopyTimer);
-      if (footerCopyClicks >= 3) {
-        footerCopyClicks = 0;
-        openAdminSecure();
-      } else {
-        footerCopyTimer = setTimeout(() => {
-          footerCopyClicks = 0;
-        }, 1200);
-      }
-    });
-  }
-}
-
-window.addEventListener('keydown', handleAdminKeydown, true);
-document.addEventListener('keydown', handleAdminKeydown, true);
-window.addEventListener('keypress', handleSecretKeypress, true);
-document.addEventListener('DOMContentLoaded', () => {
-  initFooterStaffAccess();
-  initMobileStaffGesture();
-});
-
-window.openAdminDirect = openAdminSecure;
 
 // Clean Premium Motorsport Preloader (Fast, Seamless & Silky Smooth)
 function initPreloader() {
@@ -2162,11 +2524,11 @@ function renderGarageGrid(filterType) {
 
     let displayList = filtered;
     if (filterType === 'all') {
-      if (!isGarageExpanded && filtered.length > 9) {
-        displayList = filtered.slice(0, 9);
+      if (!isGarageExpanded && filtered.length > 4) {
+        displayList = filtered.slice(0, 4);
         if (expandWrap) expandWrap.style.display = 'flex';
         if (expandBtn) expandBtn.classList.remove('is-expanded');
-        if (expandText) expandText.textContent = formatGarageExpandText(filtered.length - 9, false, currentLang);
+        if (expandText) expandText.textContent = formatGarageExpandText(filtered.length - 4, false, currentLang);
       } else {
         if (expandWrap) expandWrap.style.display = 'flex';
         if (expandBtn) expandBtn.classList.add('is-expanded');
@@ -2176,6 +2538,8 @@ function renderGarageGrid(filterType) {
       if (expandWrap) expandWrap.style.display = 'none';
     }
 
+    const top4FeaturedSet = new Set(gttProjects.slice(0, 4).map(c => c.id));
+
     container.innerHTML = displayList.map((car, idx) => {
       const name = (typeof car.name === 'object') ? (car.name[currentLang] || car.name.ru) : car.name;
       const desc = (typeof car.desc === 'object') ? (car.desc[currentLang] || car.desc.ru) : car.desc;
@@ -2183,10 +2547,23 @@ function renderGarageGrid(filterType) {
       const tag = (typeof car.tag === 'object') ? (car.tag[currentLang] || car.tag.ru) : car.tag;
       const isClass = car.isClassified || (car.img && (car.img.includes('classified') || car.img.endsWith('.svg')));
 
+      const isNewCar = Boolean(car.isNew);
+      const isTop4 = top4FeaturedSet.has(car.id);
+      const showVideoBtn = isTop4 && Boolean(car.videoSrc || car.youtubeId);
+
       return `
-      <div class="car-card car-card-fade-in ${isClass ? 'is-classified' : ''}" data-id="${car.id}" style="animation-delay: ${idx * 0.04}s">
-        <span class="car-card-badge">${badge}</span>
-        <div class="car-card-media ${isClass ? 'classified-media' : ''}">
+      <div class="car-card car-card-fade-in ${isClass ? 'is-classified' : ''} ${isNewCar ? 'is-new-car-pending' : ''}" data-id="${car.id}" style="animation-delay: ${idx * 0.04}s">
+        ${isNewCar 
+          ? `<span class="car-card-badge is-new-badge">${currentLang === 'ru' ? '⚡ НОВЫЙ ПРОЕКТ // ВЫБОР ФОТО' : '⚡ NEW BUILD // PENDING PHOTO'}</span>` 
+          : `<span class="car-card-badge">${badge}</span>`
+        }
+        <div class="car-card-media ${isClass ? 'classified-media' : ''}" style="position: relative;">
+          ${isNewCar ? `
+            <div class="card-question-overlay">
+              <div class="card-question-icon">?</div>
+              <div class="card-question-badge">${currentLang === 'ru' ? 'НОВЫЙ БОЛИД • ВЫБОР ФОТО' : 'NEW BUILD • SELECT PHOTO'}</div>
+            </div>
+          ` : ''}
           <img class="car-card-img ${car.isPhoto ? 'photo-fit' : ''}" 
                src="${car.img}" 
                alt="${name}" 
@@ -2212,7 +2589,7 @@ function renderGarageGrid(filterType) {
             </div>
           </div>
           <div class="car-card-footer" style="display: flex; gap: 8px; justify-content: flex-end; align-items: center;">
-            ${(car.videoSrc || car.youtubeId) ? `
+            ${showVideoBtn ? `
               <button class="btn-card-details" style="background: rgba(255,100,37,0.15); border-color: var(--gtt-orange); color: var(--gtt-orange); display: inline-flex; align-items: center; gap: 5px;" onclick="event.stopPropagation(); openCarVideo('${car.id}')">
                 <span>▶</span> ${currentLang === 'ru' ? 'Видео заезда' : 'Race Video'}
               </button>
