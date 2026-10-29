@@ -1146,6 +1146,180 @@ body.is-loading {
               linear-gradient(180deg, #07080a 0%, transparent 20%, transparent 80%, #07080a 100%);
 }
 
+/* ==========================================================================
+   HALL OF FAME RECORDS: TELEMETRY HUD & ANIMATED CAROUSEL
+   ========================================================================== */
+
+/* 1. Live Telemetry HUD Bar (Record + Car Name Master Strip) */
+.records-hud-ticker {
+  background: linear-gradient(135deg, rgba(13, 17, 23, 0.95) 0%, rgba(20, 26, 36, 0.9) 100%);
+  border: 1px solid rgba(255, 100, 37, 0.35);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 14px 20px;
+  margin: 0 auto 28px;
+  max-width: 1200px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  backdrop-filter: blur(12px);
+  z-index: 5;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.records-hud-ticker:hover {
+  border-color: rgba(255, 100, 37, 0.6);
+  box-shadow: 0 10px 35px rgba(255, 100, 37, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.records-hud-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+}
+
+.hud-status-led {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #00ff88;
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  padding: 4px 9px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.hud-status-led .led-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00ff88;
+  box-shadow: 0 0 8px #00ff88;
+  animation: hudPulse 1.8s infinite ease-in-out;
+}
+
+@keyframes hudPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.75); }
+}
+
+.hud-record-metric {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 800;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(255, 100, 37, 0.5);
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.hud-divider {
+  color: rgba(255, 255, 255, 0.25);
+  font-weight: 300;
+}
+
+.hud-car-name {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--gtt-cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.records-hud-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+}
+
+.hud-event-badge {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--gtt-orange);
+  background: rgba(255, 100, 37, 0.12);
+  border: 1px solid rgba(255, 100, 37, 0.3);
+  padding: 4px 10px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: opacity 0.25s ease;
+}
+
+.hud-slide-counter {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+.records-hud-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2.5px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.hud-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--gtt-orange), var(--gtt-cyan));
+  box-shadow: 0 0 8px rgba(255, 100, 37, 0.7);
+  transition: width 0.1s linear;
+}
+
+/* 2. Carousel Stage & Track */
+.records-carousel-stage {
+  position: relative;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 44px;
+  z-index: 5;
+}
+
+.records-carousel-viewport {
+  overflow: hidden;
+  width: 100%;
+  border-radius: 10px;
+  padding: 10px 0 16px;
+  position: relative;
+  touch-action: pan-y;
+  cursor: grab;
+}
+
+.records-carousel-viewport:active {
+  cursor: grabbing;
+}
+
+.records-carousel-track {
+  display: flex;
+  gap: 24px;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* Fallback grid if needed */
 .records-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -1154,32 +1328,43 @@ body.is-loading {
   margin: 0 auto;
 }
 
-.record-item {
-  background: var(--bg-card);
+/* 3. Record Slide Card */
+.record-item,
+.records-carousel-track .record-item {
+  flex: 0 0 calc((100% - 48px) / 3);
+  max-width: calc((100% - 48px) / 3);
+  box-sizing: border-box;
+  background: rgba(18, 22, 28, 0.85);
   border: 1px solid var(--border-subtle);
-  border-radius: 14px;
-  padding: 0;
-  position: relative;
-  transition: var(--transition-smooth);
-  backdrop-filter: blur(10px);
+  border-radius: 8px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.35s ease, 
+              box-shadow 0.35s ease;
+  backdrop-filter: blur(10px);
+  user-select: none;
 }
 
-.record-item:hover {
-  border-color: var(--gtt-orange);
-  transform: translateY(-4px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+.record-item:hover,
+.records-carousel-track .record-item:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 100, 37, 0.65);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 100, 37, 0.15);
+}
+
+.records-carousel-track .record-item.is-active-slide {
+  border-color: rgba(255, 100, 37, 0.5);
 }
 
 .record-photo-wrapper {
   position: relative;
   width: 100%;
-  height: 200px;
+  height: 210px;
   overflow: hidden;
   background: #0d1117;
-  border-bottom: 1px solid var(--border-subtle);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .record-photo-img {
@@ -1191,11 +1376,83 @@ body.is-loading {
 }
 
 .record-item:hover .record-photo-img {
-  transform: scale(1.05);
+  transform: scale(1.06);
+}
+
+.record-index-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  color: #ffffff;
+  background: rgba(13, 17, 23, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+  backdrop-filter: blur(6px);
+}
+
+/* 4. In-Card Record + Car Name Strip (Master record line) */
+.record-stat-highlight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(90deg, rgba(255, 100, 37, 0.15) 0%, rgba(13, 17, 23, 0.95) 100%);
+  border-top: 1px solid rgba(255, 100, 37, 0.25);
+  border-bottom: 1px solid rgba(255, 100, 37, 0.25);
+  border-left: 3px solid var(--gtt-orange);
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+}
+
+.rsh-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.8px;
+  color: #07080a;
+  background: var(--gtt-orange);
+  padding: 3px 7px;
+  border-radius: 3px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.rsh-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  gap: 2px;
+}
+
+.rsh-metric {
+  font-size: 13px;
+  font-weight: 800;
+  color: #ffffff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.2px;
+}
+
+.rsh-car {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gtt-cyan);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.4px;
 }
 
 .record-body {
-  padding: 24px;
+  padding: 18px 20px 22px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -1203,31 +1460,33 @@ body.is-loading {
 
 .record-year-badge {
   display: inline-block;
+  align-self: flex-start;
   font-family: var(--font-display);
   font-size: 11px;
   font-weight: 800;
   color: var(--gtt-orange);
-  background: var(--gtt-orange-subtle);
+  background: rgba(255, 100, 37, 0.12);
   border: 1px solid rgba(255, 100, 37, 0.3);
   padding: 4px 10px;
   border-radius: 4px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .record-title {
   font-family: var(--font-display);
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
   text-transform: uppercase;
-  margin-bottom: 12px;
-  line-height: 1.3;
+  margin-bottom: 8px;
+  line-height: 1.35;
+  color: #ffffff;
 }
 
 .record-car-name {
   color: var(--gtt-cyan);
   font-size: 13px;
   font-family: var(--font-mono);
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .record-telemetry {
@@ -1239,13 +1498,138 @@ body.is-loading {
   font-size: 13px;
   font-weight: 600;
   color: #fff;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .record-text {
   font-size: 13px;
   color: var(--text-muted);
-  line-height: 1.6;
+  line-height: 1.55;
+  margin-top: auto;
+}
+
+/* 5. Navigation Arrow Buttons */
+.records-carousel-btn {
+  position: absolute;
+  top: calc(50% - 24px);
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background: rgba(13, 17, 23, 0.92);
+  border: 1px solid rgba(255, 100, 37, 0.4);
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(12px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  z-index: 10;
+  padding: 0;
+}
+
+.records-carousel-btn.prev {
+  left: -6px;
+}
+
+.records-carousel-btn.next {
+  right: -6px;
+}
+
+.records-carousel-btn:hover {
+  background: var(--gtt-orange);
+  color: #07080a;
+  border-color: var(--gtt-orange);
+  box-shadow: 0 0 24px rgba(255, 100, 37, 0.7);
+  transform: scale(1.08);
+}
+
+.records-carousel-btn:active {
+  transform: scale(0.96);
+}
+
+.records-carousel-btn:disabled,
+.records-carousel-btn.is-disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+  pointer-events: none;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 6. Carousel Pagination Dots */
+.records-carousel-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 22px;
+  z-index: 5;
+  position: relative;
+}
+
+.records-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.22);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.records-dot:hover {
+  background: rgba(255, 100, 37, 0.6);
+}
+
+.records-dot.active {
+  width: 32px;
+  background: var(--gtt-orange);
+  box-shadow: 0 0 12px rgba(255, 100, 37, 0.8);
+}
+
+@media (max-width: 1024px) {
+  .record-item,
+  .records-carousel-track .record-item {
+    flex: 0 0 calc((100% - 24px) / 2);
+    max-width: calc((100% - 24px) / 2);
+  }
+}
+
+@media (max-width: 768px) {
+  .records-carousel-stage {
+    padding: 0;
+  }
+  .records-carousel-btn {
+    display: none;
+  }
+  .record-item,
+  .records-carousel-track .record-item {
+    flex: 0 0 calc(100% - 32px);
+    max-width: calc(100% - 32px);
+  }
+  .records-hud-ticker {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 14px;
+    gap: 10px;
+  }
+  .records-hud-left {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .records-hud-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .hud-divider {
+    display: none;
+  }
+  .hud-car-name {
+    width: 100%;
+  }
 }
 
 /* Founder & Vision Section (Compact & Sleek) */

@@ -1768,16 +1768,6 @@ DEFAULT_PARTNERS = [
         "is_active": 1
     },
     {
-        "id": "dyno_dynamics",
-        "name": "Dyno Dynamics",
-        "category": "Диностенд и калибровка",
-        "desc": "Высокоточный полноприводный диностенд 4WD с мощнейшим обдувом и синхронизацией осей для тонкой калибровки болидов ателье.",
-        "logo": "assets/photos/partners_banner.png",
-        "link": "https://www.dyno.com.au",
-        "sort_order": 7,
-        "is_active": 1
-    },
-    {
         "id": "redline_oil",
         "name": "Red Line Synthetic Oil",
         "category": "Смазочные материалы",

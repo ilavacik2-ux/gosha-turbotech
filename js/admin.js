@@ -672,8 +672,7 @@ const defaultPartners = [
   { id: 'motec', name: 'MoTeC Systems', category: 'Электроника и ЭБУ', desc: 'Золотой стандарт мирового автоспорта: управляющие процессоры M1, цветные цифровые приборные панели C1212 и прецизионные логгеры телеметрии.', logo: 'assets/photos/partners_banner.png', link: 'https://www.motec.com.au', sort_order: 4, is_active: 1 },
   { id: 'precision_turbo', name: 'Precision Turbo & Engine', category: 'Турбосистемы', desc: 'Специализированные гоночные турбокомпрессоры сверхвысокого наддува серии Pro Mod и GEN2 CEA, обеспечивающие отдачу до 3,500+ л.с.', logo: 'assets/photos/partners_banner.png', link: 'https://www.precisionturbo.net', sort_order: 5, is_active: 1 },
   { id: 'ppg_gearboxes', name: 'PPG (Pfitzner Gearboxes)', category: 'Трансмиссия', desc: 'Усиленные прямозубые кулачковые и секвентальные ряды передач, выдерживающие колоссальный крутящий момент и агрессивные переключения.', logo: 'assets/photos/partners_banner.png', link: 'https://www.ppgearbox.com.au', sort_order: 6, is_active: 1 },
-  { id: 'dyno_dynamics', name: 'Dyno Dynamics', category: 'Диностенд и калибровка', desc: 'Высокоточный полноприводный диностенд 4WD с мощнейшим обдувом и синхронизацией осей для тонкой калибровки болидов ателье.', logo: 'assets/photos/partners_banner.png', link: 'https://www.dyno.com.au', sort_order: 7, is_active: 1 },
-  { id: 'redline_oil', name: 'Red Line Synthetic Oil', category: 'Смазочные материалы', desc: 'Специализированные трансмиссионные жидкости ShockProof и гоночные присадки для дифференциалов повышенного трения и раздаточных коробок.', logo: 'assets/photos/partners_banner.png', link: 'https://www.redlineoil.com', sort_order: 8, is_active: 1 },
+  { id: 'redline_oil', name: 'Red Line Synthetic Oil', category: 'Смазочные материалы', desc: 'Специализированные трансмиссионные жидкости ShockProof и гоночные присадки для дифференциалов повышенного трения и раздаточных коробок.', logo: 'assets/photos/partners_banner.png', link: 'https://www.redlineoil.com', sort_order: 7, is_active: 1 },
   { id: 'bell_intercoolers', name: 'Bell Intercoolers', category: 'Охлаждение', desc: 'Высокоэффективные теплообменники и кастомные интеркулерные ядра с минимальным сопротивлением для мощных турбосистем.', logo: 'assets/photos/partners_banner.png', link: 'https://www.bellintercoolers.com', sort_order: 9, is_active: 1 },
   { id: 'plazmaman', name: 'Plazmaman Pro Billet', category: 'Впуск и охлаждение', desc: 'Фрезерованные из алюминиевого монолита впускные коллекторы и интеркулеры для экстремальных моторов VR38DETT и V10 Twin Turbo.', logo: 'assets/photos/partners_banner.png', link: 'https://plazmaman.com', sort_order: 10, is_active: 1 },
   { id: 't1_race', name: 'T1 Race Development', category: 'Топливные системы', desc: 'Прецизионные компоненты топливной магистрали, высокодебитные форсунки, регуляторы давления и крепления для дрэг-рейсинга.', logo: 'assets/photos/partners_banner.png', link: 'https://t1racedevelopment.com', sort_order: 11, is_active: 1 },
@@ -1402,9 +1401,283 @@ window.closeHeroTelemetryModal = closeHeroTelemetryModal;
 window.saveHeroTelemetry = saveHeroTelemetry;
 
 // ================= MODULE 1: CARS =================
+
+// ==========================================================================
+// SMART RUSSIAN -> ENGLISH AUTOMOTIVE TRANSLATOR & TRANSLITERATOR
+// ==========================================================================
+const GTT_TRANSLIT_MAP = {
+  'А': 'A', 'Б': 'B', 'В': 'V', 'Г': 'G', 'Д': 'D', 'Е': 'E', 'Ё': 'Yo',
+  'Ж': 'Zh', 'З': 'Z', 'И': 'I', 'Й': 'Y', 'К': 'K', 'Л': 'L', 'М': 'M',
+  'Н': 'N', 'О': 'O', 'П': 'P', 'Р': 'R', 'С': 'S', 'Т': 'T', 'У': 'U',
+  'Ф': 'F', 'Х': 'Kh', 'Ц': 'Ts', 'Ч': 'Ch', 'Ш': 'Sh', 'Щ': 'Shch',
+  'Ъ': '', 'Ы': 'Y', 'Ь': '', 'Э': 'E', 'Ю': 'Yu', 'Я': 'Ya',
+  'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo',
+  'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm',
+  'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
+  'ф': 'f', 'х': 'kh', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh', 'щ': 'shch',
+  'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya'
+};
+
+const GTT_AUTO_DICT = {
+  // Classic Russian & iconic builds
+  'волга': 'Volga',
+  'чайка': 'Chaika',
+  'жигули': 'Zhiguli',
+  'жигуль': 'Zhigul',
+  'лада': 'Lada',
+  'нива': 'Niva',
+  'москвич': 'Moskvich',
+  'кгб': 'KGB',
+  'газ': 'GAZ',
+  'ваз': 'VAZ',
+  'уаз': 'UAZ',
+  'камаз': 'KAMAZ',
+  'ссср': 'USSR',
+  'рф': 'RF',
+  
+  // GTT legends
+  'зеленка': 'Zelenka',
+  'зелёнка': 'Zelenka',
+  'беззубик': 'Bezzubik',
+  'рокот': 'Rokot',
+  'гюрза': 'Gyurza',
+  'курдалагон': 'Kurdalagon',
+  'люцифер': 'Lucifer',
+  'драко': 'Draco',
+  'промод': 'Pro-Mod',
+  'про-мод': 'Pro-Mod',
+  'коржик': 'Korzhik',
+  'гоша': 'Gosha',
+  'турботех': 'TurboTech',
+  'имба': 'Imba',
+  
+  // Automotive engineering terms
+  'турбо': 'Turbo',
+  'твин': 'Twin',
+  'битурбо': 'BiTurbo',
+  'би-турбо': 'BiTurbo',
+  'компрессор': 'Supercharger',
+  'мотор': 'Engine',
+  'проект': 'Project',
+  'выхлоп': 'Exhaust',
+  'титан': 'Titanium',
+  'инконель': 'Inconel',
+  'карбон': 'Carbon',
+  'ковка': 'Forged',
+  'кованый': 'Forged',
+  'впрыск': 'Injection',
+  'метанол': 'Methanol',
+  'этанол': 'Ethanol',
+  'спирт': 'Ethanol',
+  'закись': 'Nitrous',
+  'нитро': 'Nitro',
+  'стейдж': 'Stage',
+  'буст': 'Boost',
+  'кастом': 'Custom',
+  'корч': 'Korch',
+  'сток': 'Stock',
+  'силы': 'HP',
+  'сил': 'HP',
+  'л.с.': 'HP',
+  'лс': 'HP',
+
+  // Colors & adjectives
+  'черный': 'Black', 'черная': 'Black', 'чёрный': 'Black', 'чёрная': 'Black',
+  'белый': 'White', 'белая': 'White',
+  'красный': 'Red', 'красная': 'Red',
+  'синий': 'Blue', 'синяя': 'Blue',
+  'зеленый': 'Green', 'зеленая': 'Green', 'зелёный': 'Green', 'зелёная': 'Green',
+  'желтый': 'Yellow', 'желтая': 'Yellow', 'жёлтый': 'Yellow', 'жёлтая': 'Yellow',
+  'серый': 'Grey', 'серая': 'Grey',
+  'серебристый': 'Silver', 'серебро': 'Silver',
+  'золотой': 'Gold', 'золотая': 'Gold',
+  'оранжевый': 'Orange',
+  'фиолетовый': 'Purple',
+  'темный': 'Dark', 'тёмный': 'Dark',
+  'светлый': 'Light',
+  'быстрый': 'Fast', 'быстрая': 'Fast',
+  
+  // Motorsport & race
+  'ракета': 'Rocket',
+  'пушка': 'Rocket',
+  'зверь': 'Beast',
+  'демон': 'Demon',
+  'монстр': 'Monster',
+  'призрак': 'Ghost',
+  'стрела': 'Arrow',
+  'молния': 'Lightning',
+  'гром': 'Thunder',
+  'буря': 'Storm',
+  'акула': 'Shark',
+  'хищник': 'Predator',
+  'ночной': 'Night', 'ночь': 'Night',
+  'день': 'Day',
+  'город': 'City',
+  'гонка': 'Race', 'гоночный': 'Racing',
+  'спорт': 'Sport', 'спортивный': 'Sport',
+  'трек': 'Track',
+  'стрип': 'Strip',
+  'дрэг': 'Drag',
+  'дрифт': 'Drift',
+  'рекорд': 'Record',
+  'кубок': 'Cup',
+  'чемпион': 'Champion',
+  'победа': 'Victory',
+  'версия': 'Version',
+  'серия': 'Series',
+  'издание': 'Edition',
+  'эдишн': 'Edition',
+  'спец': 'Special', 'специальный': 'Special',
+  'лимитированный': 'Limited',
+
+  // Popular Russian phonetics for car makes/models
+  'ниссан': 'Nissan',
+  'бмв': 'BMW',
+  'ауди': 'Audi',
+  'порше': 'Porsche',
+  'порш': 'Porsche',
+  'ламборгини': 'Lamborghini',
+  'ламборджини': 'Lamborghini',
+  'ламба': 'Lambo',
+  'додж': 'Dodge',
+  'мерседес': 'Mercedes',
+  'тойота': 'Toyota',
+  'супра': 'Supra',
+  'скайлайн': 'Skyline',
+  'гтр': 'GT-R',
+  'хуракан': 'Huracan',
+  'авентадор': 'Aventador',
+  'урус': 'Urus',
+  'гальярдо': 'Gallardo',
+  'челленджер': 'Challenger',
+  'чарджер': 'Charger',
+  'хеллкэт': 'Hellcat'
+};
+
+function autoTranslateRuToEn(text) {
+  if (!text || typeof text !== 'string') return '';
+  let str = text;
+
+  // Process word by word preserving delimiters
+  const tokens = str.split(/(\s+|[^\w\u0400-\u04FF]+)/);
+  const out = [];
+
+  for (let token of tokens) {
+    if (!token) continue;
+    const lower = token.toLowerCase();
+    if (GTT_AUTO_DICT[lower]) {
+      let repl = GTT_AUTO_DICT[lower];
+      if (token === token.toUpperCase() && token.length > 1) {
+        repl = repl.toUpperCase();
+      } else if (token[0] === token[0].toUpperCase()) {
+        repl = repl.charAt(0).toUpperCase() + repl.slice(1);
+      }
+      out.push(repl);
+    } else {
+      let chars = '';
+      for (let i = 0; i < token.length; i++) {
+        const c = token[i];
+        chars += (GTT_TRANSLIT_MAP[c] !== undefined) ? GTT_TRANSLIT_MAP[c] : c;
+      }
+      out.push(chars);
+    }
+  }
+
+  return out.join('');
+}
+
+let isManualNameEn = false;
+
+function updateNameEnModeUI() {
+  const badge = document.getElementById('nameEnAutoBadge');
+  const btnText = document.getElementById('btnEditNameEnText');
+  const btn = document.getElementById('btnToggleEditNameEn');
+
+  if (isManualNameEn) {
+    if (badge) {
+      badge.style.display = 'inline-flex';
+      badge.style.color = '#00ff88';
+      badge.innerHTML = '<span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #00ff88; box-shadow: 0 0 6px #00ff88;"></span> РУЧНОЙ ВВОД';
+    }
+    if (btnText) btnText.textContent = 'Авто';
+    if (btn) {
+      btn.title = 'Вернуть авто-перевод с русского';
+      btn.classList.add('is-manual-mode');
+    }
+  } else {
+    if (badge) {
+      badge.style.display = 'inline-flex';
+      badge.style.color = 'var(--gtt-orange)';
+      badge.innerHTML = '<span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--gtt-orange); box-shadow: 0 0 6px var(--gtt-orange);"></span> АВТО-ПЕРЕВОД С RU';
+    }
+    if (btnText) btnText.textContent = 'Изменить';
+    if (btn) {
+      btn.title = 'Изменить английское название вручную';
+      btn.classList.remove('is-manual-mode');
+    }
+  }
+}
+
+function handleNameRuInput(val) {
+  if (!isManualNameEn) {
+    const translated = autoTranslateRuToEn(val);
+    const enInput = document.getElementById('editNameEn');
+    if (enInput) enInput.value = translated;
+  }
+
+  // Auto-detect brand if brand input is empty or defaults
+  const brandInput = document.getElementById('editBrand');
+  if (brandInput && (!brandInput.value || brandInput.value === 'GTT ATELIER')) {
+    const detected = autoDetectBrand(val);
+    if (detected !== 'GTT ATELIER') {
+      brandInput.value = detected;
+    }
+  }
+
+  // Auto-detect filter type if currently 'other'
+  const typeSelect = document.getElementById('editType');
+  if (typeSelect && typeSelect.value === 'other') {
+    const detectedType = autoDetectType(val);
+    if (detectedType !== 'other') {
+      typeSelect.value = detectedType;
+    }
+  }
+}
+
+function toggleManualNameEn() {
+  if (!isManualNameEn) {
+    isManualNameEn = true;
+    updateNameEnModeUI();
+    const enInput = document.getElementById('editNameEn');
+    if (enInput) {
+      enInput.focus();
+      enInput.select();
+    }
+    showToast('Режим редактирования', 'Теперь вы можете свободно изменить название на английском', 'info');
+  } else {
+    isManualNameEn = false;
+    updateNameEnModeUI();
+    const ruVal = document.getElementById('editNameRu')?.value || '';
+    const enInput = document.getElementById('editNameEn');
+    if (enInput) {
+      enInput.value = autoTranslateRuToEn(ruVal);
+    }
+    showToast('Авто-перевод включен', 'Английское название снова генерируется автоматически из русского', 'success');
+  }
+}
+
+function handleManualNameEnInput(val) {
+  if (!isManualNameEn) {
+    isManualNameEn = true;
+    updateNameEnModeUI();
+  }
+}
+
 function autoDetectBrand(name) {
   if (!name) return 'GTT ATELIER';
   const n = name.toUpperCase();
+  if (n.includes('ВОЛГА') || n.includes('VOLGA') || n.includes('ГАЗ') || n.includes('GAZ')) return 'ГАЗ & ВОЛГА';
+  if (n.includes('ЛАДА') || n.includes('LADA') || n.includes('ВАЗ') || n.includes('VAZ') || n.includes('ЖИГУЛИ') || n.includes('ZHIGULI')) return 'LADA & VAZ';
   if (n.includes('GT-R') || n.includes('GTR') || n.includes('NISSAN') || n.includes('LUCIFER') || n.includes('DRACO')) return 'NISSAN & GTT';
   if (n.includes('BMW') || n.includes('M5') || n.includes('M4') || n.includes('M3') || n.includes('M8') || n.includes('M2')) return 'BMW M-POWER';
   if (n.includes('AUDI') || n.includes('R8') || n.includes('RS6') || n.includes('RS7')) return 'AUDI SPORT';
@@ -1857,10 +2130,11 @@ function renderCarsTable() {
   tbody.innerHTML = projects.map((car, idx) => {
     const rawName = car.nameRu || car.name_ru || (car.name && (car.name.ru || car.name.en)) || car.id;
     const name = escapeHTML(rawName);
-    const brand = escapeHTML(car.brand || autoDetectBrand(rawName));
-    const hp = escapeHTML(car.hp || '—');
-    const quarter = escapeHTML(car.quarterMile || car.quarter_mile || '—');
-    const img = escapeHTML(car.img || 'assets/cars/bmw_m5_rdrc_race.jpg');
+    const rawHp = (car.hp || '').trim();
+    const hp = escapeHTML((!rawHp || rawHp === '-' || rawHp === '- HP' || rawHp === '—') ? '1,050+ HP' : rawHp);
+    const rawQ = (car.quarterMile || car.quarter_mile || '').trim();
+    const quarter = escapeHTML((!rawQ || rawQ === '-' || rawQ === '- сек' || rawQ === '—') ? '9.420 сек' : rawQ);
+    const img = escapeHTML(convertGoogleDriveUrl(car.img) || 'assets/cars/bmw_m5_rdrc_race.jpg');
     const carId = escapeHTML(car.id);
     const carIdAttr = escapeJS(car.id);
     const hasVideo = !!(car.videoSrc || car.video_src);
@@ -1900,6 +2174,52 @@ function renderCarsTable() {
 // ==========================================================================
 // UNIVERSAL FILE UPLOAD & CROSS-PLATFORM OS FILE PICKER ENGINE (MAC & WIN)
 // ==========================================================================
+function compressImageClientSide(base64Data, maxWidth = 1280, maxHeight = 850, quality = 0.82) {
+  return new Promise((resolve) => {
+    if (typeof Image === 'undefined') return resolve(base64Data);
+    const img = new Image();
+    img.onload = () => {
+      let width = img.width;
+      let height = img.height;
+      if (width > maxWidth || height > maxHeight) {
+        if (width / height > maxWidth / maxHeight) {
+          height = Math.round((height * maxWidth) / width);
+          width = maxWidth;
+        } else {
+          width = Math.round((width * maxHeight) / height);
+          height = maxHeight;
+        }
+      }
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/jpeg', quality));
+      } catch (err) {
+        resolve(base64Data);
+      }
+    };
+    img.onerror = () => resolve(base64Data);
+    img.src = base64Data;
+  });
+}
+
+function convertGoogleDriveUrl(url) {
+  if (!url || typeof url !== 'string') return url || '';
+  const trimmed = url.trim();
+  const matchFile = trimmed.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (matchFile && matchFile[1]) {
+    return `https://lh3.googleusercontent.com/d/${matchFile[1]}`;
+  }
+  const matchId = trimmed.match(/drive\.google\.com\/(?:open|uc)\?[^#]*id=([a-zA-Z0-9_-]+)/);
+  if (matchId && matchId[1]) {
+    return `https://lh3.googleusercontent.com/d/${matchId[1]}`;
+  }
+  return trimmed;
+}
+
 async function handleGenericUpload(file, { inputId, previewWrapId, previewImgId, previewNameId, previewInfoId, folder, isVideo, successMsg }) {
   if (!file) return;
 
@@ -1919,8 +2239,14 @@ async function handleGenericUpload(file, { inputId, previewWrapId, previewImgId,
 
   const reader = new FileReader();
   reader.onload = async (event) => {
-    const base64Data = event.target.result;
+    let base64Data = event.target.result;
     const sizeKb = (file.size / 1024).toFixed(1);
+
+    if (!isVideo) {
+      try {
+        base64Data = await compressImageClientSide(base64Data, 1280, 850, 0.82);
+      } catch (cErr) {}
+    }
 
     if (!isVideo && previewWrapId) {
       const wrap = document.getElementById(previewWrapId);
@@ -1962,8 +2288,8 @@ async function handleGenericUpload(file, { inputId, previewWrapId, previewImgId,
       }
     }
 
-    // Static GitHub Pages or offline fallback
-    if (!isVideo && file.size <= 1.5 * 1024 * 1024 && input) {
+    // Static GitHub Pages or offline fallback: ALWAYS set compressed base64Data for photos!
+    if (!isVideo && input) {
       input.value = base64Data;
     }
     showToast('Файл выбран', successMsg || `Файл «${file.name}» готов к сохранению`, 'success');
@@ -2152,7 +2478,14 @@ function setCarPhotoPreset(preset) {
 }
 
 function handleCarPhotoPathInput(val) {
-  const trimmed = (val || '').trim();
+  let trimmed = (val || '').trim();
+  const converted = convertGoogleDriveUrl(trimmed);
+  if (converted !== trimmed) {
+    trimmed = converted;
+    const input = document.getElementById('editImg');
+    if (input) input.value = converted;
+    showToast('Google Диск', 'Ссылка с Google Диска автоматически преобразована для прямого показа фото', 'success');
+  }
   if (trimmed) {
     updateCarPhotoPreviewUI(trimmed, trimmed.split('/').pop(), 'Путь к фото');
   } else {
@@ -2476,6 +2809,9 @@ function openCarEditModal(carId, targetFeaturedSlot = null) {
     document.getElementById('editType').value = type;
     document.getElementById('editNameRu').value = nameRu;
     document.getElementById('editNameEn').value = nameEn;
+    const autoEn = autoTranslateRuToEn(nameRu);
+    isManualNameEn = Boolean(nameEn && nameEn !== autoEn && nameEn !== nameRu);
+    updateNameEnModeUI();
     document.getElementById('editHp').value = hp;
     document.getElementById('editQuarter').value = quarterMile;
     document.getElementById('editTopSpeed').value = topSpeed;
@@ -2512,6 +2848,8 @@ function openCarEditModal(carId, targetFeaturedSlot = null) {
     title.textContent = `Добавление нового проекта GTT${slotSuffix}`;
     if (form) form.reset();
     document.getElementById('editCarId').value = '';
+    isManualNameEn = false;
+    updateNameEnModeUI();
     handleCarPhotoPositionChange(50);
     updateCarPhotoPreviewUI('');
     updateCarVideoPreviewUI('');
@@ -2549,18 +2887,18 @@ async function saveCarProject(e) {
   const finalType = rawType && rawType !== 'other' ? rawType : autoDetectType(rawNameRu);
 
   const rawNameEn = document.getElementById('editNameEn').value.trim();
-  const finalNameEn = rawNameEn || rawNameRu;
+  const finalNameEn = rawNameEn || autoTranslateRuToEn(rawNameRu) || rawNameRu;
 
   const rawHp = document.getElementById('editHp').value.trim();
   const finalHp = rawHp ? (rawHp.includes('HP') || rawHp.includes('л.с.') ? rawHp : rawHp + ' HP') : '1,050+ HP';
 
   const rawQuarter = document.getElementById('editQuarter').value.trim();
-  const finalQuarter = rawQuarter ? (rawQuarter.includes('сек') ? rawQuarter : rawQuarter + ' сек') : '—';
+  const finalQuarter = rawQuarter ? (rawQuarter.includes('сек') ? rawQuarter : rawQuarter + ' сек') : '9.420 сек';
 
   const rawTopSpeed = document.getElementById('editTopSpeed').value.trim();
-  const finalTopSpeed = rawTopSpeed ? (rawTopSpeed.includes('км/ч') ? rawTopSpeed : rawTopSpeed + ' км/ч') : '320+ км/ч';
+  const finalTopSpeed = rawTopSpeed ? (rawTopSpeed.includes('км/ч') ? rawTopSpeed : rawTopSpeed + ' км/ч') : '340+ км/ч';
 
-  const rawImg = document.getElementById('editImg').value.trim();
+  const rawImg = convertGoogleDriveUrl(document.getElementById('editImg').value.trim());
   const finalImg = rawImg || 'assets/cars/bmw_m5_rdrc_race.jpg';
 
   const finalVideoSrc = document.getElementById('editVideoSrc').value.trim();
@@ -4402,6 +4740,12 @@ window.openMotoModal = openMotoModal;
 window.closeMotoModal = closeMotoModal;
 window.saveMoto = saveMoto;
 window.deleteMoto = deleteMoto;
+
+// Project Name Auto-Translate & Edit Exports
+window.handleNameRuInput = handleNameRuInput;
+window.toggleManualNameEn = toggleManualNameEn;
+window.handleManualNameEnInput = handleManualNameEnInput;
+window.autoTranslateRuToEn = autoTranslateRuToEn;
 
 document.addEventListener('DOMContentLoaded', checkAuth);
 

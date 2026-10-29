@@ -1364,7 +1364,7 @@ const i18n = {
     team_pill_mech: "Механики цеха",
     team_pill_fab: "Сварка &amp; Фабрикация",
     team_stat_label: "Специалистов цеха и гонок",
-    team_summary_desc: "Собственный сборочный цех, аргонная фабрикация выхлопных трасс из титана и инконеля, полноприводный диностенд Dyno Dynamics, настройка и калибровка ЭБУ MoTeC и Syvecs, а также выездная гоночная команда паддока RDRC.",
+    team_summary_desc: "Собственный сборочный цех, аргонная фабрикация выхлопных трасс из титана и инконеля, настройка и калибровка ЭБУ MoTeC и Syvecs, а также выездная гоночная команда паддока RDRC.",
     team_role_1: "Основатель",
     team_name_1: "Гоша",
     team_role_2: "Технический директор",
@@ -1562,7 +1562,7 @@ const i18n = {
     team_pill_mech: "Workshop Mechanics",
     team_pill_fab: "Fabrication &amp; Welding",
     team_stat_label: "Specialists in Workshop & Racing",
-    team_summary_desc: "In-house assembly bays, titanium and Inconel TIG fabrication, Dyno Dynamics AWD dyno cell, MoTeC and Syvecs ECU calibration facility, plus the traveling RDRC trackside race crew.",
+    team_summary_desc: "In-house assembly bays, titanium and Inconel TIG fabrication, MoTeC and Syvecs ECU calibration facility, plus the traveling RDRC trackside race crew.",
     team_role_1: "Founder",
     team_name_1: "Gosha",
     team_role_2: "Technical Director",
@@ -1722,6 +1722,7 @@ document.addEventListener('DOMContentLoaded', () => {
   updateGalleryTranslations();
   initGalleryMarqueeInteractions();
   initFounderGestures();
+  initRecordsCarousel();
   initMobileStickyBar();
   initTelemetryCounters();
 });
@@ -1917,8 +1918,7 @@ const defaultPartnersList = [
   { id: 'motec', name: 'MoTeC Systems', category: 'Электроника и ЭБУ', desc: 'Золотой стандарт мирового автоспорта: управляющие процессоры M1, цветные цифровые приборные панели C1212 и прецизионные логгеры телеметрии.', logo: 'assets/photos/partners_banner.png', link: 'https://www.motec.com.au', sort_order: 4, is_active: 1 },
   { id: 'precision_turbo', name: 'Precision Turbo & Engine', category: 'Турбосистемы', desc: 'Специализированные гоночные турбокомпрессоры сверхвысокого наддува серии Pro Mod и GEN2 CEA, обеспечивающие отдачу до 3,500+ л.с.', logo: 'assets/photos/partners_banner.png', link: 'https://www.precisionturbo.net', sort_order: 5, is_active: 1 },
   { id: 'ppg_gearboxes', name: 'PPG (Pfitzner Gearboxes)', category: 'Трансмиссия', desc: 'Усиленные прямозубые кулачковые и секвентальные ряды передач, выдерживающие колоссальный крутящий момент и агрессивные переключения.', logo: 'assets/photos/partners_banner.png', link: 'https://www.ppgearbox.com.au', sort_order: 6, is_active: 1 },
-  { id: 'dyno_dynamics', name: 'Dyno Dynamics', category: 'Диностенд и калибровка', desc: 'Высокоточный полноприводный диностенд 4WD с мощнейшим обдувом и синхронизацией осей для тонкой калибровки болидов ателье.', logo: 'assets/photos/partners_banner.png', link: 'https://www.dyno.com.au', sort_order: 7, is_active: 1 },
-  { id: 'redline_oil', name: 'Red Line Synthetic Oil', category: 'Смазочные материалы', desc: 'Специализированные трансмиссионные жидкости ShockProof и гоночные присадки для дифференциалов повышенного трения и раздаточных коробок.', logo: 'assets/photos/partners_banner.png', link: 'https://www.redlineoil.com', sort_order: 8, is_active: 1 },
+  { id: 'redline_oil', name: 'Red Line Synthetic Oil', category: 'Смазочные материалы', desc: 'Специализированные трансмиссионные жидкости ShockProof и гоночные присадки для дифференциалов повышенного трения и раздаточных коробок.', logo: 'assets/photos/partners_banner.png', link: 'https://www.redlineoil.com', sort_order: 7, is_active: 1 },
   { id: 'bell_intercoolers', name: 'Bell Intercoolers', category: 'Охлаждение', desc: 'Высокоэффективные теплообменники и кастомные интеркулерные ядра с минимальным сопротивлением для мощных турбосистем.', logo: 'assets/photos/partners_banner.png', link: 'https://www.bellintercoolers.com', sort_order: 9, is_active: 1 },
   { id: 'plazmaman', name: 'Plazmaman Pro Billet', category: 'Впуск и охлаждение', desc: 'Фрезерованные из алюминиевого монолита впускные коллекторы и интеркулеры для экстремальных моторов VR38DETT и V10 Twin Turbo.', logo: 'assets/photos/partners_banner.png', link: 'https://plazmaman.com', sort_order: 10, is_active: 1 },
   { id: 't1_race', name: 'T1 Race Development', category: 'Топливные системы', desc: 'Прецизионные компоненты топливной магистрали, высокодебитные форсунки, регуляторы давления и крепления для дрэг-рейсинга.', logo: 'assets/photos/partners_banner.png', link: 'https://t1racedevelopment.com', sort_order: 11, is_active: 1 },
@@ -2477,8 +2477,13 @@ async function syncRecordsFromAPI() {
   } catch (err) {}
 }
 
+let currentRecordSlide = 0;
+let recordAutoplayTimer = null;
+let recordAutoplayPaused = false;
+let recordsCarouselInitialized = false;
+
 function renderRecordsEditorial(recordsList) {
-  const container = document.querySelector('.records-grid');
+  const container = document.getElementById('recordsCarouselTrack') || document.querySelector('.records-grid');
   if (!container || !Array.isArray(recordsList) || recordsList.length === 0) return;
   cachedRecordsData = recordsList;
 
@@ -2490,26 +2495,271 @@ function renderRecordsEditorial(recordsList) {
     const descText = (currentLang === 'en' && enMeta.desc) ? enMeta.desc : (rec.desc || '');
     const carName = rec.car || 'GTT Spec';
     const telemetry = rec.telemetry || '—';
+    const num = String(idx + 1).padStart(2, '0');
 
     return `
-      <div class="record-item" data-id="${rec.id || idx}">
+      <div class="record-item ${idx === 0 ? 'is-active-slide' : ''}" data-id="${rec.id || idx}" data-index="${idx}">
         <div class="record-photo-wrapper">
           <img src="${photo}" 
                alt="${carName}" 
                class="record-photo-img" 
                loading="lazy"
                onerror="this.src='assets/photos/huracan_rdrc_stage_line.jpg'">
+          <span class="record-index-badge">#${num}</span>
+        </div>
+        <div class="record-stat-highlight">
+          <span class="rsh-badge">⚡ RECORD</span>
+          <div class="rsh-content">
+            <span class="rsh-metric">${telemetry}</span>
+            <span class="rsh-car">${carName}</span>
+          </div>
         </div>
         <div class="record-body">
           <span class="record-year-badge">${yearText}</span>
           <h3 class="record-title">${titleText !== carName ? titleText : (rec.year || 'Официальный рекорд RDRC')}</h3>
-          <div class="record-car-name">${carName}</div>
-          <div class="record-telemetry">${telemetry}</div>
           <p class="record-text">${descText}</p>
         </div>
       </div>
     `;
   }).join('');
+
+  initRecordsCarousel();
+}
+
+function getRecordSlidesPerView() {
+  if (window.innerWidth > 1024) return 3;
+  if (window.innerWidth > 768) return 2;
+  return 1;
+}
+
+function updateRecordsCarousel(index, isAuto = false) {
+  const track = document.getElementById('recordsCarouselTrack');
+  if (!track) return;
+  const items = track.querySelectorAll('.record-item');
+  if (!items || items.length === 0) return;
+
+  const slidesPerView = getRecordSlidesPerView();
+  const maxIndex = Math.max(0, items.length - slidesPerView);
+
+  if (index > maxIndex) {
+    currentRecordSlide = 0;
+  } else if (index < 0) {
+    currentRecordSlide = maxIndex;
+  } else {
+    currentRecordSlide = index;
+  }
+
+  // Calculate pixel translation based on first card width + gap (24px)
+  const firstItem = items[0];
+  const cardWidth = firstItem ? (firstItem.offsetWidth + 24) : 0;
+  track.style.transform = `translate3d(-${currentRecordSlide * cardWidth}px, 0, 0)`;
+
+  // Update active slide class
+  items.forEach((item, i) => {
+    const isActive = (i >= currentRecordSlide && i < currentRecordSlide + slidesPerView);
+    item.classList.toggle('is-active-slide', isActive);
+  });
+
+  // Update Live Telemetry HUD Bar
+  const activeItem = items[currentRecordSlide];
+  if (activeItem) {
+    const metricEl = activeItem.querySelector('.rsh-metric');
+    const carEl = activeItem.querySelector('.rsh-car');
+    const badgeEl = activeItem.querySelector('.record-year-badge');
+
+    const hudMetric = document.getElementById('hudRecordMetric');
+    const hudCar = document.getElementById('hudCarName');
+    const hudBadge = document.getElementById('hudEventBadge');
+    const hudCounter = document.getElementById('hudSlideCounter');
+
+    if (hudMetric && metricEl) {
+      hudMetric.style.opacity = '0.4';
+      hudMetric.textContent = metricEl.textContent;
+      setTimeout(() => { hudMetric.style.opacity = '1'; }, 150);
+    }
+    if (hudCar && carEl) {
+      hudCar.style.opacity = '0.4';
+      hudCar.textContent = carEl.textContent;
+      setTimeout(() => { hudCar.style.opacity = '1'; }, 150);
+    }
+    if (hudBadge && badgeEl) {
+      hudBadge.textContent = badgeEl.textContent;
+    }
+    if (hudCounter) {
+      hudCounter.textContent = `${String(currentRecordSlide + 1).padStart(2, '0')} / ${String(items.length).padStart(2, '0')}`;
+    }
+  }
+
+  // Update dots pagination
+  renderRecordsDots(maxIndex + 1);
+
+  // Restart auto-play progress bar
+  resetRecordProgressBar();
+}
+
+function renderRecordsDots(totalDots) {
+  const dotsContainer = document.getElementById('recordsCarouselDots');
+  if (!dotsContainer) return;
+
+  if (dotsContainer.children.length !== totalDots) {
+    dotsContainer.innerHTML = '';
+    for (let i = 0; i < totalDots; i++) {
+      const dot = document.createElement('button');
+      dot.className = `records-dot ${i === currentRecordSlide ? 'active' : ''}`;
+      dot.setAttribute('aria-label', `Рекорд слайд ${i + 1}`);
+      dot.onclick = () => {
+        window.goToRecordSlide(i);
+      };
+      dotsContainer.appendChild(dot);
+    }
+  } else {
+    Array.from(dotsContainer.children).forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === currentRecordSlide);
+    });
+  }
+}
+
+function resetRecordProgressBar() {
+  const fill = document.getElementById('hudProgressFill');
+  if (!fill) return;
+  fill.style.transition = 'none';
+  fill.style.width = '0%';
+  // Force reflow
+  void fill.offsetWidth;
+  if (!recordAutoplayPaused) {
+    fill.style.transition = 'width 4.5s linear';
+    fill.style.width = '100%';
+  }
+}
+
+function startRecordAutoplay() {
+  stopRecordAutoplay();
+  recordAutoplayPaused = false;
+  resetRecordProgressBar();
+  recordAutoplayTimer = setInterval(() => {
+    if (!recordAutoplayPaused) {
+      updateRecordsCarousel(currentRecordSlide + 1, true);
+    }
+  }, 4500);
+}
+
+function stopRecordAutoplay() {
+  if (recordAutoplayTimer) {
+    clearInterval(recordAutoplayTimer);
+    recordAutoplayTimer = null;
+  }
+}
+
+function resetRecordAutoplay() {
+  startRecordAutoplay();
+}
+
+window.recordsCarouselPrev = function() {
+  updateRecordsCarousel(currentRecordSlide - 1);
+  resetRecordAutoplay();
+};
+
+window.recordsCarouselNext = function() {
+  updateRecordsCarousel(currentRecordSlide + 1);
+  resetRecordAutoplay();
+};
+
+window.goToRecordSlide = function(idx) {
+  updateRecordsCarousel(idx);
+  resetRecordAutoplay();
+};
+
+function initRecordsCarousel() {
+  const viewport = document.getElementById('recordsCarouselViewport');
+  const stage = document.querySelector('.records-carousel-stage');
+  const ticker = document.getElementById('recordsHudTicker');
+  const track = document.getElementById('recordsCarouselTrack');
+  if (!viewport || !track) return;
+
+  updateRecordsCarousel(currentRecordSlide);
+  startRecordAutoplay();
+
+  if (recordsCarouselInitialized) return;
+  recordsCarouselInitialized = true;
+
+  // 1. Pause on hover
+  const pauseElements = [stage, ticker].filter(Boolean);
+  pauseElements.forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      recordAutoplayPaused = true;
+      const fill = document.getElementById('hudProgressFill');
+      if (fill) fill.style.animationPlayState = 'paused';
+    });
+    el.addEventListener('mouseleave', () => {
+      recordAutoplayPaused = false;
+      resetRecordProgressBar();
+    });
+  });
+
+  // 2. Touch gesture support for iOS & Android
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchEndX = 0;
+  let touchEndY = 0;
+
+  viewport.addEventListener('touchstart', (e) => {
+    if (e.touches.length > 0) {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchEndX = touchStartX;
+      touchEndY = touchStartY;
+      recordAutoplayPaused = true;
+    }
+  }, { passive: true });
+
+  viewport.addEventListener('touchmove', (e) => {
+    if (e.touches.length > 0) {
+      touchEndX = e.touches[0].clientX;
+      touchEndY = e.touches[0].clientY;
+    }
+  }, { passive: true });
+
+  viewport.addEventListener('touchend', () => {
+    const deltaX = touchEndX - touchStartX;
+    const deltaY = touchEndY - touchStartY;
+    if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (deltaX < 0) {
+        window.recordsCarouselNext();
+      } else {
+        window.recordsCarouselPrev();
+      }
+    }
+    recordAutoplayPaused = false;
+    resetRecordAutoplay();
+  }, { passive: true });
+
+  // 3. Trackpad 2-finger horizontal swipe
+  let trackpadLock = false;
+  viewport.addEventListener('wheel', (e) => {
+    const absX = Math.abs(e.deltaX);
+    const absY = Math.abs(e.deltaY);
+    if (absX > absY && absX > 18) {
+      e.preventDefault();
+      if (trackpadLock) return;
+      trackpadLock = true;
+      setTimeout(() => { trackpadLock = false; }, 420);
+
+      if (e.deltaX > 0) {
+        window.recordsCarouselNext();
+      } else {
+        window.recordsCarouselPrev();
+      }
+    }
+  }, { passive: false });
+
+  // 4. Window Resize handler
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      updateRecordsCarousel(currentRecordSlide);
+    }, 120);
+  });
 }
 
 // Multi-Tab Real-Time Sync Listener
@@ -2798,12 +3048,33 @@ window.switchShowroomDivision = function(type) {
   }
 };
 
-function formatSpecVal(val, lang, type) {
-  if (!val) return '—';
-  if (typeof val === 'object') {
-    return val[lang] || val.ru || val.en || '—';
+function convertGoogleDriveUrl(url) {
+  if (!url || typeof url !== 'string') return url || '';
+  const trimmed = url.trim();
+  const matchFile = trimmed.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (matchFile && matchFile[1]) {
+    return `https://lh3.googleusercontent.com/d/${matchFile[1]}`;
   }
-  let str = String(val);
+  const matchId = trimmed.match(/drive\.google\.com\/(?:open|uc)\?[^#]*id=([a-zA-Z0-9_-]+)/);
+  if (matchId && matchId[1]) {
+    return `https://lh3.googleusercontent.com/d/${matchId[1]}`;
+  }
+  return trimmed;
+}
+
+function formatSpecVal(val, lang, type) {
+  let str = (typeof val === 'object' && val !== null) ? (val[lang] || val.ru || val.en || '') : String(val || '').trim();
+  const isDashOrEmpty = !str || str === '-' || str === '—' || str === 'undefined' || 
+    str === '- HP' || str === '— HP' || 
+    str === '- сек' || str === '— сек' || str === '- sec' || str === '— sec' || 
+    str === '- км/ч' || str === '— км/ч' || str === '- km/h' || str === '— km/h';
+
+  if (isDashOrEmpty) {
+    if (type === 'hp') return '1,050+ HP';
+    if (type === 'quarterMile') return lang === 'en' ? '9.420 sec' : '9.420 сек';
+    if (type === 'topSpeed') return lang === 'en' ? '340+ km/h' : '340+ км/ч';
+    return '—';
+  }
   if (lang === 'en') {
     if (type === 'quarterMile') {
       return str.replace(/сек\.?/gi, 'sec').replace(/\bс\b/gi, 'sec');
@@ -2842,7 +3113,7 @@ function formatGarageExpandText(remaining, isExpanded, lang) {
   return `Show All Projects (+${remaining} builds)`;
 }
 
-let isGarageExpanded = false;
+let isGarageExpanded = true;
 
 window.toggleGarageExpand = function() {
   isGarageExpanded = !isGarageExpanded;
@@ -2914,10 +3185,10 @@ function renderGarageGrid(filterType) {
             </div>
           ` : ''}
           <img class="car-card-img ${car.isPhoto ? 'photo-fit' : ''}" 
-               src="${car.img}" 
+               src="${convertGoogleDriveUrl(car.img)}" 
                alt="${name}" 
                style="${car.objectPosition ? `object-position: ${car.objectPosition};` : ''}"
-               onerror="if('${car.fallbackImg}'){this.src='${car.fallbackImg}'}">
+               onerror="this.onerror=null; this.src='${car.fallbackImg || 'assets/cars/bmw_m5_rdrc_race.jpg'}';">
         </div>
         <div class="car-card-info">
           <div class="car-brand">${car.brand} • ${tag}</div>
