@@ -2689,18 +2689,23 @@ founderPhotos.forEach(item => {
 });
 
 let currentFounderIndex = 0;
+let isFounderAnimating = false;
 
-window.switchFounderPhoto = function(step) {
+window.switchFounderPhoto = function(step, explicitDir) {
+  if (isFounderAnimating) return;
+  const direction = explicitDir !== undefined ? explicitDir : (step > 0 ? 1 : -1);
   currentFounderIndex = (currentFounderIndex + step + founderPhotos.length) % founderPhotos.length;
-  updateFounderPhoto();
+  updateFounderPhoto(direction);
 };
 
 window.setFounderPhoto = function(idx) {
+  if (isFounderAnimating || idx === currentFounderIndex) return;
+  const direction = idx > currentFounderIndex ? 1 : -1;
   currentFounderIndex = idx;
-  updateFounderPhoto();
+  updateFounderPhoto(direction);
 };
 
-function updateFounderPhoto() {
+function updateFounderPhoto(direction = 1) {
   const img = document.getElementById('founderImg');
   const caption = document.getElementById('founderImgCaption');
   const dots = document.querySelectorAll('.gallery-dot');
@@ -2715,7 +2720,11 @@ function updateFounderPhoto() {
     : cur.caption;
 
   if (caption) {
-    caption.textContent = capText;
+    caption.style.opacity = '0';
+    setTimeout(() => {
+      caption.textContent = capText;
+      caption.style.opacity = '1';
+    }, 120);
   }
 
   dots.forEach((dot, i) => {
@@ -2728,11 +2737,36 @@ function updateFounderPhoto() {
     return;
   }
 
-  img.style.opacity = '0.35';
+  isFounderAnimating = true;
+  const exitX = direction > 0 ? -40 : 40;
+  const enterX = direction > 0 ? 40 : -40;
+
+  // Phase 1: Slide & fade out in the movement direction
+  img.style.transition = 'transform 0.16s ease-in, opacity 0.16s ease-in, filter 0.16s ease-in';
+  img.style.transform = `translateX(${exitX}px) scale(0.98)`;
+  img.style.opacity = '0.2';
+  img.style.filter = 'blur(3px)';
+
   setTimeout(() => {
+    // Phase 2: Instant swap to new photo off-center
     img.src = curSrc;
-    img.style.opacity = '1';
-  }, 60);
+    img.style.transition = 'none';
+    img.style.transform = `translateX(${enterX}px) scale(0.98)`;
+
+    // Phase 3: Smooth glide in to center
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        img.style.transition = 'transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.38s ease-out, filter 0.38s ease-out';
+        img.style.transform = 'translateX(0) scale(1)';
+        img.style.opacity = '1';
+        img.style.filter = 'none';
+
+        setTimeout(() => {
+          isFounderAnimating = false;
+        }, 400);
+      });
+    });
+  }, 160);
 }
 
 // Navigation Scroll Effect & Active Section Scroll Spy
@@ -3601,39 +3635,151 @@ window.scrollGalleryTrack = function(dir) {
    ========================================================================== */
 function initFounderGestures() {
   const wrapper = document.getElementById('founderGalleryWrapper');
-  if (!wrapper) return;
+  const img = document.getElementById('founderImg');
+  if (!wrapper || !img) return;
 
-  let touchStartX = 0;
-  let touchStartY = 0;
-  let touchEndX = 0;
-  let touchEndY = 0;
+  // 1. MacBook Trackpad: 2-finger horizontal swipe (wheel deltaX)
+  let wheelLock = false;
+  wrapper.addEventListener('wheel', (e) => {
+    const absX = Math.abs(e.deltaX);
+    const absY = Math.abs(e.deltaY);
 
-  wrapper.addEventListener('touchstart', (e) => {
-    if (e.changedTouches && e.changedTouches[0]) {
-      touchStartX = e.changedTouches[0].screenX;
-      touchStartY = e.changedTouches[0].screenY;
-    }
-  }, { passive: true });
+    // Dominant horizontal gesture on trackpad
+    if (absX > absY) {
+      // Prevent macOS Safari from triggering Back/Forward history navigation!
+      e.preventDefault();
 
-  wrapper.addEventListener('touchend', (e) => {
-    if (!e.changedTouches || !e.changedTouches[0]) return;
-    touchEndX = e.changedTouches[0].screenX;
-    touchEndY = e.changedTouches[0].screenY;
+      if (absX > 18) {
+        if (wheelLock || isFounderAnimating) return;
+        wheelLock = true;
+        setTimeout(() => { wheelLock = false; }, 420);
 
-    const diffX = touchEndX - touchStartX;
-    const diffY = touchEndY - touchStartY;
-
-    // Only trigger if horizontal swipe is prominent and exceeds 40px
-    if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
-      if (diffX < 0) {
-        // Swiped Left -> Next photo
-        window.switchFounderPhoto(1);
-      } else {
-        // Swiped Right -> Previous photo
-        window.switchFounderPhoto(-1);
+        if (e.deltaX > 0) {
+          // Swiped fingers to the left -> Next photo
+          window.switchFounderPhoto(1, 1);
+        } else {
+          // Swiped fingers to the right -> Previous photo
+          window.switchFounderPhoto(-1, -1);
+        }
       }
     }
+  }, { passive: false });
+
+  // 2. Gesture Engine: iPhone Touch + MacBook Mouse Drag
+  let isDragging = false;
+  let isHorizontalSwipe = false;
+  let startX = 0;
+  let startY = 0;
+  let currentDiffX = 0;
+
+  function onGestureStart(x, y, target) {
+    if (isFounderAnimating) return;
+    // Don't drag if clicking buttons, dots or telegram badge
+    if (target && target.closest && (
+      target.closest('.founder-gallery-btn') || 
+      target.closest('.founder-gallery-topbar') || 
+      target.closest('.founder-floating-card')
+    )) {
+      return;
+    }
+    isDragging = true;
+    isHorizontalSwipe = false;
+    startX = x;
+    startY = y;
+    currentDiffX = 0;
+    wrapper.classList.add('is-dragging');
+  }
+
+  function onGestureMove(x, y) {
+    if (!isDragging || isFounderAnimating) return;
+    const diffX = x - startX;
+    const diffY = y - startY;
+
+    if (!isHorizontalSwipe) {
+      // Determine if user intends a horizontal swipe
+      if (Math.abs(diffX) > 8 && Math.abs(diffX) > Math.abs(diffY)) {
+        isHorizontalSwipe = true;
+      } else if (Math.abs(diffY) > 12) {
+        // User is scrolling the page vertically — release drag
+        onGestureCancel();
+        return;
+      }
+    }
+
+    if (isHorizontalSwipe) {
+      currentDiffX = diffX;
+      // Damped elastic drag feedback
+      const damped = Math.sign(diffX) * Math.min(Math.abs(diffX) * 0.45, 90);
+      img.style.transition = 'none';
+      img.style.transform = `translateX(${damped}px) scale(0.99)`;
+      img.style.opacity = Math.max(0.65, 1 - Math.abs(diffX) / 600);
+    }
+  }
+
+  function onGestureEnd() {
+    if (!isDragging) return;
+    isDragging = false;
+    wrapper.classList.remove('is-dragging');
+
+    if (isHorizontalSwipe && Math.abs(currentDiffX) > 38 && !isFounderAnimating) {
+      const step = currentDiffX < 0 ? 1 : -1;
+      window.switchFounderPhoto(step, step);
+    } else {
+      // Spring back smoothly
+      img.style.transition = 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, filter 0.3s ease';
+      img.style.transform = 'translateX(0) scale(1)';
+      img.style.opacity = '1';
+      img.style.filter = 'none';
+    }
+
+    currentDiffX = 0;
+    isHorizontalSwipe = false;
+  }
+
+  function onGestureCancel() {
+    if (!isDragging) return;
+    isDragging = false;
+    wrapper.classList.remove('is-dragging');
+    img.style.transition = 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease';
+    img.style.transform = 'translateX(0) scale(1)';
+    img.style.opacity = '1';
+    currentDiffX = 0;
+    isHorizontalSwipe = false;
+  }
+
+  // Touch handlers (iPhone & iPad)
+  wrapper.addEventListener('touchstart', (e) => {
+    if (e.touches && e.touches[0]) {
+      onGestureStart(e.touches[0].clientX, e.touches[0].clientY, e.target);
+    }
   }, { passive: true });
+
+  wrapper.addEventListener('touchmove', (e) => {
+    if (e.touches && e.touches[0]) {
+      onGestureMove(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, { passive: true });
+
+  wrapper.addEventListener('touchend', onGestureEnd, { passive: true });
+  wrapper.addEventListener('touchcancel', onGestureCancel, { passive: true });
+
+  // Mouse handlers (MacBook trackpad click-and-drag / mouse)
+  wrapper.addEventListener('mousedown', (e) => {
+    if (e.button !== 0) return; // Left click only
+    onGestureStart(e.clientX, e.clientY, e.target);
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (isDragging) {
+      onGestureMove(e.clientX, e.clientY);
+    }
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (isDragging) {
+      onGestureEnd();
+    }
+  });
 }
 
 /* ==========================================================================

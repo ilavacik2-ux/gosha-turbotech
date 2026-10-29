@@ -1281,6 +1281,16 @@ body.is-loading {
   border: 1px solid var(--border-glow);
   background: #11141c;
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 35px rgba(255, 100, 37, 0.15);
+  touch-action: pan-y;
+  overscroll-behavior-x: none;
+  overscroll-behavior: contain;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.founder-img-wrapper.is-dragging {
+  cursor: grabbing;
 }
 
 .founder-img-wrapper img {
@@ -1290,6 +1300,11 @@ body.is-loading {
   object-position: center 46%;
   filter: contrast(1.05) brightness(0.98);
   display: block;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+  will-change: transform, opacity, filter;
   transition: opacity 0.4s ease, transform 0.4s var(--ease-out-expo);
 }
 
