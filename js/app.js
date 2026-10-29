@@ -710,8 +710,8 @@ let gttProjects = [
     "isPhoto": true,
     "objectPosition": "center center",
     "desc": {
-      "ru": "Экстремальный проект Nissan GT-R R35 «Rocket» лаборатории GoshaTurboTech. Двухтурбинный наддув, титановый прямой выхлоп и облегченная гоночная конфигурация кузова.",
-      "en": "Extreme project Nissan GT-R R35 Rocket by GoshaTurboTech skunkworks. Twin turbo package, titanium straight pipes and ultra-lightweight race setup."
+      "ru": "Экстремальный проект Nissan GT-R R35 «Rocket» ателье GoshaTurboTech. Двухтурбинный наддув, титановый прямой выхлоп и облегченная гоночная конфигурация кузова.",
+      "en": "Extreme project Nissan GT-R R35 Rocket by GoshaTurboTech. Twin turbo package, titanium straight pipes and ultra-lightweight race setup."
     },
     "specs": {
       "engine": "3.8L VR38DETT Built by GTT",
@@ -1235,7 +1235,7 @@ let gttProjects = [
     "isPhoto": true,
     "objectPosition": "center 60%",
     "desc": {
-      "ru": "Подготовленный в лаборатории GTT совместно с Kiwamaru болид Audi R8 V10 Plus Twin Turbo «Гюрза». Официальный рекорд России на Днях скорости на льду озера Байкал: средняя скорость 124 км/ч на дистанции 1 км с места по голому льду.",
+      "ru": "Подготовленный в ателье GTT совместно с Kiwamaru болид Audi R8 V10 Plus Twin Turbo «Гюрза». Официальный рекорд России на Днях скорости на льду озера Байкал: средняя скорость 124 км/ч на дистанции 1 км с места по голому льду.",
       "en": "Engineered by GTT alongside Kiwamaru. Official Russian record at Speed Days on Lake Baikal ice: 124 km/h average speed across 1 km from standing start on bare ice."
     },
     "specs": {
@@ -1257,12 +1257,13 @@ const i18n = {
     nav_team: "Команда GTT",
     nav_moto: "Moto Division",
     nav_gallery: "Жизнь ателье",
+    nav_partners: "Партнеры",
     nav_contact: "Связь",
     nav_telegram: "Telegram Канал",
     preloader_tag: "Инженерия Скорости & Мощности • Москва",
-    hero_tag: "World Record Engineering • Moscow • RDRC",
+    hero_tag: "GoshaTurboTech • Try to catch up",
     hero_title: `Инженерия <br><span class="gradient-text">запредельной</span> <br>скорости`,
-    hero_desc: "Лаборатория спортивного инжиниринга Гоши Перцхелия (GoshaTurboTech). Победители Unlim 500+, триумфаторы Чемпионата России RDRC и абсолютные рекордсмены ледовых трасс Байкала. Мы форсируем суперкары BMW M, Nissan GT-R, Audi R8, Lamborghini и супербайки.",
+    hero_desc: "Инжиниринг и тюнинг Гоши Перцхелия (GoshaTurboTech). Рекордсмены соревнований по дрэг-рейсингу и ледовых трасс Байкала. Постройка, форсировка и калибровка суперкаров BMW M, Nissan GT-R, Audi, Porsche и супербайков.",
     unit_sec: "сек",
     unit_kmh: "км/ч",
     unit_hp: "л.с.",
@@ -1273,7 +1274,7 @@ const i18n = {
     hero_btn_video: "<span>▶</span> Видео заезда HURACAN TWIN TURBO «ЗЕЛЕНКА» GTT",
     garage_tag: "// SHOWROOM & MOTORSPORT BUILDS",
     garage_title: "Легендарные проекты GTT",
-    garage_subtitle: "Каждый автомобиль собран вручную в лаборатории GoshaTurboTech с персональной калибровкой блоков управления и двойного турбонаддува.",
+    garage_subtitle: "Каждый автомобиль собран вручную в ателье GoshaTurboTech с персональной калибровкой блоков управления и двойного турбонаддува.",
     filter_all: "Все проекты (35)",
     filter_other: "Эксклюзив &amp; Маслкары (8)",
     spec_power: "Мощность",
@@ -1295,12 +1296,12 @@ const i18n = {
     contact_loc_lbl: "Локация ателье",
     contact_loc_val: "Можайское ш., стр. 166В (Новоивановское)",
     contact_btn_call: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> <span>Позвонить в GTT</span>',
-    contact_btn_navi: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg> <span>Маршрут в Яндекс Навигаторе</span>',
+    contact_btn_navi: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg> <span>Яндекс Навигатор</span>',
     partners_tag: "// GTT TECHNICAL & MOTORSPORT PARTNERS",
     partners_title: "Партнеры",
     partners_subtitle: "Ведущие мировые бренды автоспорта, компонентов трансмиссии, турбонаддува и смазочных материалов, с которыми побеждает GoshaTurboTech.",
     // Records
-    records_tag: "// HALL OF FAME • UNLIM 500+ & RDRC",
+    records_tag: "// HALL OF FAME",
     records_title: "Мировые рекорды и победы RDRC",
     records_subtitle: "Более 15 лет непрерывных побед на дистанциях 402 м, 804 м, 1000 м и ледовых трассах.",
     rec1_badge: "2022 • Мировой рекорд",
@@ -1363,7 +1364,7 @@ const i18n = {
     team_pill_mech: "Механики цеха",
     team_pill_fab: "Сварка &amp; Фабрикация",
     team_stat_label: "Специалистов цеха и гонок",
-    team_summary_desc: "Собственный сборочный цех, аргонная фабрикация выхлопных трасс из титана и инконеля, полноприводный диностенд Dyno Dynamics, лаборатория калибровки ЭБУ MoTeC и Syvecs, а также выездная гоночная команда паддока RDRC.",
+    team_summary_desc: "Собственный сборочный цех, аргонная фабрикация выхлопных трасс из титана и инконеля, полноприводный диностенд Dyno Dynamics, настройка и калибровка ЭБУ MoTeC и Syvecs, а также выездная гоночная команда паддока RDRC.",
     team_role_1: "Основатель",
     team_name_1: "Гоша",
     team_role_2: "Технический директор",
@@ -1429,16 +1430,16 @@ const i18n = {
     gallery_title: "Хроника гонок & Мастерская GTT",
     gallery_subtitle: "Живые кадры с трассы Чемпионата России RDRC и из ателье GoshaTurboTech.",
     gallery_cap_zelenka: "Легендарная Lamborghini Huracan TT «Зеленка» RDRC",
-    gallery_cap_dodge: "Dodge Challenger SRT Hellcat: дымный прогрев сликов на закате RDRC",
+    gallery_cap_dodge: "Dodge Demon: дымный прогрев сликов на закате RDRC",
     gallery_cap_draco: "3000+ HP Nissan GT-R Draco Pro-Mod на сликах RDRC",
-    gallery_cap_r8: "Audi R8 V10 Twin Turbo ЦМРБанк на стартовой черте RDRC",
+    gallery_cap_r8: "Audi R8 V10 Plus TT «Rokot» на стартовой черте RDRC",
     gallery_cap_gtr_red: "Красный хромированный Nissan GT-R R35 GTT Pro-Mod",
     gallery_cap_gtr_blue: "Боевой синий Nissan GT-R R35 #888 на закате RDRC",
     gallery_cap_box: "Бокс GTT: Паддок команды и Nissan GT-R",
     gallery_cap_track: "Гоша Перцхелия контролирует подготовку трассы RDRC",
     // Contact & Footer Legal
     contact_email_lbl: "Электронная почта",
-    footer_copy: "© GOSHATURBOTECH. SPEED & MOTORSPORT ENGINEERING.",
+    footer_copy: "© GOSHATURBOTECH. TRY TO CATCH UP.",
     footer_privacy: "Политика обработки персональных данных",
     footer_offer: "Публичная оферта",
     footer_requisites: "Реквизиты организации",
@@ -1454,12 +1455,13 @@ const i18n = {
     nav_team: "GTT Crew",
     nav_moto: "Moto Division",
     nav_gallery: "Motorsport Life",
+    nav_partners: "Partners",
     nav_contact: "Contact",
     nav_telegram: "Telegram Channel",
     preloader_tag: "Speed & Power Engineering • Moscow",
-    hero_tag: "World Record Engineering • Moscow • RDRC",
+    hero_tag: "GoshaTurboTech • Try to catch up",
     hero_title: `Engineering of <br><span class="gradient-text">ultimate</span> <br>velocity`,
-    hero_desc: "Gosha Pertskheliya's motorsport engineering laboratory. Champions of Unlim 500+, Russian Drag Racing Championship (RDRC) and Lake Baikal ice speed record holders. We engineer BMW M, Nissan GT-R, Audi R8, Lamborghini and superbikes.",
+    hero_desc: "Engineering and tuning atelier by Gosha Pertskheliya (GoshaTurboTech). Drag racing champions and Lake Baikal ice record holders. High-performance engineering for BMW M, Nissan GT-R, Audi, Porsche and superbikes.",
     unit_sec: "sec",
     unit_kmh: "km/h",
     unit_hp: "HP",
@@ -1470,7 +1472,7 @@ const i18n = {
     hero_btn_video: "<span>▶</span> Race Video: HURACAN TWIN TURBO «ZELENKA» GTT",
     garage_tag: "// SHOWROOM & MOTORSPORT BUILDS",
     garage_title: "Legendary GTT Projects",
-    garage_subtitle: "Hand-built in the GoshaTurboTech skunkworks facility with bespoke ECU calibration and twin turbo engineering.",
+    garage_subtitle: "Hand-built in the GoshaTurboTech atelier with bespoke ECU calibration and twin turbo engineering.",
     filter_all: "All Projects (35)",
     filter_other: "Exclusive &amp; Muscle (8)",
     spec_power: "Output",
@@ -1486,18 +1488,18 @@ const i18n = {
     mobile_bar_call: "Call Atelier",
     contact_tag: "// HEADQUARTERS & ATELIER",
     contact_hq_title: "GOSHATURBOTECH",
-    contact_hq_desc: "Motorsport engineering center and bespoke performance laboratory for supercars and superbikes. Pre-tuning inspection, dyno hub and online project advisory.",
+    contact_hq_desc: "Motorsport engineering center and bespoke performance atelier for supercars and superbikes. Pre-tuning inspection, dyno hub and online project advisory.",
     contact_phone_lbl: "Workshop Direct Line",
     contact_tg_lbl: "Official Telegram Channel",
     contact_loc_lbl: "Atelier Location",
     contact_loc_val: "166B Mozhayskoye Hwy (Novoivanovskoye)",
     contact_btn_call: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> <span>Call GTT Workshop</span>',
-    contact_btn_navi: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg> <span>Open in Yandex Navigator</span>',
+    contact_btn_navi: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg> <span>Yandex Navigator</span>',
     partners_tag: "// GTT TECHNICAL & MOTORSPORT PARTNERS",
     partners_title: "Partners",
     partners_subtitle: "World-leading motorsport brands, transmission components, turbochargers and racing lubricants powering GoshaTurboTech victories.",
     // Records
-    records_tag: "// HALL OF FAME • UNLIM 500+ & RDRC",
+    records_tag: "// HALL OF FAME",
     records_title: "World Records & RDRC Victories",
     records_subtitle: "Over 15 years of uninterrupted victories across 1/4 mile, 1/2 mile, 1000m and ice tracks.",
     rec1_badge: "2022 • World Record",
@@ -1560,7 +1562,7 @@ const i18n = {
     team_pill_mech: "Workshop Mechanics",
     team_pill_fab: "Fabrication &amp; Welding",
     team_stat_label: "Specialists in Workshop & Racing",
-    team_summary_desc: "In-house assembly bays, titanium and Inconel TIG fabrication, Dyno Dynamics AWD dyno cell, MoTeC and Syvecs ECU calibration laboratory, plus the traveling RDRC trackside race crew.",
+    team_summary_desc: "In-house assembly bays, titanium and Inconel TIG fabrication, Dyno Dynamics AWD dyno cell, MoTeC and Syvecs ECU calibration facility, plus the traveling RDRC trackside race crew.",
     team_role_1: "Founder",
     team_name_1: "Gosha",
     team_role_2: "Technical Director",
@@ -1626,16 +1628,16 @@ const i18n = {
     gallery_title: "Motorsport Chronicle & GTT Workshop",
     gallery_subtitle: "Raw action footage from the Russian Drag Racing Championship and inside the GoshaTurboTech skunkworks.",
     gallery_cap_zelenka: "Legendary Lamborghini Huracan TT «Zelenka» RDRC",
-    gallery_cap_dodge: "Dodge Challenger SRT Hellcat: Smoky Burnout at Sunset RDRC",
+    gallery_cap_dodge: "Dodge Demon: Smoky Burnout at Sunset RDRC",
     gallery_cap_draco: "3,000+ HP Nissan GT-R Draco Pro-Mod on RDRC Slicks",
-    gallery_cap_r8: "Audi R8 V10 Twin Turbo CMRBank on the RDRC Starting Line",
+    gallery_cap_r8: "Audi R8 V10 Plus TT «Rokot» on the RDRC Starting Line",
     gallery_cap_gtr_red: "Red Chrome Nissan GT-R R35 GTT Pro-Mod",
     gallery_cap_gtr_blue: "GTT Race Midnight Blue Nissan GT-R R35 #888 at RDRC",
     gallery_cap_box: "GTT Garage Pit: Team Paddock & Nissan GT-R",
     gallery_cap_track: "Georgy Pertskheliya Supervising RDRC Track Glue Preparation",
     // Contact & Footer Legal
     contact_email_lbl: "Email Address",
-    footer_copy: "© GOSHATURBOTECH. SPEED & MOTORSPORT ENGINEERING.",
+    footer_copy: "© GOSHATURBOTECH. TRY TO CATCH UP.",
     footer_privacy: "Privacy Policy & Data Processing",
     footer_offer: "Public Offer",
     footer_requisites: "Company Details & Requisites",
@@ -1710,6 +1712,8 @@ document.addEventListener('DOMContentLoaded', () => {
   syncTeamFromAPI();
   syncGalleryFromAPI();
   syncRecordsFromAPI();
+  syncPartnersFromAPI();
+  syncMotoFromAPI();
   initNavigation();
   initFilters();
   initModal();
@@ -1905,6 +1909,240 @@ async function syncGalleryFromAPI() {
   } catch (err) {}
 }
 
+// Technical & Motorsport Partners
+const defaultPartnersList = [
+  { id: 'vp_racing', name: 'VP Racing Fuels', category: 'Топливо и метанол', desc: 'Мировой эталон спортивного топлива, гоночного кислородного бензина и чистого метанола M1 для рекордных заездов RDRC.', logo: 'assets/photos/partners_banner.png', link: 'https://vpracingfuels.com', sort_order: 1, is_active: 1 },
+  { id: 'motul', name: 'Motul Motorsport', category: 'Смазочные материалы', desc: 'Синтетические моторные масла Motul 300V Motorsport Line с технологией Ester Core, защищающие 2000+ сильные моторы GTT при пиковых нагрузках.', logo: 'assets/photos/partners_banner.png', link: 'https://www.motul.com', sort_order: 2, is_active: 1 },
+  { id: 'syvecs', name: 'Syvecs Powertrain Control', category: 'Электроника и ЭБУ', desc: 'Высокотехнологичные блоки управления двигателем (ECU), полноприводной трансмиссией (AWD Controller) и алгоритмами лаунч-контроля.', logo: 'assets/photos/partners_banner.png', link: 'https://www.syvecs.com', sort_order: 3, is_active: 1 },
+  { id: 'motec', name: 'MoTeC Systems', category: 'Электроника и ЭБУ', desc: 'Золотой стандарт мирового автоспорта: управляющие процессоры M1, цветные цифровые приборные панели C1212 и прецизионные логгеры телеметрии.', logo: 'assets/photos/partners_banner.png', link: 'https://www.motec.com.au', sort_order: 4, is_active: 1 },
+  { id: 'precision_turbo', name: 'Precision Turbo & Engine', category: 'Турбосистемы', desc: 'Специализированные гоночные турбокомпрессоры сверхвысокого наддува серии Pro Mod и GEN2 CEA, обеспечивающие отдачу до 3,500+ л.с.', logo: 'assets/photos/partners_banner.png', link: 'https://www.precisionturbo.net', sort_order: 5, is_active: 1 },
+  { id: 'ppg_gearboxes', name: 'PPG (Pfitzner Gearboxes)', category: 'Трансмиссия', desc: 'Усиленные прямозубые кулачковые и секвентальные ряды передач, выдерживающие колоссальный крутящий момент и агрессивные переключения.', logo: 'assets/photos/partners_banner.png', link: 'https://www.ppgearbox.com.au', sort_order: 6, is_active: 1 },
+  { id: 'dyno_dynamics', name: 'Dyno Dynamics', category: 'Диностенд и калибровка', desc: 'Высокоточный полноприводный диностенд 4WD с мощнейшим обдувом и синхронизацией осей для тонкой калибровки болидов ателье.', logo: 'assets/photos/partners_banner.png', link: 'https://www.dyno.com.au', sort_order: 7, is_active: 1 },
+  { id: 'redline_oil', name: 'Red Line Synthetic Oil', category: 'Смазочные материалы', desc: 'Специализированные трансмиссионные жидкости ShockProof и гоночные присадки для дифференциалов повышенного трения и раздаточных коробок.', logo: 'assets/photos/partners_banner.png', link: 'https://www.redlineoil.com', sort_order: 8, is_active: 1 },
+  { id: 'bell_intercoolers', name: 'Bell Intercoolers', category: 'Охлаждение', desc: 'Высокоэффективные теплообменники и кастомные интеркулерные ядра с минимальным сопротивлением для мощных турбосистем.', logo: 'assets/photos/partners_banner.png', link: 'https://www.bellintercoolers.com', sort_order: 9, is_active: 1 },
+  { id: 'plazmaman', name: 'Plazmaman Pro Billet', category: 'Впуск и охлаждение', desc: 'Фрезерованные из алюминиевого монолита впускные коллекторы и интеркулеры для экстремальных моторов VR38DETT и V10 Twin Turbo.', logo: 'assets/photos/partners_banner.png', link: 'https://plazmaman.com', sort_order: 10, is_active: 1 },
+  { id: 't1_race', name: 'T1 Race Development', category: 'Топливные системы', desc: 'Прецизионные компоненты топливной магистрали, высокодебитные форсунки, регуляторы давления и крепления для дрэг-рейсинга.', logo: 'assets/photos/partners_banner.png', link: 'https://t1racedevelopment.com', sort_order: 11, is_active: 1 },
+  { id: 'rdrc_dragtimes', name: 'RDRC / Dragtimes', category: 'Автоспорт и трассы', desc: 'Главный гоночный промоутер Чемпионата России по дрэг-рейсингу и организатор всероссийских заездов на автодроме RDRC Racepark Быково.', logo: 'assets/photos/partners_banner.png', link: 'https://rdrc.ru', sort_order: 12, is_active: 1 },
+  { id: 'deikin_exhaust', name: 'Deikin Exhaust', category: 'Выхлопные системы', desc: 'Индивидуальное проектирование и ручная аргонная TIG-сварка спортивных выхлопных систем из титана Grade 5 и жаропрочного Inconel.', logo: 'assets/photos/partners_banner.png', link: 'https://goshaturbotech.ru', sort_order: 13, is_active: 1 },
+  { id: 'toys_detailing', name: 'Toys Detailing', category: 'Детейлинг и стиль', desc: 'Премиальный детейлинг, бронирование кузовов полиуретановой пленкой и керамические защитные составы для гоночных суперкаров.', logo: 'assets/photos/partners_banner.png', link: 'https://toysdetailing.ru', sort_order: 14, is_active: 1 },
+  { id: 'felix_ferro', name: 'Felix Ferro', category: 'Интерьер и стиль', desc: 'Эксклюзивные ювелирные элементы, кованый карбон, золотое напыление и премиальная отделка интерьера для уникальных проектов ателье.', logo: 'assets/photos/partners_banner.png', link: 'https://felixferro.com', sort_order: 15, is_active: 1 },
+  { id: 'dsc_off', name: 'DSC OFF', category: 'Медиа и хроника', desc: 'Автоспортивный медиа-проект Гурама Инцкирвели, подробно освещающий постройку и боевые заезды быстрейших суперкаров GTT.', logo: 'assets/photos/partners_banner.png', link: 'https://youtube.com/@dscoff', sort_order: 16, is_active: 1 }
+];
+
+let cachedPartnersData = null;
+
+function renderPartnersGrid(partners) {
+  const container = document.getElementById('partnersGrid');
+  if (!container) return;
+
+  const list = Array.isArray(partners) && partners.length > 0 ? partners : defaultPartnersList;
+  const activePartners = list
+    .filter(p => p.is_active === 1 || p.is_active === true || p.is_active === '1' || p.is_active === undefined)
+    .sort((a, b) => (parseInt(a.sort_order || 0) - parseInt(b.sort_order || 0)));
+
+  if (activePartners.length === 0) {
+    container.innerHTML = '';
+    return;
+  }
+
+  container.innerHTML = activePartners.map(p => {
+    const name = escapeHtml(p.name || '');
+    const category = escapeHtml(p.category || 'Партнер GTT');
+    const desc = escapeHtml(p.desc || '');
+    const link = p.link && p.link !== '#' ? escapeHtml(p.link) : '';
+    
+    return `
+      <div class="partner-card" data-partner-id="${escapeHtml(p.id || '')}">
+        <div>
+          <div class="partner-card-header">
+            <h3 class="partner-card-name">${name}</h3>
+            <span class="partner-card-category">${category}</span>
+          </div>
+          <p class="partner-card-desc">${desc}</p>
+        </div>
+        <div class="partner-card-footer">
+          <span class="partner-card-badge">OFFICIAL ALLIANCE</span>
+          ${link ? `<a href="${link}" target="_blank" rel="noopener noreferrer" class="partner-card-link">
+            <span>Официальный ресурс</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </a>` : '<span style="font-size: 11px; color: #475569; font-family: var(--font-mono);">GTT Motor Lab</span>'}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+async function syncPartnersFromAPI() {
+  // 1. Instant check from localStorage
+  try {
+    const local = localStorage.getItem('gtt_admin_partners_db');
+    if (local) {
+      const parsed = JSON.parse(local);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        cachedPartnersData = parsed;
+        renderPartnersGrid(parsed);
+      }
+    }
+  } catch (e) {}
+
+  // 2. Fetch from backend API
+  try {
+    const res = await fetch('/api/partners');
+    if (!res.ok) {
+      if (!cachedPartnersData) renderPartnersGrid(defaultPartnersList);
+      return;
+    }
+    const serverPartners = await res.json();
+    if (Array.isArray(serverPartners) && serverPartners.length > 0) {
+      cachedPartnersData = serverPartners;
+      localStorage.setItem('gtt_admin_partners_db', JSON.stringify(serverPartners));
+      renderPartnersGrid(serverPartners);
+    } else if (!cachedPartnersData) {
+      renderPartnersGrid(defaultPartnersList);
+    }
+  } catch (err) {
+    if (!cachedPartnersData) {
+      renderPartnersGrid(defaultPartnersList);
+    }
+  }
+}
+
+const defaultMotoList = [
+  {
+    id: 'moto_1',
+    title: 'Superbike Stage 1 / 2',
+    code: 'SUPERBIKE // STAGE 2',
+    desc: 'Программное раскрытие потенциала литровых спортбайков BMW S1000RR / M1000RR, Ducati Panigale V4, Yamaha R1. Индивидуальные карты зажигания, снятие ограничителей и калибровка квикшифтера на диностенде.',
+    bullets: 'Индивидуальная калибровка на диностенде\nОптимизация Wheelie & Launch Control\nКалибровка электронного дросселя без задержек',
+    img: '',
+    sort_order: 1,
+    is_active: 1
+  },
+  {
+    id: 'moto_2',
+    title: 'Титановый выпуск GTT Moto',
+    code: 'TITANIUM // EXH',
+    desc: 'Ручная аргоновая сварка титана и инконеля для мотоциклов. Экстремальное снижение веса, породистый акустический звук и прибавка крутящего момента во всем диапазоне.',
+    bullets: 'Ультралегкие коллекторы из сплава Titan-Gr5\nКастомная фрезеровка насадок\nОгненные отстрелы и сочный басовитый тон',
+    img: '',
+    sort_order: 2,
+    is_active: 1
+  },
+  {
+    id: 'moto_3',
+    title: 'Bespoke кастомизация',
+    code: 'BESPOKE // CNC',
+    desc: 'Полный цикл доработки премиальной мототехники: кованые сверхлегкие диски, сухое сцепление, карбоновое оперение и комплексное предсезонное ТО.',
+    bullets: 'Сухой автоклавный карбон 3K/12K\nТормозные системы Brembo Racing / GP4\nИндивидуальный дизайн и покраска',
+    img: '',
+    sort_order: 3,
+    is_active: 1
+  }
+];
+
+let cachedMotoData = null;
+
+function renderMotoGrid(motoList) {
+  const container = document.getElementById('motoCardsGrid');
+  if (!container) return;
+
+  const list = Array.isArray(motoList) && motoList.length > 0 ? motoList : defaultMotoList;
+  const activeMoto = list
+    .filter(m => m.is_active === 1 || m.is_active === true || m.is_active === '1' || m.is_active === undefined)
+    .sort((a, b) => (parseInt(a.sort_order || 0) - parseInt(b.sort_order || 0)));
+
+  if (activeMoto.length === 0) {
+    return;
+  }
+
+  const icons = [
+    `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/></svg>`,
+    `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>`,
+    `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`
+  ];
+
+  container.innerHTML = activeMoto.map((m, idx) => {
+    const title = escapeHtml(m.title || '');
+    const code = escapeHtml(m.code || 'GTT // MOTO');
+    const desc = escapeHtml(m.desc || '');
+    const rawBullets = m.bullets || '';
+    const bullets = (Array.isArray(rawBullets) ? rawBullets : String(rawBullets).split('\n'))
+      .map(b => b.trim())
+      .filter(Boolean);
+
+    let icon = icons[idx % icons.length];
+    if (m.code && m.code.toUpperCase().includes('EXH')) icon = icons[1];
+    else if (m.code && (m.code.toUpperCase().includes('ECU') || m.code.toUpperCase().includes('STAGE'))) icon = icons[0];
+    else if (m.code && (m.code.toUpperCase().includes('CNC') || m.code.toUpperCase().includes('BESPOKE'))) icon = icons[2];
+
+    const hasImg = m.img && m.img.trim().length > 0 && !m.img.includes('placeholder') && !m.img.includes('partners_banner');
+    const imgHtml = hasImg ? `
+      <div style="width: 100%; height: 160px; overflow: hidden; border-radius: var(--radius-sm, 4px); margin-bottom: 18px; border: 1px solid rgba(255,255,255,0.08);">
+        <img src="${escapeHtml(m.img)}" alt="${title}" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+      </div>
+    ` : '';
+
+    const bulletsHtml = bullets.map(b => `
+      <div class="moto-spec-item">
+        <span class="spec-status-led"></span>
+        <span class="spec-label">${escapeHtml(b)}</span>
+      </div>
+    `).join('');
+
+    return `
+      <div class="moto-card" data-moto-id="${escapeHtml(m.id || '')}">
+        ${imgHtml}
+        <div class="moto-card-header">
+          <div class="moto-card-icon">
+            ${icon}
+          </div>
+          <span class="moto-spec-code">${code}</span>
+        </div>
+        <h3 class="moto-card-title">${title}</h3>
+        <p class="moto-card-desc">${desc}</p>
+        <div class="moto-spec-strip">
+          ${bulletsHtml}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+async function syncMotoFromAPI() {
+  // 1. Instant check from localStorage
+  try {
+    const local = localStorage.getItem('gtt_admin_moto_db');
+    if (local) {
+      const parsed = JSON.parse(local);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        cachedMotoData = parsed;
+        renderMotoGrid(parsed);
+      }
+    }
+  } catch (e) {}
+
+  // 2. Fetch from backend API
+  try {
+    const res = await fetch('/api/moto');
+    if (!res.ok) {
+      if (!cachedMotoData) renderMotoGrid(defaultMotoList);
+      return;
+    }
+    const serverMoto = await res.json();
+    if (Array.isArray(serverMoto) && serverMoto.length > 0) {
+      cachedMotoData = serverMoto;
+      localStorage.setItem('gtt_admin_moto_db', JSON.stringify(serverMoto));
+      renderMotoGrid(serverMoto);
+    } else if (!cachedMotoData) {
+      renderMotoGrid(defaultMotoList);
+    }
+  } catch (err) {
+    if (!cachedMotoData) {
+      renderMotoGrid(defaultMotoList);
+    }
+  }
+}
+
 function getGalleryBilingual(rawTitle, rawTag) {
   let title = rawTitle || '';
   let tag = rawTag || 'RDRC';
@@ -1918,6 +2156,14 @@ function getGalleryBilingual(rawTitle, rawTag) {
       ru: 'Huracan TT «Зеленка» GTT',
       en: 'Huracan TT «Zelenka» GTT'
     },
+    'Huracan Twin Turbo «Зеленка» GTT': {
+      ru: 'Huracan Twin Turbo «Зеленка» GTT',
+      en: 'Huracan Twin Turbo «Zelenka» GTT'
+    },
+    'Lamborghini Huracan «Зеленка» Twin Turbo на треке RDRC': {
+      ru: 'Lamborghini Huracan «Зеленка» Twin Turbo на треке RDRC',
+      en: 'Lamborghini Huracan «Zelenka» Twin Turbo at RDRC'
+    },
     'Huracan TT «Зеленка» GTT проверка': {
       ru: 'Huracan TT «Зеленка» GTT',
       en: 'Huracan TT «Zelenka» GTT'
@@ -1925,6 +2171,51 @@ function getGalleryBilingual(rawTitle, rawTag) {
     'Легендарная Lamborghini Huracan TT «Зеленка» RDRC': {
       ru: 'Легендарная Lamborghini Huracan TT «Зеленка» RDRC',
       en: 'Legendary Lamborghini Huracan TT «Zelenka» RDRC'
+    },
+    // Dodge Demon
+    'Dodge Demon': {
+      ru: 'Dodge Demon',
+      en: 'Dodge Demon'
+    },
+    'Dodge Demon: дымный прогрев сликов на закате RDRC': {
+      ru: 'Dodge Demon: дымный прогрев сликов на закате RDRC',
+      en: 'Dodge Demon: Smoky Burnout at Sunset RDRC'
+    },
+    // Audi R8 Rokot
+    'Audi R8 V10 Plus TT «Rokot»': {
+      ru: 'Audi R8 V10 Plus TT «Rokot»',
+      en: 'Audi R8 V10 Plus TT «Rokot»'
+    },
+    'Audi R8 V10 Plus TT «Rokot» на стартовой черте RDRC': {
+      ru: 'Audi R8 V10 Plus TT «Rokot» на стартовой черте RDRC',
+      en: 'Audi R8 V10 Plus TT «Rokot» on RDRC Starting Line'
+    },
+    // Nissan GT-R R35 Draco Dragster
+    'Nissan GT-R R35 Draco Dragster': {
+      ru: 'Nissan GT-R R35 Draco Dragster',
+      en: 'Nissan GT-R R35 Draco Dragster'
+    },
+    '3000+ HP Nissan GT-R R35 Draco Pro-Mod на сликах RDRC': {
+      ru: '3000+ HP Nissan GT-R R35 Draco Pro-Mod на сликах RDRC',
+      en: '3000+ HP Nissan GT-R R35 Draco Pro-Mod on RDRC Slicks'
+    },
+    // Nissan GT-R R35 Lucifer
+    'Nissan GT-R R35 Lucifer': {
+      ru: 'Nissan GT-R R35 Lucifer',
+      en: 'Nissan GT-R R35 Lucifer'
+    },
+    'Nissan GT-R R35 Lucifer: чемпионский победный болид RDRC': {
+      ru: 'Nissan GT-R R35 Lucifer: чемпионский победный болид RDRC',
+      en: 'Nissan GT-R R35 Lucifer: RDRC Championship Winner'
+    },
+    // Red Chrome Nissan GT-R R35
+    'Red Chrome Nissan GT-R R35': {
+      ru: 'Red Chrome Nissan GT-R R35',
+      en: 'Red Chrome Nissan GT-R R35'
+    },
+    'Красный хромированный Nissan GT-R R35 GTT': {
+      ru: 'Красный хромированный Nissan GT-R R35 GTT',
+      en: 'Red Chrome Nissan GT-R R35 GTT'
     },
     // 2. Bezzubik
     'Huracan Twin Turbo «Беззубик»': {
@@ -2231,6 +2522,10 @@ window.addEventListener('storage', (e) => {
     syncGalleryFromAPI();
   } else if (e.key === 'gtt_admin_records_db' || e.key === 'gtt_records_v2') {
     syncRecordsFromAPI();
+  } else if (e.key === 'gtt_admin_partners_db') {
+    syncPartnersFromAPI();
+  } else if (e.key === 'gtt_admin_moto_db') {
+    syncMotoFromAPI();
   } else if (e.key === 'gtt_hero_telemetry_custom') {
     if (typeof applyCustomHeroTelemetry === 'function') applyCustomHeroTelemetry();
   }
@@ -2249,6 +2544,18 @@ if (window.BroadcastChannel) {
         syncTeamFromAPI();
       } else if (e.data && e.data.type === 'gallery_updated') {
         syncGalleryFromAPI();
+      } else if (e.data && e.data.type === 'partners_updated') {
+        if (Array.isArray(e.data.partners)) {
+          renderPartnersGrid(e.data.partners);
+        } else {
+          syncPartnersFromAPI();
+        }
+      } else if (e.data && e.data.type === 'moto_updated') {
+        if (Array.isArray(e.data.moto)) {
+          renderMotoGrid(e.data.moto);
+        } else {
+          syncMotoFromAPI();
+        }
       }
     };
   } catch (err) {}
@@ -2378,17 +2685,57 @@ function renderTeamGrid(teamList) {
   updateTeamVisibility();
 }
 
+// Reliable Multi-Platform Hero Video Engine (iOS Low Power, Safari & Android Autoplay Support)
+function setupHeroVideo() {
+  const heroVideo = document.querySelector('.hero-video-bg');
+  if (!heroVideo) return;
+
+  // Strict browser autoplay requirements
+  heroVideo.muted = true;
+  heroVideo.defaultMuted = true;
+  heroVideo.playsInline = true;
+  heroVideo.setAttribute('muted', '');
+  heroVideo.setAttribute('playsinline', '');
+  heroVideo.setAttribute('webkit-playsinline', '');
+
+  function attemptPlay() {
+    heroVideo.muted = true;
+    const playPromise = heroVideo.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        attachInteractionFallback();
+      });
+    }
+  }
+
+  function attachInteractionFallback() {
+    const events = ['touchstart', 'pointerdown', 'mousedown', 'scroll', 'click', 'keydown'];
+    const onAction = () => {
+      heroVideo.muted = true;
+      heroVideo.play().catch(() => {});
+      events.forEach(evt => window.removeEventListener(evt, onAction));
+    };
+    events.forEach(evt => window.addEventListener(evt, onAction, { passive: true, once: true }));
+  }
+
+  attemptPlay();
+  heroVideo.addEventListener('loadedmetadata', attemptPlay, { once: true });
+  heroVideo.addEventListener('canplay', attemptPlay, { once: true });
+
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && heroVideo.paused) {
+      attemptPlay();
+    }
+  });
+}
+
 // Clean Premium Motorsport Preloader (Fast, Seamless & Silky Smooth)
 function initPreloader() {
   const preloader = document.getElementById('preloader');
   const fill = document.getElementById('preloaderFill');
-  const heroVideo = document.querySelector('.hero-video-bg');
   
   window.scrollTo(0, 0);
-
-  if (heroVideo) {
-    heroVideo.play().catch(() => {});
-  }
+  setupHeroVideo();
 
   let finished = false;
   const startTime = performance.now();
@@ -2407,7 +2754,9 @@ function initPreloader() {
       finished = true;
       if (fill) fill.style.width = '100%';
       setTimeout(() => {
+        const heroVideo = document.querySelector('.hero-video-bg');
         if (heroVideo && heroVideo.paused) {
+          heroVideo.muted = true;
           heroVideo.play().catch(() => {});
         }
         if (preloader) {
@@ -3109,7 +3458,7 @@ window.openLegalDoc = function(type) {
     title.textContent = 'Политика обработки персональных данных (152-ФЗ)';
     content.innerHTML = `
       <h4>1. Общие положения</h4>
-      <p>Настоящая Политика обработки персональных данных составлена в соответствии с требованиями Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных» и определяет порядок сбора, обработки и защиты информации лаборатории GoshaTurboTech (GTT).</p>
+      <p>Настоящая Политика обработки персональных данных составлена в соответствии с требованиями Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных» и определяет порядок сбора, обработки и защиты информации ателье GoshaTurboTech (GTT).</p>
       
       <h4>2. Цели сбора данных</h4>
       <p>Обработка персональных данных (имя, номер телефона, аккаунт в мессенджере Telegram) осуществляется исключительно в целях оперативной консультации по тюнинг-проектам, записи на замер мощности на диностенде и согласования технического задания.</p>
@@ -3210,12 +3559,29 @@ window.scrollTrackSlider = function(direction) {
   container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
 };
 
-// Fullscreen Photo Lightbox
+// Fullscreen Photo Lightbox Engine
+let currentLightboxIndex = 0;
+function getActiveGalleryList() {
+  const cards = Array.from(document.querySelectorAll('#marqueeTrackMain .marquee-card:not(.is-clone)'));
+  return cards.map(c => {
+    const img = c.querySelector('img');
+    const src = img ? (img.getAttribute('src') || '') : '';
+    const caption = c.getAttribute('data-raw-title') || c.querySelector('.marquee-card-title')?.textContent || '';
+    return { src, caption };
+  });
+}
+
 window.openGalleryLightbox = function(src, rawCaption) {
   const modal = document.getElementById('galleryLightbox');
   const img = document.getElementById('lightboxImg');
   const cap = document.getElementById('lightboxCaption');
   if (!modal || !img) return;
+
+  const list = getActiveGalleryList();
+  const idx = list.findIndex(item => item.src === src);
+  if (idx !== -1) {
+    currentLightboxIndex = idx;
+  }
 
   const bilingual = getGalleryBilingual(rawCaption || '', '');
   const displayCaption = bilingual.title || rawCaption || 'GoshaTurboTech Motorsport';
@@ -3224,12 +3590,45 @@ window.openGalleryLightbox = function(src, rawCaption) {
   img.alt = displayCaption;
   if (cap) cap.textContent = displayCaption;
   modal.classList.add('active');
+  document.body.classList.add('modal-open');
+};
+
+window.navigateLightbox = function(direction) {
+  const list = getActiveGalleryList();
+  if (!list.length) return;
+  currentLightboxIndex = (currentLightboxIndex + direction + list.length) % list.length;
+  const current = list[currentLightboxIndex];
+  if (current) {
+    const img = document.getElementById('lightboxImg');
+    const cap = document.getElementById('lightboxCaption');
+    const bilingual = getGalleryBilingual(current.caption || '', '');
+    const displayCaption = bilingual.title || current.caption || 'GoshaTurboTech Motorsport';
+    if (img) {
+      img.src = current.src;
+      img.alt = displayCaption;
+    }
+    if (cap) cap.textContent = displayCaption;
+  }
 };
 
 window.closeGalleryLightbox = function() {
   const modal = document.getElementById('galleryLightbox');
   if (modal) modal.classList.remove('active');
+  document.body.classList.remove('modal-open');
 };
+
+// Global Lightbox Keyboard Shortcuts
+document.addEventListener('keydown', (e) => {
+  const modal = document.getElementById('galleryLightbox');
+  if (!modal || !modal.classList.contains('active')) return;
+  if (e.key === 'Escape') {
+    closeGalleryLightbox();
+  } else if (e.key === 'ArrowLeft') {
+    navigateLightbox(-1);
+  } else if (e.key === 'ArrowRight') {
+    navigateLightbox(1);
+  }
+});
 
 // Mobile Drawer Navigation Controller
 window.toggleMobileNav = function(forceState) {
@@ -3514,13 +3913,14 @@ function initGalleryMarqueeInteractions() {
   }, { passive: false });
 
   // Modern Pointer Events for Mouse & Touch drag
+  let isPointerDown = false;
   let activePointerId = null;
   let lastPointerX = 0;
   let pointerVelocity = 0;
 
   wrapper.addEventListener('pointerdown', (e) => {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
-    galleryIsDragging = true;
+    isPointerDown = true;
     galleryHasMoved = false;
     galleryStartX = e.clientX;
     lastPointerX = e.clientX;
@@ -3529,30 +3929,33 @@ function initGalleryMarqueeInteractions() {
     galleryIsPaused = true;
     activePointerId = e.pointerId;
     wrapper.classList.add('is-dragging');
-    try {
-      wrapper.setPointerCapture(e.pointerId);
-    } catch (_) {}
   });
 
   wrapper.addEventListener('pointermove', (e) => {
-    if (!galleryIsDragging || (activePointerId !== null && e.pointerId !== activePointerId)) return;
+    if (!isPointerDown || (activePointerId !== null && e.pointerId !== activePointerId)) return;
 
     const dx = e.clientX - galleryStartX;
-    if (Math.abs(dx) > 4) {
+    if (!galleryHasMoved && Math.abs(dx) > 10) {
       galleryHasMoved = true;
-      if (e.cancelable) e.preventDefault();
+      try {
+        wrapper.setPointerCapture(e.pointerId);
+      } catch (_) {}
     }
-    pointerVelocity = e.clientX - lastPointerX;
-    lastPointerX = e.clientX;
-    galleryOffset = galleryDragStartOffset + dx;
-    wrapGalleryOffset();
-    track.style.transform = `translate3d(${galleryOffset}px, 0, 0)`;
+
+    if (galleryHasMoved) {
+      if (e.cancelable) e.preventDefault();
+      pointerVelocity = e.clientX - lastPointerX;
+      lastPointerX = e.clientX;
+      galleryOffset = galleryDragStartOffset + dx;
+      wrapGalleryOffset();
+      track.style.transform = `translate3d(${galleryOffset}px, 0, 0)`;
+    }
   });
 
   function onPointerEnd(e) {
-    if (!galleryIsDragging) return;
+    if (!isPointerDown) return;
     if (activePointerId !== null && e.pointerId !== activePointerId) return;
-    galleryIsDragging = false;
+    isPointerDown = false;
     activePointerId = null;
     wrapper.classList.remove('is-dragging');
 
@@ -3562,41 +3965,55 @@ function initGalleryMarqueeInteractions() {
       }
     } catch (_) {}
 
-    // Smooth inertia coasting if flicked
-    if (Math.abs(pointerVelocity) > 2) {
-      let momentum = pointerVelocity * 7;
-      function coast() {
-        if (Math.abs(momentum) < 0.3) {
-          scheduleResume(1400);
-          return;
+    if (galleryHasMoved) {
+      // Smooth inertia coasting if flicked
+      if (Math.abs(pointerVelocity) > 2) {
+        let momentum = pointerVelocity * 7;
+        function coast() {
+          if (Math.abs(momentum) < 0.3) {
+            scheduleResume(1400);
+            return;
+          }
+          galleryOffset += momentum;
+          momentum *= 0.91;
+          wrapGalleryOffset();
+          track.style.transform = `translate3d(${galleryOffset}px, 0, 0)`;
+          requestAnimationFrame(coast);
         }
-        galleryOffset += momentum;
-        momentum *= 0.91;
-        wrapGalleryOffset();
-        track.style.transform = `translate3d(${galleryOffset}px, 0, 0)`;
         requestAnimationFrame(coast);
+      } else {
+        scheduleResume(1400);
       }
-      requestAnimationFrame(coast);
+      setTimeout(() => {
+        galleryHasMoved = false;
+      }, 150);
     } else {
       scheduleResume(1400);
     }
-
-    setTimeout(() => {
-      galleryHasMoved = false;
-    }, 100);
   }
 
   wrapper.addEventListener('pointerup', onPointerEnd);
   wrapper.addEventListener('pointercancel', onPointerEnd);
 
-  // Prevent card click lightbox trigger if user was dragging
-  track.querySelectorAll('.marquee-card').forEach(card => {
-    card.addEventListener('click', (e) => {
-      if (galleryHasMoved) {
-        e.stopImmediatePropagation();
-        e.preventDefault();
-      }
-    }, true);
+  // Reliable click delegation for all gallery cards (both originals and clones)
+  wrapper.addEventListener('click', (e) => {
+    if (galleryHasMoved) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      return;
+    }
+    const card = e.target.closest('.marquee-card');
+    if (!card) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    const img = card.querySelector('img');
+    const src = img ? (img.getAttribute('src') || '') : '';
+    const rawTitle = card.getAttribute('data-raw-title') || card.querySelector('.marquee-card-title')?.textContent || '';
+    if (src) {
+      openGalleryLightbox(src, rawTitle);
+    }
   });
 }
 

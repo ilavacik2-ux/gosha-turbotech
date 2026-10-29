@@ -2001,6 +2001,55 @@ body.is-loading {
   text-align: center;
 }
 
+.lightbox-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(13, 16, 23, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  z-index: 25;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.lightbox-nav-btn:hover {
+  background: var(--gtt-orange);
+  border-color: var(--gtt-orange);
+  color: #07080a;
+  box-shadow: 0 0 24px rgba(255, 100, 37, 0.6);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.lightbox-nav-btn.prev {
+  left: -24px;
+}
+
+.lightbox-nav-btn.next {
+  right: -24px;
+}
+
+@media (max-width: 768px) {
+  .lightbox-nav-btn {
+    width: 38px;
+    height: 38px;
+  }
+  .lightbox-nav-btn.prev {
+    left: 8px;
+  }
+  .lightbox-nav-btn.next {
+    right: 8px;
+  }
+}
+
 /* Moto Division Section (Compact) */
 .moto-section {
   padding: 55px 4%;
@@ -2588,7 +2637,7 @@ body.is-loading {
 .moto-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: 16px;
+  border-radius: var(--radius-md, 6px);
   padding: 30px;
   transition: var(--transition-smooth);
   backdrop-filter: blur(15px);
@@ -2626,9 +2675,9 @@ body.is-loading {
 }
 
 .moto-card-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm, 4px);
   background: linear-gradient(135deg, rgba(56, 189, 248, 0.14), rgba(56, 189, 248, 0.03));
   border: 1px solid rgba(56, 189, 248, 0.28);
   display: flex;
@@ -2649,11 +2698,11 @@ body.is-loading {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: rgba(56, 189, 248, 0.7);
-  background: rgba(56, 189, 248, 0.06);
+  color: rgba(56, 189, 248, 0.85);
+  background: rgba(56, 189, 248, 0.08);
   padding: 4px 10px;
-  border-radius: 6px;
-  border: 1px solid rgba(56, 189, 248, 0.15);
+  border-radius: var(--radius-xs, 2px);
+  border: 1px solid rgba(56, 189, 248, 0.22);
 }
 
 .moto-card-title {
@@ -2687,7 +2736,7 @@ body.is-loading {
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-left: 2px solid var(--gtt-cyan);
-  border-radius: 6px;
+  border-radius: var(--radius-sm, 4px);
   font-family: var(--font-mono);
   font-size: 12px;
   color: #cbd5e1;
@@ -2879,13 +2928,22 @@ body.is-loading {
   margin-top: 32px;
 }
 
+.contact-actions-row .btn-primary,
+.contact-actions-row .btn-outline {
+  white-space: nowrap;
+  letter-spacing: 0.04em;
+}
+
 @media (min-width: 640px) {
   .contact-actions-row {
     flex-direction: row;
+    align-items: center;
   }
   .contact-actions-row .btn-primary,
   .contact-actions-row .btn-outline {
     flex: 1;
+    padding: 14px 18px;
+    font-size: 13px;
   }
 }
 
@@ -3011,6 +3069,133 @@ body.is-loading {
 @media (max-width: 600px) {
   .partners-banner-card {
     padding: 24px 15px;
+  }
+}
+
+/* Dynamic Partners Grid & Cards */
+.partners-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.partner-card {
+  background: rgba(13, 16, 23, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm, 6px);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+}
+
+.partner-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--gtt-orange);
+  opacity: 0.5;
+  transition: opacity 0.25s ease, box-shadow 0.25s ease;
+}
+
+.partner-card:hover {
+  background: rgba(18, 23, 34, 0.92);
+  border-color: rgba(255, 100, 37, 0.4);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 24px rgba(255, 100, 37, 0.12);
+}
+
+.partner-card:hover::before {
+  opacity: 1;
+  box-shadow: 0 0 12px var(--gtt-orange);
+}
+
+.partner-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.partner-card-name {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+.partner-card-category {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--gtt-orange);
+  letter-spacing: 0.06em;
+  background: rgba(255, 100, 37, 0.12);
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 100, 37, 0.25);
+  white-space: nowrap;
+}
+
+.partner-card-desc {
+  font-size: 13px;
+  line-height: 1.55;
+  color: #94a3b8;
+  margin: 0 0 16px 0;
+  flex: 1;
+}
+
+.partner-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 12px;
+  margin-top: auto;
+}
+
+.partner-card-badge {
+  font-size: 10px;
+  color: #64748b;
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+}
+
+.partner-card-link {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: #38bdf8;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.2s;
+}
+
+.partner-card-link:hover {
+  color: #7dd3fc;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .partners-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .partner-card {
+    padding: 18px 16px;
   }
 }
 
@@ -4207,19 +4392,34 @@ body.modal-open {
     line-height: 1.5;
   }
 
-  /* Filter Pills */
+  /* Filter Pills (Smooth Edge-to-Edge Touch Scroll) */
   .filter-pills {
+    display: flex;
     justify-content: flex-start;
+    align-items: center;
     overflow-x: auto;
-    padding-bottom: 8px;
+    overflow-y: hidden;
+    padding: 4px 4% 12px 4%;
+    margin-left: -4%;
+    margin-right: -4%;
+    gap: 8px;
     flex-wrap: nowrap;
     -webkit-overflow-scrolling: touch;
-    margin-bottom: 24px;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    margin-bottom: 20px;
+  }
+  .filter-pills::-webkit-scrollbar {
+    display: none;
   }
   .filter-pill {
     flex-shrink: 0;
-    padding: 8px 14px;
+    scroll-snap-align: start;
+    padding: 9px 16px;
     font-size: 11px;
+    letter-spacing: 0.04em;
+    border-radius: 999px;
   }
 
   /* Founder Section */

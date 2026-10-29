@@ -144,12 +144,52 @@ def init_db():
     )
     """)
 
+    # 9. Partners Table
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS partners (
+        id TEXT PRIMARY KEY,
+        name TEXT NOT NULL,
+        category TEXT NOT NULL,
+        desc TEXT,
+        logo TEXT,
+        link TEXT,
+        sort_order INTEGER DEFAULT 0,
+        is_active INTEGER DEFAULT 1
+    )
+    """)
+
+    # 10. Moto Division Table (Superbikes)
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS moto (
+        id TEXT PRIMARY KEY,
+        title TEXT NOT NULL,
+        code TEXT NOT NULL,
+        desc TEXT,
+        bullets TEXT,
+        img TEXT,
+        sort_order INTEGER DEFAULT 0,
+        is_active INTEGER DEFAULT 1
+    )
+    """)
+
     conn.commit()
 
     # Seed default data if cars table is empty
     cursor.execute("SELECT COUNT(*) FROM cars")
     if cursor.fetchone()[0] == 0:
         seed_initial_data(cursor)
+        conn.commit()
+
+    # Seed default partners if table is empty
+    cursor.execute("SELECT COUNT(*) FROM partners")
+    if cursor.fetchone()[0] == 0:
+        seed_default_partners(cursor)
+        conn.commit()
+
+    # Seed default moto if table is empty
+    cursor.execute("SELECT COUNT(*) FROM moto")
+    if cursor.fetchone()[0] == 0:
+        seed_default_moto(cursor)
         conn.commit()
 
     # Seed default admin password if not exists
@@ -1207,16 +1247,16 @@ def seed_initial_data(cursor):
 
     default_gallery = [
         {"id": "gal_1", "tag": "RDRC CHAMPION", "title": "Huracan TT «Зеленка» GTT", "img": "assets/photos/huracan_zelenka_gtt.jpg"},
-        {"id": "gal_2", "tag": "BURNOUT SMOKE", "title": "Dodge Challenger SRT Hellcat", "img": "assets/cars/dodge_burnout_sunset.jpg"},
-        {"id": "gal_3", "tag": "3000+ HP PRO-MOD", "title": "Nissan GT-R Draco Dragster", "img": "assets/cars/gtr_draco_promod_front.jpg"},
-        {"id": "gal_4", "tag": "1400+ HP V10 TT", "title": "Audi R8 V10 Plus CMRBank", "img": "assets/cars/audi_r8_tsmr_launch.jpg"},
-        {"id": "gal_5", "tag": "CHAMPIONSHIP WINNER", "title": "GTR Lucifer // Gosha RDRC", "img": "assets/cars/gtr_lucifer_solo.jpg"},
-        {"id": "gal_6", "tag": "AERODYNAMICS", "title": "Red Chrome Nissan GT-R Pro-Mod", "img": "assets/cars/gtr_red_front_rdrc.jpg"},
+        {"id": "gal_2", "tag": "BURNOUT SMOKE", "title": "Dodge Demon", "img": "assets/cars/dodge_burnout_sunset.jpg"},
+        {"id": "gal_3", "tag": "3000+ HP PRO-MOD", "title": "Nissan GT-R R35 Draco Dragster", "img": "assets/cars/gtr_draco_promod_front.jpg"},
+        {"id": "gal_4", "tag": "1400+ HP V10 TT", "title": "Audi R8 V10 Plus TT «Rokot»", "img": "assets/cars/audi_r8_tsmr_launch.jpg"},
+        {"id": "gal_5", "tag": "CHAMPIONSHIP WINNER", "title": "Nissan GT-R R35 Lucifer", "img": "assets/cars/gtr_lucifer_solo.jpg"},
+        {"id": "gal_6", "tag": "AERODYNAMICS", "title": "Red Chrome Nissan GT-R R35", "img": "assets/cars/gtr_red_front_rdrc.jpg"},
         {"id": "gal_7", "tag": "MIDNIGHT BLUE", "title": "Nissan GT-R R35 #888 Sunset Pass", "img": "assets/photos/gtr_blue_888_rdrc.jpg"},
         {"id": "gal_8", "tag": "CHIEF MOTORSPORT ENGINEER", "title": "Гоша Перцхелия на стрипе RDRC", "img": "assets/photos/gosha_on_track.jpg"},
         {"id": "gal_9", "tag": "ATELIER GARAGE", "title": "Бокс GTT: Паддок команды & Nissan GT-R", "img": "assets/cars/bmw_m5_paddock_front.jpg"},
         {"id": "gal_10", "tag": "TWIN TURBO V8", "title": "BMW M5 G90 Stage 2 GTT", "img": "assets/cars/bmw_m5_rdrc_race.jpg"},
-        {"id": "gal_11", "tag": "BEZZUBIK TT", "title": "Huracan Twin Turbo «Беззубик»", "img": "assets/cars/huracan_green_bezzubik_track.jpg"},
+        {"id": "gal_11", "tag": "TWIN TURBO V10", "title": "Huracan Twin Turbo «Зеленка» GTT", "img": "assets/cars/huracan_green_bezzubik_track.jpg"},
         {"id": "gal_12", "tag": "BILLET MOTORSPORT", "title": "VR38 Billet & Дрэг-подвеска", "img": "assets/cars/gtr_draco_connections.jpg"},
         {"id": "gal_13", "tag": "PARC FERMÉ", "title": "Пилот Саркисян & Draco GTT", "img": "assets/photos/pilot_draco_sarkisyan.jpg"},
         {"id": "gal_14", "tag": "STAGING LINE", "title": "GT-R Lucifer на прогреве", "img": "assets/cars/gtr_lucifer_front.jpg"},
@@ -1664,4 +1704,341 @@ def reset_traffic():
     cursor.execute("DELETE FROM traffic_logs")
     conn.commit()
     conn.close()
+
+# --- Technical & Motorsport Partners ---
+DEFAULT_PARTNERS = [
+    {
+        "id": "vp_racing",
+        "name": "VP Racing Fuels",
+        "category": "Топливо и метанол",
+        "desc": "Мировой эталон спортивного топлива, гоночного кислородного бензина и чистого метанола M1 для рекордных заездов RDRC.",
+        "logo": "assets/photos/partners_banner.png",
+        "link": "https://vpracingfuels.com",
+        "sort_order": 1,
+        "is_active": 1
+    },
+    {
+        "id": "motul",
+        "name": "Motul Motorsport",
+        "category": "Смазочные материалы",
+        "desc": "Синтетические моторные масла Motul 300V Motorsport Line с технологией Ester Core, защищающие 2000+ сильные моторы GTT при пиковых нагрузках.",
+        "logo": "assets/photos/partners_banner.png",
+        "link": "https://www.motul.com",
+        "sort_order": 2,
+        "is_active": 1
+    },
+    {
+        "id": "syvecs",
+        "name": "Syvecs Powertrain Control",
+        "category": "Электроника и ЭБУ",
+        "desc": "Высокотехнологичные блоки управления двигателем (ECU), полноприводной трансмиссией (AWD Controller) и алгоритмами лаунч-контроля.",
+        "logo": "assets/photos/partners_banner.png",
+        "link": "https://www.syvecs.com",
+        "sort_order": 3,
+        "is_active": 1
+    },
+    {
+        "id": "motec",
+        "name": "MoTeC Systems",
+        "category": "Электроника и ЭБУ",
+        "desc": "Золотой стандарт мирового автоспорта: управляющие процессоры M1, цветные цифровые приборные панели C1212 и прецизионные логгеры телеметрии.",
+        "logo": "assets/photos/partners_banner.png",
+        "link": "https://www.motec.com.au",
+        "sort_order": 4,
+        "is_active": 1
+    },
+    {
+        "id": "precision_turbo",
+        "name": "Precision Turbo & Engine",
+        "category": "Турбосистемы",
+        "desc": "Специализированные гоночные турбокомпрессоры сверхвысокого наддува серии Pro Mod и GEN2 CEA, обеспечивающие отдачу до 3,500+ л.с.",
+        "logo": "assets/photos/partners_banner.png",
+        "link": "https://www.precisionturbo.net",
+        "sort_order": 5,
+        "is_active": 1
+    },
+    {
+        "id": "ppg_gearboxes",
+        "name": "PPG (Pfitzner Gearboxes)",
+        "category": "Трансмиссия",
+        "desc": "Усиленные прямозубые кулачковые и секвентальные ряды передач, выдерживающие колоссальный крутящий момент и агрессивные переключения.",
+        "logo": "assets/photos/partners_banner.png",
+        "link": "https://www.ppgearbox.com.au",
+        "sort_order": 6,
+        "is_active": 1
+    },
+    {
+        "id": "dyno_dynamics",
+        "name": "Dyno Dynamics",
+        "category": "Диностенд и калибровка",
+        "desc": "Высокоточный полноприводный диностенд 4WD с мощнейшим обдувом и синхронизацией осей для тонкой калибровки болидов ателье.",
+        "logo": "assets/photos/partners_banner.png",
+        "link": "https://www.dyno.com.au",
+        "sort_order": 7,
+        "is_active": 1
+    },
+    {
+        "id": "redline_oil",
+        "name": "Red Line Synthetic Oil",
+        "category": "Смазочные материалы",
+        "desc": "Специализированные трансмиссионные жидкости ShockProof и гоночные присадки для дифференциалов повышенного трения и раздаточных коробок.",
+        "logo": "assets/photos/partners_banner.png",
+        "link": "https://www.redlineoil.com",
+        "sort_order": 8,
+        "is_active": 1
+    },
+    {
+        "id": "bell_intercoolers",
+        "name": "Bell Intercoolers",
+        "category": "Охлаждение",
+        "desc": "Высокоэффективные теплообменники и кастомные интеркулерные ядра с минимальным сопротивлением для мощных турбосистем.",
+        "logo": "assets/photos/partners_banner.png",
+        "link": "https://www.bellintercoolers.com",
+        "sort_order": 9,
+        "is_active": 1
+    },
+    {
+        "id": "plazmaman",
+        "name": "Plazmaman Pro Billet",
+        "category": "Впуск и охлаждение",
+        "desc": "Фрезерованные из алюминиевого монолита впускные коллекторы и интеркулеры для экстремальных моторов VR38DETT и V10 Twin Turbo.",
+        "logo": "assets/photos/partners_banner.png",
+        "link": "https://plazmaman.com",
+        "sort_order": 10,
+        "is_active": 1
+    },
+    {
+        "id": "t1_race",
+        "name": "T1 Race Development",
+        "category": "Топливные системы",
+        "desc": "Прецизионные компоненты топливной магистрали, высокодебитные форсунки, регуляторы давления и крепления для дрэг-рейсинга.",
+        "logo": "assets/photos/partners_banner.png",
+        "link": "https://t1racedevelopment.com",
+        "sort_order": 11,
+        "is_active": 1
+    },
+    {
+        "id": "rdrc_dragtimes",
+        "name": "RDRC / Dragtimes",
+        "category": "Автоспорт и трассы",
+        "desc": "Главный гоночный промоутер Чемпионата России по дрэг-рейсингу и организатор всероссийских заездов на автодроме RDRC Racepark Быково.",
+        "logo": "assets/photos/partners_banner.png",
+        "link": "https://rdrc.ru",
+        "sort_order": 12,
+        "is_active": 1
+    },
+    {
+        "id": "deikin_exhaust",
+        "name": "Deikin Exhaust",
+        "category": "Выхлопные системы",
+        "desc": "Индивидуальное проектирование и ручная аргонная TIG-сварка спортивных выхлопных систем из титана Grade 5 и жаропрочного Inconel.",
+        "logo": "assets/photos/partners_banner.png",
+        "link": "https://goshaturbotech.ru",
+        "sort_order": 13,
+        "is_active": 1
+    },
+    {
+        "id": "toys_detailing",
+        "name": "Toys Detailing",
+        "category": "Детейлинг и стиль",
+        "desc": "Премиальный детейлинг, бронирование кузовов полиуретановой пленкой и керамические защитные составы для гоночных суперкаров.",
+        "logo": "assets/photos/partners_banner.png",
+        "link": "https://toysdetailing.ru",
+        "sort_order": 14,
+        "is_active": 1
+    },
+    {
+        "id": "felix_ferro",
+        "name": "Felix Ferro",
+        "category": "Интерьер и стиль",
+        "desc": "Эксклюзивные ювелирные элементы, кованый карбон, золотое напыление и премиальная отделка интерьера для уникальных проектов ателье.",
+        "logo": "assets/photos/partners_banner.png",
+        "link": "https://felixferro.com",
+        "sort_order": 15,
+        "is_active": 1
+    },
+    {
+        "id": "dsc_off",
+        "name": "DSC OFF",
+        "category": "Медиа и хроника",
+        "desc": "Автоспортивный медиа-проект Гурама Инцкирвели, подробно освещающий постройку и боевые заезды быстрейших суперкаров GTT.",
+        "logo": "assets/photos/partners_banner.png",
+        "link": "https://youtube.com/@dscoff",
+        "sort_order": 16,
+        "is_active": 1
+    }
+]
+
+def seed_default_partners(cursor):
+    for p in DEFAULT_PARTNERS:
+        cursor.execute("""
+        INSERT OR IGNORE INTO partners (id, name, category, desc, logo, link, sort_order, is_active)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """, (
+            p["id"],
+            p["name"],
+            p["category"],
+            p["desc"],
+            p["logo"],
+            p["link"],
+            p["sort_order"],
+            p["is_active"]
+        ))
+
+def get_all_partners() -> List[Dict[str, Any]]:
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM partners ORDER BY sort_order ASC, rowid ASC")
+    rows = [dict(r) for r in cursor.fetchall()]
+    conn.close()
+    return rows
+
+def get_partner(partner_id: str) -> Optional[Dict[str, Any]]:
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM partners WHERE id = ?", (partner_id,))
+    row = cursor.fetchone()
+    conn.close()
+    return dict(row) if row else None
+
+def upsert_partner(item: Dict[str, Any]) -> Dict[str, Any]:
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("""
+    INSERT INTO partners (id, name, category, desc, logo, link, sort_order, is_active)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    ON CONFLICT(id) DO UPDATE SET
+        name=excluded.name,
+        category=excluded.category,
+        desc=excluded.desc,
+        logo=excluded.logo,
+        link=excluded.link,
+        sort_order=excluded.sort_order,
+        is_active=excluded.is_active
+    """, (
+        item["id"],
+        item["name"],
+        item.get("category", "Технические партнеры"),
+        item.get("desc", ""),
+        item.get("logo", "assets/photos/partners_banner.png"),
+        item.get("link", "#"),
+        int(item.get("sort_order", 0)),
+        int(item.get("is_active", 1))
+    ))
+    conn.commit()
+    conn.close()
+    return item
+
+def delete_partner(partner_id: str) -> bool:
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM partners WHERE id = ?", (partner_id,))
+    deleted = cursor.rowcount > 0
+    conn.commit()
+    conn.close()
+    return deleted
+
+# ================= MOTO DIVISION METHODS =================
+
+def seed_default_moto(cursor):
+    default_moto = [
+        {
+            "id": "moto_1",
+            "title": "Superbike Stage 1 / 2",
+            "code": "SUPERBIKE // STAGE 2",
+            "desc": "Программное раскрытие потенциала литровых спортбайков BMW S1000RR / M1000RR, Ducati Panigale V4, Yamaha R1. Индивидуальные карты зажигания, снятие ограничителей и калибровка квикшифтера на диностенде.",
+            "bullets": "Индивидуальная калибровка на диностенде\nОптимизация Wheelie & Launch Control\nКалибровка электронного дросселя без задержек",
+            "img": "assets/photos/partners_banner.png",
+            "sort_order": 1,
+            "is_active": 1
+        },
+        {
+            "id": "moto_2",
+            "title": "Титановый выпуск GTT Moto",
+            "code": "TITANIUM // EXH",
+            "desc": "Ручная аргоновая сварка титана и инконеля для мотоциклов. Экстремальное снижение веса, породистый акустический звук и прибавка крутящего момента во всем диапазоне.",
+            "bullets": "Ультралегкие коллекторы из сплава Titan-Gr5\nКастомная фрезеровка насадок\nОгненные отстрелы и сочный басовитый тон",
+            "img": "assets/photos/partners_banner.png",
+            "sort_order": 2,
+            "is_active": 1
+        },
+        {
+            "id": "moto_3",
+            "title": "Bespoke кастомизация",
+            "code": "BESPOKE // CNC",
+            "desc": "Полный цикл доработки премиальной мототехники: кованые сверхлегкие диски, сухое сцепление, карбоновое оперение и комплексное предсезонное ТО.",
+            "bullets": "Сухой автоклавный карбон 3K/12K\nТормозные системы Brembo Racing / GP4\nИндивидуальный дизайн и покраска",
+            "img": "assets/photos/partners_banner.png",
+            "sort_order": 3,
+            "is_active": 1
+        }
+    ]
+    for m in default_moto:
+        cursor.execute("""
+        INSERT OR REPLACE INTO moto (id, title, code, desc, bullets, img, sort_order, is_active)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """, (
+            m["id"],
+            m["title"],
+            m["code"],
+            m["desc"],
+            m["bullets"],
+            m["img"],
+            m["sort_order"],
+            m["is_active"]
+        ))
+
+def get_all_moto() -> List[Dict[str, Any]]:
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM moto ORDER BY sort_order ASC, rowid ASC")
+    rows = [dict(r) for r in cursor.fetchall()]
+    conn.close()
+    return rows
+
+def get_moto(moto_id: str) -> Optional[Dict[str, Any]]:
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM moto WHERE id = ?", (moto_id,))
+    row = cursor.fetchone()
+    conn.close()
+    return dict(row) if row else None
+
+def upsert_moto(item: Dict[str, Any]) -> Dict[str, Any]:
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("""
+    INSERT INTO moto (id, title, code, desc, bullets, img, sort_order, is_active)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    ON CONFLICT(id) DO UPDATE SET
+        title=excluded.title,
+        code=excluded.code,
+        desc=excluded.desc,
+        bullets=excluded.bullets,
+        img=excluded.img,
+        sort_order=excluded.sort_order,
+        is_active=excluded.is_active
+    """, (
+        item["id"],
+        item["title"],
+        item.get("code", "GTT MOTO"),
+        item.get("desc", ""),
+        item.get("bullets", ""),
+        item.get("img", ""),
+        int(item.get("sort_order", 0)),
+        int(item.get("is_active", 1))
+    ))
+    conn.commit()
+    conn.close()
+    return item
+
+def delete_moto(moto_id: str) -> bool:
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM moto WHERE id = ?", (moto_id,))
+    deleted = cursor.rowcount > 0
+    conn.commit()
+    conn.close()
+    return deleted
+
 

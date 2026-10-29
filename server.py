@@ -607,6 +607,68 @@ async def remove_media_item(med_id: str, session: str = Depends(verify_admin_ses
         raise HTTPException(status_code=404, detail="Медиа не найдено")
     return {"status": "ok", "deleted_id": med_id}
 
+# ================= PARTNERS & SPONSORS ENDPOINTS =================
+
+@app.get("/api/partners")
+async def list_partners():
+    return database.get_all_partners()
+
+@app.post("/api/partners")
+async def create_partner_item(item: Dict[str, Any], session: str = Depends(verify_admin_session)):
+    if not item.get("id"):
+        item["id"] = "prt_" + str(int(datetime.now().timestamp()))
+    res = database.upsert_partner(item)
+    send_telegram_notification(f"🤝 <b>Партнер добавлен:</b> {item.get('name')} ({item.get('category')})")
+    return res
+
+@app.put("/api/partners/{partner_id}")
+async def update_partner_item(partner_id: str, item: Dict[str, Any], session: str = Depends(verify_admin_session)):
+    item["id"] = partner_id
+    res = database.upsert_partner(item)
+    send_telegram_notification(f"🤝 <b>Партнер обновлен:</b> {item.get('name')} ({item.get('category')})")
+    return res
+
+@app.delete("/api/partners/{partner_id}")
+async def remove_partner_item(partner_id: str, session: str = Depends(verify_admin_session)):
+    partner = database.get_partner(partner_id)
+    p_name = partner.get("name", partner_id) if partner else partner_id
+    success = database.delete_partner(partner_id)
+    if not success:
+        raise HTTPException(status_code=404, detail="Партнер не найден")
+    send_telegram_notification(f"🤝 <b>Партнер удален:</b> {p_name}")
+    return {"status": "ok", "deleted_id": partner_id}
+
+# ================= MOTO DIVISION ENDPOINTS =================
+
+@app.get("/api/moto")
+async def list_moto():
+    return database.get_all_moto()
+
+@app.post("/api/moto")
+async def create_moto_item(item: Dict[str, Any], session: str = Depends(verify_admin_session)):
+    if not item.get("id"):
+        item["id"] = "moto_" + str(int(datetime.now().timestamp()))
+    res = database.upsert_moto(item)
+    send_telegram_notification(f"🏍️ <b>Мотопроект добавлен:</b> {item.get('title')} ({item.get('code')})")
+    return res
+
+@app.put("/api/moto/{moto_id}")
+async def update_moto_item(moto_id: str, item: Dict[str, Any], session: str = Depends(verify_admin_session)):
+    item["id"] = moto_id
+    res = database.upsert_moto(item)
+    send_telegram_notification(f"🏍️ <b>Мотопроект обновлен:</b> {item.get('title')} ({item.get('code')})")
+    return res
+
+@app.delete("/api/moto/{moto_id}")
+async def remove_moto_item(moto_id: str, session: str = Depends(verify_admin_session)):
+    moto = database.get_moto(moto_id)
+    m_title = moto.get("title", moto_id) if moto else moto_id
+    success = database.delete_moto(moto_id)
+    if not success:
+        raise HTTPException(status_code=404, detail="Мотопроект не найден")
+    send_telegram_notification(f"🗑️ <b>Мотопроект удален:</b> {m_title}")
+    return {"status": "ok", "deleted_id": moto_id}
+
 # ================= TRAFFIC TELEMETRY =================
 
 @app.get("/api/traffic")
@@ -746,6 +808,7 @@ async def export_all_data(session: str = Depends(verify_admin_session)):
         "records": database.get_all_records(),
         "gallery": database.get_all_gallery(),
         "media": database.get_all_media(),
+        "partners": database.get_all_partners(),
         "exported_at": datetime.now().isoformat()
     }
 

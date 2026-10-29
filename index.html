@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=21.0">
+  <link rel="stylesheet" href="css/style.css?v=23.0">
 </head>
 <body class="is-loading">
 
@@ -56,6 +56,7 @@
         <li><a href="#team" class="nav-link" data-i18n="nav_team">Команда GTT</a></li>
         <li><a href="#moto" class="nav-link" data-i18n="nav_moto">Moto Division</a></li>
         <li><a href="#gallery" class="nav-link" data-i18n="nav_gallery">Жизнь ателье</a></li>
+        <li><a href="#partners" class="nav-link" data-i18n="nav_partners">Партнеры</a></li>
         <li><a href="#contact" class="nav-link" data-i18n="nav_contact">Связь</a></li>
       </ul>
     </nav>
@@ -120,6 +121,7 @@
         <a href="#team" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_team">Команда GTT</a>
         <a href="#moto" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_moto">Moto Division</a>
         <a href="#gallery" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_gallery">Жизнь ателье</a>
+        <a href="#partners" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_partners">Партнеры</a>
         <a href="#contact" class="mobile-nav-link" onclick="toggleMobileNav(false)" data-i18n="nav_contact">Связь</a>
       </nav>
 
@@ -136,7 +138,7 @@
   <!-- Hero Section -->
   <section class="hero" id="hero">
     <div class="hero-bg-container">
-      <video class="hero-video-bg" autoplay loop muted playsinline preload="auto">
+      <video class="hero-video-bg" autoplay loop muted playsinline webkit-playsinline preload="auto">
         <source src="assets/videos/hero_bg_optimized.mp4" type="video/mp4">
       </video>
       <div class="hero-video-overlay"></div>
@@ -147,7 +149,7 @@
     <div class="hero-content">
       <div class="hero-tag">
         <span class="pulse-dot"></span>
-        <span data-i18n="hero_tag">World Record Engineering • Moscow • RDRC</span>
+        <span data-i18n="hero_tag">GoshaTurboTech • Try to catch up</span>
       </div>
 
       <h1 class="hero-title" data-i18n="hero_title">
@@ -157,7 +159,7 @@
       </h1>
 
       <p class="hero-description" data-i18n="hero_desc">
-        Лаборатория спортивного инжиниринга Гоши Перцхелия (GoshaTurboTech). Победители Unlim 500+, триумфаторы Чемпионата России RDRC и абсолютные рекордсмены ледовых трасс Байкала. Мы форсируем суперкары BMW M, Nissan GT-R, Audi R8, Porsche и супербайки.
+        Инжиниринг и тюнинг Гоши Перцхелия (GoshaTurboTech). Рекордсмены соревнований по дрэг-рейсингу и ледовых трасс Байкала. Постройка, форсировка и калибровка суперкаров BMW M, Nissan GT-R, Audi, Porsche и супербайков.
       </p>
 
       <!-- Dynamic Live Telemetry Bar -->
@@ -326,7 +328,7 @@
     </div>
 
     <div class="section-header" style="position: relative; z-index: 5;">
-      <span class="section-tag" data-i18n="records_tag">// HALL OF FAME • UNLIM 500+ & RDRC</span>
+      <span class="section-tag" data-i18n="records_tag">// HALL OF FAME</span>
       <h2 class="section-title" data-i18n="records_title">Мировые рекорды и победы RDRC</h2>
       <p class="section-subtitle" data-i18n="records_subtitle">Более 15 лет непрерывных побед на дистанциях 402 м, 804 м, 1000 м и ледовых трассах.</p>
     </div>
@@ -647,7 +649,7 @@
         <span class="stat-label" data-i18n="team_stat_label">Специалистов цеха и гонок</span>
       </div>
       <div class="team-summary-desc" data-i18n="team_summary_desc">
-        Собственный сборочный цех, аргонная фабрикация выхлопных трасс из титана и инконеля, полноприводный диностенд Dyno Dynamics, лаборатория калибровки ЭБУ MoTeC и Syvecs, а также выездная гоночная команда паддока RDRC.
+        Собственный сборочный цех, аргонная фабрикация выхлопных трасс из титана и инконеля, полноприводный диностенд Dyno Dynamics, настройка и калибровка ЭБУ MoTeC и Syvecs, а также выездная гоночная команда паддока RDRC.
       </div>
     </div>
   </section>
@@ -699,7 +701,7 @@
 
 
 
-    <div class="moto-cards-grid">
+    <div class="moto-cards-grid" id="motoCardsGrid">
       <div class="moto-card">
         <div class="moto-card-header">
           <div class="moto-card-icon">
@@ -797,48 +799,48 @@
           </div>
         </div>
 
-        <!-- 2. Dodge Hellcat Burnout -->
-        <div class="marquee-card" data-raw-title="Dodge Challenger SRT Hellcat" data-raw-tag="BURNOUT SMOKE" onclick="openGalleryLightbox('assets/cars/dodge_burnout_sunset.jpg', 'Dodge Challenger SRT Hellcat: дымный прогрев сликов на закате RDRC')">
-          <img src="assets/cars/dodge_burnout_sunset.jpg" alt="Dodge Hellcat Burnout" loading="lazy">
+        <!-- 2. Dodge Demon Burnout -->
+        <div class="marquee-card" data-raw-title="Dodge Demon" data-raw-tag="BURNOUT SMOKE" onclick="openGalleryLightbox('assets/cars/dodge_burnout_sunset.jpg', 'Dodge Demon: дымный прогрев сликов на закате RDRC')">
+          <img src="assets/cars/dodge_burnout_sunset.jpg" alt="Dodge Demon Burnout" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">BURNOUT SMOKE</span>
-            <div class="marquee-card-title">Dodge Challenger SRT Hellcat</div>
+            <div class="marquee-card-title">Dodge Demon</div>
           </div>
         </div>
 
         <!-- 3. GT-R Draco Pro-Mod -->
-        <div class="marquee-card" data-raw-title="Nissan GT-R Draco Dragster" data-raw-tag="3000+ HP PRO-MOD" onclick="openGalleryLightbox('assets/cars/gtr_draco_promod_front.jpg', '3000+ HP Nissan GT-R Draco Pro-Mod на сликах RDRC')">
+        <div class="marquee-card" data-raw-title="Nissan GT-R R35 Draco Dragster" data-raw-tag="3000+ HP PRO-MOD" onclick="openGalleryLightbox('assets/cars/gtr_draco_promod_front.jpg', '3000+ HP Nissan GT-R R35 Draco Pro-Mod на сликах RDRC')">
           <img src="assets/cars/gtr_draco_promod_front.jpg" alt="GT-R Draco Pro-Mod" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">3000+ HP PRO-MOD</span>
-            <div class="marquee-card-title">Nissan GT-R Draco Dragster</div>
+            <div class="marquee-card-title">Nissan GT-R R35 Draco Dragster</div>
           </div>
         </div>
 
-        <!-- 4. Audi R8 Launch -->
-        <div class="marquee-card" data-raw-title="Audi R8 V10 Plus CMRBank" data-raw-tag="1400+ HP V10 TT" onclick="openGalleryLightbox('assets/cars/audi_r8_tsmr_launch.jpg', 'Audi R8 V10 Twin Turbo ЦМРБанк на стартовой черте RDRC')">
-          <img src="assets/cars/audi_r8_tsmr_launch.jpg" alt="Audi R8 Launch" loading="lazy">
+        <!-- 4. Audi R8 Rokot Launch -->
+        <div class="marquee-card" data-raw-title="Audi R8 V10 Plus TT «Rokot»" data-raw-tag="1400+ HP V10 TT" onclick="openGalleryLightbox('assets/cars/audi_r8_tsmr_launch.jpg', 'Audi R8 V10 Plus TT «Rokot» на стартовой черте RDRC')">
+          <img src="assets/cars/audi_r8_tsmr_launch.jpg" alt="Audi R8 Rokot Launch" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">1400+ HP V10 TT</span>
-            <div class="marquee-card-title">Audi R8 V10 Plus CMRBank</div>
+            <div class="marquee-card-title">Audi R8 V10 Plus TT «Rokot»</div>
           </div>
         </div>
 
         <!-- 5. GT-R Lucifer Solo -->
-        <div class="marquee-card" data-raw-title="GTR Lucifer // Gosha RDRC" data-raw-tag="CHAMPIONSHIP WINNER" onclick="openGalleryLightbox('assets/cars/gtr_lucifer_solo.jpg', 'GTR Lucifer: чемпионский победный болид Гоши RDRC')">
-          <img src="assets/cars/gtr_lucifer_solo.jpg" alt="GTR Lucifer Solo" loading="lazy">
+        <div class="marquee-card" data-raw-title="Nissan GT-R R35 Lucifer" data-raw-tag="CHAMPIONSHIP WINNER" onclick="openGalleryLightbox('assets/cars/gtr_lucifer_solo.jpg', 'Nissan GT-R R35 Lucifer: чемпионский победный болид RDRC')">
+          <img src="assets/cars/gtr_lucifer_solo.jpg" alt="Nissan GT-R R35 Lucifer" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">CHAMPIONSHIP WINNER</span>
-            <div class="marquee-card-title">GTR Lucifer // Gosha RDRC</div>
+            <div class="marquee-card-title">Nissan GT-R R35 Lucifer</div>
           </div>
         </div>
 
         <!-- 6. GT-R Red Chrome -->
-        <div class="marquee-card" data-raw-title="Red Chrome Nissan GT-R Pro-Mod" data-raw-tag="AERODYNAMICS" onclick="openGalleryLightbox('assets/cars/gtr_red_front_rdrc.jpg', 'Красный хромированный Nissan GT-R R35 GTT Pro-Mod')">
+        <div class="marquee-card" data-raw-title="Red Chrome Nissan GT-R R35" data-raw-tag="AERODYNAMICS" onclick="openGalleryLightbox('assets/cars/gtr_red_front_rdrc.jpg', 'Красный хромированный Nissan GT-R R35 GTT')">
           <img src="assets/cars/gtr_red_front_rdrc.jpg" alt="Красный хром GT-R" loading="lazy">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">AERODYNAMICS</span>
-            <div class="marquee-card-title">Red Chrome Nissan GT-R Pro-Mod</div>
+            <div class="marquee-card-title">Red Chrome Nissan GT-R R35</div>
           </div>
         </div>
 
@@ -878,12 +880,12 @@
           </div>
         </div>
 
-        <!-- 11. Huracan Duo Track -->
-        <div class="marquee-card" data-raw-title="Huracan Twin Turbo «Беззубик»" data-raw-tag="BEZZUBIK TT" onclick="openGalleryLightbox('assets/cars/huracan_green_bezzubik_track.jpg', 'Lamborghini Huracan Беззубик Twin Turbo на треке')">
-          <img src="assets/cars/huracan_green_bezzubik_track.jpg" alt="Huracan Беззубик" loading="lazy">
+        <!-- 11. Huracan Zelenka Track -->
+        <div class="marquee-card" data-raw-title="Huracan Twin Turbo «Зеленка» GTT" data-raw-tag="TWIN TURBO V10" onclick="openGalleryLightbox('assets/cars/huracan_green_bezzubik_track.jpg', 'Lamborghini Huracan «Зеленка» Twin Turbo на треке RDRC')">
+          <img src="assets/cars/huracan_green_bezzubik_track.jpg" alt="Huracan Зеленка" loading="lazy">
           <div class="marquee-card-meta">
-            <span class="marquee-card-tag">BEZZUBIK TT</span>
-            <div class="marquee-card-title">Huracan Twin Turbo «Беззубик»</div>
+            <span class="marquee-card-tag">TWIN TURBO V10</span>
+            <div class="marquee-card-title">Huracan Twin Turbo «Зеленка» GTT</div>
           </div>
         </div>
 
@@ -986,7 +988,7 @@
             </div>
             <div class="c-item-content">
               <div class="c-item-label" data-i18n="contact_phone_lbl">Телефон мастерской</div>
-              <div class="c-item-val">+7 (495) 99-000-77</div>
+              <div class="c-item-val">+7 (495) 990-00-77</div>
             </div>
           </a>
 
@@ -1028,7 +1030,7 @@
           </a>
           <a href="https://yandex.ru/maps/?rtext=~55.708892,37.382897&rtt=auto" target="_blank" rel="noopener" class="btn-outline" style="justify-content: center; gap: 8px;" data-i18n="contact_btn_navi">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
-            <span>Маршрут в Яндекс Навигаторе</span>
+            <span>Яндекс Навигатор</span>
           </a>
         </div>
       </div>
@@ -1046,6 +1048,28 @@
             class="yandex-map-iframe"
           ></iframe>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Partners & Dyno Section -->
+  <section class="partners-section reveal-init" id="partners">
+    <div class="partners-container">
+      <div class="section-header" style="text-align: center; margin-bottom: 36px;">
+        <span class="partners-badge" style="display: inline-block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--gtt-orange); text-transform: uppercase; margin-bottom: 8px;" data-i18n="partners_tag">// GTT TECHNICAL & MOTORSPORT PARTNERS</span>
+        <h2 class="section-title" data-i18n="partners_title">Партнеры и Оснащение</h2>
+        <p class="section-subtitle" style="margin: 0 auto; max-width: 680px;" data-i18n="partners_subtitle">Ведущие мировые бренды автоспорта, компонентов трансмиссии, турбонаддува, калибровки ЭБУ и полноприводный диностенд Dyno Dynamics, с которыми побеждает GoshaTurboTech.</p>
+      </div>
+
+      <!-- Authentic Partners Banner Card -->
+      <div class="partners-banner-card">
+        <div class="partners-glow-effect"></div>
+        <img src="assets/photos/partners_banner.png" alt="Технические партнеры GoshaTurboTech" class="partners-img">
+      </div>
+
+      <!-- Dynamic Partners Grid (Loaded from SQLite / Admin Panel) -->
+      <div class="partners-grid" id="partnersGrid">
+        <!-- Rendered dynamically from API & localStorage -->
       </div>
     </div>
   </section>
@@ -1068,13 +1092,19 @@
   </div>
 
   <!-- Fullscreen Photo Lightbox Modal -->
-  <div class="modal-overlay" id="galleryLightbox">
+  <div class="modal-overlay" id="galleryLightbox" onclick="if(event.target === this) closeGalleryLightbox()">
     <div class="lightbox-modal-content">
       <button class="modal-close" onclick="closeGalleryLightbox()" aria-label="Закрыть">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
+      </button>
+      <button class="lightbox-nav-btn prev" onclick="navigateLightbox(-1)" aria-label="Предыдущее фото" title="Предыдущее фото">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="lightbox-nav-btn next" onclick="navigateLightbox(1)" aria-label="Следующее фото" title="Следующее фото">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
       <img src="" alt="" id="lightboxImg" class="lightbox-main-img">
       <div class="lightbox-caption" id="lightboxCaption"></div>
@@ -1102,11 +1132,8 @@
       <div class="footer-center-content">
         <img src="assets/photos/gtt_shield_logo.svg" 
              alt="GoshaTurboTech" 
-             class="footer-mini-shield"
-             onclick="window.location.href='admin.html?token=gtt_atelier_2026_x71k'"
-             style="cursor: pointer;"
-             title="Панель управления GTT Atelier Hub">
-        <span class="footer-copy-text" id="footerCopyStaffTrigger" data-i18n="footer_copy">© GOSHATURBOTECH. SPEED &amp; MOTORSPORT ENGINEERING.</span>
+             class="footer-mini-shield">
+        <span class="footer-copy-text" id="footerCopyStaffTrigger" data-i18n="footer_copy">© GOSHATURBOTECH. TRY TO CATCH UP.</span>
       </div>
 
       <div class="footer-legal-bar">
@@ -1117,8 +1144,6 @@
         <a href="#legalModal" onclick="openLegalDoc('requisites'); return false;" class="footer-legal-link" data-i18n="footer_requisites">Реквизиты организации</a>
         <span class="legal-bullet">•</span>
         <span class="footer-legal-disclaimer" data-i18n="footer_disclaimer">Информация на сайте не является публичной офертой (ст. 437 ГК РФ)</span>
-        <span class="legal-bullet">•</span>
-        <a href="admin.html?token=gtt_atelier_2026_x71k" class="footer-legal-link" style="opacity: 0.75; text-decoration: underline;" title="Панель инженера GTT Atelier Hub">Вход для сотрудников</a>
       </div>
     </div>
   </footer>
@@ -1175,7 +1200,7 @@
     </a>
   </div>
 
-  <script src="js/media-db.js?v=22.0"></script>
-  <script src="js/app.js?v=22.0"></script>
+  <script src="js/media-db.js?v=23.0"></script>
+  <script src="js/app.js?v=25.0"></script>
 </body>
 </html>

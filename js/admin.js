@@ -6,6 +6,7 @@ const GALLERY_STORAGE_KEY = 'gtt_admin_gallery_db';
 const TEAM_STORAGE_KEY = 'gtt_admin_team_db';
 const RECORDS_STORAGE_KEY = 'gtt_admin_records_db';
 const MEDIA_STORAGE_KEY = 'gtt_admin_media_db';
+const PARTNERS_STORAGE_KEY = 'gtt_admin_partners_db';
 const TRAFFIC_STORAGE_KEY = 'gtt_traffic_telemetry';
 const AUTH_KEY = 'gtt_admin_authenticated';
 const PASS_HASH_KEY = 'gtt_admin_custom_pin';
@@ -651,17 +652,73 @@ const defaultMedia = [
 // 5. Initial Gallery (Живые кадры) Seed
 const defaultGallery = [
   { id: 'gal_1', tag: 'RDRC CHAMPION', title: 'Huracan TT «Зеленка» GTT', img: 'assets/photos/huracan_zelenka_gtt.jpg' },
-  { id: 'gal_2', tag: 'BURNOUT SMOKE', title: 'Dodge Challenger SRT Hellcat', img: 'assets/cars/dodge_burnout_sunset.jpg' },
-  { id: 'gal_3', tag: '3000+ HP PRO-MOD', title: 'Nissan GT-R Draco Dragster', img: 'assets/cars/gtr_draco_promod_front.jpg' },
-  { id: 'gal_4', tag: '1400+ HP V10 TT', title: 'Audi R8 V10 Plus CMRBank', img: 'assets/cars/audi_r8_tsmr_launch.jpg' },
-  { id: 'gal_5', tag: 'CHAMPIONSHIP WINNER', title: 'GTR Lucifer // Gosha RDRC', img: 'assets/cars/gtr_lucifer_solo.jpg' },
-  { id: 'gal_6', tag: 'AERODYNAMICS', title: 'Red Chrome Nissan GT-R Pro-Mod', img: 'assets/cars/gtr_red_front_rdrc.jpg' },
+  { id: 'gal_2', tag: 'BURNOUT SMOKE', title: 'Dodge Demon', img: 'assets/cars/dodge_burnout_sunset.jpg' },
+  { id: 'gal_3', tag: '3000+ HP PRO-MOD', title: 'Nissan GT-R R35 Draco Dragster', img: 'assets/cars/gtr_draco_promod_front.jpg' },
+  { id: 'gal_4', tag: '1400+ HP V10 TT', title: 'Audi R8 V10 Plus TT «Rokot»', img: 'assets/cars/audi_r8_tsmr_launch.jpg' },
+  { id: 'gal_5', tag: 'CHAMPIONSHIP WINNER', title: 'Nissan GT-R R35 Lucifer', img: 'assets/cars/gtr_lucifer_solo.jpg' },
+  { id: 'gal_6', tag: 'AERODYNAMICS', title: 'Red Chrome Nissan GT-R R35', img: 'assets/cars/gtr_red_front_rdrc.jpg' },
   { id: 'gal_7', tag: 'MIDNIGHT BLUE', title: 'Nissan GT-R R35 #888 Sunset Pass', img: 'assets/photos/gtr_blue_888_rdrc.jpg' },
   { id: 'gal_8', tag: 'CHIEF MOTORSPORT ENGINEER', title: 'Гоша Перцхелия на стрипе RDRC', img: 'assets/photos/gosha_on_track.jpg' },
   { id: 'gal_9', tag: 'ATELIER GARAGE', title: 'Бокс GTT: Паддок команды & Nissan GT-R', img: 'assets/cars/bmw_m5_paddock_front.jpg' },
   { id: 'gal_10', tag: 'TWIN TURBO V8', title: 'BMW M5 G90 Stage 2 GTT', img: 'assets/cars/bmw_m5_rdrc_race.jpg' },
-  { id: 'gal_11', tag: 'BEZZUBIK TT', title: 'Huracan Twin Turbo «Беззубик»', img: 'assets/cars/huracan_green_bezzubik_track.jpg' }
+  { id: 'gal_11', tag: 'TWIN TURBO V10', title: 'Huracan Twin Turbo «Зеленка» GTT', img: 'assets/cars/huracan_green_bezzubik_track.jpg' }
 ];
+
+// 6. Initial Partners Seed (16 Authentic GTT Motorsport & Technical Partners)
+const defaultPartners = [
+  { id: 'vp_racing', name: 'VP Racing Fuels', category: 'Топливо и метанол', desc: 'Мировой эталон спортивного топлива, гоночного кислородного бензина и чистого метанола M1 для рекордных заездов RDRC.', logo: 'assets/photos/partners_banner.png', link: 'https://vpracingfuels.com', sort_order: 1, is_active: 1 },
+  { id: 'motul', name: 'Motul Motorsport', category: 'Смазочные материалы', desc: 'Синтетические моторные масла Motul 300V Motorsport Line с технологией Ester Core, защищающие 2000+ сильные моторы GTT при пиковых нагрузках.', logo: 'assets/photos/partners_banner.png', link: 'https://www.motul.com', sort_order: 2, is_active: 1 },
+  { id: 'syvecs', name: 'Syvecs Powertrain Control', category: 'Электроника и ЭБУ', desc: 'Высокотехнологичные блоки управления двигателем (ECU), полноприводной трансмиссией (AWD Controller) и алгоритмами лаунч-контроля.', logo: 'assets/photos/partners_banner.png', link: 'https://www.syvecs.com', sort_order: 3, is_active: 1 },
+  { id: 'motec', name: 'MoTeC Systems', category: 'Электроника и ЭБУ', desc: 'Золотой стандарт мирового автоспорта: управляющие процессоры M1, цветные цифровые приборные панели C1212 и прецизионные логгеры телеметрии.', logo: 'assets/photos/partners_banner.png', link: 'https://www.motec.com.au', sort_order: 4, is_active: 1 },
+  { id: 'precision_turbo', name: 'Precision Turbo & Engine', category: 'Турбосистемы', desc: 'Специализированные гоночные турбокомпрессоры сверхвысокого наддува серии Pro Mod и GEN2 CEA, обеспечивающие отдачу до 3,500+ л.с.', logo: 'assets/photos/partners_banner.png', link: 'https://www.precisionturbo.net', sort_order: 5, is_active: 1 },
+  { id: 'ppg_gearboxes', name: 'PPG (Pfitzner Gearboxes)', category: 'Трансмиссия', desc: 'Усиленные прямозубые кулачковые и секвентальные ряды передач, выдерживающие колоссальный крутящий момент и агрессивные переключения.', logo: 'assets/photos/partners_banner.png', link: 'https://www.ppgearbox.com.au', sort_order: 6, is_active: 1 },
+  { id: 'dyno_dynamics', name: 'Dyno Dynamics', category: 'Диностенд и калибровка', desc: 'Высокоточный полноприводный диностенд 4WD с мощнейшим обдувом и синхронизацией осей для тонкой калибровки болидов ателье.', logo: 'assets/photos/partners_banner.png', link: 'https://www.dyno.com.au', sort_order: 7, is_active: 1 },
+  { id: 'redline_oil', name: 'Red Line Synthetic Oil', category: 'Смазочные материалы', desc: 'Специализированные трансмиссионные жидкости ShockProof и гоночные присадки для дифференциалов повышенного трения и раздаточных коробок.', logo: 'assets/photos/partners_banner.png', link: 'https://www.redlineoil.com', sort_order: 8, is_active: 1 },
+  { id: 'bell_intercoolers', name: 'Bell Intercoolers', category: 'Охлаждение', desc: 'Высокоэффективные теплообменники и кастомные интеркулерные ядра с минимальным сопротивлением для мощных турбосистем.', logo: 'assets/photos/partners_banner.png', link: 'https://www.bellintercoolers.com', sort_order: 9, is_active: 1 },
+  { id: 'plazmaman', name: 'Plazmaman Pro Billet', category: 'Впуск и охлаждение', desc: 'Фрезерованные из алюминиевого монолита впускные коллекторы и интеркулеры для экстремальных моторов VR38DETT и V10 Twin Turbo.', logo: 'assets/photos/partners_banner.png', link: 'https://plazmaman.com', sort_order: 10, is_active: 1 },
+  { id: 't1_race', name: 'T1 Race Development', category: 'Топливные системы', desc: 'Прецизионные компоненты топливной магистрали, высокодебитные форсунки, регуляторы давления и крепления для дрэг-рейсинга.', logo: 'assets/photos/partners_banner.png', link: 'https://t1racedevelopment.com', sort_order: 11, is_active: 1 },
+  { id: 'rdrc_dragtimes', name: 'RDRC / Dragtimes', category: 'Автоспорт и трассы', desc: 'Главный гоночный промоутер Чемпионата России по дрэг-рейсингу и организатор всероссийских заездов на автодроме RDRC Racepark Быково.', logo: 'assets/photos/partners_banner.png', link: 'https://rdrc.ru', sort_order: 12, is_active: 1 },
+  { id: 'deikin_exhaust', name: 'Deikin Exhaust', category: 'Выхлопные системы', desc: 'Индивидуальное проектирование и ручная аргонная TIG-сварка спортивных выхлопных систем из титана Grade 5 и жаропрочного Inconel.', logo: 'assets/photos/partners_banner.png', link: 'https://goshaturbotech.ru', sort_order: 13, is_active: 1 },
+  { id: 'toys_detailing', name: 'Toys Detailing', category: 'Детейлинг и стиль', desc: 'Премиальный детейлинг, бронирование кузовов полиуретановой пленкой и керамические защитные составы для гоночных суперкаров.', logo: 'assets/photos/partners_banner.png', link: 'https://toysdetailing.ru', sort_order: 14, is_active: 1 },
+  { id: 'felix_ferro', name: 'Felix Ferro', category: 'Интерьер и стиль', desc: 'Эксклюзивные ювелирные элементы, кованый карбон, золотое напыление и премиальная отделка интерьера для уникальных проектов ателье.', logo: 'assets/photos/partners_banner.png', link: 'https://felixferro.com', sort_order: 15, is_active: 1 },
+  { id: 'dsc_off', name: 'DSC OFF', category: 'Медиа и хроника', desc: 'Автоспортивный медиа-проект Гурама Инцкирвели, подробно освещающий постройку и боевые заезды быстрейших суперкаров GTT.', logo: 'assets/photos/partners_banner.png', link: 'https://youtube.com/@dscoff', sort_order: 16, is_active: 1 }
+];
+
+// 7. Initial Moto Seed (Superbikes & Customization)
+const defaultMoto = [
+  {
+    id: 'moto_1',
+    title: 'Superbike Stage 1 / 2',
+    code: 'SUPERBIKE // STAGE 2',
+    desc: 'Программное раскрытие потенциала литровых спортбайков BMW S1000RR / M1000RR, Ducati Panigale V4, Yamaha R1. Индивидуальные карты зажигания, снятие ограничителей и калибровка квикшифтера на диностенде.',
+    bullets: 'Индивидуальная калибровка на диностенде\nОптимизация Wheelie & Launch Control\nКалибровка электронного дросселя без задержек',
+    img: 'assets/photos/partners_banner.png',
+    sort_order: 1,
+    is_active: 1
+  },
+  {
+    id: 'moto_2',
+    title: 'Титановый выпуск GTT Moto',
+    code: 'TITANIUM // EXH',
+    desc: 'Ручная аргоновая сварка титана и инконеля для мотоциклов. Экстремальное снижение веса, породистый акустический звук и прибавка крутящего момента во всем диапазоне.',
+    bullets: 'Ультралегкие коллекторы из сплава Titan-Gr5\nКастомная фрезеровка насадок\nОгненные отстрелы и сочный басовитый тон',
+    img: 'assets/photos/partners_banner.png',
+    sort_order: 2,
+    is_active: 1
+  },
+  {
+    id: 'moto_3',
+    title: 'Bespoke кастомизация',
+    code: 'BESPOKE // CNC',
+    desc: 'Полный цикл доработки премиальной мототехники: кованые сверхлегкие диски, сухое сцепление, карбоновое оперение и комплексное предсезонное ТО.',
+    bullets: 'Сухой автоклавный карбон 3K/12K\nТормозные системы Brembo Racing / GP4\nИндивидуальный дизайн и покраска',
+    img: 'assets/photos/partners_banner.png',
+    sort_order: 3,
+    is_active: 1
+  }
+];
+
+const MOTO_STORAGE_KEY = 'gtt_admin_moto_db';
 
 // Server API Client Engine (FastAPI & SQLite persistence)
 const API_BASE = '';
@@ -891,12 +948,14 @@ async function checkAuth() {
 
 async function syncAllModulesFromAPI() {
   try {
-    const [cars, gallery, team, records, media] = await Promise.allSettled([
+    const [cars, gallery, team, records, media, partners, moto] = await Promise.allSettled([
       apiFetch('/api/cars'),
       apiFetch('/api/gallery'),
       apiFetch('/api/team'),
       apiFetch('/api/records'),
-      apiFetch('/api/media')
+      apiFetch('/api/media'),
+      apiFetch('/api/partners'),
+      apiFetch('/api/moto')
     ]);
 
     if (cars.status === 'fulfilled' && Array.isArray(cars.value) && cars.value.length > 0) {
@@ -913,6 +972,12 @@ async function syncAllModulesFromAPI() {
     }
     if (media.status === 'fulfilled' && Array.isArray(media.value) && media.value.length > 0) {
       saveDB(MEDIA_STORAGE_KEY, media.value);
+    }
+    if (partners.status === 'fulfilled' && Array.isArray(partners.value) && partners.value.length > 0) {
+      saveDB(PARTNERS_STORAGE_KEY, partners.value);
+    }
+    if (moto.status === 'fulfilled' && Array.isArray(moto.value) && moto.value.length > 0) {
+      saveDB(MOTO_STORAGE_KEY, moto.value);
     }
     renderAllModules();
   } catch (e) {
@@ -1103,28 +1168,29 @@ function switchAdminTab(tabName) {
   document.querySelectorAll('.admin-tab-btn').forEach(btn => btn.classList.remove('active'));
   document.querySelectorAll('.admin-tab-content').forEach(c => c.style.display = 'none');
 
-  const tabs = document.querySelectorAll('.admin-tab-btn');
+  const btn = Array.from(document.querySelectorAll('.admin-tab-btn')).find(b => b.getAttribute('onclick')?.includes(`'${tabName}'`));
+  if (btn) btn.classList.add('active');
+
   if (tabName === 'cars') {
-    if (tabs[0]) tabs[0].classList.add('active');
     document.getElementById('tabCars').style.display = 'block';
   } else if (tabName === 'traffic') {
-    if (tabs[1]) tabs[1].classList.add('active');
     document.getElementById('tabTraffic').style.display = 'block';
     renderTrafficModule();
   } else if (tabName === 'gallery') {
-    if (tabs[2]) tabs[2].classList.add('active');
     document.getElementById('tabGallery').style.display = 'block';
   } else if (tabName === 'team') {
-    if (tabs[3]) tabs[3].classList.add('active');
     document.getElementById('tabTeam').style.display = 'block';
+  } else if (tabName === 'partners') {
+    document.getElementById('tabPartners').style.display = 'block';
+    renderPartnersTable();
+  } else if (tabName === 'moto') {
+    document.getElementById('tabMoto').style.display = 'block';
+    renderMotoTable();
   } else if (tabName === 'records') {
-    if (tabs[4]) tabs[4].classList.add('active');
     document.getElementById('tabRecords').style.display = 'block';
   } else if (tabName === 'media') {
-    if (tabs[5]) tabs[5].classList.add('active');
     document.getElementById('tabMedia').style.display = 'block';
   } else if (tabName === 'settings') {
-    if (tabs[6]) tabs[6].classList.add('active');
     document.getElementById('tabSettings').style.display = 'block';
     populateSettingsInputs();
   }
@@ -1137,6 +1203,8 @@ function renderAllModules() {
   renderTrafficModule();
   renderGalleryTable();
   renderTeamTable();
+  renderPartnersTable();
+  renderMotoTable();
   renderRecordsTable();
   renderMediaTable();
 }
@@ -3960,10 +4028,380 @@ window.closeGalleryPhotoModal = closeGalleryPhotoModal;
 window.saveGalleryPhoto = saveGalleryPhoto;
 window.deleteGalleryPhoto = deleteGalleryPhoto;
 
+// ================= PARTNERS CRUD MODULE =================
+
+function renderPartnersTable() {
+  const partners = getDB(PARTNERS_STORAGE_KEY, defaultPartners);
+  const tbody = document.getElementById('partnersTableBody');
+  if (!tbody) return;
+
+  partners.sort((a, b) => (parseInt(a.sort_order || 0) - parseInt(b.sort_order || 0)));
+
+  tbody.innerHTML = partners.map((p, idx) => {
+    const id = escapeJS(p.id);
+    const name = escapeHTML(p.name);
+    const category = escapeHTML(p.category || 'Партнер');
+    const desc = escapeHTML(p.desc || '');
+    const sortOrder = parseInt(p.sort_order || idx + 1);
+    const isActive = (p.is_active === 1 || p.is_active === true || p.is_active === '1');
+    const statusHtml = isActive 
+      ? '<span style="color: #22c55e; font-size: 11.5px; font-weight: 600;">● Активен</span>'
+      : '<span style="color: #64748b; font-size: 11.5px;">Скрыт</span>';
+
+    return `
+    <tr>
+      <td style="color: var(--text-dim); font-family: var(--font-mono);">${idx + 1}</td>
+      <td>
+        <div style="font-weight: 700; color: #fff;">${name}</div>
+        ${p.link && p.link !== '#' ? `<a href="${escapeHTML(p.link)}" target="_blank" rel="noopener" style="font-size: 11px; color: #38bdf8; text-decoration: none;">Перейти ↗</a>` : ''}
+      </td>
+      <td><span class="tag-pill" style="color: var(--gtt-orange); border-color: rgba(255,100,37,0.3); font-size: 10.5px;">${category}</span></td>
+      <td style="font-size: 12.5px; color: var(--text-muted); line-height: 1.45; max-width: 320px;">
+        ${desc}
+      </td>
+      <td style="font-family: var(--font-mono); font-size: 12px; color: var(--text-dim); text-align: center;">${sortOrder}</td>
+      <td>${statusHtml}</td>
+      <td>
+        <div class="row-actions">
+          <button class="table-btn" onclick="openPartnerModal('${id}')">Изменить</button>
+          <button class="table-btn delete" onclick="deletePartner('${id}')">Удалить</button>
+        </div>
+      </td>
+    </tr>
+    `;
+  }).join('');
+}
+
+function openPartnerModal(id) {
+  const modal = document.getElementById('partnerModal');
+  const title = document.getElementById('partnerModalTitle');
+  const form = document.getElementById('partnerForm');
+  if (!modal) return;
+  modal.style.display = 'flex';
+
+  if (id) {
+    const partners = getDB(PARTNERS_STORAGE_KEY, defaultPartners);
+    const p = partners.find(item => item.id === id);
+    if (!p) return;
+    title.textContent = `Редактирование: ${p.name}`;
+    document.getElementById('editPartnerId').value = p.id;
+    document.getElementById('editPartnerName').value = p.name || '';
+    document.getElementById('editPartnerCategory').value = p.category || '';
+    document.getElementById('editPartnerSortOrder').value = p.sort_order || 0;
+    document.getElementById('editPartnerDesc').value = p.desc || '';
+    document.getElementById('editPartnerLink').value = p.link || '';
+    document.getElementById('editPartnerLogo').value = p.logo || '';
+    document.getElementById('editPartnerIsActive').checked = (p.is_active === 1 || p.is_active === true || p.is_active === '1');
+  } else {
+    title.textContent = 'Добавить нового партнера';
+    if (form) form.reset();
+    document.getElementById('editPartnerId').value = '';
+    document.getElementById('editPartnerSortOrder').value = 0;
+    document.getElementById('editPartnerLogo').value = 'assets/photos/partners_banner.png';
+    document.getElementById('editPartnerIsActive').checked = true;
+  }
+}
+
+function closePartnerModal() {
+  const modal = document.getElementById('partnerModal');
+  if (modal) modal.style.display = 'none';
+}
+
+function handlePartnerLogoSelected(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const input = document.getElementById('editPartnerLogo');
+  if (input) input.value = 'assets/photos/' + file.name;
+}
+
+async function savePartner(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  const idInput = document.getElementById('editPartnerId').value;
+  const rawName = document.getElementById('editPartnerName').value.trim();
+  const rawCategory = document.getElementById('editPartnerCategory').value.trim();
+
+  if (!rawName) {
+    showToast('Укажите название', 'Введите имя бренда или партнера', 'warning');
+    document.getElementById('editPartnerName')?.focus();
+    return;
+  }
+
+  const partnerData = {
+    id: idInput || ('prt_' + Date.now()),
+    name: rawName,
+    category: rawCategory || 'Технические партнеры',
+    sort_order: parseInt(document.getElementById('editPartnerSortOrder').value) || 0,
+    desc: document.getElementById('editPartnerDesc').value.trim(),
+    link: document.getElementById('editPartnerLink').value.trim() || '#',
+    logo: document.getElementById('editPartnerLogo').value.trim() || 'assets/photos/partners_banner.png',
+    is_active: document.getElementById('editPartnerIsActive').checked ? 1 : 0
+  };
+
+  const partners = getDB(PARTNERS_STORAGE_KEY, defaultPartners);
+  const existingIdx = partners.findIndex(p => p.id === partnerData.id);
+
+  if (existingIdx !== -1) {
+    partners[existingIdx] = partnerData;
+  } else {
+    partners.push(partnerData);
+  }
+  saveDB(PARTNERS_STORAGE_KEY, partners);
+
+  // Sync with FastAPI backend if online
+  try {
+    const method = idInput ? 'PUT' : 'POST';
+    const url = idInput ? `/api/partners/${encodeURIComponent(partnerData.id)}` : '/api/partners';
+    await apiFetch(url, {
+      method: method,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(partnerData)
+    });
+  } catch (err) {
+    console.warn('[GTT API] Partner offline/static note:', err);
+  }
+
+  // Real-time broadcast sync across all browser tabs
+  if (window.BroadcastChannel) {
+    try {
+      const ch = new BroadcastChannel('gtt_channel');
+      ch.postMessage({ type: 'partners_updated', partners: partners });
+    } catch (bcErr) {}
+  }
+
+  closePartnerModal();
+  renderPartnersTable();
+  showToast('Успешно', `Данные партнера «${partnerData.name}» сохранены`, 'success');
+}
+
+async function deletePartner(id) {
+  if (!confirm('Вы уверены, что хотите удалить этого партнера?')) return;
+
+  const partners = getDB(PARTNERS_STORAGE_KEY, defaultPartners);
+  const updated = partners.filter(p => p.id !== id);
+  saveDB(PARTNERS_STORAGE_KEY, updated);
+
+  try {
+    await apiFetch(`/api/partners/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  } catch (err) {
+    console.warn('[GTT API] Partner delete note:', err);
+  }
+
+  if (window.BroadcastChannel) {
+    try {
+      const ch = new BroadcastChannel('gtt_channel');
+      ch.postMessage({ type: 'partners_updated', partners: updated });
+    } catch (bcErr) {}
+  }
+
+  renderPartnersTable();
+  showToast('Удалено', 'Партнер успешно удален', 'info');
+}
+
+// Partner module exports
+window.renderPartnersTable = renderPartnersTable;
+window.openPartnerModal = openPartnerModal;
+window.closePartnerModal = closePartnerModal;
+window.savePartner = savePartner;
+window.deletePartner = deletePartner;
+window.handlePartnerLogoSelected = handlePartnerLogoSelected;
+
 // Notification Bell & Audit Trail exports
 window.toggleAdminNotifications = toggleAdminNotifications;
 window.clearAdminNotifications = clearAdminNotifications;
 window.updateAdminBellUI = updateAdminBellUI;
+
+// ================= MOTO CRUD MODULE =================
+
+function renderMotoTable() {
+  const moto = getDB(MOTO_STORAGE_KEY, defaultMoto);
+  const tbody = document.getElementById('motoTableBody');
+  if (!tbody) return;
+
+  moto.sort((a, b) => (parseInt(a.sort_order || 0) - parseInt(b.sort_order || 0)));
+
+  tbody.innerHTML = moto.map((m, idx) => {
+    const id = escapeJS(m.id);
+    const title = escapeHTML(m.title);
+    const code = escapeHTML(m.code || 'GTT MOTO');
+    const desc = escapeHTML(m.desc || '');
+    const bullets = (m.bullets || '').split('\n').filter(Boolean).map(b => `<div style="font-size: 11.5px; color: #94a3b8;">• ${escapeHTML(b)}</div>`).join('');
+    const sortOrder = parseInt(m.sort_order || idx + 1);
+    const isActive = (m.is_active === 1 || m.is_active === true || m.is_active === '1');
+    const statusHtml = isActive 
+      ? '<span style="color: #22c55e; font-size: 11.5px; font-weight: 600;">● Активен</span>'
+      : '<span style="color: #64748b; font-size: 11.5px;">Скрыт</span>';
+
+    return `
+    <tr>
+      <td style="color: var(--text-dim); font-family: var(--font-mono);">${idx + 1}</td>
+      <td>
+        <div style="font-weight: 700; color: #fff;">${title}</div>
+        ${m.img ? `<div style="font-size: 11px; color: var(--text-dim);">${escapeHTML(m.img)}</div>` : ''}
+      </td>
+      <td><span class="tag-pill" style="color: var(--gtt-cyan); border-color: rgba(56,189,248,0.3); font-size: 10.5px;">${code}</span></td>
+      <td style="font-size: 12.5px; color: var(--text-muted); line-height: 1.45; max-width: 340px;">
+        <div style="margin-bottom: 4px;">${desc}</div>
+        ${bullets}
+      </td>
+      <td style="font-family: var(--font-mono); font-size: 12px; color: var(--text-dim); text-align: center;">${sortOrder}</td>
+      <td>${statusHtml}</td>
+      <td>
+        <div class="row-actions">
+          <button class="table-btn" onclick="openMotoModal('${id}')">Изменить</button>
+          <button class="table-btn delete" onclick="deleteMoto('${id}')">Удалить</button>
+        </div>
+      </td>
+    </tr>
+    `;
+  }).join('');
+}
+
+function openMotoModal(id) {
+  const modal = document.getElementById('motoModal');
+  const title = document.getElementById('motoModalTitle');
+  const form = document.getElementById('motoForm');
+  if (!modal) return;
+  modal.style.display = 'flex';
+
+  if (id) {
+    const moto = getDB(MOTO_STORAGE_KEY, defaultMoto);
+    const m = moto.find(item => item.id === id);
+    if (!m) return;
+    title.textContent = `Редактирование: ${m.title}`;
+    document.getElementById('editMotoId').value = m.id;
+    document.getElementById('editMotoTitle').value = m.title || '';
+    document.getElementById('editMotoCode').value = m.code || '';
+    document.getElementById('editMotoSortOrder').value = m.sort_order || 0;
+    document.getElementById('editMotoDesc').value = m.desc || '';
+    document.getElementById('editMotoBullets').value = m.bullets || '';
+    document.getElementById('editMotoImg').value = m.img || '';
+    document.getElementById('editMotoIsActive').checked = (m.is_active === 1 || m.is_active === true || m.is_active === '1');
+  } else {
+    title.textContent = 'Добавить новый мотопроект';
+    if (form) form.reset();
+    document.getElementById('editMotoId').value = '';
+    document.getElementById('editMotoSortOrder').value = 0;
+    document.getElementById('editMotoImg').value = 'assets/photos/partners_banner.png';
+    document.getElementById('editMotoIsActive').checked = true;
+  }
+}
+
+function closeMotoModal() {
+  const modal = document.getElementById('motoModal');
+  if (modal) modal.style.display = 'none';
+}
+
+async function saveMoto(e) {
+  if (e) e.preventDefault();
+  const id = document.getElementById('editMotoId').value;
+  const title = document.getElementById('editMotoTitle').value.trim();
+  const code = document.getElementById('editMotoCode').value.trim();
+  const sortOrder = parseInt(document.getElementById('editMotoSortOrder').value || 0);
+  const desc = document.getElementById('editMotoDesc').value.trim();
+  const bullets = document.getElementById('editMotoBullets').value.trim();
+  const img = document.getElementById('editMotoImg').value.trim();
+  const isActive = document.getElementById('editMotoIsActive').checked ? 1 : 0;
+
+  if (!title || !code) {
+    showToast('Ошибка', 'Укажите название и код мотопроекта', 'error');
+    return;
+  }
+
+  const motoList = getDB(MOTO_STORAGE_KEY, defaultMoto);
+  let payload;
+
+  if (id) {
+    const existingIdx = motoList.findIndex(m => m.id === id);
+    payload = {
+      id,
+      title,
+      code,
+      desc,
+      bullets,
+      img,
+      sort_order: sortOrder,
+      is_active: isActive
+    };
+    if (existingIdx !== -1) {
+      motoList[existingIdx] = payload;
+    } else {
+      motoList.push(payload);
+    }
+  } else {
+    const newId = 'moto_' + Date.now();
+    payload = {
+      id: newId,
+      title,
+      code,
+      desc,
+      bullets,
+      img,
+      sort_order: sortOrder || motoList.length + 1,
+      is_active: isActive
+    };
+    motoList.push(payload);
+  }
+
+  saveDB(MOTO_STORAGE_KEY, motoList);
+  renderMotoTable();
+  closeMotoModal();
+
+  if (window.BroadcastChannel) {
+    try {
+      const ch = new BroadcastChannel('gtt_channel');
+      ch.postMessage({ type: 'moto_updated', moto: motoList });
+    } catch (bcErr) {}
+  }
+
+  try {
+    const method = id ? 'PUT' : 'POST';
+    const url = id ? `/api/moto/${id}` : '/api/moto';
+    const res = await apiFetch(url, {
+      method,
+      body: JSON.stringify(payload)
+    });
+    if (res.ok) {
+      showToast('Успешно', `Мотопроект "${title}" сохранен в БД`, 'success');
+      addAuditNotification('updated', `Мотопроект: ${title} (${code})`);
+    }
+  } catch (err) {
+    showToast('Сохранено локально', 'Синхронизация с сервером будет повторена позже', 'warning');
+  }
+}
+
+async function deleteMoto(id) {
+  if (!confirm('Вы уверены, что хотите удалить этот мотопроект?')) return;
+  const motoList = getDB(MOTO_STORAGE_KEY, defaultMoto);
+  const m = motoList.find(item => item.id === id);
+  const title = m ? m.title : id;
+  const filtered = motoList.filter(item => item.id !== id);
+  saveDB(MOTO_STORAGE_KEY, filtered);
+  renderMotoTable();
+
+  if (window.BroadcastChannel) {
+    try {
+      const ch = new BroadcastChannel('gtt_channel');
+      ch.postMessage({ type: 'moto_updated', moto: filtered });
+    } catch (bcErr) {}
+  }
+
+  try {
+    const res = await apiFetch(`/api/moto/${id}`, { method: 'DELETE' });
+    if (res.ok) {
+      showToast('Удалено', `Мотопроект "${title}" удален из базы данных`, 'info');
+      addAuditNotification('removed', `Удален мотопроект: ${title}`);
+    }
+  } catch (err) {
+    showToast('Удалено локально', 'Удалено из памяти браузера', 'warning');
+  }
+}
+
+// Moto module exports
+window.renderMotoTable = renderMotoTable;
+window.openMotoModal = openMotoModal;
+window.closeMotoModal = closeMotoModal;
+window.saveMoto = saveMoto;
+window.deleteMoto = deleteMoto;
 
 document.addEventListener('DOMContentLoaded', checkAuth);
 
