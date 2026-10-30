@@ -4577,7 +4577,16 @@ function handlePartnerLogoSelected(event) {
   const file = event.target.files[0];
   if (!file) return;
   const input = document.getElementById('editPartnerLogo');
-  if (input) input.value = 'assets/photos/' + file.name;
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    let base64 = e.target.result;
+    try {
+      base64 = await compressImageClientSide(base64, 400, 300, 0.85);
+    } catch (err) {}
+    if (input) input.value = base64;
+    showToast('Логотип загружен', `Файл «${file.name}» оптимизирован для витрины`, 'success');
+  };
+  reader.readAsDataURL(file);
 }
 
 async function savePartner(e) {

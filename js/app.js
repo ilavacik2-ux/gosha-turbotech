@@ -1988,12 +1988,19 @@ function renderPartnersGrid(partners) {
     const category = escapeHtml(p.category || 'Партнер GTT');
     const desc = escapeHtml(p.desc || '');
     const link = p.link && p.link !== '#' ? escapeHtml(p.link) : '';
+    const hasCustomLogo = p.logo && p.logo !== 'assets/photos/partners_banner.png' && p.logo.trim() !== '';
+    const logoHtml = hasCustomLogo
+      ? `<img src="${escapeHtml(p.logo)}" alt="${name}" class="partner-card-logo-img" onerror="this.style.display='none'">`
+      : `<span class="partner-monogram-badge">${name.slice(0, 2).toUpperCase()}</span>`;
     
     return `
       <div class="partner-card" data-partner-id="${escapeHtml(p.id || '')}">
         <div>
           <div class="partner-card-header">
-            <h3 class="partner-card-name">${name}</h3>
+            <div class="partner-logo-wrap">
+              ${logoHtml}
+              <h3 class="partner-card-name">${name}</h3>
+            </div>
             <span class="partner-card-category">${category}</span>
           </div>
           <p class="partner-card-desc">${desc}</p>
