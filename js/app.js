@@ -24,7 +24,7 @@ let gttProjects = [
       "en": "Russia Audi Record 7.877s"
     },
     "img": "assets/cars/audi_r8_tsmr_launch.jpg",
-    "fallbackImg": "https://static.tildacdn.com/tild3162-3462-4064-b931-313636663133/audi_r8-min.png",
+    "fallbackImg": "assets/archive_tilda/audi_r8_tonystark.png",
     "isPhoto": true,
     "objectPosition": "center 75%",
     "videoSrc": "assets/videos/gtr_launch_pass.mp4",
@@ -60,7 +60,7 @@ let gttProjects = [
       "ru": "Рекорд трек-дня 7.766s",
       "en": "Track-Day Record 7.766s"
     },
-    "img": "https://static.tildacdn.com/tild3032-3266-4139-a563-653561393961/gtr-min.png",
+    "img": "assets/archive_tilda/gtr_kurdalagon.png",
     "fallbackImg": "assets/cars/gtr_red_front_rdrc.jpg",
     "isPhoto": false,
     "desc": {
@@ -204,7 +204,7 @@ let gttProjects = [
       "ru": "Рекорд RDRC 992 • 9.167s",
       "en": "RDRC 992 Record • 9.167s"
     },
-    "img": "https://static.tildacdn.com/tild6539-3534-4834-b938-323035363066/7R204787_.jpg",
+    "img": "assets/archive_tilda/porsche_992_imba.jpg",
     "fallbackImg": "assets/cars/gtr_rdrc_red_panamera.jpg",
     "isPhoto": true,
     "objectPosition": "center 55%",
@@ -350,7 +350,7 @@ let gttProjects = [
       "en": "R8 «ZlayaZaya» GTT"
     },
     "img": "assets/cars/audi_r8_tsmr_launch.jpg",
-    "fallbackImg": "https://static.tildacdn.com/tild3162-3462-4064-b931-313636663133/audi_r8-min.png",
+    "fallbackImg": "assets/archive_tilda/audi_r8_tonystark.png",
     "isPhoto": true,
     "objectPosition": "center 70%",
     "videoSrc": "",
@@ -385,7 +385,7 @@ let gttProjects = [
       "ru": "Tony Stark 1400+ HP",
       "en": "Tony Stark 1400+ HP"
     },
-    "img": "https://static.tildacdn.com/tild3162-3462-4064-b931-313636663133/audi_r8-min.png",
+    "img": "assets/archive_tilda/audi_r8_tonystark.png",
     "fallbackImg": "assets/cars/audi_r8_tsmr_launch.jpg",
     "isPhoto": false,
     "objectPosition": "center center",
@@ -493,7 +493,7 @@ let gttProjects = [
       "ru": "Spyder GTT-800",
       "en": "Spyder GTT-800"
     },
-    "img": "https://static.tildacdn.com/tild3732-3733-4537-b636-393237373362/IMG_9941-min.png",
+    "img": "assets/archive_tilda/porsche_991_gtt1200.jpg",
     "fallbackImg": "assets/cars/huracan_green_bezzubik_side.jpg",
     "isPhoto": false,
     "objectPosition": "center center",
@@ -528,7 +528,7 @@ let gttProjects = [
       "ru": "Легендарный Moses #712",
       "en": "Legendary Moses #712"
     },
-    "img": "https://static.tildacdn.com/tild3834-3466-4637-b632-636439343565/GTR-MOSES-min.png",
+    "img": "assets/archive_tilda/gtr_moses.png",
     "fallbackImg": "assets/cars/gtr_draco_connections.jpg",
     "isPhoto": false,
     "desc": {
@@ -563,7 +563,7 @@ let gttProjects = [
       "ru": "Рекорд России 334 км/ч",
       "en": "Russian Record 334 km/h"
     },
-    "img": "https://static.tildacdn.com/tild3365-3636-4135-b136-623937643037/korzhik2-min.png",
+    "img": "assets/archive_tilda/gtr_korzhik.png",
     "fallbackImg": "assets/cars/gtr_red_chrome_rdrc.jpg",
     "isPhoto": false,
     "desc": {
@@ -810,7 +810,7 @@ let gttProjects = [
       "ru": "991.1 GTT-1200",
       "en": "991.1 GTT-1200"
     },
-    "img": "https://static.tildacdn.com/tild3537-3330-4137-a166-303730623266/IMG_9940-min.png",
+    "img": "assets/archive_tilda/porsche_991_gtt1200.jpg",
     "fallbackImg": "assets/cars/gtr_rdrc_red_panamera.jpg",
     "isPhoto": false,
     "objectPosition": "center center",
@@ -846,7 +846,7 @@ let gttProjects = [
       "en": "Felix Ferro Edition"
     },
     "img": "assets/cars/gtr_rdrc_red_panamera.jpg",
-    "fallbackImg": "https://static.tildacdn.com/tild6539-3534-4834-b938-323035363066/7R204787_.jpg",
+    "fallbackImg": "assets/archive_tilda/porsche_992_imba.jpg",
     "isPhoto": true,
     "objectPosition": "center center",
     "desc": {
@@ -880,7 +880,7 @@ let gttProjects = [
       "ru": "GTT-900 Stage 2+",
       "en": "GTT-900 Stage 2+"
     },
-    "img": "https://static.tildacdn.com/tild6238-6431-4433-a262-383434366339/7R8205127.jpg",
+    "img": "assets/archive_tilda/porsche_992_puncher.jpg",
     "fallbackImg": "assets/cars/gtr_rdrc_red_panamera.jpg",
     "isPhoto": true,
     "objectPosition": "center 50%",
@@ -915,7 +915,7 @@ let gttProjects = [
       "ru": "Puncher 992 GTT",
       "en": "Puncher 992 GTT"
     },
-    "img": "https://static.tildacdn.com/tild6238-6431-4433-a262-383434366339/7R8205127.jpg",
+    "img": "assets/archive_tilda/porsche_992_puncher.jpg",
     "fallbackImg": "assets/cars/gtr_rdrc_red_panamera.jpg",
     "isPhoto": true,
     "objectPosition": "center 50%",
@@ -1235,7 +1235,7 @@ let gttProjects = [
       "ru": "Рекорд льда Байкала",
       "en": "Baikal Ice Record"
     },
-    "img": "https://static.tildacdn.com/tild6631-3236-4965-a162-626231376136/maxresdefault.jpg",
+    "img": "assets/archive_tilda/audi_r8_gyurza_ice.jpg",
     "fallbackImg": "assets/cars/audi_r8_tsmr_launch.jpg",
     "isPhoto": true,
     "objectPosition": "center 60%",
@@ -1729,6 +1729,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initFounderGestures();
   initRecordsCarousel();
   initMobileStickyBar();
+  initBackToTopButton();
   initTelemetryCounters();
 });
 
@@ -1877,21 +1878,21 @@ function updateFilterPillsCounts() {
 
 // Pre-configured official team assets & photos map
 const defaultTeamPhotos = {
-  m1: { photo: 'https://static.tildacdn.com/tild3630-6231-4439-b763-373662653964/ncse4W-BrwAKR5pHQvkX.jpg', social: '@goshaturbotech' },
-  m2: { photo: 'https://static.tildacdn.com/tild6237-6430-4338-a236-626231306234/photo.jpg', social: '@vip.hay' },
-  m3: { photo: 'https://static.tildacdn.com/tild6538-3832-4431-b761-636265323064/896A0858.jpg', social: '' },
-  m4: { photo: 'https://static.tildacdn.com/tild3132-6639-4537-b432-323633653738/7R209573.jpg', social: '@_zm_zima_' },
-  m5: { photo: 'https://static.tildacdn.com/tild3933-6664-4738-b164-626565346535/7R203219.jpg', social: '' },
-  m6: { photo: 'https://static.tildacdn.com/tild3561-3862-4562-b734-363034623936/photo.jpg', social: '' },
-  m7: { photo: 'https://static.tildacdn.com/tild6263-3266-4433-b264-626239376166/7R209460.jpg', social: '' },
-  m8: { photo: 'https://static.tildacdn.com/tild3965-3435-4135-b437-386634613361/7R203125_2.jpg', social: '' },
-  m9: { photo: 'https://static.tildacdn.com/tild3737-3661-4365-b831-383634343036/7R203122_2.jpg', social: '' },
-  m10: { photo: 'https://static.tildacdn.com/tild6639-3931-4563-a462-303263313765/7R209470.jpg', social: '' },
-  m11: { photo: 'https://static.tildacdn.com/tild6464-3435-4433-b162-616263636632/7R209475.jpg', social: '' },
-  m12: { photo: 'https://static.tildacdn.com/tild3632-6234-4637-b431-653731376638/7R200607.jpg', social: '' },
-  m13: { photo: 'https://static.tildacdn.com/tild6166-6166-4539-b731-363937393131/7R200882.jpg', social: '' },
-  m14: { photo: 'https://static.tildacdn.com/tild6537-6137-4239-a630-323765383839/7R201446.jpg', social: '' },
-  m15: { photo: 'https://static.tildacdn.com/tild3961-3566-4536-b334-636632383732/7R201128.jpg', social: '' }
+  m1: { photo: 'assets/archive_tilda/team_gosha.jpg', social: '@goshaturbotech' },
+  m2: { photo: 'assets/archive_tilda/team_edik.jpg', social: '@vip.hay' },
+  m3: { photo: 'assets/archive_tilda/team_dmitry.jpg', social: '' },
+  m4: { photo: 'assets/archive_tilda/team_maria.jpg', social: '@_zm_zima_' },
+  m5: { photo: 'assets/archive_tilda/team_pavel.jpg', social: '' },
+  m6: { photo: 'assets/archive_tilda/team_georgy.jpg', social: '' },
+  m7: { photo: 'assets/archive_tilda/team_rustam.jpg', social: '' },
+  m8: { photo: 'assets/archive_tilda/team_nikita.jpg', social: '' },
+  m9: { photo: 'assets/archive_tilda/team_ivan.jpg', social: '' },
+  m10: { photo: 'assets/archive_tilda/team_alexey_paddock.jpg', social: '' },
+  m11: { photo: 'assets/archive_tilda/team_fazik.jpg', social: '' },
+  m12: { photo: 'assets/archive_tilda/team_stepan.jpg', social: '' },
+  m13: { photo: 'assets/archive_tilda/team_alexey_mech.jpg', social: '' },
+  m14: { photo: 'assets/archive_tilda/team_roman.jpg', social: '' },
+  m15: { photo: 'assets/archive_tilda/team_evgeny.jpg', social: '' }
 };
 
 let cachedTeamData = null;
@@ -2460,7 +2461,7 @@ const defaultRecords = [
     car: 'NISSAN GT-R R35 GTT-1800 «MOSES»',
     telemetry: '1/4 мили: 7.526 сек • 304.36 км/ч',
     desc: 'Легендарные тесты в ОАЭ и UNLIM 500+ Greece. 7.526 сек со скоростью 304.36 км/ч — быстрейший результат на 402 м за всю историю ателье GoshaTurboTech.',
-    img: 'https://static.tildacdn.com/tild3834-3466-4637-b632-636439343565/GTR-MOSES-min.png'
+    img: 'assets/archive_tilda/gtr_moses.png'
   },
   {
     id: 'rec_draco',
@@ -2476,7 +2477,7 @@ const defaultRecords = [
     car: 'NISSAN GT-R R35 «КУРДАЛАГОН»',
     telemetry: '1/4 мили: 7.766 сек • 300.00 км/ч',
     desc: 'Свежайший подтвержденный рекорд команды GoshaTurboTech, зафиксированный на трек-дне в Быково в конце октября 2026 года.',
-    img: 'https://static.tildacdn.com/tild3032-3266-4139-a563-653561393961/gtr-min.png'
+    img: 'assets/archive_tilda/gtr_kurdalagon.png'
   },
   {
     id: 'rec_rokot',
@@ -2516,7 +2517,7 @@ const defaultRecords = [
     car: 'NISSAN GT-R R35 GTT «KORZHIK» #712',
     telemetry: '1/2 мили: 13.435 сек • 334.41 км/ч',
     desc: 'Пилот Николай Коржов. 8.602 сек на 402 м и официальный рекорд России на 1/2 мили — 13.435 сек со скоростью 334.41 км/ч.',
-    img: 'https://static.tildacdn.com/tild3365-3636-4135-b136-623937643037/korzhik2-min.png'
+    img: 'assets/archive_tilda/gtr_korzhik.png'
   },
   {
     id: 'rec_hulk',
@@ -2532,7 +2533,7 @@ const defaultRecords = [
     car: 'AUDI R8 V10 PLUS TT «TONY STARK»',
     telemetry: '1/4 мили: 8.948 сек • 247.68 км/ч',
     desc: 'Стабильный выезд из 9 секунд на трек-днях Record Days (8.948 сек) и 15.403 сек со скоростью 287.19 км/ч на 1/2 мили.',
-    img: 'https://static.tildacdn.com/tild3162-3462-4064-b931-313636663133/audi_r8-min.png'
+    img: 'assets/archive_tilda/audi_r8_tonystark.png'
   },
   {
     id: 'rec_gtt1200',
@@ -2540,7 +2541,7 @@ const defaultRecords = [
     car: 'PORSCHE 911 TURBO (991.1) GTT-1200',
     telemetry: '1/4 мили: 9.086 сек • 259.64 км/ч',
     desc: 'Пилот Алексей Сагал. Рекорд России и Европы для кузова 991.1 (9.086 с), скорость на 1/2 мили — 312.77 км/ч.',
-    img: 'https://static.tildacdn.com/tild3537-3330-4137-a166-303730623266/IMG_9940-min.png'
+    img: 'assets/archive_tilda/porsche_991_gtt1200.jpg'
   },
   {
     id: 'rec_su7',
@@ -2556,7 +2557,7 @@ const defaultRecords = [
     car: 'PORSCHE 911 TURBO S (992) GTT-IMBA',
     telemetry: '1/4 мили: 9.167 сек • RDRC 2025',
     desc: 'Пилот Мария Кутычкина. Мировой рекорд 9.252 сек со скоростью 231.80 км/ч на заводских турбинах, улучшенный на RDRC 2025 до 9.167 сек.',
-    img: 'https://static.tildacdn.com/tild6539-3534-4834-b938-323035363066/7R204787_.jpg'
+    img: 'assets/archive_tilda/porsche_992_imba.jpg'
   },
   {
     id: 'rec_puncher',
@@ -2564,7 +2565,7 @@ const defaultRecords = [
     car: 'PORSCHE 911 TURBO S (992) PUNCHER',
     telemetry: '1/4 мили: 9.303 сек • 235.83 км/ч',
     desc: 'Мировой ориентир для дорожных Porsche 992 на Unlim Fest (9.303 сек) и 1/2 мили за 14.778 сек со скоростью 276.92 км/ч.',
-    img: 'https://static.tildacdn.com/tild6238-6431-4433-a262-383434366339/7R8205127.jpg'
+    img: 'assets/archive_tilda/porsche_992_puncher.jpg'
   },
   {
     id: 'rec_gyurza',
@@ -2572,7 +2573,7 @@ const defaultRecords = [
     car: 'AUDI R8 V10 PLUS TT «GYURZA»',
     telemetry: '1 км с места на льду: 124.00 км/ч',
     desc: 'Дни скорости на льду озера Байкал совместно с Kiwamaru. Абсолютный триумфатор ледовых заездов с места в истории России.',
-    img: 'https://static.tildacdn.com/tild6631-3236-4965-a162-626231376136/maxresdefault.jpg'
+    img: 'assets/archive_tilda/audi_r8_gyurza_ice.jpg'
   },
   {
     id: 'rec_gallardo',
@@ -4762,6 +4763,60 @@ function initMobileStickyBar() {
       observer.observe(el, { attributes: true, attributeFilter: ['class'] });
     }
   });
+}
+
+/* ==========================================================================
+   FLOATING BACK TO TOP BUTTON WITH CIRCULAR SCROLL PROGRESS INDICATOR
+   ========================================================================== */
+function initBackToTopButton() {
+  const btn = document.getElementById('backToTopBtn');
+  const progressFill = document.getElementById('progressRingFill');
+  if (!btn || !progressFill) return;
+
+  const circumference = 2 * Math.PI * 20; // r=20 -> 125.66px
+  progressFill.style.strokeDasharray = `${circumference} ${circumference}`;
+  progressFill.style.strokeDashoffset = `${circumference}`;
+
+  function updateScrollProgress() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    
+    // Toggle visibility: show when user scrolls beyond 320px
+    if (scrollTop > 320) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+
+    // Update circular progress ring
+    if (scrollHeight > 0) {
+      const scrollPercent = Math.min(Math.max(scrollTop / scrollHeight, 0), 1);
+      const offset = circumference - (scrollPercent * circumference);
+      progressFill.style.strokeDashoffset = `${offset}`;
+    }
+  }
+
+  let isTicking = false;
+  window.addEventListener('scroll', () => {
+    if (!isTicking) {
+      requestAnimationFrame(() => {
+        updateScrollProgress();
+        isTicking = false;
+      });
+      isTicking = true;
+    }
+  }, { passive: true });
+
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+  // Initial check on load
+  updateScrollProgress();
 }
 
 /* ==========================================================================

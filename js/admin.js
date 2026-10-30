@@ -93,7 +93,7 @@ const defaultProjects = [
     "hp": "1,650+ HP",
     "quarterMile": "7.766 сек",
     "topSpeed": "300.00 км/ч",
-    "img": "https://static.tildacdn.com/tild3032-3266-4139-a563-653561393961/gtr-min.png",
+    "img": "assets/archive_tilda/gtr_kurdalagon.png",
     "descRu": "Боевой болид Nissan GT-R R35 «Курдалагон» — имя древнего осетинского бога-кузнеца. 26 октября 2026 года на трек-дне в Быково установил новый личный рекорд команды: 7.766 сек на 402 метра со скоростью на выходе 300.00 км/ч."
   },
   {
@@ -144,7 +144,7 @@ const defaultProjects = [
     "hp": "1,050+ HP",
     "quarterMile": "9.167 сек",
     "topSpeed": "345+ км/ч",
-    "img": "https://static.tildacdn.com/tild6539-3534-4834-b938-323035363066/7R204787_.jpg",
+    "img": "assets/archive_tilda/porsche_992_imba.jpg",
     "videoSrc": "",
     "descRu": "Официальный рекордсмен RDRC среди Porsche поколения 992 под управлением Марии Кутычкиной. Подтвержденное время 9.167 сек со скоростью 236.92 км/ч на 1/4 мили (RDRC 2025, заезд 528). Кастомный интеркулер GTT и метаноловый впрыск."
   },
@@ -209,7 +209,7 @@ const defaultProjects = [
     "hp": "1,400+ HP",
     "quarterMile": "8.948 сек",
     "topSpeed": "350+ км/ч",
-    "img": "https://static.tildacdn.com/tild3162-3462-4064-b931-313636663133/audi_r8-min.png",
+    "img": "assets/archive_tilda/audi_r8_tonystark.png",
     "videoSrc": "",
     "descRu": "Боевая Audi R8 V10 Twin Turbo под эгидой ЦМРБанк и GTT на треке RDRC. Официальное время 8.948 сек со скоростью 247.68 км/ч на Record Days 2023 и 287.19 км/ч на 1/2 мили."
   },
@@ -248,7 +248,7 @@ const defaultProjects = [
     "hp": "850+ HP",
     "quarterMile": "9.988 сек",
     "topSpeed": "335+ км/ч",
-    "img": "https://static.tildacdn.com/tild3732-3733-4537-b636-393237373362/IMG_9941-min.png",
+    "img": "assets/archive_tilda/porsche_991_gtt1200.jpg",
     "videoSrc": "",
     "descRu": "Открытый родстер Huracan Spyder с доработанной выхлопной трассой Inconel и пакетом GTT Stage 2. Официальное 2-е место на Чемпионате ПФО с результатом 9.988 сек на 402 метра."
   },
@@ -261,7 +261,7 @@ const defaultProjects = [
     "hp": "1,800+ HP",
     "quarterMile": "7.526 сек",
     "topSpeed": "360+ км/ч",
-    "img": "https://static.tildacdn.com/tild3834-3466-4637-b632-636439343565/GTR-MOSES-min.png",
+    "img": "assets/archive_tilda/gtr_moses.png",
     "videoSrc": "",
     "descRu": "Культовый белый Nissan GT-R R35 «MOSES» борт №712. Европейский рекорд времени на Unlim 500+ Greece (остров Крит) — 7.810 сек / 287.65 км/ч и личный рекорд 7.526 сек со скоростью 304.36 км/ч в ОАЭ. 3-й результат в мире на момент постройки."
   },
@@ -274,7 +274,7 @@ const defaultProjects = [
     "hp": "1,600+ HP",
     "quarterMile": "8.602 сек",
     "topSpeed": "334.41 км/ч",
-    "img": "https://static.tildacdn.com/tild3365-3636-4135-b136-623937643037/korzhik2-min.png",
+    "img": "assets/archive_tilda/gtr_korzhik.png",
     "videoSrc": "",
     "descRu": "Боевой болид Николая Коржова. Рекорд России на Московской миле (1/2 мили: 13.435 сек со скоростью 334.41 км/ч) и 8.602 сек на 402 метра. Вице-чемпион абсолютного зачета Чемпионата SMP RDRC в классе FSL."
   },
@@ -365,7 +365,7 @@ const defaultProjects = [
     "hp": "1,200+ HP",
     "quarterMile": "9.086 сек",
     "topSpeed": "312.77 км/ч",
-    "img": "https://static.tildacdn.com/tild3537-3330-4137-a166-303730623266/IMG_9940-min.png",
+    "img": "assets/archive_tilda/porsche_991_gtt1200.jpg",
     "videoSrc": "",
     "descRu": "Безумный 991.1 Turbo Алексея Сагала. Официальный рекорд России/Европы на RDRC RacePark: 9.086 сек со скоростью 259.64 км/ч на 402 м и 14.186 сек со скоростью 312.77 км/ч на 1/2 мили."
   },
@@ -391,7 +391,7 @@ const defaultProjects = [
     "hp": "900+ HP",
     "quarterMile": "9.450 сек",
     "topSpeed": "335+ км/ч",
-    "img": "https://static.tildacdn.com/tild6238-6431-4433-a262-383434366339/7R8205127.jpg",
+    "img": "assets/archive_tilda/porsche_992_puncher.jpg",
     "videoSrc": "",
     "descRu": "Идеальный баланс повседневного суперкара и рекордного темпа. 900 сил на товарном 100-м бензине с ресурсом заводского мотора."
   },
@@ -404,7 +404,7 @@ const defaultProjects = [
     "hp": "1,000+ HP",
     "quarterMile": "9.303 сек",
     "topSpeed": "276.92 км/ч",
-    "img": "https://static.tildacdn.com/tild6238-6431-4433-a262-383434366339/7R8205127.jpg",
+    "img": "assets/archive_tilda/porsche_992_puncher.jpg",
     "videoSrc": "",
     "descRu": "Культовый Porsche 992 Turbo S «Puncher» Сергея Никитина. Мировой рекорд в категории на UNLIM FEST 2021: 9.303 сек со скоростью 235.83 км/ч на 1/4 мили и 14.778 сек со скоростью 276.92 км/ч на 1/2 мили."
   },
@@ -521,7 +521,7 @@ const defaultProjects = [
     "hp": "1,350+ HP",
     "quarterMile": "9.100 сек",
     "topSpeed": "345+ км/ч",
-    "img": "https://static.tildacdn.com/tild6631-3236-4965-a162-626231376136/maxresdefault.jpg",
+    "img": "assets/archive_tilda/audi_r8_gyurza_ice.jpg",
     "videoSrc": "",
     "descRu": "Подготовленный в лаборатории GTT совместно с Kiwamaru болид Audi R8 V10 Plus Twin Turbo «Гюрза». Официальный рекорд России на Днях скорости на льду озера Байкал: средняя скорость 124 км/ч на дистанции 1 км с места по голому льду."
   }
@@ -529,21 +529,21 @@ const defaultProjects = [
 
 // 2. Initial Team Seed (15 Members with high-res photos)
 const defaultTeamPhotos = {
-  m1: 'https://static.tildacdn.com/tild3630-6231-4439-b763-373662653964/ncse4W-BrwAKR5pHQvkX.jpg',
-  m2: 'https://static.tildacdn.com/tild6237-6430-4338-a236-626231306234/photo.jpg',
-  m3: 'https://static.tildacdn.com/tild6538-3832-4431-b761-636265323064/896A0858.jpg',
-  m4: 'https://static.tildacdn.com/tild3132-6639-4537-b432-323633653738/7R209573.jpg',
-  m5: 'https://static.tildacdn.com/tild3933-6664-4738-b164-626565346535/7R203219.jpg',
-  m6: 'https://static.tildacdn.com/tild3561-3862-4562-b734-363034623936/photo.jpg',
-  m7: 'https://static.tildacdn.com/tild6263-3266-4433-b264-626239376166/7R209460.jpg',
-  m8: 'https://static.tildacdn.com/tild3965-3435-4135-b437-386634613361/7R203125_2.jpg',
-  m9: 'https://static.tildacdn.com/tild3737-3661-4365-b831-383634343036/7R203122_2.jpg',
-  m10: 'https://static.tildacdn.com/tild6639-3931-4563-a462-303263313765/7R209470.jpg',
-  m11: 'https://static.tildacdn.com/tild6464-3435-4433-b162-616263636632/7R209475.jpg',
-  m12: 'https://static.tildacdn.com/tild3632-6234-4637-b431-653731376638/7R200607.jpg',
-  m13: 'https://static.tildacdn.com/tild6166-6166-4539-b731-363937393131/7R200882.jpg',
-  m14: 'https://static.tildacdn.com/tild6537-6137-4239-a630-323765383839/7R201446.jpg',
-  m15: 'https://static.tildacdn.com/tild3961-3566-4536-b334-636632383732/7R201128.jpg'
+  m1: 'assets/archive_tilda/team_gosha.jpg',
+  m2: 'assets/archive_tilda/team_edik.jpg',
+  m3: 'assets/archive_tilda/team_dmitry.jpg',
+  m4: 'assets/archive_tilda/team_maria.jpg',
+  m5: 'assets/archive_tilda/team_pavel.jpg',
+  m6: 'assets/archive_tilda/team_georgy.jpg',
+  m7: 'assets/archive_tilda/team_rustam.jpg',
+  m8: 'assets/archive_tilda/team_nikita.jpg',
+  m9: 'assets/archive_tilda/team_ivan.jpg',
+  m10: 'assets/archive_tilda/team_alexey_paddock.jpg',
+  m11: 'assets/archive_tilda/team_fazik.jpg',
+  m12: 'assets/archive_tilda/team_stepan.jpg',
+  m13: 'assets/archive_tilda/team_alexey_mech.jpg',
+  m14: 'assets/archive_tilda/team_roman.jpg',
+  m15: 'assets/archive_tilda/team_evgeny.jpg'
 };
 
 const defaultTeam = [
@@ -572,7 +572,7 @@ const defaultRecords = [
     car: 'NISSAN GT-R R35 GTT-1800 «MOSES»',
     telemetry: '1/4 мили: 7.526 сек • 304.36 км/ч',
     desc: 'Легендарные тесты в ОАЭ и UNLIM 500+ Greece. 7.526 сек со скоростью 304.36 км/ч — быстрейший результат на 402 м за всю историю ателье GoshaTurboTech.',
-    img: 'https://static.tildacdn.com/tild3834-3466-4637-b632-636439343565/GTR-MOSES-min.png'
+    img: 'assets/archive_tilda/gtr_moses.png'
   },
   {
     id: 'rec_draco',
@@ -588,7 +588,7 @@ const defaultRecords = [
     car: 'NISSAN GT-R R35 «КУРДАЛАГОН»',
     telemetry: '1/4 мили: 7.766 сек • 300.00 км/ч',
     desc: 'Свежайший подтвержденный рекорд команды GoshaTurboTech, зафиксированный на трек-дне в Быково в конце октября 2026 года.',
-    img: 'https://static.tildacdn.com/tild3032-3266-4139-a563-653561393961/gtr-min.png'
+    img: 'assets/archive_tilda/gtr_kurdalagon.png'
   },
   {
     id: 'rec_rokot',
@@ -628,7 +628,7 @@ const defaultRecords = [
     car: 'NISSAN GT-R R35 GTT «KORZHIK» #712',
     telemetry: '1/2 мили: 13.435 сек • 334.41 км/ч',
     desc: 'Пилот Николай Коржов. 8.602 сек на 402 м и официальный рекорд России на 1/2 мили — 13.435 сек со скоростью 334.41 км/ч.',
-    img: 'https://static.tildacdn.com/tild3365-3636-4135-b136-623937643037/korzhik2-min.png'
+    img: 'assets/archive_tilda/gtr_korzhik.png'
   },
   {
     id: 'rec_hulk',
@@ -644,7 +644,7 @@ const defaultRecords = [
     car: 'AUDI R8 V10 PLUS TT «TONY STARK»',
     telemetry: '1/4 мили: 8.948 сек • 247.68 км/ч',
     desc: 'Стабильный выезд из 9 секунд на трек-днях Record Days (8.948 сек) и 15.403 сек со скоростью 287.19 км/ч на 1/2 мили.',
-    img: 'https://static.tildacdn.com/tild3162-3462-4064-b931-313636663133/audi_r8-min.png'
+    img: 'assets/archive_tilda/audi_r8_tonystark.png'
   },
   {
     id: 'rec_gtt1200',
@@ -652,7 +652,7 @@ const defaultRecords = [
     car: 'PORSCHE 911 TURBO (991.1) GTT-1200',
     telemetry: '1/4 мили: 9.086 сек • 259.64 км/ч',
     desc: 'Пилот Алексей Сагал. Рекорд России и Европы для кузова 991.1 (9.086 с), скорость на 1/2 мили — 312.77 км/ч.',
-    img: 'https://static.tildacdn.com/tild3537-3330-4137-a166-303730623266/IMG_9940-min.png'
+    img: 'assets/archive_tilda/porsche_991_gtt1200.jpg'
   },
   {
     id: 'rec_su7',
@@ -668,7 +668,7 @@ const defaultRecords = [
     car: 'PORSCHE 911 TURBO S (992) GTT-IMBA',
     telemetry: '1/4 мили: 9.167 сек • RDRC 2025',
     desc: 'Пилот Мария Кутычкина. Мировой рекорд 9.252 сек со скоростью 231.80 км/ч на заводских турбинах, улучшенный на RDRC 2025 до 9.167 сек.',
-    img: 'https://static.tildacdn.com/tild6539-3534-4834-b938-323035363066/7R204787_.jpg'
+    img: 'assets/archive_tilda/porsche_992_imba.jpg'
   },
   {
     id: 'rec_puncher',
@@ -676,7 +676,7 @@ const defaultRecords = [
     car: 'PORSCHE 911 TURBO S (992) PUNCHER',
     telemetry: '1/4 мили: 9.303 сек • 235.83 км/ч',
     desc: 'Мировой ориентир для дорожных Porsche 992 на Unlim Fest (9.303 сек) и 1/2 мили за 14.778 сек со скоростью 276.92 км/ч.',
-    img: 'https://static.tildacdn.com/tild6238-6431-4433-a262-383434366339/7R8205127.jpg'
+    img: 'assets/archive_tilda/porsche_992_puncher.jpg'
   },
   {
     id: 'rec_gyurza',
@@ -684,7 +684,7 @@ const defaultRecords = [
     car: 'AUDI R8 V10 PLUS TT «GYURZA»',
     telemetry: '1 км с места на льду: 124.00 км/ч',
     desc: 'Дни скорости на льду озера Байкал совместно с Kiwamaru. Абсолютный триумфатор ледовых заездов с места в истории России.',
-    img: 'https://static.tildacdn.com/tild6631-3236-4965-a162-626231376136/maxresdefault.jpg'
+    img: 'assets/archive_tilda/audi_r8_gyurza_ice.jpg'
   },
   {
     id: 'rec_gallardo',
