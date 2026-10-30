@@ -3397,6 +3397,10 @@ body.is-loading {
 
 /* Partners Section */
 .partners-section {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
   padding: 80px 6% 100px;
   background: radial-gradient(circle at 50% 30%, rgba(255, 100, 37, 0.04) 0%, transparent 70%), #050608;
   border-top: 1px solid var(--border-subtle);

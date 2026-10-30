@@ -2019,38 +2019,42 @@ function renderPartnersGrid(partners) {
 }
 
 async function syncPartnersFromAPI() {
+  // 0. Render default partners immediately so grid is never blank
+  renderPartnersGrid(defaultPartnersList);
+
   // 1. Instant check from localStorage
   try {
     const local = localStorage.getItem('gtt_admin_partners_db');
     if (local) {
       const parsed = JSON.parse(local);
-      if (Array.isArray(parsed) && parsed.length > 0) {
+      if (Array.isArray(parsed) && parsed.length >= 8) {
         cachedPartnersData = parsed;
         renderPartnersGrid(parsed);
+      } else {
+        cachedPartnersData = defaultPartnersList;
+        localStorage.setItem('gtt_admin_partners_db', JSON.stringify(defaultPartnersList));
+        renderPartnersGrid(defaultPartnersList);
       }
+    } else {
+      cachedPartnersData = defaultPartnersList;
+      localStorage.setItem('gtt_admin_partners_db', JSON.stringify(defaultPartnersList));
+      renderPartnersGrid(defaultPartnersList);
     }
-  } catch (e) {}
+  } catch (e) {
+    renderPartnersGrid(defaultPartnersList);
+  }
 
   // 2. Fetch from backend API
   try {
     const res = await fetch('/api/partners');
-    if (!res.ok) {
-      if (!cachedPartnersData) renderPartnersGrid(defaultPartnersList);
-      return;
-    }
+    if (!res.ok) return;
     const serverPartners = await res.json();
     if (Array.isArray(serverPartners) && serverPartners.length > 0) {
       cachedPartnersData = serverPartners;
       localStorage.setItem('gtt_admin_partners_db', JSON.stringify(serverPartners));
       renderPartnersGrid(serverPartners);
-    } else if (!cachedPartnersData) {
-      renderPartnersGrid(defaultPartnersList);
     }
-  } catch (err) {
-    if (!cachedPartnersData) {
-      renderPartnersGrid(defaultPartnersList);
-    }
-  }
+  } catch (err) {}
 }
 
 const defaultMotoList = [
