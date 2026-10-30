@@ -2718,7 +2718,6 @@ function renderRecordsEditorial(recordsList) {
     const photo = rec.img || defaultRecordImages[rec.id] || 'assets/photos/huracan_rdrc_stage_line.jpg';
     const enMeta = recordTranslationsEn[rec.id] || {};
     const yearText = (currentLang === 'en' && enMeta.year) ? enMeta.year : (rec.year || 'GTT Record');
-    const titleText = (currentLang === 'en' && enMeta.title) ? enMeta.title : (rec.title || rec.desc || rec.car || 'GTT Record');
     const descText = (currentLang === 'en' && enMeta.desc) ? enMeta.desc : (rec.desc || '');
     const carName = rec.car || 'GTT Spec';
     const telemetry = rec.telemetry || '—';
@@ -2732,18 +2731,18 @@ function renderRecordsEditorial(recordsList) {
                class="record-photo-img" 
                loading="lazy"
                onerror="this.src='assets/photos/huracan_rdrc_stage_line.jpg'">
+          <span class="record-year-badge">${yearText}</span>
           <span class="record-index-badge">#${num}</span>
         </div>
         <div class="record-stat-highlight">
           <span class="rsh-badge">⚡ RECORD</span>
           <div class="rsh-content">
             <span class="rsh-metric">${telemetry}</span>
-            <span class="rsh-car">${carName}</span>
+            <span class="rsh-car" style="display: none;">${carName}</span>
           </div>
         </div>
         <div class="record-body">
-          <span class="record-year-badge">${yearText}</span>
-          <h3 class="record-title">${titleText !== carName ? titleText : (rec.year || 'Официальный рекорд RDRC')}</h3>
+          <h3 class="record-title">${carName}</h3>
           <p class="record-text">${descText}</p>
         </div>
       </div>
@@ -2791,7 +2790,7 @@ function updateRecordsCarousel(index, isAuto = false) {
   const activeItem = items[currentRecordSlide];
   if (activeItem) {
     const metricEl = activeItem.querySelector('.rsh-metric');
-    const carEl = activeItem.querySelector('.rsh-car');
+    const carEl = activeItem.querySelector('.record-title') || activeItem.querySelector('.rsh-car');
     const badgeEl = activeItem.querySelector('.record-year-badge');
 
     const hudMetric = document.getElementById('hudRecordMetric');

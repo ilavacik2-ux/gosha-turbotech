@@ -63,71 +63,80 @@
   <div id="dashboardScreen" class="admin-dashboard-container" style="display: none;">
     <!-- Topbar -->
     <header class="admin-topbar">
-      <div class="topbar-left">
-        <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="topbar-shield">
-        <div>
-          <div class="topbar-brand">GOSHA <span>TURBOTECH</span></div>
-          <div class="topbar-status"><span class="status-dot"></span> LIVE ATELIER HUB</div>
-        </div>
-      </div>
-
-      <!-- Navigation Tabs -->
-      <nav class="admin-nav-tabs">
-        <button class="admin-tab-btn active" onclick="switchAdminTab('cars')">🏎️ Гараж проектов</button>
-        <button class="admin-tab-btn" onclick="switchAdminTab('traffic')">📊 Трафик</button>
-        <button class="admin-tab-btn" onclick="switchAdminTab('gallery')">📸 Галерея</button>
-        <button class="admin-tab-btn" onclick="switchAdminTab('team')">👥 Команда</button>
-        <button class="admin-tab-btn" onclick="switchAdminTab('partners')">🤝 Партнеры</button>
-        <button class="admin-tab-btn" onclick="switchAdminTab('moto')">🏍️ Мотоциклы</button>
-        <button class="admin-tab-btn" onclick="switchAdminTab('records')">⏱️ Рекорды</button>
-        <button class="admin-tab-btn" onclick="switchAdminTab('media')">🎥 Медиа</button>
-        <button class="admin-tab-btn" onclick="switchAdminTab('settings')">⚙️ Безопасность</button>
-      </nav>
-
-      <div class="topbar-actions">
-        <div class="admin-user-badge" id="adminUserBadge">
-          <span class="user-status-indicator"></span>
-          <span class="user-welcome-text" id="userWelcomeText">Добро пожаловать // <strong>GTT Atelier Hub</strong></span>
-        </div>
-
-        <!-- Notification Bell & Audit Trail Dropdown -->
-        <div class="admin-bell-wrap" id="adminBellWrap">
-          <button type="button" class="admin-bell-btn" id="adminBellBtn" onclick="toggleAdminNotifications(event)" title="Журнал изменений ателье">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-            </svg>
-            <span class="admin-bell-badge" id="adminBellBadge" style="display: none;">0</span>
-          </button>
-          <div class="admin-notifications-dropdown" id="adminNotificationsDropdown" style="display: none;">
-            <div class="admin-notif-header">
-              <div class="admin-notif-title">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--gtt-orange)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
-                <span>Журнал действий ателье</span>
-                <span class="admin-notif-count-badge" id="adminNotifTotalBadge">0</span>
-              </div>
-              <button type="button" class="admin-notif-clear-btn" onclick="clearAdminNotifications()" title="Очистить историю">Очистить всё</button>
-            </div>
-            <!-- Quick Action Filters: Что убрано, что добавлено, что оставлено -->
-            <div class="admin-notif-filter-bar">
-              <button type="button" class="notif-filter-chip active" data-filter="all" onclick="filterAuditNotifications('all', this)">Все</button>
-              <button type="button" class="notif-filter-chip chip-removed" data-filter="removed" onclick="filterAuditNotifications('removed', this)">🗑️ Убрано</button>
-              <button type="button" class="notif-filter-chip chip-added" data-filter="added" onclick="filterAuditNotifications('added', this)">✨ Добавлено</button>
-              <button type="button" class="notif-filter-chip chip-updated" data-filter="updated" onclick="filterAuditNotifications('updated', this)">✏️ Оставлено</button>
-              <button type="button" class="notif-filter-chip chip-featured" data-filter="featured" onclick="filterAuditNotifications('featured', this)">⚡ ТОП-4</button>
-            </div>
-            <div class="admin-notif-list" id="adminNotifList">
-              <div class="admin-notif-empty">
-                <div style="font-size: 24px; margin-bottom: 6px;">📋</div>
-                <div>Журнал пуст. Все изменения проектов, рекордов и команды фиксируются здесь в реальном времени.</div>
-              </div>
-            </div>
+      <div class="topbar-main-row">
+        <div class="topbar-left">
+          <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="topbar-shield">
+          <div>
+            <div class="topbar-brand">GOSHA <span>TURBOTECH</span></div>
+            <div class="topbar-status"><span class="status-dot"></span> LIVE ATELIER HUB</div>
           </div>
         </div>
 
-        <a href="index.html" class="topbar-btn outline-btn" target="_blank">Открыть сайт ↗</a>
-        <button class="topbar-btn danger-btn" onclick="handleAdminLogout()">Выйти</button>
+        <div class="topbar-actions">
+          <div class="admin-user-badge" id="adminUserBadge">
+            <span class="user-status-indicator"></span>
+            <span class="user-welcome-text" id="userWelcomeText">Добро пожаловать // <strong>Гоша Перцхелия</strong></span>
+          </div>
+
+          <!-- Restore Factory DB Button -->
+          <button type="button" class="topbar-btn outline-btn" onclick="restoreFactoryDatabase()" title="Восстановить заводскую базу болидов, рекордов и партнеров" style="display: inline-flex; align-items: center; gap: 6px;">
+            <span>🔄 База GTT</span>
+          </button>
+
+          <!-- Notification Bell & Audit Trail Dropdown -->
+          <div class="admin-bell-wrap" id="adminBellWrap">
+            <button type="button" class="admin-bell-btn" id="adminBellBtn" onclick="toggleAdminNotifications(event)" title="Журнал изменений ателье">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+              <span class="admin-bell-badge" id="adminBellBadge" style="display: none;">0</span>
+            </button>
+            <div class="admin-notifications-dropdown" id="adminNotificationsDropdown" style="display: none;">
+              <div class="admin-notif-header">
+                <div class="admin-notif-title">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--gtt-orange)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                  <span>Журнал действий ателье</span>
+                  <span class="admin-notif-count-badge" id="adminNotifTotalBadge">0</span>
+                </div>
+                <button type="button" class="admin-notif-clear-btn" onclick="clearAdminNotifications()" title="Очистить историю">Очистить всё</button>
+              </div>
+              <!-- Quick Action Filters: Что убрано, что добавлено, что оставлено -->
+              <div class="admin-notif-filter-bar">
+                <button type="button" class="notif-filter-chip active" data-filter="all" onclick="filterAuditNotifications('all', this)">Все</button>
+                <button type="button" class="notif-filter-chip chip-removed" data-filter="removed" onclick="filterAuditNotifications('removed', this)">🗑️ Убрано</button>
+                <button type="button" class="notif-filter-chip chip-added" data-filter="added" onclick="filterAuditNotifications('added', this)">✨ Добавлено</button>
+                <button type="button" class="notif-filter-chip chip-updated" data-filter="updated" onclick="filterAuditNotifications('updated', this)">✏️ Оставлено</button>
+                <button type="button" class="notif-filter-chip chip-featured" data-filter="featured" onclick="filterAuditNotifications('featured', this)">⚡ ТОП-4</button>
+              </div>
+              <div class="admin-notif-list" id="adminNotifList">
+                <div class="admin-notif-empty">
+                  <div style="font-size: 24px; margin-bottom: 6px;">📋</div>
+                  <div>Журнал пуст. Все изменения проектов, рекордов и команды фиксируются здесь в реальном времени.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <a href="index.html" class="topbar-btn outline-btn" target="_blank">Открыть сайт ↗</a>
+          <button class="topbar-btn danger-btn" onclick="handleAdminLogout()">Выйти</button>
+        </div>
       </div>
+
+      <!-- Navigation Tabs Strip (Dedicated Second Level) -->
+      <nav class="admin-subnav-strip">
+        <div class="admin-nav-tabs">
+          <button class="admin-tab-btn active" onclick="switchAdminTab('cars')">🏎️ Гараж проектов</button>
+          <button class="admin-tab-btn" onclick="switchAdminTab('traffic')">📊 Трафик</button>
+          <button class="admin-tab-btn" onclick="switchAdminTab('gallery')">📸 Галерея</button>
+          <button class="admin-tab-btn" onclick="switchAdminTab('team')">👥 Команда</button>
+          <button class="admin-tab-btn" onclick="switchAdminTab('partners')">🤝 Партнеры</button>
+          <button class="admin-tab-btn" onclick="switchAdminTab('moto')">🏍️ Мотоциклы</button>
+          <button class="admin-tab-btn" onclick="switchAdminTab('records')">⏱️ Рекорды</button>
+          <button class="admin-tab-btn" onclick="switchAdminTab('media')">🎥 Медиа</button>
+          <button class="admin-tab-btn" onclick="switchAdminTab('settings')">⚙️ Безопасность</button>
+        </div>
+      </nav>
     </header>
 
     <!-- Main Content -->
@@ -387,11 +396,12 @@
           <table class="admin-table">
             <thead>
               <tr>
-                <th style="width: 45px;">#</th>
+                <th style="width: 45px; text-align: center;">#</th>
+                <th style="width: 70px; text-align: center;">Лого</th>
                 <th style="width: 170px;">Бренд / Партнер</th>
                 <th style="width: 140px;">Категория</th>
                 <th>Описание сотрудничества</th>
-                <th style="width: 80px;">Порядок</th>
+                <th style="width: 80px; text-align: center;">Порядок</th>
                 <th style="width: 110px;">Статус</th>
                 <th style="width: 140px;">Действия</th>
               </tr>
@@ -500,7 +510,7 @@
         <div class="admin-header-row">
           <div>
             <h1 class="admin-page-title">Безопасность шлюза & Настройки доступа</h1>
-            <p class="admin-page-desc">Смена мастер-пароля, привязка Telegram-уведомлений и защита от подбора URL-адреса.</p>
+            <p class="admin-page-desc">Смена мастер-пароля и защита шлюза от подбора URL-адреса.</p>
           </div>
         </div>
 
@@ -524,36 +534,6 @@
               </div>
               <button type="submit" class="btn-primary" style="width: 100%;">Обновить мастер-пароль</button>
               <div id="passChangeStatus" style="display: none; margin-top: 10px; font-size: 12px; padding: 8px 12px; border-radius: 6px;"></div>
-            </form>
-          </div>
-
-          <!-- Telegram Notifications Card -->
-          <div class="stat-card" style="display: block; margin-top: 20px;">
-            <div style="font-family: var(--font-display); font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="font-size: 18px;">✈️</span> Привязка Telegram-оповещений
-              </div>
-              <span class="badge" style="background: rgba(34, 197, 94, 0.15); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.3); font-size: 11px; padding: 3px 8px; border-radius: 4px;">Киберщит</span>
-            </div>
-            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5;">
-              Моментальные оповещения о попытках брутфорса, блокировках атакующих IP, успешных входах, смене пароля и изменениях в гараже прямо в ваш Telegram.
-            </p>
-            <form onsubmit="handleSaveTelegramConfig(event)">
-              <div class="form-group" style="margin-bottom: 12px;">
-                <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 6px;">Токен Telegram-бота (от @BotFather)</label>
-                <input type="text" id="tgBotTokenInput" placeholder="Например: 7123456789:AAH..." autocomplete="off">
-              </div>
-              <div class="form-group" style="margin-bottom: 16px;">
-                <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 6px;">ID чата получателя (Chat ID Гоши или группы ателье)</label>
-                <input type="text" id="tgChatIdInput" placeholder="Например: 123456789 (личный) или -100... (группа)" autocomplete="off">
-              </div>
-              <div style="display: flex; gap: 10px;">
-                <button type="submit" class="btn-primary" style="flex: 1;">Сохранить настройки Telegram</button>
-                <button type="button" class="topbar-btn outline-btn" onclick="testTelegramAlert()" style="display: inline-flex; align-items: center; gap: 6px; padding: 0 16px; white-space: nowrap;">
-                  <span>Тест отправки ✈️</span>
-                </button>
-              </div>
-              <div id="tgStatus" style="display: none; margin-top: 12px; font-size: 12px; padding: 8px 12px; border-radius: 6px; font-family: var(--font-mono);"></div>
             </form>
           </div>
         </div>
@@ -1110,9 +1090,9 @@
             <input type="text" id="editPartnerLink" placeholder="https://... или #">
           </div>
           <div class="form-group full-width">
-            <label for="editPartnerLogo">Логотип / Баннер партнера</label>
+            <label for="editPartnerLogo">Логотип / Маленькая картинка бренда</label>
             <div class="file-picker-input-group">
-              <input type="text" id="editPartnerLogo" placeholder="assets/photos/partners_banner.png или выберите файл">
+              <input type="text" id="editPartnerLogo" placeholder="assets/photos/... или вставьте ссылку / выберите файл" oninput="updatePartnerLogoPreview(this.value)">
               <label for="partnerLogoFileInput" class="btn-folder-browse" title="Выбрать файл через Проводник">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
@@ -1120,6 +1100,17 @@
                 <span>Папка</span>
               </label>
               <input type="file" id="partnerLogoFileInput" class="visually-hidden-file-input" accept="image/*" onchange="handlePartnerLogoSelected(event)">
+            </div>
+            <!-- Live Small Picture / Logo Preview Box -->
+            <div id="partnerLogoPreviewBox" style="display: flex; align-items: center; gap: 12px; margin-top: 10px; padding: 10px 14px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px;">
+              <div style="width: 52px; height: 52px; border-radius: 8px; background: #000; border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 4px; flex-shrink: 0;">
+                <img id="partnerLogoPreviewImg" src="" alt="Превью логотипа" style="max-width: 100%; max-height: 100%; object-fit: contain; display: none;">
+              </div>
+              <div style="flex: 1; min-width: 0;">
+                <div style="font-size: 11px; text-transform: uppercase; color: var(--gtt-orange); font-family: var(--font-mono); font-weight: 700;">Превью маленькой картинки / логотипа</div>
+                <div id="partnerLogoPreviewText" style="font-size: 11.5px; color: var(--text-muted); margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Файл не выбран (будет использована стильная монограмма)</div>
+              </div>
+              <button type="button" class="btn-clear-preview" onclick="document.getElementById('editPartnerLogo').value=''; updatePartnerLogoPreview('');" style="padding: 4px 8px; font-size: 11px; background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.25); border-radius: 4px; cursor: pointer;">&times; Очистить</button>
             </div>
           </div>
           <div class="form-group full-width" style="display: flex; align-items: center; gap: 10px; margin-top: 6px;">

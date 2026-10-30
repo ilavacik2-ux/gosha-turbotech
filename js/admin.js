@@ -939,8 +939,16 @@ function getDB(key, defaultVal) {
   if (saved) {
     try {
       const parsed = JSON.parse(saved);
-      if (key === ADMIN_STORAGE_KEY && Array.isArray(parsed)) {
-        return parsed.map(sanitizeCarRecord);
+      if (Array.isArray(parsed)) {
+        if (parsed.length === 0 && Array.isArray(defaultVal) && defaultVal.length > 0) {
+          const cleanDefault = (key === ADMIN_STORAGE_KEY) ? defaultVal.map(sanitizeCarRecord) : defaultVal;
+          try { localStorage.setItem(key, JSON.stringify(cleanDefault)); } catch (e) {}
+          return cleanDefault;
+        }
+        if (key === ADMIN_STORAGE_KEY) {
+          return parsed.map(sanitizeCarRecord);
+        }
+        return parsed;
       }
       return parsed;
     } catch (e) {
@@ -953,6 +961,32 @@ function getDB(key, defaultVal) {
   } catch (e) {}
   return cleanDefault;
 }
+
+function restoreFactoryDatabase() {
+  if (!confirm('Вы уверены, что хотите восстановить базу данных ателье по умолчанию?\n\nВсе проекты гаража, мировые рекорды RDRC, бренды партнеров, кадры галереи и специалисты команды будут обновлены до полного заводского архива GoshaTurboTech.')) return;
+  
+  try {
+    localStorage.setItem(ADMIN_STORAGE_KEY, JSON.stringify(defaultProjects.map(sanitizeCarRecord)));
+    localStorage.setItem(GALLERY_STORAGE_KEY, JSON.stringify(defaultGallery));
+    localStorage.setItem(TEAM_STORAGE_KEY, JSON.stringify(defaultTeam));
+    localStorage.setItem(PARTNERS_STORAGE_KEY, JSON.stringify(defaultPartners));
+    localStorage.setItem(MOTO_STORAGE_KEY, JSON.stringify(defaultMoto));
+    localStorage.setItem(RECORDS_STORAGE_KEY, JSON.stringify(defaultRecords));
+  } catch (e) {}
+
+  if (window.BroadcastChannel) {
+    try {
+      const ch = new BroadcastChannel('gtt_channel');
+      ch.postMessage({ type: 'projects_updated', projects: defaultProjects });
+      ch.postMessage({ type: 'partners_updated', partners: defaultPartners });
+      ch.postMessage({ type: 'records_updated', records: defaultRecords });
+    } catch (e) {}
+  }
+  
+  renderAllModules();
+  showToast('База восстановлена', 'Все разделы ателье успешно восстановлены до эталонного состояния', 'success');
+}
+window.restoreFactoryDatabase = restoreFactoryDatabase;
 
 function saveDB(key, data) {
   try {
@@ -1310,14 +1344,14 @@ function switchAdminTab(tabName) {
 
 // Render All
 function renderAllModules() {
-  renderCarsTable();
-  renderTrafficModule();
-  renderGalleryTable();
-  renderTeamTable();
-  renderPartnersTable();
-  renderMotoTable();
-  renderRecordsTable();
-  renderMediaTable();
+  try { renderCarsTable(); } catch (e) { console.error('Error in renderCarsTable:', e); }
+  try { renderTrafficModule(); } catch (e) { console.error('Error in renderTrafficModule:', e); }
+  try { renderGalleryTable(); } catch (e) { console.error('Error in renderGalleryTable:', e); }
+  try { renderTeamTable(); } catch (e) { console.error('Error in renderTeamTable:', e); }
+  try { renderPartnersTable(); } catch (e) { console.error('Error in renderPartnersTable:', e); }
+  try { renderMotoTable(); } catch (e) { console.error('Error in renderMotoTable:', e); }
+  try { renderRecordsTable(); } catch (e) { console.error('Error in renderRecordsTable:', e); }
+  try { renderMediaTable(); } catch (e) { console.error('Error in renderMediaTable:', e); }
 }
 
 const GARAGE_STATS_KEY = 'gtt_garage_stats_custom';
@@ -2251,6 +2285,8 @@ function renderCarsTable() {
     const carIdAttr = escapeJS(car.id);
     const hasVideo = !!(car.videoSrc || car.video_src);
     const isTop4 = idx < 4;
+    const rawBrand = car.brand || (car.type ? car.type.toUpperCase() : 'GTT');
+    const brand = escapeHTML(rawBrand);
 
     return `
     <tr class="${isTop4 ? 'tr-featured-slot' : ''}">
@@ -4514,15 +4550,27 @@ function renderPartnersTable() {
       ? '<span style="color: #22c55e; font-size: 11.5px; font-weight: 600;">● Активен</span>'
       : '<span style="color: #64748b; font-size: 11.5px;">Скрыт</span>';
 
+    const logoSrc = p.logo ? escapeHTML(p.logo) : '';
+    const monogram = escapeHTML(p.name ? p.name.substring(0, 2).toUpperCase() : 'PT');
+    const hasRealLogo = logoSrc && logoSrc !== '#' && !logoSrc.includes('partners_banner.png');
+    const logoHtml = hasRealLogo
+      ? `<div style="width: 44px; height: 44px; border-radius: 8px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; padding: 4px; overflow: hidden; margin: 0 auto;">
+           <img src="${logoSrc}" alt="${name}" style="max-width: 100%; max-height: 100%; object-fit: contain;" onerror="this.onerror=null; this.parentElement.innerHTML='<span style=\\'font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--gtt-orange);\\'>${monogram}</span>';">
+         </div>`
+      : `<div style="width: 44px; height: 44px; border-radius: 8px; background: rgba(234, 91, 12, 0.1); border: 1px dashed rgba(234, 91, 12, 0.35); display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+           <span style="font-family: var(--font-mono); font-size: 12px; font-weight: 800; color: var(--gtt-orange);">${monogram}</span>
+         </div>`;
+
     return `
     <tr>
-      <td style="color: var(--text-dim); font-family: var(--font-mono);">${idx + 1}</td>
+      <td style="color: var(--text-dim); font-family: var(--font-mono); text-align: center;">${idx + 1}</td>
+      <td style="text-align: center;">${logoHtml}</td>
       <td>
         <div style="font-weight: 700; color: #fff;">${name}</div>
         ${p.link && p.link !== '#' ? `<a href="${escapeHTML(p.link)}" target="_blank" rel="noopener" style="font-size: 11px; color: #38bdf8; text-decoration: none;">Перейти ↗</a>` : ''}
       </td>
       <td><span class="tag-pill" style="color: var(--gtt-orange); border-color: rgba(255,100,37,0.3); font-size: 10.5px;">${category}</span></td>
-      <td style="font-size: 12.5px; color: var(--text-muted); line-height: 1.45; max-width: 320px;">
+      <td style="font-size: 12.5px; color: var(--text-muted); line-height: 1.45; max-width: 300px;">
         ${desc}
       </td>
       <td style="font-family: var(--font-mono); font-size: 12px; color: var(--text-dim); text-align: center;">${sortOrder}</td>
@@ -4537,6 +4585,26 @@ function renderPartnersTable() {
     `;
   }).join('');
 }
+
+function updatePartnerLogoPreview(url) {
+  const box = document.getElementById('partnerLogoPreviewBox');
+  const img = document.getElementById('partnerLogoPreviewImg');
+  const txt = document.getElementById('partnerLogoPreviewText');
+  if (!box || !img) return;
+  const cleanUrl = (url || '').trim();
+  if (cleanUrl && cleanUrl !== '#' && !cleanUrl.includes('partners_banner.png')) {
+    img.src = cleanUrl;
+    img.style.display = 'block';
+    if (txt) txt.textContent = cleanUrl.startsWith('data:') ? 'Пользовательское изображение (Base64)' : cleanUrl;
+    box.style.display = 'flex';
+  } else {
+    img.src = '';
+    img.style.display = 'none';
+    if (txt) txt.textContent = 'Маленькая картинка / логотип не заданы (будет использована стильная монограмма)';
+    box.style.display = 'flex';
+  }
+}
+window.updatePartnerLogoPreview = updatePartnerLogoPreview;
 
 function openPartnerModal(id) {
   const modal = document.getElementById('partnerModal');
@@ -4557,13 +4625,15 @@ function openPartnerModal(id) {
     document.getElementById('editPartnerDesc').value = p.desc || '';
     document.getElementById('editPartnerLink').value = p.link || '';
     document.getElementById('editPartnerLogo').value = p.logo || '';
+    updatePartnerLogoPreview(p.logo || '');
     document.getElementById('editPartnerIsActive').checked = (p.is_active === 1 || p.is_active === true || p.is_active === '1');
   } else {
     title.textContent = 'Добавить нового партнера';
     if (form) form.reset();
     document.getElementById('editPartnerId').value = '';
     document.getElementById('editPartnerSortOrder').value = 0;
-    document.getElementById('editPartnerLogo').value = 'assets/photos/partners_banner.png';
+    document.getElementById('editPartnerLogo').value = '';
+    updatePartnerLogoPreview('');
     document.getElementById('editPartnerIsActive').checked = true;
   }
 }
@@ -4584,6 +4654,7 @@ function handlePartnerLogoSelected(event) {
       base64 = await compressImageClientSide(base64, 400, 300, 0.85);
     } catch (err) {}
     if (input) input.value = base64;
+    updatePartnerLogoPreview(base64);
     showToast('Логотип загружен', `Файл «${file.name}» оптимизирован для витрины`, 'success');
   };
   reader.readAsDataURL(file);

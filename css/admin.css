@@ -196,17 +196,23 @@ body {
 }
 
 .admin-topbar {
-  height: 70px;
-  background: rgba(11, 14, 20, 0.96);
+  background: rgba(10, 13, 18, 0.98);
   border-bottom: 1px solid var(--border-subtle);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 28px;
   backdrop-filter: blur(20px);
   position: sticky;
   top: 0;
   z-index: 50;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar-main-row {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   gap: 16px;
 }
 
@@ -257,44 +263,61 @@ body {
   box-shadow: 0 0 8px #22c55e;
 }
 
-/* Nav Tabs */
+/* Nav Subnav Strip (Level 2 dedicated tab bar) */
+.admin-subnav-strip {
+  display: flex;
+  align-items: center;
+  padding: 8px 28px;
+  background: rgba(7, 9, 13, 0.94);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.admin-subnav-strip::-webkit-scrollbar {
+  display: none;
+}
+
 .admin-nav-tabs {
   display: flex;
   align-items: center;
-  gap: 4px;
-  background: rgba(255, 255, 255, 0.03);
-  padding: 3px 4px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-subtle);
-  flex-shrink: 1;
+  gap: 6px;
+  background: transparent;
+  padding: 0;
+  border: none;
+  flex-shrink: 0;
 }
 
 .admin-tab-btn {
-  background: transparent;
-  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--text-muted);
   font-family: var(--font-heading);
-  font-size: 11.5px;
+  font-size: 12px;
   font-weight: 600;
-  padding: 6px 12px;
-  border-radius: var(--radius-xs);
+  padding: 7px 14px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
   letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .admin-tab-btn:hover {
   color: #fff;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.16);
 }
 
 .admin-tab-btn.active {
   background: var(--gtt-orange);
   color: #fff;
   font-weight: 700;
-  box-shadow: 0 2px 12px var(--gtt-orange-glow);
-  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 14px var(--gtt-orange-glow);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 .admin-tab-content {
@@ -703,15 +726,23 @@ body {
   /* Topbar Mobile Header */
   .admin-topbar {
     height: auto;
-    padding: 12px 14px;
+    padding: 0;
     flex-direction: column;
     align-items: stretch;
-    gap: 10px;
+    gap: 0;
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(10, 13, 18, 0.96);
+    background: rgba(10, 13, 18, 0.98);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .topbar-main-row {
+    height: auto;
+    padding: 10px 14px;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
 
   .topbar-left {
@@ -719,6 +750,11 @@ body {
     justify-content: space-between;
     align-items: center;
     width: 100%;
+  }
+
+  .admin-subnav-strip {
+    padding: 6px 12px 10px;
+    background: rgba(6, 8, 12, 0.96);
   }
 
   .topbar-shield {
