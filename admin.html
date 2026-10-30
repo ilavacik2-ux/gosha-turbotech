@@ -660,7 +660,7 @@
                 <button type="button" class="btn-clear-preview" onclick="clearCarPhotoPreview()">&times; Убрать фото</button>
               </div>
               <div class="preview-img-container" style="max-height: 220px; overflow: hidden; border-radius: 8px; background: #000; border: 1px solid rgba(255,255,255,0.12);">
-                <img id="carImgPreview" src="" alt="Предпросмотр фото" onerror="this.src='assets/cars/gtr_lucifer_solo.jpg'" style="width: 100%; height: 200px; object-fit: cover; object-position: center 50%; display: block;">
+                <img id="carImgPreview" src="" alt="Предпросмотр фото" onerror="handleCarImgPreviewError(this)" style="width: 100%; height: 200px; object-fit: cover; object-position: center 50%; display: block;">
                 <div class="preview-meta" id="carImgMeta">
                   <span class="meta-name" id="carImgMetaName">Файл не выбран</span>
                   <span class="meta-info" id="carImgMetaInfo">Разрешение и размер</span>

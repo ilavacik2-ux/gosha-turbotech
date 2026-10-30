@@ -430,7 +430,7 @@ const defaultProjects = [
     "hp": "950+ HP",
     "quarterMile": "9.880 сек",
     "topSpeed": "335+ км/ч",
-    "img": "assets/photos/team_pilot_paddock.jpg",
+    "img": "assets/cars/gtt_classified_car.svg",
     "videoSrc": "",
     "descRu": "Беспощадный бизнес-седан с 4.0L V8 Biturbo, форсированный до 950 л.с. Пилот В. Щед на RDRC 2026 показал подтвержденное время 9.880 сек со скоростью 234.91 км/ч на 1/4 мили."
   },
@@ -440,10 +440,10 @@ const defaultProjects = [
     "type": "other",
     "nameRu": "ВОЛГА ГАЗ-24 КГБ V8 GTT SLEEPER",
     "nameEn": "VOLGA GAZ-24 KGB V8 GTT SLEEPER",
-    "hp": "750+ HP",
-    "quarterMile": "10.450 сек",
-    "topSpeed": "280+ км/ч",
-    "img": "https://static.tildacdn.com/tild3032-3266-4139-a563-653561393961/gtr-min.png",
+    "hp": "1,050+ HP",
+    "quarterMile": "9.420 сек",
+    "topSpeed": "340+ км/ч",
+    "img": "assets/cars/volga_kgb_v8_sleeper.jpg",
     "videoSrc": "",
     "descRu": "Легендарный советский проект в кузове ГАЗ-24 «Догонялка». Внешне аутентичный хромированный силуэт спецслужб, внутри — современный турбированный V8 и кастомное спортивное шасси."
   },
@@ -456,7 +456,7 @@ const defaultProjects = [
     "hp": "550+ HP",
     "quarterMile": "10.800 сек",
     "topSpeed": "315+ км/ч",
-    "img": "assets/cars/huracan_green_grey_rdrc.jpg",
+    "img": "assets/cars/gtt_classified_car.svg",
     "videoSrc": "",
     "descRu": "Итальянская икона с 12-цилиндровым оппозитным двигателем Flat-12. Комплексная механическая доработка в цехах GTT, индивидуальный титановый выпуск и филигранная калибровка впрыска."
   },
@@ -469,7 +469,7 @@ const defaultProjects = [
     "hp": "1,020+ HP",
     "quarterMile": "9.230 сек",
     "topSpeed": "322+ км/ч",
-    "img": "assets/cars/dodge_srt_front.jpg",
+    "img": "assets/cars/gtt_classified_car.svg",
     "videoSrc": "",
     "descRu": "Трековый проект на базе трехмоторного седана Tesla Model S Plaid. Спортивная карбон-керамическая тормозная система GTT, оптимизация охлаждения инверторов и аэродинамический сплиттер."
   },
@@ -482,7 +482,7 @@ const defaultProjects = [
     "hp": "1,548 HP",
     "quarterMile": "9.130 сек",
     "topSpeed": "350+ км/ч",
-    "img": "assets/cars/bmw_m5_rdrc_race.jpg",
+    "img": "assets/cars/gtt_classified_car.svg",
     "videoSrc": "",
     "descRu": "Сенсационный электрический гиперседан Xiaomi SU7 Ultra под управлением В. Щед в зачете GoshaTurboTech. Официальный результат на Суперкубке RDRC 2026: 9.130 сек со скоростью 249.31 км/ч на 1/4 мили (3/8 мили: 11.769 с / 287.31 км/ч)."
   },
@@ -495,7 +495,7 @@ const defaultProjects = [
     "hp": "646 HP",
     "quarterMile": "11.317 сек",
     "topSpeed": "210+ км/ч",
-    "img": "assets/cars/gtr_red_strip_sunset.jpg",
+    "img": "assets/cars/gtt_classified_car.svg",
     "videoSrc": "",
     "descRu": "Zeekr 007 Performance «ZEVS» команды GoshaTurboTech под управлением Кирилла Авдейко и Сергея Савченко. Зафиксированное время на этапе RDRC 2026: 11.317 сек со скоростью 204.31 км/ч."
   },
@@ -567,19 +567,35 @@ const defaultTeam = [
 // 3. Initial Records Seed (Hall of Fame with authentic photos)
 const defaultRecords = [
   {
+    id: 'rec_moses',
+    year: '2016 • Абсолютный рекорд GTT',
+    car: 'NISSAN GT-R R35 GTT-1800 «MOSES»',
+    telemetry: '1/4 мили: 7.526 сек • 304.36 км/ч',
+    desc: 'Легендарные тесты в ОАЭ и UNLIM 500+ Greece. 7.526 сек со скоростью 304.36 км/ч — быстрейший результат на 402 м за всю историю ателье GoshaTurboTech.',
+    img: 'https://static.tildacdn.com/tild3834-3466-4637-b632-636439343565/GTR-MOSES-min.png'
+  },
+  {
     id: 'rec_draco',
     year: '2024 • Рекорд RDRC Pro-Mod',
     car: 'NISSAN GT-R R35 DRACO PRO-MOD #300',
     telemetry: '1/4 мили: 7.694 сек • 304.44 км/ч',
-    desc: 'Пилот Руслан Арефьев на этапе RDRC 2024 (заезд №537). Скорость на выходе 1/2 мили превысила 323.88 км/ч.',
+    desc: 'Пилот Руслан Арефьев на этапе RDRC 2024 (заезд №537). Подтвержденный протокол DragDB. Скорость на выходе 1/2 мили превысила 323.88 км/ч.',
     img: 'assets/cars/gtr_draco_promod_front.jpg'
+  },
+  {
+    id: 'rec_kurdalagon',
+    year: '26.10.2026 • Рекорд Быково',
+    car: 'NISSAN GT-R R35 «КУРДАЛАГОН»',
+    telemetry: '1/4 мили: 7.766 сек • 300.00 км/ч',
+    desc: 'Свежайший подтвержденный рекорд команды GoshaTurboTech, зафиксированный на трек-дне в Быково в конце октября 2026 года.',
+    img: 'https://static.tildacdn.com/tild3032-3266-4139-a563-653561393961/gtr-min.png'
   },
   {
     id: 'rec_rokot',
     year: '2026 • Рекорд России для Audi',
     car: 'AUDI R8 V10 PLUS TWIN TURBO «ROKOT»',
     telemetry: '1/4 мили: 7.877 сек • Суперкубок RDRC',
-    desc: 'Эдуард Саркисян и Руслан Арефьев на болиде ателье GoshaTurboTech установили исторический национальный рекорд страны для марки Audi.',
+    desc: 'Эдуард Саркисян и Руслан Арефьев на болиде ателье GoshaTurboTech впервые в истории России вывели Audi из рубежа 8 секунд.',
     img: 'assets/cars/audi_r8_tsmr_launch.jpg'
   },
   {
@@ -587,56 +603,96 @@ const defaultRecords = [
     year: 'Рекорд Европы • Race 1000',
     car: 'LAMBORGHINI HURACAN TT BEZZUBIK',
     telemetry: '1/2 мили: 353.02 км/ч • 1/4 мили: 8.054 сек',
-    desc: 'Официальный рекорд Европы на дистанции 804 метра среди полноприводных суперкаров. Легенда тюнинга GoshaTurboTech.',
+    desc: 'Официальный рекорд Европы на дистанции 804 м среди полноприводных суперкаров в Германии (353.02 км/ч) и 8.054 сек на 402 м. Легенда GTT.',
     img: 'assets/photos/huracan_rdrc_stage_line.jpg'
   },
   {
-    id: 'rec_kurdalagon',
-    year: '26.10.2026 • Рекорд Быково',
-    car: 'NISSAN GT-R R35 «КУРДАЛАГОН»',
-    telemetry: '1/4 мили: 7.766 сек • 300.00 км/ч',
-    desc: 'Новейший подтвержденный рекорд команды GoshaTurboTech, зафиксированный на трек-дне в Быково в конце октября 2026 года.',
-    img: 'https://static.tildacdn.com/tild3032-3266-4139-a563-653561393961/gtr-min.png'
-  },
-  {
-    id: 'rec_gallardo',
-    year: 'Мировой рекорд • Unlim 500+',
-    car: 'LAMBORGHINI GALLARDO NERA TWIN TURBO',
-    telemetry: '1 миля (1609 м): 409.55 км/ч • 1,800+ HP',
-    desc: 'Абсолютный мировой рекорд на 1 милю (1609 м) в зачетной категории Unlim 500+. Легендарная Черная Галлардо Гоши Перцхелии.',
+    id: 'rec_zelenka',
+    year: 'ОАЭ & Германия • 344.60 км/ч',
+    car: 'LAMBORGHINI HURACAN TWIN TURBO «ЗЕЛЕНКА»',
+    telemetry: '1/4 мили: 8.373 сек • 1000 м: 344.60 км/ч',
+    desc: '8.373 сек со скоростью 275.26 км/ч на 1/4 мили в ОАЭ и 344.60 км/ч на 1000 м в Германии (Rolling 50 1000). Культовый проект GoshaTurboTech.',
     img: 'assets/photos/huracan_zelenka_gtt.jpg'
   },
   {
-    id: 'rec_moses',
-    year: '2014 • Рекорд Европы',
-    car: 'NISSAN GT-R R35 GTT-1800 «MOSES»',
-    telemetry: '1/4 мили: 7.526 сек • 304.36 км/ч',
-    desc: 'UNLIM 500+ Greece (Остров Крит) и заезды в ОАЭ. 3-й результат в мире среди GT-R на момент постройки болида.',
-    img: 'https://static.tildacdn.com/tild3834-3466-4637-b632-636439343565/GTR-MOSES-min.png'
+    id: 'rec_lucifer',
+    year: 'RDRC 2026 • 1-е место в классе',
+    car: 'NISSAN GT-R R35 «LUCIFER» GTT #71',
+    telemetry: '1/4 мили: 8.400 сек • 1/2 мили: 343.67 км/ч',
+    desc: 'Флагманский болид Гоши Перцхелии. 8.400 сек в ОАЭ, победный заезд 8.551 сек на RDRC 2026 и 343.67 км/ч на Unlim 500+.',
+    img: 'assets/cars/gtr_lucifer_solo.jpg'
+  },
+  {
+    id: 'rec_korzhik',
+    year: 'Рекорд России • Московская миля',
+    car: 'NISSAN GT-R R35 GTT «KORZHIK» #712',
+    telemetry: '1/2 мили: 13.435 сек • 334.41 км/ч',
+    desc: 'Пилот Николай Коржов. 8.602 сек на 402 м и официальный рекорд России на 1/2 мили — 13.435 сек со скоростью 334.41 км/ч.',
+    img: 'https://static.tildacdn.com/tild3365-3636-4135-b136-623937643037/korzhik2-min.png'
+  },
+  {
+    id: 'rec_hulk',
+    year: 'Суперкубок RDRC 2026',
+    car: 'LAMBORGHINI HURACAN LP610-4 «HULK»',
+    telemetry: '1/4 мили: 8.951 сек • 3/8 мили: 291.14 км/ч',
+    desc: 'Пилот Эдуард Саркисян в зачете GoshaTurboTech. 8.951 сек со скоростью 257.14 км/ч на 1/4 мили (3/8 мили: 11.561 с / 291.14 км/ч).',
+    img: 'assets/cars/huracan_green_grey_rdrc.jpg'
+  },
+  {
+    id: 'rec_tonystark',
+    year: 'Record Days 2023',
+    car: 'AUDI R8 V10 PLUS TT «TONY STARK»',
+    telemetry: '1/4 мили: 8.948 сек • 247.68 км/ч',
+    desc: 'Стабильный выезд из 9 секунд на трек-днях Record Days (8.948 сек) и 15.403 сек со скоростью 287.19 км/ч на 1/2 мили.',
+    img: 'https://static.tildacdn.com/tild3162-3462-4064-b931-313636663133/audi_r8-min.png'
+  },
+  {
+    id: 'rec_gtt1200',
+    year: 'Рекорд России/Европы • RDRC RacePark',
+    car: 'PORSCHE 911 TURBO (991.1) GTT-1200',
+    telemetry: '1/4 мили: 9.086 сек • 259.64 км/ч',
+    desc: 'Пилот Алексей Сагал. Рекорд России и Европы для кузова 991.1 (9.086 с), скорость на 1/2 мили — 312.77 км/ч.',
+    img: 'https://static.tildacdn.com/tild3537-3330-4137-a166-303730623266/IMG_9940-min.png'
+  },
+  {
+    id: 'rec_su7',
+    year: '2026 • Суперкубок RDRC',
+    car: 'XIAOMI SU7 ULTRA GTT RACE SPEC',
+    telemetry: '1/4 мили: 9.130 сек • 3/8 мили: 287.31 км/ч',
+    desc: 'Пилот В. Щед в зачете GoshaTurboTech на Суперкубке RDRC 2026 показал сенсационные 9.130 сек со скоростью 249.31 км/ч.',
+    img: 'assets/cars/bmw_m5_rdrc_race.jpg'
+  },
+  {
+    id: 'rec_imba',
+    year: '2022–2025 • Мировой рекорд RDRC',
+    car: 'PORSCHE 911 TURBO S (992) GTT-IMBA',
+    telemetry: '1/4 мили: 9.167 сек • RDRC 2025',
+    desc: 'Пилот Мария Кутычкина. Мировой рекорд 9.252 сек со скоростью 231.80 км/ч на заводских турбинах, улучшенный на RDRC 2025 до 9.167 сек.',
+    img: 'https://static.tildacdn.com/tild6539-3534-4834-b938-323035363066/7R204787_.jpg'
+  },
+  {
+    id: 'rec_puncher',
+    year: '2021 • Мировой ориентир UNLIM FEST',
+    car: 'PORSCHE 911 TURBO S (992) PUNCHER',
+    telemetry: '1/4 мили: 9.303 сек • 235.83 км/ч',
+    desc: 'Мировой ориентир для дорожных Porsche 992 на Unlim Fest (9.303 сек) и 1/2 мили за 14.778 сек со скоростью 276.92 км/ч.',
+    img: 'https://static.tildacdn.com/tild6238-6431-4433-a262-383434366339/7R8205127.jpg'
   },
   {
     id: 'rec_gyurza',
     year: '2022 • Абсолютный рекорд льда',
     car: 'AUDI R8 V10 PLUS TT «GYURZA»',
-    telemetry: '1 км с места на льду: 124 км/ч средняя скорость',
-    desc: 'Дни скорости на льду озера Байкал совместно с Kiwamaru.',
+    telemetry: '1 км с места на льду: 124.00 км/ч',
+    desc: 'Дни скорости на льду озера Байкал совместно с Kiwamaru. Абсолютный триумфатор ледовых заездов с места в истории России.',
     img: 'https://static.tildacdn.com/tild6631-3236-4965-a162-626231376136/maxresdefault.jpg'
   },
   {
-    id: 'rec_porsche',
-    year: '2021 • Мировой ориентир',
-    car: 'PORSCHE 911 TURBO S GTT STAGE 2',
-    telemetry: '1/4 мили: 9.303 сек • 235.83 км/ч',
-    desc: 'Триумф на фестивале Unlim Fest. Пилот Сергей Никитин.',
-    img: 'https://static.tildacdn.com/tild6238-6431-4433-a262-383434366339/7R8205127.jpg'
-  },
-  {
-    id: 'rec_korzhik',
-    year: '2019 • Рекорд России SMP RDRC',
-    car: 'NISSAN GT-R R35 GTT-KORZHIK',
-    telemetry: '1/2 мили: 13.435 сек • 334.41 км/ч',
-    desc: 'Николай Коржов, 2-е место в абсолютном зачете SMP RDRC FSL.',
-    img: 'https://static.tildacdn.com/tild3365-3636-4135-b136-623937643037/korzhik2-min.png'
+    id: 'rec_gallardo',
+    year: 'Мировой рекорд • 1 миля (1609 м)',
+    car: 'LAMBORGHINI GALLARDO NERA TWIN TURBO',
+    telemetry: '1 миля: 409.55 км/ч • 20.845 сек',
+    desc: 'Аэродром Крит, Греция. Легендарная Черная Галлардо Гоши Перцхелии — первый болид из России, покоривший планку 400+ км/ч на 1 милю.',
+    img: 'assets/photos/huracan_zelenka_gtt.jpg'
   }
 ];
 
@@ -840,18 +896,74 @@ function showToast(title, message = '', type = 'info', duration = 3800) {
 
 window.showToast = showToast;
 
+function sanitizeCarRecord(car) {
+  if (!car || typeof car !== 'object') return car;
+  const rawName = String(car.nameRu || car.name_ru || (car.name && (car.name.ru || car.name.en)) || car.id || '').toUpperCase();
+
+  // 1. Repair Volga KGB records (including user-created slot gtt_car_1793314607236)
+  const isVolga = car.id === 'volga_kgb' || car.id === 'gtt_car_1793314607236' || rawName.includes('ВОЛГА') || rawName.includes('VOLGA');
+  if (isVolga) {
+    if (!car.img || car.img.includes('gtr-min.png') || car.img.includes('7tuUxJxwl5e8') || car.img.includes('bmw_m5')) {
+      car.img = 'assets/cars/volga_kgb_v8_sleeper.jpg';
+    }
+    car.fallbackImg = 'assets/cars/volga_kgb_v8_sleeper.jpg';
+    if (!car.hp || car.hp === '-' || car.hp === '- HP' || car.hp === '—') car.hp = '1,050+ HP';
+    if (!car.quarterMile || car.quarterMile === '-' || car.quarterMile === '- сек' || car.quarterMile === '—') car.quarterMile = '9.420 сек';
+    if (!car.topSpeed || car.topSpeed === '-' || car.topSpeed === '- км/ч' || car.topSpeed === '—') car.topSpeed = '340+ км/ч';
+    if (car.nameRu === 'ВОЛГА КГБНА' || car.name_ru === 'ВОЛГА КГБНА' || car.nameRu === 'Волга КГБна' || car.name_ru === 'Волга КГБна') {
+      car.nameRu = 'ВОЛГА КГБ';
+      if (car.name && typeof car.name === 'object') car.name.ru = 'ВОЛГА КГБ';
+    }
+    if (!car.nameEn && !car.name_en) {
+      car.nameEn = 'VOLGA GAZ-24 KGB V8 GTT SLEEPER';
+      if (car.name && typeof car.name === 'object') car.name.en = 'VOLGA GAZ-24 KGB V8 GTT SLEEPER';
+    }
+  }
+
+  // 2. Clear broken phantom paths (e.g. assets/cars/7tuUx...)
+  if (car.img && typeof car.img === 'string' && car.img.startsWith('assets/cars/') && car.img.includes('7tuUxJxwl5e8')) {
+    car.img = 'assets/cars/volga_kgb_v8_sleeper.jpg';
+  }
+
+  // 3. Clear placeholder dashes on any car
+  if (car.hp === '-' || car.hp === '- HP') car.hp = '1,050+ HP';
+  if (car.quarterMile === '-' || car.quarterMile === '- сек') car.quarterMile = '9.420 сек';
+  if (car.topSpeed === '-' || car.topSpeed === '- км/ч') car.topSpeed = '340+ км/ч';
+
+  return car;
+}
+
 // Helpers for LocalStorage & In-memory Cache
 function getDB(key, defaultVal) {
   const saved = localStorage.getItem(key);
   if (saved) {
-    try { return JSON.parse(saved); } catch (e) { console.error('Error loading ' + key, e); }
+    try {
+      const parsed = JSON.parse(saved);
+      if (key === ADMIN_STORAGE_KEY && Array.isArray(parsed)) {
+        return parsed.map(sanitizeCarRecord);
+      }
+      return parsed;
+    } catch (e) {
+      console.error('Error loading ' + key, e);
+    }
   }
-  localStorage.setItem(key, JSON.stringify(defaultVal));
-  return defaultVal;
+  const cleanDefault = (key === ADMIN_STORAGE_KEY && Array.isArray(defaultVal)) ? defaultVal.map(sanitizeCarRecord) : defaultVal;
+  try {
+    localStorage.setItem(key, JSON.stringify(cleanDefault));
+  } catch (e) {}
+  return cleanDefault;
 }
 
 function saveDB(key, data) {
-  localStorage.setItem(key, JSON.stringify(data));
+  try {
+    const cleanData = (key === ADMIN_STORAGE_KEY && Array.isArray(data)) ? data.map(sanitizeCarRecord) : data;
+    localStorage.setItem(key, JSON.stringify(cleanData));
+  } catch (err) {
+    console.error('LocalStorage save error:', err);
+    if (err && err.name === 'QuotaExceededError') {
+      showToast('Память браузера', 'Память LocalStorage заполнена. Очистите кэш или уменьшите размер файлов.', 'error');
+    }
+  }
 }
 
 const USER_NAME_KEY = 'gtt_admin_user_name';
@@ -1943,7 +2055,7 @@ function renderFeaturedSlots() {
           </div>
 
           <div class="featured-slot-img-wrap">
-            <img src="${img}" alt="${esc(name)}" class="featured-slot-img" onerror="this.src='assets/cars/bmw_m5_rdrc_race.jpg'">
+            <img src="${img}" alt="${esc(name)}" class="featured-slot-img" onerror="this.onerror=null; this.src='assets/cars/gtt_classified_car.svg';">
             <div class="featured-slot-video-tag ${hasVideo ? 'active' : ''}">
               ${hasVideo ? '● Видео активно' : '○ Без видео'}
             </div>
@@ -2144,7 +2256,7 @@ function renderCarsTable() {
     <tr class="${isTop4 ? 'tr-featured-slot' : ''}">
       <td>
         <div class="car-cell-flex">
-          <img src="${img}" alt="${name}" class="car-thumb" onerror="this.src='assets/cars/bmw_m5_rdrc_race.jpg'">
+          <img src="${img}" alt="${name}" class="car-thumb" onerror="this.onerror=null; this.src='assets/cars/gtt_classified_car.svg';">
           <div>
             <div class="car-title-text">${name}</div>
             <div style="display:flex; gap:6px; align-items:center; margin-top:2px;">
@@ -2263,9 +2375,15 @@ async function handleGenericUpload(file, { inputId, previewWrapId, previewImgId,
     const safeName = file.name.replace(/[^a-zA-Z0-9_\-\.]/g, '_');
     const targetFolder = folder || (isVideo ? 'videos' : 'cars');
     const fallbackPath = `assets/${targetFolder}/${safeName}`;
-    if (input) input.value = fallbackPath;
 
-    // Secure upload via authenticated API
+    // For photos, immediately set compressed base64Data so static hosting (GitHub Pages) works 100% reliably
+    if (!isVideo && input) {
+      input.value = base64Data;
+    } else if (isVideo && input) {
+      input.value = fallbackPath;
+    }
+
+    // Attempt secure upload via authenticated API if server backend is running
     try {
       const uploadResult = await apiFetch('/api/upload', {
         method: 'POST',
@@ -2278,20 +2396,16 @@ async function handleGenericUpload(file, { inputId, previewWrapId, previewImgId,
 
       if (uploadResult && uploadResult.url) {
         if (input) input.value = uploadResult.url;
-        showToast('Файл сохранен', successMsg || `Файл «${file.name}» успешно сохранен в ${uploadResult.url}`, 'success');
+        showToast('Файл сохранен', successMsg || `Файл «${file.name}» успешно сохранен на сервере`, 'success');
         return;
       }
     } catch (netErr) {
-      console.warn('Backend upload note (offline or error):', netErr);
+      console.warn('Backend upload note (offline or static hosting fallback active):', netErr);
       if (netErr && netErr.message && netErr.message.includes('401')) {
         showToast('Ошибка сессии', 'Сессия истекла, войдите заново', 'error');
       }
     }
 
-    // Static GitHub Pages or offline fallback: ALWAYS set compressed base64Data for photos!
-    if (!isVideo && input) {
-      input.value = base64Data;
-    }
     showToast('Файл выбран', successMsg || `Файл «${file.name}» готов к сохранению`, 'success');
   };
 
@@ -2428,6 +2542,16 @@ async function handleCarVideoSelected(e) {
   }
 }
 
+function handleCarImgPreviewError(imgEl) {
+  if (!imgEl) return;
+  imgEl.onerror = null;
+  imgEl.src = 'assets/cars/gtt_classified_car.svg';
+  const nameEl = document.getElementById('carImgMetaName');
+  const infoEl = document.getElementById('carImgMetaInfo');
+  if (nameEl) nameEl.innerHTML = '<span style="color:#ef4444; font-weight:700;">⚠️ Файл не найден или ссылка недоступна</span>';
+  if (infoEl) infoEl.innerHTML = '<span style="color:#f59e0b;">Нажмите кнопку «Папка» чтобы загрузить фото с компьютера</span>';
+}
+
 function updateCarPhotoPreviewUI(imgSrc, name = '', meta = '') {
   const wrap = document.getElementById('carImgPreviewWrap');
   const imgEl = document.getElementById('carImgPreview');
@@ -2439,12 +2563,14 @@ function updateCarPhotoPreviewUI(imgSrc, name = '', meta = '') {
     return;
   }
 
+  const cleanSrc = convertGoogleDriveUrl(imgSrc);
   if (imgEl) {
-    imgEl.src = imgSrc;
+    imgEl.onerror = () => handleCarImgPreviewError(imgEl);
+    imgEl.src = cleanSrc;
     const pos = document.getElementById('editObjectPosition')?.value || 'center 50%';
     imgEl.style.objectPosition = pos;
   }
-  if (nameEl) nameEl.textContent = name || (imgSrc.startsWith('data:') ? 'Локальное изображение' : imgSrc.split('/').pop());
+  if (nameEl) nameEl.textContent = name || (cleanSrc.startsWith('data:') ? 'Локальное изображение (сжато в памяти)' : cleanSrc.split('/').pop());
   if (infoEl) infoEl.textContent = meta || 'Предпросмотр активен';
   if (wrap) wrap.style.display = 'block';
 }
@@ -2899,7 +3025,9 @@ async function saveCarProject(e) {
   const finalTopSpeed = rawTopSpeed ? (rawTopSpeed.includes('км/ч') ? rawTopSpeed : rawTopSpeed + ' км/ч') : '340+ км/ч';
 
   const rawImg = convertGoogleDriveUrl(document.getElementById('editImg').value.trim());
-  const finalImg = rawImg || 'assets/cars/bmw_m5_rdrc_race.jpg';
+  const isVolgaName = rawNameRu.toUpperCase().includes('ВОЛГА') || rawNameRu.toUpperCase().includes('VOLGA') || rawNameRu.toUpperCase().includes('ГАЗ');
+  const defaultCarImg = isVolgaName ? 'assets/cars/volga_kgb_v8_sleeper.jpg' : 'assets/cars/gtt_classified_car.svg';
+  const finalImg = rawImg || defaultCarImg;
 
   const finalVideoSrc = document.getElementById('editVideoSrc').value.trim();
   const finalDescRu = document.getElementById('editDescRu').value.trim() || `Спецпроект лаборатории GoshaTurboTech: ${rawNameRu}. Доработка силового агрегата, калибровка Motec/Syvecs и настройка телеметрии.`;

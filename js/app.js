@@ -985,9 +985,10 @@ let gttProjects = [
       "ru": "E63S GTT-950",
       "en": "E63S GTT-950"
     },
-    "img": "assets/photos/team_pilot_paddock.jpg",
-    "fallbackImg": "assets/cars/dodge_srt_front.jpg",
-    "isPhoto": true,
+    "img": "assets/cars/gtt_classified_car.svg",
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "isPhoto": false,
+    "isClassified": true,
     "objectPosition": "center center",
     "desc": {
       "ru": "Беспощадный бизнес-седан с 4.0L V8 Biturbo, форсированный до 950 л.с. Пилот В. Щед на RDRC 2026 показал подтвержденное время 9.880 сек со скоростью 234.91 км/ч на 1/4 мили.",
@@ -1013,16 +1014,16 @@ let gttProjects = [
       "ru": "ЛЕГЕНДАРНЫЙ СЛИПЕР • V8 TWIN TURBO",
       "en": "LEGENDARY SLEEPER • V8 TWIN TURBO"
     },
-    "hp": "750+ HP",
-    "quarterMile": "10.450 сек",
-    "topSpeed": "280+ км/ч",
+    "hp": "1,050+ HP",
+    "quarterMile": "9.420 сек",
+    "topSpeed": "340+ км/ч",
     "badge": {
       "ru": "Волга КГБ V8",
       "en": "Volga KGB V8"
     },
-    "img": "https://static.tildacdn.com/tild3032-3266-4139-a563-653561393961/gtr-min.png",
-    "fallbackImg": "assets/cars/bmw_m5_paddock_front.jpg",
-    "isPhoto": false,
+    "img": "assets/cars/volga_kgb_v8_sleeper.jpg",
+    "fallbackImg": "assets/cars/volga_kgb_v8_sleeper.jpg",
+    "isPhoto": true,
     "objectPosition": "center center",
     "desc": {
       "ru": "Легендарный советский проект в кузове ГАЗ-24 «Догонялка». Внешне аутентичный хромированный силуэт спецслужб, внутри — современный турбированный V8 и кастомное спортивное шасси.",
@@ -1055,9 +1056,10 @@ let gttProjects = [
       "ru": "Ferrari 512 TR",
       "en": "Ferrari 512 TR"
     },
-    "img": "assets/cars/huracan_green_grey_rdrc.jpg",
-    "fallbackImg": "assets/photos/huracan_zelenka_gtt.jpg",
-    "isPhoto": true,
+    "img": "assets/cars/gtt_classified_car.svg",
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "isPhoto": false,
+    "isClassified": true,
     "objectPosition": "center center",
     "desc": {
       "ru": "Итальянская икона с 12-цилиндровым оппозитным двигателем Flat-12. Комплексная механическая доработка в цехах GTT, индивидуальный титановый выпуск и филигранная калибровка впрыска.",
@@ -1090,9 +1092,10 @@ let gttProjects = [
       "ru": "Tesla Plaid GTT",
       "en": "Tesla Plaid GTT"
     },
-    "img": "assets/cars/dodge_srt_front.jpg",
-    "fallbackImg": "assets/cars/bmw_m5_paddock_front.jpg",
-    "isPhoto": true,
+    "img": "assets/cars/gtt_classified_car.svg",
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "isPhoto": false,
+    "isClassified": true,
     "objectPosition": "center center",
     "desc": {
       "ru": "Трековый проект на базе трехмоторного седана Tesla Model S Plaid. Спортивная карбон-керамическая тормозная система GTT, оптимизация охлаждения инверторов и аэродинамический сплиттер.",
@@ -1125,9 +1128,10 @@ let gttProjects = [
       "ru": "SU7 Ultra 9.130s",
       "en": "SU7 Ultra 9.130s"
     },
-    "img": "assets/cars/bmw_m5_rdrc_race.jpg",
-    "fallbackImg": "assets/cars/bmw_m5_rdrc_race.jpg",
-    "isPhoto": true,
+    "img": "assets/cars/gtt_classified_car.svg",
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "isPhoto": false,
+    "isClassified": true,
     "objectPosition": "center center",
     "desc": {
       "ru": "Сенсационный электрический гиперседан Xiaomi SU7 Ultra под управлением В. Щед в зачете GoshaTurboTech. Официальный результат на Суперкубке RDRC 2026: 9.130 сек со скоростью 249.31 км/ч на 1/4 мили (3/8 мили: 11.769 с / 287.31 км/ч).",
@@ -1160,9 +1164,10 @@ let gttProjects = [
       "ru": "Zeekr ZEVS",
       "en": "Zeekr ZEVS"
     },
-    "img": "assets/cars/gtr_red_strip_sunset.jpg",
-    "fallbackImg": "assets/cars/dodge_srt_front.jpg",
-    "isPhoto": true,
+    "img": "assets/cars/gtt_classified_car.svg",
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "isPhoto": false,
+    "isClassified": true,
     "objectPosition": "center center",
     "desc": {
       "ru": "Zeekr 007 Performance «ZEVS» команды GoshaTurboTech под управлением Кирилла Авдейко и Сергея Савченко. Зафиксированное время на этапе RDRC 2026: 11.317 сек со скоростью 204.31 км/ч.",
@@ -1755,9 +1760,42 @@ async function syncProjectsFromAPI() {
   }
 }
 
+function sanitizeCarRecord(c) {
+  if (!c || typeof c !== 'object') return c;
+  const rawName = String(c.name_ru || c.nameRu || (c.name && (c.name.ru || c.name.en)) || c.id || '').toUpperCase();
+
+  // 1. Repair Volga KGB records (including user-created slot gtt_car_1793314607236)
+  const isVolga = c.id === 'volga_kgb' || c.id === 'gtt_car_1793314607236' || rawName.includes('ВОЛГА') || rawName.includes('VOLGA');
+  if (isVolga) {
+    if (!c.img || c.img.includes('gtr-min.png') || c.img.includes('7tuUxJxwl5e8') || c.img.includes('bmw_m5')) {
+      c.img = 'assets/cars/volga_kgb_v8_sleeper.jpg';
+    }
+    c.fallbackImg = 'assets/cars/volga_kgb_v8_sleeper.jpg';
+    if (!c.hp || c.hp === '-' || c.hp === '- HP' || c.hp === '—') c.hp = '1,050+ HP';
+    if (!c.quarter_mile && !c.quarterMile) c.quarterMile = '9.420 сек';
+    if (!c.top_speed && !c.topSpeed) c.topSpeed = '340+ км/ч';
+    if (c.name && typeof c.name === 'object') {
+      if (c.name.ru === 'ВОЛГА КГБНА' || c.name.ru === 'Волга КГБна') c.name.ru = 'ВОЛГА КГБ';
+      if (!c.name.en) c.name.en = 'VOLGA GAZ-24 KGB V8 GTT SLEEPER';
+    }
+  }
+
+  // 2. Clear broken phantom paths (e.g. assets/cars/7tuUx...)
+  if (c.img && typeof c.img === 'string' && c.img.startsWith('assets/cars/') && c.img.includes('7tuUxJxwl5e8')) {
+    c.img = 'assets/cars/volga_kgb_v8_sleeper.jpg';
+  }
+
+  // 3. Clear placeholder dashes on any car
+  if (c.hp === '-' || c.hp === '- HP') c.hp = '1,050+ HP';
+  if (c.quarterMile === '-' || c.quarterMile === '- сек') c.quarterMile = '9.420 сек';
+  if (c.topSpeed === '-' || c.topSpeed === '- км/ч') c.topSpeed = '340+ км/ч';
+
+  return c;
+}
+
 function applyCarsData(carList) {
   const cleanList = Array.isArray(carList) ? carList.filter(c => c && c.hp !== '?' && c.img && !c.isTeaser) : [];
-  const listToUse = cleanList.length > 0 ? cleanList : carList;
+  const listToUse = (cleanList.length > 0 ? cleanList : carList).map(sanitizeCarRecord);
   const top4FeaturedSet = new Set(listToUse.slice(0, 4).map(c => c.id));
   const originalCarIds = new Set([
     'r8_rokot', 'gtr_kurdalagon', 'draco_promod', 'gtr_lucifer',
@@ -2408,62 +2446,239 @@ function renderGalleryTrack(items) {
 // Dynamic Records Synchronization
 let cachedRecordsData = null;
 
-const defaultRecordImages = {
-  'rec_1': 'https://static.tildacdn.com/tild3032-3266-4139-a563-653561393961/gtr-min.png',
-  'rec_2': 'https://static.tildacdn.com/tild6631-3236-4965-a162-626231376136/maxresdefault.jpg',
-  'rec_3': 'https://static.tildacdn.com/tild6238-6431-4433-a262-383434366339/7R8205127.jpg',
-  'rec_4': 'https://static.tildacdn.com/tild3365-3636-4135-b136-623937643037/korzhik2-min.png',
-  'rec_5': 'assets/photos/huracan_rdrc_stage_line.jpg',
-  'rec_6': 'https://static.tildacdn.com/tild3834-3466-4637-b632-636439343565/GTR-MOSES-min.png'
-};
+const defaultRecords = [
+  {
+    id: 'rec_moses',
+    year: '2016 • Абсолютный рекорд GTT',
+    car: 'NISSAN GT-R R35 GTT-1800 «MOSES»',
+    telemetry: '1/4 мили: 7.526 сек • 304.36 км/ч',
+    desc: 'Легендарные тесты в ОАЭ и UNLIM 500+ Greece. 7.526 сек со скоростью 304.36 км/ч — быстрейший результат на 402 м за всю историю ателье GoshaTurboTech.',
+    img: 'https://static.tildacdn.com/tild3834-3466-4637-b632-636439343565/GTR-MOSES-min.png'
+  },
+  {
+    id: 'rec_draco',
+    year: '2024 • Рекорд RDRC Pro-Mod',
+    car: 'NISSAN GT-R R35 DRACO PRO-MOD #300',
+    telemetry: '1/4 мили: 7.694 сек • 304.44 км/ч',
+    desc: 'Пилот Руслан Арефьев на этапе RDRC 2024 (заезд №537). Подтвержденный протокол DragDB. Скорость на выходе 1/2 мили превысила 323.88 км/ч.',
+    img: 'assets/cars/gtr_draco_promod_front.jpg'
+  },
+  {
+    id: 'rec_kurdalagon',
+    year: '26.10.2026 • Рекорд Быково',
+    car: 'NISSAN GT-R R35 «КУРДАЛАГОН»',
+    telemetry: '1/4 мили: 7.766 сек • 300.00 км/ч',
+    desc: 'Свежайший подтвержденный рекорд команды GoshaTurboTech, зафиксированный на трек-дне в Быково в конце октября 2026 года.',
+    img: 'https://static.tildacdn.com/tild3032-3266-4139-a563-653561393961/gtr-min.png'
+  },
+  {
+    id: 'rec_rokot',
+    year: '2026 • Рекорд России для Audi',
+    car: 'AUDI R8 V10 PLUS TWIN TURBO «ROKOT»',
+    telemetry: '1/4 мили: 7.877 сек • Суперкубок RDRC',
+    desc: 'Эдуард Саркисян и Руслан Арефьев на болиде ателье GoshaTurboTech впервые в истории России вывели Audi из рубежа 8 секунд.',
+    img: 'assets/cars/audi_r8_tsmr_launch.jpg'
+  },
+  {
+    id: 'rec_bezzubik',
+    year: 'Рекорд Европы • Race 1000',
+    car: 'LAMBORGHINI HURACAN TT BEZZUBIK',
+    telemetry: '1/2 мили: 353.02 км/ч • 1/4 мили: 8.054 сек',
+    desc: 'Официальный рекорд Европы на дистанции 804 м среди полноприводных суперкаров в Германии (353.02 км/ч) и 8.054 сек на 402 м. Легенда GTT.',
+    img: 'assets/photos/huracan_rdrc_stage_line.jpg'
+  },
+  {
+    id: 'rec_zelenka',
+    year: 'ОАЭ & Германия • 344.60 км/ч',
+    car: 'LAMBORGHINI HURACAN TWIN TURBO «ЗЕЛЕНКА»',
+    telemetry: '1/4 мили: 8.373 сек • 1000 м: 344.60 км/ч',
+    desc: '8.373 сек со скоростью 275.26 км/ч на 1/4 мили в ОАЭ и 344.60 км/ч на 1000 м в Германии (Rolling 50 1000). Культовый проект GoshaTurboTech.',
+    img: 'assets/photos/huracan_zelenka_gtt.jpg'
+  },
+  {
+    id: 'rec_lucifer',
+    year: 'RDRC 2026 • 1-е место в классе',
+    car: 'NISSAN GT-R R35 «LUCIFER» GTT #71',
+    telemetry: '1/4 мили: 8.400 сек • 1/2 мили: 343.67 км/ч',
+    desc: 'Флагманский болид Гоши Перцхелии. 8.400 сек в ОАЭ, победный заезд 8.551 сек на RDRC 2026 и 343.67 км/ч на Unlim 500+.',
+    img: 'assets/cars/gtr_lucifer_solo.jpg'
+  },
+  {
+    id: 'rec_korzhik',
+    year: 'Рекорд России • Московская миля',
+    car: 'NISSAN GT-R R35 GTT «KORZHIK» #712',
+    telemetry: '1/2 мили: 13.435 сек • 334.41 км/ч',
+    desc: 'Пилот Николай Коржов. 8.602 сек на 402 м и официальный рекорд России на 1/2 мили — 13.435 сек со скоростью 334.41 км/ч.',
+    img: 'https://static.tildacdn.com/tild3365-3636-4135-b136-623937643037/korzhik2-min.png'
+  },
+  {
+    id: 'rec_hulk',
+    year: 'Суперкубок RDRC 2026',
+    car: 'LAMBORGHINI HURACAN LP610-4 «HULK»',
+    telemetry: '1/4 мили: 8.951 сек • 3/8 мили: 291.14 км/ч',
+    desc: 'Пилот Эдуард Саркисян в зачете GoshaTurboTech. 8.951 сек со скоростью 257.14 км/ч на 1/4 мили (3/8 мили: 11.561 с / 291.14 км/ч).',
+    img: 'assets/cars/huracan_green_grey_rdrc.jpg'
+  },
+  {
+    id: 'rec_tonystark',
+    year: 'Record Days 2023',
+    car: 'AUDI R8 V10 PLUS TT «TONY STARK»',
+    telemetry: '1/4 мили: 8.948 сек • 247.68 км/ч',
+    desc: 'Стабильный выезд из 9 секунд на трек-днях Record Days (8.948 сек) и 15.403 сек со скоростью 287.19 км/ч на 1/2 мили.',
+    img: 'https://static.tildacdn.com/tild3162-3462-4064-b931-313636663133/audi_r8-min.png'
+  },
+  {
+    id: 'rec_gtt1200',
+    year: 'Рекорд России/Европы • RDRC RacePark',
+    car: 'PORSCHE 911 TURBO (991.1) GTT-1200',
+    telemetry: '1/4 мили: 9.086 сек • 259.64 км/ч',
+    desc: 'Пилот Алексей Сагал. Рекорд России и Европы для кузова 991.1 (9.086 с), скорость на 1/2 мили — 312.77 км/ч.',
+    img: 'https://static.tildacdn.com/tild3537-3330-4137-a166-303730623266/IMG_9940-min.png'
+  },
+  {
+    id: 'rec_su7',
+    year: '2026 • Суперкубок RDRC',
+    car: 'XIAOMI SU7 ULTRA GTT RACE SPEC',
+    telemetry: '1/4 мили: 9.130 сек • 3/8 мили: 287.31 км/ч',
+    desc: 'Пилот В. Щед в зачете GoshaTurboTech на Суперкубке RDRC 2026 показал сенсационные 9.130 сек со скоростью 249.31 км/ч.',
+    img: 'assets/cars/bmw_m5_rdrc_race.jpg'
+  },
+  {
+    id: 'rec_imba',
+    year: '2022–2025 • Мировой рекорд RDRC',
+    car: 'PORSCHE 911 TURBO S (992) GTT-IMBA',
+    telemetry: '1/4 мили: 9.167 сек • RDRC 2025',
+    desc: 'Пилот Мария Кутычкина. Мировой рекорд 9.252 сек со скоростью 231.80 км/ч на заводских турбинах, улучшенный на RDRC 2025 до 9.167 сек.',
+    img: 'https://static.tildacdn.com/tild6539-3534-4834-b938-323035363066/7R204787_.jpg'
+  },
+  {
+    id: 'rec_puncher',
+    year: '2021 • Мировой ориентир UNLIM FEST',
+    car: 'PORSCHE 911 TURBO S (992) PUNCHER',
+    telemetry: '1/4 мили: 9.303 сек • 235.83 км/ч',
+    desc: 'Мировой ориентир для дорожных Porsche 992 на Unlim Fest (9.303 сек) и 1/2 мили за 14.778 сек со скоростью 276.92 км/ч.',
+    img: 'https://static.tildacdn.com/tild6238-6431-4433-a262-383434366339/7R8205127.jpg'
+  },
+  {
+    id: 'rec_gyurza',
+    year: '2022 • Абсолютный рекорд льда',
+    car: 'AUDI R8 V10 PLUS TT «GYURZA»',
+    telemetry: '1 км с места на льду: 124.00 км/ч',
+    desc: 'Дни скорости на льду озера Байкал совместно с Kiwamaru. Абсолютный триумфатор ледовых заездов с места в истории России.',
+    img: 'https://static.tildacdn.com/tild6631-3236-4965-a162-626231376136/maxresdefault.jpg'
+  },
+  {
+    id: 'rec_gallardo',
+    year: 'Мировой рекорд • 1 миля (1609 м)',
+    car: 'LAMBORGHINI GALLARDO NERA TWIN TURBO',
+    telemetry: '1 миля: 409.55 км/ч • 20.845 сек',
+    desc: 'Аэродром Крит, Греция. Легендарная Черная Галлардо Гоши Перцхелии — первый болид из России, покоривший планку 400+ км/ч на 1 милю.',
+    img: 'assets/photos/huracan_zelenka_gtt.jpg'
+  }
+];
 
 const recordTranslationsEn = {
-  'rec_1': {
-    year: '26.10.2026 • Bykovo Record',
-    title: 'New GTT Track Day Record',
-    desc: 'Fresh official track day benchmark established by the GoshaTurboTech skunkworks at Bykovo aerodrome in late October 2026.'
+  'rec_moses': {
+    year: '2016 • Absolute GTT Benchmark',
+    title: 'All-Time 1/4-Mile Record',
+    desc: 'Legendary passes in UAE and UNLIM 500+ Greece. 7.526 sec at 304.36 km/h — fastest drag time in GoshaTurboTech history.'
   },
-  'rec_2': {
+  'rec_draco': {
+    year: '2024 • RDRC Pro-Mod Record',
+    title: 'Flagship of Russian Drag Racing',
+    desc: 'Driver Ruslan Arefyev at RDRC 2024 (pass #537). Verified DragDB telemetry. Half-mile exit speed surpassed 323.88 km/h.'
+  },
+  'rec_kurdalagon': {
+    year: '2026 • Bykovo Track Record',
+    title: 'Latest GTT Track Day Record',
+    desc: 'Fresh official track day benchmark established by the GoshaTurboTech skunkworks at Bykovo in late October 2026.'
+  },
+  'rec_rokot': {
+    year: '2026 • Russian National Record for Audi',
+    title: 'First Audi in Russia Sub-8 Seconds',
+    desc: 'Eduard Sarkisyan and Ruslan Arefyev shattered the national barrier, becoming the first Audi in Russia to clock under 8 seconds.'
+  },
+  'rec_bezzubik': {
+    year: 'European Record • Race 1000',
+    title: 'European Triumph in Germany',
+    desc: 'Official 804-meter European record among AWD supercars in Germany (353.02 km/h) and 8.054 sec quarter-mile.'
+  },
+  'rec_zelenka': {
+    year: 'UAE & Germany • 344.60 km/h',
+    title: 'Legendary Green GTT Hypercar',
+    desc: '8.373 sec at 275.26 km/h on quarter mile in UAE and 344.60 km/h over 1000 meters in Germany (Rolling 50 1000).'
+  },
+  'rec_lucifer': {
+    year: 'RDRC 2026 • 1st Place Champion',
+    title: "Gosha's Personal Flagship Build",
+    desc: 'Gosha Pertskheliya personal race weapon. 8.400 sec in UAE, 8.551 sec class win on RDRC 2026, and 343.67 km/h half-mile.'
+  },
+  'rec_korzhik': {
+    year: 'Russian Record • Moscow Mile',
+    title: 'Moscow Mile Record Holder',
+    desc: 'Piloted by Nikolay Korzhov. 8.602 sec 1/4-mile and verified Russian 1/2-mile national record: 13.435 sec at 334.41 km/h.'
+  },
+  'rec_hulk': {
+    year: 'RDRC Supercup 2026',
+    title: 'RDRC Supercup Victory',
+    desc: 'Driver Eduard Sarkisyan for GoshaTurboTech. 8.951 sec at 257.14 km/h on 1/4 mile (3/8 mile: 11.561 sec / 291.14 km/h).'
+  },
+  'rec_tonystark': {
+    year: 'Record Days 2023',
+    title: 'Turbo Monster R8 Tony Stark',
+    desc: 'Consistent sub-9 second passes on Record Days track events (8.948 sec) and 15.403 sec at 287.19 km/h half-mile.'
+  },
+  'rec_gtt1200': {
+    year: 'Russian & European Record • RacePark',
+    title: 'Record Pass Porsche 991',
+    desc: 'Driver Alexey Sagal. Russian and European benchmark for 991.1 body (9.086 sec) with 312.77 km/h half-mile.'
+  },
+  'rec_su7': {
+    year: '2026 • RDRC Supercup',
+    title: 'Electric Hyper-Sedan 1548 HP',
+    desc: 'Driver V. Shched piloting for GoshaTurboTech at RDRC Supercup 2026 clocked an electric record 9.130 sec at 249.31 km/h.'
+  },
+  'rec_imba': {
+    year: '2022–2025 • World RDRC Benchmark',
+    title: 'Fastest 992 on Stock Turbos',
+    desc: 'Driver Maria Kutychkina. World benchmark 9.252 sec at 231.80 km/h on stock turbos, lowered on RDRC 2025 to 9.167 sec.'
+  },
+  'rec_puncher': {
+    year: '2021 • World Benchmark UNLIM FEST',
+    title: 'Sergey Nikitin Triumph',
+    desc: 'Street-legal Porsche 992 benchmark at Unlim Fest (9.303 sec) and half-mile in 14.778 sec at 276.92 km/h.'
+  },
+  'rec_gyurza': {
     year: '2022 • Absolute Ice Record',
-    title: 'Lake Baikal Speed Festival',
-    desc: 'Days of Speed on the pure ice of Lake Baikal built in collaboration with Kiwamaru.'
+    title: 'Days of Speed on Lake Baikal Ice',
+    desc: 'Built by GTT in collaboration with Kiwamaru. All-time standing-start ice racing record in Russian motorsport history.'
   },
-  'rec_3': {
-    year: '2021 • World Benchmark',
-    title: 'Unlim Fest Stock Turbo Benchmark',
-    desc: 'Triumph at the Unlim Fest drag event. Piloted by Sergey Nikitin on stock turbos.'
-  },
-  'rec_4': {
-    year: '2019 • Russian Record SMP RDRC',
-    title: 'SMP RDRC National Podium',
-    desc: 'Nikolay Korzhov, 2nd place absolute standing in SMP RDRC FSL championship.'
-  },
-  'rec_5': {
-    year: '2017 • European Record',
-    title: 'Race 1000 Victory in Germany',
-    desc: 'Race 1000 Germany. Official European 804-meter record among AWD supercars.'
-  },
-  'rec_6': {
-    year: '2014 • European Record',
-    title: 'UNLIM 500+ Greece Record',
-    desc: 'UNLIM 500+ Greece (Crete). 3rd fastest drag result in the world at the time.'
+  'rec_gallardo': {
+    year: 'World Record • 1 Mile (1609 m)',
+    title: 'All-Time Speed Record 409+ km/h',
+    desc: 'Crete Airfield, Greece. Gosha Pertskheliya legendary Black Gallardo — first car from Russia to conquer 400+ km/h on 1 mile.'
   }
 };
 
 async function syncRecordsFromAPI() {
-  // 1. Instant check from localStorage for fast initial paint
+  // 1. Instant check from localStorage or use complete defaultRecords
+  let recordsToUse = defaultRecords;
   try {
     const local = localStorage.getItem('gtt_admin_records_db') || localStorage.getItem('gtt_records_v2');
     if (local) {
       const parsed = JSON.parse(local);
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        cachedRecordsData = parsed;
-        renderRecordsEditorial(parsed);
+      if (Array.isArray(parsed) && parsed.length >= 10) {
+        recordsToUse = parsed;
       }
     }
   } catch (e) {}
 
-  // 2. Fetch live data from SQLite backend (authoritative single source of truth)
+  cachedRecordsData = recordsToUse;
+  localStorage.setItem('gtt_admin_records_db', JSON.stringify(recordsToUse));
+  localStorage.setItem('gtt_records_v2', JSON.stringify(recordsToUse));
+  renderRecordsEditorial(recordsToUse);
+
+  // 2. Fetch live data from SQLite backend if available
   try {
     const res = await fetch('/api/records');
     if (!res.ok) return;
@@ -3188,7 +3403,7 @@ function renderGarageGrid(filterType) {
                src="${convertGoogleDriveUrl(car.img)}" 
                alt="${name}" 
                style="${car.objectPosition ? `object-position: ${car.objectPosition};` : ''}"
-               onerror="this.onerror=null; this.src='${car.fallbackImg || 'assets/cars/bmw_m5_rdrc_race.jpg'}';">
+               onerror="this.onerror=null; this.src='${car.fallbackImg || 'assets/cars/gtt_classified_car.svg'}';">
         </div>
         <div class="car-card-info">
           <div class="car-brand">${car.brand} • ${tag}</div>
@@ -3512,7 +3727,7 @@ window.openCarModal = function(carId) {
     <!-- Hero Media Stage (Widescreen + Atmosphere Glow) -->
     <div class="carmodal-hero-stage">
       <div class="carmodal-glow"></div>
-      <img src="${car.img}" alt="${name}" class="carmodal-hero-img" onerror="if('${car.fallbackImg}'){this.src='${car.fallbackImg}'}">
+      <img src="${convertGoogleDriveUrl(car.img)}" alt="${name}" class="carmodal-hero-img" onerror="this.onerror=null; this.src='${car.fallbackImg || 'assets/cars/gtt_classified_car.svg'}';">
     </div>
 
     <!-- Big 3 Telemetry Metrics Grid -->
