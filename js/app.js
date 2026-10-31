@@ -1284,7 +1284,7 @@ const i18n = {
     founder_manifesto: "// THE FOUNDER & PHILOSOPHY",
     founder_name: "Гоша Перцхелия",
     founder_quote: "«Настоящий тюнинг — это не просто прикрутить турбину большего размера. Это искусство собрать сложнейший механизм так, чтобы он разгонялся до 350 км/ч на треке, а затем с абсолютным комфортом вез вас домой по вечернему городу».",
-    founder_bio: "За 15+ лет увлечения предельной скоростью Гоша Перцхелия прошел путь от первых кастомных турбо-проектов до постройки сложнейших гиперкаров и дрэгстеров, признанных мировым сообществом энтузиастов. Он лично курирует инженерные разработки, калибрует электронные блоки управления и тестирует болиды на треках RDRC и ледовых просторах Байкала.",
+    founder_bio: "За 15+ лет увлечения предельной скоростью Гоша Перцхелия прошел путь от первых кастомных турбо-проектов до постройки сложнейших гиперкаров и дрэгстеров, признанных мировым сообществом энтузиастов. Он лично курирует инженерные разработки, калибрует электронные блоки управления и тестирует болиды на главных треках и дрэг-стрипах RDRC.",
     founder_stat1: "Лет в автоспорте",
     founder_stat2: "Мировых & Евро рекордов",
     founder_stat3: "Кастомный инжиниринг",
@@ -1292,8 +1292,8 @@ const i18n = {
     sig_badge: "Личная подпись основателя GTT",
     sig_replay: "Повторить росчерк",
     founder_achieve_tag: "// КЛЮЧЕВЫЕ ВЕХИ И ИНЖЕНЕРНЫЕ ЗАСЛУГИ",
-    achieve1_title: "Абсолютный рекорд льда Байкала",
-    achieve1_desc: "Audi R8 Gyurza TT — 124 км/ч средняя скорость на льду с места",
+    achieve1_title: "Абсолютные рекорды RDRC",
+    achieve1_desc: "Многократные абсолютные чемпионы России в классе 1/4 мили (7.1 сек)",
     achieve2_title: "3000+ HP Pro-Mod «Draco»",
     achieve2_desc: "Постройка быстрейшего кастомного дрэгстера в СНГ на VR38 Billet",
     achieve3_title: "Европейский триумф на Unlim 500+",
@@ -1482,7 +1482,7 @@ const i18n = {
     founder_manifesto: "// THE FOUNDER & PHILOSOPHY",
     founder_name: "Gosha Pertskheliya",
     founder_quote: "“True tuning is never just about bolting on a larger turbocharger. It is the fine art of crafting a sophisticated machine that accelerates to 350 km/h on the track, yet drives you home in total comfort through city streets.”",
-    founder_bio: "Over 15+ years of chasing ultimate velocity, Gosha Pertskheliya evolved from custom turbo prototypes to building bespoke world-record hypercars recognized globally. He personally oversees powertrain engineering, calibrates ECUs and tests builds on RDRC strips and Lake Baikal ice.",
+    founder_bio: "Over 15+ years of chasing ultimate velocity, Gosha Pertskheliya evolved from custom turbo prototypes to building bespoke world-record hypercars recognized globally. He personally oversees powertrain engineering, calibrates ECUs and tests builds on leading dragstrips and RDRC championships.",
     founder_stat1: "Years in Motorsport",
     founder_stat2: "World & Euro Records",
     founder_stat3: "Custom Engineering",
@@ -1490,8 +1490,8 @@ const i18n = {
     sig_badge: "Verified GTT Founder Signature",
     sig_replay: "Replay Stroke",
     founder_achieve_tag: "// KEY MILESTONES & ENGINEERING ACCOLADES",
-    achieve1_title: "Absolute Baikal Ice Record",
-    achieve1_desc: "Audi R8 Gyurza TT — 124 km/h standing-start average speed on natural ice",
+    achieve1_title: "Absolute RDRC National Records",
+    achieve1_desc: "Multiple all-time Russian national champions in 1/4-mile drag racing (7.1 sec)",
     achieve2_title: "3,000+ HP Pro-Mod «Draco»",
     achieve2_desc: "Crafted the fastest custom tube-chassis drag weapon in CIS on VR38 Billet",
     achieve3_title: "European Glory at Unlim 500+",
@@ -1640,6 +1640,9 @@ window.setLanguage = function(lang) {
   }
   if (cachedRecordsData && typeof renderRecordsEditorial === 'function') {
     renderRecordsEditorial(cachedRecordsData);
+  }
+  if (typeof renderPartnersGrid === 'function') {
+    renderPartnersGrid(cachedPartnersData || defaultPartnersList);
   }
 };
 
@@ -2011,6 +2014,25 @@ function getOptimalPartnerColumns(count) {
   return rem4 >= rem3 ? 4 : 3;
 }
 
+const partnerCategoryTranslations = {
+  'Телеметрия & Софт': 'Telemetry & Software',
+  'Детейлинг & Защита': 'Detailing & Protection',
+  'Интерьер & Стиль': 'Interior & Bespoke',
+  'Спортивное топливо': 'Race Fuel',
+  'Смазочные материалы': 'Lubricants & Oils',
+  'Трансмиссия & Сцепление': 'Transmission & Clutch',
+  'Выхлопные системы': 'Exhaust Systems',
+  'Кованые диски': 'Forged Wheels',
+  'Тормозные системы': 'Braking Systems',
+  'Шины & Слики': 'Tires & Racing Slicks',
+  'Турбокомпрессоры': 'Turbochargers',
+  'Дрэг-стрип & Трек': 'Dragstrip & Circuit',
+  'Автоспорт': 'Motorsport',
+  'Медиа & Автоспорт': 'Media & Motorsport',
+  'Спортивные ремни & Экипировка': 'Racing Harnesses & Gear',
+  'Партнер GTT': 'GTT Technical Partner'
+};
+
 function renderPartnersGrid(partners) {
   const container = document.getElementById('partnersGrid');
   if (!container) return;
@@ -2038,7 +2060,11 @@ function renderPartnersGrid(partners) {
 
   container.innerHTML = activePartners.map(p => {
     const name = escapeHtml(p.name || '');
-    const tag = escapeHtml(p.category || 'Партнер GTT');
+    let category = p.category || 'Партнер GTT';
+    if (typeof currentLang !== 'undefined' && currentLang === 'en') {
+      category = partnerCategoryTranslations[category] || category;
+    }
+    const tag = escapeHtml(category);
     const link = p.link && p.link !== '#' ? escapeHtml(p.link) : '#';
     const logoSrc = escapeHtml(p.logo || '');
     const monogram = name.split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase();
@@ -2916,6 +2942,26 @@ function renderRecordsEditorial(recordsList) {
       }
     }
 
+    if (typeof currentLang !== 'undefined' && currentLang === 'en') {
+      if (heroUnit === 'СЕК') heroUnit = 'SEC';
+      if (heroUnit === 'КМ/Ч') heroUnit = 'KM/H';
+
+      if (heroSpeed) {
+        heroSpeed = heroSpeed
+          .replace(/КМ\/Ч/gi, 'KM/H')
+          .replace(/1\/4\s*МИЛИ/gi, '1/4 MILE')
+          .replace(/1\/2\s*МИЛИ/gi, '1/2 MILE')
+          .replace(/1\s*МИЛЯ/gi, '1 MILE')
+          .replace(/1\s*КМ\s*С\s*МЕСТА(\s*ПО\s*ЛЬДУ|\s*НА\s*ЛЬДУ)?/gi, '1 KM STANDING START')
+          .replace(/СУПЕРКУБОК\s*RDRC/gi, 'RDRC SUPERCUP')
+          .replace(/РЕКОРД\s*РОССИИ/gi, 'RUSSIAN RECORD')
+          .replace(/РЕКОРД\s*ЕВРОПЫ/gi, 'EUROPEAN RECORD')
+          .replace(/МИРОВОЙ\s*РЕКОРД/gi, 'WORLD RECORD')
+          .replace(/РЕКОРД\s*БЫКОВО/gi, 'BYKOVO TRACK RECORD')
+          .replace(/МАКСИМАЛЬНАЯ\s*СКОРОСТЬ/gi, 'TOP SPEED');
+      }
+    }
+
     return `
       <div class="record-item" data-id="${rec.id || idx}${dupAttr}">
         <div class="record-photo-wrapper">
@@ -2976,12 +3022,14 @@ function initRecordsCarousel() {
       }
     };
 
-    // 1. Smooth pause on hover
-    stage.addEventListener('mouseenter', () => { recordsIsHovered = true; });
-    stage.addEventListener('mouseleave', () => { 
-      if (!isPointerDown) {
-        recordsIsHovered = false; 
+    // 1. Smooth pause on hover (desktop cursor only)
+    stage.addEventListener('mouseenter', () => { 
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        recordsIsHovered = true; 
       }
+    });
+    stage.addEventListener('mouseleave', () => { 
+      recordsIsHovered = false; 
     });
 
     // 2. Multi-Device Swipe & Drag Engine (Mouse, Touch, Tablet Stylus, Trackpad)
@@ -2997,8 +3045,6 @@ function initRecordsCarousel() {
 
     const onPointerDown = (clientX, clientY) => {
       isPointerDown = true;
-      recordsIsManualSliding = true;
-      clearTimeout(recordsResumeTimeout);
       pointerStartX = clientX;
       pointerStartY = clientY;
       lastPointerX = clientX;
@@ -3007,9 +3053,6 @@ function initRecordsCarousel() {
       pointerInitialPos = recordsTrackPos;
       isHorizontalGesture = false;
       hasMovedSignificantly = false;
-
-      if (track) track.style.transition = 'none';
-      if (viewport) viewport.classList.add('is-dragging');
     };
 
     const onPointerMove = (clientX, clientY, e) => {
@@ -3019,9 +3062,15 @@ function initRecordsCarousel() {
       const deltaY = clientY - pointerStartY;
 
       if (!hasMovedSignificantly) {
-        if (Math.abs(deltaX) > 6 || Math.abs(deltaY) > 6) {
+        if (Math.abs(deltaX) > 8 || Math.abs(deltaY) > 8) {
           hasMovedSignificantly = true;
-          isHorizontalGesture = Math.abs(deltaX) >= Math.abs(deltaY);
+          isHorizontalGesture = Math.abs(deltaX) > Math.abs(deltaY);
+          if (isHorizontalGesture) {
+            recordsIsManualSliding = true;
+            clearTimeout(recordsResumeTimeout);
+            if (track) track.style.transition = 'none';
+            if (viewport) viewport.classList.add('is-dragging');
+          }
         }
       }
 
@@ -3062,16 +3111,19 @@ function initRecordsCarousel() {
             if (track) track.style.transition = 'none';
             recordsIsManualSliding = false;
             recordsIsHovered = false;
-          }, 600);
+          }, 350);
           return;
         }
-      }
 
-      // Gentle release: wait 1.2s before auto-drift resumes
-      recordsResumeTimeout = setTimeout(() => {
+        // Fast resume: 150ms after manual swipe release
+        recordsResumeTimeout = setTimeout(() => {
+          recordsIsManualSliding = false;
+          recordsIsHovered = false;
+        }, 150);
+      } else {
         recordsIsManualSliding = false;
         recordsIsHovered = false;
-      }, 1200);
+      }
     };
 
     // --- Touch Listeners (Mobile & Tablet) ---
@@ -3598,9 +3650,9 @@ function renderGarageGrid(filterType) {
       const showVideoBtn = isTopFeatured && Boolean(car.videoSrc || car.youtubeId);
 
       return `
-      <div class="car-card car-card-fade-in ${isClass ? 'is-classified' : ''} ${isNewCar ? 'is-new-car-pending' : ''}" data-id="${car.id}" style="animation-delay: ${idx * 0.04}s">
+      <div class="car-card car-card-fade-in ${isClass ? 'is-classified' : ''} ${isNewCar ? 'is-new-car-pending' : ''}" data-id="${car.id}" onclick="openCarModal('${car.id}')" style="cursor: pointer; animation-delay: ${idx * 0.04}s">
         ${isNewCar 
-          ? `<span class="car-card-badge is-new-badge">${currentLang === 'ru' ? '⚡ НОВЫЙ ПРОЕКТ // ВЫБОР ФОТО' : '⚡ NEW BUILD // PENDING PHOTO'}</span>` 
+          ? `<span class="car-card-badge is-new-badge">${currentLang === 'ru' ? 'НОВЫЙ ПРОЕКТ // ВЫБОР ФОТО' : 'NEW BUILD // PENDING PHOTO'}</span>` 
           : `<span class="car-card-badge">${badge}</span>`
         }
         <div class="car-card-media ${isClass ? 'classified-media' : ''}" style="position: relative;">
@@ -3639,7 +3691,7 @@ function renderGarageGrid(filterType) {
                 <span>▶</span> ${currentLang === 'ru' ? 'Видео заезда' : 'Race Video'}
               </button>
             ` : ''}
-            <button class="btn-card-details" onclick="openCarModal('${car.id}')">${i18n[currentLang].btn_passport}</button>
+            <button class="btn-card-details" onclick="event.stopPropagation(); openCarModal('${car.id}')">${i18n[currentLang].btn_passport}</button>
           </div>
         </div>
       </div>
@@ -4929,14 +4981,19 @@ function initMobileStickyBar() {
 
     const anyModalActive = document.querySelector('.modal-overlay.active, .video-modal-overlay.active, .gallery-lightbox-modal.active, .mobile-drawer.active');
     const contactEl = document.getElementById('contact');
-    let isContactInView = false;
+    const partnersEl = document.getElementById('partners');
+    let isPastContact = false;
     if (contactEl) {
       const rect = contactEl.getBoundingClientRect();
-      isContactInView = (rect.top <= window.innerHeight * 0.75) && (rect.bottom >= 50);
+      isPastContact = rect.top <= window.innerHeight * 0.85;
     }
-    const isNearBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 60);
+    if (partnersEl && !isPastContact) {
+      const pRect = partnersEl.getBoundingClientRect();
+      isPastContact = pRect.top <= window.innerHeight * 0.85;
+    }
+    const isNearBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 100);
 
-    if (anyModalActive || isContactInView || isNearBottom) {
+    if (anyModalActive || isPastContact || isNearBottom) {
       bar.classList.add('hidden');
       bar.classList.remove('visible');
     } else {
