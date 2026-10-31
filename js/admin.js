@@ -82,7 +82,8 @@ const defaultProjects = [
     "img": "assets/cars/gtr_lucifer_solo.jpg",
     "videoSrc": "assets/videos/gosha_na_svoem_lucifer_web.mp4",
     "descRu": "Победоносный огненный болид Гоши Перцхелия, борт №71. Личный драг-монстр в культовой ливрее адского пламени — триумфатор и победитель чемпионата России RDRC (лучшее время 8.400 сек / 1/2 мили 13.690 с / 343.67 км/ч).",
-    "is_featured": 1
+    "is_featured": 1,
+    "isFeatured": true
   },
   {
     "id": "draco_promod",
@@ -96,7 +97,8 @@ const defaultProjects = [
     "img": "assets/cars/gtr_draco_promod_front.jpg",
     "videoSrc": "assets/videos/draco_gtr_action.mp4",
     "descRu": "Легендарный белый флагман дрэг-стрипа RDRC под управлением Руслана Арефьева (борт №300). Официальное время 7.694 сек со скоростью 304.44 км/ч на 1/4 мили (RDRC этап 5, заезд №537) и 323.88 км/ч на 1/2 мили. Специально построенное трубчатое шасси и свыше 3000 л.с.",
-    "is_featured": 1
+    "is_featured": 1,
+    "isFeatured": true
   },
   {
     "id": "r8_rokot",
@@ -111,7 +113,8 @@ const defaultProjects = [
     "videoSrc": "assets/videos/gtr_launch_pass.mp4",
     "videoTitle": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT",
     "descRu": "Боевая Audi R8 «ROKOT» от GoshaTurboTech под управлением Эдуарда Саркисяна и Руслана Арефьева. Абсолютный национальный рекорд России для марки Audi на 1/4 мили (7.877 сек). Первый и единственный автомобиль марки Audi в стране, выехавший из 8 секунд!",
-    "is_featured": 1
+    "is_featured": 1,
+    "isFeatured": true
   },
   {
     "id": "gtr_kurdalagon",
@@ -124,7 +127,8 @@ const defaultProjects = [
     "topSpeed": "300.00 км/ч",
     "img": "assets/archive_tilda/gtr_kurdalagon.png",
     "descRu": "Боевой болид Nissan GT-R R35 «Курдалагон» — имя древнего осетинского бога-кузнеца. 26 октября 2026 года на трек-дне в Быково установил новый личный рекорд команды: 7.766 сек на 402 метра со скоростью на выходе 300.00 км/ч.",
-    "is_featured": 1
+    "is_featured": 1,
+    "isFeatured": true
   },
   {
     "id": "bezzubik",
@@ -3271,6 +3275,11 @@ function openCarEditModal(carId, targetFeaturedSlot = null) {
     document.getElementById('editCarId').value = car.id;
     document.getElementById('editBrand').value = brand;
     document.getElementById('editType').value = type;
+
+    const isFeatured = (targetFeaturedSlot !== null) || (car.is_featured === 1 || car.is_featured === true || car.is_featured === '1' || car.isFeatured === true);
+    const featCheckbox = document.getElementById('editIsFeatured');
+    if (featCheckbox) featCheckbox.checked = !!isFeatured;
+
     document.getElementById('editNameRu').value = nameRu;
     document.getElementById('editNameEn').value = nameEn;
     const autoEn = autoTranslateRuToEn(nameRu);
@@ -3315,6 +3324,8 @@ function openCarEditModal(carId, targetFeaturedSlot = null) {
     isManualNameEn = false;
     updateNameEnModeUI();
     handleCarPhotoPositionChange(50);
+    const featCheckbox = document.getElementById('editIsFeatured');
+    if (featCheckbox) featCheckbox.checked = (targetFeaturedSlot !== null);
     updateCarPhotoPreviewUI('');
     updateCarVideoPreviewUI('');
   }
@@ -3371,7 +3382,19 @@ async function saveCarProject(e) {
   const finalDescRu = document.getElementById('editDescRu').value.trim() || `Спецпроект лаборатории GoshaTurboTech: ${rawNameRu}. Доработка силового агрегата, калибровка Motec/Syvecs и настройка телеметрии.`;
   const finalObjPos = document.getElementById('editObjectPosition')?.value || 'center 50%';
 
+  const existingCar = idInput ? projects.find(c => c.id === idInput) : null;
+  const isFeaturedCheckbox = document.getElementById('editIsFeatured');
+  let isFeaturedVal = 0;
+  if (isFeaturedCheckbox) {
+    isFeaturedVal = isFeaturedCheckbox.checked ? 1 : 0;
+  } else if (currentTargetFeaturedSlot !== null) {
+    isFeaturedVal = 1;
+  } else if (existingCar) {
+    isFeaturedVal = (existingCar.is_featured === 1 || existingCar.is_featured === true || existingCar.is_featured === '1' || existingCar.isFeatured === true) ? 1 : 0;
+  }
+
   const carData = {
+    ...(existingCar || {}),
     id: idInput || ('gtt_car_' + Date.now()),
     brand: finalBrand,
     type: finalType,
@@ -3393,10 +3416,13 @@ async function saveCarProject(e) {
     videoSrc: finalVideoSrc,
     desc_ru: finalDescRu,
     descRu: finalDescRu,
-    tag_ru: 'RDRC БОЛИД',
-    tag_en: 'RDRC CAR',
-    badge_ru: 'GTT Spec',
-    badge_en: 'GTT Spec'
+    tag_ru: existingCar?.tag_ru || 'RDRC БОЛИД',
+    tag_en: existingCar?.tag_en || 'RDRC CAR',
+    badge_ru: existingCar?.badge_ru || 'GTT Spec',
+    badge_en: existingCar?.badge_en || 'GTT Spec',
+    is_featured: isFeaturedVal,
+    isFeatured: isFeaturedVal === 1,
+    sort_order: (existingCar && existingCar.sort_order !== undefined) ? existingCar.sort_order : (projects.length + 1)
   };
 
   // 1. Direct reliable save to SQLite backend FIRST
@@ -3418,6 +3444,10 @@ async function saveCarProject(e) {
       if (savedCar.img) carData.img = savedCar.img;
       if (savedCar.object_position) carData.object_position = savedCar.object_position;
       if (savedCar.objectPosition) carData.objectPosition = savedCar.objectPosition;
+      if (savedCar.is_featured !== undefined) {
+        carData.is_featured = savedCar.is_featured;
+        carData.isFeatured = !!savedCar.is_featured;
+      }
     }
   } catch (err) {
     if (!isStaticDeployment()) {
@@ -3431,7 +3461,7 @@ async function saveCarProject(e) {
   if (idInput) {
     const idx = projects.findIndex(c => c.id === idInput);
     if (idx !== -1) {
-      projects[idx] = carData;
+      projects[idx] = { ...projects[idx], ...carData };
       if (currentTargetFeaturedSlot !== null && currentTargetFeaturedSlot >= 0 && currentTargetFeaturedSlot < projects.length && idx !== currentTargetFeaturedSlot) {
         const temp = projects[currentTargetFeaturedSlot];
         projects[currentTargetFeaturedSlot] = projects[idx];
@@ -3455,6 +3485,7 @@ async function saveCarProject(e) {
   // 3. Persist local storage and broadcast to open tabs of the main site
   saveDB(ADMIN_STORAGE_KEY, projects);
   localStorage.setItem('gtt_projects_v2', JSON.stringify(projects));
+  await syncFeaturedOrderToBackend(projects);
 
   if (window.BroadcastChannel) {
     try {
@@ -4042,6 +4073,27 @@ function renderRecordsTable() {
   }).join('');
 }
 
+function handleRecordPhotoPositionChange(val) {
+  const num = parseInt(val, 10);
+  const display = document.getElementById('recordPosValueDisplay');
+  const hiddenInput = document.getElementById('editRecordObjectPosition');
+  const slider = document.getElementById('editRecordPositionY');
+  const previewImg = document.getElementById('recordImgPreview');
+  if (display) display.textContent = `${num}%`;
+  const posString = `center ${num}%`;
+  if (hiddenInput) hiddenInput.value = posString;
+  if (slider && slider.value !== String(num)) slider.value = num;
+  if (previewImg) previewImg.style.objectPosition = posString;
+}
+
+function setRecordPhotoPreset(preset) {
+  let val = 50;
+  if (preset === 'top') val = 15;
+  if (preset === 'center') val = 50;
+  if (preset === 'bottom') val = 65;
+  handleRecordPhotoPositionChange(val);
+}
+
 function openRecordEditModal(id) {
   const modal = document.getElementById('recordModal');
   const title = document.getElementById('recordModalTitle');
@@ -4064,10 +4116,24 @@ function openRecordEditModal(id) {
       document.getElementById('editRecordImg').value = imgVal;
       handleRecordPhotoInput(imgVal);
     }
+    let currentY = 50;
+    const rawPos = rec.object_position || rec.objectPosition || 'center center';
+    const match = rawPos.match(/(\d+)%/);
+    if (match) {
+      currentY = parseInt(match[1], 10);
+    } else if (rawPos.includes('top')) {
+      currentY = 15;
+    } else if (rawPos.includes('bottom')) {
+      currentY = 65;
+    } else {
+      currentY = 50;
+    }
+    handleRecordPhotoPositionChange(currentY);
   } else {
     title.textContent = 'Внести новый рекорд в зал славы';
     if (form) form.reset();
     document.getElementById('editRecordId').value = '';
+    handleRecordPhotoPositionChange(50);
     clearRecordPhotoPreview();
   }
 }
@@ -4090,13 +4156,17 @@ async function saveRecord(e) {
     return;
   }
 
+  const finalRecordPos = document.getElementById('editRecordObjectPosition')?.value || 'center 50%';
+
   const recData = {
     id: idInput || ('rec_' + Date.now()),
     year: document.getElementById('editRecordYear').value.trim() || '2024 • Рекорд GTT',
     car: rawCar,
     telemetry: document.getElementById('editRecordTelemetry').value.trim() || '—',
     desc: document.getElementById('editRecordDesc').value.trim() || 'Официально зафиксированный заезд GoshaTurboTech в RDRC.',
-    img: document.getElementById('editRecordImg')?.value.trim() || ''
+    img: document.getElementById('editRecordImg')?.value.trim() || '',
+    object_position: finalRecordPos,
+    objectPosition: finalRecordPos
   };
 
   // 1. Direct reliable save to SQLite backend FIRST
@@ -4825,6 +4895,8 @@ window.deleteRecord = deleteRecord;
 window.handleRecordPhotoSelected = handleRecordPhotoSelected;
 window.handleRecordPhotoInput = handleRecordPhotoInput;
 window.clearRecordPhotoPreview = clearRecordPhotoPreview;
+window.handleRecordPhotoPositionChange = handleRecordPhotoPositionChange;
+window.setRecordPhotoPreset = setRecordPhotoPreset;
 
 // Media modal & video exports
 window.openMediaEditModal = openMediaEditModal;

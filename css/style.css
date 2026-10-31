@@ -1162,21 +1162,14 @@ body.is-loading {
   inset: 0;
   pointer-events: none;
   z-index: 1;
+  background: radial-gradient(circle at 50% 15%, rgba(234, 91, 12, 0.07) 0%, transparent 65%),
+              radial-gradient(circle at 85% 85%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+              #07080a;
 }
 
-.records-silhouette-layer {
-  position: absolute;
-  inset: 0;
-  background: url('../assets/photos/huracan_rdrc_stage_line.jpg') center 45% / cover no-repeat;
-  filter: grayscale(1) contrast(1.25) brightness(0.16);
-  opacity: 0.85;
-}
-
+.records-silhouette-layer,
 .records-vignette-overlay {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(7, 8, 10, 0.4) 0%, rgba(7, 8, 10, 0.95) 80%),
-              linear-gradient(180deg, #07080a 0%, transparent 20%, transparent 80%, #07080a 100%);
+  display: none !important;
 }
 
 /* ==========================================================================
@@ -1256,7 +1249,7 @@ body.is-loading {
 .record-photo-wrapper {
   position: relative;
   width: 100%;
-  height: 200px;
+  height: 215px;
   background: #07090d;
   overflow: hidden;
   display: flex;
@@ -1268,7 +1261,7 @@ body.is-loading {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center center !important;
+  object-position: center center;
   display: block;
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -1277,6 +1270,20 @@ body.is-loading {
   object-fit: contain !important;
   object-position: center center !important;
   padding: 12px 16px;
+}
+
+/* Smart Framing for Record Cars to prevent nose/tail/wheels from getting cropped */
+.record-item[data-id*="lucifer"] .record-photo-img {
+  object-position: 55% 65%;
+}
+.record-item[data-id*="zelenka"] .record-photo-img {
+  object-position: 32% 60%;
+}
+.record-item[data-id*="draco"] .record-photo-img {
+  object-position: center 65%;
+}
+.record-item[data-id*="rokot"] .record-photo-img {
+  object-position: center 68%;
 }
 
 .record-item:hover .record-photo-img {
@@ -1513,16 +1520,13 @@ body.is-loading {
   }
   .record-item,
   .records-carousel-track .record-item {
-    width: min(320px, calc(100vw - 44px));
-    flex: 0 0 min(320px, calc(100vw - 44px));
-    max-width: 320px;
-    border-radius: 10px;
+    width: min(330px, calc(100vw - 32px));
+    flex: 0 0 min(330px, calc(100vw - 32px));
+    max-width: 330px;
+    border-radius: 12px;
   }
   .record-photo-wrapper {
-    height: 180px;
-  }
-  .records-vignette-overlay {
-    background: linear-gradient(180deg, #07080a 0%, transparent 15%, transparent 85%, #07080a 100%) !important;
+    height: 195px;
   }
   .record-content-box {
     padding: 12px 14px 16px;
@@ -1548,12 +1552,12 @@ body.is-loading {
   }
   .record-item,
   .records-carousel-track .record-item {
-    width: min(310px, calc(100vw - 36px));
-    flex: 0 0 min(310px, calc(100vw - 36px));
-    max-width: 310px;
+    width: min(320px, calc(100vw - 28px));
+    flex: 0 0 min(320px, calc(100vw - 28px));
+    max-width: 320px;
   }
   .record-photo-wrapper {
-    height: 170px;
+    height: 190px;
   }
 }
 

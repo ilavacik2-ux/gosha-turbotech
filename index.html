@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=41.0">
+  <link rel="stylesheet" href="css/style.css?v=42.0">
 </head>
 <body class="is-loading">
 
@@ -310,11 +310,8 @@
 
   <!-- Records & Hall of Fame -->
   <section class="records-section" id="records">
-    <!-- Authentic GTT Race Car Silhouette & Atmosphere Backdrop -->
-    <div class="records-bg-backdrop">
-      <div class="records-silhouette-layer"></div>
-      <div class="records-vignette-overlay"></div>
-    </div>
+    <!-- Authentic GTT Race Atmosphere Backdrop -->
+    <div class="records-bg-backdrop"></div>
 
     <div class="section-header" style="position: relative; z-index: 5;">
 
@@ -350,7 +347,7 @@
           </div>
           <div class="record-item" data-id="rec_draco">
             <div class="record-photo-wrapper">
-              <img src="assets/cars/gtr_draco_promod_front.jpg" alt="NISSAN GT-R DRACO PRO-MOD #300" class="record-photo-img" decoding="async">
+              <img src="assets/cars/gtr_draco_promod_front.jpg" alt="NISSAN GT-R DRACO PRO-MOD #300" class="record-photo-img" style="object-position: center 65%;" decoding="async" onload="handleRecordImgLoad(this)">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">RDRC PRO-MOD • 2024</span>
@@ -368,7 +365,7 @@
           </div>
           <div class="record-item" data-id="rec_kurdalagon">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/gtr_kurdalagon.png" alt="NISSAN GT-R R35 «КУРДАЛАГОН»" class="record-photo-img" decoding="async">
+              <img src="assets/archive_tilda/gtr_kurdalagon.png" alt="NISSAN GT-R R35 «КУРДАЛАГОН»" class="record-photo-img" decoding="async" onload="handleRecordImgLoad(this)">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">RDRC БЫКОВО • 2026</span>
@@ -386,7 +383,7 @@
           </div>
           <div class="record-item" data-id="rec_rokot">
             <div class="record-photo-wrapper">
-              <img src="assets/cars/audi_r8_tsmr_launch.jpg" alt="AUDI R8 V10 PLUS TT «ROKOT»" class="record-photo-img" decoding="async">
+              <img src="assets/cars/audi_r8_tsmr_launch.jpg" alt="AUDI R8 V10 PLUS TT «ROKOT»" class="record-photo-img" style="object-position: center 68%;" decoding="async" onload="handleRecordImgLoad(this)">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">РЕКОРД РОССИИ • 2026</span>
@@ -404,7 +401,7 @@
           </div>
           <div class="record-item" data-id="rec_bezzubik">
             <div class="record-photo-wrapper">
-              <img src="assets/photos/huracan_rdrc_stage_line.jpg" alt="HURACAN TT «BEZZUBIK»" class="record-photo-img" decoding="async">
+              <img src="assets/photos/huracan_rdrc_stage_line.jpg" alt="HURACAN TT «BEZZUBIK»" class="record-photo-img" decoding="async" onload="handleRecordImgLoad(this)">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">RACE 1000 • ГЕРМАНИЯ</span>
@@ -422,7 +419,7 @@
           </div>
           <div class="record-item" data-id="rec_zelenka">
             <div class="record-photo-wrapper">
-              <img src="assets/photos/huracan_zelenka_gtt.jpg" alt="HURACAN TT «ЗЕЛЕНКА»" class="record-photo-img" decoding="async">
+              <img src="assets/photos/huracan_zelenka_gtt.jpg" alt="HURACAN TT «ЗЕЛЕНКА»" class="record-photo-img" style="object-position: 32% 60%;" decoding="async" onload="handleRecordImgLoad(this)">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">ROLLING 50 1000</span>
@@ -440,7 +437,7 @@
           </div>
           <div class="record-item" data-id="rec_lucifer">
             <div class="record-photo-wrapper">
-              <img src="assets/cars/gtr_lucifer_solo.jpg" alt="NISSAN GT-R R35 «LUCIFER» #71" class="record-photo-img" decoding="async">
+              <img src="assets/cars/gtr_lucifer_solo.jpg" alt="NISSAN GT-R R35 «LUCIFER» #71" class="record-photo-img" style="object-position: 55% 65%;" decoding="async" onload="handleRecordImgLoad(this)">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">RDRC 2026 • ЧЕМПИОН</span>
@@ -2017,7 +2014,7 @@
   </button>
 
   <script src="js/media-db.js?v=23.0"></script>
-  <script src="js/app.js?v=45.0"></script>
+  <script src="js/app.js?v=46.0"></script>
   <script>
     // Failsafe Preloader Dismissal (Max 1.6s)
     setTimeout(function() {

@@ -84,7 +84,7 @@ def init_db():
         sort_order INTEGER DEFAULT 0
     )
     """)
-    for col in ["img"]:
+    for col in ["img", "object_position"]:
         try:
             cursor.execute(f"ALTER TABLE records ADD COLUMN {col} TEXT")
         except Exception:
@@ -1173,6 +1173,8 @@ def get_all_cars() -> List[Dict[str, Any]]:
         car["fallbackImg"] = car.get("fallback_img")
         car["isPhoto"] = bool(car.get("is_photo", 1))
         car["objectPosition"] = car.get("object_position", "center center")
+        car["isFeatured"] = bool(car.get("is_featured", 0))
+        car["is_featured"] = int(car.get("is_featured", 0))
         cars.append(car)
     conn.close()
     return cars
@@ -1201,6 +1203,8 @@ def get_car_by_id(car_id: str) -> Optional[Dict[str, Any]]:
     car["fallbackImg"] = car.get("fallback_img")
     car["isPhoto"] = bool(car.get("is_photo", 1))
     car["objectPosition"] = car.get("object_position", "center center")
+    car["isFeatured"] = bool(car.get("is_featured", 0))
+    car["is_featured"] = int(car.get("is_featured", 0))
     return car
 
 def upsert_car(car_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -1271,6 +1275,16 @@ def upsert_car(car_data: Dict[str, Any]) -> Dict[str, Any]:
         car_data.get("desc_en", car_data.get("descEn", "")),
         specs_json
     ))
+    if "is_featured" in car_data or "isFeatured" in car_data:
+        feat_raw = car_data.get("is_featured", car_data.get("isFeatured", 0))
+        feat_val = 1 if (feat_raw == 1 or feat_raw is True or feat_raw == '1') else 0
+        cursor.execute("UPDATE cars SET is_featured = ? WHERE id = ?", (feat_val, car_data["id"]))
+    if "sort_order" in car_data or "sortOrder" in car_data:
+        try:
+            so_val = int(car_data.get("sort_order", car_data.get("sortOrder", 0)) or 0)
+            cursor.execute("UPDATE cars SET sort_order = ? WHERE id = ?", (so_val, car_data["id"]))
+        except Exception:
+            pass
     conn.commit()
     conn.close()
     return get_car_by_id(car_data["id"])
@@ -1416,16 +1430,18 @@ def get_all_records() -> List[Dict[str, Any]]:
 def upsert_record(record: Dict[str, Any]) -> Dict[str, Any]:
     conn = get_connection()
     cursor = conn.cursor()
+    obj_pos = record.get("object_position", record.get("objectPosition", "center center"))
     cursor.execute("""
-    INSERT INTO records (id, year, car, telemetry, desc, img)
-    VALUES (?, ?, ?, ?, ?, ?)
+    INSERT INTO records (id, year, car, telemetry, desc, img, object_position)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(id) DO UPDATE SET
         year=excluded.year,
         car=excluded.car,
         telemetry=excluded.telemetry,
         desc=excluded.desc,
-        img=excluded.img
-    """, (record["id"], record["year"], record["car"], record["telemetry"], record.get("desc", ""), record.get("img", "")))
+        img=excluded.img,
+        object_position=excluded.object_position
+    """, (record["id"], record["year"], record["car"], record["telemetry"], record.get("desc", ""), record.get("img", ""), obj_pos))
     conn.commit()
     conn.close()
     return record

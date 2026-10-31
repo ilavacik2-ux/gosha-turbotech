@@ -2843,8 +2843,31 @@ let recordsIsManualSliding = false;
 let recordsRafId = null;
 let recordsResumeTimeout = null;
 
+window.handleRecordImgLoad = function(img) {
+  if (!img || !img.naturalWidth || !img.naturalHeight) return;
+  if (!img.getAttribute('data-custom-pos')) {
+    const src = (img.currentSrc || img.src || '').toLowerCase();
+    if (src.includes('lucifer')) {
+      img.style.objectPosition = '55% 65%';
+    } else if (src.includes('zelenka')) {
+      img.style.objectPosition = '32% 60%';
+    } else if (src.includes('draco')) {
+      img.style.objectPosition = 'center 65%';
+    } else if (src.includes('audi_r8') || src.includes('rokot')) {
+      img.style.objectPosition = 'center 68%';
+    } else if (img.naturalHeight > img.naturalWidth) {
+      img.style.objectPosition = 'center 68%';
+    }
+  }
+};
+
 function stepRecordsContinuousMotion() {
   const track = document.getElementById('recordsCarouselTrack');
+  // On mobile screens (<= 820px), do not auto-drift across the viewport so cards are not cut off mid-screen
+  if (window.innerWidth <= 820) {
+    recordsRafId = requestAnimationFrame(stepRecordsContinuousMotion);
+    return;
+  }
   if (track && !recordsIsHovered && !recordsIsManualSliding) {
     const singleHalfWidth = track.scrollWidth / 2;
     if (singleHalfWidth > 100) {
@@ -2867,7 +2890,10 @@ window.recordsCarouselNext = function() {
   recordsIsManualSliding = true;
   clearTimeout(recordsResumeTimeout);
 
-  const step = window.innerWidth <= 820 ? 334 : 404;
+  const cardEl = track.querySelector('.record-item');
+  const cardWidth = cardEl ? cardEl.offsetWidth : (window.innerWidth <= 820 ? 320 : 360);
+  const gap = window.innerWidth <= 820 ? 16 : 24;
+  const step = cardWidth + gap;
   const singleHalfWidth = track.scrollWidth / 2;
   recordsTrackPos -= step;
   if (Math.abs(recordsTrackPos) >= singleHalfWidth) {
@@ -2888,7 +2914,10 @@ window.recordsCarouselPrev = function() {
   recordsIsManualSliding = true;
   clearTimeout(recordsResumeTimeout);
 
-  const step = window.innerWidth <= 820 ? 334 : 404;
+  const cardEl = track.querySelector('.record-item');
+  const cardWidth = cardEl ? cardEl.offsetWidth : (window.innerWidth <= 820 ? 320 : 360);
+  const gap = window.innerWidth <= 820 ? 16 : 24;
+  const step = cardWidth + gap;
   const singleHalfWidth = track.scrollWidth / 2;
   recordsTrackPos += step;
   if (recordsTrackPos > 0) {
@@ -2906,7 +2935,10 @@ window.recordsCarouselPrev = function() {
 window.goToRecordSlide = function(idx) {
   const track = document.getElementById('recordsCarouselTrack');
   if (!track) return;
-  const step = window.innerWidth <= 820 ? 334 : 404;
+  const cardEl = track.querySelector('.record-item');
+  const cardWidth = cardEl ? cardEl.offsetWidth : (window.innerWidth <= 820 ? 320 : 360);
+  const gap = window.innerWidth <= 820 ? 16 : 24;
+  const step = cardWidth + gap;
   recordsTrackPos = -(idx * step);
   track.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
   track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
@@ -2978,13 +3010,17 @@ function renderRecordsEditorial(recordsList) {
       }
     }
 
+    const customPos = rec.object_position || rec.objectPosition || '';
+    const posAttr = customPos ? ` style="object-position: ${customPos};" data-custom-pos="true"` : '';
+
     return `
       <div class="record-item" data-id="${rec.id || idx}${dupAttr}">
         <div class="record-photo-wrapper">
           <img src="${photo}" 
                alt="${carName}" 
-               class="record-photo-img" 
+               class="record-photo-img"${posAttr}
                decoding="async"
+               onload="handleRecordImgLoad(this)"
                onerror="this.src='assets/photos/huracan_rdrc_stage_line.jpg'">
           <div class="record-photo-overlay"></div>
           <div class="record-photo-badges">
@@ -3115,6 +3151,26 @@ function initRecordsCarousel() {
       if (viewport) viewport.classList.remove('is-dragging');
 
       if (hasMovedSignificantly && isHorizontalGesture) {
+        if (window.innerWidth <= 820) {
+          const cardEl = track.querySelector('.record-item');
+          const cardWidth = cardEl ? cardEl.offsetWidth : 320;
+          const gap = 16;
+          const step = cardWidth + gap;
+          let targetSlot = Math.round(recordsTrackPos / step);
+          recordsTrackPos = targetSlot * step;
+          wrapRecordsPosition();
+          if (track) {
+            track.style.transition = 'transform 0.38s cubic-bezier(0.16, 1, 0.3, 1)';
+            track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
+          }
+          recordsResumeTimeout = setTimeout(() => {
+            if (track) track.style.transition = 'none';
+            recordsIsManualSliding = false;
+            recordsIsHovered = false;
+          }, 400);
+          return;
+        }
+
         // Inertial flick / momentum
         const absVel = Math.abs(pointerVelocityX);
         if (absVel > 0.35) {
