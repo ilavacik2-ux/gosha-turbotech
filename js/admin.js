@@ -5165,9 +5165,24 @@ window.updateAdminBellUI = updateAdminBellUI;
 // ================= MOTO CRUD MODULE =================
 
 function renderMotoTable() {
-  const moto = getDB(MOTO_STORAGE_KEY, defaultMoto);
+  let moto = getDB(MOTO_STORAGE_KEY, defaultMoto);
   const tbody = document.getElementById('motoTableBody');
   if (!tbody) return;
+
+  let needSave = false;
+  moto = moto.map(m => {
+    if (!m.img || m.img.includes('partners_banner') || m.img.includes('placeholder')) {
+      needSave = true;
+      if (m.id === 'moto_1') m.img = 'assets/moto/bmw_m1000rr_gtt.jpg';
+      else if (m.id === 'moto_2') m.img = 'assets/moto/gtt_moto_r1m_m1000rr_night.jpg';
+      else if (m.id === 'moto_3') m.img = 'assets/moto/bmw_m1000rr_cafe_street.jpg';
+      else m.img = 'assets/moto/bmw_m1000rr_gtt.jpg';
+    }
+    return m;
+  });
+  if (needSave) {
+    saveDB(MOTO_STORAGE_KEY, moto);
+  }
 
   moto.sort((a, b) => (parseInt(a.sort_order || 0) - parseInt(b.sort_order || 0)));
 
@@ -5261,6 +5276,11 @@ function openMotoModal(id) {
     const moto = getDB(MOTO_STORAGE_KEY, defaultMoto);
     const m = moto.find(item => item.id === id);
     if (!m) return;
+    if (!m.img || m.img.includes('partners_banner') || m.img.includes('placeholder')) {
+      if (m.id === 'moto_1') m.img = 'assets/moto/bmw_m1000rr_gtt.jpg';
+      else if (m.id === 'moto_2') m.img = 'assets/moto/gtt_moto_r1m_m1000rr_night.jpg';
+      else if (m.id === 'moto_3') m.img = 'assets/moto/bmw_m1000rr_cafe_street.jpg';
+    }
     title.textContent = `Редактирование: ${m.title}`;
     document.getElementById('editMotoId').value = m.id;
     document.getElementById('editMotoTitle').value = m.title || '';
