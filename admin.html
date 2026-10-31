@@ -1161,8 +1161,28 @@
             <textarea id="editMotoBullets" rows="3" placeholder="Индивидуальная калибровка на диностенде&#10;Оптимизация Wheelie & Launch Control&#10;Снятие экологических и скоростных лимитеров"></textarea>
           </div>
           <div class="form-group full-width">
-            <label>Изображение / Фото (URL или assets/...)</label>
-            <input type="text" id="editMotoImg" placeholder="assets/photos/partners_banner.png">
+            <label for="editMotoImg">Изображение / Фото мотоцикла</label>
+            <div class="file-picker-input-group">
+              <input type="text" id="editMotoImg" placeholder="assets/moto/... или вставьте ссылку / выберите файл" oninput="updateMotoPhotoPreview(this.value)">
+              <label for="motoPhotoFileInput" class="btn-folder-browse" title="Выбрать файл через Проводник">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>Папка</span>
+              </label>
+              <input type="file" id="motoPhotoFileInput" class="visually-hidden-file-input" accept="image/*" onchange="handleMotoPhotoSelected(event)">
+            </div>
+            <!-- Live Preview Box -->
+            <div id="motoPhotoPreviewBox" style="display: flex; align-items: center; gap: 12px; margin-top: 10px; padding: 10px 14px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px;">
+              <div style="width: 72px; height: 50px; border-radius: 6px; background: #000; border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0;">
+                <img id="motoPhotoPreviewImg" src="" alt="Превью мотоцикла" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+              </div>
+              <div style="flex: 1; min-width: 0;">
+                <div style="font-size: 11px; text-transform: uppercase; color: var(--gtt-cyan); font-family: var(--font-mono); font-weight: 700;">Предпросмотр фото мотоцикла</div>
+                <div id="motoPhotoPreviewText" style="font-size: 11.5px; color: var(--text-muted); margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Файл не выбран</div>
+              </div>
+              <button type="button" class="btn-clear-preview" onclick="document.getElementById('editMotoImg').value=''; updateMotoPhotoPreview('');" style="padding: 4px 8px; font-size: 11px; background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.25); border-radius: 4px; cursor: pointer;">&times; Очистить</button>
+            </div>
           </div>
           <div class="form-group full-width" style="display: flex; align-items: center; gap: 10px; margin-top: 6px;">
             <input type="checkbox" id="editMotoIsActive" checked style="width: 18px; height: 18px; accent-color: var(--gtt-cyan); cursor: pointer;">
@@ -1178,6 +1198,6 @@
   </div>
 
   <script src="js/media-db.js?v=23.0"></script>
-  <script src="js/admin.js?v=31.0"></script>
+  <script src="js/admin.js?v=32.0"></script>
 </body>
 </html>

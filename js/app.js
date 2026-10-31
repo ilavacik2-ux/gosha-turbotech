@@ -151,9 +151,10 @@ let gttProjects = [
       "ru": "Рекорд трек-дня 7.766s",
       "en": "Track-Day Record 7.766s"
     },
-    "img": "assets/archive_tilda/gtr_kurdalagon.png",
+    "img": "assets/cars/___________1793144311_27df8e5d.jpg",
     "fallbackImg": "assets/cars/gtr_red_front_rdrc.jpg",
-    "isPhoto": false,
+    "isPhoto": true,
+    "objectPosition": "center 65%",
     "desc": {
       "ru": "Боевой болид Nissan GT-R R35 «Курдалагон» — имя древнего осетинского бога-кузнеца. 26 октября 2026 года на трек-дне в Быково установил новый личный рекорд команды: 7.766 сек на 402 метра со скоростью на выходе 300.00 км/ч.",
       "en": "Mythical Kurdalagon GT-R named after the ancient blacksmith deity. Set a brand new personal best of 7.766 sec at 300.00 km/h on October 26, 2026 at Bykovo Drag Track."
@@ -228,7 +229,7 @@ let gttProjects = [
     "img": "assets/cars/porsche_992_imba_silver.jpg",
     "fallbackImg": "assets/cars/porsche_992_imba_silver.jpg",
     "isPhoto": true,
-    "objectPosition": "center 75%",
+    "objectPosition": "center 64%",
     "videoSrc": "",
     "videoTitle": "Porsche 911 Turbo S IMBA — заезд RDRC 9.167 сек",
     "desc": {
@@ -266,7 +267,7 @@ let gttProjects = [
     "img": "assets/cars/bmw_m5_rdrc_race.jpg",
     "fallbackImg": "assets/cars/bmw_m5_paddock_front.jpg",
     "isPhoto": true,
-    "objectPosition": "center center",
+    "objectPosition": "center 54%",
     "videoSrc": "",
     "videoTitle": "BMW M5 G90 Competition GTT — боевой разгон",
     "desc": {
@@ -868,7 +869,7 @@ let gttProjects = [
     "img": "assets/cars/bmw_m7_gtt_blue.jpg",
     "fallbackImg": "assets/cars/bmw_m7_gtt_blue.jpg",
     "isPhoto": true,
-    "objectPosition": "center 75%",
+    "objectPosition": "center 65%",
     "desc": {
       "ru": "Представительский флагман BMW 7 серии в глубокой доработке GoshaTurboTech. Двухтурбинный V8/V12, бесшумный акустический комфорт в салоне и ураганная динамика на скоростных прямых.",
       "en": "Executive flagship 7-series heavily enhanced by GoshaTurboTech. Twin-turbocharged powertrain offering silent luxury alongside autobahn supremacy."
@@ -1987,14 +1988,12 @@ function renderPartnersMarquee(partners) {
   marqueeTrack.innerHTML = loopList.map(p => {
     const name = escapeHtml(p.name || '');
     const logoSrc = escapeHtml(p.logo || '');
-    const link = p.link && p.link !== '#' ? escapeHtml(p.link) : '';
-    const hrefAttr = link ? `href="${link}" target="_blank" rel="noopener noreferrer"` : `href="#partners"`;
     
     return `
-      <a ${hrefAttr} class="partners-marquee-item" title="${name}">
+      <div class="partners-marquee-item" title="${name}">
         ${logoSrc ? `<img src="${logoSrc}" alt="${name}" class="partners-marquee-logo" loading="lazy" onerror="this.style.display='none'">` : ''}
         <span class="partners-marquee-text">${name}</span>
-      </a>
+      </div>
     `;
   }).join('');
 }
@@ -2069,13 +2068,11 @@ function renderPartnersGrid(partners) {
       category = partnerCategoryTranslations[category] || category;
     }
     const tag = escapeHtml(category);
-    const link = p.link && p.link !== '#' ? escapeHtml(p.link) : '#';
     const logoSrc = escapeHtml(p.logo || '');
     const monogram = name.split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase();
-    const hrefAttr = link !== '#' ? `href="${link}" target="_blank" rel="noopener noreferrer"` : `href="#partners"`;
     
     return `
-      <a ${hrefAttr} class="partner-card" data-partner-id="${escapeHtml(p.id || '')}" title="${name} — Официальный сайт">
+      <div class="partner-card" data-partner-id="${escapeHtml(p.id || '')}">
         <div class="partner-logo-box">
           ${logoSrc ? `<img src="${logoSrc}" alt="${name}" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">` : ''}
           <span class="partner-monogram-badge" style="${logoSrc ? 'display:none;' : 'display:block;'}">${monogram}</span>
@@ -2084,10 +2081,7 @@ function renderPartnersGrid(partners) {
           <h3 class="partner-card-name">${name}</h3>
           <span class="partner-card-tag">${tag}</span>
         </div>
-        <div class="partner-card-arrow" aria-hidden="true">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-        </div>
-      </a>
+      </div>
     `;
   }).join('');
 }
@@ -3699,7 +3693,7 @@ function renderGarageGrid(filterType) {
           <img class="car-card-img ${car.isPhoto ? 'photo-fit' : ''}" 
                src="${convertGoogleDriveUrl(car.img)}" 
                alt="${name}" 
-               style="${car.objectPosition ? `object-position: ${car.objectPosition};` : ''}"
+               style="${car.objectPosition ? `object-position: ${car.objectPosition} !important;` : ''}"
                onerror="this.onerror=null; this.src='${car.fallbackImg || 'assets/cars/gtt_classified_car.svg'}';">
         </div>
         <div class="car-card-info">

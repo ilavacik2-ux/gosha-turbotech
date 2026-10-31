@@ -3527,6 +3527,7 @@ body.is-loading {
   align-items: center;
   gap: 12px;
   text-decoration: none;
+  cursor: default;
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(12px);
@@ -3663,13 +3664,7 @@ body.is-loading {
 
 /* Action Arrow */
 .partner-card-arrow {
-  margin-left: auto;
-  color: rgba(255, 255, 255, 0.25);
-  flex-shrink: 0;
-  transition: color 0.22s ease, transform 0.22s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: none !important;
 }
 
 .partner-card:hover .partner-card-arrow {
@@ -5043,11 +5038,14 @@ body.modal-open {
     text-overflow: ellipsis;
   }
   .car-card-media {
-    height: 115px;
+    aspect-ratio: 16 / 10;
+    height: auto;
+    min-height: 110px;
+    max-height: 130px;
+    overflow: hidden;
     background: radial-gradient(circle at 50% 50%, rgba(255, 100, 37, 0.06) 0%, rgba(7, 8, 10, 0.98) 80%);
   }
   .car-card-img {
-    object-position: center center !important;
     object-fit: cover;
   }
   .car-card-img[src*=".png"] {

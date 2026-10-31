@@ -5115,8 +5115,17 @@ function renderMotoTable() {
     <tr>
       <td style="color: var(--text-dim); font-family: var(--font-mono);">${idx + 1}</td>
       <td>
-        <div style="font-weight: 700; color: #fff;">${title}</div>
-        ${m.img ? `<div style="font-size: 11px; color: var(--text-dim);">${escapeHTML(m.img)}</div>` : ''}
+        <div style="display: flex; align-items: center; gap: 10px;">
+          ${m.img ? `
+            <div style="width: 50px; height: 36px; border-radius: 4px; overflow: hidden; background: #000; border: 1px solid rgba(255,255,255,0.12); flex-shrink: 0;">
+              <img src="${escapeHTML(m.img)}" alt="${title}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'">
+            </div>
+          ` : ''}
+          <div>
+            <div style="font-weight: 700; color: #fff;">${title}</div>
+            ${m.img ? `<div style="font-size: 10.5px; color: var(--text-dim); max-width: 170px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${escapeHTML(m.img)}</div>` : ''}
+          </div>
+        </div>
       </td>
       <td><span class="tag-pill" style="color: var(--gtt-cyan); border-color: rgba(56,189,248,0.3); font-size: 10.5px;">${code}</span></td>
       <td style="font-size: 12.5px; color: var(--text-muted); line-height: 1.45; max-width: 340px;">
@@ -5134,6 +5143,39 @@ function renderMotoTable() {
     </tr>
     `;
   }).join('');
+}
+
+function updateMotoPhotoPreview(url) {
+  const imgEl = document.getElementById('motoPhotoPreviewImg');
+  const textEl = document.getElementById('motoPhotoPreviewText');
+  if (!imgEl || !textEl) return;
+  const clean = (url || '').trim();
+  if (clean) {
+    imgEl.src = clean;
+    imgEl.style.display = 'block';
+    textEl.textContent = clean.startsWith('data:') ? 'Файл загружен (Base64)' : clean;
+  } else {
+    imgEl.src = '';
+    imgEl.style.display = 'none';
+    textEl.textContent = 'Файл не выбран';
+  }
+}
+
+function handleMotoPhotoSelected(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+  const input = document.getElementById('editMotoImg');
+  const reader = new FileReader();
+  reader.onload = async (e) => {
+    let base64 = e.target.result;
+    try {
+      base64 = await compressImageClientSide(base64, 1200, 800, 0.88);
+    } catch (err) {}
+    if (input) input.value = base64;
+    updateMotoPhotoPreview(base64);
+    showToast('Фото загружено', `Файл «${file.name}» готов к сохранению`, 'success');
+  };
+  reader.readAsDataURL(file);
 }
 
 function openMotoModal(id) {
@@ -5155,13 +5197,15 @@ function openMotoModal(id) {
     document.getElementById('editMotoDesc').value = m.desc || '';
     document.getElementById('editMotoBullets').value = m.bullets || '';
     document.getElementById('editMotoImg').value = m.img || '';
+    updateMotoPhotoPreview(m.img || '');
     document.getElementById('editMotoIsActive').checked = (m.is_active === 1 || m.is_active === true || m.is_active === '1');
   } else {
     title.textContent = 'Добавить новый мотопроект';
     if (form) form.reset();
     document.getElementById('editMotoId').value = '';
     document.getElementById('editMotoSortOrder').value = 0;
-    document.getElementById('editMotoImg').value = 'assets/photos/partners_banner.png';
+    document.getElementById('editMotoImg').value = 'assets/moto/bmw_m1000rr_gtt.jpg';
+    updateMotoPhotoPreview('assets/moto/bmw_m1000rr_gtt.jpg');
     document.getElementById('editMotoIsActive').checked = true;
   }
 }
@@ -5282,6 +5326,8 @@ window.openMotoModal = openMotoModal;
 window.closeMotoModal = closeMotoModal;
 window.saveMoto = saveMoto;
 window.deleteMoto = deleteMoto;
+window.handleMotoPhotoSelected = handleMotoPhotoSelected;
+window.updateMotoPhotoPreview = updateMotoPhotoPreview;
 
 // Project Name Auto-Translate & Edit Exports
 window.handleNameRuInput = handleNameRuInput;
