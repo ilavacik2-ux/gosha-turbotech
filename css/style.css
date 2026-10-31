@@ -830,6 +830,24 @@ body.is-loading {
   transition: opacity 0.3s ease;
 }
 
+.garage-grid.is-collapsed-4 {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+
+@media (min-width: 1400px) {
+  .garage-grid.is-collapsed-4 {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 860px) {
+  .garage-grid.is-collapsed-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
 .garage-grid.filtering {
   opacity: 0;
   transform: translateY(10px);
@@ -1292,9 +1310,9 @@ body.is-loading {
 /* 2. Carousel Stage & Track */
 .records-carousel-stage {
   position: relative;
-  max-width: 1240px;
+  max-width: 1320px;
   margin: 0 auto;
-  padding: 0 44px;
+  padding: 0 72px;
   z-index: 5;
 }
 
@@ -1505,11 +1523,11 @@ body.is-loading {
 }
 
 .records-carousel-btn.prev {
-  left: -6px;
+  left: 10px;
 }
 
 .records-carousel-btn.next {
-  right: -6px;
+  right: 10px;
 }
 
 .records-carousel-btn:hover {
@@ -5655,7 +5673,7 @@ body.modal-open {
 .back-to-top-btn {
   position: fixed;
   bottom: 30px;
-  right: 30px;
+  right: 44px;
   width: 50px;
   height: 50px;
   border-radius: 50%;

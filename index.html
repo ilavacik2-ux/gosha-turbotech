@@ -209,8 +209,8 @@
 
     <!-- Expand / Collapse All Cars Wrap -->
     <div class="garage-expand-wrap" id="garageExpandWrap">
-      <button class="btn-garage-expand is-expanded" id="btnGarageExpand" onclick="toggleGarageExpand()">
-        <span class="expand-text" id="garageExpandText">Свернуть каталог проектов</span>
+      <button class="btn-garage-expand" id="btnGarageExpand" onclick="toggleGarageExpand()">
+        <span class="expand-text" id="garageExpandText">Показать все проекты (ещё 31 болид)</span>
         <svg class="expand-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
     </div>
@@ -1132,13 +1132,6 @@
         </p>
       </div>
 
-      <!-- Live Interactive Brand Marquee Ribbon -->
-      <div class="partners-marquee-wrap">
-        <div class="partners-marquee-track" id="partnersMarqueeTrack">
-          <!-- Dynamically populated from JS -->
-        </div>
-      </div>
-
       <!-- Category Filter Pills -->
       <div class="partners-filter-bar">
         <button type="button" class="partner-filter-pill active" data-filter="all" onclick="filterPartners('all', this)">Все бренды (<span id="partnerCountAll">16</span>)</button>
@@ -1148,9 +1141,414 @@
         <button type="button" class="partner-filter-pill" data-filter="media" onclick="filterPartners('media', this)">🏁 Автоспорт &amp; Стиль</button>
       </div>
 
-      <!-- Dynamic Partners Grid (Loaded from SQLite / Admin Panel) -->
+      <!-- Live Dynamic Partners Grid (Static Pre-Render + Dynamic Sync) -->
       <div class="partners-grid" id="partnersGrid">
-        <!-- Rendered dynamically from API & localStorage -->
+        <!-- 1. VP Racing Fuels -->
+        <div class="partner-card" data-partner-id="vp_racing">
+          <div>
+            <div class="partner-card-top">
+              <div class="partner-logo-box">
+                <img src="assets/partners/vp_racing.svg" alt="VP Racing Fuels" class="partner-card-logo-img" loading="lazy">
+              </div>
+              <span class="partner-card-category">Топливо &amp; Метанол</span>
+            </div>
+            <div class="partner-card-body">
+              <h3 class="partner-card-name">VP Racing Fuels</h3>
+              <p class="partner-card-desc">Мировой эталон спортивного топлива, гоночного кислородного бензина и чистого метанола M1 для рекордных заездов RDRC.</p>
+            </div>
+          </div>
+          <div class="partner-card-footer">
+            <span class="partner-card-badge">OFFICIAL ALLIANCE</span>
+            <a href="https://vpracingfuels.com" target="_blank" rel="noopener noreferrer" class="partner-card-link" title="Перейти на сайт VP Racing Fuels">
+              <span>Официальный ресурс</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 2. Motul Motorsport -->
+        <div class="partner-card" data-partner-id="motul">
+          <div>
+            <div class="partner-card-top">
+              <div class="partner-logo-box">
+                <img src="assets/partners/motul.svg" alt="Motul Motorsport" class="partner-card-logo-img" loading="lazy">
+              </div>
+              <span class="partner-card-category">Смазочные материалы</span>
+            </div>
+            <div class="partner-card-body">
+              <h3 class="partner-card-name">Motul Motorsport</h3>
+              <p class="partner-card-desc">Синтетические моторные масла Motul 300V Motorsport Line с технологией Ester Core, защищающие 2000+ сильные моторы GTT при пиковых нагрузках.</p>
+            </div>
+          </div>
+          <div class="partner-card-footer">
+            <span class="partner-card-badge">OFFICIAL ALLIANCE</span>
+            <a href="https://www.motul.com" target="_blank" rel="noopener noreferrer" class="partner-card-link" title="Перейти на сайт Motul Motorsport">
+              <span>Официальный ресурс</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 3. Syvecs Powertrain Control -->
+        <div class="partner-card" data-partner-id="syvecs">
+          <div>
+            <div class="partner-card-top">
+              <div class="partner-logo-box">
+                <img src="assets/partners/syvecs.svg" alt="Syvecs Powertrain Control" class="partner-card-logo-img" loading="lazy">
+              </div>
+              <span class="partner-card-category">Электроника &amp; ЭБУ</span>
+            </div>
+            <div class="partner-card-body">
+              <h3 class="partner-card-name">Syvecs Powertrain Control</h3>
+              <p class="partner-card-desc">Высокотехнологичные блоки управления двигателем (ECU), полноприводной трансмиссией (AWD Controller) и алгоритмами лаунч-контроля.</p>
+            </div>
+          </div>
+          <div class="partner-card-footer">
+            <span class="partner-card-badge">OFFICIAL ALLIANCE</span>
+            <a href="https://www.syvecs.com" target="_blank" rel="noopener noreferrer" class="partner-card-link" title="Перейти на сайт Syvecs Powertrain Control">
+              <span>Официальный ресурс</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 4. MoTeC Systems -->
+        <div class="partner-card" data-partner-id="motec">
+          <div>
+            <div class="partner-card-top">
+              <div class="partner-logo-box">
+                <img src="assets/partners/motec.svg" alt="MoTeC Systems" class="partner-card-logo-img" loading="lazy">
+              </div>
+              <span class="partner-card-category">Электроника &amp; ЭБУ</span>
+            </div>
+            <div class="partner-card-body">
+              <h3 class="partner-card-name">MoTeC Systems</h3>
+              <p class="partner-card-desc">Золотой стандарт мирового автоспорта: управляющие процессоры M1, цветные цифровые приборные панели C1212 и прецизионные логгеры телеметрии.</p>
+            </div>
+          </div>
+          <div class="partner-card-footer">
+            <span class="partner-card-badge">OFFICIAL ALLIANCE</span>
+            <a href="https://www.motec.com.au" target="_blank" rel="noopener noreferrer" class="partner-card-link" title="Перейти на сайт MoTeC Systems">
+              <span>Официальный ресурс</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 5. Precision Turbo & Engine -->
+        <div class="partner-card" data-partner-id="precision_turbo">
+          <div>
+            <div class="partner-card-top">
+              <div class="partner-logo-box">
+                <img src="assets/partners/precision_turbo.svg" alt="Precision Turbo & Engine" class="partner-card-logo-img" loading="lazy">
+              </div>
+              <span class="partner-card-category">Турбосистемы</span>
+            </div>
+            <div class="partner-card-body">
+              <h3 class="partner-card-name">Precision Turbo &amp; Engine</h3>
+              <p class="partner-card-desc">Специализированные гоночные турбокомпрессоры сверхвысокого наддува серии Pro Mod и GEN2 CEA, обеспечивающие отдачу до 3,500+ л.с.</p>
+            </div>
+          </div>
+          <div class="partner-card-footer">
+            <span class="partner-card-badge">OFFICIAL ALLIANCE</span>
+            <a href="https://www.precisionturbo.net" target="_blank" rel="noopener noreferrer" class="partner-card-link" title="Перейти на сайт Precision Turbo & Engine">
+              <span>Официальный ресурс</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 6. PPG (Pfitzner Gearboxes) -->
+        <div class="partner-card" data-partner-id="ppg_gearboxes">
+          <div>
+            <div class="partner-card-top">
+              <div class="partner-logo-box">
+                <img src="assets/partners/ppg.svg" alt="PPG (Pfitzner Gearboxes)" class="partner-card-logo-img" loading="lazy">
+              </div>
+              <span class="partner-card-category">Трансмиссия</span>
+            </div>
+            <div class="partner-card-body">
+              <h3 class="partner-card-name">PPG (Pfitzner Gearboxes)</h3>
+              <p class="partner-card-desc">Усиленные прямозубые кулачковые и секвентальные ряды передач, выдерживающие колоссальный крутящий момент и агрессивные переключения.</p>
+            </div>
+          </div>
+          <div class="partner-card-footer">
+            <span class="partner-card-badge">OFFICIAL ALLIANCE</span>
+            <a href="https://www.ppgearbox.com.au" target="_blank" rel="noopener noreferrer" class="partner-card-link" title="Перейти на сайт PPG">
+              <span>Официальный ресурс</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 7. Red Line Synthetic Oil -->
+        <div class="partner-card" data-partner-id="redline_oil">
+          <div>
+            <div class="partner-card-top">
+              <div class="partner-logo-box">
+                <img src="assets/partners/redline.svg" alt="Red Line Synthetic Oil" class="partner-card-logo-img" loading="lazy">
+              </div>
+              <span class="partner-card-category">Смазочные материалы</span>
+            </div>
+            <div class="partner-card-body">
+              <h3 class="partner-card-name">Red Line Synthetic Oil</h3>
+              <p class="partner-card-desc">Специализированные трансмиссионные жидкости ShockProof и гоночные присадки для дифференциалов повышенного трения и раздаточных коробок.</p>
+            </div>
+          </div>
+          <div class="partner-card-footer">
+            <span class="partner-card-badge">OFFICIAL ALLIANCE</span>
+            <a href="https://www.redlineoil.com" target="_blank" rel="noopener noreferrer" class="partner-card-link" title="Перейти на сайт Red Line Oil">
+              <span>Официальный ресурс</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 8. Bell Intercoolers -->
+        <div class="partner-card" data-partner-id="bell_intercoolers">
+          <div>
+            <div class="partner-card-top">
+              <div class="partner-logo-box">
+                <img src="assets/partners/bell_intercoolers.svg" alt="Bell Intercoolers" class="partner-card-logo-img" loading="lazy">
+              </div>
+              <span class="partner-card-category">Охлаждение &amp; Впуск</span>
+            </div>
+            <div class="partner-card-body">
+              <h3 class="partner-card-name">Bell Intercoolers</h3>
+              <p class="partner-card-desc">Высокоэффективные теплообменники и кастомные интеркулерные ядра с минимальным сопротивлением для мощных турбосистем.</p>
+            </div>
+          </div>
+          <div class="partner-card-footer">
+            <span class="partner-card-badge">OFFICIAL ALLIANCE</span>
+            <a href="https://www.bellintercoolers.com" target="_blank" rel="noopener noreferrer" class="partner-card-link" title="Перейти на сайт Bell Intercoolers">
+              <span>Официальный ресурс</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 9. Plazmaman Pro Billet -->
+        <div class="partner-card" data-partner-id="plazmaman">
+          <div>
+            <div class="partner-card-top">
+              <div class="partner-logo-box">
+                <img src="assets/partners/plazmaman.svg" alt="Plazmaman Pro Billet" class="partner-card-logo-img" loading="lazy">
+              </div>
+              <span class="partner-card-category">Впуск &amp; Охлаждение</span>
+            </div>
+            <div class="partner-card-body">
+              <h3 class="partner-card-name">Plazmaman Pro Billet</h3>
+              <p class="partner-card-desc">Фрезерованные из алюминиевого монолита впускные коллекторы и интеркулеры для экстремальных моторов VR38DETT и V10 Twin Turbo.</p>
+            </div>
+          </div>
+          <div class="partner-card-footer">
+            <span class="partner-card-badge">OFFICIAL ALLIANCE</span>
+            <a href="https://plazmaman.com" target="_blank" rel="noopener noreferrer" class="partner-card-link" title="Перейти на сайт Plazmaman">
+              <span>Официальный ресурс</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 10. T1 Race Development -->
+        <div class="partner-card" data-partner-id="t1_race">
+          <div>
+            <div class="partner-card-top">
+              <div class="partner-logo-box">
+                <img src="assets/partners/t1_race.svg" alt="T1 Race Development" class="partner-card-logo-img" loading="lazy">
+              </div>
+              <span class="partner-card-category">Топливные системы</span>
+            </div>
+            <div class="partner-card-body">
+              <h3 class="partner-card-name">T1 Race Development</h3>
+              <p class="partner-card-desc">Прецизионные компоненты топливной магистрали, высокодебитные форсунки, регуляторы давления и крепления для дрэг-рейсинга.</p>
+            </div>
+          </div>
+          <div class="partner-card-footer">
+            <span class="partner-card-badge">OFFICIAL ALLIANCE</span>
+            <a href="https://t1racedevelopment.com" target="_blank" rel="noopener noreferrer" class="partner-card-link" title="Перейти на сайт T1 Race">
+              <span>Официальный ресурс</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 11. RDRC / Dragtimes -->
+        <div class="partner-card" data-partner-id="rdrc_dragtimes">
+          <div>
+            <div class="partner-card-top">
+              <div class="partner-logo-box">
+                <img src="assets/partners/dragtimes.svg" alt="RDRC / Dragtimes" class="partner-card-logo-img" loading="lazy">
+              </div>
+              <span class="partner-card-category">Автоспорт &amp; Трассы</span>
+            </div>
+            <div class="partner-card-body">
+              <h3 class="partner-card-name">RDRC / Dragtimes</h3>
+              <p class="partner-card-desc">Главный гоночный промоутер Чемпионата России по дрэг-рейсингу и организатор всероссийских заездов на автодроме RDRC Racepark Быково.</p>
+            </div>
+          </div>
+          <div class="partner-card-footer">
+            <span class="partner-card-badge">OFFICIAL ALLIANCE</span>
+            <a href="https://rdrc.ru" target="_blank" rel="noopener noreferrer" class="partner-card-link" title="Перейти на сайт RDRC">
+              <span>Официальный ресурс</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 12. Deikin Exhaust -->
+        <div class="partner-card" data-partner-id="deikin_exhaust">
+          <div>
+            <div class="partner-card-top">
+              <div class="partner-logo-box">
+                <img src="assets/partners/deikin_exhaust.svg" alt="Deikin Exhaust" class="partner-card-logo-img" loading="lazy">
+              </div>
+              <span class="partner-card-category">Выхлопные системы</span>
+            </div>
+            <div class="partner-card-body">
+              <h3 class="partner-card-name">Deikin Exhaust</h3>
+              <p class="partner-card-desc">Индивидуальное проектирование и ручная аргонная TIG-сварка спортивных выхлопных систем из титана Grade 5 и жаропрочного Inconel.</p>
+            </div>
+          </div>
+          <div class="partner-card-footer">
+            <span class="partner-card-badge">OFFICIAL ALLIANCE</span>
+            <a href="https://goshaturbotech.ru" target="_blank" rel="noopener noreferrer" class="partner-card-link" title="Перейти на сайт Deikin Exhaust">
+              <span>Официальный ресурс</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 13. Toys Detailing -->
+        <div class="partner-card" data-partner-id="toys_detailing">
+          <div>
+            <div class="partner-card-top">
+              <div class="partner-logo-box">
+                <img src="assets/partners/toys_detailing.svg" alt="Toys Detailing" class="partner-card-logo-img" loading="lazy">
+              </div>
+              <span class="partner-card-category">Детейлинг &amp; Стиль</span>
+            </div>
+            <div class="partner-card-body">
+              <h3 class="partner-card-name">Toys Detailing</h3>
+              <p class="partner-card-desc">Премиальный детейлинг, бронирование кузовов полиуретановой пленкой и керамические защитные составы для гоночных суперкаров.</p>
+            </div>
+          </div>
+          <div class="partner-card-footer">
+            <span class="partner-card-badge">OFFICIAL ALLIANCE</span>
+            <a href="https://toysdetailing.ru" target="_blank" rel="noopener noreferrer" class="partner-card-link" title="Перейти на сайт Toys Detailing">
+              <span>Официальный ресурс</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 14. Felix Ferro -->
+        <div class="partner-card" data-partner-id="felix_ferro">
+          <div>
+            <div class="partner-card-top">
+              <div class="partner-logo-box">
+                <img src="assets/partners/felix_ferro.svg" alt="Felix Ferro" class="partner-card-logo-img" loading="lazy">
+              </div>
+              <span class="partner-card-category">Интерьер &amp; Стиль</span>
+            </div>
+            <div class="partner-card-body">
+              <h3 class="partner-card-name">Felix Ferro</h3>
+              <p class="partner-card-desc">Эксклюзивные ювелирные элементы, кованый карбон, золотое напыление и премиальная отделка интерьера для уникальных проектов ателье.</p>
+            </div>
+          </div>
+          <div class="partner-card-footer">
+            <span class="partner-card-badge">OFFICIAL ALLIANCE</span>
+            <a href="https://felixferro.com" target="_blank" rel="noopener noreferrer" class="partner-card-link" title="Перейти на сайт Felix Ferro">
+              <span>Официальный ресурс</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 15. DSC OFF -->
+        <div class="partner-card" data-partner-id="dsc_off">
+          <div>
+            <div class="partner-card-top">
+              <div class="partner-logo-box">
+                <img src="assets/partners/dsc_off.svg" alt="DSC OFF" class="partner-card-logo-img" loading="lazy">
+              </div>
+              <span class="partner-card-category">Медиа &amp; Хроника</span>
+            </div>
+            <div class="partner-card-body">
+              <h3 class="partner-card-name">DSC OFF</h3>
+              <p class="partner-card-desc">Автоспортивный медиа-проект Гурама Инцкирвели, подробно освещающий постройку и боевые заезды быстрейших суперкаров GTT.</p>
+            </div>
+          </div>
+          <div class="partner-card-footer">
+            <span class="partner-card-badge">OFFICIAL ALLIANCE</span>
+            <a href="https://youtube.com/@dscoff" target="_blank" rel="noopener noreferrer" class="partner-card-link" title="Смотреть DSC OFF">
+              <span>Официальный ресурс</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- 16. Pride JFC Club -->
+        <div class="partner-card" data-partner-id="pride_jfc">
+          <div>
+            <div class="partner-card-top">
+              <div class="partner-logo-box">
+                <img src="assets/partners/pride_jfc.svg" alt="Pride JFC Club" class="partner-card-logo-img" loading="lazy">
+              </div>
+              <span class="partner-card-category">Автоспорт &amp; Стиль</span>
+            </div>
+            <div class="partner-card-body">
+              <h3 class="partner-card-name">Pride JFC Club</h3>
+              <p class="partner-card-desc">Официальный гоночный клуб и академия пилотов GoshaTurboTech: подготовка к драг-сезону RDRC и закрытые трек-дни суперкаров.</p>
+            </div>
+          </div>
+          <div class="partner-card-footer">
+            <span class="partner-card-badge">OFFICIAL ALLIANCE</span>
+            <a href="https://goshaturbotech.ru" target="_blank" rel="noopener noreferrer" class="partner-card-link" title="Перейти на сайт Pride JFC">
+              <span>Официальный ресурс</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Speed Alliance Marquee Ribbon (Seamless Brand Stream) -->
+      <div class="partners-marquee-wrap" style="margin-top: 48px; margin-bottom: 0;">
+        <div class="partners-marquee-track" id="partnersMarqueeTrack">
+          <a href="https://vpracingfuels.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/vp_racing.svg" alt="VP Racing" class="partners-marquee-logo"><span class="partners-marquee-text">VP RACING FUELS</span></a>
+          <a href="https://www.motul.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/motul.svg" alt="Motul" class="partners-marquee-logo"><span class="partners-marquee-text">MOTUL MOTORSPORT</span></a>
+          <a href="https://www.syvecs.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/syvecs.svg" alt="Syvecs" class="partners-marquee-logo"><span class="partners-marquee-text">SYVECS POWERTRAIN</span></a>
+          <a href="https://www.motec.com.au" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/motec.svg" alt="MoTeC" class="partners-marquee-logo"><span class="partners-marquee-text">MOTEC SYSTEMS</span></a>
+          <a href="https://www.precisionturbo.net" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/precision_turbo.svg" alt="Precision Turbo" class="partners-marquee-logo"><span class="partners-marquee-text">PRECISION TURBO</span></a>
+          <a href="https://www.ppgearbox.com.au" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/ppg.svg" alt="PPG" class="partners-marquee-logo"><span class="partners-marquee-text">PPG GEARBOXES</span></a>
+          <a href="https://www.redlineoil.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/redline.svg" alt="Red Line" class="partners-marquee-logo"><span class="partners-marquee-text">RED LINE OIL</span></a>
+          <a href="https://www.bellintercoolers.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/bell_intercoolers.svg" alt="Bell" class="partners-marquee-logo"><span class="partners-marquee-text">BELL INTERCOOLERS</span></a>
+          <a href="https://plazmaman.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/plazmaman.svg" alt="Plazmaman" class="partners-marquee-logo"><span class="partners-marquee-text">PLAZMAMAN BILLET</span></a>
+          <a href="https://t1racedevelopment.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/t1_race.svg" alt="T1 Race" class="partners-marquee-logo"><span class="partners-marquee-text">T1 RACE DEV</span></a>
+          <a href="https://rdrc.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/dragtimes.svg" alt="Dragtimes" class="partners-marquee-logo"><span class="partners-marquee-text">RDRC DRAGTIMES</span></a>
+          <a href="https://goshaturbotech.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/deikin_exhaust.svg" alt="Deikin" class="partners-marquee-logo"><span class="partners-marquee-text">DEIKIN EXHAUST</span></a>
+          <a href="https://toysdetailing.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/toys_detailing.svg" alt="Toys Detailing" class="partners-marquee-logo"><span class="partners-marquee-text">TOYS DETAILING</span></a>
+          <a href="https://felixferro.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/felix_ferro.svg" alt="Felix Ferro" class="partners-marquee-logo"><span class="partners-marquee-text">FELIX FERRO</span></a>
+          <a href="https://youtube.com/@dscoff" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/dsc_off.svg" alt="DSC OFF" class="partners-marquee-logo"><span class="partners-marquee-text">DSC OFF</span></a>
+          <a href="https://goshaturbotech.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/pride_jfc.svg" alt="Pride JFC" class="partners-marquee-logo"><span class="partners-marquee-text">PRIDE JFC CLUB</span></a>
+          <!-- Infinite Loop Clone -->
+          <a href="https://vpracingfuels.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/vp_racing.svg" alt="VP Racing" class="partners-marquee-logo"><span class="partners-marquee-text">VP RACING FUELS</span></a>
+          <a href="https://www.motul.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/motul.svg" alt="Motul" class="partners-marquee-logo"><span class="partners-marquee-text">MOTUL MOTORSPORT</span></a>
+          <a href="https://www.syvecs.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/syvecs.svg" alt="Syvecs" class="partners-marquee-logo"><span class="partners-marquee-text">SYVECS POWERTRAIN</span></a>
+          <a href="https://www.motec.com.au" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/motec.svg" alt="MoTeC" class="partners-marquee-logo"><span class="partners-marquee-text">MOTEC SYSTEMS</span></a>
+          <a href="https://www.precisionturbo.net" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/precision_turbo.svg" alt="Precision Turbo" class="partners-marquee-logo"><span class="partners-marquee-text">PRECISION TURBO</span></a>
+          <a href="https://www.ppgearbox.com.au" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/ppg.svg" alt="PPG" class="partners-marquee-logo"><span class="partners-marquee-text">PPG GEARBOXES</span></a>
+          <a href="https://www.redlineoil.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/redline.svg" alt="Red Line" class="partners-marquee-logo"><span class="partners-marquee-text">RED LINE OIL</span></a>
+          <a href="https://www.bellintercoolers.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/bell_intercoolers.svg" alt="Bell" class="partners-marquee-logo"><span class="partners-marquee-text">BELL INTERCOOLERS</span></a>
+          <a href="https://plazmaman.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/plazmaman.svg" alt="Plazmaman" class="partners-marquee-logo"><span class="partners-marquee-text">PLAZMAMAN BILLET</span></a>
+          <a href="https://t1racedevelopment.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/t1_race.svg" alt="T1 Race" class="partners-marquee-logo"><span class="partners-marquee-text">T1 RACE DEV</span></a>
+          <a href="https://rdrc.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/dragtimes.svg" alt="Dragtimes" class="partners-marquee-logo"><span class="partners-marquee-text">RDRC DRAGTIMES</span></a>
+          <a href="https://goshaturbotech.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/deikin_exhaust.svg" alt="Deikin" class="partners-marquee-logo"><span class="partners-marquee-text">DEIKIN EXHAUST</span></a>
+          <a href="https://toysdetailing.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/toys_detailing.svg" alt="Toys Detailing" class="partners-marquee-logo"><span class="partners-marquee-text">TOYS DETAILING</span></a>
+          <a href="https://felixferro.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/felix_ferro.svg" alt="Felix Ferro" class="partners-marquee-logo"><span class="partners-marquee-text">FELIX FERRO</span></a>
+          <a href="https://youtube.com/@dscoff" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/dsc_off.svg" alt="DSC OFF" class="partners-marquee-logo"><span class="partners-marquee-text">DSC OFF</span></a>
+          <a href="https://goshaturbotech.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/pride_jfc.svg" alt="Pride JFC" class="partners-marquee-logo"><span class="partners-marquee-text">PRIDE JFC CLUB</span></a>
+        </div>
       </div>
     </div>
   </section>

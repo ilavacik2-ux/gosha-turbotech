@@ -3,6 +3,17 @@
  * Strictly visual, data-driven, authentic engineering showcase
  */
 
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+window.escapeHtml = escapeHtml;
+
 let gttProjects = [
   {
     "id": "r8_rokot",
@@ -3431,7 +3442,7 @@ function formatGarageExpandText(remaining, isExpanded, lang) {
   return `Show All Projects (+${remaining} builds)`;
 }
 
-let isGarageExpanded = true;
+let isGarageExpanded = false;
 
 window.toggleGarageExpand = function() {
   isGarageExpanded = !isGarageExpanded;
@@ -3455,7 +3466,7 @@ function renderGarageGrid(filterType) {
       ? [...gttProjects]
       : gttProjects.filter(c => c.type === filterType);
 
-    // 2. Pagination for 'all' filter (12 builds total)
+    // 2. Pagination for 'all' filter (4 flagship builds shown first, rest expandable)
     const expandWrap = document.getElementById('garageExpandWrap');
     const expandBtn = document.getElementById('btnGarageExpand');
     const expandText = document.getElementById('garageExpandText');
@@ -3464,15 +3475,18 @@ function renderGarageGrid(filterType) {
     if (filterType === 'all') {
       if (!isGarageExpanded && filtered.length > 4) {
         displayList = filtered.slice(0, 4);
+        container.classList.add('is-collapsed-4');
         if (expandWrap) expandWrap.style.display = 'flex';
         if (expandBtn) expandBtn.classList.remove('is-expanded');
         if (expandText) expandText.textContent = formatGarageExpandText(filtered.length - 4, false, currentLang);
       } else {
+        container.classList.remove('is-collapsed-4');
         if (expandWrap) expandWrap.style.display = 'flex';
         if (expandBtn) expandBtn.classList.add('is-expanded');
         if (expandText) expandText.textContent = formatGarageExpandText(0, true, currentLang);
       }
     } else {
+      container.classList.remove('is-collapsed-4');
       if (expandWrap) expandWrap.style.display = 'none';
     }
 
