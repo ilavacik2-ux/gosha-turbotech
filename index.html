@@ -2156,6 +2156,17 @@
   </button>
 
   <script src="js/media-db.js?v=23.0"></script>
-  <script src="js/app.js?v=27.0"></script>
+  <script src="js/app.js?v=28.0"></script>
+  <script>
+    // Failsafe Preloader Dismissal (Max 1.6s)
+    setTimeout(function() {
+      var p = document.getElementById('preloader');
+      if (p && p.style.display !== 'none' && !p.classList.contains('fade-out')) {
+        p.classList.add('fade-out');
+        document.body.classList.remove('is-loading');
+        setTimeout(function() { p.style.display = 'none'; }, 600);
+      }
+    }, 1600);
+  </script>
 </body>
 </html>

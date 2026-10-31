@@ -2754,7 +2754,6 @@ const recordTranslationsEn = {
 };
 
 // Dynamic Records Synchronization & Smooth Continuous Carousel Stream
-let cachedRecordsData = null;
 let recordsTrackPos = 0;
 let recordsIsHovered = false;
 let recordsIsManualSliding = false;
