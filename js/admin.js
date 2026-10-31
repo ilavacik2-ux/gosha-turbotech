@@ -217,20 +217,6 @@ const defaultProjects = [
     "is_photo": 1
   },
   {
-    "id": "tonystark",
-    "brand": "AUDI & ЦМРБАНК",
-    "type": "audi",
-    "nameRu": "R8 V10 PLUS TWIN TURBO TONY STARK / RDRC",
-    "nameEn": "R8 V10 PLUS TWIN TURBO TONY STARK / RDRC",
-    "hp": "1,400+ HP",
-    "quarterMile": "8.948 сек",
-    "topSpeed": "350+ км/ч",
-    "img": "assets/archive_tilda/audi_r8_tonystark.png",
-    "videoSrc": "",
-    "descRu": "Боевая Audi R8 V10 Twin Turbo под эгидой ЦМРБанк и GTT на треке RDRC. Официальное время 8.948 сек со скоростью 247.68 км/ч на Record Days 2023 и 287.19 км/ч на 1/2 мили.",
-    "is_featured": 0
-  },
-  {
     "id": "zelenka",
     "brand": "LAMBORGHINI",
     "type": "lambo",
@@ -561,6 +547,24 @@ const defaultProjects = [
     "is_featured": 0,
     "fallbackImg": "assets/cars/gtt_classified_car.svg",
     "objectPosition": "center center",
+    "is_photo": 0,
+    "isClassified": true,
+    "isTeaser": true
+  },
+  {
+    "id": "tonystark",
+    "brand": "AUDI & ЦМРБАНК",
+    "type": "audi",
+    "nameRu": "R8 V10 PLUS TWIN TURBO TONY STARK / RDRC",
+    "nameEn": "R8 V10 PLUS TWIN TURBO TONY STARK / RDRC",
+    "hp": "—",
+    "quarterMile": "—",
+    "topSpeed": "—",
+    "img": "assets/cars/gtt_classified_car.svg",
+    "videoSrc": "",
+    "descRu": "Боевая Audi R8 V10 Twin Turbo под эгидой ЦМРБанк и GTT на треке RDRC. Официальное время 8.948 сек со скоростью 247.68 км/ч на Record Days 2023 и 287.19 км/ч на 1/2 мили.",
+    "is_featured": 0,
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
     "is_photo": 0,
     "isClassified": true,
     "isTeaser": true

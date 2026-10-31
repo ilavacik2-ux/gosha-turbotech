@@ -398,44 +398,6 @@ let gttProjects = [
     "isFeatured": false
   },
   {
-    "id": "tonystark",
-    "brand": "AUDI & ЦМРБАНК",
-    "type": "audi",
-    "name": {
-      "ru": "R8 V10 PLUS TWIN TURBO TONY STARK / RDRC",
-      "en": "R8 V10 PLUS TWIN TURBO TONY STARK / RDRC"
-    },
-    "tag": {
-      "ru": "ПОКОРИТЕЛЬ БАЙКАЛА & RDRC • 8.948 СЕК",
-      "en": "BAIKAL ICE & RDRC FIGHTER • 8.948 SEC"
-    },
-    "hp": "1,400+ HP",
-    "quarterMile": "8.948 сек",
-    "topSpeed": "350+ км/ч",
-    "badge": {
-      "ru": "Tony Stark 1400+ HP",
-      "en": "Tony Stark 1400+ HP"
-    },
-    "img": "assets/archive_tilda/audi_r8_tonystark.png",
-    "fallbackImg": "assets/cars/audi_r8_tsmr_launch.jpg",
-    "isPhoto": false,
-    "objectPosition": "center center",
-    "videoSrc": "",
-    "videoTitle": "Audi R8 V10 Twin Turbo Tony Stark — боевой заезд",
-    "desc": {
-      "ru": "Боевая Audi R8 V10 Twin Turbo под эгидой ЦМРБанк и GTT на треке RDRC. Официальное время 8.948 сек со скоростью 247.68 км/ч на Record Days 2023 и 287.19 км/ч на 1/2 мили.",
-      "en": "Race Audi R8 V10 Twin Turbo backed by CMRBank and GTT on the RDRC strip. Record Days 2023 8.948 sec pass at 247.68 km/h."
-    },
-    "specs": {
-      "engine": "5.2L FSI V10 Twin Turbo Mid-Engine",
-      "turbos": "Mirror Twin Turbo Kit with Air-to-Water Intercooling",
-      "cooling": "CSF Triple Billet Heat Exchangers",
-      "ecu": "Syvecs S12 Standalone Motorsport Setup"
-    },
-    "is_featured": 0,
-    "isFeatured": false
-  },
-  {
     "id": "zelenka",
     "brand": "LAMBORGHINI",
     "type": "lambo",
@@ -1189,6 +1151,46 @@ let gttProjects = [
     "videoSrc": "",
     "is_featured": 0,
     "isFeatured": false,
+    "isTeaser": true
+  },
+  {
+    "id": "tonystark",
+    "brand": "AUDI & ЦМРБАНК",
+    "type": "audi",
+    "name": {
+      "ru": "R8 V10 PLUS TWIN TURBO TONY STARK / RDRC",
+      "en": "R8 V10 PLUS TWIN TURBO TONY STARK / RDRC"
+    },
+    "tag": {
+      "ru": "ПОКОРИТЕЛЬ БАЙКАЛА & RDRC • 8.948 СЕК",
+      "en": "BAIKAL ICE & RDRC FIGHTER • 8.948 SEC"
+    },
+    "hp": "—",
+    "quarterMile": "—",
+    "topSpeed": "—",
+    "badge": {
+      "ru": "Tony Stark 1400+ HP",
+      "en": "Tony Stark 1400+ HP"
+    },
+    "img": "assets/cars/gtt_classified_car.svg",
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "isPhoto": false,
+    "objectPosition": "center center",
+    "videoSrc": "",
+    "videoTitle": "Audi R8 V10 Twin Turbo Tony Stark — боевой заезд",
+    "desc": {
+      "ru": "Боевая Audi R8 V10 Twin Turbo под эгидой ЦМРБанк и GTT на треке RDRC. Официальное время 8.948 сек со скоростью 247.68 км/ч на Record Days 2023 и 287.19 км/ч на 1/2 мили.",
+      "en": "Race Audi R8 V10 Twin Turbo backed by CMRBank and GTT on the RDRC strip. Record Days 2023 8.948 sec pass at 247.68 km/h."
+    },
+    "specs": {
+      "engine": "5.2L FSI V10 Twin Turbo Mid-Engine",
+      "turbos": "Mirror Twin Turbo Kit with Air-to-Water Intercooling",
+      "cooling": "CSF Triple Billet Heat Exchangers",
+      "ecu": "Syvecs S12 Standalone Motorsport Setup"
+    },
+    "is_featured": 0,
+    "isFeatured": false,
+    "isClassified": true,
     "isTeaser": true
   }
 ];
