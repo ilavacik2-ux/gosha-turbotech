@@ -2189,9 +2189,15 @@ function renderMotoGrid(motoList) {
       </div>
     ` : '';
 
+    // Clean up code badge (e.g. "SUPERBIKE // STAGE 2" -> "STAGE 1 / 2 • ECU")
+    let cleanCode = code;
+    if (code.includes('STAGE')) cleanCode = 'STAGE 1 / 2 • ECU';
+    else if (code.includes('TITANIUM') || code.includes('EXH')) cleanCode = 'ТИТАНОВЫЙ ВЫПУСК';
+    else if (code.includes('BESPOKE') || code.includes('CNC')) cleanCode = 'BESPOKE & КАРБОН';
+
     const bulletsHtml = bullets.map(b => `
       <div class="moto-spec-item">
-        <span class="spec-status-led"></span>
+        <span class="spec-bullet">—</span>
         <span class="spec-label">${escapeHtml(b)}</span>
       </div>
     `).join('');
@@ -2200,10 +2206,8 @@ function renderMotoGrid(motoList) {
       <div class="moto-card" data-moto-id="${escapeHtml(m.id || '')}">
         ${imgHtml}
         <div class="moto-card-header">
-          <div class="moto-card-icon">
-            ${icon}
-          </div>
-          <span class="moto-spec-code">${code}</span>
+          <span class="moto-card-num">0${idx + 1}</span>
+          <span class="moto-card-pill">${cleanCode}</span>
         </div>
         <h3 class="moto-card-title">${title}</h3>
         <p class="moto-card-desc">${desc}</p>

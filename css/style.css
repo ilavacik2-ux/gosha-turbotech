@@ -2311,17 +2311,18 @@ body.is-loading {
 }
 
 .moto-badge {
-  background: rgba(56, 189, 248, 0.1);
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  color: var(--gtt-cyan);
+  background: rgba(234, 91, 12, 0.08);
+  border: 1px solid rgba(234, 91, 12, 0.28);
+  color: var(--gtt-orange);
   padding: 4px 12px;
-  border-radius: var(--radius-xs);
+  border-radius: 4px;
   font-family: var(--font-mono);
   font-size: 11px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
   display: inline-block;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 /* Scalable Moto Division Layout (Uncropped & Authentic) */
@@ -2339,8 +2340,8 @@ body.is-loading {
 }
 
 .moto-hero-banner:hover {
-  border-color: rgba(56, 189, 248, 0.35);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(56, 189, 248, 0.12);
+  border-color: rgba(234, 91, 12, 0.35);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(234, 91, 12, 0.1);
 }
 
 .moto-hero-media {
@@ -2391,18 +2392,18 @@ body.is-loading {
 
 .moto-hero-badge {
   position: absolute;
-  bottom: 12px;
-  left: 12px;
-  background: rgba(7, 8, 10, 0.88);
-  border: 1px solid rgba(56, 189, 248, 0.4);
-  color: var(--gtt-cyan);
-  padding: 5px 10px;
-  border-radius: 6px;
+  bottom: 14px;
+  left: 14px;
+  background: rgba(8, 10, 14, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #fff;
+  padding: 5px 12px;
+  border-radius: 4px;
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.06em;
-  backdrop-filter: blur(8px);
+  letter-spacing: 0.08em;
+  backdrop-filter: blur(10px);
   pointer-events: none;
   z-index: 5;
   white-space: nowrap;
@@ -2879,21 +2880,34 @@ body.is-loading {
 
 .moto-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
   max-width: 1400px;
   margin: 0 auto;
 }
 
+@media (max-width: 992px) {
+  .moto-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
 .moto-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md, 6px);
-  padding: 30px;
-  transition: var(--transition-smooth);
-  backdrop-filter: blur(15px);
+  background: rgba(13, 17, 24, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 28px 26px 26px;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(16px);
   position: relative;
   overflow: hidden;
+  box-sizing: border-box;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.28s ease,
+              background 0.28s ease,
+              box-shadow 0.28s ease;
 }
 
 .moto-card::before {
@@ -2903,139 +2917,180 @@ body.is-loading {
   left: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--gtt-cyan), transparent);
+  background: linear-gradient(90deg, transparent, var(--gtt-orange), transparent);
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.35s ease;
+}
+
+.moto-card:hover {
+  background: rgba(18, 24, 34, 0.95);
+  border-color: rgba(234, 91, 12, 0.45);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65), 0 0 24px rgba(234, 91, 12, 0.1);
 }
 
 .moto-card:hover::before {
   opacity: 1;
 }
 
-.moto-card:hover {
-  border-color: rgba(56, 189, 248, 0.4);
-  transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.75), 0 0 30px rgba(56, 189, 248, 0.2);
-}
-
 .moto-card-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
-.moto-card-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-sm, 4px);
-  background: linear-gradient(135deg, rgba(56, 189, 248, 0.14), rgba(56, 189, 248, 0.03));
-  border: 1px solid rgba(56, 189, 248, 0.28);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--gtt-cyan);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.moto-card:hover .moto-card-icon {
-  transform: scale(1.06);
-  border-color: var(--gtt-cyan);
-}
-
-.moto-spec-code {
+.moto-card-num {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--gtt-orange);
+  letter-spacing: 0.1em;
+  opacity: 0.9;
+}
+
+.moto-card-pill {
+  font-family: var(--font-mono);
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: rgba(56, 189, 248, 0.85);
-  background: rgba(56, 189, 248, 0.08);
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.09);
   padding: 4px 10px;
-  border-radius: var(--radius-xs, 2px);
-  border: 1px solid rgba(56, 189, 248, 0.22);
+  border-radius: 4px;
 }
 
 .moto-card-title {
   font-family: var(--font-display);
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 800;
   text-transform: uppercase;
-  margin-bottom: 12px;
+  letter-spacing: 0.025em;
   color: #fff;
+  margin: 0 0 12px;
+  line-height: 1.25;
 }
 
 .moto-card-desc {
-  font-size: 14px;
+  font-size: 13.5px;
   color: var(--text-muted);
   line-height: 1.6;
-  margin-bottom: 20px;
+  margin: 0 0 24px;
+  flex-grow: 1;
 }
 
-/* Moto Telemetry Spec Strips */
+/* Minimalist Architecture Feature Specs */
 .moto-spec-strip {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  margin-top: auto;
+  padding-top: 14px;
 }
 
 .moto-spec-item {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: 10px;
-  padding: 8px 12px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-left: 2px solid var(--gtt-cyan);
-  border-radius: var(--radius-sm, 4px);
-  font-family: var(--font-mono);
-  font-size: 12px;
+  padding: 9px 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  font-family: var(--font-body);
+  font-size: 13px;
   color: #cbd5e1;
-  transition: all 0.25s ease;
+  line-height: 1.45;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.moto-spec-item:last-child {
+  border-bottom: none;
 }
 
 .moto-card:hover .moto-spec-item {
-  background: rgba(56, 189, 248, 0.05);
-  border-color: rgba(56, 189, 248, 0.2);
-  border-left-color: var(--gtt-cyan);
   color: #fff;
-  transform: translateX(3px);
 }
 
-.spec-status-led {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--gtt-cyan);
-  box-shadow: 0 0 8px var(--gtt-cyan);
+.moto-spec-item .spec-bullet {
+  color: var(--gtt-orange);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 12px;
   flex-shrink: 0;
+  opacity: 0.85;
 }
 
-.spec-label {
+.moto-spec-item .spec-label {
   flex: 1;
-  line-height: 1.35;
 }
 
-/* Moto Banner Specs */
+/* Flagship BMW M1000RR Banner Telemetry Bar */
 .moto-banner-specs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.moto-spec-stat-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 12px 14px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-top: 14px;
+  gap: 4px;
+  transition: border-color 0.22s ease, background 0.22s ease;
 }
 
-.moto-banner-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.moto-spec-stat-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(234, 91, 12, 0.35);
+}
+
+.moto-spec-stat-card .m-stat-val {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+.moto-spec-stat-card .m-stat-val small {
+  font-size: 11px;
+  color: var(--gtt-orange);
   font-family: var(--font-mono);
-  font-size: 13px;
-  color: #e2e8f0;
+  font-weight: 700;
+  margin-left: 3px;
 }
 
-.moto-banner-item .spec-status-led {
-  background: var(--gtt-orange);
-  box-shadow: 0 0 8px var(--gtt-orange);
+.moto-spec-stat-card .m-stat-lbl {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 900px) {
+  .moto-banner-specs {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .moto-banner-specs {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Contact & Info Hub (Compact) */

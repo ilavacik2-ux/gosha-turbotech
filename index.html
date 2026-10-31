@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=32.0">
+  <link rel="stylesheet" href="css/style.css?v=33.0">
 </head>
 <body class="is-loading">
 
@@ -1165,17 +1165,21 @@
         </p>
 
         <div class="moto-banner-specs" id="motoBannerSpecs">
-          <div class="moto-banner-item">
-            <span class="spec-status-led"></span>
-            <span class="spec-label" id="motoSpec1" data-i18n="moto_spec_1">212 л.с. при 14 500 об/мин • Сухой вес 168 кг</span>
+          <div class="moto-spec-stat-card">
+            <span class="m-stat-val">212 <small>HP</small></span>
+            <span class="m-stat-lbl">14 500 RPM • Двигатель ShiftCam</span>
           </div>
-          <div class="moto-banner-item">
-            <span class="spec-status-led"></span>
-            <span class="spec-label" id="motoSpec2" data-i18n="moto_spec_2">Титановый выпуск Akrapovic Full System с отстрелами огнем</span>
+          <div class="moto-spec-stat-card">
+            <span class="m-stat-val">168 <small>KG</small></span>
+            <span class="m-stat-lbl">Сухой вес супербайка</span>
           </div>
-          <div class="moto-banner-item">
-            <span class="spec-status-led"></span>
-            <span class="spec-label" id="motoSpec3" data-i18n="moto_spec_3">M-Winglets карбоновые крылья с прижимной силой 16.3 кг</span>
+          <div class="moto-spec-stat-card">
+            <span class="m-stat-val">16.3 <small>KG</small></span>
+            <span class="m-stat-lbl">Прижимная сила M-Winglets</span>
+          </div>
+          <div class="moto-spec-stat-card">
+            <span class="m-stat-val">AKRAPOVIČ</span>
+            <span class="m-stat-lbl">Full Titanium Race Exhaust</span>
           </div>
         </div>
       </div>
@@ -1184,76 +1188,70 @@
 
 
     <div class="moto-cards-grid" id="motoCardsGrid">
-      <div class="moto-card">
+      <div class="moto-card" data-moto-id="moto_1">
         <div class="moto-card-header">
-          <div class="moto-card-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/></svg>
-          </div>
-          <span class="moto-spec-code">STAGE // ECU</span>
+          <span class="moto-card-num">01</span>
+          <span class="moto-card-pill">STAGE 1 / 2 • ECU</span>
         </div>
         <h3 class="moto-card-title" data-i18n="moto_card1_title">Трековая калибровка ECU</h3>
         <p class="moto-card-desc" data-i18n="moto_card1_desc">Индивидуальная настройка блоков управления для BMW S1000RR, Ducati Panigale V4, Yamaha R1. Снятие заводских ограничителей, квикшифтер, автоблип и контроль тяги.</p>
         <div class="moto-spec-strip">
           <div class="moto-spec-item">
-            <span class="spec-status-led"></span>
+            <span class="spec-bullet">—</span>
             <span class="spec-label" data-i18n="moto_card1_b1">Индивидуальные топливные карты под 100 RON</span>
           </div>
           <div class="moto-spec-item">
-            <span class="spec-status-led"></span>
-            <span class="spec-label" data-i18n="moto_card1_b2">Оптимизация Wheelie & Launch Control</span>
+            <span class="spec-bullet">—</span>
+            <span class="spec-label" data-i18n="moto_card1_b2">Оптимизация Wheelie &amp; Launch Control</span>
           </div>
           <div class="moto-spec-item">
-            <span class="spec-status-led"></span>
+            <span class="spec-bullet">—</span>
             <span class="spec-label" data-i18n="moto_card1_b3">Калибровка электронного дросселя без задержек</span>
           </div>
         </div>
       </div>
 
-      <div class="moto-card">
+      <div class="moto-card" data-moto-id="moto_2">
         <div class="moto-card-header">
-          <div class="moto-card-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
-          </div>
-          <span class="moto-spec-code">TITANIUM // EXH</span>
+          <span class="moto-card-num">02</span>
+          <span class="moto-card-pill">ТИТАНОВЫЙ ВЫПУСК</span>
         </div>
         <h3 class="moto-card-title" data-i18n="moto_card2_title">Титановый выпуск GTT Moto</h3>
         <p class="moto-card-desc" data-i18n="moto_card2_desc">Ручная аргоновая сварка титана и инконеля для мотоциклов. Экстремальное снижение веса, породистый акустический звук и прибавка крутящего момента во всем диапазоне.</p>
         <div class="moto-spec-strip">
           <div class="moto-spec-item">
-            <span class="spec-status-led"></span>
+            <span class="spec-bullet">—</span>
             <span class="spec-label" data-i18n="moto_card2_b1">Ультралегкие коллекторы из сплава Titan-Gr5</span>
           </div>
           <div class="moto-spec-item">
-            <span class="spec-status-led"></span>
+            <span class="spec-bullet">—</span>
             <span class="spec-label" data-i18n="moto_card2_b2">Кастомная фрезеровка насадок</span>
           </div>
           <div class="moto-spec-item">
-            <span class="spec-status-led"></span>
+            <span class="spec-bullet">—</span>
             <span class="spec-label" data-i18n="moto_card2_b3">Огненные отстрелы и сочный басовитый тон</span>
           </div>
         </div>
       </div>
 
-      <div class="moto-card">
+      <div class="moto-card" data-moto-id="moto_3">
         <div class="moto-card-header">
-          <div class="moto-card-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-          </div>
-          <span class="moto-spec-code">BESPOKE // CNC</span>
+          <span class="moto-card-num">03</span>
+          <span class="moto-card-pill">BESPOKE &amp; КАРБОН</span>
         </div>
         <h3 class="moto-card-title" data-i18n="moto_card3_title">Bespoke кастомизация</h3>
         <p class="moto-card-desc" data-i18n="moto_card3_desc">Полный цикл доработки премиальной мототехники: кованые сверхлегкие диски, сухое сцепление, карбоновое оперение и комплексное предсезонное ТО.</p>
         <div class="moto-spec-strip">
           <div class="moto-spec-item">
-            <span class="spec-status-led"></span>
+            <span class="spec-bullet">—</span>
             <span class="spec-label" data-i18n="moto_card3_b1">Сухой автоклавный карбон 3K/12K</span>
           </div>
           <div class="moto-spec-item">
-            <span class="spec-status-led"></span>
+            <span class="spec-bullet">—</span>
             <span class="spec-label" data-i18n="moto_card3_b2">Тормозные системы Brembo Racing / GP4</span>
           </div>
           <div class="moto-spec-item">
-            <span class="spec-status-led"></span>
+            <span class="spec-bullet">—</span>
             <span class="spec-label" data-i18n="moto_card3_b3">Индивидуальный дизайн и покраска</span>
           </div>
         </div>
@@ -2114,7 +2112,7 @@
   </button>
 
   <script src="js/media-db.js?v=23.0"></script>
-  <script src="js/app.js?v=37.0"></script>
+  <script src="js/app.js?v=38.0"></script>
   <script>
     // Failsafe Preloader Dismissal (Max 1.6s)
     setTimeout(function() {
