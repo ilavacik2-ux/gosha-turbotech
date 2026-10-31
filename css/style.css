@@ -66,6 +66,7 @@ section[id],
 .team-section,
 .moto-section,
 .atelier-gallery-section,
+.partners-section,
 .contact-section {
   scroll-margin-top: 100px;
 }
@@ -81,6 +82,7 @@ section[id],
   .team-section,
   .moto-section,
   .atelier-gallery-section,
+  .partners-section,
   .contact-section {
     scroll-margin-top: 80px;
   }
