@@ -360,10 +360,13 @@ const defaultProjects = [
     "hp": "1,500+ HP",
     "quarterMile": "8.350 сек",
     "topSpeed": "345+ км/ч",
-    "img": "assets/cars/gtr_draco_arefyev_wheel.jpg",
+    "img": "assets/cars/gtr_rocket_grey.jpg",
     "videoSrc": "",
     "descRu": "Экстремальный проект Nissan GT-R R35 «Rocket» лаборатории GoshaTurboTech. Двухтурбинный наддув, титановый прямой выхлоп и облегченная гоночная конфигурация кузова.",
-    "is_featured": 0
+    "is_featured": 0,
+    "fallbackImg": "assets/cars/gtr_rocket_grey.jpg",
+    "objectPosition": "center center",
+    "is_photo": 1
   },
   {
     "id": "gtr_alpha12x",
@@ -374,10 +377,13 @@ const defaultProjects = [
     "hp": "1,500+ HP",
     "quarterMile": "8.250 сек",
     "topSpeed": "350+ км/ч",
-    "img": "assets/cars/gtr_draco_connections.jpg",
+    "img": "assets/cars/gtr_alpha12x_launch.jpg",
     "videoSrc": "",
     "descRu": "Проект на базе культового пакета Alpha 12X, доработанный инженерами GTT. Кастомное охлаждение, усиленная трансмиссия GR6 и индивидуальная прошивка блока управления.",
-    "is_featured": 0
+    "is_featured": 0,
+    "fallbackImg": "assets/cars/gtr_alpha12x_launch.jpg",
+    "objectPosition": "center center",
+    "is_photo": 1
   },
   {
     "id": "gtr_fifa",
@@ -402,10 +408,13 @@ const defaultProjects = [
     "hp": "1,200+ HP",
     "quarterMile": "9.086 сек",
     "topSpeed": "312.77 км/ч",
-    "img": "assets/archive_tilda/porsche_991_gtt1200.jpg",
+    "img": "assets/cars/porsche_991_1200_white.jpg",
     "videoSrc": "",
     "descRu": "Безумный 991.1 Turbo Алексея Сагала. Официальный рекорд России/Европы на RDRC RacePark: 9.086 сек со скоростью 259.64 км/ч на 402 м и 14.186 сек со скоростью 312.77 км/ч на 1/2 мили.",
-    "is_featured": 0
+    "is_featured": 0,
+    "fallbackImg": "assets/cars/porsche_991_1200_white.jpg",
+    "objectPosition": "center center",
+    "is_photo": 1
   },
   {
     "id": "porsche_991_felix",
@@ -416,10 +425,13 @@ const defaultProjects = [
     "hp": "950+ HP",
     "quarterMile": "9.601 сек",
     "topSpeed": "232.40 км/ч",
-    "img": "assets/cars/gtr_rdrc_red_panamera.jpg",
+    "img": "assets/cars/porsche_991_felix_grey.jpg",
     "videoSrc": "",
     "descRu": "Лимитированная инженерная серия Felix Ferro Edition. Индивидуальный аэродинамический пакет, облегченные кованые диски и настройка блока управления Syvecs. 9.601 сек на квотере.",
-    "is_featured": 0
+    "is_featured": 0,
+    "fallbackImg": "assets/cars/porsche_991_felix_grey.jpg",
+    "objectPosition": "center center",
+    "is_photo": 1
   },
   {
     "id": "porsche_991_900",
@@ -458,10 +470,13 @@ const defaultProjects = [
     "hp": "900+ HP",
     "quarterMile": "10.200 сек",
     "topSpeed": "330+ км/ч",
-    "img": "assets/cars/bmw_m5_paddock_front.jpg",
+    "img": "assets/cars/bmw_m7_gtt_blue.jpg",
     "videoSrc": "",
     "descRu": "Представительский флагман BMW 7 серии в глубокой доработке GoshaTurboTech. Двухтурбинный V8/V12, бесшумный акустический комфорт в салоне и ураганная динамика на скоростных прямых.",
-    "is_featured": 0
+    "is_featured": 0,
+    "fallbackImg": "assets/cars/bmw_m7_gtt_blue.jpg",
+    "objectPosition": "center 75%",
+    "is_photo": 1
   },
   {
     "id": "mercedes_e63",
@@ -702,7 +717,7 @@ const defaultRecords = [
     car: 'PORSCHE 911 TURBO (991.1) GTT-1200',
     telemetry: '1/4 мили: 9.086 сек • 259.64 км/ч',
     desc: 'Пилот Алексей Сагал. Рекорд России и Европы для кузова 991.1 (9.086 с), скорость на 1/2 мили — 312.77 км/ч.',
-    img: 'assets/archive_tilda/porsche_991_gtt1200.jpg'
+    img: 'assets/cars/porsche_991_1200_white.jpg'
   },
   {
     id: 'rec_su7',

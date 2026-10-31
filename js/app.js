@@ -755,8 +755,8 @@ let gttProjects = [
       "ru": "GTT Rocket Spec",
       "en": "GTT Rocket Spec"
     },
-    "img": "assets/cars/gtr_draco_arefyev_wheel.jpg",
-    "fallbackImg": "assets/cars/gtr_draco_promod_front.jpg",
+    "img": "assets/cars/gtr_rocket_grey.jpg",
+    "fallbackImg": "assets/cars/gtr_rocket_grey.jpg",
     "isPhoto": true,
     "objectPosition": "center center",
     "desc": {
@@ -792,8 +792,8 @@ let gttProjects = [
       "ru": "Alpha 12X GTT",
       "en": "Alpha 12X GTT"
     },
-    "img": "assets/cars/gtr_draco_connections.jpg",
-    "fallbackImg": "assets/cars/gtr_red_front_rdrc.jpg",
+    "img": "assets/cars/gtr_alpha12x_launch.jpg",
+    "fallbackImg": "assets/cars/gtr_alpha12x_launch.jpg",
     "isPhoto": true,
     "objectPosition": "center center",
     "desc": {
@@ -866,9 +866,9 @@ let gttProjects = [
       "ru": "991.1 GTT-1200",
       "en": "991.1 GTT-1200"
     },
-    "img": "assets/archive_tilda/porsche_991_gtt1200.jpg",
-    "fallbackImg": "assets/cars/gtr_rdrc_red_panamera.jpg",
-    "isPhoto": false,
+    "img": "assets/cars/porsche_991_1200_white.jpg",
+    "fallbackImg": "assets/cars/porsche_991_1200_white.jpg",
+    "isPhoto": true,
     "objectPosition": "center center",
     "desc": {
       "ru": "Безумный 991.1 Turbo Алексея Сагала. Официальный рекорд России/Европы на RDRC RacePark: 9.086 сек со скоростью 259.64 км/ч на 402 м и 14.186 сек со скоростью 312.77 км/ч на 1/2 мили.",
@@ -903,8 +903,8 @@ let gttProjects = [
       "ru": "Felix Ferro Edition",
       "en": "Felix Ferro Edition"
     },
-    "img": "assets/cars/gtr_rdrc_red_panamera.jpg",
-    "fallbackImg": "assets/archive_tilda/porsche_992_imba.jpg",
+    "img": "assets/cars/porsche_991_felix_grey.jpg",
+    "fallbackImg": "assets/cars/porsche_991_felix_grey.jpg",
     "isPhoto": true,
     "objectPosition": "center center",
     "desc": {
@@ -1014,10 +1014,10 @@ let gttProjects = [
       "ru": "M7 Executive GTT",
       "en": "M7 Executive GTT"
     },
-    "img": "assets/cars/bmw_m5_paddock_front.jpg",
-    "fallbackImg": "assets/cars/bmw_m5_rdrc_race.jpg",
+    "img": "assets/cars/bmw_m7_gtt_blue.jpg",
+    "fallbackImg": "assets/cars/bmw_m7_gtt_blue.jpg",
     "isPhoto": true,
-    "objectPosition": "center center",
+    "objectPosition": "center 75%",
     "desc": {
       "ru": "Представительский флагман BMW 7 серии в глубокой доработке GoshaTurboTech. Двухтурбинный V8/V12, бесшумный акустический комфорт в салоне и ураганная динамика на скоростных прямых.",
       "en": "Executive flagship 7-series heavily enhanced by GoshaTurboTech. Twin-turbocharged powertrain offering silent luxury alongside autobahn supremacy."
@@ -2783,7 +2783,7 @@ const defaultRecords = [
     car: 'PORSCHE 911 TURBO GTT-1200',
     telemetry: '1/4 мили: 9.086 сек • 259.64 км/ч',
     desc: 'Пилот Алексей Сагал. Рекорд России и Европы для кузова 991.1.',
-    img: 'assets/archive_tilda/porsche_991_gtt1200.jpg'
+    img: 'assets/cars/porsche_991_1200_white.jpg'
   },
   {
     id: 'rec_su7',
