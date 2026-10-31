@@ -2753,59 +2753,98 @@ const recordTranslationsEn = {
   }
 };
 
-async function syncRecordsFromAPI() {
-  // 1. Instant check from localStorage or use complete defaultRecords
-  let recordsToUse = defaultRecords;
-  try {
-    const local = localStorage.getItem('gtt_admin_records_db') || localStorage.getItem('gtt_records_v2');
-    if (local) {
-      const parsed = JSON.parse(local);
-      if (Array.isArray(parsed) && parsed.length >= 10) {
-        recordsToUse = parsed;
+// Dynamic Records Synchronization & Smooth Continuous Carousel Stream
+let cachedRecordsData = null;
+let recordsTrackPos = 0;
+let recordsIsHovered = false;
+let recordsIsManualSliding = false;
+let recordsRafId = null;
+let recordsResumeTimeout = null;
+
+function stepRecordsContinuousMotion() {
+  const track = document.getElementById('recordsCarouselTrack');
+  if (track && !recordsIsHovered && !recordsIsManualSliding) {
+    const singleHalfWidth = track.scrollWidth / 2;
+    if (singleHalfWidth > 100) {
+      recordsTrackPos -= 0.65; // ~40px/sec at 60fps - calm, elegant motorsport drift
+      if (Math.abs(recordsTrackPos) >= singleHalfWidth) {
+        recordsTrackPos += singleHalfWidth;
       }
+      track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
     }
-  } catch (e) {}
-
-  cachedRecordsData = recordsToUse;
-  localStorage.setItem('gtt_admin_records_db', JSON.stringify(recordsToUse));
-  localStorage.setItem('gtt_records_v2', JSON.stringify(recordsToUse));
-  renderRecordsEditorial(recordsToUse);
-
-  // 2. Fetch live data from SQLite backend if available
-  try {
-    const res = await fetch('/api/records');
-    if (!res.ok) return;
-    const serverRecs = await res.json();
-    if (Array.isArray(serverRecs) && serverRecs.length > 0) {
-      cachedRecordsData = serverRecs;
-      localStorage.setItem('gtt_admin_records_db', JSON.stringify(serverRecs));
-      localStorage.setItem('gtt_records_v2', JSON.stringify(serverRecs));
-      renderRecordsEditorial(serverRecs);
-    }
-  } catch (err) {}
+  }
+  recordsRafId = requestAnimationFrame(stepRecordsContinuousMotion);
 }
 
-let currentRecordSlide = 0;
-let recordAutoplayTimer = null;
-let recordAutoplayPaused = false;
-let recordsCarouselInitialized = false;
+window.recordsCarouselNext = function() {
+  const track = document.getElementById('recordsCarouselTrack');
+  if (!track) return;
+  recordsIsManualSliding = true;
+  clearTimeout(recordsResumeTimeout);
+
+  const step = window.innerWidth <= 820 ? 334 : 404;
+  const singleHalfWidth = track.scrollWidth / 2;
+  recordsTrackPos -= step;
+  if (Math.abs(recordsTrackPos) >= singleHalfWidth) {
+    recordsTrackPos += singleHalfWidth;
+  }
+  track.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+  track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
+
+  recordsResumeTimeout = setTimeout(() => {
+    if (track) track.style.transition = 'none';
+    recordsIsManualSliding = false;
+  }, 480);
+};
+
+window.recordsCarouselPrev = function() {
+  const track = document.getElementById('recordsCarouselTrack');
+  if (!track) return;
+  recordsIsManualSliding = true;
+  clearTimeout(recordsResumeTimeout);
+
+  const step = window.innerWidth <= 820 ? 334 : 404;
+  const singleHalfWidth = track.scrollWidth / 2;
+  recordsTrackPos += step;
+  if (recordsTrackPos > 0) {
+    recordsTrackPos -= singleHalfWidth;
+  }
+  track.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+  track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
+
+  recordsResumeTimeout = setTimeout(() => {
+    if (track) track.style.transition = 'none';
+    recordsIsManualSliding = false;
+  }, 480);
+};
+
+window.goToRecordSlide = function(idx) {
+  const track = document.getElementById('recordsCarouselTrack');
+  if (!track) return;
+  const step = window.innerWidth <= 820 ? 334 : 404;
+  recordsTrackPos = -(idx * step);
+  track.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+  track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
+  setTimeout(() => { if (track) track.style.transition = 'none'; }, 480);
+};
 
 function renderRecordsEditorial(recordsList) {
-  const container = document.getElementById('recordsCarouselTrack') || document.querySelector('.records-grid');
-  if (!container || !Array.isArray(recordsList) || recordsList.length === 0) return;
+  const track = document.getElementById('recordsCarouselTrack');
+  if (!track || !Array.isArray(recordsList) || recordsList.length === 0) return;
   cachedRecordsData = recordsList;
 
-  container.innerHTML = recordsList.map((rec, idx) => {
-    const photo = rec.img || defaultRecordImages[rec.id] || 'assets/photos/huracan_rdrc_stage_line.jpg';
+  const renderSingle = (rec, idx, isDup) => {
+    const photo = rec.img || 'assets/photos/huracan_rdrc_stage_line.jpg';
     const enMeta = recordTranslationsEn[rec.id] || {};
     const yearText = (currentLang === 'en' && enMeta.year) ? enMeta.year : (rec.year || 'GTT Record');
     const descText = (currentLang === 'en' && enMeta.desc) ? enMeta.desc : (rec.desc || '');
     const carName = rec.car || 'GTT Spec';
     const telemetry = rec.telemetry || '—';
     const num = String(idx + 1).padStart(2, '0');
+    const dupAttr = isDup ? '_dup' : '';
 
     return `
-      <div class="record-item ${idx === 0 ? 'is-active-slide' : ''}" data-id="${rec.id || idx}" data-index="${idx}">
+      <div class="record-item" data-id="${rec.id || idx}${dupAttr}" data-metric="${telemetry}" data-car="${carName}" data-year="${yearText}">
         <div class="record-photo-wrapper">
           <img src="${photo}" 
                alt="${carName}" 
@@ -2819,7 +2858,7 @@ function renderRecordsEditorial(recordsList) {
           <span class="rsh-badge">⚡ RECORD</span>
           <div class="rsh-content">
             <span class="rsh-metric">${telemetry}</span>
-            <span class="rsh-car" style="display: none;">${carName}</span>
+            <span class="rsh-car" style="display:none;">${carName}</span>
           </div>
         </div>
         <div class="record-body">
@@ -2828,245 +2867,115 @@ function renderRecordsEditorial(recordsList) {
         </div>
       </div>
     `;
-  }).join('');
+  };
+
+  const primaryCards = recordsList.map((r, i) => renderSingle(r, i, false)).join('');
+  const duplicateCards = recordsList.map((r, i) => renderSingle(r, i, true)).join('');
+  track.innerHTML = primaryCards + duplicateCards;
 
   initRecordsCarousel();
 }
 
-function getRecordSlidesPerView() {
-  if (window.innerWidth > 1024) return 3;
-  if (window.innerWidth > 768) return 2;
-  return 1;
-}
-
-function updateRecordsCarousel(index, isAuto = false) {
+function initRecordsCarousel() {
+  const stage = document.querySelector('.records-carousel-stage');
   const track = document.getElementById('recordsCarouselTrack');
   if (!track) return;
-  const items = track.querySelectorAll('.record-item');
-  if (!items || items.length === 0) return;
 
-  const slidesPerView = getRecordSlidesPerView();
-  const maxIndex = Math.max(0, items.length - slidesPerView);
-
-  if (index > maxIndex) {
-    currentRecordSlide = 0;
-  } else if (index < 0) {
-    currentRecordSlide = maxIndex;
-  } else {
-    currentRecordSlide = index;
+  if (recordsRafId) {
+    cancelAnimationFrame(recordsRafId);
   }
+  recordsRafId = requestAnimationFrame(stepRecordsContinuousMotion);
 
-  // Calculate pixel translation based on first card width + gap (24px)
-  const firstItem = items[0];
-  const cardWidth = firstItem ? (firstItem.offsetWidth + 24) : 0;
-  track.style.transform = `translate3d(-${currentRecordSlide * cardWidth}px, 0, 0)`;
+  if (stage && !stage._recordsListenersAttached) {
+    stage._recordsListenersAttached = true;
 
-  // Update active slide class
-  items.forEach((item, i) => {
-    const isActive = (i >= currentRecordSlide && i < currentRecordSlide + slidesPerView);
-    item.classList.toggle('is-active-slide', isActive);
-  });
+    // 1. Pause on hover
+    stage.addEventListener('mouseenter', () => { recordsIsHovered = true; });
+    stage.addEventListener('mouseleave', () => { recordsIsHovered = false; });
 
-  // Update Live Telemetry HUD Bar
-  const activeItem = items[currentRecordSlide];
-  if (activeItem) {
-    const metricEl = activeItem.querySelector('.rsh-metric');
-    const carEl = activeItem.querySelector('.record-title') || activeItem.querySelector('.rsh-car');
-    const badgeEl = activeItem.querySelector('.record-year-badge');
-
-    const hudMetric = document.getElementById('hudRecordMetric');
-    const hudCar = document.getElementById('hudCarName');
-    const hudBadge = document.getElementById('hudEventBadge');
-    const hudCounter = document.getElementById('hudSlideCounter');
-
-    if (hudMetric && metricEl) {
-      hudMetric.style.opacity = '0.4';
-      hudMetric.textContent = metricEl.textContent;
-      setTimeout(() => { hudMetric.style.opacity = '1'; }, 150);
-    }
-    if (hudCar && carEl) {
-      hudCar.style.opacity = '0.4';
-      hudCar.textContent = carEl.textContent;
-      setTimeout(() => { hudCar.style.opacity = '1'; }, 150);
-    }
-    if (hudBadge && badgeEl) {
-      hudBadge.textContent = badgeEl.textContent;
-    }
-    if (hudCounter) {
-      hudCounter.textContent = `${String(currentRecordSlide + 1).padStart(2, '0')} / ${String(items.length).padStart(2, '0')}`;
-    }
-  }
-
-  // Update dots pagination
-  renderRecordsDots(maxIndex + 1);
-
-  // Restart auto-play progress bar
-  resetRecordProgressBar();
-}
-
-function renderRecordsDots(totalDots) {
-  const dotsContainer = document.getElementById('recordsCarouselDots');
-  if (!dotsContainer) return;
-
-  if (dotsContainer.children.length !== totalDots) {
-    dotsContainer.innerHTML = '';
-    for (let i = 0; i < totalDots; i++) {
-      const dot = document.createElement('button');
-      dot.className = `records-dot ${i === currentRecordSlide ? 'active' : ''}`;
-      dot.setAttribute('aria-label', `Рекорд слайд ${i + 1}`);
-      dot.onclick = () => {
-        window.goToRecordSlide(i);
-      };
-      dotsContainer.appendChild(dot);
-    }
-  } else {
-    Array.from(dotsContainer.children).forEach((dot, idx) => {
-      dot.classList.toggle('active', idx === currentRecordSlide);
+    // 2. Hover any card updates the HUD ticker in real time
+    stage.addEventListener('mouseover', (e) => {
+      const card = e.target.closest('.record-item');
+      if (card) {
+        const metric = card.getAttribute('data-metric');
+        const car = card.getAttribute('data-car');
+        const year = card.getAttribute('data-year');
+        const hudMetric = document.getElementById('hudRecordMetric');
+        const hudCar = document.getElementById('hudCarName');
+        const hudBadge = document.getElementById('hudEventBadge');
+        if (hudMetric && metric) hudMetric.textContent = metric;
+        if (hudCar && car) hudCar.textContent = car;
+        if (hudBadge && year) hudBadge.textContent = year;
+      }
     });
+
+    // 3. Touch swipe for mobile devices
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchInitialPos = 0;
+
+    stage.addEventListener('touchstart', (e) => {
+      if (e.touches.length > 0) {
+        recordsIsManualSliding = true;
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchInitialPos = recordsTrackPos;
+      }
+    }, { passive: true });
+
+    stage.addEventListener('touchmove', (e) => {
+      if (e.touches.length > 0) {
+        const deltaX = e.touches[0].clientX - touchStartX;
+        const deltaY = e.touches[0].clientY - touchStartY;
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+          recordsTrackPos = touchInitialPos + deltaX;
+          const singleHalfWidth = track.scrollWidth / 2;
+          if (singleHalfWidth > 0) {
+            if (Math.abs(recordsTrackPos) >= singleHalfWidth) recordsTrackPos += singleHalfWidth;
+            if (recordsTrackPos > 0) recordsTrackPos -= singleHalfWidth;
+          }
+          track.style.transition = 'none';
+          track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
+        }
+      }
+    }, { passive: true });
+
+    stage.addEventListener('touchend', () => {
+      recordsIsManualSliding = false;
+    }, { passive: true });
   }
 }
 
-function resetRecordProgressBar() {
-  const fill = document.getElementById('hudProgressFill');
-  if (!fill) return;
-  fill.style.transition = 'none';
-  fill.style.width = '0%';
-  // Force reflow
-  void fill.offsetWidth;
-  if (!recordAutoplayPaused) {
-    fill.style.transition = 'width 4.5s linear';
-    fill.style.width = '100%';
-  }
-}
-
-function startRecordAutoplay() {
-  stopRecordAutoplay();
-  recordAutoplayPaused = false;
-  resetRecordProgressBar();
-  recordAutoplayTimer = setInterval(() => {
-    if (!recordAutoplayPaused) {
-      updateRecordsCarousel(currentRecordSlide + 1, true);
-    }
-  }, 4500);
-}
-
-function stopRecordAutoplay() {
-  if (recordAutoplayTimer) {
-    clearInterval(recordAutoplayTimer);
-    recordAutoplayTimer = null;
-  }
-}
-
-function resetRecordAutoplay() {
-  startRecordAutoplay();
-}
-
-window.recordsCarouselPrev = function() {
-  updateRecordsCarousel(currentRecordSlide - 1);
-  resetRecordAutoplay();
-};
-
-window.recordsCarouselNext = function() {
-  updateRecordsCarousel(currentRecordSlide + 1);
-  resetRecordAutoplay();
-};
-
-window.goToRecordSlide = function(idx) {
-  updateRecordsCarousel(idx);
-  resetRecordAutoplay();
-};
-
-function initRecordsCarousel() {
-  const viewport = document.getElementById('recordsCarouselViewport');
-  const stage = document.querySelector('.records-carousel-stage');
-  const ticker = document.getElementById('recordsHudTicker');
-  const track = document.getElementById('recordsCarouselTrack');
-  if (!viewport || !track) return;
-
-  updateRecordsCarousel(currentRecordSlide);
-  startRecordAutoplay();
-
-  if (recordsCarouselInitialized) return;
-  recordsCarouselInitialized = true;
-
-  // 1. Pause on hover
-  const pauseElements = [stage, ticker].filter(Boolean);
-  pauseElements.forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      recordAutoplayPaused = true;
-      const fill = document.getElementById('hudProgressFill');
-      if (fill) fill.style.animationPlayState = 'paused';
-    });
-    el.addEventListener('mouseleave', () => {
-      recordAutoplayPaused = false;
-      resetRecordProgressBar();
-    });
-  });
-
-  // 2. Touch gesture support for iOS & Android
-  let touchStartX = 0;
-  let touchStartY = 0;
-  let touchEndX = 0;
-  let touchEndY = 0;
-
-  viewport.addEventListener('touchstart', (e) => {
-    if (e.touches.length > 0) {
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
-      touchEndX = touchStartX;
-      touchEndY = touchStartY;
-      recordAutoplayPaused = true;
-    }
-  }, { passive: true });
-
-  viewport.addEventListener('touchmove', (e) => {
-    if (e.touches.length > 0) {
-      touchEndX = e.touches[0].clientX;
-      touchEndY = e.touches[0].clientY;
-    }
-  }, { passive: true });
-
-  viewport.addEventListener('touchend', () => {
-    const deltaX = touchEndX - touchStartX;
-    const deltaY = touchEndY - touchStartY;
-    if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY)) {
-      if (deltaX < 0) {
-        window.recordsCarouselNext();
-      } else {
-        window.recordsCarouselPrev();
+async function syncRecordsFromAPI() {
+  let recordsToUse = defaultRecords;
+  try {
+    const local = localStorage.getItem('gtt_admin_records_db') || localStorage.getItem('gtt_records_v2');
+    if (local) {
+      const parsed = JSON.parse(local);
+      if (Array.isArray(parsed) && parsed.length >= 10) {
+        recordsToUse = parsed;
       }
     }
-    recordAutoplayPaused = false;
-    resetRecordAutoplay();
-  }, { passive: true });
+  } catch (e) {}
 
-  // 3. Trackpad 2-finger horizontal swipe
-  let trackpadLock = false;
-  viewport.addEventListener('wheel', (e) => {
-    const absX = Math.abs(e.deltaX);
-    const absY = Math.abs(e.deltaY);
-    if (absX > absY && absX > 18) {
-      e.preventDefault();
-      if (trackpadLock) return;
-      trackpadLock = true;
-      setTimeout(() => { trackpadLock = false; }, 420);
+  cachedRecordsData = recordsToUse;
+  try {
+    localStorage.setItem('gtt_admin_records_db', JSON.stringify(recordsToUse));
+    localStorage.setItem('gtt_records_v2', JSON.stringify(recordsToUse));
+  } catch (e) {}
+  renderRecordsEditorial(recordsToUse);
 
-      if (e.deltaX > 0) {
-        window.recordsCarouselNext();
-      } else {
-        window.recordsCarouselPrev();
-      }
+  try {
+    const res = await fetch('/api/records');
+    if (!res.ok) return;
+    const serverRecs = await res.json();
+    if (Array.isArray(serverRecs) && serverRecs.length > 0) {
+      cachedRecordsData = serverRecs;
+      localStorage.setItem('gtt_admin_records_db', JSON.stringify(serverRecs));
+      localStorage.setItem('gtt_records_v2', JSON.stringify(serverRecs));
+      renderRecordsEditorial(serverRecs);
     }
-  }, { passive: false });
-
-  // 4. Window Resize handler
-  let resizeTimer = null;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-      updateRecordsCarousel(currentRecordSlide);
-    }, 120);
-  });
+  } catch (err) {}
 }
 
 // Multi-Tab Real-Time Sync Listener
