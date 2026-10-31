@@ -1951,96 +1951,185 @@ async function syncGalleryFromAPI() {
 
 // Technical & Motorsport Partners
 const defaultPartnersList = [
-  { id: 'vp_racing', name: 'VP Racing Fuels', category: 'Топливо и метанол', desc: 'Мировой эталон спортивного топлива, гоночного кислородного бензина и чистого метанола M1 для рекордных заездов RDRC.', logo: 'assets/photos/partners_banner.png', link: 'https://vpracingfuels.com', sort_order: 1, is_active: 1 },
-  { id: 'motul', name: 'Motul Motorsport', category: 'Смазочные материалы', desc: 'Синтетические моторные масла Motul 300V Motorsport Line с технологией Ester Core, защищающие 2000+ сильные моторы GTT при пиковых нагрузках.', logo: 'assets/photos/partners_banner.png', link: 'https://www.motul.com', sort_order: 2, is_active: 1 },
-  { id: 'syvecs', name: 'Syvecs Powertrain Control', category: 'Электроника и ЭБУ', desc: 'Высокотехнологичные блоки управления двигателем (ECU), полноприводной трансмиссией (AWD Controller) и алгоритмами лаунч-контроля.', logo: 'assets/photos/partners_banner.png', link: 'https://www.syvecs.com', sort_order: 3, is_active: 1 },
-  { id: 'motec', name: 'MoTeC Systems', category: 'Электроника и ЭБУ', desc: 'Золотой стандарт мирового автоспорта: управляющие процессоры M1, цветные цифровые приборные панели C1212 и прецизионные логгеры телеметрии.', logo: 'assets/photos/partners_banner.png', link: 'https://www.motec.com.au', sort_order: 4, is_active: 1 },
-  { id: 'precision_turbo', name: 'Precision Turbo & Engine', category: 'Турбосистемы', desc: 'Специализированные гоночные турбокомпрессоры сверхвысокого наддува серии Pro Mod и GEN2 CEA, обеспечивающие отдачу до 3,500+ л.с.', logo: 'assets/photos/partners_banner.png', link: 'https://www.precisionturbo.net', sort_order: 5, is_active: 1 },
-  { id: 'ppg_gearboxes', name: 'PPG (Pfitzner Gearboxes)', category: 'Трансмиссия', desc: 'Усиленные прямозубые кулачковые и секвентальные ряды передач, выдерживающие колоссальный крутящий момент и агрессивные переключения.', logo: 'assets/photos/partners_banner.png', link: 'https://www.ppgearbox.com.au', sort_order: 6, is_active: 1 },
-  { id: 'redline_oil', name: 'Red Line Synthetic Oil', category: 'Смазочные материалы', desc: 'Специализированные трансмиссионные жидкости ShockProof и гоночные присадки для дифференциалов повышенного трения и раздаточных коробок.', logo: 'assets/photos/partners_banner.png', link: 'https://www.redlineoil.com', sort_order: 7, is_active: 1 },
-  { id: 'bell_intercoolers', name: 'Bell Intercoolers', category: 'Охлаждение', desc: 'Высокоэффективные теплообменники и кастомные интеркулерные ядра с минимальным сопротивлением для мощных турбосистем.', logo: 'assets/photos/partners_banner.png', link: 'https://www.bellintercoolers.com', sort_order: 9, is_active: 1 },
-  { id: 'plazmaman', name: 'Plazmaman Pro Billet', category: 'Впуск и охлаждение', desc: 'Фрезерованные из алюминиевого монолита впускные коллекторы и интеркулеры для экстремальных моторов VR38DETT и V10 Twin Turbo.', logo: 'assets/photos/partners_banner.png', link: 'https://plazmaman.com', sort_order: 10, is_active: 1 },
-  { id: 't1_race', name: 'T1 Race Development', category: 'Топливные системы', desc: 'Прецизионные компоненты топливной магистрали, высокодебитные форсунки, регуляторы давления и крепления для дрэг-рейсинга.', logo: 'assets/photos/partners_banner.png', link: 'https://t1racedevelopment.com', sort_order: 11, is_active: 1 },
-  { id: 'rdrc_dragtimes', name: 'RDRC / Dragtimes', category: 'Автоспорт и трассы', desc: 'Главный гоночный промоутер Чемпионата России по дрэг-рейсингу и организатор всероссийских заездов на автодроме RDRC Racepark Быково.', logo: 'assets/photos/partners_banner.png', link: 'https://rdrc.ru', sort_order: 12, is_active: 1 },
-  { id: 'deikin_exhaust', name: 'Deikin Exhaust', category: 'Выхлопные системы', desc: 'Индивидуальное проектирование и ручная аргонная TIG-сварка спортивных выхлопных систем из титана Grade 5 и жаропрочного Inconel.', logo: 'assets/photos/partners_banner.png', link: 'https://goshaturbotech.ru', sort_order: 13, is_active: 1 },
-  { id: 'toys_detailing', name: 'Toys Detailing', category: 'Детейлинг и стиль', desc: 'Премиальный детейлинг, бронирование кузовов полиуретановой пленкой и керамические защитные составы для гоночных суперкаров.', logo: 'assets/photos/partners_banner.png', link: 'https://toysdetailing.ru', sort_order: 14, is_active: 1 },
-  { id: 'felix_ferro', name: 'Felix Ferro', category: 'Интерьер и стиль', desc: 'Эксклюзивные ювелирные элементы, кованый карбон, золотое напыление и премиальная отделка интерьера для уникальных проектов ателье.', logo: 'assets/photos/partners_banner.png', link: 'https://felixferro.com', sort_order: 15, is_active: 1 },
-  { id: 'dsc_off', name: 'DSC OFF', category: 'Медиа и хроника', desc: 'Автоспортивный медиа-проект Гурама Инцкирвели, подробно освещающий постройку и боевые заезды быстрейших суперкаров GTT.', logo: 'assets/photos/partners_banner.png', link: 'https://youtube.com/@dscoff', sort_order: 16, is_active: 1 }
+  { id: 'vp_racing', name: 'VP Racing Fuels', category: 'Топливо & Метанол', desc: 'Мировой эталон спортивного топлива, гоночного кислородного бензина и чистого метанола M1 для рекордных заездов RDRC.', logo: 'assets/partners/vp_racing.svg', link: 'https://vpracingfuels.com', sort_order: 1, is_active: 1 },
+  { id: 'motul', name: 'Motul Motorsport', category: 'Смазочные материалы', desc: 'Синтетические моторные масла Motul 300V Motorsport Line с технологией Ester Core, защищающие 2000+ сильные моторы GTT при пиковых нагрузках.', logo: 'assets/partners/motul.svg', link: 'https://www.motul.com', sort_order: 2, is_active: 1 },
+  { id: 'syvecs', name: 'Syvecs Powertrain Control', category: 'Электроника & ЭБУ', desc: 'Высокотехнологичные блоки управления двигателем (ECU), полноприводной трансмиссией (AWD Controller) и алгоритмами лаунч-контроля.', logo: 'assets/partners/syvecs.svg', link: 'https://www.syvecs.com', sort_order: 3, is_active: 1 },
+  { id: 'motec', name: 'MoTeC Systems', category: 'Электроника & ЭБУ', desc: 'Золотой стандарт мирового автоспорта: управляющие процессоры M1, цветные цифровые приборные панели C1212 и прецизионные логгеры телеметрии.', logo: 'assets/partners/motec.svg', link: 'https://www.motec.com.au', sort_order: 4, is_active: 1 },
+  { id: 'precision_turbo', name: 'Precision Turbo & Engine', category: 'Турбосистемы', desc: 'Специализированные гоночные турбокомпрессоры сверхвысокого наддува серии Pro Mod и GEN2 CEA, обеспечивающие отдачу до 3,500+ л.с.', logo: 'assets/partners/precision_turbo.svg', link: 'https://www.precisionturbo.net', sort_order: 5, is_active: 1 },
+  { id: 'ppg_gearboxes', name: 'PPG (Pfitzner Gearboxes)', category: 'Трансмиссия', desc: 'Усиленные прямозубые кулачковые и секвентальные ряды передач, выдерживающие колоссальный крутящий момент и агрессивные переключения.', logo: 'assets/partners/ppg.svg', link: 'https://www.ppgearbox.com.au', sort_order: 6, is_active: 1 },
+  { id: 'redline_oil', name: 'Red Line Synthetic Oil', category: 'Смазочные материалы', desc: 'Специализированные трансмиссионные жидкости ShockProof и гоночные присадки для дифференциалов повышенного трения и раздаточных коробок.', logo: 'assets/partners/redline.svg', link: 'https://www.redlineoil.com', sort_order: 7, is_active: 1 },
+  { id: 'bell_intercoolers', name: 'Bell Intercoolers', category: 'Охлаждение & Впуск', desc: 'Высокоэффективные теплообменники и кастомные интеркулерные ядра с минимальным сопротивлением для мощных турбосистем.', logo: 'assets/partners/bell_intercoolers.svg', link: 'https://www.bellintercoolers.com', sort_order: 8, is_active: 1 },
+  { id: 'plazmaman', name: 'Plazmaman Pro Billet', category: 'Впуск & Охлаждение', desc: 'Фрезерованные из алюминиевого монолита впускные коллекторы и интеркулеры для экстремальных моторов VR38DETT и V10 Twin Turbo.', logo: 'assets/partners/plazmaman.svg', link: 'https://plazmaman.com', sort_order: 9, is_active: 1 },
+  { id: 't1_race', name: 'T1 Race Development', category: 'Топливные системы', desc: 'Прецизионные компоненты топливной магистрали, высокодебитные форсунки, регуляторы давления и крепления для дрэг-рейсинга.', logo: 'assets/partners/t1_race.svg', link: 'https://t1racedevelopment.com', sort_order: 10, is_active: 1 },
+  { id: 'rdrc_dragtimes', name: 'RDRC / Dragtimes', category: 'Автоспорт & Трассы', desc: 'Главный гоночный промоутер Чемпионата России по дрэг-рейсингу и организатор всероссийских заездов на автодроме RDRC Racepark Быково.', logo: 'assets/partners/dragtimes.svg', link: 'https://rdrc.ru', sort_order: 11, is_active: 1 },
+  { id: 'deikin_exhaust', name: 'Deikin Exhaust', category: 'Выхлопные системы', desc: 'Индивидуальное проектирование и ручная аргонная TIG-сварка спортивных выхлопных систем из титана Grade 5 и жаропрочного Inconel.', logo: 'assets/partners/deikin_exhaust.svg', link: 'https://goshaturbotech.ru', sort_order: 12, is_active: 1 },
+  { id: 'toys_detailing', name: 'Toys Detailing', category: 'Детейлинг & Стиль', desc: 'Премиальный детейлинг, бронирование кузовов полиуретановой пленкой и керамические защитные составы для гоночных суперкаров.', logo: 'assets/partners/toys_detailing.svg', link: 'https://toysdetailing.ru', sort_order: 13, is_active: 1 },
+  { id: 'felix_ferro', name: 'Felix Ferro', category: 'Интерьер & Стиль', desc: 'Эксклюзивные ювелирные элементы, кованый карбон, золотое напыление и премиальная отделка интерьера для уникальных проектов ателье.', logo: 'assets/partners/felix_ferro.svg', link: 'https://felixferro.com', sort_order: 14, is_active: 1 },
+  { id: 'dsc_off', name: 'DSC OFF', category: 'Медиа & Хроника', desc: 'Автоспортивный медиа-проект Гурама Инцкирвели, подробно освещающий постройку и боевые заезды быстрейших суперкаров GTT.', logo: 'assets/partners/dsc_off.svg', link: 'https://youtube.com/@dscoff', sort_order: 15, is_active: 1 },
+  { id: 'pride_jfc', name: 'Pride JFC Club', category: 'Автоспорт & Стиль', desc: 'Официальный гоночный клуб и академия пилотов GoshaTurboTech: подготовка к драг-сезону RDRC и закрытые трек-дни суперкаров.', logo: 'assets/partners/pride_jfc.svg', link: 'https://goshaturbotech.ru', sort_order: 16, is_active: 1 }
 ];
 
 let cachedPartnersData = null;
+let currentPartnerFilter = 'all';
 
-function renderPartnersGrid(partners) {
-  const container = document.getElementById('partnersGrid');
-  if (!container) return;
+function normalizePartnerList(list) {
+  if (!Array.isArray(list) || list.length === 0) return defaultPartnersList;
+  return list.map(p => {
+    let logo = p.logo;
+    if (!logo || logo.includes('partners_banner.png') || logo === '#') {
+      const match = defaultPartnersList.find(d => d.id === p.id);
+      logo = match ? match.logo : `assets/partners/${p.id}.svg`;
+    }
+    return { ...p, logo };
+  });
+}
 
-  const list = Array.isArray(partners) && partners.length > 0 ? partners : defaultPartnersList;
+function renderPartnersMarquee(partners) {
+  const marqueeTrack = document.getElementById('partnersMarqueeTrack');
+  if (!marqueeTrack) return;
+
+  const list = normalizePartnerList(Array.isArray(partners) && partners.length > 0 ? partners : (cachedPartnersData || defaultPartnersList));
   const activePartners = list
     .filter(p => p.is_active === 1 || p.is_active === true || p.is_active === '1' || p.is_active === undefined)
     .sort((a, b) => (parseInt(a.sort_order || 0) - parseInt(b.sort_order || 0)));
 
   if (activePartners.length === 0) {
-    container.innerHTML = '';
+    marqueeTrack.innerHTML = '';
     return;
   }
 
-  container.innerHTML = activePartners.map(p => {
+  // Duplicate for seamless infinite marquee loop
+  const loopList = [...activePartners, ...activePartners];
+  marqueeTrack.innerHTML = loopList.map(p => {
+    const name = escapeHtml(p.name || '');
+    const logoSrc = escapeHtml(p.logo || '');
+    const link = p.link && p.link !== '#' ? escapeHtml(p.link) : '';
+    const hrefAttr = link ? `href="${link}" target="_blank" rel="noopener noreferrer"` : `href="#partners"`;
+    
+    return `
+      <a ${hrefAttr} class="partners-marquee-item" title="${name}">
+        ${logoSrc ? `<img src="${logoSrc}" alt="${name}" class="partners-marquee-logo" loading="lazy" onerror="this.style.display='none'">` : ''}
+        <span class="partners-marquee-text">${name}</span>
+      </a>
+    `;
+  }).join('');
+}
+
+function renderPartnersGrid(partners, filter = currentPartnerFilter) {
+  currentPartnerFilter = filter || 'all';
+  const container = document.getElementById('partnersGrid');
+  if (!container) return;
+
+  const rawList = Array.isArray(partners) && partners.length > 0 ? partners : (cachedPartnersData || defaultPartnersList);
+  const normalizedList = normalizePartnerList(rawList);
+  cachedPartnersData = normalizedList;
+
+  const activePartners = normalizedList
+    .filter(p => p.is_active === 1 || p.is_active === true || p.is_active === '1' || p.is_active === undefined)
+    .sort((a, b) => (parseInt(a.sort_order || 0) - parseInt(b.sort_order || 0)));
+
+  // Update total count counter pill
+  const countPill = document.getElementById('partnerCountAll');
+  if (countPill) countPill.textContent = activePartners.length;
+
+  // Filter logic
+  let filtered = activePartners;
+  if (filter === 'ecu') {
+    filtered = activePartners.filter(p => ['syvecs', 'motec'].includes(p.id) || /эбу|электроник/i.test(p.category || ''));
+  } else if (filter === 'turbo') {
+    filtered = activePartners.filter(p => ['precision_turbo', 'bell_intercoolers', 'plazmaman', 't1_race', 'vp_racing'].includes(p.id) || /турбо|впуск|охлажд|топлив/i.test(p.category || ''));
+  } else if (filter === 'transmission') {
+    filtered = activePartners.filter(p => ['ppg_gearboxes', 'redline_oil', 'motul'].includes(p.id) || /трансмисс|масл|смазоч/i.test(p.category || ''));
+  } else if (filter === 'media') {
+    filtered = activePartners.filter(p => ['rdrc_dragtimes', 'deikin_exhaust', 'toys_detailing', 'felix_ferro', 'dsc_off', 'pride_jfc'].includes(p.id) || /автоспорт|трасс|выхлоп|детейлинг|интерьер|медиа|клуб|стиль/i.test(p.category || ''));
+  }
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div style="grid-column: 1 / -1; text-align: center; padding: 48px 20px; color: var(--text-muted); font-family: var(--font-mono); font-size: 14px;">
+        // В данной категории бренды не найдены
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = filtered.map(p => {
     const name = escapeHtml(p.name || '');
     const category = escapeHtml(p.category || 'Партнер GTT');
     const desc = escapeHtml(p.desc || '');
     const link = p.link && p.link !== '#' ? escapeHtml(p.link) : '';
-    const hasCustomLogo = p.logo && p.logo !== 'assets/photos/partners_banner.png' && p.logo.trim() !== '';
-    const logoHtml = hasCustomLogo
-      ? `<img src="${escapeHtml(p.logo)}" alt="${name}" class="partner-card-logo-img" onerror="this.style.display='none'">`
-      : `<span class="partner-monogram-badge">${name.slice(0, 2).toUpperCase()}</span>`;
+    const logoSrc = escapeHtml(p.logo || '');
+    const monogram = name.slice(0, 2).toUpperCase();
     
     return `
       <div class="partner-card" data-partner-id="${escapeHtml(p.id || '')}">
         <div>
-          <div class="partner-card-header">
-            <div class="partner-logo-wrap">
-              ${logoHtml}
-              <h3 class="partner-card-name">${name}</h3>
+          <div class="partner-card-top">
+            <div class="partner-logo-box">
+              ${logoSrc ? `<img src="${logoSrc}" alt="${name}" class="partner-card-logo-img" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'partner-monogram-badge\\'>${monogram}</span>'">` : `<span class="partner-monogram-badge">${monogram}</span>`}
             </div>
             <span class="partner-card-category">${category}</span>
           </div>
-          <p class="partner-card-desc">${desc}</p>
+          <div class="partner-card-body">
+            <h3 class="partner-card-name">${name}</h3>
+            <p class="partner-card-desc">${desc}</p>
+          </div>
         </div>
         <div class="partner-card-footer">
           <span class="partner-card-badge">OFFICIAL ALLIANCE</span>
-          ${link ? `<a href="${link}" target="_blank" rel="noopener noreferrer" class="partner-card-link">
+          ${link ? `<a href="${link}" target="_blank" rel="noopener noreferrer" class="partner-card-link" title="Перейти на сайт ${name}">
             <span>Официальный ресурс</span>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-          </a>` : '<span style="font-size: 11px; color: #475569; font-family: var(--font-mono);">GTT Motor Lab</span>'}
+          </a>` : '<span style="font-size: 11px; color: #475569; font-family: var(--font-mono);">GTT Motorsport Alliance</span>'}
         </div>
       </div>
     `;
   }).join('');
 }
 
+window.filterPartners = function(category, btn) {
+  currentPartnerFilter = category || 'all';
+  const buttons = document.querySelectorAll('.partner-filter-pill');
+  buttons.forEach(b => b.classList.remove('active'));
+  if (btn) {
+    btn.classList.add('active');
+  } else {
+    const target = document.querySelector(`.partner-filter-pill[data-filter="${category}"]`);
+    if (target) target.classList.add('active');
+  }
+  renderPartnersGrid(cachedPartnersData || defaultPartnersList, currentPartnerFilter);
+};
+
 async function syncPartnersFromAPI() {
-  // 0. Render default partners immediately so grid is never blank
+  // 0. Render default partners & marquee immediately so UI is instant and never empty
+  renderPartnersMarquee(defaultPartnersList);
   renderPartnersGrid(defaultPartnersList);
 
-  // 1. Instant check from localStorage
+  // 1. Instant check from localStorage with auto-upgrade of banner raster to SVGs
   try {
     const local = localStorage.getItem('gtt_admin_partners_db');
     if (local) {
       const parsed = JSON.parse(local);
       if (Array.isArray(parsed) && parsed.length >= 8) {
-        cachedPartnersData = parsed;
-        renderPartnersGrid(parsed);
+        const upgraded = normalizePartnerList(parsed);
+        cachedPartnersData = upgraded;
+        localStorage.setItem('gtt_admin_partners_db', JSON.stringify(upgraded));
+        renderPartnersMarquee(upgraded);
+        renderPartnersGrid(upgraded);
       } else {
         cachedPartnersData = defaultPartnersList;
         localStorage.setItem('gtt_admin_partners_db', JSON.stringify(defaultPartnersList));
+        renderPartnersMarquee(defaultPartnersList);
         renderPartnersGrid(defaultPartnersList);
       }
     } else {
       cachedPartnersData = defaultPartnersList;
       localStorage.setItem('gtt_admin_partners_db', JSON.stringify(defaultPartnersList));
+      renderPartnersMarquee(defaultPartnersList);
       renderPartnersGrid(defaultPartnersList);
     }
   } catch (e) {
+    renderPartnersMarquee(defaultPartnersList);
     renderPartnersGrid(defaultPartnersList);
   }
 
@@ -2050,9 +2139,11 @@ async function syncPartnersFromAPI() {
     if (!res.ok) return;
     const serverPartners = await res.json();
     if (Array.isArray(serverPartners) && serverPartners.length > 0) {
-      cachedPartnersData = serverPartners;
-      localStorage.setItem('gtt_admin_partners_db', JSON.stringify(serverPartners));
-      renderPartnersGrid(serverPartners);
+      const upgraded = normalizePartnerList(serverPartners);
+      cachedPartnersData = upgraded;
+      localStorage.setItem('gtt_admin_partners_db', JSON.stringify(upgraded));
+      renderPartnersMarquee(upgraded);
+      renderPartnersGrid(upgraded);
     }
   } catch (err) {}
 }
@@ -3022,6 +3113,7 @@ if (window.BroadcastChannel) {
         syncGalleryFromAPI();
       } else if (e.data && e.data.type === 'partners_updated') {
         if (Array.isArray(e.data.partners)) {
+          renderPartnersMarquee(e.data.partners);
           renderPartnersGrid(e.data.partners);
         } else {
           syncPartnersFromAPI();

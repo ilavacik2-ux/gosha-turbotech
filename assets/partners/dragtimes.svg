@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 55" fill="none">
+  <path d="M40 16 C55 16 65 24 65 30 C65 36 55 42 40 42 L25 42 L25 16 Z" stroke="#EA5B0C" stroke-width="3" fill="none"/>
+  <line x1="20" y1="29" x2="65" y2="29" stroke="#FFFFFF" stroke-width="2.5" />
+  <text x="75" y="32" font-family="'Chakra Petch', sans-serif" font-weight="900" font-size="22" fill="#FFFFFF" letter-spacing="2">DRAGTIMES</text>
+  <text x="76" y="45" font-family="'JetBrains Mono', monospace" font-weight="700" font-size="9" fill="#EA5B0C" letter-spacing="3">RDRC OFFICIAL</text>
+</svg>

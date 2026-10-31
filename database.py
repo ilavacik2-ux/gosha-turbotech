@@ -180,11 +180,9 @@ def init_db():
         seed_initial_data(cursor)
         conn.commit()
 
-    # Seed default partners if table is empty
-    cursor.execute("SELECT COUNT(*) FROM partners")
-    if cursor.fetchone()[0] == 0:
-        seed_default_partners(cursor)
-        conn.commit()
+    # Seed or update default partners
+    seed_default_partners(cursor)
+    conn.commit()
 
     # Seed default moto if table is empty
     cursor.execute("SELECT COUNT(*) FROM moto")
@@ -1719,7 +1717,7 @@ DEFAULT_PARTNERS = [
         "name": "VP Racing Fuels",
         "category": "Топливо и метанол",
         "desc": "Мировой эталон спортивного топлива, гоночного кислородного бензина и чистого метанола M1 для рекордных заездов RDRC.",
-        "logo": "assets/photos/partners_banner.png",
+        "logo": "assets/partners/vp_racing.svg",
         "link": "https://vpracingfuels.com",
         "sort_order": 1,
         "is_active": 1
@@ -1729,7 +1727,7 @@ DEFAULT_PARTNERS = [
         "name": "Motul Motorsport",
         "category": "Смазочные материалы",
         "desc": "Синтетические моторные масла Motul 300V Motorsport Line с технологией Ester Core, защищающие 2000+ сильные моторы GTT при пиковых нагрузках.",
-        "logo": "assets/photos/partners_banner.png",
+        "logo": "assets/partners/motul.svg",
         "link": "https://www.motul.com",
         "sort_order": 2,
         "is_active": 1
@@ -1739,7 +1737,7 @@ DEFAULT_PARTNERS = [
         "name": "Syvecs Powertrain Control",
         "category": "Электроника и ЭБУ",
         "desc": "Высокотехнологичные блоки управления двигателем (ECU), полноприводной трансмиссией (AWD Controller) и алгоритмами лаунч-контроля.",
-        "logo": "assets/photos/partners_banner.png",
+        "logo": "assets/partners/syvecs.svg",
         "link": "https://www.syvecs.com",
         "sort_order": 3,
         "is_active": 1
@@ -1749,7 +1747,7 @@ DEFAULT_PARTNERS = [
         "name": "MoTeC Systems",
         "category": "Электроника и ЭБУ",
         "desc": "Золотой стандарт мирового автоспорта: управляющие процессоры M1, цветные цифровые приборные панели C1212 и прецизионные логгеры телеметрии.",
-        "logo": "assets/photos/partners_banner.png",
+        "logo": "assets/partners/motec.svg",
         "link": "https://www.motec.com.au",
         "sort_order": 4,
         "is_active": 1
@@ -1759,7 +1757,7 @@ DEFAULT_PARTNERS = [
         "name": "Precision Turbo & Engine",
         "category": "Турбосистемы",
         "desc": "Специализированные гоночные турбокомпрессоры сверхвысокого наддува серии Pro Mod и GEN2 CEA, обеспечивающие отдачу до 3,500+ л.с.",
-        "logo": "assets/photos/partners_banner.png",
+        "logo": "assets/partners/precision_turbo.svg",
         "link": "https://www.precisionturbo.net",
         "sort_order": 5,
         "is_active": 1
@@ -1769,7 +1767,7 @@ DEFAULT_PARTNERS = [
         "name": "PPG (Pfitzner Gearboxes)",
         "category": "Трансмиссия",
         "desc": "Усиленные прямозубые кулачковые и секвентальные ряды передач, выдерживающие колоссальный крутящий момент и агрессивные переключения.",
-        "logo": "assets/photos/partners_banner.png",
+        "logo": "assets/partners/ppg.svg",
         "link": "https://www.ppgearbox.com.au",
         "sort_order": 6,
         "is_active": 1
@@ -1779,9 +1777,9 @@ DEFAULT_PARTNERS = [
         "name": "Red Line Synthetic Oil",
         "category": "Смазочные материалы",
         "desc": "Специализированные трансмиссионные жидкости ShockProof и гоночные присадки для дифференциалов повышенного трения и раздаточных коробок.",
-        "logo": "assets/photos/partners_banner.png",
+        "logo": "assets/partners/redline.svg",
         "link": "https://www.redlineoil.com",
-        "sort_order": 8,
+        "sort_order": 7,
         "is_active": 1
     },
     {
@@ -1789,9 +1787,9 @@ DEFAULT_PARTNERS = [
         "name": "Bell Intercoolers",
         "category": "Охлаждение",
         "desc": "Высокоэффективные теплообменники и кастомные интеркулерные ядра с минимальным сопротивлением для мощных турбосистем.",
-        "logo": "assets/photos/partners_banner.png",
+        "logo": "assets/partners/bell_intercoolers.svg",
         "link": "https://www.bellintercoolers.com",
-        "sort_order": 9,
+        "sort_order": 8,
         "is_active": 1
     },
     {
@@ -1799,9 +1797,9 @@ DEFAULT_PARTNERS = [
         "name": "Plazmaman Pro Billet",
         "category": "Впуск и охлаждение",
         "desc": "Фрезерованные из алюминиевого монолита впускные коллекторы и интеркулеры для экстремальных моторов VR38DETT и V10 Twin Turbo.",
-        "logo": "assets/photos/partners_banner.png",
+        "logo": "assets/partners/plazmaman.svg",
         "link": "https://plazmaman.com",
-        "sort_order": 10,
+        "sort_order": 9,
         "is_active": 1
     },
     {
@@ -1809,9 +1807,9 @@ DEFAULT_PARTNERS = [
         "name": "T1 Race Development",
         "category": "Топливные системы",
         "desc": "Прецизионные компоненты топливной магистрали, высокодебитные форсунки, регуляторы давления и крепления для дрэг-рейсинга.",
-        "logo": "assets/photos/partners_banner.png",
+        "logo": "assets/partners/t1_race.svg",
         "link": "https://t1racedevelopment.com",
-        "sort_order": 11,
+        "sort_order": 10,
         "is_active": 1
     },
     {
@@ -1819,9 +1817,9 @@ DEFAULT_PARTNERS = [
         "name": "RDRC / Dragtimes",
         "category": "Автоспорт и трассы",
         "desc": "Главный гоночный промоутер Чемпионата России по дрэг-рейсингу и организатор всероссийских заездов на автодроме RDRC Racepark Быково.",
-        "logo": "assets/photos/partners_banner.png",
+        "logo": "assets/partners/dragtimes.svg",
         "link": "https://rdrc.ru",
-        "sort_order": 12,
+        "sort_order": 11,
         "is_active": 1
     },
     {
@@ -1829,9 +1827,9 @@ DEFAULT_PARTNERS = [
         "name": "Deikin Exhaust",
         "category": "Выхлопные системы",
         "desc": "Индивидуальное проектирование и ручная аргонная TIG-сварка спортивных выхлопных систем из титана Grade 5 и жаропрочного Inconel.",
-        "logo": "assets/photos/partners_banner.png",
+        "logo": "assets/partners/deikin_exhaust.svg",
         "link": "https://goshaturbotech.ru",
-        "sort_order": 13,
+        "sort_order": 12,
         "is_active": 1
     },
     {
@@ -1839,9 +1837,9 @@ DEFAULT_PARTNERS = [
         "name": "Toys Detailing",
         "category": "Детейлинг и стиль",
         "desc": "Премиальный детейлинг, бронирование кузовов полиуретановой пленкой и керамические защитные составы для гоночных суперкаров.",
-        "logo": "assets/photos/partners_banner.png",
+        "logo": "assets/partners/toys_detailing.svg",
         "link": "https://toysdetailing.ru",
-        "sort_order": 14,
+        "sort_order": 13,
         "is_active": 1
     },
     {
@@ -1849,9 +1847,9 @@ DEFAULT_PARTNERS = [
         "name": "Felix Ferro",
         "category": "Интерьер и стиль",
         "desc": "Эксклюзивные ювелирные элементы, кованый карбон, золотое напыление и премиальная отделка интерьера для уникальных проектов ателье.",
-        "logo": "assets/photos/partners_banner.png",
+        "logo": "assets/partners/felix_ferro.svg",
         "link": "https://felixferro.com",
-        "sort_order": 15,
+        "sort_order": 14,
         "is_active": 1
     },
     {
@@ -1859,8 +1857,18 @@ DEFAULT_PARTNERS = [
         "name": "DSC OFF",
         "category": "Медиа и хроника",
         "desc": "Автоспортивный медиа-проект Гурама Инцкирвели, подробно освещающий постройку и боевые заезды быстрейших суперкаров GTT.",
-        "logo": "assets/photos/partners_banner.png",
+        "logo": "assets/partners/dsc_off.svg",
         "link": "https://youtube.com/@dscoff",
+        "sort_order": 15,
+        "is_active": 1
+    },
+    {
+        "id": "pride_jfc",
+        "name": "Pride JFC Club",
+        "category": "Автоспорт и стиль",
+        "desc": "Официальный гоночный клуб и академия пилотов GoshaTurboTech: подготовка к драг-сезону RDRC и закрытые трек-дни суперкаров.",
+        "logo": "assets/partners/pride_jfc.svg",
+        "link": "https://goshaturbotech.ru",
         "sort_order": 16,
         "is_active": 1
     }
@@ -1869,8 +1877,16 @@ DEFAULT_PARTNERS = [
 def seed_default_partners(cursor):
     for p in DEFAULT_PARTNERS:
         cursor.execute("""
-        INSERT OR IGNORE INTO partners (id, name, category, desc, logo, link, sort_order, is_active)
+        INSERT INTO partners (id, name, category, desc, logo, link, sort_order, is_active)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(id) DO UPDATE SET
+            logo = CASE 
+                WHEN partners.logo LIKE '%partners_banner.png%' OR partners.logo = '' OR partners.logo IS NULL 
+                THEN excluded.logo 
+                ELSE partners.logo 
+            END,
+            category = excluded.category,
+            sort_order = excluded.sort_order
         """, (
             p["id"],
             p["name"],
@@ -1917,7 +1933,7 @@ def upsert_partner(item: Dict[str, Any]) -> Dict[str, Any]:
         item["name"],
         item.get("category", "Технические партнеры"),
         item.get("desc", ""),
-        item.get("logo", "assets/photos/partners_banner.png"),
+        item.get("logo", ""),
         item.get("link", "#"),
         int(item.get("sort_order", 0)),
         int(item.get("is_active", 1))
@@ -1945,7 +1961,7 @@ def seed_default_moto(cursor):
             "code": "SUPERBIKE // STAGE 2",
             "desc": "Программное раскрытие потенциала литровых спортбайков BMW S1000RR / M1000RR, Ducati Panigale V4, Yamaha R1. Индивидуальные карты зажигания, снятие ограничителей и калибровка квикшифтера на диностенде.",
             "bullets": "Индивидуальная калибровка на диностенде\nОптимизация Wheelie & Launch Control\nКалибровка электронного дросселя без задержек",
-            "img": "assets/photos/partners_banner.png",
+            "img": "assets/moto/bmw_m1000rr_gtt.jpg",
             "sort_order": 1,
             "is_active": 1
         },
@@ -1955,7 +1971,7 @@ def seed_default_moto(cursor):
             "code": "TITANIUM // EXH",
             "desc": "Ручная аргоновая сварка титана и инконеля для мотоциклов. Экстремальное снижение веса, породистый акустический звук и прибавка крутящего момента во всем диапазоне.",
             "bullets": "Ультралегкие коллекторы из сплава Titan-Gr5\nКастомная фрезеровка насадок\nОгненные отстрелы и сочный басовитый тон",
-            "img": "assets/photos/partners_banner.png",
+            "img": "assets/moto/gtt_moto_r1m_m1000rr_night.jpg",
             "sort_order": 2,
             "is_active": 1
         },
@@ -1965,7 +1981,7 @@ def seed_default_moto(cursor):
             "code": "BESPOKE // CNC",
             "desc": "Полный цикл доработки премиальной мототехники: кованые сверхлегкие диски, сухое сцепление, карбоновое оперение и комплексное предсезонное ТО.",
             "bullets": "Сухой автоклавный карбон 3K/12K\nТормозные системы Brembo Racing / GP4\nИндивидуальный дизайн и покраска",
-            "img": "assets/photos/partners_banner.png",
+            "img": "assets/moto/bmw_m1000rr_cafe_street.jpg",
             "sort_order": 3,
             "is_active": 1
         }

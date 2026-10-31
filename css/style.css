@@ -3370,88 +3370,176 @@ body.is-loading {
   animation: pulseDot 2s infinite ease-in-out;
 }
 
-/* Partners Section */
+/* ==========================================================================
+   PARTNERS & MOTORSPORT ALLIANCE SECTION
+   ========================================================================== */
 .partners-section {
   display: block !important;
   opacity: 1 !important;
   visibility: visible !important;
   transform: none !important;
-  padding: 80px 6% 100px;
-  background: radial-gradient(circle at 50% 30%, rgba(255, 100, 37, 0.04) 0%, transparent 70%), #050608;
+  padding: 90px 4% 110px;
+  background: radial-gradient(circle at 50% 20%, rgba(234, 91, 12, 0.06) 0%, transparent 60%), #050608;
   border-top: 1px solid var(--border-subtle);
   position: relative;
+  overflow: hidden;
 }
 
 .partners-container {
-  max-width: 1080px;
+  max-width: 1360px;
   margin: 0 auto;
-}
-
-.partners-banner-card {
-  position: relative;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-subtle);
-  background: radial-gradient(circle at 50% 50%, #0d1017 0%, #07080c 100%);
-  padding: 40px 30px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  transition: var(--transition-smooth);
-}
-
-.partners-banner-card:hover {
-  border-color: rgba(255, 100, 37, 0.35);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 30px rgba(255, 100, 37, 0.1);
-}
-
-.partners-glow-effect {
-  position: absolute;
-  top: -40%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 400px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(255, 100, 37, 0.12) 0%, transparent 70%);
-  pointer-events: none;
-  filter: blur(40px);
-}
-
-.partners-img {
-  width: 100%;
-  max-width: 680px;
-  height: auto;
-  object-fit: contain;
-  display: block;
-  filter: drop-shadow(0 10px 25px rgba(0,0,0,0.6));
   position: relative;
   z-index: 2;
 }
 
-@media (max-width: 600px) {
-  .partners-banner-card {
-    padding: 24px 15px;
-  }
+.partners-header {
+  text-align: center;
+  margin-bottom: 32px;
 }
 
-/* Dynamic Partners Grid & Cards */
+.partners-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: var(--gtt-orange);
+  background: rgba(234, 91, 12, 0.1);
+  border: 1px solid rgba(234, 91, 12, 0.3);
+  padding: 5px 12px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+/* 1. Live Continuous Brand Marquee Ribbon */
+.partners-marquee-wrap {
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 36px;
+  background: rgba(13, 16, 23, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 16px 0;
+  position: relative;
+  backdrop-filter: blur(10px);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.partners-marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  width: max-content;
+  animation: partnerMarqueeScroll 38s linear infinite;
+}
+
+.partners-marquee-wrap:hover .partners-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes partnerMarqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.partners-marquee-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 18px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+
+.partners-marquee-item:hover {
+  background: rgba(234, 91, 12, 0.12);
+  border-color: rgba(234, 91, 12, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(234, 91, 12, 0.2);
+}
+
+.partners-marquee-logo {
+  height: 24px;
+  max-width: 100px;
+  object-fit: contain;
+  display: block;
+}
+
+.partners-marquee-text {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* 2. Category Filter Pills */
+.partners-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+.partner-filter-pill {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.partner-filter-pill:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.partner-filter-pill.active {
+  background: var(--gtt-orange);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 3px 14px var(--gtt-orange-glow);
+}
+
+/* 3. High-Tech Partner Cards Grid */
 .partners-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 16px;
-  margin-top: 28px;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 20px;
 }
 
 .partner-card {
-  background: rgba(13, 16, 23, 0.75);
+  background: rgba(14, 18, 25, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-sm, 6px);
-  padding: 22px;
+  border-radius: 8px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.3s ease, 
+              box-shadow 0.3s ease;
   backdrop-filter: blur(12px);
   position: relative;
   overflow: hidden;
@@ -3465,89 +3553,93 @@ body.is-loading {
   width: 3px;
   height: 100%;
   background: var(--gtt-orange);
-  opacity: 0.5;
-  transition: opacity 0.25s ease, box-shadow 0.25s ease;
+  opacity: 0.4;
+  transition: opacity 0.3s ease, box-shadow 0.3s ease;
 }
 
 .partner-card:hover {
-  background: rgba(18, 23, 34, 0.92);
-  border-color: rgba(255, 100, 37, 0.4);
-  transform: translateY(-3px);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 24px rgba(255, 100, 37, 0.12);
+  background: rgba(18, 24, 34, 0.92);
+  border-color: rgba(234, 91, 12, 0.45);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7), 0 0 24px rgba(234, 91, 12, 0.15);
 }
 
 .partner-card:hover::before {
   opacity: 1;
-  box-shadow: 0 0 12px var(--gtt-orange);
+  box-shadow: 0 0 14px var(--gtt-orange);
 }
 
-.partner-card-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.partner-logo-wrap {
+.partner-card-top {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.partner-logo-box {
+  width: 140px;
+  height: 52px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
 }
 
 .partner-card-logo-img {
-  max-width: 44px;
-  max-height: 32px;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
-  filter: brightness(0.95) contrast(1.1);
-  border-radius: 4px;
+  display: block;
 }
 
 .partner-monogram-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  background: rgba(255, 100, 37, 0.12);
-  border: 1px solid rgba(255, 100, 37, 0.35);
-  color: var(--gtt-orange);
-  font-family: var(--font-display);
-  font-size: 13px;
-  font-weight: 800;
-  border-radius: 6px;
-  letter-spacing: 0.04em;
-  flex-shrink: 0;
-}
-
-.partner-card-name {
   font-family: var(--font-display);
   font-size: 16px;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: 0.02em;
-  margin: 0;
+  font-weight: 900;
+  color: var(--gtt-orange);
+  letter-spacing: 0.1em;
 }
 
 .partner-card-category {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 10.5px;
   text-transform: uppercase;
   color: var(--gtt-orange);
-  letter-spacing: 0.06em;
-  background: rgba(255, 100, 37, 0.12);
-  padding: 3px 8px;
+  letter-spacing: 0.05em;
+  background: rgba(234, 91, 12, 0.12);
+  padding: 4px 9px;
   border-radius: 4px;
-  border: 1px solid rgba(255, 100, 37, 0.25);
+  border: 1px solid rgba(234, 91, 12, 0.3);
   white-space: nowrap;
+  font-weight: 700;
+}
+
+.partner-card-body {
+  margin-bottom: 18px;
+  flex: 1;
+}
+
+.partner-card-name {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.03em;
+  margin: 0 0 8px 0;
+  text-transform: uppercase;
 }
 
 .partner-card-desc {
   font-size: 13px;
   line-height: 1.55;
-  color: #94a3b8;
-  margin: 0 0 16px 0;
-  flex: 1;
+  color: var(--text-muted);
+  margin: 0;
 }
 
 .partner-card-footer {
@@ -3555,31 +3647,51 @@ body.is-loading {
   align-items: center;
   justify-content: space-between;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
-  padding-top: 12px;
+  padding-top: 14px;
   margin-top: auto;
 }
 
 .partner-card-badge {
   font-size: 10px;
-  color: #64748b;
+  color: #22c55e;
   font-family: var(--font-mono);
-  letter-spacing: 0.06em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.partner-card-badge::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 6px #22c55e;
 }
 
 .partner-card-link {
   font-family: var(--font-mono);
   font-size: 11.5px;
+  font-weight: 700;
   color: #38bdf8;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  transition: color 0.2s;
+  transition: all 0.2s ease;
 }
 
 .partner-card-link:hover {
-  color: #7dd3fc;
-  text-decoration: underline;
+  color: #fff;
+  transform: translateX(2px);
+}
+
+.partner-card-lab-tag {
+  font-size: 11px;
+  color: #64748b;
+  font-family: var(--font-mono);
 }
 
 @media (max-width: 768px) {

@@ -722,21 +722,22 @@ const defaultGallery = [
 
 // 6. Initial Partners Seed (16 Authentic GTT Motorsport & Technical Partners)
 const defaultPartners = [
-  { id: 'vp_racing', name: 'VP Racing Fuels', category: 'Топливо и метанол', desc: 'Мировой эталон спортивного топлива, гоночного кислородного бензина и чистого метанола M1 для рекордных заездов RDRC.', logo: 'assets/photos/partners_banner.png', link: 'https://vpracingfuels.com', sort_order: 1, is_active: 1 },
-  { id: 'motul', name: 'Motul Motorsport', category: 'Смазочные материалы', desc: 'Синтетические моторные масла Motul 300V Motorsport Line с технологией Ester Core, защищающие 2000+ сильные моторы GTT при пиковых нагрузках.', logo: 'assets/photos/partners_banner.png', link: 'https://www.motul.com', sort_order: 2, is_active: 1 },
-  { id: 'syvecs', name: 'Syvecs Powertrain Control', category: 'Электроника и ЭБУ', desc: 'Высокотехнологичные блоки управления двигателем (ECU), полноприводной трансмиссией (AWD Controller) и алгоритмами лаунч-контроля.', logo: 'assets/photos/partners_banner.png', link: 'https://www.syvecs.com', sort_order: 3, is_active: 1 },
-  { id: 'motec', name: 'MoTeC Systems', category: 'Электроника и ЭБУ', desc: 'Золотой стандарт мирового автоспорта: управляющие процессоры M1, цветные цифровые приборные панели C1212 и прецизионные логгеры телеметрии.', logo: 'assets/photos/partners_banner.png', link: 'https://www.motec.com.au', sort_order: 4, is_active: 1 },
-  { id: 'precision_turbo', name: 'Precision Turbo & Engine', category: 'Турбосистемы', desc: 'Специализированные гоночные турбокомпрессоры сверхвысокого наддува серии Pro Mod и GEN2 CEA, обеспечивающие отдачу до 3,500+ л.с.', logo: 'assets/photos/partners_banner.png', link: 'https://www.precisionturbo.net', sort_order: 5, is_active: 1 },
-  { id: 'ppg_gearboxes', name: 'PPG (Pfitzner Gearboxes)', category: 'Трансмиссия', desc: 'Усиленные прямозубые кулачковые и секвентальные ряды передач, выдерживающие колоссальный крутящий момент и агрессивные переключения.', logo: 'assets/photos/partners_banner.png', link: 'https://www.ppgearbox.com.au', sort_order: 6, is_active: 1 },
-  { id: 'redline_oil', name: 'Red Line Synthetic Oil', category: 'Смазочные материалы', desc: 'Специализированные трансмиссионные жидкости ShockProof и гоночные присадки для дифференциалов повышенного трения и раздаточных коробок.', logo: 'assets/photos/partners_banner.png', link: 'https://www.redlineoil.com', sort_order: 7, is_active: 1 },
-  { id: 'bell_intercoolers', name: 'Bell Intercoolers', category: 'Охлаждение', desc: 'Высокоэффективные теплообменники и кастомные интеркулерные ядра с минимальным сопротивлением для мощных турбосистем.', logo: 'assets/photos/partners_banner.png', link: 'https://www.bellintercoolers.com', sort_order: 9, is_active: 1 },
-  { id: 'plazmaman', name: 'Plazmaman Pro Billet', category: 'Впуск и охлаждение', desc: 'Фрезерованные из алюминиевого монолита впускные коллекторы и интеркулеры для экстремальных моторов VR38DETT и V10 Twin Turbo.', logo: 'assets/photos/partners_banner.png', link: 'https://plazmaman.com', sort_order: 10, is_active: 1 },
-  { id: 't1_race', name: 'T1 Race Development', category: 'Топливные системы', desc: 'Прецизионные компоненты топливной магистрали, высокодебитные форсунки, регуляторы давления и крепления для дрэг-рейсинга.', logo: 'assets/photos/partners_banner.png', link: 'https://t1racedevelopment.com', sort_order: 11, is_active: 1 },
-  { id: 'rdrc_dragtimes', name: 'RDRC / Dragtimes', category: 'Автоспорт и трассы', desc: 'Главный гоночный промоутер Чемпионата России по дрэг-рейсингу и организатор всероссийских заездов на автодроме RDRC Racepark Быково.', logo: 'assets/photos/partners_banner.png', link: 'https://rdrc.ru', sort_order: 12, is_active: 1 },
-  { id: 'deikin_exhaust', name: 'Deikin Exhaust', category: 'Выхлопные системы', desc: 'Индивидуальное проектирование и ручная аргонная TIG-сварка спортивных выхлопных систем из титана Grade 5 и жаропрочного Inconel.', logo: 'assets/photos/partners_banner.png', link: 'https://goshaturbotech.ru', sort_order: 13, is_active: 1 },
-  { id: 'toys_detailing', name: 'Toys Detailing', category: 'Детейлинг и стиль', desc: 'Премиальный детейлинг, бронирование кузовов полиуретановой пленкой и керамические защитные составы для гоночных суперкаров.', logo: 'assets/photos/partners_banner.png', link: 'https://toysdetailing.ru', sort_order: 14, is_active: 1 },
-  { id: 'felix_ferro', name: 'Felix Ferro', category: 'Интерьер и стиль', desc: 'Эксклюзивные ювелирные элементы, кованый карбон, золотое напыление и премиальная отделка интерьера для уникальных проектов ателье.', logo: 'assets/photos/partners_banner.png', link: 'https://felixferro.com', sort_order: 15, is_active: 1 },
-  { id: 'dsc_off', name: 'DSC OFF', category: 'Медиа и хроника', desc: 'Автоспортивный медиа-проект Гурама Инцкирвели, подробно освещающий постройку и боевые заезды быстрейших суперкаров GTT.', logo: 'assets/photos/partners_banner.png', link: 'https://youtube.com/@dscoff', sort_order: 16, is_active: 1 }
+  { id: 'vp_racing', name: 'VP Racing Fuels', category: 'Топливо & Метанол', desc: 'Мировой эталон спортивного топлива, гоночного кислородного бензина и чистого метанола M1 для рекордных заездов RDRC.', logo: 'assets/partners/vp_racing.svg', link: 'https://vpracingfuels.com', sort_order: 1, is_active: 1 },
+  { id: 'motul', name: 'Motul Motorsport', category: 'Смазочные материалы', desc: 'Синтетические моторные масла Motul 300V Motorsport Line с технологией Ester Core, защищающие 2000+ сильные моторы GTT при пиковых нагрузках.', logo: 'assets/partners/motul.svg', link: 'https://www.motul.com', sort_order: 2, is_active: 1 },
+  { id: 'syvecs', name: 'Syvecs Powertrain Control', category: 'Электроника & ЭБУ', desc: 'Высокотехнологичные блоки управления двигателем (ECU), полноприводной трансмиссией (AWD Controller) и алгоритмами лаунч-контроля.', logo: 'assets/partners/syvecs.svg', link: 'https://www.syvecs.com', sort_order: 3, is_active: 1 },
+  { id: 'motec', name: 'MoTeC Systems', category: 'Электроника & ЭБУ', desc: 'Золотой стандарт мирового автоспорта: управляющие процессоры M1, цветные цифровые приборные панели C1212 и прецизионные логгеры телеметрии.', logo: 'assets/partners/motec.svg', link: 'https://www.motec.com.au', sort_order: 4, is_active: 1 },
+  { id: 'precision_turbo', name: 'Precision Turbo & Engine', category: 'Турбосистемы', desc: 'Специализированные гоночные турбокомпрессоры сверхвысокого наддува серии Pro Mod и GEN2 CEA, обеспечивающие отдачу до 3,500+ л.с.', logo: 'assets/partners/precision_turbo.svg', link: 'https://www.precisionturbo.net', sort_order: 5, is_active: 1 },
+  { id: 'ppg_gearboxes', name: 'PPG (Pfitzner Gearboxes)', category: 'Трансмиссия', desc: 'Усиленные прямозубые кулачковые и секвентальные ряды передач, выдерживающие колоссальный крутящий момент и агрессивные переключения.', logo: 'assets/partners/ppg.svg', link: 'https://www.ppgearbox.com.au', sort_order: 6, is_active: 1 },
+  { id: 'redline_oil', name: 'Red Line Synthetic Oil', category: 'Смазочные материалы', desc: 'Специализированные трансмиссионные жидкости ShockProof и гоночные присадки для дифференциалов повышенного трения и раздаточных коробок.', logo: 'assets/partners/redline.svg', link: 'https://www.redlineoil.com', sort_order: 7, is_active: 1 },
+  { id: 'bell_intercoolers', name: 'Bell Intercoolers', category: 'Охлаждение & Впуск', desc: 'Высокоэффективные теплообменники и кастомные интеркулерные ядра с минимальным сопротивлением для мощных турбосистем.', logo: 'assets/partners/bell_intercoolers.svg', link: 'https://www.bellintercoolers.com', sort_order: 8, is_active: 1 },
+  { id: 'plazmaman', name: 'Plazmaman Pro Billet', category: 'Впуск & Охлаждение', desc: 'Фрезерованные из алюминиевого монолита впускные коллекторы и интеркулеры для экстремальных моторов VR38DETT и V10 Twin Turbo.', logo: 'assets/partners/plazmaman.svg', link: 'https://plazmaman.com', sort_order: 9, is_active: 1 },
+  { id: 't1_race', name: 'T1 Race Development', category: 'Топливные системы', desc: 'Прецизионные компоненты топливной магистрали, высокодебитные форсунки, регуляторы давления и крепления для дрэг-рейсинга.', logo: 'assets/partners/t1_race.svg', link: 'https://t1racedevelopment.com', sort_order: 10, is_active: 1 },
+  { id: 'rdrc_dragtimes', name: 'RDRC / Dragtimes', category: 'Автоспорт & Трассы', desc: 'Главный гоночный промоутер Чемпионата России по дрэг-рейсингу и организатор всероссийских заездов на автодроме RDRC Racepark Быково.', logo: 'assets/partners/dragtimes.svg', link: 'https://rdrc.ru', sort_order: 11, is_active: 1 },
+  { id: 'deikin_exhaust', name: 'Deikin Exhaust', category: 'Выхлопные системы', desc: 'Индивидуальное проектирование и ручная аргонная TIG-сварка спортивных выхлопных систем из титана Grade 5 и жаропрочного Inconel.', logo: 'assets/partners/deikin_exhaust.svg', link: 'https://goshaturbotech.ru', sort_order: 12, is_active: 1 },
+  { id: 'toys_detailing', name: 'Toys Detailing', category: 'Детейлинг & Стиль', desc: 'Премиальный детейлинг, бронирование кузовов полиуретановой пленкой и керамические защитные составы для гоночных суперкаров.', logo: 'assets/partners/toys_detailing.svg', link: 'https://toysdetailing.ru', sort_order: 13, is_active: 1 },
+  { id: 'felix_ferro', name: 'Felix Ferro', category: 'Интерьер & Стиль', desc: 'Эксклюзивные ювелирные элементы, кованый карбон, золотое напыление и премиальная отделка интерьера для уникальных проектов ателье.', logo: 'assets/partners/felix_ferro.svg', link: 'https://felixferro.com', sort_order: 14, is_active: 1 },
+  { id: 'dsc_off', name: 'DSC OFF', category: 'Медиа & Хроника', desc: 'Автоспортивный медиа-проект Гурама Инцкирвели, подробно освещающий постройку и боевые заезды быстрейших суперкаров GTT.', logo: 'assets/partners/dsc_off.svg', link: 'https://youtube.com/@dscoff', sort_order: 15, is_active: 1 },
+  { id: 'pride_jfc', name: 'Pride JFC Club', category: 'Автоспорт & Стиль', desc: 'Официальный гоночный клуб и академия пилотов GoshaTurboTech: подготовка к драг-сезону RDRC и закрытые трек-дни суперкаров.', logo: 'assets/partners/pride_jfc.svg', link: 'https://goshaturbotech.ru', sort_order: 16, is_active: 1 }
 ];
 
 // 7. Initial Moto Seed (Superbikes & Customization)
@@ -747,7 +748,7 @@ const defaultMoto = [
     code: 'SUPERBIKE // STAGE 2',
     desc: 'Программное раскрытие потенциала литровых спортбайков BMW S1000RR / M1000RR, Ducati Panigale V4, Yamaha R1. Индивидуальные карты зажигания, снятие ограничителей и калибровка квикшифтера на диностенде.',
     bullets: 'Индивидуальная калибровка на диностенде\nОптимизация Wheelie & Launch Control\nКалибровка электронного дросселя без задержек',
-    img: 'assets/photos/partners_banner.png',
+    img: 'assets/moto/bmw_m1000rr_gtt.jpg',
     sort_order: 1,
     is_active: 1
   },
@@ -757,7 +758,7 @@ const defaultMoto = [
     code: 'TITANIUM // EXH',
     desc: 'Ручная аргоновая сварка титана и инконеля для мотоциклов. Экстремальное снижение веса, породистый акустический звук и прибавка крутящего момента во всем диапазоне.',
     bullets: 'Ультралегкие коллекторы из сплава Titan-Gr5\nКастомная фрезеровка насадок\nОгненные отстрелы и сочный басовитый тон',
-    img: 'assets/photos/partners_banner.png',
+    img: 'assets/moto/gtt_moto_r1m_m1000rr_night.jpg',
     sort_order: 2,
     is_active: 1
   },
@@ -767,7 +768,7 @@ const defaultMoto = [
     code: 'BESPOKE // CNC',
     desc: 'Полный цикл доработки премиальной мототехники: кованые сверхлегкие диски, сухое сцепление, карбоновое оперение и комплексное предсезонное ТО.',
     bullets: 'Сухой автоклавный карбон 3K/12K\nТормозные системы Brembo Racing / GP4\nИндивидуальный дизайн и покраска',
-    img: 'assets/photos/partners_banner.png',
+    img: 'assets/moto/bmw_m1000rr_cafe_street.jpg',
     sort_order: 3,
     is_active: 1
   }
@@ -4533,7 +4534,22 @@ window.deleteGalleryPhoto = deleteGalleryPhoto;
 // ================= PARTNERS CRUD MODULE =================
 
 function renderPartnersTable() {
-  const partners = getDB(PARTNERS_STORAGE_KEY, defaultPartners);
+  let partners = getDB(PARTNERS_STORAGE_KEY, defaultPartners);
+  let updated = false;
+  partners = partners.map(p => {
+    if (!p.logo || p.logo.includes('partners_banner.png') || p.logo === '#') {
+      const match = defaultPartners.find(d => d.id === p.id);
+      if (match) {
+        updated = true;
+        return { ...p, logo: match.logo };
+      }
+    }
+    return p;
+  });
+  if (updated) {
+    saveDB(PARTNERS_STORAGE_KEY, partners);
+  }
+
   const tbody = document.getElementById('partnersTableBody');
   if (!tbody) return;
 

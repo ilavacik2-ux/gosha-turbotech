@@ -1121,19 +1121,31 @@
     </div>
   </section>
 
-  <!-- Technical Partners & Dyno Section -->
+  <!-- Technical Partners & Motorsport Alliance Section -->
   <section class="partners-section" id="partners">
     <div class="partners-container">
-      <div class="section-header" style="text-align: center; margin-bottom: 36px;">
-        <span class="partners-badge" style="display: inline-block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--gtt-orange); text-transform: uppercase; margin-bottom: 8px;" data-i18n="partners_tag">// GTT TECHNICAL & MOTORSPORT PARTNERS</span>
-        <h2 class="section-title" data-i18n="partners_title">Партнеры и Оснащение</h2>
-        <p class="section-subtitle" style="margin: 0 auto; max-width: 680px;" data-i18n="partners_subtitle">Ведущие мировые бренды автоспорта, компонентов трансмиссии, турбонаддува и калибровки ЭБУ, с которыми побеждает GoshaTurboTech.</p>
+      <div class="section-header partners-header">
+        <span class="partners-badge" data-i18n="partners_tag">// GTT TECHNICAL ALLIANCE & SPEED PARTNERS</span>
+        <h2 class="section-title" data-i18n="partners_title">Технические партнеры и оснащение</h2>
+        <p class="section-subtitle" data-i18n="partners_subtitle">
+          Мировые бренды автоспорта, компонентов наддува, трансмиссий и калибровки ЭБУ, на чьих технологиях строятся 2,000+ сильные рекорды GoshaTurboTech.
+        </p>
       </div>
 
-      <!-- Authentic Partners Banner Card -->
-      <div class="partners-banner-card">
-        <div class="partners-glow-effect"></div>
-        <img src="assets/photos/partners_banner.png" alt="Технические партнеры GoshaTurboTech" class="partners-img">
+      <!-- Live Interactive Brand Marquee Ribbon -->
+      <div class="partners-marquee-wrap">
+        <div class="partners-marquee-track" id="partnersMarqueeTrack">
+          <!-- Dynamically populated from JS -->
+        </div>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="partners-filter-bar">
+        <button type="button" class="partner-filter-pill active" data-filter="all" onclick="filterPartners('all', this)">Все бренды (<span id="partnerCountAll">16</span>)</button>
+        <button type="button" class="partner-filter-pill" data-filter="ecu" onclick="filterPartners('ecu', this)">⚡ Электроника &amp; ЭБУ</button>
+        <button type="button" class="partner-filter-pill" data-filter="turbo" onclick="filterPartners('turbo', this)">🔥 Турбо &amp; Впуск</button>
+        <button type="button" class="partner-filter-pill" data-filter="transmission" onclick="filterPartners('transmission', this)">⚙️ Трансмиссия &amp; Смазка</button>
+        <button type="button" class="partner-filter-pill" data-filter="media" onclick="filterPartners('media', this)">🏁 Автоспорт &amp; Стиль</button>
       </div>
 
       <!-- Dynamic Partners Grid (Loaded from SQLite / Admin Panel) -->

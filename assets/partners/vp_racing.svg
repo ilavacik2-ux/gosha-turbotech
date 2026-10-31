@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 55" fill="none">
+  <ellipse cx="60" cy="27" rx="35" ry="22" stroke="#FFFFFF" stroke-width="2.8" fill="none" transform="rotate(-8 60 27)"/>
+  <text x="60" y="37" text-anchor="middle" font-family="'Chakra Petch', sans-serif" font-weight="900" font-size="30" fill="#EA5B0C" font-style="italic">VP</text>
+  <text x="105" y="27" font-family="'Space Grotesk', sans-serif" font-weight="800" font-size="16" fill="#FFFFFF" letter-spacing="1">RACING</text>
+  <text x="105" y="43" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="13" fill="#EA5B0C" letter-spacing="2">FUELS</text>
+</svg>

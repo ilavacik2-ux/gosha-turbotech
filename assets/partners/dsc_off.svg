@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 55" fill="none">
+  <polygon points="45,10 65,44 25,44" stroke="#EA5B0C" stroke-width="2.5" fill="none"/>
+  <text x="45" y="38" text-anchor="middle" font-family="'Chakra Petch', sans-serif" font-weight="900" font-size="20" fill="#EA5B0C">!</text>
+  <text x="75" y="32" font-family="'Chakra Petch', sans-serif" font-weight="900" font-style="italic" font-size="22" fill="#FFFFFF" letter-spacing="2">DSC OFF</text>
+  <text x="75" y="45" font-family="'Space Grotesk', sans-serif" font-weight="700" font-size="9" fill="#94a3b8" letter-spacing="3">MOTORSPORT MEDIA</text>
+</svg>
