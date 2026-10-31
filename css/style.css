@@ -1187,12 +1187,19 @@ body.is-loading {
   position: relative;
   touch-action: pan-y;
   cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
   mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
 }
 
-.records-carousel-viewport:active {
-  cursor: grabbing;
+.records-carousel-viewport:active,
+.records-carousel-viewport.is-dragging {
+  cursor: grabbing !important;
+}
+
+.records-carousel-viewport.is-dragging .record-item {
+  cursor: grabbing !important;
 }
 
 .records-carousel-track {
@@ -1200,6 +1207,12 @@ body.is-loading {
   gap: 24px;
   width: max-content;
   will-change: transform;
+}
+
+.records-carousel-track img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
 }
 
 /* 2. Editorial Record Card */

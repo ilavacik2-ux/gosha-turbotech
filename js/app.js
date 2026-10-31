@@ -2971,6 +2971,7 @@ function renderRecordsEditorial(recordsList) {
 
 function initRecordsCarousel() {
   const stage = document.querySelector('.records-carousel-stage');
+  const viewport = document.getElementById('recordsCarouselViewport');
   const track = document.getElementById('recordsCarouselTrack');
   if (!track) return;
 
@@ -2982,44 +2983,187 @@ function initRecordsCarousel() {
   if (stage && !stage._recordsListenersAttached) {
     stage._recordsListenersAttached = true;
 
+    // Helper: Seamless infinite loop position wrapping
+    const wrapRecordsPosition = () => {
+      const singleHalfWidth = track.scrollWidth / 2;
+      if (singleHalfWidth > 100) {
+        while (Math.abs(recordsTrackPos) >= singleHalfWidth) {
+          recordsTrackPos += singleHalfWidth;
+        }
+        while (recordsTrackPos > 0) {
+          recordsTrackPos -= singleHalfWidth;
+        }
+      }
+    };
+
     // 1. Smooth pause on hover
     stage.addEventListener('mouseenter', () => { recordsIsHovered = true; });
-    stage.addEventListener('mouseleave', () => { recordsIsHovered = false; });
+    stage.addEventListener('mouseleave', () => { 
+      if (!isPointerDown) {
+        recordsIsHovered = false; 
+      }
+    });
 
-    // 2. Touch swipe for mobile devices
-    let touchStartX = 0;
-    let touchStartY = 0;
-    let touchInitialPos = 0;
+    // 2. Multi-Device Swipe & Drag Engine (Mouse, Touch, Tablet Stylus, Trackpad)
+    let isPointerDown = false;
+    let pointerStartX = 0;
+    let pointerStartY = 0;
+    let pointerInitialPos = 0;
+    let lastPointerX = 0;
+    let lastPointerTime = 0;
+    let pointerVelocityX = 0;
+    let isHorizontalGesture = false;
+    let hasMovedSignificantly = false;
 
-    stage.addEventListener('touchstart', (e) => {
-      if (e.touches.length > 0) {
-        recordsIsManualSliding = true;
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-        touchInitialPos = recordsTrackPos;
+    const onPointerDown = (clientX, clientY) => {
+      isPointerDown = true;
+      recordsIsManualSliding = true;
+      clearTimeout(recordsResumeTimeout);
+      pointerStartX = clientX;
+      pointerStartY = clientY;
+      lastPointerX = clientX;
+      lastPointerTime = performance.now();
+      pointerVelocityX = 0;
+      pointerInitialPos = recordsTrackPos;
+      isHorizontalGesture = false;
+      hasMovedSignificantly = false;
+
+      if (track) track.style.transition = 'none';
+      if (viewport) viewport.classList.add('is-dragging');
+    };
+
+    const onPointerMove = (clientX, clientY, e) => {
+      if (!isPointerDown) return;
+
+      const deltaX = clientX - pointerStartX;
+      const deltaY = clientY - pointerStartY;
+
+      if (!hasMovedSignificantly) {
+        if (Math.abs(deltaX) > 6 || Math.abs(deltaY) > 6) {
+          hasMovedSignificantly = true;
+          isHorizontalGesture = Math.abs(deltaX) >= Math.abs(deltaY);
+        }
+      }
+
+      if (hasMovedSignificantly && isHorizontalGesture) {
+        if (e && e.cancelable) e.preventDefault();
+
+        const now = performance.now();
+        const dt = now - lastPointerTime;
+        if (dt > 10) {
+          pointerVelocityX = (clientX - lastPointerX) / dt;
+          lastPointerX = clientX;
+          lastPointerTime = now;
+        }
+
+        recordsTrackPos = pointerInitialPos + deltaX;
+        wrapRecordsPosition();
+        if (track) track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
+      }
+    };
+
+    const onPointerUp = () => {
+      if (!isPointerDown) return;
+      isPointerDown = false;
+      if (viewport) viewport.classList.remove('is-dragging');
+
+      if (hasMovedSignificantly && isHorizontalGesture) {
+        // Inertial flick / momentum
+        const absVel = Math.abs(pointerVelocityX);
+        if (absVel > 0.35) {
+          const momentum = Math.max(-800, Math.min(800, pointerVelocityX * 240));
+          recordsTrackPos += momentum;
+          wrapRecordsPosition();
+          if (track) {
+            track.style.transition = 'transform 0.55s cubic-bezier(0.16, 1, 0.3, 1)';
+            track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
+          }
+          recordsResumeTimeout = setTimeout(() => {
+            if (track) track.style.transition = 'none';
+            recordsIsManualSliding = false;
+            recordsIsHovered = false;
+          }, 600);
+          return;
+        }
+      }
+
+      // Gentle release: wait 1.2s before auto-drift resumes
+      recordsResumeTimeout = setTimeout(() => {
+        recordsIsManualSliding = false;
+        recordsIsHovered = false;
+      }, 1200);
+    };
+
+    // --- Touch Listeners (Mobile & Tablet) ---
+    const targetElement = viewport || stage;
+
+    targetElement.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 1) {
+        onPointerDown(e.touches[0].clientX, e.touches[0].clientY);
       }
     }, { passive: true });
 
-    stage.addEventListener('touchmove', (e) => {
-      if (e.touches.length > 0) {
-        const deltaX = e.touches[0].clientX - touchStartX;
-        const deltaY = e.touches[0].clientY - touchStartY;
-        if (Math.abs(deltaX) > Math.abs(deltaY)) {
-          recordsTrackPos = touchInitialPos + deltaX;
-          const singleHalfWidth = track.scrollWidth / 2;
-          if (singleHalfWidth > 0) {
-            if (Math.abs(recordsTrackPos) >= singleHalfWidth) recordsTrackPos += singleHalfWidth;
-            if (recordsTrackPos > 0) recordsTrackPos -= singleHalfWidth;
-          }
+    targetElement.addEventListener('touchmove', (e) => {
+      if (e.touches.length === 1) {
+        onPointerMove(e.touches[0].clientX, e.touches[0].clientY, e);
+      }
+    }, { passive: false });
+
+    targetElement.addEventListener('touchend', () => {
+      onPointerUp();
+    }, { passive: true });
+
+    targetElement.addEventListener('touchcancel', () => {
+      onPointerUp();
+    }, { passive: true });
+
+    // --- Mouse Drag Listeners (Laptop & Desktop) ---
+    targetElement.addEventListener('mousedown', (e) => {
+      if (e.button !== 0) return; // Primary left button only
+      onPointerDown(e.clientX, e.clientY);
+      e.preventDefault();
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (isPointerDown) {
+        onPointerMove(e.clientX, e.clientY, e);
+      }
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (isPointerDown) {
+        onPointerUp();
+      }
+    });
+
+    // Prevent accidental clicks on cards during drag
+    targetElement.addEventListener('click', (e) => {
+      if (hasMovedSignificantly) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, true);
+
+    // --- Trackpad Horizontal Swipe & Shift+Wheel (Laptop & Desktop) ---
+    targetElement.addEventListener('wheel', (e) => {
+      const dx = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : (e.shiftKey ? e.deltaY : 0);
+      if (Math.abs(dx) > 3) {
+        e.preventDefault();
+        recordsIsManualSliding = true;
+        clearTimeout(recordsResumeTimeout);
+
+        recordsTrackPos -= dx * 1.15;
+        wrapRecordsPosition();
+        if (track) {
           track.style.transition = 'none';
           track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
         }
-      }
-    }, { passive: true });
 
-    stage.addEventListener('touchend', () => {
-      recordsIsManualSliding = false;
-    }, { passive: true });
+        recordsResumeTimeout = setTimeout(() => {
+          recordsIsManualSliding = false;
+        }, 1200);
+      }
+    }, { passive: false });
   }
 }
 
