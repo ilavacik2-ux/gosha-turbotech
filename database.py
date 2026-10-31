@@ -1118,7 +1118,7 @@ def seed_initial_data(cursor):
         {"id": "gal_7", "tag": "MIDNIGHT BLUE", "title": "Nissan GT-R R35 #888 Sunset Pass", "img": "assets/photos/gtr_blue_888_rdrc.jpg"},
         {"id": "gal_8", "tag": "CHIEF MOTORSPORT ENGINEER", "title": "Гоша Перцхелия на стрипе RDRC", "img": "assets/photos/gosha_on_track.jpg"},
         {"id": "gal_9", "tag": "ATELIER GARAGE", "title": "Бокс GTT: Паддок команды & Nissan GT-R", "img": "assets/cars/bmw_m5_paddock_front.jpg"},
-        {"id": "gal_10", "tag": "TWIN TURBO V8", "title": "BMW M5 G90 Stage 2 GTT", "img": "assets/cars/bmw_m5_rdrc_race.jpg"},
+        {"id": "gal_10", "tag": "TWIN TURBO V8", "title": "BMW M5 G90 GTT", "img": "assets/cars/bmw_m5_rdrc_race.jpg"},
         {"id": "gal_11", "tag": "TWIN TURBO V10", "title": "Huracan Twin Turbo «Зеленка» GTT", "img": "assets/cars/huracan_green_bezzubik_track.jpg"},
         {"id": "gal_12", "tag": "BILLET MOTORSPORT", "title": "VR38 Billet & Дрэг-подвеска", "img": "assets/cars/gtr_draco_connections.jpg"},
         {"id": "gal_13", "tag": "PARC FERMÉ", "title": "Пилот Саркисян & Draco GTT", "img": "assets/photos/pilot_draco_sarkisyan.jpg"},

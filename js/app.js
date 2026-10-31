@@ -2531,7 +2531,7 @@ function renderGalleryTrack(items) {
     const bilingual = getGalleryBilingual(rawTitle, rawTag);
     return `
     <div class="marquee-card" data-raw-title="${rawTitle.replace(/"/g, '&quot;')}" data-raw-tag="${rawTag.replace(/"/g, '&quot;')}" onclick="openGalleryLightbox('${g.img}', '${rawTitle.replace(/'/g, "\\'")}')">
-      <img src="${g.img}" alt="${bilingual.title || 'GTT'}" loading="lazy">
+      <img src="${g.img}" alt="${bilingual.title || 'GTT'}" decoding="async" onerror="this.onerror=null; this.src='assets/photos/gtt_shield_logo.svg';">
       <div class="marquee-card-meta">
         <span class="marquee-card-tag">${bilingual.tag}</span>
         <div class="marquee-card-title">${bilingual.title}</div>
@@ -3365,7 +3365,10 @@ function renderTeamGrid(teamList) {
   if (!grid || !Array.isArray(teamList)) return;
   grid.innerHTML = teamList.map(m => {
     const asset = defaultTeamPhotos[m.id] || { photo: 'assets/photos/gtt_shield_logo.svg', social: '' };
-    const photo = m.photo || asset.photo;
+    let photo = m.photo || asset.photo;
+    if (!photo || photo.includes('tildacdn.com')) {
+      photo = asset.photo;
+    }
     const social = m.social !== undefined ? m.social : asset.social;
     const rawId = m.id || '';
     const num = rawId.replace(/\D/g, '');
@@ -3392,7 +3395,7 @@ function renderTeamGrid(teamList) {
     return `
       <div class="team-card" data-team-dept="${dept}">
         <div class="team-card-photo">
-          <img src="${photo}" alt="${displayName}" loading="lazy" onerror="this.src='assets/photos/gtt_shield_logo.svg'">
+          <img src="${photo}" alt="${displayName}" loading="lazy" onerror="if(this.src!=='${asset.photo}'){this.src='${asset.photo}';}else{this.src='assets/photos/gtt_shield_logo.svg';}">
         </div>
         <div class="team-card-body">
           <span class="team-role">${displayRole}</span>
@@ -3908,22 +3911,28 @@ function initNavigation() {
     updateActiveNavLink();
   }, { passive: true });
 
-  // Smooth scroll with precise navbar offset on click
-  navLinks.forEach(link => {
+  // Smooth scroll with precise navbar offset on click (desktop & mobile drawer)
+  const allNavLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+  allNavLinks.forEach(link => {
     link.addEventListener('click', (e) => {
       const hash = link.getAttribute('href');
       if (hash && hash.startsWith('#') && hash.length > 1) {
         const target = document.querySelector(hash);
         if (target) {
           e.preventDefault();
-          const navHeight = navbar ? navbar.offsetHeight : 80;
-          const targetTop = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 16;
-          window.scrollTo({
-            top: Math.max(0, targetTop),
-            behavior: 'smooth'
-          });
+          if (typeof toggleMobileNav === 'function') {
+            toggleMobileNav(false);
+          }
+          setTimeout(() => {
+            const navHeight = window.innerWidth <= 768 ? 64 : 80;
+            const targetTop = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+            window.scrollTo({
+              top: Math.max(0, targetTop),
+              behavior: 'smooth'
+            });
+          }, 40);
           navLinks.forEach(l => l.classList.remove('active'));
-          link.classList.add('active');
+          if (link.classList.contains('nav-link')) link.classList.add('active');
         }
       }
     });
@@ -4326,7 +4335,8 @@ window.openGalleryLightbox = function(src, rawCaption) {
   if (!modal || !img) return;
 
   const list = getActiveGalleryList();
-  const idx = list.findIndex(item => item.src === src);
+  const norm = s => (s || '').replace(/^(\.?\/|https?:\/\/[^\/]+\/)/, '').trim();
+  const idx = list.findIndex(item => norm(item.src) === norm(src));
   if (idx !== -1) {
     currentLightboxIndex = idx;
   }
@@ -4351,7 +4361,7 @@ window.navigateLightbox = function(direction) {
     const cap = document.getElementById('lightboxCaption');
     const bilingual = getGalleryBilingual(current.caption || '', '');
     const displayCaption = bilingual.title || current.caption || 'GoshaTurboTech Motorsport';
-    if (img) {
+    if (img && current.src) {
       img.src = current.src;
       img.alt = displayCaption;
     }
@@ -4983,15 +4993,15 @@ function initMobileStickyBar() {
     const contactEl = document.getElementById('contact');
     const partnersEl = document.getElementById('partners');
     let isPastContact = false;
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+    const vh = window.innerHeight;
     if (contactEl) {
-      const rect = contactEl.getBoundingClientRect();
-      isPastContact = rect.top <= window.innerHeight * 0.85;
+      isPastContact = (contactEl.offsetTop - scrollY) <= vh * 0.85;
     }
     if (partnersEl && !isPastContact) {
-      const pRect = partnersEl.getBoundingClientRect();
-      isPastContact = pRect.top <= window.innerHeight * 0.85;
+      isPastContact = (partnersEl.offsetTop - scrollY) <= vh * 0.85;
     }
-    const isNearBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 100);
+    const isNearBottom = (vh + scrollY) >= (document.documentElement.scrollHeight - 100);
 
     if (anyModalActive || isPastContact || isNearBottom) {
       bar.classList.add('hidden');
@@ -5032,7 +5042,7 @@ function initBackToTopButton() {
   const progressFill = document.getElementById('progressRingFill');
   if (!btn || !progressFill) return;
 
-  const circumference = 2 * Math.PI * 20; // r=20 -> 125.66px
+  const circumference = 2 * Math.PI * 21.5; // r=21.5 -> 135.09px
   progressFill.style.strokeDasharray = `${circumference} ${circumference}`;
   progressFill.style.strokeDashoffset = `${circumference}`;
 

@@ -56,10 +56,10 @@ html {
   scroll-behavior: smooth;
   color-scheme: dark;
   background-color: var(--bg-deep);
-  scroll-padding-top: 100px;
 }
 
 section[id],
+.hangar-section,
 .garage-section,
 .founder-section,
 .records-section,
@@ -68,14 +68,12 @@ section[id],
 .atelier-gallery-section,
 .partners-section,
 .contact-section {
-  scroll-margin-top: 100px;
+  scroll-margin-top: 80px;
 }
 
-@media (max-width: 680px) {
-  html {
-    scroll-padding-top: 80px;
-  }
+@media (max-width: 768px) {
   section[id],
+  .hangar-section,
   .garage-section,
   .founder-section,
   .records-section,
@@ -84,7 +82,7 @@ section[id],
   .atelier-gallery-section,
   .partners-section,
   .contact-section {
-    scroll-margin-top: 80px;
+    scroll-margin-top: 64px;
   }
 }
 
@@ -5853,11 +5851,12 @@ body.modal-open {
   position: fixed;
   bottom: 30px;
   right: 44px;
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  background: rgba(10, 13, 20, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(10, 13, 20, 0.92);
+  border: none;
+  overflow: hidden;
   color: #fff;
   cursor: pointer;
   display: flex;
@@ -5870,13 +5869,12 @@ body.modal-open {
   transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
               visibility 0.3s,
-              border-color 0.25s,
               box-shadow 0.25s;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   padding: 0;
   outline: none;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
 }
 
 .back-to-top-btn.visible {
@@ -5886,8 +5884,7 @@ body.modal-open {
 }
 
 .back-to-top-btn:hover {
-  border-color: rgba(255, 100, 37, 0.7);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 100, 37, 0.35);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 100, 37, 0.4);
   transform: translateY(-3px) scale(1.05);
 }
 
@@ -5897,8 +5894,7 @@ body.modal-open {
 
 .progress-ring-svg {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   transform: rotate(-90deg);
@@ -5907,19 +5903,18 @@ body.modal-open {
 
 .progress-ring-track {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.08);
-  stroke-width: 2.5;
+  stroke: rgba(255, 255, 255, 0.16);
+  stroke-width: 3;
 }
 
 .progress-ring-fill {
   fill: none;
   stroke: var(--gtt-orange, #ff6425);
-  stroke-width: 2.5;
+  stroke-width: 3;
   stroke-linecap: round;
-  stroke-dasharray: 125.66;
-  stroke-dashoffset: 125.66;
+  stroke-dasharray: 135.1;
+  stroke-dashoffset: 135.1;
   transition: stroke-dashoffset 0.12s ease-out;
-  filter: drop-shadow(0 0 4px rgba(255, 100, 37, 0.8));
 }
 
 .back-to-top-chevron {
@@ -5937,7 +5932,7 @@ body.modal-open {
 }
 
 /* ==========================================================================
-   MOBILE AUDIT OPTIMIZATIONS (iOS SAFARI, 100DVH, TOUCH TARGETS)
+   MOBILE AUDIT OPTIMIZATIONS (iOS SAFARI, 100SVH, TOUCH TARGETS)
    ========================================================================== */
 
 /* 1. Prevent iOS Safari auto-zoom on input focus */
@@ -5962,21 +5957,28 @@ body.modal-open {
   }
 
   .back-to-top-btn svg.progress-ring-svg {
-    width: 44px;
-    height: 44px;
+    width: 100%;
+    height: 100%;
   }
 }
 
-/* 3. Modern Dynamic Viewport Height (100dvh) */
-@supports (height: 100dvh) {
+/* 3. Modern Static Viewport Height for Hero (100svh prevents scroll resize stutter in iOS Safari) */
+@supports (min-height: 100svh) {
   .hero {
-    min-height: 100dvh;
+    min-height: 100svh;
   }
+}
+@supports (height: 100dvh) {
   .modal-overlay,
   .video-modal-overlay,
   .mobile-drawer {
     height: 100dvh;
   }
+}
+
+.navbar, .mobile-bottom-bar {
+  contain: layout style;
+  will-change: transform;
 }
 
 /* 4. Touch Targets standard (Apple Human Interface Guidelines >= 44x44px) */
