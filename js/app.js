@@ -1962,34 +1962,34 @@ async function syncGalleryFromAPI() {
 
 // Technical & Motorsport Partners (28 Authentic GTT Motorsport & Technical Partners)
 const defaultPartnersList = [
-  { id: 'rog', name: 'Republic of Gamers', category: 'Телеметрия & Электроника', desc: 'Высокопроизводительные аппаратные комплексы, ноутбуки и системы сбора телеметрии для настройки гоночных болидов на треке и стенде.', logo: 'assets/partners/rog.png', link: 'https://rog.asus.com', sort_order: 1, is_active: 1 },
-  { id: 'toys_detailing', name: 'Toys Detailing', category: 'Детейлинг & Защита', desc: 'Премиальный детейлинг, керамические покрытия, полировка и защитные антигравийные пленки для шоу-каров и гоночных болидов GTT.', logo: 'assets/partners/toys_detailing.png', link: 'https://toysdetailing.ru', sort_order: 2, is_active: 1 },
-  { id: 'felix_ferro', name: 'Felix Ferro', category: 'Интерьер & Стиль', desc: 'Эксклюзивные кастомные аксессуары, ювелирные ключи зажигания и титановые эмблемы ручной работы для флагманских проектов GoshaTurboTech.', logo: 'assets/partners/felix_ferro.png', link: 'https://felixferro.com', sort_order: 3, is_active: 1 },
-  { id: 'vp_racing', name: 'VP Racing Fuels', category: 'Топливо & Метанол', desc: 'Мировой эталон спортивного топлива, гоночного кислородного бензина и чистого метанола M1 для рекордных заездов RDRC.', logo: 'assets/partners/vp_racing.png', link: 'https://vpracingfuels.com', sort_order: 4, is_active: 1 },
-  { id: 'je_pistons', name: 'JE Pistons', category: 'Кованая поршневая', desc: 'Сверхпрочные кованые гоночные поршни для экстремального давления наддува и мощностей свыше 2,000+ л.с. в моторах VR38DETT и V10.', logo: 'assets/partners/je_pistons.png', link: 'https://jepistons.com', sort_order: 5, is_active: 1 },
-  { id: 'link_ecu', name: 'Link Engine Management', category: 'Электроника & ЭБУ', desc: 'Спортивные блоки управления двигателем (ECU), даталоггеры и цифровые приборные панели для абсолютного контроля над силовой установкой.', logo: 'assets/partners/link_ecu.png', link: 'https://linkecu.com', sort_order: 6, is_active: 1 },
-  { id: 'mainline_dyno', name: 'Mainline DynoLog', category: 'Диностенды & Замеры', desc: 'Профессиональные колесные и ступичные мощностные стенды высокой точности для калибровки и снятия графиков болидов до 3000 л.с.', logo: 'assets/partners/mainline_dyno.png', link: 'https://mainlinedyno.com.au', sort_order: 7, is_active: 1 },
-  { id: 'redline_oil', name: 'Red Line Synthetic Oil', category: 'Смазочные материалы', desc: 'Специализированные трансмиссионные жидкости ShockProof и гоночные присадки для дифференциалов повышенного трения и раздаточных коробок.', logo: 'assets/partners/redline_oil.png', link: 'https://redlineoil.com', sort_order: 8, is_active: 1 },
-  { id: 'syvecs', name: 'Syvecs Powertrain Control', category: 'Электроника & ЭБУ', desc: 'Топовые блоки управления двигателем (ECU), полноприводной трансмиссией (AWD Controller) и прецизионными алгоритмами лаунч-контроля.', logo: 'assets/partners/syvecs.png', link: 'https://syvecs.com', sort_order: 9, is_active: 1 },
-  { id: 'plazmaman', name: 'Plazmaman Pro Billet', category: 'Впуск & Охлаждение', desc: 'Фрезерованные из авиационного алюминиевого монолита впускные коллекторы и интеркулеры для экстремальных моторов VR38DETT и V10.', logo: 'assets/partners/plazmaman.png', link: 'https://plazmaman.com', sort_order: 10, is_active: 1 },
-  { id: 'ppg_gearboxes', name: 'PPG (Pfitzner Gearboxes)', category: 'Трансмиссия & КПП', desc: 'Усиленные прямозубые кулачковые и секвентальные ряды передач, выдерживающие колоссальный крутящий момент и агрессивные переключения.', logo: 'assets/partners/ppg_gearboxes.png', link: 'https://ppgearbox.com.au', sort_order: 11, is_active: 1 },
-  { id: 'ticon_titanium', name: 'Ticon Titanium', category: 'Титановые компоненты', desc: 'Высококлассные титановые трубы, конусы, фланцы и отводы для создания сверхлегких термостойких выхлопных систем GoshaTurboTech.', logo: 'assets/partners/ticon_titanium.png', link: 'https://ticontitanium.com', sort_order: 12, is_active: 1 },
-  { id: 'cobb_tuning', name: 'COBB Tuning', category: 'Калибровка & Софт', desc: 'Программно-аппаратные комплексы Accessport для быстрой смены карт калибровки, перепрошивки блоков управления и скоростного логирования.', logo: 'assets/partners/cobb_tuning.png', link: 'https://cobbtuning.com', sort_order: 13, is_active: 1 },
-  { id: 'bell_intercoolers', name: 'Bell Intercoolers', category: 'Охлаждение & Впуск', desc: 'Высокоэффективные теплообменники и кастомные интеркулерные ядра с минимальным сопротивлением для мощных турбосистем.', logo: 'assets/partners/bell_intercoolers.png', link: 'https://bellintercoolers.com', sort_order: 14, is_active: 1 },
-  { id: 'armytrix', name: 'Armytrix', category: 'Выхлопные системы', desc: 'Премиальные регулируемые титановые и нержавеющие выхлопные системы Valvetronic с дистанционным управлением звуком через приложение.', logo: 'assets/partners/armytrix.png', link: 'https://armytrix.com', sort_order: 15, is_active: 1 },
-  { id: 'ecutek', name: 'Ecutek Technology', category: 'Электроника & ЭБУ', desc: 'Передовое программное обеспечение для глубокой инженерной калибровки заводских блоков управления Nissan GT-R, BMW и суперкаров.', logo: 'assets/partners/ecutek.png', link: 'https://ecutek.com', sort_order: 16, is_active: 1 },
-  { id: 'precision_turbo', name: 'Precision Turbo & Engine', category: 'Турбосистемы', desc: 'Специализированные гоночные турбокомпрессоры сверхвысокого наддува серии Pro Mod и GEN2 CEA, обеспечивающие отдачу до 3,500+ л.с.', logo: 'assets/partners/precision_turbo.png', link: 'https://precisionturbo.net', sort_order: 17, is_active: 1 },
-  { id: 'motec', name: 'MoTeC Systems', category: 'Электроника & ЭБУ', desc: 'Золотой стандарт мирового автоспорта: управляющие процессоры M1, цветные цифровые дисплеи C1212 и прецизионные логгеры телеметрии.', logo: 'assets/partners/motec.png', link: 'https://motec.com.au', sort_order: 18, is_active: 1 },
-  { id: 'motul', name: 'Motul Motorsport', category: 'Смазочные материалы', desc: 'Синтетические моторные масла Motul 300V Motorsport Line с технологией Ester Core, защищающие 2000+ сильные моторы GTT при пиковых нагрузках.', logo: 'assets/partners/motul.png', link: 'https://motul.com', sort_order: 19, is_active: 1 },
-  { id: 'injector_dynamics', name: 'Injector Dynamics', category: 'Топливные форсунки', desc: 'Прецизионные спортивные топливные форсунки с динамическим подбором баланса подачи для абсолютной стабильности топливовоздушной смеси.', logo: 'assets/partners/injector_dynamics.png', link: 'https://injectordynamics.com', sort_order: 20, is_active: 1 },
-  { id: 'dodson_motorsport', name: 'Dodson Motorsport', category: 'Сцепления & Трансмиссия', desc: 'Усиленные многодисковые сцепления, шестерни и гидравлика для роботизированных коробок передач GR6 (GT-R) и DL800 (R8/Huracan).', logo: 'assets/partners/dodson_motorsport.png', link: 'https://dodsonmotorsport.com', sort_order: 21, is_active: 1 },
-  { id: 't1_race', name: 'T1 Race Development', category: 'Топливные системы', desc: 'Прецизионные компоненты топливной магистрали, вентиляции картера и силовые инженерные узлы для быстрейших суперкаров мира.', logo: 'assets/partners/t1_race.png', link: 'https://t1racedevelopment.com', sort_order: 22, is_active: 1 },
-  { id: 'csf_radiators', name: 'CSF Radiators', category: 'Охлаждение & Радиаторы', desc: 'Высокопроизводительные цельноалюминиевые радиаторы охлаждения ДВС, масляные радиаторы и теплообменники для экстремальных нагрузок.', logo: 'assets/partners/csf_radiators.png', link: 'https://csfradiators.com', sort_order: 23, is_active: 1 },
-  { id: 'dragtimes', name: 'Dragtimes', category: 'Медиа & Суперкары', desc: 'Крупнейшее медиа-сообщество суперкаров и дрэг-рейсинга, организатор всероссийских заездов на 1/2 мили и хронометража рекордов.', logo: 'assets/partners/dragtimes.png', link: 'https://dragtimes.ru', sort_order: 24, is_active: 1 },
-  { id: 'rdrc_racepark', name: 'RDRC Racepark', category: 'Автоспорт & Трассы', desc: 'Главный дрэг-стрип страны и организатор Чемпионата России по дрэг-рейсингу RDRC в Быково, где GTT ставит официальные рекорды скорости.', logo: 'assets/partners/rdrc_racepark.png', link: 'https://rdrc.ru', sort_order: 25, is_active: 1 },
-  { id: 'dsc_off', name: 'DSC OFF', category: 'Медиа & Хроника', desc: 'Автоспортивный медиа-проект Гурама Инцкирвели, подробно освещающий постройку и боевые заезды быстрейших суперкаров GoshaTurboTech.', logo: 'assets/partners/dsc_off.png', link: 'https://youtube.com/@dscoff', sort_order: 26, is_active: 1 },
-  { id: 'pride_jfc', name: 'Pride JFC', category: 'Автоспорт & Стиль', desc: 'Официальный партнерский клуб и спортивная лига, разделяющая философию бескомпромиссной борьбы за первенство и победы.', logo: 'assets/partners/pride_jfc.png', link: 'https://goshaturbotech.ru', sort_order: 27, is_active: 1 },
-  { id: 'deikin_exhaust', name: 'Deikin Exhaust', category: 'Выхлопные системы', desc: 'Индивидуальное проектирование и ручная аргонная TIG-сварка спортивных выхлопных систем из титана Grade 5 и жаропрочного Inconel.', logo: 'assets/partners/deikin_exhaust.png', link: 'https://goshaturbotech.ru', sort_order: 28, is_active: 1 }
+  { id: 'rog', name: 'Republic of Gamers', category: 'Телеметрия & Софт', desc: 'Телеметрия и даталоггинг для трека и стенда', logo: 'assets/partners/rog.png', link: 'https://rog.asus.com', sort_order: 1, is_active: 1 },
+  { id: 'toys_detailing', name: 'Toys Detailing', category: 'Детейлинг & Защита', desc: 'Керамика и полиуретановая защита кузова', logo: 'assets/partners/toys_detailing.png', link: 'https://toysdetailing.ru', sort_order: 2, is_active: 1 },
+  { id: 'felix_ferro', name: 'Felix Ferro', category: 'Интерьер & Стиль', desc: 'Эксклюзивные ювелирные ключи и аксессуары', logo: 'assets/partners/felix_ferro.png', link: 'https://felixferro.com', sort_order: 3, is_active: 1 },
+  { id: 'vp_racing', name: 'VP Racing Fuels', category: 'Спортивное топливо', desc: 'Гоночный кислородный бензин и чистый метанол M1', logo: 'assets/partners/vp_racing.png', link: 'https://vpracingfuels.com', sort_order: 4, is_active: 1 },
+  { id: 'je_pistons', name: 'JE Pistons', category: 'Кованая поршневая', desc: 'Кованые поршни под экстремальный наддув 2000+ HP', logo: 'assets/partners/je_pistons.png', link: 'https://jepistons.com', sort_order: 5, is_active: 1 },
+  { id: 'link_ecu', name: 'Link Engine Management', category: 'Спортивные ЭБУ', desc: 'Блоки управления двигателем и даталоггеры', logo: 'assets/partners/link_ecu.png', link: 'https://linkecu.com', sort_order: 6, is_active: 1 },
+  { id: 'mainline_dyno', name: 'Mainline DynoLog', category: 'Диностенды до 3000 HP', desc: 'Прецизионные мощностные стенды замера', logo: 'assets/partners/mainline_dyno.png', link: 'https://mainlinedyno.com.au', sort_order: 7, is_active: 1 },
+  { id: 'redline_oil', name: 'Red Line Synthetic Oil', category: 'Спортивные масла', desc: 'Трансмиссионные жидкости ShockProof и присадки', logo: 'assets/partners/redline_oil.png', link: 'https://redlineoil.com', sort_order: 8, is_active: 1 },
+  { id: 'syvecs', name: 'Syvecs Powertrain Control', category: 'ЭБУ & Контроллеры AWD', desc: 'Гоночные блоки управления ДВС и полным приводом', logo: 'assets/partners/syvecs.png', link: 'https://syvecs.com', sort_order: 9, is_active: 1 },
+  { id: 'plazmaman', name: 'Plazmaman Pro Billet', category: 'Впуск & Интеркулеры', desc: 'Фрезерованные коллекторы и кулеры VR38 / V10', logo: 'assets/partners/plazmaman.png', link: 'https://plazmaman.com', sort_order: 10, is_active: 1 },
+  { id: 'ppg_gearboxes', name: 'PPG (Pfitzner Gearboxes)', category: 'Кулачковые КПП', desc: 'Усиленные кулачковые и секвентальные ряды передач', logo: 'assets/partners/ppg_gearboxes.png', link: 'https://ppgearbox.com.au', sort_order: 11, is_active: 1 },
+  { id: 'ticon_titanium', name: 'Ticon Titanium', category: 'Титановые компоненты', desc: 'Сверхлегкие титановые трубы и отводы выхлопа', logo: 'assets/partners/ticon_titanium.png', link: 'https://ticontitanium.com', sort_order: 12, is_active: 1 },
+  { id: 'cobb_tuning', name: 'COBB Tuning', category: 'Accessport & Софт', desc: 'Платформа калибровки и перепрошивки Accessport', logo: 'assets/partners/cobb_tuning.png', link: 'https://cobbtuning.com', sort_order: 13, is_active: 1 },
+  { id: 'bell_intercoolers', name: 'Bell Intercoolers', category: 'Теплообменники & Кулеры', desc: 'Высокоэффективные интеркулерные ядра', logo: 'assets/partners/bell_intercoolers.png', link: 'https://bellintercoolers.com', sort_order: 14, is_active: 1 },
+  { id: 'armytrix', name: 'Armytrix', category: 'Valvetronic Выхлоп', desc: 'Титановые выхлопные системы с заслонками', logo: 'assets/partners/armytrix.png', link: 'https://armytrix.com', sort_order: 15, is_active: 1 },
+  { id: 'ecutek', name: 'Ecutek Technology', category: 'Программное обеспечение', desc: 'Инженерная калибровка заводских блоков ЭБУ', logo: 'assets/partners/ecutek.png', link: 'https://ecutek.com', sort_order: 16, is_active: 1 },
+  { id: 'precision_turbo', name: 'Precision Turbo & Engine', category: 'Турбокомпрессоры CEA', desc: 'Гоночные турбины Pro Mod и GEN2 CEA до 3500 л.с.', logo: 'assets/partners/precision_turbo.png', link: 'https://precisionturbo.net', sort_order: 17, is_active: 1 },
+  { id: 'motec', name: 'MoTeC Systems', category: 'Электроника M1 & PDM', desc: 'Управляющие процессоры, приборные панели и телеметрия', logo: 'assets/partners/motec.png', link: 'https://motec.com.au', sort_order: 18, is_active: 1 },
+  { id: 'motul', name: 'Motul Motorsport', category: 'Моторные масла 300V', desc: 'Синтетические масла 300V Motorsport Line', logo: 'assets/partners/motul.png', link: 'https://motul.com', sort_order: 19, is_active: 1 },
+  { id: 'injector_dynamics', name: 'Injector Dynamics', category: 'Топливные форсунки', desc: 'Высокоточные спортивные форсунки подачи топлива', logo: 'assets/partners/injector_dynamics.png', link: 'https://injectordynamics.com', sort_order: 20, is_active: 1 },
+  { id: 'dodson_motorsport', name: 'Dodson Motorsport', category: 'Сцепления GR6 / DL800', desc: 'Усиленные сцепления для GT-R и Huracan/R8', logo: 'assets/partners/dodson_motorsport.png', link: 'https://dodsonmotorsport.com', sort_order: 21, is_active: 1 },
+  { id: 't1_race', name: 'T1 Race Development', category: 'Инженерия VR38 & V10', desc: 'Компоненты топливных рамп и картера GT-R', logo: 'assets/partners/t1_race.png', link: 'https://t1racedevelopment.com', sort_order: 22, is_active: 1 },
+  { id: 'csf_radiators', name: 'CSF Radiators', category: 'Радиаторы охлаждения', desc: 'Алюминиевые радиаторы ДВС и масляные кулеры', logo: 'assets/partners/csf_radiators.png', link: 'https://csfradiators.com', sort_order: 23, is_active: 1 },
+  { id: 'dragtimes', name: 'Dragtimes', category: 'Суперкары & Дрэг', desc: 'Медиа-сообщество суперкаров и хронометраж', logo: 'assets/partners/dragtimes.png', link: 'https://dragtimes.ru', sort_order: 24, is_active: 1 },
+  { id: 'rdrc_racepark', name: 'RDRC Racepark', category: 'Дрэг-стрип RDRC', desc: 'Главный гоночный автодром Чемпионата России', logo: 'assets/partners/rdrc_racepark.png', link: 'https://rdrc.ru', sort_order: 25, is_active: 1 },
+  { id: 'dsc_off', name: 'DSC OFF', category: 'Автоспортивное медиа', desc: 'Медиа-проект Гурама Инцкирвели о рекордах GTT', logo: 'assets/partners/dsc_off.png', link: 'https://youtube.com/@dscoff', sort_order: 26, is_active: 1 },
+  { id: 'pride_jfc', name: 'Pride JFC', category: 'Партнерский клуб', desc: 'Официальный клуб и спортивная лига', logo: 'assets/partners/pride_jfc.png', link: 'https://goshaturbotech.ru', sort_order: 27, is_active: 1 },
+  { id: 'deikin_exhaust', name: 'Deikin Exhaust', category: 'Титановый выхлоп', desc: 'Кастомные титановые выхлопные системы', logo: 'assets/partners/deikin_exhaust.png', link: 'https://goshaturbotech.ru', sort_order: 28, is_active: 1 }
 ];
 
 let cachedPartnersData = null;
@@ -2038,8 +2038,7 @@ function renderPartnersMarquee(partners) {
   }).join('');
 }
 
-function renderPartnersGrid(partners, filter = currentPartnerFilter) {
-  currentPartnerFilter = filter || 'all';
+function renderPartnersGrid(partners) {
   const container = document.getElementById('partnersGrid');
   if (!container) return;
 
@@ -2051,88 +2050,44 @@ function renderPartnersGrid(partners, filter = currentPartnerFilter) {
     .filter(p => p.is_active === 1 || p.is_active === true || p.is_active === '1' || p.is_active === undefined)
     .sort((a, b) => (parseInt(a.sort_order || 0) - parseInt(b.sort_order || 0)));
 
-  // Update total count counter pill
-  const countPill = document.getElementById('partnerCountAll');
-  if (countPill) countPill.textContent = activePartners.length;
-
-  // Filter logic across 28 official partners
-  let filtered = activePartners;
-  if (filter === 'ecu') {
-    filtered = activePartners.filter(p => 
-      ['rog', 'link_ecu', 'mainline_dyno', 'syvecs', 'cobb_tuning', 'ecutek', 'motec'].includes(p.id) || 
-      /электроник|эбу|ecu|мотек|настройк|стенд|диностенд|телеметри|софт|калибровк/i.test(p.category || '')
-    );
-  } else if (filter === 'turbo') {
-    filtered = activePartners.filter(p => 
-      ['vp_racing', 'je_pistons', 'plazmaman', 'bell_intercoolers', 'precision_turbo', 'injector_dynamics', 't1_race', 'csf_radiators'].includes(p.id) || 
-      /турбо|впуск|поршн|охлажд|радиатор|интеркулер|топлив|форсунк|бензин|метанол/i.test(p.category || '')
-    );
-  } else if (filter === 'transmission') {
-    filtered = activePartners.filter(p => 
-      ['redline_oil', 'ppg_gearboxes', 'motul', 'dodson_motorsport'].includes(p.id) || 
-      /трансмисс|кпп|масл|смаз|сцеплен|дифференциал|кулачков/i.test(p.category || '')
-    );
-  } else if (filter === 'media') {
-    filtered = activePartners.filter(p => 
-      ['toys_detailing', 'felix_ferro', 'ticon_titanium', 'armytrix', 'dragtimes', 'rdrc_racepark', 'dsc_off', 'pride_jfc', 'deikin_exhaust'].includes(p.id) || 
-      /выхлоп|титан|детейлинг|стиль|интерьер|дрэг|трасс|автоспорт|медиа|клуб/i.test(p.category || '')
-    );
-  }
-
-  if (filtered.length === 0) {
+  if (activePartners.length === 0) {
     container.innerHTML = `
       <div style="grid-column: 1 / -1; text-align: center; padding: 48px 20px; color: var(--text-muted); font-family: var(--font-mono); font-size: 14px;">
-        // В данной категории бренды не найдены
+        // Бренды не найдены
       </div>
     `;
     return;
   }
 
-  container.innerHTML = filtered.map(p => {
+  container.innerHTML = activePartners.map(p => {
     const name = escapeHtml(p.name || '');
-    const category = escapeHtml(p.category || 'Партнер GTT');
-    const desc = escapeHtml(p.desc || '');
-    const link = p.link && p.link !== '#' ? escapeHtml(p.link) : '';
+    const tag = escapeHtml(p.category || 'Партнер GTT');
+    const link = p.link && p.link !== '#' ? escapeHtml(p.link) : '#';
     const logoSrc = escapeHtml(p.logo || '');
     const monogram = name.slice(0, 2).toUpperCase();
+    const hrefAttr = link !== '#' ? `href="${link}" target="_blank" rel="noopener noreferrer"` : `href="#partners"`;
     
     return `
-      <div class="partner-card" data-partner-id="${escapeHtml(p.id || '')}">
-        <div>
-          <div class="partner-card-top">
-            <div class="partner-logo-box">
-              ${logoSrc ? `<img src="${logoSrc}" alt="${name}" class="partner-card-logo-img" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'partner-monogram-badge\\'>${monogram}</span>'">` : `<span class="partner-monogram-badge">${monogram}</span>`}
-            </div>
-            <span class="partner-card-category">${category}</span>
+      <a ${hrefAttr} class="partner-card" data-partner-id="${escapeHtml(p.id || '')}" title="${name} — Официальный сайт">
+        <div class="partner-card-header">
+          <div class="partner-logo-box">
+            ${logoSrc ? `<img src="${logoSrc}" alt="${name}" class="partner-card-logo-img" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'partner-monogram-badge\\'>${monogram}</span>'">` : `<span class="partner-monogram-badge">${monogram}</span>`}
           </div>
-          <div class="partner-card-body">
-            <h3 class="partner-card-name">${name}</h3>
-            <p class="partner-card-desc">${desc}</p>
+          <div class="partner-card-arrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
           </div>
         </div>
-        <div class="partner-card-footer">
-          <span class="partner-card-badge">OFFICIAL ALLIANCE</span>
-          ${link ? `<a href="${link}" target="_blank" rel="noopener noreferrer" class="partner-card-link" title="Перейти на сайт ${name}">
-            <span>Официальный ресурс</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-          </a>` : '<span style="font-size: 11px; color: #475569; font-family: var(--font-mono);">GTT Motorsport Alliance</span>'}
+        <div class="partner-card-meta">
+          <h3 class="partner-card-name">${name}</h3>
+          <span class="partner-card-tag">${tag}</span>
         </div>
-      </div>
+      </a>
     `;
   }).join('');
 }
 
-window.filterPartners = function(category, btn) {
-  currentPartnerFilter = category || 'all';
-  const buttons = document.querySelectorAll('.partner-filter-pill');
-  buttons.forEach(b => b.classList.remove('active'));
-  if (btn) {
-    btn.classList.add('active');
-  } else {
-    const target = document.querySelector(`.partner-filter-pill[data-filter="${category}"]`);
-    if (target) target.classList.add('active');
-  }
-  renderPartnersGrid(cachedPartnersData || defaultPartnersList, currentPartnerFilter);
+window.filterPartners = function() {
+  renderPartnersGrid(cachedPartnersData || defaultPartnersList);
 };
 
 async function syncPartnersFromAPI() {
