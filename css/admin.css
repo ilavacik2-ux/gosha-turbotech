@@ -1547,13 +1547,14 @@ label.btn-folder-browse {
 
 .featured-slots-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 16px;
+  transition: all 0.25s ease;
 }
 
 @media (max-width: 1200px) {
   .featured-slots-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   }
 }
 
@@ -1561,6 +1562,197 @@ label.btn-folder-browse {
   .featured-slots-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Slot Checkbox & Quick Remove */
+.slot-topbar-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.slot-featured-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  background: rgba(255, 85, 0, 0.12);
+  border: 1px solid rgba(255, 85, 0, 0.35);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.slot-featured-check:hover {
+  background: rgba(255, 85, 0, 0.25);
+  border-color: var(--gtt-orange);
+}
+
+.slot-featured-check input[type="checkbox"] {
+  accent-color: var(--gtt-orange);
+  cursor: pointer;
+  margin: 0;
+  width: 13px;
+  height: 13px;
+}
+
+.btn-slot-remove {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-slot-remove:hover {
+  background: rgba(255, 59, 48, 0.2);
+  border-color: rgba(255, 59, 48, 0.6);
+  color: #ff453a;
+}
+
+/* Empty Dropzone Card for Adding New Slots */
+.featured-slot-add-dropzone {
+  background: rgba(10, 13, 18, 0.45);
+  border: 2px dashed rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-sm);
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 260px;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--text-muted);
+  user-select: none;
+}
+
+.featured-slot-add-dropzone:hover,
+.featured-slot-add-dropzone.is-drop-active {
+  background: rgba(234, 91, 12, 0.09);
+  border-color: var(--gtt-orange);
+  border-style: solid;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(234, 91, 12, 0.18);
+}
+
+.add-dropzone-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: var(--gtt-orange);
+  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+}
+
+.featured-slot-add-dropzone:hover .add-dropzone-icon,
+.featured-slot-add-dropzone.is-drop-active .add-dropzone-icon {
+  transform: scale(1.15) rotate(90deg);
+  background: rgba(234, 91, 12, 0.2);
+  border-color: var(--gtt-orange);
+}
+
+.add-dropzone-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #fff;
+}
+
+.add-dropzone-hint {
+  font-size: 11px;
+  color: var(--text-muted);
+  max-width: 200px;
+  line-height: 1.35;
+}
+
+/* Draggable Table Rows */
+tr.tr-draggable {
+  cursor: grab;
+  transition: background-color 0.2s ease;
+}
+
+tr.tr-draggable:active {
+  cursor: grabbing;
+}
+
+tr.tr-draggable.is-row-dragging {
+  opacity: 0.45;
+  background: rgba(234, 91, 12, 0.15) !important;
+}
+
+.car-row-drag-handle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 24px;
+  color: rgba(255, 255, 255, 0.25);
+  cursor: grab;
+  margin-right: 6px;
+  transition: color 0.15s ease;
+}
+
+tr:hover .car-row-drag-handle {
+  color: var(--gtt-orange);
+}
+
+.car-table-check-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--text-muted);
+  padding: 3px 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.car-table-check-label.is-top {
+  background: rgba(234, 91, 12, 0.15);
+  border-color: var(--gtt-orange);
+  color: #fff;
+}
+
+.car-table-check-label:hover {
+  border-color: var(--gtt-orange);
+}
+
+.car-table-check-label input[type="checkbox"] {
+  accent-color: var(--gtt-orange);
+  cursor: pointer;
+  margin: 0;
+  width: 13px;
+  height: 13px;
 }
 
 .featured-slot-card {

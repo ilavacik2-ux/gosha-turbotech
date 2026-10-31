@@ -1488,13 +1488,14 @@ def reorder_featured_cars(featured_ids: List[str]) -> bool:
     conn = get_connection()
     cursor = conn.cursor()
     try:
+        cursor.execute("UPDATE cars SET is_featured = 0")
         for idx, car_id in enumerate(featured_ids):
-            cursor.execute("UPDATE cars SET sort_order = ? WHERE id = ?", (idx + 1, car_id))
+            cursor.execute("UPDATE cars SET sort_order = ?, is_featured = 1 WHERE id = ?", (idx + 1, car_id))
         placeholders = ','.join('?' for _ in featured_ids)
         cursor.execute(f"SELECT id FROM cars WHERE id NOT IN ({placeholders}) ORDER BY sort_order ASC, rowid ASC", featured_ids)
         remaining = cursor.fetchall()
         for idx, r in enumerate(remaining):
-            cursor.execute("UPDATE cars SET sort_order = ? WHERE id = ?", (len(featured_ids) + 1 + idx, r[0]))
+            cursor.execute("UPDATE cars SET sort_order = ?, is_featured = 0 WHERE id = ?", (len(featured_ids) + 1 + idx, r[0]))
         conn.commit()
         conn.close()
         return True

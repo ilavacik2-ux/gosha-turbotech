@@ -16,75 +16,43 @@ window.escapeHtml = escapeHtml;
 
 let gttProjects = [
   {
-    "id": "r8_rokot",
-    "brand": "AUDI & GTT",
-    "type": "audi",
-    "name": {
-      "ru": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT",
-      "en": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT"
-    },
-    "tag": {
-      "ru": "РЕКОРД РОССИИ ДЛЯ AUDI • 7.877 СЕК",
-      "en": "RUSSIAN RECORD FOR AUDI • 7.877 SEC"
-    },
-    "hp": "1,600+ HP",
-    "quarterMile": "7.877 сек",
-    "topSpeed": "350+ км/ч",
-    "badge": {
-      "ru": "Рекорд России для Audi 7.877s",
-      "en": "Russia Audi Record 7.877s"
-    },
-    "img": "assets/cars/audi_r8_tsmr_launch.jpg",
-    "fallbackImg": "assets/archive_tilda/audi_r8_tonystark.png",
-    "isPhoto": true,
-    "objectPosition": "center 75%",
-    "videoSrc": "assets/videos/gtr_launch_pass.mp4",
-    "videoTitle": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT",
-    "desc": {
-      "ru": "Боевая Audi R8 «ROKOT» от GoshaTurboTech под управлением Эдуарда Саркисяна и Руслана Арефьева. Абсолютный национальный рекорд России для марки Audi на 1/4 мили (7.877 сек). Первый и единственный автомобиль марки Audi в стране, выехавший из 8 секунд!",
-      "en": "Competition Audi R8 «ROKOT» by GoshaTurboTech piloted by Eduard Sarkisyan and Ruslan Arefyev. Absolute Russian National Record for Audi on the 1/4 mile (7.877 sec). The first and only Audi in Russia to conquer the 7-second barrier!"
-    },
-    "specs": {
-      "engine": "5.2L FSI V10 Twin Turbo Mid-Engine GTT Stage 3",
-      "turbos": "Mirror Twin Turbo Kit with Air-to-Water Intercooling",
-      "cooling": "CSF Triple Billet Heat Exchangers",
-      "ecu": "Syvecs S12 Standalone Motorsport Setup",
-      "clutch": "GTT Upgraded Billet 9-Plate Dual Clutch"
-    }
-  },
-  {
-    "id": "gtr_kurdalagon",
+    "id": "gtr_lucifer",
     "brand": "NISSAN & GTT",
     "type": "gtr",
     "name": {
-      "ru": "GT-R R35 GTT «KURDALAGON»",
-      "en": "GT-R R35 GTT «KURDALAGON»"
+      "ru": "GT-R R35 «LUCIFER» GTT #71 CHAMPION",
+      "en": "GT-R R35 «LUCIFER» GTT #71 CHAMPION"
     },
     "tag": {
-      "ru": "РЕКОРД БЫКОВО 26.10.2026 • 7.766 СЕК",
-      "en": "BYKOVO RECORD 26.10.2026 • 7.766 SEC"
+      "ru": "ЧЕМПИОН RDRC • ПИЛОТ ГОША ПЕРЦХЕЛИЯ #71",
+      "en": "RDRC CHAMPION • PILOT GOSHA PERTSKHELIYA #71"
     },
-    "hp": "1,650+ HP",
-    "quarterMile": "7.766 сек",
-    "topSpeed": "300.00 км/ч",
+    "hp": "1,850+ HP",
+    "quarterMile": "8.400 сек",
+    "topSpeed": "343.67 км/ч",
     "badge": {
-      "ru": "Рекорд трек-дня 7.766s",
-      "en": "Track-Day Record 7.766s"
+      "ru": "Боевой Огненный Болид Гоши #71",
+      "en": "Gosha Fire Drag Weapon #71"
     },
-    "img": "assets/archive_tilda/gtr_kurdalagon.png",
-    "fallbackImg": "assets/cars/gtr_red_front_rdrc.jpg",
-    "isPhoto": false,
+    "img": "assets/cars/gtr_lucifer_solo.jpg",
+    "fallbackImg": "assets/cars/gtr_lucifer_full.jpg",
+    "isPhoto": true,
+    "objectPosition": "center 46%",
+    "videoSrc": "assets/videos/gosha_na_svoem_lucifer_web.mp4",
+    "videoTitle": "Гоша на своей // GT-R Lucifer RDRC",
     "desc": {
-      "ru": "Боевой болид Nissan GT-R R35 «Курдалагон» — имя древнего осетинского бога-кузнеца. 26 октября 2026 года на трек-дне в Быково установил новый личный рекорд команды: 7.766 сек на 402 метра со скоростью на выходе 300.00 км/ч.",
-      "en": "Mythical Kurdalagon GT-R named after the ancient blacksmith deity. Set a brand new personal best of 7.766 sec at 300.00 km/h on October 26, 2026 at Bykovo Drag Track."
+      "ru": "Победоносный огненный болид Гоши Перцхелия, борт №71. Личный драг-монстр в культовой ливрее адского пламени — триумфатор и победитель чемпионата России RDRC (лучшее время 8.400 сек / 1/2 мили 13.690 с / 343.67 км/ч).",
+      "en": "Victorious hellfire-liveried race weapon piloted by Gosha Pertskheliya himself (race car #71). Built in the GoshaTurboTech skunkworks — champion and winner of Russian Drag Racing Championship (RDRC) finals."
     },
     "specs": {
-      "engine": "4.1L Billet VR38 Race Assembly GTT Spec",
-      "turbos": "Dual Precision 7275 Billet Gen2",
-      "fuel": "VP Racing Ethanol M5",
-      "ecu": "Motec M150 Standalone Drag Management",
-      "chassis": "Drag Parachute & Weld Racing Beadlocks"
-    }
+      "engine": "4.1L Billet Stroker VR38DETT GTT Race Spec",
+      "turbos": "Dual Precision 7675 Gen2 Pro Mod Billet Turbos",
+      "fuel": "VP Racing Ethanol M5 / Dual In-Tank 1700cc Injection",
+      "ecu": "Motec M150 Drag AWD Management + GTT Flame Map",
+      "chassis": "Full Drag Suspension, Parachute System & Weld Beadlocks"
+    },
+    "is_featured": 1,
+    "isFeatured": true
   },
   {
     "id": "draco_promod",
@@ -121,44 +89,84 @@ let gttProjects = [
       "fuel": "Methanol M1 Injected + Dual Billet Fuel Rails",
       "ecu": "Motec M150 Standalone Pro Drag System",
       "chassis": "Full Chrome-Moly Tube Chassis & Carbon Body"
-    }
+    },
+    "is_featured": 1,
+    "isFeatured": true
   },
   {
-    "id": "gtr_lucifer",
+    "id": "r8_rokot",
+    "brand": "AUDI & GTT",
+    "type": "audi",
+    "name": {
+      "ru": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT",
+      "en": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT"
+    },
+    "tag": {
+      "ru": "РЕКОРД РОССИИ ДЛЯ AUDI • 7.877 СЕК",
+      "en": "RUSSIAN RECORD FOR AUDI • 7.877 SEC"
+    },
+    "hp": "1,600+ HP",
+    "quarterMile": "7.877 сек",
+    "topSpeed": "350+ км/ч",
+    "badge": {
+      "ru": "Рекорд России для Audi 7.877s",
+      "en": "Russia Audi Record 7.877s"
+    },
+    "img": "assets/cars/audi_r8_tsmr_launch.jpg",
+    "fallbackImg": "assets/archive_tilda/audi_r8_tonystark.png",
+    "isPhoto": true,
+    "objectPosition": "center 75%",
+    "videoSrc": "assets/videos/gtr_launch_pass.mp4",
+    "videoTitle": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT",
+    "desc": {
+      "ru": "Боевая Audi R8 «ROKOT» от GoshaTurboTech под управлением Эдуарда Саркисяна и Руслана Арефьева. Абсолютный национальный рекорд России для марки Audi на 1/4 мили (7.877 сек). Первый и единственный автомобиль марки Audi в стране, выехавший из 8 секунд!",
+      "en": "Competition Audi R8 «ROKOT» by GoshaTurboTech piloted by Eduard Sarkisyan and Ruslan Arefyev. Absolute Russian National Record for Audi on the 1/4 mile (7.877 sec). The first and only Audi in Russia to conquer the 7-second barrier!"
+    },
+    "specs": {
+      "engine": "5.2L FSI V10 Twin Turbo Mid-Engine GTT Stage 3",
+      "turbos": "Mirror Twin Turbo Kit with Air-to-Water Intercooling",
+      "cooling": "CSF Triple Billet Heat Exchangers",
+      "ecu": "Syvecs S12 Standalone Motorsport Setup",
+      "clutch": "GTT Upgraded Billet 9-Plate Dual Clutch"
+    },
+    "is_featured": 1,
+    "isFeatured": true
+  },
+  {
+    "id": "gtr_kurdalagon",
     "brand": "NISSAN & GTT",
     "type": "gtr",
     "name": {
-      "ru": "GT-R R35 «LUCIFER» GTT #71 CHAMPION",
-      "en": "GT-R R35 «LUCIFER» GTT #71 CHAMPION"
+      "ru": "GT-R R35 GTT «KURDALAGON»",
+      "en": "GT-R R35 GTT «KURDALAGON»"
     },
     "tag": {
-      "ru": "ЧЕМПИОН RDRC • ПИЛОТ ГОША ПЕРЦХЕЛИЯ #71",
-      "en": "RDRC CHAMPION • PILOT GOSHA PERTSKHELIYA #71"
+      "ru": "РЕКОРД БЫКОВО 26.10.2026 • 7.766 СЕК",
+      "en": "BYKOVO RECORD 26.10.2026 • 7.766 SEC"
     },
-    "hp": "1,850+ HP",
-    "quarterMile": "8.400 сек",
-    "topSpeed": "343.67 км/ч",
+    "hp": "1,650+ HP",
+    "quarterMile": "7.766 сек",
+    "topSpeed": "300.00 км/ч",
     "badge": {
-      "ru": "Боевой Огненный Болид Гоши #71",
-      "en": "Gosha Fire Drag Weapon #71"
+      "ru": "Рекорд трек-дня 7.766s",
+      "en": "Track-Day Record 7.766s"
     },
-    "img": "assets/cars/gtr_lucifer_solo.jpg",
-    "fallbackImg": "assets/cars/gtr_lucifer_full.jpg",
-    "isPhoto": true,
-    "objectPosition": "center 46%",
-    "videoSrc": "assets/videos/gosha_na_svoem_lucifer_web.mp4",
-    "videoTitle": "Гоша на своей // GT-R Lucifer RDRC",
+    "img": "assets/archive_tilda/gtr_kurdalagon.png",
+    "fallbackImg": "assets/cars/gtr_red_front_rdrc.jpg",
+    "isPhoto": false,
     "desc": {
-      "ru": "Победоносный огненный болид Гоши Перцхелия, борт №71. Личный драг-монстр в культовой ливрее адского пламени — триумфатор и победитель чемпионата России RDRC (лучшее время 8.400 сек / 1/2 мили 13.690 с / 343.67 км/ч).",
-      "en": "Victorious hellfire-liveried race weapon piloted by Gosha Pertskheliya himself (race car #71). Built in the GoshaTurboTech skunkworks — champion and winner of Russian Drag Racing Championship (RDRC) finals."
+      "ru": "Боевой болид Nissan GT-R R35 «Курдалагон» — имя древнего осетинского бога-кузнеца. 26 октября 2026 года на трек-дне в Быково установил новый личный рекорд команды: 7.766 сек на 402 метра со скоростью на выходе 300.00 км/ч.",
+      "en": "Mythical Kurdalagon GT-R named after the ancient blacksmith deity. Set a brand new personal best of 7.766 sec at 300.00 km/h on October 26, 2026 at Bykovo Drag Track."
     },
     "specs": {
-      "engine": "4.1L Billet Stroker VR38DETT GTT Race Spec",
-      "turbos": "Dual Precision 7675 Gen2 Pro Mod Billet Turbos",
-      "fuel": "VP Racing Ethanol M5 / Dual In-Tank 1700cc Injection",
-      "ecu": "Motec M150 Drag AWD Management + GTT Flame Map",
-      "chassis": "Full Drag Suspension, Parachute System & Weld Beadlocks"
-    }
+      "engine": "4.1L Billet VR38 Race Assembly GTT Spec",
+      "turbos": "Dual Precision 7275 Billet Gen2",
+      "fuel": "VP Racing Ethanol M5",
+      "ecu": "Motec M150 Standalone Drag Management",
+      "chassis": "Drag Parachute & Weld Racing Beadlocks"
+    },
+    "is_featured": 1,
+    "isFeatured": true
   },
   {
     "id": "bezzubik",
@@ -194,7 +202,9 @@ let gttProjects = [
       "exhaust": "GTT Inconel Custom Straight System",
       "ecu": "Syvecs Dual-CAN Motorsport Management",
       "fuel": "100 RON Daily / Ethanol E85 Race Map"
-    }
+    },
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "porsche_911_imba",
@@ -230,7 +240,9 @@ let gttProjects = [
       "turbos": "GTT Billet High-Flow Turbos",
       "fuel": "100 RON + Methanol Injection",
       "ecu": "Syvecs S7 Plus Standalone Porsche Kit"
-    }
+    },
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "bmw_m5",
@@ -267,7 +279,9 @@ let gttProjects = [
       "fuel": "100 RON + Methanol Direct Port Injected",
       "ecu": "GTT Custom Dual ECU & 8HP Transmission Flash",
       "exhaust": "Inconel Catless Downpipes + Full Titanium System"
-    }
+    },
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "dodge_demon",
@@ -304,7 +318,9 @@ let gttProjects = [
       "fuel": "Triple Fore Innovations Fuel Pumps + 1700cc Injectors",
       "driveshaft": "QA1 Carbon Fiber Driveshaft + GTT 9-inch Rear End",
       "tires": "Mickey Thompson ET Street R Drag Radials"
-    }
+    },
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "dodge_demon_170",
@@ -339,7 +355,9 @@ let gttProjects = [
       "fuel": "Ethanol E85 Flex Fuel Auto-Calibration",
       "chassis": "Transbrake Pro Drag Launch System"
     },
-    "videoSrc": ""
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "audi_zlayazaya",
@@ -375,7 +393,9 @@ let gttProjects = [
       "turbos": "Dual Mirror Precision Turbos",
       "fuel": "Direct Port Fuel Injected 100 RON",
       "ecu": "Syvecs Powertrain Management"
-    }
+    },
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "tonystark",
@@ -411,7 +431,9 @@ let gttProjects = [
       "turbos": "Mirror Twin Turbo Kit with Air-to-Water Intercooling",
       "cooling": "CSF Triple Billet Heat Exchangers",
       "ecu": "Syvecs S12 Standalone Motorsport Setup"
-    }
+    },
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "zelenka",
@@ -448,7 +470,9 @@ let gttProjects = [
       "fuel": "Dual Billet Fuel Rails + 100 RON / E85 Maps",
       "trans": "GTT Upgraded Billet Dual Clutch 10-Plate",
       "wheels": "Weld Racing Rear Beadlocks with Mickey Thompson ET"
-    }
+    },
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "lambo_maxpain",
@@ -483,7 +507,9 @@ let gttProjects = [
       "clutch": "GTT Dual-Clutch Billet 10-Plate Basket",
       "ecu": "Syvecs S12 Standalone Motorsport Management"
     },
-    "videoSrc": ""
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "lambo_spyder_800",
@@ -518,7 +544,9 @@ let gttProjects = [
       "intake": "Carbon Ram-Air Box",
       "ecu": "GTT Dual ECU Custom Calibration"
     },
-    "videoSrc": ""
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "moses",
@@ -553,7 +581,9 @@ let gttProjects = [
       "ecu": "Motec M1 + Custom GTT Drag AWD Logic",
       "trans": "GTT Billet PPG Sequential Dog-Box"
     },
-    "videoSrc": ""
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "gtr_korzhik",
@@ -587,7 +617,9 @@ let gttProjects = [
       "fuel": "VP Racing Ethanol Map",
       "transmission": "Dodson Promax Heavy Duty Clutch"
     },
-    "videoSrc": ""
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "gtr_baloo",
@@ -622,7 +654,9 @@ let gttProjects = [
       "cooling": "GTT Dual Radiator Pack",
       "fuel": "Dual In-Tank Fuel Rail"
     },
-    "videoSrc": ""
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "gtr_blue_888",
@@ -659,7 +693,9 @@ let gttProjects = [
       "cooling": "ETS 4-inch Race Intercooler Kit",
       "ecu": "Syvecs S6+ ECU with GTT Drag Launch Strategy",
       "trans": "Dodson Pro-Max 8-Plate Drag Clutch"
-    }
+    },
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "gtr_red",
@@ -695,7 +731,9 @@ let gttProjects = [
       "turbos": "Garrett G35-1050 Turbochargers",
       "cooling": "Front Mount Massive Intercooler Core",
       "ecu": "Syvecs S8 ECU with Launch & Traction Control"
-    }
+    },
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "gtr_rocket",
@@ -730,7 +768,9 @@ let gttProjects = [
       "ecu": "Motec M1 Drag Calibration",
       "fuel": "100 RON + Ethanol Map"
     },
-    "videoSrc": ""
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "gtr_alpha12x",
@@ -765,7 +805,9 @@ let gttProjects = [
       "transmission": "ShepTrans Stage 4 GR6",
       "ecu": "Syvecs S8 Dual ECU"
     },
-    "videoSrc": ""
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "gtr_fifa",
@@ -800,7 +842,9 @@ let gttProjects = [
       "transmission": "Dodson Motorsport Billet Gearset",
       "ecu": "Motec M150"
     },
-    "videoSrc": ""
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "porsche_991_1200",
@@ -835,7 +879,9 @@ let gttProjects = [
       "transmission": "Reinforced PDK Dual-Clutch Pack",
       "fuel": "Methanol Direct Port Injection"
     },
-    "videoSrc": ""
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "porsche_991_felix",
@@ -870,7 +916,9 @@ let gttProjects = [
       "exhaust": "Titanium Valved System Handcrafted",
       "ecu": "Syvecs S7 Standalone Engine Management"
     },
-    "videoSrc": ""
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "porsche_991_900",
@@ -905,7 +953,9 @@ let gttProjects = [
       "intercoolers": "CSF High-Capacity Charge Coolers",
       "ecu": "Custom GTT ECU & TCU Map"
     },
-    "videoSrc": ""
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "porsche_992_puncher",
@@ -940,7 +990,9 @@ let gttProjects = [
       "intercooling": "High-Flow Core Package",
       "fuel": "Methanol Multi-Port System"
     },
-    "videoSrc": ""
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "bmw_m7_gtt",
@@ -975,7 +1027,9 @@ let gttProjects = [
       "exhaust": "Bespoke Stainless Valvetronic System",
       "transmission": "ZF 8HP Reinforced Calibration"
     },
-    "videoSrc": ""
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "mercedes_e63",
@@ -1011,7 +1065,9 @@ let gttProjects = [
       "downpipes": "Inconel Catless Thermal-Wrapped Pipes",
       "transmission": "AMG SPEEDSHIFT MCT 9G Flashed"
     },
-    "videoSrc": ""
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "volga_kgb",
@@ -1046,7 +1102,9 @@ let gttProjects = [
       "transmission": "Reinforced 6-Speed Manual",
       "interior": "Restored Factory Soviet Cockpit"
     },
-    "videoSrc": ""
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "ferrari_512tr",
@@ -1082,7 +1140,9 @@ let gttProjects = [
       "clutch": "GTT Heavy Duty Multi-Plate Clutch",
       "brakes": "Brembo Racing High-Friction Setup"
     },
-    "videoSrc": ""
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "tesla_plaid",
@@ -1118,7 +1178,9 @@ let gttProjects = [
       "brakes": "GTT Carbon Ceramic 410mm Track Rotors",
       "suspension": "Lowered Active Air Suspension Calibration"
     },
-    "videoSrc": ""
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "xiaomi_su7",
@@ -1154,7 +1216,9 @@ let gttProjects = [
       "brakes": "Carbon Ceramic 6-Piston AP Racing",
       "aero": "Carbon Rear Wing Generating 285 kg Downforce"
     },
-    "videoSrc": ""
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "zeekr_zevs",
@@ -1190,7 +1254,9 @@ let gttProjects = [
       "battery": "800V Golden Battery Technology",
       "chassis": "CCD Electromagnetic Active Suspension"
     },
-    "videoSrc": ""
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "lambo_nera",
@@ -1225,7 +1291,9 @@ let gttProjects = [
       "fuel": "VP Racing C16 Race Gasoline",
       "aero": "High-Speed Salt-Flat Style Rear Wing"
     },
-    "videoSrc": ""
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false
   },
   {
     "id": "audi_gyurza",
@@ -1260,7 +1328,9 @@ let gttProjects = [
       "tires": "Studded Competition Ice Rally Rubber",
       "ecu": "GTT Ice-Traction Electronic Calibration"
     },
-    "videoSrc": ""
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false
   }
 ];
 
@@ -1808,47 +1878,67 @@ function sanitizeCarRecord(c) {
 function applyCarsData(carList) {
   const cleanList = Array.isArray(carList) ? carList.filter(c => c && c.hp !== '?' && c.img && !c.isTeaser) : [];
   const listToUse = (cleanList.length > 0 ? cleanList : carList).map(sanitizeCarRecord);
-  const top4FeaturedSet = new Set(listToUse.slice(0, 4).map(c => c.id));
+
+  // Sort so featured cars come first if sort_order isn't doing so
+  listToUse.sort((a, b) => {
+    const aOrder = (a.sort_order !== undefined && a.sort_order !== null) ? a.sort_order : ((a.sortOrder !== undefined && a.sortOrder !== null) ? a.sortOrder : 9999);
+    const bOrder = (b.sort_order !== undefined && b.sort_order !== null) ? b.sort_order : ((b.sortOrder !== undefined && b.sortOrder !== null) ? b.sortOrder : 9999);
+    if (aOrder !== bOrder) return aOrder - bOrder;
+    const aFeat = (a.is_featured === 1 || a.is_featured === true || a.is_featured === '1' || a.isFeatured === true) ? 1 : 0;
+    const bFeat = (b.is_featured === 1 || b.is_featured === true || b.is_featured === '1' || b.isFeatured === true) ? 1 : 0;
+    return bFeat - aFeat;
+  });
+
+  const featuredCarsSet = new Set(listToUse.filter(c => c.is_featured === 1 || c.is_featured === true || c.is_featured === '1' || c.isFeatured === true).map(c => c.id));
+  if (featuredCarsSet.size === 0) {
+    listToUse.slice(0, 4).forEach(c => featuredCarsSet.add(c.id));
+  }
+
   const originalCarIds = new Set([
-    'r8_rokot', 'gtr_kurdalagon', 'draco_promod', 'gtr_lucifer',
+    'gtr_lucifer', 'draco_promod', 'r8_rokot', 'gtr_kurdalagon',
     'bezzubik', 'moses', 'zelenka', 'tonystark', 'dodge_srt',
     'gtr_blue_888', 'gtr_red', 'bmw_m5'
   ]);
 
-  gttProjects = listToUse.map(c => ({
-    id: c.id,
-    brand: c.brand || '',
-    name: {
-      ru: c.name_ru || c.nameRu || (c.name && c.name.ru) || c.name || '',
-      en: c.name_en || c.nameEn || (c.name && c.name.en) || c.name_ru || c.nameRu || ''
-    },
-    type: c.type || 'other',
-    tag: {
-      ru: c.tag_ru || c.tagRu || (c.tag && c.tag.ru) || c.tag || 'RDRC БОЛИД',
-      en: c.tag_en || c.tagEn || (c.tag && c.tag.en) || c.tag || 'RDRC CAR'
-    },
-    hp: c.hp || '',
-    quarterMile: c.quarter_mile || c.quarterMile || '',
-    topSpeed: c.top_speed || c.topSpeed || '',
-    badge: {
-      ru: c.badge_ru || c.badgeRu || (c.badge && c.badge.ru) || c.badge || 'GTT Spec',
-      en: c.badge_en || c.badgeEn || (c.badge && c.badge.en) || c.badge || 'GTT Spec'
-    },
-    img: c.img || '',
-    fallbackImg: c.fallback_img || c.fallbackImg || c.img || '',
-    isPhoto: (c.is_photo !== undefined ? Boolean(c.is_photo) : true) && !(c.img || '').toLowerCase().includes('.svg'),
-    isClassified: Boolean(c.is_classified) || Boolean(c.isClassified) || (c.img || '').includes('classified') || (c.img || '').toLowerCase().endsWith('.svg'),
-    objectPosition: c.object_position || c.objectPosition || 'center center',
-    videoSrc: top4FeaturedSet.has(c.id) ? (c.video_src || c.videoSrc || '') : '',
-    videoTitle: top4FeaturedSet.has(c.id) ? (c.video_title || c.videoTitle || '') : '',
-    desc: {
-      ru: c.desc_ru || c.descRu || (c.desc && c.desc.ru) || c.desc || '',
-      en: c.desc_en || c.descEn || (c.desc && c.desc.en) || c.desc_ru || c.descRu || ''
-    },
-    specs: (typeof c.specs === 'object' && c.specs !== null) ? c.specs : {},
-    isTeaser: c.isTeaser || c.is_teaser || c.hp === '?' || !c.img,
-    isNew: false
-  }));
+  gttProjects = listToUse.map(c => {
+    const isFeat = featuredCarsSet.has(c.id);
+    return {
+      id: c.id,
+      brand: c.brand || '',
+      isFeatured: isFeat,
+      is_featured: isFeat ? 1 : 0,
+      name: {
+        ru: c.name_ru || c.nameRu || (c.name && c.name.ru) || c.name || '',
+        en: c.name_en || c.nameEn || (c.name && c.name.en) || c.name_ru || c.nameRu || ''
+      },
+      type: c.type || 'other',
+      tag: {
+        ru: c.tag_ru || c.tagRu || (c.tag && c.tag.ru) || c.tag || 'RDRC БОЛИД',
+        en: c.tag_en || c.tagEn || (c.tag && c.tag.en) || c.tag || 'RDRC CAR'
+      },
+      hp: c.hp || '',
+      quarterMile: c.quarter_mile || c.quarterMile || '',
+      topSpeed: c.top_speed || c.topSpeed || '',
+      badge: {
+        ru: c.badge_ru || c.badgeRu || (c.badge && c.badge.ru) || c.badge || 'GTT Spec',
+        en: c.badge_en || c.badgeEn || (c.badge && c.badge.en) || c.badge || 'GTT Spec'
+      },
+      img: c.img || '',
+      fallbackImg: c.fallback_img || c.fallbackImg || c.img || '',
+      isPhoto: (c.is_photo !== undefined ? Boolean(c.is_photo) : true) && !(c.img || '').toLowerCase().includes('.svg'),
+      isClassified: Boolean(c.is_classified) || Boolean(c.isClassified) || (c.img || '').includes('classified') || (c.img || '').toLowerCase().endsWith('.svg'),
+      objectPosition: c.object_position || c.objectPosition || 'center center',
+      videoSrc: isFeat ? (c.video_src || c.videoSrc || '') : '',
+      videoTitle: isFeat ? (c.video_title || c.videoTitle || '') : '',
+      desc: {
+        ru: c.desc_ru || c.descRu || (c.desc && c.desc.ru) || c.desc || '',
+        en: c.desc_en || c.descEn || (c.desc && c.desc.en) || c.desc_ru || c.descRu || ''
+      },
+      specs: (typeof c.specs === 'object' && c.specs !== null) ? c.specs : {},
+      isTeaser: c.isTeaser || c.is_teaser || c.hp === '?' || !c.img,
+      isNew: false
+    };
+  });
 
   const activeFilter = document.querySelector('#carsFilterPills .filter-pill.active')?.getAttribute('data-filter') || 'all';
   renderGarageGrid(activeFilter);
@@ -3597,19 +3687,21 @@ function renderGarageGrid(filterType) {
       ? [...gttProjects]
       : gttProjects.filter(c => c.type === filterType);
 
-    // 2. Pagination for 'all' filter (4 flagship builds shown first, rest expandable)
+    // 2. Pagination for 'all' filter (flagship featured builds shown first, rest expandable)
     const expandWrap = document.getElementById('garageExpandWrap');
     const expandBtn = document.getElementById('btnGarageExpand');
     const expandText = document.getElementById('garageExpandText');
 
+    const featuredCount = gttProjects.filter(c => c.isFeatured || c.is_featured === 1 || c.is_featured === true).length || 4;
+
     let displayList = filtered;
     if (filterType === 'all') {
-      if (!isGarageExpanded && filtered.length > 4) {
-        displayList = filtered.slice(0, 4);
+      if (!isGarageExpanded && filtered.length > featuredCount) {
+        displayList = filtered.slice(0, featuredCount);
         container.classList.add('is-collapsed-4');
         if (expandWrap) expandWrap.style.display = 'flex';
         if (expandBtn) expandBtn.classList.remove('is-expanded');
-        if (expandText) expandText.textContent = formatGarageExpandText(filtered.length - 4, false, currentLang);
+        if (expandText) expandText.textContent = formatGarageExpandText(filtered.length - featuredCount, false, currentLang);
       } else {
         container.classList.remove('is-collapsed-4');
         if (expandWrap) expandWrap.style.display = 'flex';
@@ -3621,7 +3713,10 @@ function renderGarageGrid(filterType) {
       if (expandWrap) expandWrap.style.display = 'none';
     }
 
-    const top4FeaturedSet = new Set(gttProjects.slice(0, 4).map(c => c.id));
+    const featuredCarsSet = new Set(gttProjects.filter(c => c.isFeatured || c.is_featured === 1 || c.is_featured === true).map(c => c.id));
+    if (featuredCarsSet.size === 0) {
+      gttProjects.slice(0, 4).forEach(c => featuredCarsSet.add(c.id));
+    }
 
     container.innerHTML = displayList.map((car, idx) => {
       const name = (typeof car.name === 'object') ? (car.name[currentLang] || car.name.ru) : car.name;
@@ -3631,8 +3726,8 @@ function renderGarageGrid(filterType) {
       const isClass = car.isClassified || (car.img && (car.img.includes('classified') || car.img.endsWith('.svg')));
 
       const isNewCar = Boolean(car.isNew);
-      const isTop4 = top4FeaturedSet.has(car.id);
-      const showVideoBtn = isTop4 && Boolean(car.videoSrc || car.youtubeId);
+      const isTopFeatured = featuredCarsSet.has(car.id);
+      const showVideoBtn = isTopFeatured && Boolean(car.videoSrc || car.youtubeId);
 
       return `
       <div class="car-card car-card-fade-in ${isClass ? 'is-classified' : ''} ${isNewCar ? 'is-new-car-pending' : ''}" data-id="${car.id}" style="animation-delay: ${idx * 0.04}s">

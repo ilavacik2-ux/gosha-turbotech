@@ -71,30 +71,18 @@ function getSecretGatewayToken() {
 // 1. Initial Cars Seed
 const defaultProjects = [
   {
-    "id": "r8_rokot",
-    "brand": "AUDI & GTT",
-    "type": "audi",
-    "nameRu": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT",
-    "nameEn": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT",
-    "hp": "1,600+ HP",
-    "quarterMile": "7.877 сек",
-    "topSpeed": "350+ км/ч",
-    "img": "assets/cars/audi_r8_tsmr_launch.jpg",
-    "videoSrc": "assets/videos/gtr_launch_pass.mp4",
-    "videoTitle": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT",
-    "descRu": "Боевая Audi R8 «ROKOT» от GoshaTurboTech под управлением Эдуарда Саркисяна и Руслана Арефьева. Абсолютный национальный рекорд России для марки Audi на 1/4 мили (7.877 сек). Первый и единственный автомобиль марки Audi в стране, выехавший из 8 секунд!"
-  },
-  {
-    "id": "gtr_kurdalagon",
+    "id": "gtr_lucifer",
     "brand": "NISSAN & GTT",
     "type": "gtr",
-    "nameRu": "GT-R R35 GTT «KURDALAGON»",
-    "nameEn": "GT-R R35 GTT «KURDALAGON»",
-    "hp": "1,650+ HP",
-    "quarterMile": "7.766 сек",
-    "topSpeed": "300.00 км/ч",
-    "img": "assets/archive_tilda/gtr_kurdalagon.png",
-    "descRu": "Боевой болид Nissan GT-R R35 «Курдалагон» — имя древнего осетинского бога-кузнеца. 26 октября 2026 года на трек-дне в Быково установил новый личный рекорд команды: 7.766 сек на 402 метра со скоростью на выходе 300.00 км/ч."
+    "nameRu": "GT-R R35 «LUCIFER» GTT #71 CHAMPION",
+    "nameEn": "GT-R R35 «LUCIFER» GTT #71 CHAMPION",
+    "hp": "1,850+ HP",
+    "quarterMile": "8.400 сек",
+    "topSpeed": "343.67 км/ч",
+    "img": "assets/cars/gtr_lucifer_solo.jpg",
+    "videoSrc": "assets/videos/gosha_na_svoem_lucifer_web.mp4",
+    "descRu": "Победоносный огненный болид Гоши Перцхелия, борт №71. Личный драг-монстр в культовой ливрее адского пламени — триумфатор и победитель чемпионата России RDRC (лучшее время 8.400 сек / 1/2 мили 13.690 с / 343.67 км/ч).",
+    "is_featured": 1
   },
   {
     "id": "draco_promod",
@@ -107,20 +95,36 @@ const defaultProjects = [
     "topSpeed": "323.88 км/ч",
     "img": "assets/cars/gtr_draco_promod_front.jpg",
     "videoSrc": "assets/videos/draco_gtr_action.mp4",
-    "descRu": "Легендарный белый флагман дрэг-стрипа RDRC под управлением Руслана Арефьева (борт №300). Официальное время 7.694 сек со скоростью 304.44 км/ч на 1/4 мили (RDRC этап 5, заезд №537) и 323.88 км/ч на 1/2 мили. Специально построенное трубчатое шасси и свыше 3000 л.с."
+    "descRu": "Легендарный белый флагман дрэг-стрипа RDRC под управлением Руслана Арефьева (борт №300). Официальное время 7.694 сек со скоростью 304.44 км/ч на 1/4 мили (RDRC этап 5, заезд №537) и 323.88 км/ч на 1/2 мили. Специально построенное трубчатое шасси и свыше 3000 л.с.",
+    "is_featured": 1
   },
   {
-    "id": "gtr_lucifer",
+    "id": "r8_rokot",
+    "brand": "AUDI & GTT",
+    "type": "audi",
+    "nameRu": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT",
+    "nameEn": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT",
+    "hp": "1,600+ HP",
+    "quarterMile": "7.877 сек",
+    "topSpeed": "350+ км/ч",
+    "img": "assets/cars/audi_r8_tsmr_launch.jpg",
+    "videoSrc": "assets/videos/gtr_launch_pass.mp4",
+    "videoTitle": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT",
+    "descRu": "Боевая Audi R8 «ROKOT» от GoshaTurboTech под управлением Эдуарда Саркисяна и Руслана Арефьева. Абсолютный национальный рекорд России для марки Audi на 1/4 мили (7.877 сек). Первый и единственный автомобиль марки Audi в стране, выехавший из 8 секунд!",
+    "is_featured": 1
+  },
+  {
+    "id": "gtr_kurdalagon",
     "brand": "NISSAN & GTT",
     "type": "gtr",
-    "nameRu": "GT-R R35 «LUCIFER» GTT #71 CHAMPION",
-    "nameEn": "GT-R R35 «LUCIFER» GTT #71 CHAMPION",
-    "hp": "1,850+ HP",
-    "quarterMile": "8.400 сек",
-    "topSpeed": "343.67 км/ч",
-    "img": "assets/cars/gtr_lucifer_solo.jpg",
-    "videoSrc": "assets/videos/gosha_na_svoem_lucifer_web.mp4",
-    "descRu": "Победоносный огненный болид Гоши Перцхелия, борт №71. Личный драг-монстр в культовой ливрее адского пламени — триумфатор и победитель чемпионата России RDRC (лучшее время 8.400 сек / 1/2 мили 13.690 с / 343.67 км/ч)."
+    "nameRu": "GT-R R35 GTT «KURDALAGON»",
+    "nameEn": "GT-R R35 GTT «KURDALAGON»",
+    "hp": "1,650+ HP",
+    "quarterMile": "7.766 сек",
+    "topSpeed": "300.00 км/ч",
+    "img": "assets/archive_tilda/gtr_kurdalagon.png",
+    "descRu": "Боевой болид Nissan GT-R R35 «Курдалагон» — имя древнего осетинского бога-кузнеца. 26 октября 2026 года на трек-дне в Быково установил новый личный рекорд команды: 7.766 сек на 402 метра со скоростью на выходе 300.00 км/ч.",
+    "is_featured": 1
   },
   {
     "id": "bezzubik",
@@ -133,7 +137,8 @@ const defaultProjects = [
     "topSpeed": "353.02 км/ч",
     "img": "assets/photos/huracan_rdrc_stage_line.jpg",
     "videoSrc": "",
-    "descRu": "Культовый европейский триумфатор Race 1000 в Германии и звезда RDRC. Официальный рекорд Европы со скоростью 353.02 км/ч на дистанции 804 метра и лучший квотер 8.054 сек. Построен и настроен в ателье GoshaTurboTech."
+    "descRu": "Культовый европейский триумфатор Race 1000 в Германии и звезда RDRC. Официальный рекорд Европы со скоростью 353.02 км/ч на дистанции 804 метра и лучший квотер 8.054 сек. Построен и настроен в ателье GoshaTurboTech.",
+    "is_featured": 0
   },
   {
     "id": "porsche_911_imba",
@@ -146,7 +151,8 @@ const defaultProjects = [
     "topSpeed": "345+ км/ч",
     "img": "assets/archive_tilda/porsche_992_imba.jpg",
     "videoSrc": "",
-    "descRu": "Официальный рекордсмен RDRC среди Porsche поколения 992 под управлением Марии Кутычкиной. Подтвержденное время 9.167 сек со скоростью 236.92 км/ч на 1/4 мили (RDRC 2025, заезд 528). Кастомный интеркулер GTT и метаноловый впрыск."
+    "descRu": "Официальный рекордсмен RDRC среди Porsche поколения 992 под управлением Марии Кутычкиной. Подтвержденное время 9.167 сек со скоростью 236.92 км/ч на 1/4 мили (RDRC 2025, заезд 528). Кастомный интеркулер GTT и метаноловый впрыск.",
+    "is_featured": 0
   },
   {
     "id": "bmw_m5",
@@ -159,7 +165,8 @@ const defaultProjects = [
     "topSpeed": "340+ км/ч",
     "img": "assets/cars/bmw_m5_rdrc_race.jpg",
     "videoSrc": "",
-    "descRu": "Заряженная боевая BMW M5 поколения G90 от GoshaTurboTech, выступающая в чемпионате России по дрэг-рейсингу RDRC. Полный привод M xDrive, гибридные турбины GTT и усиленная поршневая группа."
+    "descRu": "Заряженная боевая BMW M5 поколения G90 от GoshaTurboTech, выступающая в чемпионате России по дрэг-рейсингу RDRC. Полный привод M xDrive, гибридные турбины GTT и усиленная поршневая группа.",
+    "is_featured": 0
   },
   {
     "id": "dodge_demon",
@@ -172,7 +179,8 @@ const defaultProjects = [
     "topSpeed": "330+ км/ч",
     "img": "assets/cars/dodge_burnout_sunset.jpg",
     "videoSrc": "",
-    "descRu": "Черный компрессорный монстр Dodge Challenger SRT Demon от GoshaTurboTech под управлением И. Кардана и М. Шония. Подтвержденное время 9.748 сек со скоростью 233.24 км/ч на 1/4 мили RDRC 2026."
+    "descRu": "Черный компрессорный монстр Dodge Challenger SRT Demon от GoshaTurboTech под управлением И. Кардана и М. Шония. Подтвержденное время 9.748 сек со скоростью 233.24 км/ч на 1/4 мили RDRC 2026.",
+    "is_featured": 0
   },
   {
     "id": "dodge_demon_170",
@@ -185,7 +193,8 @@ const defaultProjects = [
     "topSpeed": "335+ км/ч",
     "img": "assets/cars/challenger_burnout_close.jpg",
     "videoSrc": "",
-    "descRu": "Финальный коллекционный шедевр эпохи HEMI — Demon 170. Калибровка датчиков этанола flex-fuel, усиленный карданный вал и разгон с отрывом передних колес от стрипа."
+    "descRu": "Финальный коллекционный шедевр эпохи HEMI — Demon 170. Калибровка датчиков этанола flex-fuel, усиленный карданный вал и разгон с отрывом передних колес от стрипа.",
+    "is_featured": 0
   },
   {
     "id": "audi_zlayazaya",
@@ -198,7 +207,8 @@ const defaultProjects = [
     "topSpeed": "340+ км/ч",
     "img": "assets/cars/audi_r8_tsmr_launch.jpg",
     "videoSrc": "",
-    "descRu": "Культовая Audi R8 «Злая Зая» Руслана Арефьева (борт №6303). Призер этапов чемпионата RDRC, стабильный запуск на полном приводе quattro и двухтурбинный пакет GTT."
+    "descRu": "Культовая Audi R8 «Злая Зая» Руслана Арефьева (борт №6303). Призер этапов чемпионата RDRC, стабильный запуск на полном приводе quattro и двухтурбинный пакет GTT.",
+    "is_featured": 0
   },
   {
     "id": "tonystark",
@@ -211,7 +221,8 @@ const defaultProjects = [
     "topSpeed": "350+ км/ч",
     "img": "assets/archive_tilda/audi_r8_tonystark.png",
     "videoSrc": "",
-    "descRu": "Боевая Audi R8 V10 Twin Turbo под эгидой ЦМРБанк и GTT на треке RDRC. Официальное время 8.948 сек со скоростью 247.68 км/ч на Record Days 2023 и 287.19 км/ч на 1/2 мили."
+    "descRu": "Боевая Audi R8 V10 Twin Turbo под эгидой ЦМРБанк и GTT на треке RDRC. Официальное время 8.948 сек со скоростью 247.68 км/ч на Record Days 2023 и 287.19 км/ч на 1/2 мили.",
+    "is_featured": 0
   },
   {
     "id": "zelenka",
@@ -224,7 +235,8 @@ const defaultProjects = [
     "topSpeed": "355+ км/ч",
     "img": "assets/photos/huracan_zelenka_gtt.jpg",
     "videoSrc": "",
-    "descRu": "Знаменитая ядовито-зеленая Lamborghini Huracan Twin Turbo «Зеленка» — легенда паддока RDRC и уличных дуэлей. Кастомный твин-турбо кит от GoshaTurboTech, задние бедлоки и выстрел за 8 секунд (1/2 мили 14.041 с / 327.86 км/ч)."
+    "descRu": "Знаменитая ядовито-зеленая Lamborghini Huracan Twin Turbo «Зеленка» — легенда паддока RDRC и уличных дуэлей. Кастомный твин-турбо кит от GoshaTurboTech, задние бедлоки и выстрел за 8 секунд (1/2 мили 14.041 с / 327.86 км/ч).",
+    "is_featured": 0
   },
   {
     "id": "lambo_maxpain",
@@ -237,7 +249,8 @@ const defaultProjects = [
     "topSpeed": "360+ км/ч",
     "img": "assets/cars/huracan_green_grey_rdrc.jpg",
     "videoSrc": "",
-    "descRu": "Безупречный Huracan Performante в заводском кованом карбоне Forged Composites с установленным биллетовым твин-турбо китом GTT. Чудовищная отдача 1600+ л.с. и активная аэродинамика ALA."
+    "descRu": "Безупречный Huracan Performante в заводском кованом карбоне Forged Composites с установленным биллетовым твин-турбо китом GTT. Чудовищная отдача 1600+ л.с. и активная аэродинамика ALA.",
+    "is_featured": 0
   },
   {
     "id": "lambo_spyder_800",
@@ -250,7 +263,8 @@ const defaultProjects = [
     "topSpeed": "335+ км/ч",
     "img": "assets/archive_tilda/porsche_991_gtt1200.jpg",
     "videoSrc": "",
-    "descRu": "Открытый родстер Huracan Spyder с доработанной выхлопной трассой Inconel и пакетом GTT Stage 2. Официальное 2-е место на Чемпионате ПФО с результатом 9.988 сек на 402 метра."
+    "descRu": "Открытый родстер Huracan Spyder с доработанной выхлопной трассой Inconel и пакетом GTT Stage 2. Официальное 2-е место на Чемпионате ПФО с результатом 9.988 сек на 402 метра.",
+    "is_featured": 0
   },
   {
     "id": "moses",
@@ -263,7 +277,8 @@ const defaultProjects = [
     "topSpeed": "360+ км/ч",
     "img": "assets/archive_tilda/gtr_moses.png",
     "videoSrc": "",
-    "descRu": "Культовый белый Nissan GT-R R35 «MOSES» борт №712. Европейский рекорд времени на Unlim 500+ Greece (остров Крит) — 7.810 сек / 287.65 км/ч и личный рекорд 7.526 сек со скоростью 304.36 км/ч в ОАЭ. 3-й результат в мире на момент постройки."
+    "descRu": "Культовый белый Nissan GT-R R35 «MOSES» борт №712. Европейский рекорд времени на Unlim 500+ Greece (остров Крит) — 7.810 сек / 287.65 км/ч и личный рекорд 7.526 сек со скоростью 304.36 км/ч в ОАЭ. 3-й результат в мире на момент постройки.",
+    "is_featured": 0
   },
   {
     "id": "gtr_korzhik",
@@ -276,7 +291,8 @@ const defaultProjects = [
     "topSpeed": "334.41 км/ч",
     "img": "assets/archive_tilda/gtr_korzhik.png",
     "videoSrc": "",
-    "descRu": "Боевой болид Николая Коржова. Рекорд России на Московской миле (1/2 мили: 13.435 сек со скоростью 334.41 км/ч) и 8.602 сек на 402 метра. Вице-чемпион абсолютного зачета Чемпионата SMP RDRC в классе FSL."
+    "descRu": "Боевой болид Николая Коржова. Рекорд России на Московской миле (1/2 мили: 13.435 сек со скоростью 334.41 км/ч) и 8.602 сек на 402 метра. Вице-чемпион абсолютного зачета Чемпионата SMP RDRC в классе FSL.",
+    "is_featured": 0
   },
   {
     "id": "gtr_baloo",
@@ -289,7 +305,8 @@ const defaultProjects = [
     "topSpeed": "322.00 км/ч",
     "img": "assets/cars/gtr_red_strip_sunset.jpg",
     "videoSrc": "",
-    "descRu": "Уникальный проект «Baloo» с мощнейшим средним диапазоном оборотов и полным приводом. Личные показатели команды: 8.875 сек на 402 м со скоростью 262.39 км/ч и 13.726 сек на 1/2 мили со скоростью 322.00 км/ч."
+    "descRu": "Уникальный проект «Baloo» с мощнейшим средним диапазоном оборотов и полным приводом. Личные показатели команды: 8.875 сек на 402 м со скоростью 262.39 км/ч и 13.726 сек на 1/2 мили со скоростью 322.00 км/ч.",
+    "is_featured": 0
   },
   {
     "id": "gtr_blue_888",
@@ -302,7 +319,8 @@ const defaultProjects = [
     "topSpeed": "348+ км/ч",
     "img": "assets/photos/gtr_blue_888_rdrc.jpg",
     "videoSrc": "",
-    "descRu": "Знаменитый синий Nissan GT-R R35 со стартовым номером #888, постоянный участник и призер этапов Чемпионата России RDRC. Калибровка лаунч-контроля GTT и кованый 3.8L VR38."
+    "descRu": "Знаменитый синий Nissan GT-R R35 со стартовым номером #888, постоянный участник и призер этапов Чемпионата России RDRC. Калибровка лаунч-контроля GTT и кованый 3.8L VR38.",
+    "is_featured": 0
   },
   {
     "id": "gtr_red",
@@ -315,7 +333,8 @@ const defaultProjects = [
     "topSpeed": "350+ км/ч",
     "img": "assets/cars/gtr_red_front_rdrc.jpg",
     "videoSrc": "",
-    "descRu": "Один из самых ярких Nissan GT-R в российском дрэг-рейсинге под управлением Гоши Перцхелия. Кастомный хром-дизайн, усиленная подвеска и боевая трансмиссия GTT."
+    "descRu": "Один из самых ярких Nissan GT-R в российском дрэг-рейсинге под управлением Гоши Перцхелия. Кастомный хром-дизайн, усиленная подвеска и боевая трансмиссия GTT.",
+    "is_featured": 0
   },
   {
     "id": "gtr_rocket",
@@ -328,7 +347,8 @@ const defaultProjects = [
     "topSpeed": "345+ км/ч",
     "img": "assets/cars/gtr_draco_arefyev_wheel.jpg",
     "videoSrc": "",
-    "descRu": "Экстремальный проект Nissan GT-R R35 «Rocket» лаборатории GoshaTurboTech. Двухтурбинный наддув, титановый прямой выхлоп и облегченная гоночная конфигурация кузова."
+    "descRu": "Экстремальный проект Nissan GT-R R35 «Rocket» лаборатории GoshaTurboTech. Двухтурбинный наддув, титановый прямой выхлоп и облегченная гоночная конфигурация кузова.",
+    "is_featured": 0
   },
   {
     "id": "gtr_alpha12x",
@@ -341,7 +361,8 @@ const defaultProjects = [
     "topSpeed": "350+ км/ч",
     "img": "assets/cars/gtr_draco_connections.jpg",
     "videoSrc": "",
-    "descRu": "Проект на базе культового пакета Alpha 12X, доработанный инженерами GTT. Кастомное охлаждение, усиленная трансмиссия GR6 и индивидуальная прошивка блока управления."
+    "descRu": "Проект на базе культового пакета Alpha 12X, доработанный инженерами GTT. Кастомное охлаждение, усиленная трансмиссия GR6 и индивидуальная прошивка блока управления.",
+    "is_featured": 0
   },
   {
     "id": "gtr_fifa",
@@ -354,7 +375,8 @@ const defaultProjects = [
     "topSpeed": "340+ км/ч",
     "img": "assets/cars/gtr_red_tail_rdrc.jpg",
     "videoSrc": "",
-    "descRu": "Именной болид «FIFA», созданный в ателье GoshaTurboTech. Сочетает комфортный салон и бескомпромиссные характеристики разгона из 8.5 секунд на квотере."
+    "descRu": "Именной болид «FIFA», созданный в ателье GoshaTurboTech. Сочетает комфортный салон и бескомпромиссные характеристики разгона из 8.5 секунд на квотере.",
+    "is_featured": 0
   },
   {
     "id": "porsche_991_1200",
@@ -367,7 +389,8 @@ const defaultProjects = [
     "topSpeed": "312.77 км/ч",
     "img": "assets/archive_tilda/porsche_991_gtt1200.jpg",
     "videoSrc": "",
-    "descRu": "Безумный 991.1 Turbo Алексея Сагала. Официальный рекорд России/Европы на RDRC RacePark: 9.086 сек со скоростью 259.64 км/ч на 402 м и 14.186 сек со скоростью 312.77 км/ч на 1/2 мили."
+    "descRu": "Безумный 991.1 Turbo Алексея Сагала. Официальный рекорд России/Европы на RDRC RacePark: 9.086 сек со скоростью 259.64 км/ч на 402 м и 14.186 сек со скоростью 312.77 км/ч на 1/2 мили.",
+    "is_featured": 0
   },
   {
     "id": "porsche_991_felix",
@@ -380,7 +403,8 @@ const defaultProjects = [
     "topSpeed": "232.40 км/ч",
     "img": "assets/cars/gtr_rdrc_red_panamera.jpg",
     "videoSrc": "",
-    "descRu": "Лимитированная инженерная серия Felix Ferro Edition. Индивидуальный аэродинамический пакет, облегченные кованые диски и настройка блока управления Syvecs. 9.601 сек на квотере."
+    "descRu": "Лимитированная инженерная серия Felix Ferro Edition. Индивидуальный аэродинамический пакет, облегченные кованые диски и настройка блока управления Syvecs. 9.601 сек на квотере.",
+    "is_featured": 0
   },
   {
     "id": "porsche_991_900",
@@ -393,7 +417,8 @@ const defaultProjects = [
     "topSpeed": "335+ км/ч",
     "img": "assets/archive_tilda/porsche_992_puncher.jpg",
     "videoSrc": "",
-    "descRu": "Идеальный баланс повседневного суперкара и рекордного темпа. 900 сил на товарном 100-м бензине с ресурсом заводского мотора."
+    "descRu": "Идеальный баланс повседневного суперкара и рекордного темпа. 900 сил на товарном 100-м бензине с ресурсом заводского мотора.",
+    "is_featured": 0
   },
   {
     "id": "porsche_992_puncher",
@@ -406,7 +431,8 @@ const defaultProjects = [
     "topSpeed": "276.92 км/ч",
     "img": "assets/archive_tilda/porsche_992_puncher.jpg",
     "videoSrc": "",
-    "descRu": "Культовый Porsche 992 Turbo S «Puncher» Сергея Никитина. Мировой рекорд в категории на UNLIM FEST 2021: 9.303 сек со скоростью 235.83 км/ч на 1/4 мили и 14.778 сек со скоростью 276.92 км/ч на 1/2 мили."
+    "descRu": "Культовый Porsche 992 Turbo S «Puncher» Сергея Никитина. Мировой рекорд в категории на UNLIM FEST 2021: 9.303 сек со скоростью 235.83 км/ч на 1/4 мили и 14.778 сек со скоростью 276.92 км/ч на 1/2 мили.",
+    "is_featured": 0
   },
   {
     "id": "bmw_m7_gtt",
@@ -419,7 +445,8 @@ const defaultProjects = [
     "topSpeed": "330+ км/ч",
     "img": "assets/cars/bmw_m5_paddock_front.jpg",
     "videoSrc": "",
-    "descRu": "Представительский флагман BMW 7 серии в глубокой доработке GoshaTurboTech. Двухтурбинный V8/V12, бесшумный акустический комфорт в салоне и ураганная динамика на скоростных прямых."
+    "descRu": "Представительский флагман BMW 7 серии в глубокой доработке GoshaTurboTech. Двухтурбинный V8/V12, бесшумный акустический комфорт в салоне и ураганная динамика на скоростных прямых.",
+    "is_featured": 0
   },
   {
     "id": "mercedes_e63",
@@ -432,7 +459,8 @@ const defaultProjects = [
     "topSpeed": "335+ км/ч",
     "img": "assets/cars/gtt_classified_car.svg",
     "videoSrc": "",
-    "descRu": "Беспощадный бизнес-седан с 4.0L V8 Biturbo, форсированный до 950 л.с. Пилот В. Щед на RDRC 2026 показал подтвержденное время 9.880 сек со скоростью 234.91 км/ч на 1/4 мили."
+    "descRu": "Беспощадный бизнес-седан с 4.0L V8 Biturbo, форсированный до 950 л.с. Пилот В. Щед на RDRC 2026 показал подтвержденное время 9.880 сек со скоростью 234.91 км/ч на 1/4 мили.",
+    "is_featured": 0
   },
   {
     "id": "volga_kgb",
@@ -445,7 +473,8 @@ const defaultProjects = [
     "topSpeed": "340+ км/ч",
     "img": "assets/cars/volga_kgb_v8_sleeper.jpg",
     "videoSrc": "",
-    "descRu": "Легендарный советский проект в кузове ГАЗ-24 «Догонялка». Внешне аутентичный хромированный силуэт спецслужб, внутри — современный турбированный V8 и кастомное спортивное шасси."
+    "descRu": "Легендарный советский проект в кузове ГАЗ-24 «Догонялка». Внешне аутентичный хромированный силуэт спецслужб, внутри — современный турбированный V8 и кастомное спортивное шасси.",
+    "is_featured": 0
   },
   {
     "id": "ferrari_512tr",
@@ -458,7 +487,8 @@ const defaultProjects = [
     "topSpeed": "315+ км/ч",
     "img": "assets/cars/gtt_classified_car.svg",
     "videoSrc": "",
-    "descRu": "Итальянская икона с 12-цилиндровым оппозитным двигателем Flat-12. Комплексная механическая доработка в цехах GTT, индивидуальный титановый выпуск и филигранная калибровка впрыска."
+    "descRu": "Итальянская икона с 12-цилиндровым оппозитным двигателем Flat-12. Комплексная механическая доработка в цехах GTT, индивидуальный титановый выпуск и филигранная калибровка впрыска.",
+    "is_featured": 0
   },
   {
     "id": "tesla_plaid",
@@ -471,7 +501,8 @@ const defaultProjects = [
     "topSpeed": "322+ км/ч",
     "img": "assets/cars/gtt_classified_car.svg",
     "videoSrc": "",
-    "descRu": "Трековый проект на базе трехмоторного седана Tesla Model S Plaid. Спортивная карбон-керамическая тормозная система GTT, оптимизация охлаждения инверторов и аэродинамический сплиттер."
+    "descRu": "Трековый проект на базе трехмоторного седана Tesla Model S Plaid. Спортивная карбон-керамическая тормозная система GTT, оптимизация охлаждения инверторов и аэродинамический сплиттер.",
+    "is_featured": 0
   },
   {
     "id": "xiaomi_su7",
@@ -484,7 +515,8 @@ const defaultProjects = [
     "topSpeed": "350+ км/ч",
     "img": "assets/cars/gtt_classified_car.svg",
     "videoSrc": "",
-    "descRu": "Сенсационный электрический гиперседан Xiaomi SU7 Ultra под управлением В. Щед в зачете GoshaTurboTech. Официальный результат на Суперкубке RDRC 2026: 9.130 сек со скоростью 249.31 км/ч на 1/4 мили (3/8 мили: 11.769 с / 287.31 км/ч)."
+    "descRu": "Сенсационный электрический гиперседан Xiaomi SU7 Ultra под управлением В. Щед в зачете GoshaTurboTech. Официальный результат на Суперкубке RDRC 2026: 9.130 сек со скоростью 249.31 км/ч на 1/4 мили (3/8 мили: 11.769 с / 287.31 км/ч).",
+    "is_featured": 0
   },
   {
     "id": "zeekr_zevs",
@@ -497,7 +529,8 @@ const defaultProjects = [
     "topSpeed": "210+ км/ч",
     "img": "assets/cars/gtt_classified_car.svg",
     "videoSrc": "",
-    "descRu": "Zeekr 007 Performance «ZEVS» команды GoshaTurboTech под управлением Кирилла Авдейко и Сергея Савченко. Зафиксированное время на этапе RDRC 2026: 11.317 сек со скоростью 204.31 км/ч."
+    "descRu": "Zeekr 007 Performance «ZEVS» команды GoshaTurboTech под управлением Кирилла Авдейко и Сергея Савченко. Зафиксированное время на этапе RDRC 2026: 11.317 сек со скоростью 204.31 км/ч.",
+    "is_featured": 0
   },
   {
     "id": "lambo_nera",
@@ -510,7 +543,8 @@ const defaultProjects = [
     "topSpeed": "409.55 км/ч",
     "img": "assets/photos/huracan_zelenka_gtt.jpg",
     "videoSrc": "",
-    "descRu": "Исторический мировой рекорд скорости на дистанции 1 миля на аэродроме Крит (Греция): 20.845 сек со скоростью 409.55 км/ч! Легендарный проект, принесший GoshaTurboTech всемирную славу в суперкар-сообществе."
+    "descRu": "Исторический мировой рекорд скорости на дистанции 1 миля на аэродроме Крит (Греция): 20.845 сек со скоростью 409.55 км/ч! Легендарный проект, принесший GoshaTurboTech всемирную славу в суперкар-сообществе.",
+    "is_featured": 0
   },
   {
     "id": "audi_gyurza",
@@ -523,7 +557,8 @@ const defaultProjects = [
     "topSpeed": "345+ км/ч",
     "img": "assets/archive_tilda/audi_r8_gyurza_ice.jpg",
     "videoSrc": "",
-    "descRu": "Подготовленный в лаборатории GTT совместно с Kiwamaru болид Audi R8 V10 Plus Twin Turbo «Гюрза». Официальный рекорд России на Днях скорости на льду озера Байкал: средняя скорость 124 км/ч на дистанции 1 км с места по голому льду."
+    "descRu": "Подготовленный в лаборатории GTT совместно с Kiwamaru болид Audi R8 V10 Plus Twin Turbo «Гюрза». Официальный рекорд России на Днях скорости на льду озера Байкал: средняя скорость 124 км/ч на дистанции 1 км с места по голому льду.",
+    "is_featured": 0
   }
 ];
 
@@ -1859,14 +1894,107 @@ function autoDetectType(name) {
 }
 
 // ==========================================================================
-// TOP-4 FEATURED CARS (FLAGSHIPS ENGINE & DRAG-AND-DROP REORDERING)
+// TOP-N FEATURED CARS (FLAGSHIPS ENGINE, DYNAMIC COUNT & DRAG-AND-DROP REORDERING)
 // ==========================================================================
 let currentTargetFeaturedSlot = null;
 let featuredDragFromSlot = null;
 let featuredPointerState = null;
+let draggingCarRowId = null;
 
+function getFeaturedCarsList(projects) {
+  if (!Array.isArray(projects)) return [];
+  const featured = projects.filter(p => p.is_featured === 1 || p.is_featured === true || p.is_featured === '1' || p.isFeatured === true);
+  if (featured.length > 0) return featured;
+  return projects.slice(0, 4);
+}
+
+function getFeaturedHeadingText(count) {
+  if (count <= 0) return 'Топ главных проектов (Витрина пуста)';
+  const mod10 = count % 10;
+  const mod100 = count % 100;
+  if (mod10 === 1 && mod100 !== 11) {
+    return 'Топ-' + count + ' главный проект (Самый быстрый болид)';
+  }
+  if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) {
+    return 'Топ-' + count + ' главных проекта (Самые быстрые болиды)';
+  }
+  return 'Топ-' + count + ' главных проектов (Самые быстрые болиды)';
+}
+
+function getFeaturedSubtitleText(count) {
+  return 'Именно эти ' + count + ' болидов отображаются первыми в витрине на главной странице сайта до кнопки «Показать все проекты». Вы можете перетаскивать их мышкой или свайпом, зажать карточку для перемещения, поменять местами стрелками, убрать галочкой или перенести снизу новый болид.';
+}
+
+// Table row dragging
+function handleCarRowDragStart(e, carId) {
+  if (e.target.closest('button, select, input, label, a')) {
+    e.preventDefault();
+    return;
+  }
+  draggingCarRowId = carId;
+  window._draggingCarRowId = carId;
+  try {
+    e.dataTransfer.setData('text/plain', 'car_row:' + carId);
+    e.dataTransfer.effectAllowed = 'copyMove';
+  } catch (err) {}
+  
+  const tr = e.currentTarget;
+  if (tr) tr.classList.add('is-row-dragging');
+}
+
+function handleCarRowDragEnd(e) {
+  draggingCarRowId = null;
+  window._draggingCarRowId = null;
+  document.querySelectorAll('tr.is-row-dragging').forEach(tr => tr.classList.remove('is-row-dragging'));
+  document.querySelectorAll('.is-drop-active, .is-drop-target').forEach(el => {
+    el.classList.remove('is-drop-active', 'is-drop-target');
+  });
+}
+
+function handleSlotsAreaDragOver(e) {
+  e.preventDefault();
+  if (e.dataTransfer) e.dataTransfer.dropEffect = 'copy';
+  const target = e.currentTarget;
+  if (target) target.classList.add('is-drop-active');
+}
+
+function handleSlotsAreaDragLeave(e) {
+  const target = e.currentTarget;
+  if (target) target.classList.remove('is-drop-active');
+}
+
+function handleDropIntoNewSlot(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  const target = e.currentTarget;
+  if (target) target.classList.remove('is-drop-active');
+
+  let carId = draggingCarRowId || window._draggingCarRowId;
+  if (!carId) {
+    try {
+      const raw = e.dataTransfer.getData('text/plain');
+      if (raw && raw.startsWith('car_row:')) {
+        carId = raw.replace('car_row:', '');
+      } else if (raw && !isNaN(parseInt(raw, 10))) {
+        const fromSlot = parseInt(raw, 10);
+        const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects);
+        const featured = getFeaturedCarsList(projects);
+        if (fromSlot >= 0 && fromSlot < featured.length) {
+          moveFeaturedSlot(fromSlot, featured.length - 1);
+        }
+        return;
+      }
+    } catch (err) {}
+  }
+
+  if (carId) {
+    toggleCarFeatured(carId, true);
+  }
+}
+
+// Slot card dragging
 function handleFeaturedDragStart(e, slotIdx) {
-  if (e.target.closest('button, select, input, label, a, .btn-slot-edit, .btn-slot-arrow')) {
+  if (e.target.closest('button, select, input, label, a, .btn-slot-edit, .btn-slot-arrow, .btn-slot-remove')) {
     e.preventDefault();
     return;
   }
@@ -1886,8 +2014,10 @@ function handleFeaturedDragOver(e, slotIdx) {
   e.preventDefault();
   e.dataTransfer.dropEffect = 'move';
   const card = e.currentTarget;
-  if (card && featuredDragFromSlot !== null && featuredDragFromSlot !== slotIdx) {
-    card.classList.add('is-drop-target');
+  if (card) {
+    if (draggingCarRowId || (featuredDragFromSlot !== null && featuredDragFromSlot !== slotIdx)) {
+      card.classList.add('is-drop-target');
+    }
   }
 }
 
@@ -1900,19 +2030,33 @@ function handleFeaturedDragLeave(e, slotIdx) {
 
 function handleFeaturedDrop(e, targetSlotIdx) {
   e.preventDefault();
+  e.stopPropagation();
   const card = e.currentTarget;
   if (card) {
-    card.classList.remove('is-drop-target');
+    card.classList.remove('is-drop-target', 'is-drop-active');
   }
-  
+
+  let carRowId = draggingCarRowId || window._draggingCarRowId;
+  let rawData = '';
+  try {
+    rawData = e.dataTransfer.getData('text/plain') || '';
+  } catch (err) {}
+
+  if (rawData.startsWith('car_row:')) {
+    carRowId = rawData.replace('car_row:', '');
+  }
+
+  if (carRowId) {
+    insertCarIntoFeaturedSlot(carRowId, targetSlotIdx);
+    return;
+  }
+
   let fromSlot = featuredDragFromSlot;
-  if (fromSlot === null) {
-    try {
-      const raw = e.dataTransfer.getData('text/plain');
-      if (raw !== '') fromSlot = parseInt(raw, 10);
-    } catch (err) {}
+  if (fromSlot === null && rawData !== '') {
+    const parsed = parseInt(rawData, 10);
+    if (!isNaN(parsed)) fromSlot = parsed;
   }
-  
+
   if (fromSlot !== null && !isNaN(fromSlot) && fromSlot !== targetSlotIdx) {
     moveFeaturedSlot(fromSlot, targetSlotIdx);
   }
@@ -1924,6 +2068,8 @@ function handleFeaturedDragEnd(e) {
     el.classList.remove('is-dragging', 'is-drop-target', 'is-holding');
   });
   featuredDragFromSlot = null;
+  draggingCarRowId = null;
+  window._draggingCarRowId = null;
 }
 
 // Unified Pointer & Touch & Long-press engine
@@ -1933,7 +2079,7 @@ function initFeaturedPointerEvents() {
   grid._pointerEventsBound = true;
 
   grid.addEventListener('pointerdown', (e) => {
-    if (e.target.closest('button, select, input, label, a, .btn-slot-edit, .btn-slot-arrow')) return;
+    if (e.target.closest('button, select, input, label, a, .btn-slot-edit, .btn-slot-arrow, .btn-slot-remove')) return;
     const card = e.target.closest('.featured-slot-card');
     if (!card) return;
 
@@ -1977,7 +2123,6 @@ function initFeaturedPointerEvents() {
         state.card.classList.remove('is-holding');
         state.card.classList.add('is-dragging');
 
-        // Create sleek floating avatar
         const rect = state.card.getBoundingClientRect();
         const avatar = state.card.cloneNode(true);
         avatar.className = 'featured-slot-card featured-slot-drag-avatar';
@@ -2057,127 +2202,114 @@ function renderFeaturedSlots() {
   if (!container) return;
 
   const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects);
-  const featuredCars = projects.slice(0, 4);
+  const featuredCars = getFeaturedCarsList(projects);
   const esc = (s) => (s ? String(s).replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;') : '');
 
+  const headingEl = document.getElementById('featuredSlotsHeading');
+  const descEl = document.getElementById('featuredSlotsDesc');
+  if (headingEl) {
+    headingEl.textContent = getFeaturedHeadingText(featuredCars.length);
+  }
+  if (descEl) {
+    descEl.textContent = getFeaturedSubtitleText(featuredCars.length);
+  }
+
   let html = '';
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < featuredCars.length; i++) {
     const car = featuredCars[i];
-    if (car) {
-      const name = car.nameRu || car.name_ru || (car.name && (car.name.ru || car.name.en)) || car.id;
-      const hp = car.hp || '—';
-      const quarter = car.quarterMile || car.quarter_mile || '—';
-      const img = car.img || 'assets/cars/bmw_m5_rdrc_race.jpg';
-      const hasVideo = !!(car.videoSrc || car.video_src);
+    const rawName = car.nameRu || car.name_ru || (car.name && (car.name.ru || car.name.en)) || car.id;
+    const name = esc(rawName);
+    const hp = esc(car.hp || '—');
+    const quarter = esc(car.quarterMile || car.quarter_mile || '—');
+    const img = esc(convertGoogleDriveUrl(car.img) || 'assets/cars/bmw_m5_rdrc_race.jpg');
+    const hasVideo = !!(car.videoSrc || car.video_src);
+    const carId = esc(car.id);
+    const carIdAttr = escapeJS(car.id);
 
-      const options = projects.map(p => {
-        const pName = p.nameRu || p.name_ru || (p.name && (p.name.ru || p.name.en)) || p.id;
-        const pHp = p.hp || '';
-        const isSel = p.id === car.id ? 'selected' : '';
-        return `<option value="${p.id}" ${isSel}>${esc(pName)} (${esc(pHp)})</option>`;
-      }).join('');
+    const options = projects.map(p => {
+      const pName = p.nameRu || p.name_ru || (p.name && (p.name.ru || p.name.en)) || p.id;
+      const pHp = p.hp || '';
+      const isSel = p.id === car.id ? 'selected' : '';
+      return `<option value="${p.id}" ${isSel}>${esc(pName)} (${esc(pHp)})</option>`;
+    }).join('');
 
-      html += `
-        <div class="featured-slot-card" data-slot="${i}" draggable="true"
-             ondragstart="handleFeaturedDragStart(event, ${i})"
-             ondragover="handleFeaturedDragOver(event, ${i})"
-             ondragleave="handleFeaturedDragLeave(event, ${i})"
-             ondrop="handleFeaturedDrop(event, ${i})"
-             ondragend="handleFeaturedDragEnd(event)">
-          <div class="featured-slot-topbar">
-            <div class="featured-slot-rank">
-              <span class="featured-slot-drag-handle" title="Зажмите карточку или перетащите мышкой / свайпом, чтобы поменять слоты местами" data-drag-handle="true">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                  <circle cx="8" cy="6" r="2.2"></circle><circle cx="16" cy="6" r="2.2"></circle>
-                  <circle cx="8" cy="12" r="2.2"></circle><circle cx="16" cy="12" r="2.2"></circle>
-                  <circle cx="8" cy="18" r="2.2"></circle><circle cx="16" cy="18" r="2.2"></circle>
-                </svg>
-              </span>
-              <span>⚡ СЛОТ #${i + 1}</span>
-            </div>
+    html += `
+      <div class="featured-slot-card" data-slot="${i}" draggable="true"
+           ondragstart="handleFeaturedDragStart(event, ${i})"
+           ondragover="handleFeaturedDragOver(event, ${i})"
+           ondragleave="handleFeaturedDragLeave(event, ${i})"
+           ondrop="handleFeaturedDrop(event, ${i})"
+           ondragend="handleFeaturedDragEnd(event)">
+        <div class="featured-slot-topbar">
+          <div class="featured-slot-rank">
+            <span class="featured-slot-drag-handle" title="Зажмите карточку или перетащите мышкой / свайпом, чтобы поменять слоты местами" data-drag-handle="true">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="8" cy="6" r="2.2"></circle><circle cx="16" cy="6" r="2.2"></circle>
+                <circle cx="8" cy="12" r="2.2"></circle><circle cx="16" cy="12" r="2.2"></circle>
+                <circle cx="8" cy="18" r="2.2"></circle><circle cx="16" cy="18" r="2.2"></circle>
+              </svg>
+            </span>
+            <span>⚡ СЛОТ #${i + 1}</span>
+          </div>
+          <div class="slot-topbar-controls">
+            <label class="slot-featured-check" title="Снять с витрины топа">
+              <input type="checkbox" checked onchange="toggleCarFeatured('${carIdAttr}', false)">
+              <span>В ТОПЕ</span>
+            </label>
+            <button type="button" class="btn-slot-remove" onclick="toggleCarFeatured('${carIdAttr}', false)" title="Убрать из топа">✕</button>
             <div class="featured-slot-arrows">
               <button type="button" class="btn-slot-arrow" onclick="moveFeaturedSlot(${i}, ${i - 1})" ${i === 0 ? 'disabled' : ''} title="Сдвинуть влево">←</button>
-              <button type="button" class="btn-slot-arrow" onclick="moveFeaturedSlot(${i}, ${i + 1})" ${i === 3 ? 'disabled' : ''} title="Сдвинуть вправо">→</button>
+              <button type="button" class="btn-slot-arrow" onclick="moveFeaturedSlot(${i}, ${i + 1})" ${i === featuredCars.length - 1 ? 'disabled' : ''} title="Сдвинуть вправо">→</button>
             </div>
-          </div>
-
-          <div class="featured-slot-img-wrap">
-            <img src="${img}" alt="${esc(name)}" class="featured-slot-img" onerror="this.onerror=null; this.src='assets/cars/gtt_classified_car.svg';">
-            <div class="featured-slot-video-tag ${hasVideo ? 'active' : ''}">
-              ${hasVideo ? '● Видео активно' : '○ Без видео'}
-            </div>
-          </div>
-
-          <div class="featured-slot-name" title="${esc(name)}">${name}</div>
-
-          <div class="featured-slot-metrics">
-            <span class="featured-slot-metric-hp">${hp}</span>
-            <span class="featured-slot-metric-time">${quarter}</span>
-          </div>
-
-          <div style="display:flex; flex-direction:column; gap:5px;">
-            <label style="font-size:10px; color:var(--text-muted); font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.4px;">Выбрать болид из базы:</label>
-            <select class="featured-slot-select" onchange="handleFeaturedSlotSelectChange(${i}, this.value)">
-              ${options}
-            </select>
-          </div>
-
-          <div class="featured-slot-actions">
-            <button type="button" class="btn-slot-edit" onclick="openCarEditModal('${car.id}', ${i})" title="Редактировать параметры болида">
-              ✏️ Редактировать
-            </button>
-            <button type="button" class="btn-slot-edit" onclick="openCarEditModal(null, ${i})" title="Загрузить новый болид через проводник">
-              📁 Папка
-            </button>
           </div>
         </div>
-      `;
-    } else {
-      const options = projects.map(p => {
-        const pName = p.nameRu || p.name_ru || (p.name && (p.name.ru || p.name.en)) || p.id;
-        const pHp = p.hp || '';
-        return `<option value="${p.id}">${esc(pName)} (${esc(pHp)})</option>`;
-      }).join('');
 
-      html += `
-        <div class="featured-slot-card" data-slot="${i}" draggable="true"
-             ondragstart="handleFeaturedDragStart(event, ${i})"
-             ondragover="handleFeaturedDragOver(event, ${i})"
-             ondragleave="handleFeaturedDragLeave(event, ${i})"
-             ondrop="handleFeaturedDrop(event, ${i})"
-             ondragend="handleFeaturedDragEnd(event)"
-             style="border-style:dashed; opacity:0.8;">
-          <div class="featured-slot-topbar">
-            <div class="featured-slot-rank">
-              <span class="featured-slot-drag-handle" title="Зажмите карточку или перетащите мышкой / свайпом, чтобы поменять слоты местами" data-drag-handle="true">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                  <circle cx="8" cy="6" r="2.2"></circle><circle cx="16" cy="6" r="2.2"></circle>
-                  <circle cx="8" cy="12" r="2.2"></circle><circle cx="16" cy="12" r="2.2"></circle>
-                  <circle cx="8" cy="18" r="2.2"></circle><circle cx="16" cy="18" r="2.2"></circle>
-                </svg>
-              </span>
-              <span>⚡ СЛОТ #${i + 1}</span>
-            </div>
-          </div>
-          <div class="featured-slot-img-wrap" style="display:flex; align-items:center; justify-content:center; color:var(--text-muted); font-size:12px;">
-            Свободный слот
-          </div>
-          <div class="featured-slot-name">Слот не назначен</div>
-          <div style="display:flex; flex-direction:column; gap:5px;">
-            <select class="featured-slot-select" onchange="handleFeaturedSlotSelectChange(${i}, this.value)">
-              <option value="">-- Выберите болид --</option>
-              ${options}
-            </select>
-          </div>
-          <div class="featured-slot-actions">
-            <button type="button" class="btn-slot-edit" onclick="openCarEditModal(null, ${i})" style="width:100%;">
-              📁 Загрузить через папку
-            </button>
+        <div class="featured-slot-img-wrap">
+          <img src="${img}" alt="${name}" class="featured-slot-img" onerror="this.onerror=null; this.src='assets/cars/gtt_classified_car.svg';">
+          <div class="featured-slot-video-tag ${hasVideo ? 'active' : ''}">
+            ${hasVideo ? '● Видео активно' : '○ Без видео'}
           </div>
         </div>
-      `;
-    }
+
+        <div class="featured-slot-name" title="${name}">${name}</div>
+
+        <div class="featured-slot-metrics">
+          <span class="featured-slot-metric-hp">${hp}</span>
+          <span class="featured-slot-metric-time">${quarter}</span>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:5px;">
+          <label style="font-size:10px; color:var(--text-muted); font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.4px;">Выбрать болид из базы:</label>
+          <select class="featured-slot-select" onchange="handleFeaturedSlotSelectChange(${i}, this.value)">
+            ${options}
+          </select>
+        </div>
+
+        <div class="featured-slot-actions">
+          <button type="button" class="btn-slot-edit" onclick="openCarEditModal('${carIdAttr}', ${i})" title="Редактировать параметры болида">
+            ✏️ Редактировать
+          </button>
+          <button type="button" class="btn-slot-edit" onclick="openCarEditModal(null, ${i})" title="Загрузить новый болид через проводник">
+            📁 Папка
+          </button>
+        </div>
+      </div>
+    `;
   }
+
+  // Append Dropzone for adding new slots
+  html += `
+    <div class="featured-slot-add-dropzone" id="featuredAddDropzone"
+         ondragover="handleSlotsAreaDragOver(event)"
+         ondragleave="handleSlotsAreaDragLeave(event)"
+         ondrop="handleDropIntoNewSlot(event)">
+      <div class="add-dropzone-icon">＋</div>
+      <div class="add-dropzone-title">Добавить в Топ-${featuredCars.length + 1}</div>
+      <div class="add-dropzone-hint">
+        Перетащите плашку болида из таблицы снизу сюда или отметьте галочкой «В топе»
+      </div>
+    </div>
+  `;
 
   container.innerHTML = html;
   initFeaturedPointerEvents();
@@ -2186,85 +2318,211 @@ function renderFeaturedSlots() {
 function handleFeaturedSlotSelectChange(slotIdx, newCarId) {
   if (!newCarId) return;
   const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects);
-  const currentCarAtSlot = projects[slotIdx];
-  if (currentCarAtSlot && currentCarAtSlot.id === newCarId) return;
+  const featured = getFeaturedCarsList(projects);
 
-  const targetIdx = projects.findIndex(c => c.id === newCarId);
-  if (targetIdx === -1) return;
+  if (slotIdx >= featured.length) return;
+  const currentCar = featured[slotIdx];
+  if (currentCar.id === newCarId) return;
 
-  if (slotIdx < projects.length) {
-    const temp = projects[slotIdx];
-    projects[slotIdx] = projects[targetIdx];
-    projects[targetIdx] = temp;
+  const targetCar = projects.find(c => c.id === newCarId);
+  if (!targetCar) return;
+
+  const oldIdxInFeatured = featured.findIndex(c => c.id === newCarId);
+  if (oldIdxInFeatured !== -1) {
+    featured[slotIdx] = targetCar;
+    featured[oldIdxInFeatured] = currentCar;
   } else {
-    const [moved] = projects.splice(targetIdx, 1);
-    projects.splice(slotIdx, 0, moved);
+    currentCar.is_featured = 0;
+    currentCar.isFeatured = false;
+    targetCar.is_featured = 1;
+    targetCar.isFeatured = true;
+    featured[slotIdx] = targetCar;
   }
 
-  saveDB(ADMIN_STORAGE_KEY, projects);
-  localStorage.setItem('gtt_projects_v2', JSON.stringify(projects));
+  const nonFeatured = projects.filter(c => !featured.some(f => f.id === c.id));
+  const newProjects = [...featured, ...nonFeatured];
+
+  saveDB(ADMIN_STORAGE_KEY, newProjects);
+  localStorage.setItem('gtt_projects_v2', JSON.stringify(newProjects));
 
   if (window.BroadcastChannel) {
     try {
-      new BroadcastChannel('gtt_channel').postMessage({ type: 'projects_updated', projects });
+      new BroadcastChannel('gtt_channel').postMessage({ type: 'projects_updated', projects: newProjects });
     } catch (e) {}
   }
 
   renderCarsTable();
 
-  const selectedCar = projects[slotIdx];
-  const name = selectedCar ? (selectedCar.nameRu || selectedCar.name_ru || selectedCar.id) : '';
+  const name = targetCar.nameRu || targetCar.name_ru || targetCar.id;
   showToast('Слот обновлен', `В Слот #${slotIdx + 1} назначен болид «${name}»`, 'success');
 
   recordAuditEvent({
-    section: 'Флагманы ТОП-4',
+    section: 'Флагманы ТОП',
     action: `Назначен слот #${slotIdx + 1}`,
     item: name,
-    details: `Перемещен на позицию #${slotIdx + 1}`
+    details: `Заменен на позиции #${slotIdx + 1}`
   });
 
-  syncFeaturedOrderToBackend(projects);
+  syncFeaturedOrderToBackend(newProjects);
 }
 
 function moveFeaturedSlot(fromIdx, toIdx) {
-  if (fromIdx < 0 || toIdx < 0 || fromIdx >= 4 || toIdx >= 4 || fromIdx === toIdx) return;
   const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects);
-  if (fromIdx >= projects.length || toIdx >= projects.length) return;
+  const featured = getFeaturedCarsList(projects);
+  const count = featured.length;
 
-  const temp = projects[fromIdx];
-  projects[fromIdx] = projects[toIdx];
-  projects[toIdx] = temp;
+  if (fromIdx < 0 || toIdx < 0 || fromIdx >= count || toIdx >= count || fromIdx === toIdx) return;
 
-  saveDB(ADMIN_STORAGE_KEY, projects);
-  localStorage.setItem('gtt_projects_v2', JSON.stringify(projects));
+  const movedCar = featured[fromIdx];
+  featured.splice(fromIdx, 1);
+  featured.splice(toIdx, 0, movedCar);
+
+  const nonFeatured = projects.filter(c => !featured.some(f => f.id === c.id));
+  const newProjects = [...featured, ...nonFeatured];
+
+  saveDB(ADMIN_STORAGE_KEY, newProjects);
+  localStorage.setItem('gtt_projects_v2', JSON.stringify(newProjects));
 
   if (window.BroadcastChannel) {
     try {
-      new BroadcastChannel('gtt_channel').postMessage({ type: 'projects_updated', projects });
+      new BroadcastChannel('gtt_channel').postMessage({ type: 'projects_updated', projects: newProjects });
     } catch (e) {}
   }
 
   renderCarsTable();
 
-  const carFrom = projects[toIdx];
-  const carTo = projects[fromIdx];
-  const nameFrom = carFrom ? (carFrom.nameRu || carFrom.name_ru || carFrom.id) : `Слот #${fromIdx + 1}`;
-  const nameTo = carTo ? (carTo.nameRu || carTo.name_ru || carTo.id) : `Слот #${toIdx + 1}`;
-  showToast('Слоты изменены', `«${nameFrom}» перемещен в Слот #${toIdx + 1} (⇄ «${nameTo}»)`, 'info');
+  const name = movedCar.nameRu || movedCar.name_ru || movedCar.id;
+  showToast('Слоты изменены', `«${name}» перемещен в Слот #${toIdx + 1}`, 'info');
 
   recordAuditEvent({
-    section: 'Флагманы ТОП-4',
+    section: 'Флагманы ТОП',
     action: 'Смена позиций',
     item: `Слот #${fromIdx + 1} ⇄ Слот #${toIdx + 1}`,
-    details: 'Изменен порядок топ-4 на главной'
+    details: `Перемещение «${name}»`
   });
 
-  syncFeaturedOrderToBackend(projects);
+  syncFeaturedOrderToBackend(newProjects);
+}
+
+function toggleCarFeatured(carId, makeFeatured) {
+  const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects);
+  const car = projects.find(c => c.id === carId);
+  if (!car) return;
+
+  const currentFeatured = getFeaturedCarsList(projects);
+  const isCurrentlyFeatured = currentFeatured.some(c => c.id === carId);
+
+  if (isCurrentlyFeatured === Boolean(makeFeatured)) return;
+
+  if (makeFeatured) {
+    car.is_featured = 1;
+    car.isFeatured = true;
+    const featured = projects.filter(c => (c.is_featured === 1 || c.is_featured === true || c.is_featured === '1' || c.isFeatured === true) && c.id !== carId);
+    featured.push(car);
+    const nonFeatured = projects.filter(c => c.id !== carId && !featured.some(f => f.id === c.id));
+    const newProjects = [...featured, ...nonFeatured];
+
+    saveDB(ADMIN_STORAGE_KEY, newProjects);
+    localStorage.setItem('gtt_projects_v2', JSON.stringify(newProjects));
+
+    if (window.BroadcastChannel) {
+      try {
+        new BroadcastChannel('gtt_channel').postMessage({ type: 'projects_updated', projects: newProjects });
+      } catch (e) {}
+    }
+
+    renderCarsTable();
+    const name = car.nameRu || car.name_ru || car.id;
+    showToast('Добавлен в Топ', `«${name}» добавлен в Слот #${featured.length} (Всего в топе: ${featured.length})`, 'success');
+
+    recordAuditEvent({
+      section: 'Флагманы ТОП',
+      action: 'Добавлен болид',
+      item: name,
+      details: `Слот #${featured.length}`
+    });
+
+    syncFeaturedOrderToBackend(newProjects);
+  } else {
+    if (currentFeatured.length <= 1) {
+      showToast('Внимание', 'В блоке Топ должен оставаться хотя бы один болид!', 'warning');
+      renderCarsTable();
+      return;
+    }
+
+    car.is_featured = 0;
+    car.isFeatured = false;
+    const featured = currentFeatured.filter(c => c.id !== carId);
+    const nonFeatured = projects.filter(c => !featured.some(f => f.id === c.id));
+    const newProjects = [...featured, ...nonFeatured];
+
+    saveDB(ADMIN_STORAGE_KEY, newProjects);
+    localStorage.setItem('gtt_projects_v2', JSON.stringify(newProjects));
+
+    if (window.BroadcastChannel) {
+      try {
+        new BroadcastChannel('gtt_channel').postMessage({ type: 'projects_updated', projects: newProjects });
+      } catch (e) {}
+    }
+
+    renderCarsTable();
+    const name = car.nameRu || car.name_ru || car.id;
+    showToast('Убран из Топа', `«${name}» убран из витрины топа (Осталось в топе: ${featured.length})`, 'info');
+
+    recordAuditEvent({
+      section: 'Флагманы ТОП',
+      action: 'Убран болид',
+      item: name,
+      details: `Осталось в топе: ${featured.length}`
+    });
+
+    syncFeaturedOrderToBackend(newProjects);
+  }
+}
+
+function insertCarIntoFeaturedSlot(carId, targetSlotIdx) {
+  const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects);
+  const targetCar = projects.find(c => c.id === carId);
+  if (!targetCar) return;
+
+  targetCar.is_featured = 1;
+  targetCar.isFeatured = true;
+
+  let featured = projects.filter(c => (c.is_featured === 1 || c.is_featured === true || c.is_featured === '1' || c.isFeatured === true) && c.id !== carId);
+  const nonFeatured = projects.filter(c => c.id !== carId && !featured.some(f => f.id === c.id));
+
+  const insertIdx = Math.max(0, Math.min(targetSlotIdx, featured.length));
+  featured.splice(insertIdx, 0, targetCar);
+
+  const newProjects = [...featured, ...nonFeatured];
+  saveDB(ADMIN_STORAGE_KEY, newProjects);
+  localStorage.setItem('gtt_projects_v2', JSON.stringify(newProjects));
+
+  if (window.BroadcastChannel) {
+    try {
+      new BroadcastChannel('gtt_channel').postMessage({ type: 'projects_updated', projects: newProjects });
+    } catch (e) {}
+  }
+
+  renderCarsTable();
+
+  const name = targetCar.nameRu || targetCar.name_ru || targetCar.id;
+  showToast('Болид добавлен в Топ', `«${name}» назначен в Слот #${insertIdx + 1} (Всего в топе: ${featured.length})`, 'success');
+
+  recordAuditEvent({
+    section: 'Флагманы ТОП',
+    action: `Добавлен в Слот #${insertIdx + 1}`,
+    item: name,
+    details: `Всего в топе: ${featured.length}`
+  });
+
+  syncFeaturedOrderToBackend(newProjects);
 }
 
 async function syncFeaturedOrderToBackend(projects) {
   const list = projects || getDB(ADMIN_STORAGE_KEY, defaultProjects);
-  const featuredIds = list.slice(0, 4).map(c => c.id);
+  const featured = getFeaturedCarsList(list);
+  const featuredIds = featured.map(c => c.id);
 
   try {
     await apiFetch('/api/cars/featured', {
@@ -2286,6 +2544,9 @@ function renderCarsTable() {
   renderFeaturedSlots();
   if (!tbody) return;
 
+  const featured = getFeaturedCarsList(projects);
+  const featuredSet = new Set(featured.map(c => c.id));
+
   tbody.innerHTML = projects.map((car, idx) => {
     const rawName = car.nameRu || car.name_ru || (car.name && (car.name.ru || car.name.en)) || car.id;
     const name = escapeHTML(rawName);
@@ -2297,20 +2558,37 @@ function renderCarsTable() {
     const carId = escapeHTML(car.id);
     const carIdAttr = escapeJS(car.id);
     const hasVideo = !!(car.videoSrc || car.video_src);
-    const isTop4 = idx < 4;
+    const isFeatured = featuredSet.has(car.id);
+    const featuredIdx = isFeatured ? featured.findIndex(c => c.id === car.id) : -1;
     const rawBrand = car.brand || (car.type ? car.type.toUpperCase() : 'GTT');
     const brand = escapeHTML(rawBrand);
 
     return `
-    <tr class="${isTop4 ? 'tr-featured-slot' : ''}">
+    <tr class="${isFeatured ? 'tr-featured-slot' : ''} tr-draggable"
+        draggable="true"
+        ondragstart="handleCarRowDragStart(event, '${carIdAttr}')"
+        ondragend="handleCarRowDragEnd(event)">
+      <td style="text-align: center;">
+        <label class="car-table-check-label ${isFeatured ? 'is-top' : ''}" title="${isFeatured ? 'Снять с витрины топа' : 'Добавить в витрину топа'}">
+          <input type="checkbox" ${isFeatured ? 'checked' : ''} onchange="toggleCarFeatured('${carIdAttr}', this.checked)">
+          <span>${isFeatured ? `ТОП #${featuredIdx + 1}` : 'В ТОП'}</span>
+        </label>
+      </td>
       <td>
         <div class="car-cell-flex">
+          <span class="car-row-drag-handle" title="Зажмите и перетащите в блок Топ выше" data-drag-handle="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <circle cx="8" cy="6" r="2.2"></circle><circle cx="16" cy="6" r="2.2"></circle>
+              <circle cx="8" cy="12" r="2.2"></circle><circle cx="16" cy="12" r="2.2"></circle>
+              <circle cx="8" cy="18" r="2.2"></circle><circle cx="16" cy="18" r="2.2"></circle>
+            </svg>
+          </span>
           <img src="${img}" alt="${name}" class="car-thumb" onerror="this.onerror=null; this.src='assets/cars/gtt_classified_car.svg';">
           <div>
             <div class="car-title-text">${name}</div>
             <div style="display:flex; gap:6px; align-items:center; margin-top:2px;">
               <span class="tag-pill">${carId}</span>
-              ${isTop4 ? `<span class="tag-pill" style="background:rgba(234, 91, 12, 0.2); border:1px solid var(--gtt-orange); color:#fff; font-weight:700;">⚡ ТОП-4 (#${idx + 1})</span>` : ''}
+              ${isFeatured ? `<span class="tag-pill" style="background:rgba(234, 91, 12, 0.2); border:1px solid var(--gtt-orange); color:#fff; font-weight:700;">⚡ ТОП #${featuredIdx + 1}</span>` : ''}
             </div>
           </div>
         </div>
@@ -2323,7 +2601,7 @@ function renderCarsTable() {
       </td>
       <td>
         <div class="row-actions">
-          <button class="table-btn" onclick="openCarEditModal('${carIdAttr}', ${isTop4 ? idx : 'null'})">Редактировать</button>
+          <button class="table-btn" onclick="openCarEditModal('${carIdAttr}', ${isFeatured ? featuredIdx : 'null'})">Редактировать</button>
           <button class="table-btn delete" onclick="deleteCarProject('${carIdAttr}')">Удалить</button>
         </div>
       </td>
@@ -2331,6 +2609,7 @@ function renderCarsTable() {
     `;
   }).join('');
 }
+
 
 // ==========================================================================
 // UNIVERSAL FILE UPLOAD & CROSS-PLATFORM OS FILE PICKER ENGINE (MAC & WIN)
@@ -4499,11 +4778,23 @@ window.updateCarVideoPreviewUI = updateCarVideoPreviewUI;
 window.handleCarPhotoPathInput = handleCarPhotoPathInput;
 window.clearCarPhotoPreview = clearCarPhotoPreview;
 
-// Top-4 Featured slots exports
+// Top-N Featured slots & row dragging exports
 window.renderFeaturedSlots = renderFeaturedSlots;
 window.handleFeaturedSlotSelectChange = handleFeaturedSlotSelectChange;
 window.moveFeaturedSlot = moveFeaturedSlot;
 window.syncFeaturedOrderToBackend = syncFeaturedOrderToBackend;
+window.toggleCarFeatured = toggleCarFeatured;
+window.insertCarIntoFeaturedSlot = insertCarIntoFeaturedSlot;
+window.handleCarRowDragStart = handleCarRowDragStart;
+window.handleCarRowDragEnd = handleCarRowDragEnd;
+window.handleSlotsAreaDragOver = handleSlotsAreaDragOver;
+window.handleSlotsAreaDragLeave = handleSlotsAreaDragLeave;
+window.handleDropIntoNewSlot = handleDropIntoNewSlot;
+window.handleFeaturedDragStart = handleFeaturedDragStart;
+window.handleFeaturedDragOver = handleFeaturedDragOver;
+window.handleFeaturedDragLeave = handleFeaturedDragLeave;
+window.handleFeaturedDrop = handleFeaturedDrop;
+window.handleFeaturedDragEnd = handleFeaturedDragEnd;
 
 // Team modal & photo exports
 window.openTeamMemberModal = openTeamMemberModal;
