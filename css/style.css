@@ -3169,18 +3169,19 @@ body.is-loading {
 @media (max-width: 520px) {
   .moto-banner-specs {
     grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-    margin-top: 14px;
-    padding-top: 14px;
+    gap: 6px;
+    margin-top: 10px;
+    padding-top: 10px;
   }
   .moto-spec-stat-card {
-    padding: 10px 10px;
+    padding: 6px 8px;
+    min-height: 42px;
   }
   .moto-spec-stat-card .m-stat-val {
-    font-size: 17px;
+    font-size: 14.5px;
   }
   .moto-spec-stat-card .m-stat-lbl {
-    font-size: 9px;
+    font-size: 8px;
   }
 }
 
@@ -5269,127 +5270,177 @@ body.modal-open {
     font-size: 12px;
   }
 
-  /* Moto Section (Mobile Optimized) */
+  /* Moto Section (Ultra-Compact Mobile Layout — matching Contacts Hub) */
   .moto-section {
-    padding: 44px 4% 48px;
+    padding: 24px 4% 28px !important;
+  }
+  .moto-section .section-header {
+    margin-bottom: 14px !important;
+  }
+  .moto-section .section-title {
+    font-size: 20px !important;
+    margin-bottom: 4px !important;
+  }
+  .moto-section .section-subtitle {
+    font-size: 11.5px !important;
+    line-height: 1.4 !important;
+    margin-bottom: 0 !important;
+    color: #94a3b8 !important;
   }
   .moto-hero-banner {
-    margin-bottom: 24px;
-    border-radius: 12px;
+    margin-bottom: 12px !important;
+    border-radius: 10px !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45) !important;
   }
   .moto-hero-media {
-    grid-template-columns: 1fr;
-    padding: 10px;
-    gap: 10px;
+    grid-template-columns: 1fr !important;
+    padding: 6px !important;
+    gap: 6px !important;
   }
   .moto-hero-photo-wrap {
-    aspect-ratio: 16 / 10;
-    max-height: 240px;
-    border-radius: 8px;
+    aspect-ratio: 16 / 9 !important;
+    max-height: 155px !important;
+    border-radius: 8px !important;
   }
   .moto-hero-badge {
-    bottom: 10px;
-    left: 10px;
-    font-size: 9px;
-    padding: 4px 8px;
-    max-width: calc(100% - 20px);
-    overflow: hidden;
-    text-overflow: ellipsis;
+    bottom: 6px !important;
+    left: 6px !important;
+    font-size: 8px !important;
+    padding: 2px 7px !important;
+    border-radius: 4px !important;
+    max-width: calc(100% - 16px) !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
   .moto-hero-info {
-    padding: 20px 16px 22px;
-    background: #090c12;
+    padding: 12px 12px 14px !important;
+    background: #090c12 !important;
+  }
+  .moto-badge {
+    font-size: 8.5px !important;
+    padding: 2px 7px !important;
+    margin-bottom: 5px !important;
+    border-radius: 4px !important;
+    letter-spacing: 0.08em !important;
   }
   .moto-hero-title {
-    font-size: 20px;
-    font-weight: 800;
-    color: #ffffff;
-    margin-bottom: 6px;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    margin-bottom: 4px !important;
+    line-height: 1.25 !important;
   }
   .moto-hero-desc {
-    font-size: 13.5px;
-    color: #cbd5e1;
-    line-height: 1.55;
-    margin-bottom: 16px;
+    font-size: 11.5px !important;
+    color: #cbd5e1 !important;
+    line-height: 1.42 !important;
+    margin-bottom: 10px !important;
   }
   .moto-banner-specs {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-    margin-top: 14px;
-    padding-top: 14px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px !important;
+    margin-top: 10px !important;
+    padding-top: 10px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
   }
   .moto-spec-stat-card {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    padding: 10px 12px;
-    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    padding: 6px 8px !important;
+    border-radius: 6px !important;
+    gap: 2px !important;
+    min-height: 44px !important;
+    box-sizing: border-box !important;
   }
   .moto-spec-stat-card .m-stat-val {
-    font-size: 18px;
-    font-weight: 800;
-    color: #ffffff;
+    font-size: 14.5px !important;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    line-height: 1.15 !important;
+  }
+  .moto-spec-stat-card .m-stat-val small {
+    font-size: 9px !important;
+    margin-left: 2px !important;
   }
   .moto-spec-stat-card .m-stat-lbl {
-    font-size: 9px;
-    color: #94a3b8;
-    letter-spacing: 0.04em;
+    font-size: 8px !important;
+    color: #94a3b8 !important;
+    letter-spacing: 0.02em !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
   .moto-cards-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
   }
   .moto-card {
-    background: #0c0f16;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    padding: 18px 16px 16px;
-    border-radius: 8px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    background: rgba(12, 15, 22, 0.9) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    padding: 11px 12px 10px !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35) !important;
     transform: none !important;
   }
   .moto-card:hover {
     transform: none !important;
   }
   .moto-card-header {
-    margin-bottom: 10px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    margin-bottom: 5px !important;
   }
   .moto-card-num {
-    font-size: 13px;
-    color: var(--gtt-orange);
-    font-weight: 800;
+    font-size: 11.5px !important;
+    color: var(--gtt-orange) !important;
+    font-weight: 800 !important;
   }
   .moto-card-pill {
-    font-size: 9.5px;
-    color: #e2e8f0;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    padding: 3px 8px;
+    font-size: 8.5px !important;
+    color: #e2e8f0 !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 2px 7px !important;
+    border-radius: 4px !important;
   }
   .moto-card-title {
-    font-size: 17px;
-    font-weight: 800;
-    color: #ffffff;
-    margin-bottom: 6px;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    margin-bottom: 3px !important;
+    line-height: 1.25 !important;
   }
   .moto-card-desc {
-    font-size: 13px;
-    color: #cbd5e1;
-    line-height: 1.5;
-    margin-bottom: 12px;
+    font-size: 11.5px !important;
+    color: #94a3b8 !important;
+    line-height: 1.4 !important;
+    margin-bottom: 8px !important;
   }
   .moto-spec-strip {
-    padding-top: 10px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 6px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
   }
   .moto-spec-item {
-    padding: 6px 0;
-    font-size: 12.5px;
-    color: #e2e8f0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 3px 0 !important;
+    font-size: 11px !important;
+    line-height: 1.35 !important;
+    color: #cbd5e1 !important;
+    gap: 6px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.035) !important;
+  }
+  .moto-spec-item:last-child {
+    border-bottom: none !important;
   }
   .moto-spec-item .spec-bullet {
-    color: var(--gtt-orange);
-    font-weight: 700;
+    color: var(--gtt-orange) !important;
+    font-size: 10px !important;
+    font-weight: 700 !important;
+  }
+  .moto-spec-item .spec-label {
+    line-height: 1.3 !important;
   }
 
   /* Contact Hub (Compact & Space-Efficient Mobile Layout) */
@@ -5554,30 +5605,32 @@ body.modal-open {
     font-size: 7px;
   }
   .moto-hero-photo-wrap {
-    aspect-ratio: 16 / 9;
-    max-height: 190px;
+    aspect-ratio: 16 / 9 !important;
+    max-height: 140px !important;
   }
   .moto-banner-specs {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 5px !important;
   }
   .moto-spec-stat-card {
-    padding: 8px 7px;
+    padding: 5px 6px !important;
+    min-height: 40px !important;
   }
   .moto-spec-stat-card .m-stat-val {
-    font-size: 15px;
+    font-size: 13.5px !important;
   }
   .moto-spec-stat-card .m-stat-lbl {
-    font-size: 8px;
+    font-size: 7.5px !important;
   }
   .moto-card {
-    padding: 16px 12px;
+    padding: 10px 10px 9px !important;
   }
   .moto-card-title {
-    font-size: 15.5px;
+    font-size: 13.5px !important;
   }
   .moto-spec-item {
-    font-size: 11.5px;
+    font-size: 10.5px !important;
+    padding: 2.5px 0 !important;
   }
 }
 
