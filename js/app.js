@@ -3598,10 +3598,9 @@ function renderGarageGrid(filterType) {
           : `<span class="car-card-badge">${badge}</span>`
         }
         <div class="car-card-media ${isClass ? 'classified-media' : ''}" style="position: relative;">
-          ${(isNewCar || isClass) ? `
+          ${isNewCar ? `
             <div class="card-question-overlay">
               <div class="card-question-icon">?</div>
-              <div class="card-question-badge">${isNewCar ? (currentLang === 'ru' ? 'НОВЫЙ БОЛИД • ВЫБОР ФОТО' : 'NEW BUILD • SELECT PHOTO') : (currentLang === 'ru' ? 'СЕКРЕТНЫЙ ПРОЕКТ • ЗАСЕКРЕЧЕНО' : 'CLASSIFIED BUILD • TOP SECRET')}</div>
             </div>
           ` : ''}
           <img class="car-card-img ${car.isPhoto ? 'photo-fit' : ''}" 

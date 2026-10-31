@@ -108,47 +108,29 @@
     <path d="M 140 200 Q 320 190 460 170 T 740 250" stroke="rgba(234, 91, 12, 0.25)" stroke-width="1" stroke-dasharray="4 4"/>
   </g>
 
-  <!-- Center Cyber Badge: [ ? / CLASSIFIED ] -->
-  <g transform="translate(400, 215)">
+  <!-- Center Cyber Badge: [ ? ] -->
+  <g transform="translate(400, 240)">
     <!-- Outer Hex Shield -->
-    <polygon points="0,-65 60,-32 60,32 0,65 -60,32 -60,-32" 
+    <polygon points="0,-70 65,-35 65,35 0,70 -65,35 -65,-35" 
              fill="rgba(10, 13, 18, 0.92)" 
              stroke="url(#orangeNeon)" 
-             stroke-width="2" 
+             stroke-width="2.5" 
              filter="url(#glowFilter)"/>
 
     <!-- Inner Hex Accents -->
-    <polygon points="0,-55 50,-27 50,27 0,55 -50,27 -50,-27" 
+    <polygon points="0,-58 54,-29 54,29 0,58 -54,29 -54,-29" 
              fill="none" 
              stroke="rgba(0, 229, 255, 0.35)" 
-             stroke-width="1" 
+             stroke-width="1.2" 
              stroke-dasharray="6 3"/>
 
     <!-- The Glowing Question Mark -->
-    <text x="0" y="20" 
+    <text x="0" y="22" 
           font-family="'Chakra Petch', 'Space Grotesk', sans-serif" 
-          font-size="52" 
-          font-weight="700" 
+          font-size="64" 
+          font-weight="800" 
           fill="#FFFFFF" 
           text-anchor="middle"
           filter="url(#glowFilter)">?</text>
-  </g>
-
-  <!-- Title & Status Label Under Badge -->
-  <g transform="translate(400, 315)" text-anchor="middle">
-    <!-- Badge Box -->
-    <rect x="-135" y="-14" width="270" height="28" rx="6" fill="rgba(234, 91, 12, 0.12)" stroke="rgba(234, 91, 12, 0.4)" stroke-width="1"/>
-    <text x="0" y="5" 
-          font-family="'JetBrains Mono', monospace" 
-          font-size="11" 
-          font-weight="700" 
-          fill="#FF7D29" 
-          letter-spacing="2">CLASSIFIED PROJECT</text>
-  </g>
-
-  <!-- Bottom Explanatory Caption -->
-  <g transform="translate(400, 420)" text-anchor="middle" font-family="'Inter', sans-serif">
-    <text x="0" y="0" font-size="12" font-weight="600" fill="rgba(255,255,255,0.7)" letter-spacing="0.5">СПЕЦИФИКАЦИЯ &amp; ФОТОМАТЕРИАЛЫ В ОБРАБОТКЕ</text>
-    <text x="0" y="18" font-size="10.5" font-weight="400" fill="rgba(255,255,255,0.35)" font-family="'JetBrains Mono', monospace">GTT RACING ATELIER • TELEMETRY LOG 2026</text>
   </g>
 </svg>
