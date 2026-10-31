@@ -1713,63 +1713,73 @@ def reset_traffic():
 # --- Technical & Motorsport Partners ---
 DEFAULT_PARTNERS = [
     {
-        "id": "vp_racing",
-        "name": "VP Racing Fuels",
-        "category": "Топливо и метанол",
-        "desc": "Мировой эталон спортивного топлива, гоночного кислородного бензина и чистого метанола M1 для рекордных заездов RDRC.",
-        "logo": "assets/partners/vp_racing.svg",
-        "link": "https://vpracingfuels.com",
+        "id": "rog",
+        "name": "Republic of Gamers",
+        "category": "Телеметрия & Электроника",
+        "desc": "Высокопроизводительные аппаратные комплексы, ноутбуки и системы сбора телеметрии для настройки гоночных болидов на треке и стенде.",
+        "logo": "assets/partners/rog.png",
+        "link": "https://rog.asus.com",
         "sort_order": 1,
         "is_active": 1
     },
     {
-        "id": "motul",
-        "name": "Motul Motorsport",
-        "category": "Смазочные материалы",
-        "desc": "Синтетические моторные масла Motul 300V Motorsport Line с технологией Ester Core, защищающие 2000+ сильные моторы GTT при пиковых нагрузках.",
-        "logo": "assets/partners/motul.svg",
-        "link": "https://www.motul.com",
+        "id": "toys_detailing",
+        "name": "Toys Detailing",
+        "category": "Детейлинг & Защита",
+        "desc": "Премиальный детейлинг, керамические покрытия, полировка и защитные антигравийные пленки для шоу-каров и гоночных болидов GTT.",
+        "logo": "assets/partners/toys_detailing.png",
+        "link": "https://toysdetailing.ru",
         "sort_order": 2,
         "is_active": 1
     },
     {
-        "id": "syvecs",
-        "name": "Syvecs Powertrain Control",
-        "category": "Электроника и ЭБУ",
-        "desc": "Высокотехнологичные блоки управления двигателем (ECU), полноприводной трансмиссией (AWD Controller) и алгоритмами лаунч-контроля.",
-        "logo": "assets/partners/syvecs.svg",
-        "link": "https://www.syvecs.com",
+        "id": "felix_ferro",
+        "name": "Felix Ferro",
+        "category": "Интерьер & Стиль",
+        "desc": "Эксклюзивные кастомные аксессуары, ювелирные ключи зажигания и титановые эмблемы ручной работы для флагманских проектов GoshaTurboTech.",
+        "logo": "assets/partners/felix_ferro.png",
+        "link": "https://felixferro.com",
         "sort_order": 3,
         "is_active": 1
     },
     {
-        "id": "motec",
-        "name": "MoTeC Systems",
-        "category": "Электроника и ЭБУ",
-        "desc": "Золотой стандарт мирового автоспорта: управляющие процессоры M1, цветные цифровые приборные панели C1212 и прецизионные логгеры телеметрии.",
-        "logo": "assets/partners/motec.svg",
-        "link": "https://www.motec.com.au",
+        "id": "vp_racing",
+        "name": "VP Racing Fuels",
+        "category": "Топливо & Метанол",
+        "desc": "Мировой эталон спортивного топлива, гоночного кислородного бензина и чистого метанола M1 для рекордных заездов RDRC.",
+        "logo": "assets/partners/vp_racing.png",
+        "link": "https://vpracingfuels.com",
         "sort_order": 4,
         "is_active": 1
     },
     {
-        "id": "precision_turbo",
-        "name": "Precision Turbo & Engine",
-        "category": "Турбосистемы",
-        "desc": "Специализированные гоночные турбокомпрессоры сверхвысокого наддува серии Pro Mod и GEN2 CEA, обеспечивающие отдачу до 3,500+ л.с.",
-        "logo": "assets/partners/precision_turbo.svg",
-        "link": "https://www.precisionturbo.net",
+        "id": "je_pistons",
+        "name": "JE Pistons",
+        "category": "Кованая поршневая",
+        "desc": "Сверхпрочные кованые гоночные поршни для экстремального давления наддува и мощностей свыше 2,000+ л.с. в моторах VR38DETT и V10.",
+        "logo": "assets/partners/je_pistons.png",
+        "link": "https://jepistons.com",
         "sort_order": 5,
         "is_active": 1
     },
     {
-        "id": "ppg_gearboxes",
-        "name": "PPG (Pfitzner Gearboxes)",
-        "category": "Трансмиссия",
-        "desc": "Усиленные прямозубые кулачковые и секвентальные ряды передач, выдерживающие колоссальный крутящий момент и агрессивные переключения.",
-        "logo": "assets/partners/ppg.svg",
-        "link": "https://www.ppgearbox.com.au",
+        "id": "link_ecu",
+        "name": "Link Engine Management",
+        "category": "Электроника & ЭБУ",
+        "desc": "Спортивные блоки управления двигателем (ECU), даталоггеры и цифровые приборные панели для абсолютного контроля над силовой установкой.",
+        "logo": "assets/partners/link_ecu.png",
+        "link": "https://linkecu.com",
         "sort_order": 6,
+        "is_active": 1
+    },
+    {
+        "id": "mainline_dyno",
+        "name": "Mainline DynoLog",
+        "category": "Диностенды & Замеры",
+        "desc": "Профессиональные колесные и ступичные мощностные стенды высокой точности для калибровки и снятия графиков болидов до 3000 л.с.",
+        "logo": "assets/partners/mainline_dyno.png",
+        "link": "https://mainlinedyno.com.au",
+        "sort_order": 7,
         "is_active": 1
     },
     {
@@ -1777,49 +1787,199 @@ DEFAULT_PARTNERS = [
         "name": "Red Line Synthetic Oil",
         "category": "Смазочные материалы",
         "desc": "Специализированные трансмиссионные жидкости ShockProof и гоночные присадки для дифференциалов повышенного трения и раздаточных коробок.",
-        "logo": "assets/partners/redline.svg",
-        "link": "https://www.redlineoil.com",
-        "sort_order": 7,
+        "logo": "assets/partners/redline_oil.png",
+        "link": "https://redlineoil.com",
+        "sort_order": 8,
         "is_active": 1
     },
     {
-        "id": "bell_intercoolers",
-        "name": "Bell Intercoolers",
-        "category": "Охлаждение",
-        "desc": "Высокоэффективные теплообменники и кастомные интеркулерные ядра с минимальным сопротивлением для мощных турбосистем.",
-        "logo": "assets/partners/bell_intercoolers.svg",
-        "link": "https://www.bellintercoolers.com",
-        "sort_order": 8,
+        "id": "syvecs",
+        "name": "Syvecs Powertrain Control",
+        "category": "Электроника & ЭБУ",
+        "desc": "Топовые блоки управления двигателем (ECU), полноприводной трансмиссией (AWD Controller) и прецизионными алгоритмами лаунч-контроля.",
+        "logo": "assets/partners/syvecs.png",
+        "link": "https://syvecs.com",
+        "sort_order": 9,
         "is_active": 1
     },
     {
         "id": "plazmaman",
         "name": "Plazmaman Pro Billet",
-        "category": "Впуск и охлаждение",
-        "desc": "Фрезерованные из алюминиевого монолита впускные коллекторы и интеркулеры для экстремальных моторов VR38DETT и V10 Twin Turbo.",
-        "logo": "assets/partners/plazmaman.svg",
+        "category": "Впуск & Охлаждение",
+        "desc": "Фрезерованные из авиационного алюминиевого монолита впускные коллекторы и интеркулеры для экстремальных моторов VR38DETT и V10.",
+        "logo": "assets/partners/plazmaman.png",
         "link": "https://plazmaman.com",
-        "sort_order": 9,
+        "sort_order": 10,
+        "is_active": 1
+    },
+    {
+        "id": "ppg_gearboxes",
+        "name": "PPG (Pfitzner Gearboxes)",
+        "category": "Трансмиссия & КПП",
+        "desc": "Усиленные прямозубые кулачковые и секвентальные ряды передач, выдерживающие колоссальный крутящий момент и агрессивные переключения.",
+        "logo": "assets/partners/ppg_gearboxes.png",
+        "link": "https://ppgearbox.com.au",
+        "sort_order": 11,
+        "is_active": 1
+    },
+    {
+        "id": "ticon_titanium",
+        "name": "Ticon Titanium",
+        "category": "Титановые компоненты",
+        "desc": "Высококлассные титановые трубы, конусы, фланцы и отводы для создания сверхлегких термостойких выхлопных систем GoshaTurboTech.",
+        "logo": "assets/partners/ticon_titanium.png",
+        "link": "https://ticontitanium.com",
+        "sort_order": 12,
+        "is_active": 1
+    },
+    {
+        "id": "cobb_tuning",
+        "name": "COBB Tuning",
+        "category": "Калибровка & Софт",
+        "desc": "Программно-аппаратные комплексы Accessport для быстрой смены карт калибровки, перепрошивки блоков управления и скоростного логирования.",
+        "logo": "assets/partners/cobb_tuning.png",
+        "link": "https://cobbtuning.com",
+        "sort_order": 13,
+        "is_active": 1
+    },
+    {
+        "id": "bell_intercoolers",
+        "name": "Bell Intercoolers",
+        "category": "Охлаждение & Впуск",
+        "desc": "Высокоэффективные теплообменники и кастомные интеркулерные ядра с минимальным сопротивлением для мощных турбосистем.",
+        "logo": "assets/partners/bell_intercoolers.png",
+        "link": "https://bellintercoolers.com",
+        "sort_order": 14,
+        "is_active": 1
+    },
+    {
+        "id": "armytrix",
+        "name": "Armytrix",
+        "category": "Выхлопные системы",
+        "desc": "Премиальные регулируемые титановые и нержавеющие выхлопные системы Valvetronic с дистанционным управлением звуком через приложение.",
+        "logo": "assets/partners/armytrix.png",
+        "link": "https://armytrix.com",
+        "sort_order": 15,
+        "is_active": 1
+    },
+    {
+        "id": "ecutek",
+        "name": "Ecutek Technology",
+        "category": "Электроника & ЭБУ",
+        "desc": "Передовое программное обеспечение для глубокой инженерной калибровки заводских блоков управления Nissan GT-R, BMW и суперкаров.",
+        "logo": "assets/partners/ecutek.png",
+        "link": "https://ecutek.com",
+        "sort_order": 16,
+        "is_active": 1
+    },
+    {
+        "id": "precision_turbo",
+        "name": "Precision Turbo & Engine",
+        "category": "Турбосистемы",
+        "desc": "Специализированные гоночные турбокомпрессоры сверхвысокого наддува серии Pro Mod и GEN2 CEA, обеспечивающие отдачу до 3,500+ л.с.",
+        "logo": "assets/partners/precision_turbo.png",
+        "link": "https://precisionturbo.net",
+        "sort_order": 17,
+        "is_active": 1
+    },
+    {
+        "id": "motec",
+        "name": "MoTeC Systems",
+        "category": "Электроника & ЭБУ",
+        "desc": "Золотой стандарт мирового автоспорта: управляющие процессоры M1, цветные цифровые дисплеи C1212 и прецизионные логгеры телеметрии.",
+        "logo": "assets/partners/motec.png",
+        "link": "https://motec.com.au",
+        "sort_order": 18,
+        "is_active": 1
+    },
+    {
+        "id": "motul",
+        "name": "Motul Motorsport",
+        "category": "Смазочные материалы",
+        "desc": "Синтетические моторные масла Motul 300V Motorsport Line с технологией Ester Core, защищающие 2000+ сильные моторы GTT при пиковых нагрузках.",
+        "logo": "assets/partners/motul.png",
+        "link": "https://motul.com",
+        "sort_order": 19,
+        "is_active": 1
+    },
+    {
+        "id": "injector_dynamics",
+        "name": "Injector Dynamics",
+        "category": "Топливные форсунки",
+        "desc": "Прецизионные спортивные топливные форсунки с динамическим подбором баланса подачи для абсолютной стабильности топливовоздушной смеси.",
+        "logo": "assets/partners/injector_dynamics.png",
+        "link": "https://injectordynamics.com",
+        "sort_order": 20,
+        "is_active": 1
+    },
+    {
+        "id": "dodson_motorsport",
+        "name": "Dodson Motorsport",
+        "category": "Сцепления & Трансмиссия",
+        "desc": "Усиленные многодисковые сцепления, шестерни и гидравлика для роботизированных коробок передач GR6 (GT-R) и DL800 (R8/Huracan).",
+        "logo": "assets/partners/dodson_motorsport.png",
+        "link": "https://dodsonmotorsport.com",
+        "sort_order": 21,
         "is_active": 1
     },
     {
         "id": "t1_race",
         "name": "T1 Race Development",
         "category": "Топливные системы",
-        "desc": "Прецизионные компоненты топливной магистрали, высокодебитные форсунки, регуляторы давления и крепления для дрэг-рейсинга.",
-        "logo": "assets/partners/t1_race.svg",
+        "desc": "Прецизионные компоненты топливной магистрали, вентиляции картера и силовые инженерные узлы для быстрейших суперкаров мира.",
+        "logo": "assets/partners/t1_race.png",
         "link": "https://t1racedevelopment.com",
-        "sort_order": 10,
+        "sort_order": 22,
         "is_active": 1
     },
     {
-        "id": "rdrc_dragtimes",
-        "name": "RDRC / Dragtimes",
-        "category": "Автоспорт и трассы",
-        "desc": "Главный гоночный промоутер Чемпионата России по дрэг-рейсингу и организатор всероссийских заездов на автодроме RDRC Racepark Быково.",
-        "logo": "assets/partners/dragtimes.svg",
+        "id": "csf_radiators",
+        "name": "CSF Radiators",
+        "category": "Охлаждение & Радиаторы",
+        "desc": "Высокопроизводительные цельноалюминиевые радиаторы охлаждения ДВС, масляные радиаторы и теплообменники для экстремальных нагрузок.",
+        "logo": "assets/partners/csf_radiators.png",
+        "link": "https://csfradiators.com",
+        "sort_order": 23,
+        "is_active": 1
+    },
+    {
+        "id": "dragtimes",
+        "name": "Dragtimes",
+        "category": "Медиа & Суперкары",
+        "desc": "Крупнейшее медиа-сообщество суперкаров и дрэг-рейсинга, организатор всероссийских заездов на 1/2 мили и хронометража рекордов.",
+        "logo": "assets/partners/dragtimes.png",
+        "link": "https://dragtimes.ru",
+        "sort_order": 24,
+        "is_active": 1
+    },
+    {
+        "id": "rdrc_racepark",
+        "name": "RDRC Racepark",
+        "category": "Автоспорт & Трассы",
+        "desc": "Главный дрэг-стрип страны и организатор Чемпионата России по дрэг-рейсингу RDRC в Быково, где GTT ставит официальные рекорды скорости.",
+        "logo": "assets/partners/rdrc_racepark.png",
         "link": "https://rdrc.ru",
-        "sort_order": 11,
+        "sort_order": 25,
+        "is_active": 1
+    },
+    {
+        "id": "dsc_off",
+        "name": "DSC OFF",
+        "category": "Медиа & Хроника",
+        "desc": "Автоспортивный медиа-проект Гурама Инцкирвели, подробно освещающий постройку и боевые заезды быстрейших суперкаров GoshaTurboTech.",
+        "logo": "assets/partners/dsc_off.png",
+        "link": "https://youtube.com/@dscoff",
+        "sort_order": 26,
+        "is_active": 1
+    },
+    {
+        "id": "pride_jfc",
+        "name": "Pride JFC",
+        "category": "Автоспорт & Стиль",
+        "desc": "Официальный партнерский клуб и спортивная лига, разделяющая философию бескомпромиссной борьбы за первенство и победы.",
+        "logo": "assets/partners/pride_jfc.png",
+        "link": "https://goshaturbotech.ru",
+        "sort_order": 27,
         "is_active": 1
     },
     {
@@ -1827,49 +1987,9 @@ DEFAULT_PARTNERS = [
         "name": "Deikin Exhaust",
         "category": "Выхлопные системы",
         "desc": "Индивидуальное проектирование и ручная аргонная TIG-сварка спортивных выхлопных систем из титана Grade 5 и жаропрочного Inconel.",
-        "logo": "assets/partners/deikin_exhaust.svg",
+        "logo": "assets/partners/deikin_exhaust.png",
         "link": "https://goshaturbotech.ru",
-        "sort_order": 12,
-        "is_active": 1
-    },
-    {
-        "id": "toys_detailing",
-        "name": "Toys Detailing",
-        "category": "Детейлинг и стиль",
-        "desc": "Премиальный детейлинг, бронирование кузовов полиуретановой пленкой и керамические защитные составы для гоночных суперкаров.",
-        "logo": "assets/partners/toys_detailing.svg",
-        "link": "https://toysdetailing.ru",
-        "sort_order": 13,
-        "is_active": 1
-    },
-    {
-        "id": "felix_ferro",
-        "name": "Felix Ferro",
-        "category": "Интерьер и стиль",
-        "desc": "Эксклюзивные ювелирные элементы, кованый карбон, золотое напыление и премиальная отделка интерьера для уникальных проектов ателье.",
-        "logo": "assets/partners/felix_ferro.svg",
-        "link": "https://felixferro.com",
-        "sort_order": 14,
-        "is_active": 1
-    },
-    {
-        "id": "dsc_off",
-        "name": "DSC OFF",
-        "category": "Медиа и хроника",
-        "desc": "Автоспортивный медиа-проект Гурама Инцкирвели, подробно освещающий постройку и боевые заезды быстрейших суперкаров GTT.",
-        "logo": "assets/partners/dsc_off.svg",
-        "link": "https://youtube.com/@dscoff",
-        "sort_order": 15,
-        "is_active": 1
-    },
-    {
-        "id": "pride_jfc",
-        "name": "Pride JFC Club",
-        "category": "Автоспорт и стиль",
-        "desc": "Официальный гоночный клуб и академия пилотов GoshaTurboTech: подготовка к драг-сезону RDRC и закрытые трек-дни суперкаров.",
-        "logo": "assets/partners/pride_jfc.svg",
-        "link": "https://goshaturbotech.ru",
-        "sort_order": 16,
+        "sort_order": 28,
         "is_active": 1
     }
 ]
@@ -1880,13 +2000,13 @@ def seed_default_partners(cursor):
         INSERT INTO partners (id, name, category, desc, logo, link, sort_order, is_active)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         ON CONFLICT(id) DO UPDATE SET
-            logo = CASE 
-                WHEN partners.logo LIKE '%partners_banner.png%' OR partners.logo = '' OR partners.logo IS NULL 
-                THEN excluded.logo 
-                ELSE partners.logo 
-            END,
+            name = excluded.name,
+            desc = excluded.desc,
+            logo = excluded.logo,
+            link = excluded.link,
             category = excluded.category,
-            sort_order = excluded.sort_order
+            sort_order = excluded.sort_order,
+            is_active = excluded.is_active
         """, (
             p["id"],
             p["name"],
