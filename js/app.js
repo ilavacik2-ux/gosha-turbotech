@@ -1230,6 +1230,8 @@ const i18n = {
     btn_passport: "Инженерный паспорт GTT",
     gallery_drag_hint: "Листайте тачпадом, мышью или стрелками",
     discuss_tg: "Обсудить проект в Telegram GTT",
+    partners_show_all: "Все партнеры (28)",
+    partners_collapse: "Свернуть",
     contact_social_title: "Соцсети ателье",
     contact_social_desc: "Мы на связи в мессенджерах для обсуждения Stage-пакетов, Twin Turbo систем и обслуживания вашей техники.",
     mobile_bar_tg: "Telegram GTT",
@@ -1428,6 +1430,8 @@ const i18n = {
     btn_passport: "GTT Engineering Passport",
     gallery_drag_hint: "Swipe with trackpad or drag with mouse",
     discuss_tg: "Discuss Project on Telegram GTT",
+    partners_show_all: "All Partners (28)",
+    partners_collapse: "Collapse",
     contact_social_title: "Atelier Social Networks",
     contact_social_desc: "We are available on messaging platforms to discuss Stage packages, Twin Turbo setups, and supercar maintenance.",
     mobile_bar_tg: "Telegram GTT",
@@ -2090,6 +2094,29 @@ function renderPartnersGrid(partners) {
 
 window.filterPartners = function() {
   renderPartnersGrid(cachedPartnersData || defaultPartnersList);
+};
+
+window.togglePartnersExpand = function() {
+  const grid = document.getElementById('partnersGrid');
+  const btn = document.getElementById('partnersExpandBtn');
+  if (!grid || !btn) return;
+
+  const isExpanded = grid.classList.toggle('is-expanded');
+  const textSpan = btn.querySelector('.expand-btn-text');
+  const icon = btn.querySelector('.expand-btn-icon');
+  const lang = (typeof currentLang !== 'undefined') ? currentLang : 'ru';
+
+  if (isExpanded) {
+    if (textSpan) textSpan.textContent = (lang === 'en') ? 'Collapse' : 'Свернуть';
+    if (icon) icon.style.transform = 'rotate(180deg)';
+  } else {
+    if (textSpan) textSpan.textContent = (lang === 'en') ? 'All Partners (28)' : 'Все партнеры (28)';
+    if (icon) icon.style.transform = 'rotate(0deg)';
+    const partnersSection = document.getElementById('partners');
+    if (partnersSection) {
+      partnersSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
 };
 
 async function syncPartnersFromAPI() {
@@ -2835,6 +2862,9 @@ function stepRecordsContinuousMotion() {
   if (track && !recordsIsHovered && !recordsIsManualSliding) {
     const singleHalfWidth = track.scrollWidth / 2;
     if (singleHalfWidth > 100) {
+      if (Math.abs(recordsTrackPos) >= singleHalfWidth * 2) {
+        recordsTrackPos = 0;
+      }
       recordsTrackPos -= 0.65; // ~40px/sec at 60fps - calm, elegant motorsport drift
       if (Math.abs(recordsTrackPos) >= singleHalfWidth) {
         recordsTrackPos += singleHalfWidth;
@@ -2968,7 +2998,7 @@ function renderRecordsEditorial(recordsList) {
           <img src="${photo}" 
                alt="${carName}" 
                class="record-photo-img" 
-               loading="lazy"
+               decoding="async"
                onerror="this.src='assets/photos/huracan_rdrc_stage_line.jpg'">
           <div class="record-photo-overlay"></div>
           <div class="record-photo-badges">
@@ -3019,6 +3049,8 @@ function initRecordsCarousel() {
         while (recordsTrackPos > 0) {
           recordsTrackPos -= singleHalfWidth;
         }
+      } else {
+        recordsTrackPos = 0;
       }
     };
 
@@ -3671,7 +3703,7 @@ function renderGarageGrid(filterType) {
                onerror="this.onerror=null; this.src='${car.fallbackImg || 'assets/cars/gtt_classified_car.svg'}';">
         </div>
         <div class="car-card-info">
-          <div class="car-brand">${car.brand} • ${tag}</div>
+          <div class="car-brand">${tag || car.brand}</div>
           <h3 class="car-model-title">${name}</h3>
           <p class="car-card-desc">${desc}</p>
           <div class="car-specs-row">
@@ -3688,9 +3720,9 @@ function renderGarageGrid(filterType) {
               <div class="spec-lbl">${i18n[currentLang].spec_speed}</div>
             </div>
           </div>
-          <div class="car-card-footer" style="display: flex; gap: 8px; justify-content: flex-end; align-items: center;">
+          <div class="car-card-footer">
             ${showVideoBtn ? `
-              <button class="btn-card-details" style="background: rgba(255,100,37,0.15); border-color: var(--gtt-orange); color: var(--gtt-orange); display: inline-flex; align-items: center; gap: 5px;" onclick="event.stopPropagation(); openCarVideo('${car.id}')">
+              <button class="btn-card-details btn-card-video" onclick="event.stopPropagation(); openCarVideo('${car.id}')">
                 <span>▶</span> ${currentLang === 'ru' ? 'Видео заезда' : 'Race Video'}
               </button>
             ` : ''}
@@ -4965,6 +4997,9 @@ function initMobileStickyBar() {
   if (!bar) return;
 
   let isPreloaderActive = true;
+  let lastScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+  let isScrollingDown = false;
+  let scrollInactivityTimer = null;
 
   // Reveal bar only after preloader is completely faded out
   const preloaderEl = document.getElementById('preloader');
@@ -4974,41 +5009,68 @@ function initMobileStickyBar() {
         clearInterval(checkPreloader);
         setTimeout(() => {
           isPreloaderActive = false;
-          bar.classList.add('visible');
+          updateBarVisibility();
         }, 600);
       }
     }, 200);
   } else {
     isPreloaderActive = false;
-    bar.classList.add('visible');
+    updateBarVisibility();
   }
 
   function updateBarVisibility() {
     if (isPreloaderActive) {
+      bar.classList.add('hidden');
       bar.classList.remove('visible');
+      document.body.classList.add('bottom-bar-hidden');
       return;
     }
+
+    const currentScrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
+    const diff = currentScrollY - lastScrollY;
+
+    // Detect scroll direction (threshold of 8px to ignore micro-jitters)
+    if (diff > 8 && currentScrollY > 120) {
+      isScrollingDown = true;
+    } else if (diff < -6) {
+      isScrollingDown = false;
+    }
+    lastScrollY = currentScrollY;
 
     const anyModalActive = document.querySelector('.modal-overlay.active, .video-modal-overlay.active, .gallery-lightbox-modal.active, .mobile-drawer.active');
     const contactEl = document.getElementById('contact');
     const partnersEl = document.getElementById('partners');
     let isPastContact = false;
-    const scrollY = window.pageYOffset || document.documentElement.scrollTop || 0;
     const vh = window.innerHeight;
     if (contactEl) {
-      isPastContact = (contactEl.offsetTop - scrollY) <= vh * 0.85;
+      isPastContact = (contactEl.offsetTop - currentScrollY) <= vh * 0.85;
     }
     if (partnersEl && !isPastContact) {
-      isPastContact = (partnersEl.offsetTop - scrollY) <= vh * 0.85;
+      isPastContact = (partnersEl.offsetTop - currentScrollY) <= vh * 0.85;
     }
-    const isNearBottom = (vh + scrollY) >= (document.documentElement.scrollHeight - 100);
+    const isNearBottom = (vh + currentScrollY) >= (document.documentElement.scrollHeight - 100);
+    const isAtTop = currentScrollY < 100;
 
-    if (anyModalActive || isPastContact || isNearBottom) {
+    // Hide bar when scrolling down, near bottom, in modals, or at top
+    if (anyModalActive || isPastContact || isNearBottom || isScrollingDown || isAtTop) {
       bar.classList.add('hidden');
       bar.classList.remove('visible');
+      document.body.classList.add('bottom-bar-hidden');
     } else {
       bar.classList.remove('hidden');
       bar.classList.add('visible');
+      document.body.classList.remove('bottom-bar-hidden');
+    }
+
+    // Re-show bar on mobile when user stops scrolling for 900ms
+    clearTimeout(scrollInactivityTimer);
+    if (!anyModalActive && !isPastContact && !isNearBottom && !isAtTop) {
+      scrollInactivityTimer = setTimeout(() => {
+        isScrollingDown = false;
+        bar.classList.remove('hidden');
+        bar.classList.add('visible');
+        document.body.classList.remove('bottom-bar-hidden');
+      }, 900);
     }
   }
 

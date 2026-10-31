@@ -1107,6 +1107,7 @@ body.is-loading {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  gap: 8px;
   padding-top: 14px;
   border-top: 1px solid var(--border-subtle);
 }
@@ -1129,6 +1130,20 @@ body.is-loading {
   background: var(--gtt-orange);
   border-color: var(--gtt-orange);
   box-shadow: 0 0 15px var(--gtt-orange-glow);
+}
+
+.btn-card-video {
+  background: rgba(255, 100, 37, 0.15) !important;
+  border-color: var(--gtt-orange) !important;
+  color: var(--gtt-orange) !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-card-video:hover {
+  background: var(--gtt-orange) !important;
+  color: #07080a !important;
 }
 
 /* Records Section (Compact) */
@@ -1475,43 +1490,62 @@ body.is-loading {
 @media (max-width: 1024px) {
   .record-item,
   .records-carousel-track .record-item {
-    flex: 0 0 calc((100% - 24px) / 2);
-    max-width: calc((100% - 24px) / 2);
+    width: 320px;
+    flex: 0 0 320px;
+    max-width: 320px;
   }
 }
 
 @media (max-width: 768px) {
   .records-carousel-stage {
-    padding: 0;
+    padding: 0 12px;
+    margin: 20px auto 0;
+  }
+  .records-carousel-viewport {
+    padding: 10px 0 18px;
+    mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 4%, black 96%, transparent 100%);
   }
   .records-carousel-btn {
     display: none;
   }
   .record-item,
   .records-carousel-track .record-item {
-    flex: 0 0 calc(100% - 32px);
-    max-width: calc(100% - 32px);
+    width: 285px;
+    flex: 0 0 285px;
+    max-width: 285px;
+    border-radius: 10px;
   }
-  .records-hud-ticker {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 12px 14px;
-    gap: 10px;
+  .record-photo-wrapper {
+    height: 165px;
   }
-  .records-hud-left {
-    width: 100%;
-    flex-wrap: wrap;
-    gap: 8px;
+  .record-content-box {
+    padding: 12px 14px 16px;
   }
-  .records-hud-right {
-    width: 100%;
-    justify-content: space-between;
+  .record-hero-time {
+    font-size: 21px;
   }
-  .hud-divider {
-    display: none;
+  .record-hero-speed {
+    font-size: 10px;
   }
-  .hud-car-name {
-    width: 100%;
+  .record-car-title {
+    font-size: 13.5px;
+  }
+  .record-car-desc {
+    font-size: 11.5px;
+    line-height: 1.45;
+  }
+}
+
+@media (max-width: 480px) {
+  .record-item,
+  .records-carousel-track .record-item {
+    width: 270px;
+    flex: 0 0 270px;
+    max-width: 270px;
+  }
+  .record-photo-wrapper {
+    height: 155px;
   }
 }
 
@@ -3643,7 +3677,7 @@ body.is-loading {
   transform: translate(2px, -2px);
 }
 
-/* Responsive Breakpoints */
+/* Responsive Breakpoints & Mobile Optimization */
 @media (max-width: 1200px) {
   .partners-grid[data-cols="4"] .partner-card,
   .partners-grid[data-cols="3"] .partner-card {
@@ -3659,18 +3693,94 @@ body.is-loading {
   .partners-grid[data-cols="2"] .partner-card {
     flex: 0 1 calc(50% - 6px);
     max-width: calc(50% - 6px);
-    min-width: 220px;
+    min-width: 200px;
   }
 }
 
-@media (max-width: 540px) {
+.partners-mobile-actions {
+  display: none;
+}
+
+@media (max-width: 680px) {
+  .partners-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px !important;
+    margin-top: 16px !important;
+  }
   .partners-grid .partner-card,
   .partners-grid[data-cols="4"] .partner-card,
   .partners-grid[data-cols="3"] .partner-card,
   .partners-grid[data-cols="2"] .partner-card {
-    flex: 1 1 100%;
-    max-width: 100%;
-    min-width: 100%;
+    flex: none !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    padding: 8px 10px !important;
+    min-height: 48px !important;
+    gap: 8px !important;
+    border-radius: 6px !important;
+  }
+  .partner-logo-box {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    padding: 3px !important;
+  }
+  .partner-card-logo-img {
+    max-height: 22px !important;
+    max-width: 26px !important;
+  }
+  .partner-card-name {
+    font-size: 11px !important;
+    letter-spacing: 0.02em !important;
+  }
+  .partner-card-tag {
+    font-size: 9px !important;
+  }
+  .partner-card-arrow {
+    display: none !important;
+  }
+
+  /* Compact 2-column mobile view: top 8 cards by default */
+  .partners-grid:not(.is-expanded) .partner-card:nth-child(n+9) {
+    display: none !important;
+  }
+
+  .partners-mobile-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 14px;
+    margin-bottom: 6px;
+  }
+
+  .partners-expand-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(13, 17, 24, 0.88);
+    border: 1px solid rgba(255, 100, 37, 0.45);
+    color: var(--gtt-orange);
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 9px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    backdrop-filter: blur(12px);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .partners-expand-btn:active {
+    background: var(--gtt-orange);
+    color: #07080a;
+    transform: scale(0.97);
+  }
+
+  .expand-btn-icon {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 }
 
@@ -4898,38 +5008,42 @@ body.modal-open {
   }
 
   /* Garage 2-Column Mobile Grid (Space-Efficient & Balanced) */
+  .hangar-section {
+    padding-bottom: 85px !important;
+  }
   .garage-grid {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 12px;
+    gap: 10px;
   }
   .garage-grid.is-collapsed-4 {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 12px;
+    gap: 10px;
   }
   .car-card {
-    border-radius: 14px;
-    background: rgba(13, 17, 24, 0.85);
+    border-radius: 12px;
+    background: rgba(13, 17, 24, 0.88);
     border: 1px solid rgba(255, 255, 255, 0.08);
     transform: none !important;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
   }
   .car-card:hover {
     transform: none !important;
   }
   .car-card-badge {
-    top: 8px;
-    left: 8px;
-    font-size: 8px;
+    top: 6px;
+    left: 6px;
+    font-size: 7.5px;
     padding: 2px 6px;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.03em;
     border-radius: 3px;
-    max-width: calc(100% - 16px);
+    max-width: calc(100% - 12px);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   .car-card-media {
-    height: 120px;
+    height: 115px;
     background: radial-gradient(circle at 50% 50%, rgba(255, 100, 37, 0.06) 0%, rgba(7, 8, 10, 0.98) 80%);
   }
   .car-card-img {
@@ -4941,13 +5055,14 @@ body.modal-open {
     padding: 6px;
   }
   .car-card-info {
-    padding: 10px 10px 12px;
+    padding: 8px 8px 10px;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
   }
   .car-brand {
-    font-size: 8.5px;
+    font-size: 8px;
+    font-weight: 700;
     letter-spacing: 0.04em;
     margin-bottom: 2px;
     color: var(--gtt-orange);
@@ -4956,10 +5071,11 @@ body.modal-open {
     text-overflow: ellipsis;
   }
   .car-model-title {
-    font-size: 13px;
+    font-size: 11.5px;
+    font-weight: 800;
     line-height: 1.25;
-    margin-bottom: 6px;
-    min-height: 32px;
+    margin-bottom: 5px;
+    min-height: 28px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -4971,25 +5087,25 @@ body.modal-open {
   .car-specs-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 4px;
-    padding: 6px 4px;
-    margin-bottom: 10px;
+    gap: 2px;
+    padding: 5px 3px;
+    margin-bottom: 8px;
     background: rgba(255, 255, 255, 0.02);
-    border-radius: 6px;
+    border-radius: 5px;
     border: 1px solid rgba(255, 255, 255, 0.04);
   }
   .spec-cell {
     text-align: center;
   }
   .spec-cell .spec-val {
-    font-size: 11px;
+    font-size: 10px;
     font-family: var(--font-display);
     font-weight: 800;
     color: #fff;
     line-height: 1.1;
   }
   .spec-cell .spec-lbl {
-    font-size: 7.5px;
+    font-size: 7px;
     color: var(--text-muted);
     font-family: var(--font-mono);
     text-transform: uppercase;
@@ -5001,17 +5117,27 @@ body.modal-open {
   }
   .car-card-footer {
     margin-top: auto;
-    display: flex;
-    gap: 4px;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+    width: 100% !important;
   }
-  .btn-card-details {
-    width: 100%;
-    padding: 7px 6px;
-    font-size: 10.5px;
-    font-weight: 700;
-    justify-content: center;
-    border-radius: 6px;
-    letter-spacing: 0.04em;
+  .car-card-footer .btn-card-details {
+    width: 100% !important;
+    height: 28px !important;
+    min-height: 28px !important;
+    padding: 0 6px !important;
+    font-size: 9.5px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.03em !important;
+    border-radius: 5px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    box-sizing: border-box !important;
   }
 
   /* Founder Section */
@@ -5948,12 +6074,20 @@ body.modal-open {
     font-size: 16px !important; /* iOS Safari requirement: font-size >= 16px prevents zoom */
   }
 
-  /* 2. Position Back to Top above Mobile Sticky Bottom Bar */
+  /* 2. Position Back to Top adaptively above Mobile Sticky Bottom Bar */
   .back-to-top-btn {
-    bottom: 84px;
-    right: 18px;
-    width: 44px;
-    height: 44px;
+    bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+    right: 16px;
+    width: 42px;
+    height: 42px;
+    transition: bottom 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.3s;
+  }
+
+  body.bottom-bar-hidden .back-to-top-btn {
+    bottom: calc(18px + env(safe-area-inset-bottom, 0px));
   }
 
   .back-to-top-btn svg.progress-ring-svg {
