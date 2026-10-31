@@ -225,10 +225,10 @@ let gttProjects = [
       "ru": "Рекорд RDRC 992 • 9.167s",
       "en": "RDRC 992 Record • 9.167s"
     },
-    "img": "assets/archive_tilda/porsche_992_imba.jpg",
-    "fallbackImg": "assets/cars/gtr_rdrc_red_panamera.jpg",
+    "img": "assets/cars/porsche_992_imba_silver.jpg",
+    "fallbackImg": "assets/cars/porsche_992_imba_silver.jpg",
     "isPhoto": true,
-    "objectPosition": "center 55%",
+    "objectPosition": "center 75%",
     "videoSrc": "",
     "videoTitle": "Porsche 911 Turbo S IMBA — заезд RDRC 9.167 сек",
     "desc": {
@@ -378,10 +378,10 @@ let gttProjects = [
       "ru": "R8 «Злая Зая» GTT",
       "en": "R8 «ZlayaZaya» GTT"
     },
-    "img": "assets/cars/audi_r8_tsmr_launch.jpg",
-    "fallbackImg": "assets/archive_tilda/audi_r8_tonystark.png",
+    "img": "assets/cars/audi_r8_zlayazaya_launch.jpg",
+    "fallbackImg": "assets/cars/audi_r8_zlayazaya_launch.jpg",
     "isPhoto": true,
-    "objectPosition": "center 70%",
+    "objectPosition": "center center",
     "videoSrc": "",
     "videoTitle": "Audi R8 «Злая Зая» — боевой выезд RDRC",
     "desc": {
@@ -493,8 +493,8 @@ let gttProjects = [
       "ru": "GTT-MAXPAIN Performante",
       "en": "GTT-MAXPAIN Performante"
     },
-    "img": "assets/cars/huracan_green_grey_rdrc.jpg",
-    "fallbackImg": "assets/cars/huracan_rdrc_duo.jpg",
+    "img": "assets/cars/huracan_maxpain_purple.jpg",
+    "fallbackImg": "assets/cars/huracan_maxpain_purple.jpg",
     "isPhoto": true,
     "objectPosition": "center center",
     "desc": {
@@ -530,9 +530,9 @@ let gttProjects = [
       "ru": "Spyder GTT-800",
       "en": "Spyder GTT-800"
     },
-    "img": "assets/archive_tilda/porsche_991_gtt1200.jpg",
-    "fallbackImg": "assets/cars/huracan_green_bezzubik_side.jpg",
-    "isPhoto": false,
+    "img": "assets/cars/huracan_spyder_orange.jpg",
+    "fallbackImg": "assets/cars/huracan_spyder_orange.jpg",
+    "isPhoto": true,
     "objectPosition": "center center",
     "desc": {
       "ru": "Открытый родстер Huracan Spyder с доработанной выхлопной трассой Inconel и пакетом GTT Stage 2. Официальное 2-е место на Чемпионате ПФО с результатом 9.988 сек на 402 метра.",
@@ -604,9 +604,9 @@ let gttProjects = [
       "ru": "Рекорд России 334 км/ч",
       "en": "Russian Record 334 km/h"
     },
-    "img": "assets/archive_tilda/gtr_korzhik.png",
-    "fallbackImg": "assets/cars/gtr_red_chrome_rdrc.jpg",
-    "isPhoto": false,
+    "img": "assets/cars/gtr_korzhik_712.jpg",
+    "fallbackImg": "assets/cars/gtr_korzhik_712.jpg",
+    "isPhoto": true,
     "desc": {
       "ru": "Боевой болид Николая Коржова. Рекорд России на Московской миле (1/2 мили: 13.435 сек со скоростью 334.41 км/ч) и 8.602 сек на 402 метра. Вице-чемпион абсолютного зачета Чемпионата SMP RDRC в классе FSL.",
       "en": "Competition build piloted by Nikolay Korzhov. Russian Record at Moscow Mile (1/2 mile: 13.435 sec at 334.41 km/h) and 8.602 sec 1/4 mile. Vice-champion of SMP RDRC FSL class."
@@ -619,7 +619,8 @@ let gttProjects = [
     },
     "videoSrc": "",
     "is_featured": 0,
-    "isFeatured": false
+    "isFeatured": false,
+    "objectPosition": "center center"
   },
   {
     "id": "gtr_baloo",
@@ -2746,7 +2747,7 @@ const defaultRecords = [
     car: 'NISSAN GT-R R35 «KORZHIK» #712',
     telemetry: '1/2 мили: 13.435 сек • 334.41 км/ч',
     desc: 'Пилот Николай Коржов. Официальный рекорд России на 1/2 мили.',
-    img: 'assets/archive_tilda/gtr_korzhik.png'
+    img: 'assets/cars/gtr_korzhik_712.jpg'
   },
   {
     id: 'rec_hulk',
@@ -2806,7 +2807,7 @@ const defaultRecords = [
     car: 'PORSCHE 911 TURBO S IMBA',
     telemetry: '1/4 мили: 9.167 сек • RDRC 2025',
     desc: 'Пилот Мария Кутычкина. Быстрейший 992 на заводских турбинах.',
-    img: 'assets/archive_tilda/porsche_992_imba.jpg'
+    img: 'assets/cars/porsche_992_imba_silver.jpg'
   },
   {
     id: 'rec_puncher',

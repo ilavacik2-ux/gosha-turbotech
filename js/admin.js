@@ -149,10 +149,13 @@ const defaultProjects = [
     "hp": "1,050+ HP",
     "quarterMile": "9.167 сек",
     "topSpeed": "345+ км/ч",
-    "img": "assets/archive_tilda/porsche_992_imba.jpg",
+    "img": "assets/cars/porsche_992_imba_silver.jpg",
     "videoSrc": "",
     "descRu": "Официальный рекордсмен RDRC среди Porsche поколения 992 под управлением Марии Кутычкиной. Подтвержденное время 9.167 сек со скоростью 236.92 км/ч на 1/4 мили (RDRC 2025, заезд 528). Кастомный интеркулер GTT и метаноловый впрыск.",
-    "is_featured": 0
+    "is_featured": 0,
+    "fallbackImg": "assets/cars/porsche_992_imba_silver.jpg",
+    "objectPosition": "center 75%",
+    "is_photo": 1
   },
   {
     "id": "bmw_m5",
@@ -205,10 +208,13 @@ const defaultProjects = [
     "hp": "1,200+ HP",
     "quarterMile": "10.060 сек",
     "topSpeed": "340+ км/ч",
-    "img": "assets/cars/audi_r8_tsmr_launch.jpg",
+    "img": "assets/cars/audi_r8_zlayazaya_launch.jpg",
     "videoSrc": "",
     "descRu": "Культовая Audi R8 «Злая Зая» Руслана Арефьева (борт №6303). Призер этапов чемпионата RDRC, стабильный запуск на полном приводе quattro и двухтурбинный пакет GTT.",
-    "is_featured": 0
+    "is_featured": 0,
+    "fallbackImg": "assets/cars/audi_r8_zlayazaya_launch.jpg",
+    "objectPosition": "center center",
+    "is_photo": 1
   },
   {
     "id": "tonystark",
@@ -247,10 +253,13 @@ const defaultProjects = [
     "hp": "1,600+ HP",
     "quarterMile": "8.150 сек",
     "topSpeed": "360+ км/ч",
-    "img": "assets/cars/huracan_green_grey_rdrc.jpg",
+    "img": "assets/cars/huracan_maxpain_purple.jpg",
     "videoSrc": "",
     "descRu": "Безупречный Huracan Performante в заводском кованом карбоне Forged Composites с установленным биллетовым твин-турбо китом GTT. Чудовищная отдача 1600+ л.с. и активная аэродинамика ALA.",
-    "is_featured": 0
+    "is_featured": 0,
+    "fallbackImg": "assets/cars/huracan_maxpain_purple.jpg",
+    "objectPosition": "center center",
+    "is_photo": 1
   },
   {
     "id": "lambo_spyder_800",
@@ -261,10 +270,13 @@ const defaultProjects = [
     "hp": "850+ HP",
     "quarterMile": "9.988 сек",
     "topSpeed": "335+ км/ч",
-    "img": "assets/archive_tilda/porsche_991_gtt1200.jpg",
+    "img": "assets/cars/huracan_spyder_orange.jpg",
     "videoSrc": "",
     "descRu": "Открытый родстер Huracan Spyder с доработанной выхлопной трассой Inconel и пакетом GTT Stage 2. Официальное 2-е место на Чемпионате ПФО с результатом 9.988 сек на 402 метра.",
-    "is_featured": 0
+    "is_featured": 0,
+    "fallbackImg": "assets/cars/huracan_spyder_orange.jpg",
+    "objectPosition": "center center",
+    "is_photo": 1
   },
   {
     "id": "moses",
@@ -289,10 +301,13 @@ const defaultProjects = [
     "hp": "1,600+ HP",
     "quarterMile": "8.602 сек",
     "topSpeed": "334.41 км/ч",
-    "img": "assets/archive_tilda/gtr_korzhik.png",
+    "img": "assets/cars/gtr_korzhik_712.jpg",
     "videoSrc": "",
     "descRu": "Боевой болид Николая Коржова. Рекорд России на Московской миле (1/2 мили: 13.435 сек со скоростью 334.41 км/ч) и 8.602 сек на 402 метра. Вице-чемпион абсолютного зачета Чемпионата SMP RDRC в классе FSL.",
-    "is_featured": 0
+    "is_featured": 0,
+    "fallbackImg": "assets/cars/gtr_korzhik_712.jpg",
+    "objectPosition": "center center",
+    "is_photo": 1
   },
   {
     "id": "gtr_baloo",
@@ -663,7 +678,7 @@ const defaultRecords = [
     car: 'NISSAN GT-R R35 GTT «KORZHIK» #712',
     telemetry: '1/2 мили: 13.435 сек • 334.41 км/ч',
     desc: 'Пилот Николай Коржов. 8.602 сек на 402 м и официальный рекорд России на 1/2 мили — 13.435 сек со скоростью 334.41 км/ч.',
-    img: 'assets/archive_tilda/gtr_korzhik.png'
+    img: 'assets/cars/gtr_korzhik_712.jpg'
   },
   {
     id: 'rec_hulk',
@@ -703,7 +718,7 @@ const defaultRecords = [
     car: 'PORSCHE 911 TURBO S (992) GTT-IMBA',
     telemetry: '1/4 мили: 9.167 сек • RDRC 2025',
     desc: 'Пилот Мария Кутычкина. Мировой рекорд 9.252 сек со скоростью 231.80 км/ч на заводских турбинах, улучшенный на RDRC 2025 до 9.167 сек.',
-    img: 'assets/archive_tilda/porsche_992_imba.jpg'
+    img: 'assets/cars/porsche_992_imba_silver.jpg'
   },
   {
     id: 'rec_puncher',
