@@ -2168,7 +2168,7 @@ const defaultMotoList = [
     code: 'SUPERBIKE // STAGE 2',
     desc: 'Программное раскрытие потенциала литровых спортбайков BMW S1000RR / M1000RR, Ducati Panigale V4, Yamaha R1. Индивидуальные карты зажигания, снятие ограничителей и калибровка квикшифтера на диностенде.',
     bullets: 'Индивидуальная калибровка на диностенде\nОптимизация Wheelie & Launch Control\nКалибровка электронного дросселя без задержек',
-    img: 'assets/moto/bmw_m1000rr_gtt.jpg',
+    img: '',
     sort_order: 1,
     is_active: 1
   },
@@ -2178,7 +2178,7 @@ const defaultMotoList = [
     code: 'TITANIUM // EXH',
     desc: 'Ручная аргоновая сварка титана и инконеля для мотоциклов. Экстремальное снижение веса, породистый акустический звук и прибавка крутящего момента во всем диапазоне.',
     bullets: 'Ультралегкие коллекторы из сплава Titan-Gr5\nКастомная фрезеровка насадок\nОгненные отстрелы и сочный басовитый тон',
-    img: 'assets/moto/gtt_moto_r1m_m1000rr_night.jpg',
+    img: '',
     sort_order: 2,
     is_active: 1
   },
@@ -2188,7 +2188,7 @@ const defaultMotoList = [
     code: 'BESPOKE // CNC',
     desc: 'Полный цикл доработки премиальной мототехники: кованые сверхлегкие диски, сухое сцепление, карбоновое оперение и комплексное предсезонное ТО.',
     bullets: 'Сухой автоклавный карбон 3K/12K\nТормозные системы Brembo Racing / GP4\nИндивидуальный дизайн и покраска',
-    img: 'assets/moto/bmw_m1000rr_cafe_street.jpg',
+    img: '',
     sort_order: 3,
     is_active: 1
   }
@@ -2201,16 +2201,7 @@ function renderMotoGrid(motoList) {
   if (!container) return;
 
   const rawList = Array.isArray(motoList) && motoList.length > 0 ? motoList : defaultMotoList;
-  const list = rawList.map(m => {
-    let img = m.img || '';
-    if (!img || img.includes('partners_banner') || img.includes('placeholder')) {
-      if (m.id === 'moto_1') img = 'assets/moto/bmw_m1000rr_gtt.jpg';
-      else if (m.id === 'moto_2') img = 'assets/moto/gtt_moto_r1m_m1000rr_night.jpg';
-      else if (m.id === 'moto_3') img = 'assets/moto/bmw_m1000rr_cafe_street.jpg';
-      else img = 'assets/moto/bmw_m1000rr_gtt.jpg';
-    }
-    return { ...m, img };
-  });
+  const list = rawList.map(m => ({ ...m, img: '' }));
   const activeMoto = list
     .filter(m => m.is_active === 1 || m.is_active === true || m.is_active === '1' || m.is_active === undefined)
     .sort((a, b) => (parseInt(a.sort_order || 0) - parseInt(b.sort_order || 0)));
@@ -2218,12 +2209,6 @@ function renderMotoGrid(motoList) {
   if (activeMoto.length === 0) {
     return;
   }
-
-  const icons = [
-    `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3"/></svg>`,
-    `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>`,
-    `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`
-  ];
 
   container.innerHTML = activeMoto.map((m, idx) => {
     const title = escapeHtml(m.title || '');
@@ -2233,18 +2218,6 @@ function renderMotoGrid(motoList) {
     const bullets = (Array.isArray(rawBullets) ? rawBullets : String(rawBullets).split('\n'))
       .map(b => b.trim())
       .filter(Boolean);
-
-    let icon = icons[idx % icons.length];
-    if (m.code && m.code.toUpperCase().includes('EXH')) icon = icons[1];
-    else if (m.code && (m.code.toUpperCase().includes('ECU') || m.code.toUpperCase().includes('STAGE'))) icon = icons[0];
-    else if (m.code && (m.code.toUpperCase().includes('CNC') || m.code.toUpperCase().includes('BESPOKE'))) icon = icons[2];
-
-    const hasImg = m.img && m.img.trim().length > 0 && !m.img.includes('placeholder') && !m.img.includes('partners_banner');
-    const imgHtml = hasImg ? `
-      <div style="width: 100%; height: 160px; overflow: hidden; border-radius: var(--radius-sm, 4px); margin-bottom: 18px; border: 1px solid rgba(255,255,255,0.08);">
-        <img src="${escapeHtml(m.img)}" alt="${title}" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
-      </div>
-    ` : '';
 
     // Clean up code badge (e.g. "SUPERBIKE // STAGE 2" -> "STAGE 1 / 2 • ECU")
     let cleanCode = code;
@@ -2261,7 +2234,15 @@ function renderMotoGrid(motoList) {
 
     return `
       <div class="moto-card" data-moto-id="${escapeHtml(m.id || '')}">
-        ${imgHtml}
+        <!-- Question Mark Teaser On Top -->
+        <div class="moto-card-teaser-media">
+          <div class="moto-teaser-glow-orbit"></div>
+          <div class="moto-teaser-icon-wrap">
+            <span class="moto-teaser-qmark">?</span>
+            <span class="moto-teaser-radar"></span>
+          </div>
+          <span class="moto-card-teaser-status">PROJECT #0${idx + 1}</span>
+        </div>
         <div class="moto-card-header">
           <span class="moto-card-num">0${idx + 1}</span>
           <span class="moto-card-pill">${cleanCode}</span>
@@ -2873,18 +2854,15 @@ window.handleRecordImgLoad = function(img) {
 
 function stepRecordsContinuousMotion() {
   const track = document.getElementById('recordsCarouselTrack');
-  // On mobile screens (<= 820px), do not auto-drift across the viewport so cards are not cut off mid-screen
-  if (window.innerWidth <= 820) {
-    recordsRafId = requestAnimationFrame(stepRecordsContinuousMotion);
-    return;
-  }
   if (track && !recordsIsHovered && !recordsIsManualSliding) {
     const singleHalfWidth = track.scrollWidth / 2;
     if (singleHalfWidth > 100) {
       if (Math.abs(recordsTrackPos) >= singleHalfWidth * 2) {
         recordsTrackPos = 0;
       }
-      recordsTrackPos -= 0.65; // ~40px/sec at 60fps - calm, elegant motorsport drift
+      // Neat, elegant continuous rotation on both mobile and desktop
+      const speed = window.innerWidth <= 820 ? 0.45 : 0.65;
+      recordsTrackPos -= speed;
       if (Math.abs(recordsTrackPos) >= singleHalfWidth) {
         recordsTrackPos += singleHalfWidth;
       }
@@ -2915,7 +2893,8 @@ window.recordsCarouselNext = function() {
   recordsResumeTimeout = setTimeout(() => {
     if (track) track.style.transition = 'none';
     recordsIsManualSliding = false;
-  }, 480);
+    recordsIsHovered = false;
+  }, 1800);
 };
 
 window.recordsCarouselPrev = function() {
@@ -2939,7 +2918,8 @@ window.recordsCarouselPrev = function() {
   recordsResumeTimeout = setTimeout(() => {
     if (track) track.style.transition = 'none';
     recordsIsManualSliding = false;
-  }, 480);
+    recordsIsHovered = false;
+  }, 1800);
 };
 
 window.goToRecordSlide = function(idx) {
@@ -3109,6 +3089,7 @@ function initRecordsCarousel() {
 
     const onPointerDown = (clientX, clientY) => {
       isPointerDown = true;
+      recordsIsHovered = true; // immediately pause smooth drift on touch/press
       pointerStartX = clientX;
       pointerStartY = clientY;
       lastPointerX = clientX;
@@ -3170,14 +3151,15 @@ function initRecordsCarousel() {
           recordsTrackPos = targetSlot * step;
           wrapRecordsPosition();
           if (track) {
-            track.style.transition = 'transform 0.38s cubic-bezier(0.16, 1, 0.3, 1)';
+            track.style.transition = 'transform 0.42s cubic-bezier(0.16, 1, 0.3, 1)';
             track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
           }
+          clearTimeout(recordsResumeTimeout);
           recordsResumeTimeout = setTimeout(() => {
             if (track) track.style.transition = 'none';
             recordsIsManualSliding = false;
             recordsIsHovered = false;
-          }, 400);
+          }, 1800);
           return;
         }
 

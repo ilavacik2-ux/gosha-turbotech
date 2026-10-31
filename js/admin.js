@@ -808,7 +808,7 @@ const defaultMoto = [
     code: 'SUPERBIKE // STAGE 2',
     desc: 'Программное раскрытие потенциала литровых спортбайков BMW S1000RR / M1000RR, Ducati Panigale V4, Yamaha R1. Индивидуальные карты зажигания, снятие ограничителей и калибровка квикшифтера на диностенде.',
     bullets: 'Индивидуальная калибровка на диностенде\nОптимизация Wheelie & Launch Control\nКалибровка электронного дросселя без задержек',
-    img: 'assets/moto/bmw_m1000rr_gtt.jpg',
+    img: '',
     sort_order: 1,
     is_active: 1
   },
@@ -818,7 +818,7 @@ const defaultMoto = [
     code: 'TITANIUM // EXH',
     desc: 'Ручная аргоновая сварка титана и инконеля для мотоциклов. Экстремальное снижение веса, породистый акустический звук и прибавка крутящего момента во всем диапазоне.',
     bullets: 'Ультралегкие коллекторы из сплава Titan-Gr5\nКастомная фрезеровка насадок\nОгненные отстрелы и сочный басовитый тон',
-    img: 'assets/moto/gtt_moto_r1m_m1000rr_night.jpg',
+    img: '',
     sort_order: 2,
     is_active: 1
   },
@@ -828,7 +828,7 @@ const defaultMoto = [
     code: 'BESPOKE // CNC',
     desc: 'Полный цикл доработки премиальной мототехники: кованые сверхлегкие диски, сухое сцепление, карбоновое оперение и комплексное предсезонное ТО.',
     bullets: 'Сухой автоклавный карбон 3K/12K\nТормозные системы Brembo Racing / GP4\nИндивидуальный дизайн и покраска',
-    img: 'assets/moto/bmw_m1000rr_cafe_street.jpg',
+    img: '',
     sort_order: 3,
     is_active: 1
   }
@@ -5171,12 +5171,9 @@ function renderMotoTable() {
 
   let needSave = false;
   moto = moto.map(m => {
-    if (!m.img || m.img.includes('partners_banner') || m.img.includes('placeholder')) {
+    if (m.img && (m.img.includes('partners_banner') || m.img.includes('placeholder'))) {
       needSave = true;
-      if (m.id === 'moto_1') m.img = 'assets/moto/bmw_m1000rr_gtt.jpg';
-      else if (m.id === 'moto_2') m.img = 'assets/moto/gtt_moto_r1m_m1000rr_night.jpg';
-      else if (m.id === 'moto_3') m.img = 'assets/moto/bmw_m1000rr_cafe_street.jpg';
-      else m.img = 'assets/moto/bmw_m1000rr_gtt.jpg';
+      m.img = '';
     }
     return m;
   });
@@ -5276,11 +5273,6 @@ function openMotoModal(id) {
     const moto = getDB(MOTO_STORAGE_KEY, defaultMoto);
     const m = moto.find(item => item.id === id);
     if (!m) return;
-    if (!m.img || m.img.includes('partners_banner') || m.img.includes('placeholder')) {
-      if (m.id === 'moto_1') m.img = 'assets/moto/bmw_m1000rr_gtt.jpg';
-      else if (m.id === 'moto_2') m.img = 'assets/moto/gtt_moto_r1m_m1000rr_night.jpg';
-      else if (m.id === 'moto_3') m.img = 'assets/moto/bmw_m1000rr_cafe_street.jpg';
-    }
     title.textContent = `Редактирование: ${m.title}`;
     document.getElementById('editMotoId').value = m.id;
     document.getElementById('editMotoTitle').value = m.title || '';

@@ -1999,19 +1999,7 @@ def get_all_moto() -> List[Dict[str, Any]]:
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM moto ORDER BY sort_order ASC, rowid ASC")
-    rows = []
-    for r in cursor.fetchall():
-        m = dict(r)
-        if not m.get("img") or "partners_banner" in m.get("img", ""):
-            if m.get("id") == "moto_1":
-                m["img"] = "assets/moto/bmw_m1000rr_gtt.jpg"
-            elif m.get("id") == "moto_2":
-                m["img"] = "assets/moto/gtt_moto_r1m_m1000rr_night.jpg"
-            elif m.get("id") == "moto_3":
-                m["img"] = "assets/moto/bmw_m1000rr_cafe_street.jpg"
-            else:
-                m["img"] = "assets/moto/bmw_m1000rr_gtt.jpg"
-        rows.append(m)
+    rows = [dict(r) for r in cursor.fetchall()]
     conn.close()
     return rows
 
