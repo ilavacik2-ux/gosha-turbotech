@@ -869,7 +869,7 @@ let gttProjects = [
     "img": "assets/cars/bmw_m7_gtt_blue.jpg",
     "fallbackImg": "assets/cars/bmw_m7_gtt_blue.jpg",
     "isPhoto": true,
-    "objectPosition": "center 65%",
+    "objectPosition": "center 82%",
     "desc": {
       "ru": "Представительский флагман BMW 7 серии в глубокой доработке GoshaTurboTech. Двухтурбинный V8/V12, бесшумный акустический комфорт в салоне и ураганная динамика на скоростных прямых.",
       "en": "Executive flagship 7-series heavily enhanced by GoshaTurboTech. Twin-turbocharged powertrain offering silent luxury alongside autobahn supremacy."
@@ -2415,15 +2415,7 @@ function getGalleryBilingual(rawTitle, rawTag) {
       ru: 'Пилот Саркисян и дрэгстер Draco в закрытом парке',
       en: 'Pilot Sarkisyan & Draco Dragster in Parc Fermé'
     },
-    // 6. Lucifer
-    'GT-R Lucifer на прогреве': {
-      ru: 'GT-R Lucifer на прогреве',
-      en: 'GT-R Lucifer in Staging'
-    },
-    'Nissan GT-R Lucifer анфас перед стартом': {
-      ru: 'Nissan GT-R Lucifer анфас перед стартом',
-      en: 'Nissan GT-R Lucifer Front View Before Launch'
-    },
+
     // 7. Huracan on staging
     'Huracan TT на стартовом створе': {
       ru: 'Huracan TT на стартовом створе',
@@ -3620,6 +3612,20 @@ window.toggleGarageExpand = function() {
   renderGarageGrid(activeFilter);
 };
 
+window.handleCarCardImgLoad = function(imgEl, configuredPos) {
+  if (!imgEl || !imgEl.naturalWidth || !imgEl.naturalHeight) return;
+  // Systematic detection: if the photo is portrait / vertical (height > width * 1.12)
+  const isPortrait = imgEl.naturalHeight > imgEl.naturalWidth * 1.12;
+  if (isPortrait) {
+    imgEl.classList.add('is-portrait-car-photo');
+    // If no custom offset was specifically configured or it's default center center / center 50%,
+    // automatically pin to center 80% so wheels, bumper and grill are always in full view!
+    if (!configuredPos || configuredPos === 'center center' || configuredPos === 'center 50%') {
+      imgEl.style.setProperty('object-position', 'center 80%', 'important');
+    }
+  }
+};
+
 // Render Garage Grid with smooth animation & bilingual support
 function renderGarageGrid(filterType) {
   const container = document.getElementById('garageGrid');
@@ -3694,6 +3700,7 @@ function renderGarageGrid(filterType) {
                src="${convertGoogleDriveUrl(car.img)}" 
                alt="${name}" 
                style="${car.objectPosition ? `object-position: ${car.objectPosition} !important;` : ''}"
+               onload="handleCarCardImgLoad(this, '${escapeJS(car.objectPosition || '')}')"
                onerror="this.onerror=null; this.src='${car.fallbackImg || 'assets/cars/gtt_classified_car.svg'}';">
         </div>
         <div class="car-card-info">

@@ -2936,7 +2936,7 @@ function setCarPhotoPreset(preset) {
   let val = 50;
   if (preset === 'top') val = 15;
   else if (preset === 'center') val = 50;
-  else if (preset === 'bottom') val = 80;
+  else if (preset === 'bottom') val = 82;
 
   handleCarPhotoPositionChange(val);
 }
