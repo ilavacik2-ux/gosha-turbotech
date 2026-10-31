@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=23.0">
+  <link rel="stylesheet" href="css/style.css?v=29.0">
 </head>
 <body class="is-loading">
 
@@ -333,20 +333,6 @@
       <p class="section-subtitle" data-i18n="records_subtitle">Более 15 лет непрерывных побед на дистанциях 402 м, 804 м, 1000 м и ледовых трассах.</p>
     </div>
 
-    <!-- Dedicated Telemetry HUD Strip: Record + Car Name (Live Telemetry Line) -->
-    <div class="records-hud-ticker" id="recordsHudTicker">
-      <div class="records-hud-left">
-        <span class="hud-status-led"><span class="led-dot"></span> LIVE TELEMETRY</span>
-        <span class="hud-record-metric" id="hudRecordMetric">1/4 МИЛИ: 7.526 СЕК • 304.36 КМ/Ч</span>
-        <span class="hud-divider">/</span>
-        <span class="hud-car-name" id="hudCarName">NISSAN GT-R R35 GTT-1800 «MOSES»</span>
-      </div>
-      <div class="records-hud-right">
-        <span class="hud-event-badge" id="hudEventBadge">2016 • АБСОЛЮТНЫЙ РЕКОРД GTT</span>
-        <span class="hud-slide-counter" id="hudSlideCounter">16 РЕКОРДОВ</span>
-      </div>
-    </div>
-
     <!-- Animated Continuous Carousel Stage -->
     <div class="records-carousel-stage">
       <button class="records-carousel-btn prev" id="recordsPrevBtn" aria-label="Предыдущий рекорд" onclick="recordsCarouselPrev()">
@@ -355,580 +341,580 @@
 
       <div class="records-carousel-viewport" id="recordsCarouselViewport">
         <div class="records-carousel-track" id="recordsCarouselTrack">
-          <div class="record-item" data-id="rec_moses" data-metric="1/4 мили: 7.526 сек • 304.36 км/ч" data-car="NISSAN GT-R R35 GTT-1800 «MOSES»" data-year="2016 • Абсолютный рекорд GTT">
+          <div class="record-item" data-id="rec_moses">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/gtr_moses.png" alt="NISSAN GT-R R35 GTT-1800 «MOSES»" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">2016 • Абсолютный рекорд GTT</span>
-              <span class="record-index-badge">#01</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/4 мили: 7.526 сек • 304.36 км/ч</span>
-                <span class="rsh-car" style="display:none;">NISSAN GT-R R35 GTT-1800 «MOSES»</span>
+              <img src="assets/archive_tilda/gtr_moses.png" alt="NISSAN GT-R R35 «MOSES»" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">UNLIM 500+ • 2016</span>
+                <span class="record-num-pill">#01</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">NISSAN GT-R R35 GTT-1800 «MOSES»</h3>
-              <p class="record-text">Легендарные тесты в ОАЭ и UNLIM 500+ Greece. 7.526 сек со скоростью 304.36 км/ч — быстрейший результат на 402 м за всю историю ателье GoshaTurboTech.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">7.526 <span class="record-hero-unit">СЕК</span></span>
+                <span class="record-hero-speed">304.36 КМ/Ч • 1/4 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">NISSAN GT-R R35 «MOSES»</h3>
+              <p class="record-car-desc">Абсолютный рекорд 402 м за всю историю ателье GoshaTurboTech.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_draco" data-metric="1/4 мили: 7.694 сек • 304.44 км/ч" data-car="NISSAN GT-R R35 DRACO PRO-MOD #300" data-year="2024 • Рекорд RDRC Pro-Mod">
+          <div class="record-item" data-id="rec_draco">
             <div class="record-photo-wrapper">
-              <img src="assets/cars/gtr_draco_promod_front.jpg" alt="NISSAN GT-R R35 DRACO PRO-MOD #300" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">2024 • Рекорд RDRC Pro-Mod</span>
-              <span class="record-index-badge">#02</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/4 мили: 7.694 сек • 304.44 км/ч</span>
-                <span class="rsh-car" style="display:none;">NISSAN GT-R R35 DRACO PRO-MOD #300</span>
+              <img src="assets/cars/gtr_draco_promod_front.jpg" alt="NISSAN GT-R DRACO PRO-MOD #300" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">RDRC PRO-MOD • 2024</span>
+                <span class="record-num-pill">#02</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">NISSAN GT-R R35 DRACO PRO-MOD #300</h3>
-              <p class="record-text">Пилот Руслан Арефьев на этапе RDRC 2024 (заезд №537). Подтвержденный протокол DragDB. Скорость на выходе 1/2 мили превысила 323.88 км/ч.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">7.694 <span class="record-hero-unit">СЕК</span></span>
+                <span class="record-hero-speed">304.44 КМ/Ч • 1/4 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">NISSAN GT-R DRACO PRO-MOD #300</h3>
+              <p class="record-car-desc">Флагман дрэг-рейсинга России. Выход из 1/2 мили 323.88 км/ч.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_kurdalagon" data-metric="1/4 мили: 7.766 сек • 300.00 км/ч" data-car="NISSAN GT-R R35 «КУРДАЛАГОН»" data-year="26.10.2026 • Рекорд Быково">
+          <div class="record-item" data-id="rec_kurdalagon">
             <div class="record-photo-wrapper">
               <img src="assets/archive_tilda/gtr_kurdalagon.png" alt="NISSAN GT-R R35 «КУРДАЛАГОН»" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">26.10.2026 • Рекорд Быково</span>
-              <span class="record-index-badge">#03</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/4 мили: 7.766 сек • 300.00 км/ч</span>
-                <span class="rsh-car" style="display:none;">NISSAN GT-R R35 «КУРДАЛАГОН»</span>
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">RDRC БЫКОВО • 2026</span>
+                <span class="record-num-pill">#03</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">NISSAN GT-R R35 «КУРДАЛАГОН»</h3>
-              <p class="record-text">Свежайший подтвержденный рекорд команды GoshaTurboTech, зафиксированный на трек-дне в Быково в конце октября 2026 года.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">7.766 <span class="record-hero-unit">СЕК</span></span>
+                <span class="record-hero-speed">300.00 КМ/Ч • 1/4 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">NISSAN GT-R R35 «КУРДАЛАГОН»</h3>
+              <p class="record-car-desc">Официальный рекорд трек-дня в Быково конца октября 2026.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_rokot" data-metric="1/4 мили: 7.877 сек • Суперкубок RDRC" data-car="AUDI R8 V10 PLUS TWIN TURBO «ROKOT»" data-year="2026 • Рекорд России для Audi">
+          <div class="record-item" data-id="rec_rokot">
             <div class="record-photo-wrapper">
-              <img src="assets/cars/audi_r8_tsmr_launch.jpg" alt="AUDI R8 V10 PLUS TWIN TURBO «ROKOT»" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">2026 • Рекорд России для Audi</span>
-              <span class="record-index-badge">#04</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/4 мили: 7.877 сек • Суперкубок RDRC</span>
-                <span class="rsh-car" style="display:none;">AUDI R8 V10 PLUS TWIN TURBO «ROKOT»</span>
+              <img src="assets/cars/audi_r8_tsmr_launch.jpg" alt="AUDI R8 V10 PLUS TT «ROKOT»" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">РЕКОРД РОССИИ • 2026</span>
+                <span class="record-num-pill">#04</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">AUDI R8 V10 PLUS TWIN TURBO «ROKOT»</h3>
-              <p class="record-text">Эдуард Саркисян и Руслан Арефьев на болиде ателье GoshaTurboTech впервые в истории России вывели Audi из рубежа 8 секунд.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">7.877 <span class="record-hero-unit">СЕК</span></span>
+                <span class="record-hero-speed">СУПЕРКУБОК RDRC • 1/4 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">AUDI R8 V10 PLUS TT «ROKOT»</h3>
+              <p class="record-car-desc">Первый и единственный болид Audi в России быстрее 8 секунд.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_bezzubik" data-metric="1/2 мили: 353.02 км/ч • 1/4 мили: 8.054 сек" data-car="LAMBORGHINI HURACAN TT BEZZUBIK" data-year="Рекорд Европы • Race 1000">
+          <div class="record-item" data-id="rec_bezzubik">
             <div class="record-photo-wrapper">
-              <img src="assets/photos/huracan_rdrc_stage_line.jpg" alt="LAMBORGHINI HURACAN TT BEZZUBIK" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">Рекорд Европы • Race 1000</span>
-              <span class="record-index-badge">#05</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/2 мили: 353.02 км/ч • 1/4 мили: 8.054 сек</span>
-                <span class="rsh-car" style="display:none;">LAMBORGHINI HURACAN TT BEZZUBIK</span>
+              <img src="assets/photos/huracan_rdrc_stage_line.jpg" alt="HURACAN TT «BEZZUBIK»" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">RACE 1000 • ГЕРМАНИЯ</span>
+                <span class="record-num-pill">#05</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">LAMBORGHINI HURACAN TT BEZZUBIK</h3>
-              <p class="record-text">Официальный рекорд Европы на дистанции 804 м среди полноприводных суперкаров в Германии (353.02 км/ч) и 8.054 сек на 402 м. Легенда GTT.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">353.02 <span class="record-hero-unit">КМ/Ч</span></span>
+                <span class="record-hero-speed">1/2 МИЛИ • 8.054 СЕК НА 402 М</span>
+              </div>
+              <h3 class="record-car-title">HURACAN TT «BEZZUBIK»</h3>
+              <p class="record-car-desc">Официальный рекорд Европы на дистанции 804 м среди полноприводных суперкаров.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_zelenka" data-metric="1/4 мили: 8.373 сек • 1000 м: 344.60 км/ч" data-car="LAMBORGHINI HURACAN TWIN TURBO «ЗЕЛЕНКА»" data-year="ОАЭ & Германия • 344.60 км/ч">
+          <div class="record-item" data-id="rec_zelenka">
             <div class="record-photo-wrapper">
-              <img src="assets/photos/huracan_zelenka_gtt.jpg" alt="LAMBORGHINI HURACAN TWIN TURBO «ЗЕЛЕНКА»" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">ОАЭ & Германия • 344.60 км/ч</span>
-              <span class="record-index-badge">#06</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/4 мили: 8.373 сек • 1000 м: 344.60 км/ч</span>
-                <span class="rsh-car" style="display:none;">LAMBORGHINI HURACAN TWIN TURBO «ЗЕЛЕНКА»</span>
+              <img src="assets/photos/huracan_zelenka_gtt.jpg" alt="HURACAN TT «ЗЕЛЕНКА»" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">ROLLING 50 1000</span>
+                <span class="record-num-pill">#06</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">LAMBORGHINI HURACAN TWIN TURBO «ЗЕЛЕНКА»</h3>
-              <p class="record-text">8.373 сек со скоростью 275.26 км/ч на 1/4 мили в ОАЭ и 344.60 км/ч на 1000 м в Германии (Rolling 50 1000). Культовый проект.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">344.60 <span class="record-hero-unit">КМ/Ч</span></span>
+                <span class="record-hero-speed">1000 М • 8.373 СЕК 1/4 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">HURACAN TT «ЗЕЛЕНКА»</h3>
+              <p class="record-car-desc">Культовый 2000+ сильный болид GoshaTurboTech в ОАЭ и Германии.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_lucifer" data-metric="1/4 мили: 8.400 сек • 1/2 мили: 343.67 км/ч" data-car="NISSAN GT-R R35 «LUCIFER» GTT #71" data-year="RDRC 2026 • 1-е место в классе">
+          <div class="record-item" data-id="rec_lucifer">
             <div class="record-photo-wrapper">
-              <img src="assets/cars/gtr_lucifer_solo.jpg" alt="NISSAN GT-R R35 «LUCIFER» GTT #71" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">RDRC 2026 • 1-е место в классе</span>
-              <span class="record-index-badge">#07</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/4 мили: 8.400 сек • 1/2 мили: 343.67 км/ч</span>
-                <span class="rsh-car" style="display:none;">NISSAN GT-R R35 «LUCIFER» GTT #71</span>
+              <img src="assets/cars/gtr_lucifer_solo.jpg" alt="NISSAN GT-R R35 «LUCIFER» #71" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">RDRC 2026 • ЧЕМПИОН</span>
+                <span class="record-num-pill">#07</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">NISSAN GT-R R35 «LUCIFER» GTT #71</h3>
-              <p class="record-text">Флагманский болид Гоши Перцхелии. 8.400 сек в ОАЭ, победный заезд 8.551 сек на RDRC 2026 и 343.67 км/ч на Unlim 500+.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">8.400 <span class="record-hero-unit">СЕК</span></span>
+                <span class="record-hero-speed">343.67 КМ/Ч • 1/2 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">NISSAN GT-R R35 «LUCIFER» #71</h3>
+              <p class="record-car-desc">Личный флагманский боевой болид Гоши Перцхелии.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_korzhik" data-metric="1/2 мили: 13.435 сек • 334.41 км/ч" data-car="NISSAN GT-R R35 GTT «KORZHIK» #712" data-year="Рекорд России • Московская миля">
+          <div class="record-item" data-id="rec_korzhik">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/gtr_korzhik.png" alt="NISSAN GT-R R35 GTT «KORZHIK» #712" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">Рекорд России • Московская миля</span>
-              <span class="record-index-badge">#08</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/2 мили: 13.435 сек • 334.41 км/ч</span>
-                <span class="rsh-car" style="display:none;">NISSAN GT-R R35 GTT «KORZHIK» #712</span>
+              <img src="assets/archive_tilda/gtr_korzhik.png" alt="NISSAN GT-R R35 «KORZHIK» #712" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">МОСКОВСКАЯ МИЛЯ</span>
+                <span class="record-num-pill">#08</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">NISSAN GT-R R35 GTT «KORZHIK» #712</h3>
-              <p class="record-text">Пилот Николай Коржов. 8.602 сек на 402 м и официальный рекорд России на 1/2 мили — 13.435 сек со скоростью 334.41 км/ч.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">13.435 <span class="record-hero-unit">СЕК</span></span>
+                <span class="record-hero-speed">334.41 КМ/Ч • 1/2 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">NISSAN GT-R R35 «KORZHIK» #712</h3>
+              <p class="record-car-desc">Пилот Николай Коржов. Официальный рекорд России на 1/2 мили.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_hulk" data-metric="1/4 мили: 8.951 сек • 3/8 мили: 291.14 км/ч" data-car="LAMBORGHINI HURACAN LP610-4 «HULK»" data-year="Суперкубок RDRC 2026">
+          <div class="record-item" data-id="rec_hulk">
             <div class="record-photo-wrapper">
-              <img src="assets/cars/huracan_green_grey_rdrc.jpg" alt="LAMBORGHINI HURACAN LP610-4 «HULK»" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">Суперкубок RDRC 2026</span>
-              <span class="record-index-badge">#09</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/4 мили: 8.951 сек • 3/8 мили: 291.14 км/ч</span>
-                <span class="rsh-car" style="display:none;">LAMBORGHINI HURACAN LP610-4 «HULK»</span>
+              <img src="assets/cars/huracan_green_grey_rdrc.jpg" alt="HURACAN LP610-4 «HULK»" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">СУПЕРКУБОК RDRC</span>
+                <span class="record-num-pill">#09</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">LAMBORGHINI HURACAN LP610-4 «HULK»</h3>
-              <p class="record-text">Пилот Эдуард Саркисян в зачете GoshaTurboTech. 8.951 сек со скоростью 257.14 км/ч на 1/4 мили (3/8 мили: 11.561 с / 291.14 км/ч).</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">8.951 <span class="record-hero-unit">СЕК</span></span>
+                <span class="record-hero-speed">257.14 КМ/Ч • 1/4 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">HURACAN LP610-4 «HULK»</h3>
+              <p class="record-car-desc">Пилот Эдуард Саркисян. Победный заезд на Суперкубке RDRC.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_tonystark" data-metric="1/4 мили: 8.948 сек • 247.68 км/ч" data-car="AUDI R8 V10 PLUS TT «TONY STARK»" data-year="Record Days 2023">
+          <div class="record-item" data-id="rec_tonystark">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/audi_r8_tonystark.png" alt="AUDI R8 V10 PLUS TT «TONY STARK»" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">Record Days 2023</span>
-              <span class="record-index-badge">#10</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/4 мили: 8.948 сек • 247.68 км/ч</span>
-                <span class="rsh-car" style="display:none;">AUDI R8 V10 PLUS TT «TONY STARK»</span>
+              <img src="assets/archive_tilda/audi_r8_tonystark.png" alt="AUDI R8 V10 PLUS «TONY STARK»" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">RECORD DAYS</span>
+                <span class="record-num-pill">#10</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">AUDI R8 V10 PLUS TT «TONY STARK»</h3>
-              <p class="record-text">Стабильный выезд из 9 секунд на трек-днях Record Days (8.948 сек) и 15.403 сек со скоростью 287.19 км/ч на 1/2 мили.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">8.948 <span class="record-hero-unit">СЕК</span></span>
+                <span class="record-hero-speed">287.19 КМ/Ч • 1/2 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">AUDI R8 V10 PLUS «TONY STARK»</h3>
+              <p class="record-car-desc">Стабильный выезд из 9 секунд на трек-днях Record Days.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_gtt1200" data-metric="1/4 мили: 9.086 сек • 259.64 км/ч" data-car="PORSCHE 911 TURBO (991.1) GTT-1200" data-year="Рекорд России/Европы • RDRC RacePark">
+          <div class="record-item" data-id="rec_gtt1200">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/porsche_991_gtt1200.jpg" alt="PORSCHE 911 TURBO (991.1) GTT-1200" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">Рекорд России/Европы • RDRC RacePark</span>
-              <span class="record-index-badge">#11</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/4 мили: 9.086 сек • 259.64 км/ч</span>
-                <span class="rsh-car" style="display:none;">PORSCHE 911 TURBO (991.1) GTT-1200</span>
+              <img src="assets/archive_tilda/porsche_991_gtt1200.jpg" alt="PORSCHE 911 TURBO GTT-1200" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">РЕКОРД ЕВРОПЫ 991</span>
+                <span class="record-num-pill">#11</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">PORSCHE 911 TURBO (991.1) GTT-1200</h3>
-              <p class="record-text">Пилот Алексей Сагал. Рекорд России и Европы для кузова 991.1 (9.086 с), скорость на 1/2 мили — 312.77 км/ч.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">9.086 <span class="record-hero-unit">СЕК</span></span>
+                <span class="record-hero-speed">312.77 КМ/Ч • 1/2 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">PORSCHE 911 TURBO GTT-1200</h3>
+              <p class="record-car-desc">Пилот Алексей Сагал. Рекорд России и Европы для кузова 991.1.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_su7" data-metric="1/4 мили: 9.130 сек • 3/8 мили: 287.31 км/ч" data-car="XIAOMI SU7 ULTRA GTT RACE SPEC" data-year="2026 • Суперкубок RDRC">
+          <div class="record-item" data-id="rec_su7">
             <div class="record-photo-wrapper">
-              <img src="assets/cars/bmw_m5_rdrc_race.jpg" alt="XIAOMI SU7 ULTRA GTT RACE SPEC" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">2026 • Суперкубок RDRC</span>
-              <span class="record-index-badge">#12</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/4 мили: 9.130 сек • 3/8 мили: 287.31 км/ч</span>
-                <span class="rsh-car" style="display:none;">XIAOMI SU7 ULTRA GTT RACE SPEC</span>
+              <img src="assets/cars/bmw_m5_rdrc_race.jpg" alt="XIAOMI SU7 ULTRA GTT SPEC" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">СУПЕРКУБОК 2026</span>
+                <span class="record-num-pill">#12</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">XIAOMI SU7 ULTRA GTT RACE SPEC</h3>
-              <p class="record-text">Пилот В. Щед в зачете GoshaTurboTech на Суперкубке RDRC 2026 показал сенсационные 9.130 сек со скоростью 249.31 км/ч.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">9.130 <span class="record-hero-unit">СЕК</span></span>
+                <span class="record-hero-speed">249.31 КМ/Ч • 1/4 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">XIAOMI SU7 ULTRA GTT SPEC</h3>
+              <p class="record-car-desc">Сенсационный рекорд команды для электрических гиперкаров.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_imba" data-metric="1/4 мили: 9.167 сек • RDRC 2025" data-car="PORSCHE 911 TURBO S (992) GTT-IMBA" data-year="2022–2025 • Мировой рекорд RDRC">
+          <div class="record-item" data-id="rec_imba">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/porsche_992_imba.jpg" alt="PORSCHE 911 TURBO S (992) GTT-IMBA" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">2022–2025 • Мировой рекорд RDRC</span>
-              <span class="record-index-badge">#13</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/4 мили: 9.167 сек • RDRC 2025</span>
-                <span class="rsh-car" style="display:none;">PORSCHE 911 TURBO S (992) GTT-IMBA</span>
+              <img src="assets/archive_tilda/porsche_992_imba.jpg" alt="PORSCHE 911 TURBO S IMBA" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">МИРОВОЙ ОРИЕНТИР 992</span>
+                <span class="record-num-pill">#13</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">PORSCHE 911 TURBO S (992) GTT-IMBA</h3>
-              <p class="record-text">Пилот Мария Кутычкина. Мировой рекорд 9.252 сек со скоростью 231.80 км/ч на заводских турбинах, улучшенный на RDRC 2025 до 9.167 сек.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">9.167 <span class="record-hero-unit">СЕК</span></span>
+                <span class="record-hero-speed">231.80 КМ/Ч • 1/4 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">PORSCHE 911 TURBO S IMBA</h3>
+              <p class="record-car-desc">Пилот Мария Кутычкина. Быстрейший 992 на заводских турбинах.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_puncher" data-metric="1/4 мили: 9.303 сек • 235.83 км/ч" data-car="PORSCHE 911 TURBO S (992) PUNCHER" data-year="2021 • Мировой ориентир UNLIM FEST">
+          <div class="record-item" data-id="rec_puncher">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/porsche_992_puncher.jpg" alt="PORSCHE 911 TURBO S (992) PUNCHER" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">2021 • Мировой ориентир UNLIM FEST</span>
-              <span class="record-index-badge">#14</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/4 мили: 9.303 сек • 235.83 км/ч</span>
-                <span class="rsh-car" style="display:none;">PORSCHE 911 TURBO S (992) PUNCHER</span>
+              <img src="assets/archive_tilda/porsche_992_puncher.jpg" alt="PORSCHE 911 TURBO S PUNCHER" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">UNLIM FEST</span>
+                <span class="record-num-pill">#14</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">PORSCHE 911 TURBO S (992) PUNCHER</h3>
-              <p class="record-text">Мировой ориентир для дорожных Porsche 992 на Unlim Fest (9.303 сек) и 1/2 мили за 14.778 сек со скоростью 276.92 км/ч.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">9.303 <span class="record-hero-unit">СЕК</span></span>
+                <span class="record-hero-speed">276.92 КМ/Ч • 1/2 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">PORSCHE 911 TURBO S PUNCHER</h3>
+              <p class="record-car-desc">Триумф Сергея Никитина в зачетах дорожных Porsche 992.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_gyurza" data-metric="1 км с места на льду: 124.00 км/ч" data-car="AUDI R8 V10 PLUS TT «GYURZA»" data-year="2022 • Абсолютный рекорд льда">
+          <div class="record-item" data-id="rec_gyurza">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/audi_r8_gyurza_ice.jpg" alt="AUDI R8 V10 PLUS TT «GYURZA»" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">2022 • Абсолютный рекорд льда</span>
-              <span class="record-index-badge">#15</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1 км с места на льду: 124.00 км/ч</span>
-                <span class="rsh-car" style="display:none;">AUDI R8 V10 PLUS TT «GYURZA»</span>
+              <img src="assets/archive_tilda/audi_r8_gyurza_ice.jpg" alt="AUDI R8 V10 PLUS «GYURZA»" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">РЕКОРД ЛЬДА БАЙКАЛА</span>
+                <span class="record-num-pill">#15</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">AUDI R8 V10 PLUS TT «GYURZA»</h3>
-              <p class="record-text">Дни скорости на льду озера Байкал совместно с Kiwamaru. Абсолютный триумфатор ледовых заездов с места в истории России.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">124.00 <span class="record-hero-unit">КМ/Ч</span></span>
+                <span class="record-hero-speed">1 КМ С МЕСТА ПО ЛЬДУ</span>
+              </div>
+              <h3 class="record-car-title">AUDI R8 V10 PLUS «GYURZA»</h3>
+              <p class="record-car-desc">Дни скорости на льду озера Байкал совместно с Kiwamaru.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_gallardo" data-metric="1 миля: 409.55 км/ч • 20.845 сек" data-car="LAMBORGHINI GALLARDO NERA TWIN TURBO" data-year="Мировой рекорд • 1 миля (1609 м)">
+          <div class="record-item" data-id="rec_gallardo">
             <div class="record-photo-wrapper">
-              <img src="assets/photos/huracan_zelenka_gtt.jpg" alt="LAMBORGHINI GALLARDO NERA TWIN TURBO" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">Мировой рекорд • 1 миля (1609 м)</span>
-              <span class="record-index-badge">#16</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1 миля: 409.55 км/ч • 20.845 сек</span>
-                <span class="rsh-car" style="display:none;">LAMBORGHINI GALLARDO NERA TWIN TURBO</span>
+              <img src="assets/photos/huracan_zelenka_gtt.jpg" alt="LAMBORGHINI GALLARDO NERA TT" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">МИРОВОЙ РЕКОРД 1 МИЛЯ</span>
+                <span class="record-num-pill">#16</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">LAMBORGHINI GALLARDO NERA TWIN TURBO</h3>
-              <p class="record-text">Аэродром Крит, Греция. Легендарная Черная Галлардо Гоши Перцхелии — первый болид из России, покоривший планку 400+ км/ч на 1 милю.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">409.55 <span class="record-hero-unit">КМ/Ч</span></span>
+                <span class="record-hero-speed">20.845 СЕК НА 1 МИЛЮ (1609 М)</span>
+              </div>
+              <h3 class="record-car-title">LAMBORGHINI GALLARDO NERA TT</h3>
+              <p class="record-car-desc">Первый болид из России, покоривший планку 400+ км/ч в Греции.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_moses_dup" data-metric="1/4 мили: 7.526 сек • 304.36 км/ч" data-car="NISSAN GT-R R35 GTT-1800 «MOSES»" data-year="2016 • Абсолютный рекорд GTT">
+          <div class="record-item" data-id="rec_moses_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/gtr_moses.png" alt="NISSAN GT-R R35 GTT-1800 «MOSES»" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">2016 • Абсолютный рекорд GTT</span>
-              <span class="record-index-badge">#01</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/4 мили: 7.526 сек • 304.36 км/ч</span>
-                <span class="rsh-car" style="display:none;">NISSAN GT-R R35 GTT-1800 «MOSES»</span>
+              <img src="assets/archive_tilda/gtr_moses.png" alt="NISSAN GT-R R35 «MOSES»" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">UNLIM 500+ • 2016</span>
+                <span class="record-num-pill">#01</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">NISSAN GT-R R35 GTT-1800 «MOSES»</h3>
-              <p class="record-text">Легендарные тесты в ОАЭ и UNLIM 500+ Greece. 7.526 сек со скоростью 304.36 км/ч — быстрейший результат на 402 м за всю историю ателье GoshaTurboTech.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">7.526 <span class="record-hero-unit">СЕК</span></span>
+                <span class="record-hero-speed">304.36 КМ/Ч • 1/4 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">NISSAN GT-R R35 «MOSES»</h3>
+              <p class="record-car-desc">Абсолютный рекорд 402 м за всю историю ателье GoshaTurboTech.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_draco_dup" data-metric="1/4 мили: 7.694 сек • 304.44 км/ч" data-car="NISSAN GT-R R35 DRACO PRO-MOD #300" data-year="2024 • Рекорд RDRC Pro-Mod">
+          <div class="record-item" data-id="rec_draco_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/cars/gtr_draco_promod_front.jpg" alt="NISSAN GT-R R35 DRACO PRO-MOD #300" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">2024 • Рекорд RDRC Pro-Mod</span>
-              <span class="record-index-badge">#02</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/4 мили: 7.694 сек • 304.44 км/ч</span>
-                <span class="rsh-car" style="display:none;">NISSAN GT-R R35 DRACO PRO-MOD #300</span>
+              <img src="assets/cars/gtr_draco_promod_front.jpg" alt="NISSAN GT-R DRACO PRO-MOD #300" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">RDRC PRO-MOD • 2024</span>
+                <span class="record-num-pill">#02</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">NISSAN GT-R R35 DRACO PRO-MOD #300</h3>
-              <p class="record-text">Пилот Руслан Арефьев на этапе RDRC 2024 (заезд №537). Подтвержденный протокол DragDB. Скорость на выходе 1/2 мили превысила 323.88 км/ч.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">7.694 <span class="record-hero-unit">СЕК</span></span>
+                <span class="record-hero-speed">304.44 КМ/Ч • 1/4 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">NISSAN GT-R DRACO PRO-MOD #300</h3>
+              <p class="record-car-desc">Флагман дрэг-рейсинга России. Выход из 1/2 мили 323.88 км/ч.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_kurdalagon_dup" data-metric="1/4 мили: 7.766 сек • 300.00 км/ч" data-car="NISSAN GT-R R35 «КУРДАЛАГОН»" data-year="26.10.2026 • Рекорд Быково">
+          <div class="record-item" data-id="rec_kurdalagon_dup">
             <div class="record-photo-wrapper">
               <img src="assets/archive_tilda/gtr_kurdalagon.png" alt="NISSAN GT-R R35 «КУРДАЛАГОН»" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">26.10.2026 • Рекорд Быково</span>
-              <span class="record-index-badge">#03</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/4 мили: 7.766 сек • 300.00 км/ч</span>
-                <span class="rsh-car" style="display:none;">NISSAN GT-R R35 «КУРДАЛАГОН»</span>
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">RDRC БЫКОВО • 2026</span>
+                <span class="record-num-pill">#03</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">NISSAN GT-R R35 «КУРДАЛАГОН»</h3>
-              <p class="record-text">Свежайший подтвержденный рекорд команды GoshaTurboTech, зафиксированный на трек-дне в Быково в конце октября 2026 года.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">7.766 <span class="record-hero-unit">СЕК</span></span>
+                <span class="record-hero-speed">300.00 КМ/Ч • 1/4 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">NISSAN GT-R R35 «КУРДАЛАГОН»</h3>
+              <p class="record-car-desc">Официальный рекорд трек-дня в Быково конца октября 2026.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_rokot_dup" data-metric="1/4 мили: 7.877 сек • Суперкубок RDRC" data-car="AUDI R8 V10 PLUS TWIN TURBO «ROKOT»" data-year="2026 • Рекорд России для Audi">
+          <div class="record-item" data-id="rec_rokot_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/cars/audi_r8_tsmr_launch.jpg" alt="AUDI R8 V10 PLUS TWIN TURBO «ROKOT»" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">2026 • Рекорд России для Audi</span>
-              <span class="record-index-badge">#04</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/4 мили: 7.877 сек • Суперкубок RDRC</span>
-                <span class="rsh-car" style="display:none;">AUDI R8 V10 PLUS TWIN TURBO «ROKOT»</span>
+              <img src="assets/cars/audi_r8_tsmr_launch.jpg" alt="AUDI R8 V10 PLUS TT «ROKOT»" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">РЕКОРД РОССИИ • 2026</span>
+                <span class="record-num-pill">#04</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">AUDI R8 V10 PLUS TWIN TURBO «ROKOT»</h3>
-              <p class="record-text">Эдуард Саркисян и Руслан Арефьев на болиде ателье GoshaTurboTech впервые в истории России вывели Audi из рубежа 8 секунд.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">7.877 <span class="record-hero-unit">СЕК</span></span>
+                <span class="record-hero-speed">СУПЕРКУБОК RDRC • 1/4 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">AUDI R8 V10 PLUS TT «ROKOT»</h3>
+              <p class="record-car-desc">Первый и единственный болид Audi в России быстрее 8 секунд.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_bezzubik_dup" data-metric="1/2 мили: 353.02 км/ч • 1/4 мили: 8.054 сек" data-car="LAMBORGHINI HURACAN TT BEZZUBIK" data-year="Рекорд Европы • Race 1000">
+          <div class="record-item" data-id="rec_bezzubik_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/photos/huracan_rdrc_stage_line.jpg" alt="LAMBORGHINI HURACAN TT BEZZUBIK" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">Рекорд Европы • Race 1000</span>
-              <span class="record-index-badge">#05</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/2 мили: 353.02 км/ч • 1/4 мили: 8.054 сек</span>
-                <span class="rsh-car" style="display:none;">LAMBORGHINI HURACAN TT BEZZUBIK</span>
+              <img src="assets/photos/huracan_rdrc_stage_line.jpg" alt="HURACAN TT «BEZZUBIK»" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">RACE 1000 • ГЕРМАНИЯ</span>
+                <span class="record-num-pill">#05</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">LAMBORGHINI HURACAN TT BEZZUBIK</h3>
-              <p class="record-text">Официальный рекорд Европы на дистанции 804 м среди полноприводных суперкаров в Германии (353.02 км/ч) и 8.054 сек на 402 м. Легенда GTT.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">353.02 <span class="record-hero-unit">КМ/Ч</span></span>
+                <span class="record-hero-speed">1/2 МИЛИ • 8.054 СЕК НА 402 М</span>
+              </div>
+              <h3 class="record-car-title">HURACAN TT «BEZZUBIK»</h3>
+              <p class="record-car-desc">Официальный рекорд Европы на дистанции 804 м среди полноприводных суперкаров.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_zelenka_dup" data-metric="1/4 мили: 8.373 сек • 1000 м: 344.60 км/ч" data-car="LAMBORGHINI HURACAN TWIN TURBO «ЗЕЛЕНКА»" data-year="ОАЭ & Германия • 344.60 км/ч">
+          <div class="record-item" data-id="rec_zelenka_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/photos/huracan_zelenka_gtt.jpg" alt="LAMBORGHINI HURACAN TWIN TURBO «ЗЕЛЕНКА»" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">ОАЭ & Германия • 344.60 км/ч</span>
-              <span class="record-index-badge">#06</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/4 мили: 8.373 сек • 1000 м: 344.60 км/ч</span>
-                <span class="rsh-car" style="display:none;">LAMBORGHINI HURACAN TWIN TURBO «ЗЕЛЕНКА»</span>
+              <img src="assets/photos/huracan_zelenka_gtt.jpg" alt="HURACAN TT «ЗЕЛЕНКА»" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">ROLLING 50 1000</span>
+                <span class="record-num-pill">#06</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">LAMBORGHINI HURACAN TWIN TURBO «ЗЕЛЕНКА»</h3>
-              <p class="record-text">8.373 сек со скоростью 275.26 км/ч на 1/4 мили в ОАЭ и 344.60 км/ч на 1000 м в Германии (Rolling 50 1000). Культовый проект.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">344.60 <span class="record-hero-unit">КМ/Ч</span></span>
+                <span class="record-hero-speed">1000 М • 8.373 СЕК 1/4 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">HURACAN TT «ЗЕЛЕНКА»</h3>
+              <p class="record-car-desc">Культовый 2000+ сильный болид GoshaTurboTech в ОАЭ и Германии.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_lucifer_dup" data-metric="1/4 мили: 8.400 сек • 1/2 мили: 343.67 км/ч" data-car="NISSAN GT-R R35 «LUCIFER» GTT #71" data-year="RDRC 2026 • 1-е место в классе">
+          <div class="record-item" data-id="rec_lucifer_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/cars/gtr_lucifer_solo.jpg" alt="NISSAN GT-R R35 «LUCIFER» GTT #71" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">RDRC 2026 • 1-е место в классе</span>
-              <span class="record-index-badge">#07</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/4 мили: 8.400 сек • 1/2 мили: 343.67 км/ч</span>
-                <span class="rsh-car" style="display:none;">NISSAN GT-R R35 «LUCIFER» GTT #71</span>
+              <img src="assets/cars/gtr_lucifer_solo.jpg" alt="NISSAN GT-R R35 «LUCIFER» #71" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">RDRC 2026 • ЧЕМПИОН</span>
+                <span class="record-num-pill">#07</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">NISSAN GT-R R35 «LUCIFER» GTT #71</h3>
-              <p class="record-text">Флагманский болид Гоши Перцхелии. 8.400 сек в ОАЭ, победный заезд 8.551 сек на RDRC 2026 и 343.67 км/ч на Unlim 500+.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">8.400 <span class="record-hero-unit">СЕК</span></span>
+                <span class="record-hero-speed">343.67 КМ/Ч • 1/2 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">NISSAN GT-R R35 «LUCIFER» #71</h3>
+              <p class="record-car-desc">Личный флагманский боевой болид Гоши Перцхелии.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_korzhik_dup" data-metric="1/2 мили: 13.435 сек • 334.41 км/ч" data-car="NISSAN GT-R R35 GTT «KORZHIK» #712" data-year="Рекорд России • Московская миля">
+          <div class="record-item" data-id="rec_korzhik_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/gtr_korzhik.png" alt="NISSAN GT-R R35 GTT «KORZHIK» #712" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">Рекорд России • Московская миля</span>
-              <span class="record-index-badge">#08</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/2 мили: 13.435 сек • 334.41 км/ч</span>
-                <span class="rsh-car" style="display:none;">NISSAN GT-R R35 GTT «KORZHIK» #712</span>
+              <img src="assets/archive_tilda/gtr_korzhik.png" alt="NISSAN GT-R R35 «KORZHIK» #712" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">МОСКОВСКАЯ МИЛЯ</span>
+                <span class="record-num-pill">#08</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">NISSAN GT-R R35 GTT «KORZHIK» #712</h3>
-              <p class="record-text">Пилот Николай Коржов. 8.602 сек на 402 м и официальный рекорд России на 1/2 мили — 13.435 сек со скоростью 334.41 км/ч.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">13.435 <span class="record-hero-unit">СЕК</span></span>
+                <span class="record-hero-speed">334.41 КМ/Ч • 1/2 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">NISSAN GT-R R35 «KORZHIK» #712</h3>
+              <p class="record-car-desc">Пилот Николай Коржов. Официальный рекорд России на 1/2 мили.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_hulk_dup" data-metric="1/4 мили: 8.951 сек • 3/8 мили: 291.14 км/ч" data-car="LAMBORGHINI HURACAN LP610-4 «HULK»" data-year="Суперкубок RDRC 2026">
+          <div class="record-item" data-id="rec_hulk_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/cars/huracan_green_grey_rdrc.jpg" alt="LAMBORGHINI HURACAN LP610-4 «HULK»" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">Суперкубок RDRC 2026</span>
-              <span class="record-index-badge">#09</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/4 мили: 8.951 сек • 3/8 мили: 291.14 км/ч</span>
-                <span class="rsh-car" style="display:none;">LAMBORGHINI HURACAN LP610-4 «HULK»</span>
+              <img src="assets/cars/huracan_green_grey_rdrc.jpg" alt="HURACAN LP610-4 «HULK»" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">СУПЕРКУБОК RDRC</span>
+                <span class="record-num-pill">#09</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">LAMBORGHINI HURACAN LP610-4 «HULK»</h3>
-              <p class="record-text">Пилот Эдуард Саркисян в зачете GoshaTurboTech. 8.951 сек со скоростью 257.14 км/ч на 1/4 мили (3/8 мили: 11.561 с / 291.14 км/ч).</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">8.951 <span class="record-hero-unit">СЕК</span></span>
+                <span class="record-hero-speed">257.14 КМ/Ч • 1/4 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">HURACAN LP610-4 «HULK»</h3>
+              <p class="record-car-desc">Пилот Эдуард Саркисян. Победный заезд на Суперкубке RDRC.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_tonystark_dup" data-metric="1/4 мили: 8.948 сек • 247.68 км/ч" data-car="AUDI R8 V10 PLUS TT «TONY STARK»" data-year="Record Days 2023">
+          <div class="record-item" data-id="rec_tonystark_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/audi_r8_tonystark.png" alt="AUDI R8 V10 PLUS TT «TONY STARK»" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">Record Days 2023</span>
-              <span class="record-index-badge">#10</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/4 мили: 8.948 сек • 247.68 км/ч</span>
-                <span class="rsh-car" style="display:none;">AUDI R8 V10 PLUS TT «TONY STARK»</span>
+              <img src="assets/archive_tilda/audi_r8_tonystark.png" alt="AUDI R8 V10 PLUS «TONY STARK»" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">RECORD DAYS</span>
+                <span class="record-num-pill">#10</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">AUDI R8 V10 PLUS TT «TONY STARK»</h3>
-              <p class="record-text">Стабильный выезд из 9 секунд на трек-днях Record Days (8.948 сек) и 15.403 сек со скоростью 287.19 км/ч на 1/2 мили.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">8.948 <span class="record-hero-unit">СЕК</span></span>
+                <span class="record-hero-speed">287.19 КМ/Ч • 1/2 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">AUDI R8 V10 PLUS «TONY STARK»</h3>
+              <p class="record-car-desc">Стабильный выезд из 9 секунд на трек-днях Record Days.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_gtt1200_dup" data-metric="1/4 мили: 9.086 сек • 259.64 км/ч" data-car="PORSCHE 911 TURBO (991.1) GTT-1200" data-year="Рекорд России/Европы • RDRC RacePark">
+          <div class="record-item" data-id="rec_gtt1200_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/porsche_991_gtt1200.jpg" alt="PORSCHE 911 TURBO (991.1) GTT-1200" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">Рекорд России/Европы • RDRC RacePark</span>
-              <span class="record-index-badge">#11</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/4 мили: 9.086 сек • 259.64 км/ч</span>
-                <span class="rsh-car" style="display:none;">PORSCHE 911 TURBO (991.1) GTT-1200</span>
+              <img src="assets/archive_tilda/porsche_991_gtt1200.jpg" alt="PORSCHE 911 TURBO GTT-1200" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">РЕКОРД ЕВРОПЫ 991</span>
+                <span class="record-num-pill">#11</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">PORSCHE 911 TURBO (991.1) GTT-1200</h3>
-              <p class="record-text">Пилот Алексей Сагал. Рекорд России и Европы для кузова 991.1 (9.086 с), скорость на 1/2 мили — 312.77 км/ч.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">9.086 <span class="record-hero-unit">СЕК</span></span>
+                <span class="record-hero-speed">312.77 КМ/Ч • 1/2 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">PORSCHE 911 TURBO GTT-1200</h3>
+              <p class="record-car-desc">Пилот Алексей Сагал. Рекорд России и Европы для кузова 991.1.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_su7_dup" data-metric="1/4 мили: 9.130 сек • 3/8 мили: 287.31 км/ч" data-car="XIAOMI SU7 ULTRA GTT RACE SPEC" data-year="2026 • Суперкубок RDRC">
+          <div class="record-item" data-id="rec_su7_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/cars/bmw_m5_rdrc_race.jpg" alt="XIAOMI SU7 ULTRA GTT RACE SPEC" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">2026 • Суперкубок RDRC</span>
-              <span class="record-index-badge">#12</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/4 мили: 9.130 сек • 3/8 мили: 287.31 км/ч</span>
-                <span class="rsh-car" style="display:none;">XIAOMI SU7 ULTRA GTT RACE SPEC</span>
+              <img src="assets/cars/bmw_m5_rdrc_race.jpg" alt="XIAOMI SU7 ULTRA GTT SPEC" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">СУПЕРКУБОК 2026</span>
+                <span class="record-num-pill">#12</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">XIAOMI SU7 ULTRA GTT RACE SPEC</h3>
-              <p class="record-text">Пилот В. Щед в зачете GoshaTurboTech на Суперкубке RDRC 2026 показал сенсационные 9.130 сек со скоростью 249.31 км/ч.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">9.130 <span class="record-hero-unit">СЕК</span></span>
+                <span class="record-hero-speed">249.31 КМ/Ч • 1/4 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">XIAOMI SU7 ULTRA GTT SPEC</h3>
+              <p class="record-car-desc">Сенсационный рекорд команды для электрических гиперкаров.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_imba_dup" data-metric="1/4 мили: 9.167 сек • RDRC 2025" data-car="PORSCHE 911 TURBO S (992) GTT-IMBA" data-year="2022–2025 • Мировой рекорд RDRC">
+          <div class="record-item" data-id="rec_imba_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/porsche_992_imba.jpg" alt="PORSCHE 911 TURBO S (992) GTT-IMBA" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">2022–2025 • Мировой рекорд RDRC</span>
-              <span class="record-index-badge">#13</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/4 мили: 9.167 сек • RDRC 2025</span>
-                <span class="rsh-car" style="display:none;">PORSCHE 911 TURBO S (992) GTT-IMBA</span>
+              <img src="assets/archive_tilda/porsche_992_imba.jpg" alt="PORSCHE 911 TURBO S IMBA" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">МИРОВОЙ ОРИЕНТИР 992</span>
+                <span class="record-num-pill">#13</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">PORSCHE 911 TURBO S (992) GTT-IMBA</h3>
-              <p class="record-text">Пилот Мария Кутычкина. Мировой рекорд 9.252 сек со скоростью 231.80 км/ч на заводских турбинах, улучшенный на RDRC 2025 до 9.167 сек.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">9.167 <span class="record-hero-unit">СЕК</span></span>
+                <span class="record-hero-speed">231.80 КМ/Ч • 1/4 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">PORSCHE 911 TURBO S IMBA</h3>
+              <p class="record-car-desc">Пилот Мария Кутычкина. Быстрейший 992 на заводских турбинах.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_puncher_dup" data-metric="1/4 мили: 9.303 сек • 235.83 км/ч" data-car="PORSCHE 911 TURBO S (992) PUNCHER" data-year="2021 • Мировой ориентир UNLIM FEST">
+          <div class="record-item" data-id="rec_puncher_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/porsche_992_puncher.jpg" alt="PORSCHE 911 TURBO S (992) PUNCHER" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">2021 • Мировой ориентир UNLIM FEST</span>
-              <span class="record-index-badge">#14</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1/4 мили: 9.303 сек • 235.83 км/ч</span>
-                <span class="rsh-car" style="display:none;">PORSCHE 911 TURBO S (992) PUNCHER</span>
+              <img src="assets/archive_tilda/porsche_992_puncher.jpg" alt="PORSCHE 911 TURBO S PUNCHER" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">UNLIM FEST</span>
+                <span class="record-num-pill">#14</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">PORSCHE 911 TURBO S (992) PUNCHER</h3>
-              <p class="record-text">Мировой ориентир для дорожных Porsche 992 на Unlim Fest (9.303 сек) и 1/2 мили за 14.778 сек со скоростью 276.92 км/ч.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">9.303 <span class="record-hero-unit">СЕК</span></span>
+                <span class="record-hero-speed">276.92 КМ/Ч • 1/2 МИЛИ</span>
+              </div>
+              <h3 class="record-car-title">PORSCHE 911 TURBO S PUNCHER</h3>
+              <p class="record-car-desc">Триумф Сергея Никитина в зачетах дорожных Porsche 992.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_gyurza_dup" data-metric="1 км с места на льду: 124.00 км/ч" data-car="AUDI R8 V10 PLUS TT «GYURZA»" data-year="2022 • Абсолютный рекорд льда">
+          <div class="record-item" data-id="rec_gyurza_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/audi_r8_gyurza_ice.jpg" alt="AUDI R8 V10 PLUS TT «GYURZA»" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">2022 • Абсолютный рекорд льда</span>
-              <span class="record-index-badge">#15</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1 км с места на льду: 124.00 км/ч</span>
-                <span class="rsh-car" style="display:none;">AUDI R8 V10 PLUS TT «GYURZA»</span>
+              <img src="assets/archive_tilda/audi_r8_gyurza_ice.jpg" alt="AUDI R8 V10 PLUS «GYURZA»" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">РЕКОРД ЛЬДА БАЙКАЛА</span>
+                <span class="record-num-pill">#15</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">AUDI R8 V10 PLUS TT «GYURZA»</h3>
-              <p class="record-text">Дни скорости на льду озера Байкал совместно с Kiwamaru. Абсолютный триумфатор ледовых заездов с места в истории России.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">124.00 <span class="record-hero-unit">КМ/Ч</span></span>
+                <span class="record-hero-speed">1 КМ С МЕСТА ПО ЛЬДУ</span>
+              </div>
+              <h3 class="record-car-title">AUDI R8 V10 PLUS «GYURZA»</h3>
+              <p class="record-car-desc">Дни скорости на льду озера Байкал совместно с Kiwamaru.</p>
             </div>
           </div>
-          <div class="record-item" data-id="rec_gallardo_dup" data-metric="1 миля: 409.55 км/ч • 20.845 сек" data-car="LAMBORGHINI GALLARDO NERA TWIN TURBO" data-year="Мировой рекорд • 1 миля (1609 м)">
+          <div class="record-item" data-id="rec_gallardo_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/photos/huracan_zelenka_gtt.jpg" alt="LAMBORGHINI GALLARDO NERA TWIN TURBO" class="record-photo-img" loading="lazy">
-              <span class="record-year-badge">Мировой рекорд • 1 миля (1609 м)</span>
-              <span class="record-index-badge">#16</span>
-            </div>
-            <div class="record-stat-highlight">
-              <span class="rsh-badge">⚡ RECORD</span>
-              <div class="rsh-content">
-                <span class="rsh-metric">1 миля: 409.55 км/ч • 20.845 сек</span>
-                <span class="rsh-car" style="display:none;">LAMBORGHINI GALLARDO NERA TWIN TURBO</span>
+              <img src="assets/photos/huracan_zelenka_gtt.jpg" alt="LAMBORGHINI GALLARDO NERA TT" class="record-photo-img" loading="lazy">
+              <div class="record-photo-overlay"></div>
+              <div class="record-photo-badges">
+                <span class="record-event-pill">МИРОВОЙ РЕКОРД 1 МИЛЯ</span>
+                <span class="record-num-pill">#16</span>
               </div>
             </div>
-            <div class="record-body">
-              <h3 class="record-title">LAMBORGHINI GALLARDO NERA TWIN TURBO</h3>
-              <p class="record-text">Аэродром Крит, Греция. Легендарная Черная Галлардо Гоши Перцхелии — первый болид из России, покоривший планку 400+ км/ч на 1 милю.</p>
+            <div class="record-content-box">
+              <div class="record-stat-row">
+                <span class="record-hero-time">409.55 <span class="record-hero-unit">КМ/Ч</span></span>
+                <span class="record-hero-speed">20.845 СЕК НА 1 МИЛЮ (1609 М)</span>
+              </div>
+              <h3 class="record-car-title">LAMBORGHINI GALLARDO NERA TT</h3>
+              <p class="record-car-desc">Первый болид из России, покоривший планку 400+ км/ч в Греции.</p>
             </div>
           </div>
         </div>
@@ -2156,7 +2142,7 @@
   </button>
 
   <script src="js/media-db.js?v=23.0"></script>
-  <script src="js/app.js?v=28.0"></script>
+  <script src="js/app.js?v=29.0"></script>
   <script>
     // Failsafe Preloader Dismissal (Max 1.6s)
     setTimeout(function() {

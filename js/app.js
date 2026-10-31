@@ -2542,130 +2542,194 @@ let cachedRecordsData = null;
 const defaultRecords = [
   {
     id: 'rec_moses',
-    year: '2016 • Абсолютный рекорд GTT',
-    car: 'NISSAN GT-R R35 GTT-1800 «MOSES»',
+    year: 'UNLIM 500+ • 2016',
+    eventPill: 'UNLIM 500+ • 2016',
+    heroTime: '7.526',
+    heroUnit: 'СЕК',
+    heroSpeed: '304.36 КМ/Ч • 1/4 МИЛИ',
+    car: 'NISSAN GT-R R35 «MOSES»',
     telemetry: '1/4 мили: 7.526 сек • 304.36 км/ч',
-    desc: 'Легендарные тесты в ОАЭ и UNLIM 500+ Greece. 7.526 сек со скоростью 304.36 км/ч — быстрейший результат на 402 м за всю историю ателье GoshaTurboTech.',
+    desc: 'Абсолютный рекорд 402 м за всю историю ателье GoshaTurboTech.',
     img: 'assets/archive_tilda/gtr_moses.png'
   },
   {
     id: 'rec_draco',
-    year: '2024 • Рекорд RDRC Pro-Mod',
-    car: 'NISSAN GT-R R35 DRACO PRO-MOD #300',
+    year: 'RDRC PRO-MOD • 2024',
+    eventPill: 'RDRC PRO-MOD • 2024',
+    heroTime: '7.694',
+    heroUnit: 'СЕК',
+    heroSpeed: '304.44 КМ/Ч • 1/4 МИЛИ',
+    car: 'NISSAN GT-R DRACO PRO-MOD #300',
     telemetry: '1/4 мили: 7.694 сек • 304.44 км/ч',
-    desc: 'Пилот Руслан Арефьев на этапе RDRC 2024 (заезд №537). Подтвержденный протокол DragDB. Скорость на выходе 1/2 мили превысила 323.88 км/ч.',
+    desc: 'Флагман дрэг-рейсинга России. Выход из 1/2 мили 323.88 км/ч.',
     img: 'assets/cars/gtr_draco_promod_front.jpg'
   },
   {
     id: 'rec_kurdalagon',
-    year: '26.10.2026 • Рекорд Быково',
+    year: 'RDRC БЫКОВО • 2026',
+    eventPill: 'RDRC БЫКОВО • 2026',
+    heroTime: '7.766',
+    heroUnit: 'СЕК',
+    heroSpeed: '300.00 КМ/Ч • 1/4 МИЛИ',
     car: 'NISSAN GT-R R35 «КУРДАЛАГОН»',
     telemetry: '1/4 мили: 7.766 сек • 300.00 км/ч',
-    desc: 'Свежайший подтвержденный рекорд команды GoshaTurboTech, зафиксированный на трек-дне в Быково в конце октября 2026 года.',
+    desc: 'Официальный рекорд трек-дня в Быково конца октября 2026.',
     img: 'assets/archive_tilda/gtr_kurdalagon.png'
   },
   {
     id: 'rec_rokot',
-    year: '2026 • Рекорд России для Audi',
-    car: 'AUDI R8 V10 PLUS TWIN TURBO «ROKOT»',
+    year: 'РЕКОРД РОССИИ • 2026',
+    eventPill: 'РЕКОРД РОССИИ • 2026',
+    heroTime: '7.877',
+    heroUnit: 'СЕК',
+    heroSpeed: 'СУПЕРКУБОК RDRC • 1/4 МИЛИ',
+    car: 'AUDI R8 V10 PLUS TT «ROKOT»',
     telemetry: '1/4 мили: 7.877 сек • Суперкубок RDRC',
-    desc: 'Эдуард Саркисян и Руслан Арефьев на болиде ателье GoshaTurboTech впервые в истории России вывели Audi из рубежа 8 секунд.',
+    desc: 'Первый и единственный болид Audi в России быстрее 8 секунд.',
     img: 'assets/cars/audi_r8_tsmr_launch.jpg'
   },
   {
     id: 'rec_bezzubik',
-    year: 'Рекорд Европы • Race 1000',
-    car: 'LAMBORGHINI HURACAN TT BEZZUBIK',
+    year: 'RACE 1000 • ГЕРМАНИЯ',
+    eventPill: 'RACE 1000 • ГЕРМАНИЯ',
+    heroTime: '353.02',
+    heroUnit: 'КМ/Ч',
+    heroSpeed: '1/2 МИЛИ • 8.054 СЕК НА 402 М',
+    car: 'HURACAN TT «BEZZUBIK»',
     telemetry: '1/2 мили: 353.02 км/ч • 1/4 мили: 8.054 сек',
-    desc: 'Официальный рекорд Европы на дистанции 804 м среди полноприводных суперкаров в Германии (353.02 км/ч) и 8.054 сек на 402 м. Легенда GTT.',
+    desc: 'Официальный рекорд Европы на дистанции 804 м среди полноприводных суперкаров.',
     img: 'assets/photos/huracan_rdrc_stage_line.jpg'
   },
   {
     id: 'rec_zelenka',
-    year: 'ОАЭ & Германия • 344.60 км/ч',
-    car: 'LAMBORGHINI HURACAN TWIN TURBO «ЗЕЛЕНКА»',
+    year: 'ROLLING 50 1000',
+    eventPill: 'ROLLING 50 1000',
+    heroTime: '344.60',
+    heroUnit: 'КМ/Ч',
+    heroSpeed: '1000 М • 8.373 СЕК 1/4 МИЛИ',
+    car: 'HURACAN TT «ЗЕЛЕНКА»',
     telemetry: '1/4 мили: 8.373 сек • 1000 м: 344.60 км/ч',
-    desc: '8.373 сек со скоростью 275.26 км/ч на 1/4 мили в ОАЭ и 344.60 км/ч на 1000 м в Германии (Rolling 50 1000). Культовый проект GoshaTurboTech.',
+    desc: 'Культовый 2000+ сильный болид GoshaTurboTech в ОАЭ и Германии.',
     img: 'assets/photos/huracan_zelenka_gtt.jpg'
   },
   {
     id: 'rec_lucifer',
-    year: 'RDRC 2026 • 1-е место в классе',
-    car: 'NISSAN GT-R R35 «LUCIFER» GTT #71',
+    year: 'RDRC 2026 • ЧЕМПИОН',
+    eventPill: 'RDRC 2026 • ЧЕМПИОН',
+    heroTime: '8.400',
+    heroUnit: 'СЕК',
+    heroSpeed: '343.67 КМ/Ч • 1/2 МИЛИ',
+    car: 'NISSAN GT-R R35 «LUCIFER» #71',
     telemetry: '1/4 мили: 8.400 сек • 1/2 мили: 343.67 км/ч',
-    desc: 'Флагманский болид Гоши Перцхелии. 8.400 сек в ОАЭ, победный заезд 8.551 сек на RDRC 2026 и 343.67 км/ч на Unlim 500+.',
+    desc: 'Личный флагманский боевой болид Гоши Перцхелии.',
     img: 'assets/cars/gtr_lucifer_solo.jpg'
   },
   {
     id: 'rec_korzhik',
-    year: 'Рекорд России • Московская миля',
-    car: 'NISSAN GT-R R35 GTT «KORZHIK» #712',
+    year: 'МОСКОВСКАЯ МИЛЯ',
+    eventPill: 'МОСКОВСКАЯ МИЛЯ',
+    heroTime: '13.435',
+    heroUnit: 'СЕК',
+    heroSpeed: '334.41 КМ/Ч • 1/2 МИЛИ',
+    car: 'NISSAN GT-R R35 «KORZHIK» #712',
     telemetry: '1/2 мили: 13.435 сек • 334.41 км/ч',
-    desc: 'Пилот Николай Коржов. 8.602 сек на 402 м и официальный рекорд России на 1/2 мили — 13.435 сек со скоростью 334.41 км/ч.',
+    desc: 'Пилот Николай Коржов. Официальный рекорд России на 1/2 мили.',
     img: 'assets/archive_tilda/gtr_korzhik.png'
   },
   {
     id: 'rec_hulk',
-    year: 'Суперкубок RDRC 2026',
-    car: 'LAMBORGHINI HURACAN LP610-4 «HULK»',
+    year: 'СУПЕРКУБОК RDRC',
+    eventPill: 'СУПЕРКУБОК RDRC',
+    heroTime: '8.951',
+    heroUnit: 'СЕК',
+    heroSpeed: '257.14 КМ/Ч • 1/4 МИЛИ',
+    car: 'HURACAN LP610-4 «HULK»',
     telemetry: '1/4 мили: 8.951 сек • 3/8 мили: 291.14 км/ч',
-    desc: 'Пилот Эдуард Саркисян в зачете GoshaTurboTech. 8.951 сек со скоростью 257.14 км/ч на 1/4 мили (3/8 мили: 11.561 с / 291.14 км/ч).',
+    desc: 'Пилот Эдуард Саркисян. Победный заезд на Суперкубке RDRC.',
     img: 'assets/cars/huracan_green_grey_rdrc.jpg'
   },
   {
     id: 'rec_tonystark',
-    year: 'Record Days 2023',
-    car: 'AUDI R8 V10 PLUS TT «TONY STARK»',
+    year: 'RECORD DAYS',
+    eventPill: 'RECORD DAYS',
+    heroTime: '8.948',
+    heroUnit: 'СЕК',
+    heroSpeed: '287.19 КМ/Ч • 1/2 МИЛИ',
+    car: 'AUDI R8 V10 PLUS «TONY STARK»',
     telemetry: '1/4 мили: 8.948 сек • 247.68 км/ч',
-    desc: 'Стабильный выезд из 9 секунд на трек-днях Record Days (8.948 сек) и 15.403 сек со скоростью 287.19 км/ч на 1/2 мили.',
+    desc: 'Стабильный выезд из 9 секунд на трек-днях Record Days.',
     img: 'assets/archive_tilda/audi_r8_tonystark.png'
   },
   {
     id: 'rec_gtt1200',
-    year: 'Рекорд России/Европы • RDRC RacePark',
-    car: 'PORSCHE 911 TURBO (991.1) GTT-1200',
+    year: 'РЕКОРД ЕВРОПЫ 991',
+    eventPill: 'РЕКОРД ЕВРОПЫ 991',
+    heroTime: '9.086',
+    heroUnit: 'СЕК',
+    heroSpeed: '312.77 КМ/Ч • 1/2 МИЛИ',
+    car: 'PORSCHE 911 TURBO GTT-1200',
     telemetry: '1/4 мили: 9.086 сек • 259.64 км/ч',
-    desc: 'Пилот Алексей Сагал. Рекорд России и Европы для кузова 991.1 (9.086 с), скорость на 1/2 мили — 312.77 км/ч.',
+    desc: 'Пилот Алексей Сагал. Рекорд России и Европы для кузова 991.1.',
     img: 'assets/archive_tilda/porsche_991_gtt1200.jpg'
   },
   {
     id: 'rec_su7',
-    year: '2026 • Суперкубок RDRC',
-    car: 'XIAOMI SU7 ULTRA GTT RACE SPEC',
+    year: 'СУПЕРКУБОК 2026',
+    eventPill: 'СУПЕРКУБОК 2026',
+    heroTime: '9.130',
+    heroUnit: 'СЕК',
+    heroSpeed: '249.31 КМ/Ч • 1/4 МИЛИ',
+    car: 'XIAOMI SU7 ULTRA GTT SPEC',
     telemetry: '1/4 мили: 9.130 сек • 3/8 мили: 287.31 км/ч',
-    desc: 'Пилот В. Щед в зачете GoshaTurboTech на Суперкубке RDRC 2026 показал сенсационные 9.130 сек со скоростью 249.31 км/ч.',
+    desc: 'Сенсационный рекорд команды для электрических гиперкаров.',
     img: 'assets/cars/bmw_m5_rdrc_race.jpg'
   },
   {
     id: 'rec_imba',
-    year: '2022–2025 • Мировой рекорд RDRC',
-    car: 'PORSCHE 911 TURBO S (992) GTT-IMBA',
+    year: 'МИРОВОЙ ОРИЕНТИР 992',
+    eventPill: 'МИРОВОЙ ОРИЕНТИР 992',
+    heroTime: '9.167',
+    heroUnit: 'СЕК',
+    heroSpeed: '231.80 КМ/Ч • 1/4 МИЛИ',
+    car: 'PORSCHE 911 TURBO S IMBA',
     telemetry: '1/4 мили: 9.167 сек • RDRC 2025',
-    desc: 'Пилот Мария Кутычкина. Мировой рекорд 9.252 сек со скоростью 231.80 км/ч на заводских турбинах, улучшенный на RDRC 2025 до 9.167 сек.',
+    desc: 'Пилот Мария Кутычкина. Быстрейший 992 на заводских турбинах.',
     img: 'assets/archive_tilda/porsche_992_imba.jpg'
   },
   {
     id: 'rec_puncher',
-    year: '2021 • Мировой ориентир UNLIM FEST',
-    car: 'PORSCHE 911 TURBO S (992) PUNCHER',
+    year: 'UNLIM FEST',
+    eventPill: 'UNLIM FEST',
+    heroTime: '9.303',
+    heroUnit: 'СЕК',
+    heroSpeed: '276.92 КМ/Ч • 1/2 МИЛИ',
+    car: 'PORSCHE 911 TURBO S PUNCHER',
     telemetry: '1/4 мили: 9.303 сек • 235.83 км/ч',
-    desc: 'Мировой ориентир для дорожных Porsche 992 на Unlim Fest (9.303 сек) и 1/2 мили за 14.778 сек со скоростью 276.92 км/ч.',
+    desc: 'Триумф Сергея Никитина в зачетах дорожных Porsche 992.',
     img: 'assets/archive_tilda/porsche_992_puncher.jpg'
   },
   {
     id: 'rec_gyurza',
-    year: '2022 • Абсолютный рекорд льда',
-    car: 'AUDI R8 V10 PLUS TT «GYURZA»',
+    year: 'РЕКОРД ЛЬДА БАЙКАЛА',
+    eventPill: 'РЕКОРД ЛЬДА БАЙКАЛА',
+    heroTime: '124.00',
+    heroUnit: 'КМ/Ч',
+    heroSpeed: '1 КМ С МЕСТА ПО ЛЬДУ',
+    car: 'AUDI R8 V10 PLUS «GYURZA»',
     telemetry: '1 км с места на льду: 124.00 км/ч',
-    desc: 'Дни скорости на льду озера Байкал совместно с Kiwamaru. Абсолютный триумфатор ледовых заездов с места в истории России.',
+    desc: 'Дни скорости на льду озера Байкал совместно с Kiwamaru.',
     img: 'assets/archive_tilda/audi_r8_gyurza_ice.jpg'
   },
   {
     id: 'rec_gallardo',
-    year: 'Мировой рекорд • 1 миля (1609 м)',
-    car: 'LAMBORGHINI GALLARDO NERA TWIN TURBO',
+    year: 'МИРОВОЙ РЕКОРД 1 МИЛЯ',
+    eventPill: 'МИРОВОЙ РЕКОРД 1 МИЛЯ',
+    heroTime: '409.55',
+    heroUnit: 'КМ/Ч',
+    heroSpeed: '20.845 СЕК НА 1 МИЛЮ (1609 М)',
+    car: 'LAMBORGHINI GALLARDO NERA TT',
     telemetry: '1 миля: 409.55 км/ч • 20.845 сек',
-    desc: 'Аэродром Крит, Греция. Легендарная Черная Галлардо Гоши Перцхелии — первый болид из России, покоривший планку 400+ км/ч на 1 милю.',
+    desc: 'Первый болид из России, покоривший планку 400+ км/ч в Греции.',
     img: 'assets/photos/huracan_zelenka_gtt.jpg'
   }
 ];
@@ -2834,35 +2898,65 @@ function renderRecordsEditorial(recordsList) {
 
   const renderSingle = (rec, idx, isDup) => {
     const photo = rec.img || 'assets/photos/huracan_rdrc_stage_line.jpg';
-    const enMeta = recordTranslationsEn[rec.id] || {};
-    const yearText = (currentLang === 'en' && enMeta.year) ? enMeta.year : (rec.year || 'GTT Record');
-    const descText = (currentLang === 'en' && enMeta.desc) ? enMeta.desc : (rec.desc || '');
+    const enMeta = (typeof recordTranslationsEn !== 'undefined' && recordTranslationsEn[rec.id]) ? recordTranslationsEn[rec.id] : {};
     const carName = rec.car || 'GTT Spec';
-    const telemetry = rec.telemetry || '—';
-    const num = String(idx + 1).padStart(2, '0');
+    const descText = (typeof currentLang !== 'undefined' && currentLang === 'en' && enMeta.desc) ? enMeta.desc : (rec.desc || '');
+    const num = String((idx % 16) + 1).padStart(2, '0');
     const dupAttr = isDup ? '_dup' : '';
 
+    let eventPill = rec.eventPill || rec.year || 'GTT RECORD';
+    if (typeof currentLang !== 'undefined' && currentLang === 'en' && enMeta.year) {
+      eventPill = enMeta.year;
+    }
+
+    let heroTime = rec.heroTime;
+    let heroUnit = rec.heroUnit || 'СЕК';
+    let heroSpeed = rec.heroSpeed;
+
+    if (!heroTime || !heroSpeed) {
+      const tel = rec.telemetry || '';
+      const secMatch = tel.match(/([\d\.]+)\s*сек/i);
+      const kmhMatch = tel.match(/([\d\.]+)\s*км\/ч/i);
+      if (secMatch) {
+        heroTime = secMatch[1];
+        heroUnit = 'СЕК';
+        if (kmhMatch) {
+          heroSpeed = `${kmhMatch[1]} КМ/Ч • ${tel.includes('1/2') ? '1/2 МИЛИ' : tel.includes('1 миля') ? '1 МИЛЯ' : '1/4 МИЛИ'}`;
+        } else {
+          heroSpeed = tel.replace(/1\/4\s*мили:?\s*/i, '').replace(/1\/2\s*мили:?\s*/i, '').trim();
+        }
+      } else if (kmhMatch) {
+        heroTime = kmhMatch[1];
+        heroUnit = 'КМ/Ч';
+        heroSpeed = tel.replace(/[\d\.]+\s*км\/ч/i, '').replace(/^[•:\s]+|[•:\s]+$/g, '').trim() || 'МАКСИМАЛЬНАЯ СКОРОСТЬ';
+      } else {
+        heroTime = 'GTT';
+        heroUnit = 'RECORD';
+        heroSpeed = tel || 'OFFICIAL TELEMETRY';
+      }
+    }
+
     return `
-      <div class="record-item" data-id="${rec.id || idx}${dupAttr}" data-metric="${telemetry}" data-car="${carName}" data-year="${yearText}">
+      <div class="record-item" data-id="${rec.id || idx}${dupAttr}">
         <div class="record-photo-wrapper">
           <img src="${photo}" 
                alt="${carName}" 
                class="record-photo-img" 
                loading="lazy"
                onerror="this.src='assets/photos/huracan_rdrc_stage_line.jpg'">
-          <span class="record-year-badge">${yearText}</span>
-          <span class="record-index-badge">#${num}</span>
-        </div>
-        <div class="record-stat-highlight">
-          <span class="rsh-badge">⚡ RECORD</span>
-          <div class="rsh-content">
-            <span class="rsh-metric">${telemetry}</span>
-            <span class="rsh-car" style="display:none;">${carName}</span>
+          <div class="record-photo-overlay"></div>
+          <div class="record-photo-badges">
+            <span class="record-event-pill">${eventPill}</span>
+            <span class="record-num-pill">#${num}</span>
           </div>
         </div>
-        <div class="record-body">
-          <h3 class="record-title">${carName}</h3>
-          <p class="record-text">${descText}</p>
+        <div class="record-content-box">
+          <div class="record-stat-row">
+            <span class="record-hero-time">${heroTime} <span class="record-hero-unit">${heroUnit}</span></span>
+            <span class="record-hero-speed">${heroSpeed}</span>
+          </div>
+          <h3 class="record-car-title">${carName}</h3>
+          <p class="record-car-desc">${descText}</p>
         </div>
       </div>
     `;
@@ -2888,27 +2982,11 @@ function initRecordsCarousel() {
   if (stage && !stage._recordsListenersAttached) {
     stage._recordsListenersAttached = true;
 
-    // 1. Pause on hover
+    // 1. Smooth pause on hover
     stage.addEventListener('mouseenter', () => { recordsIsHovered = true; });
     stage.addEventListener('mouseleave', () => { recordsIsHovered = false; });
 
-    // 2. Hover any card updates the HUD ticker in real time
-    stage.addEventListener('mouseover', (e) => {
-      const card = e.target.closest('.record-item');
-      if (card) {
-        const metric = card.getAttribute('data-metric');
-        const car = card.getAttribute('data-car');
-        const year = card.getAttribute('data-year');
-        const hudMetric = document.getElementById('hudRecordMetric');
-        const hudCar = document.getElementById('hudCarName');
-        const hudBadge = document.getElementById('hudEventBadge');
-        if (hudMetric && metric) hudMetric.textContent = metric;
-        if (hudCar && car) hudCar.textContent = car;
-        if (hudBadge && year) hudBadge.textContent = year;
-      }
-    });
-
-    // 3. Touch swipe for mobile devices
+    // 2. Touch swipe for mobile devices
     let touchStartX = 0;
     let touchStartY = 0;
     let touchInitialPos = 0;
