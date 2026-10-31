@@ -386,20 +386,6 @@ const defaultProjects = [
     "is_photo": 1
   },
   {
-    "id": "gtr_fifa",
-    "brand": "NISSAN & GTT",
-    "type": "gtr",
-    "nameRu": "GT-R R35 GTT «FIFA» #10",
-    "nameEn": "GT-R R35 GTT «FIFA» #10",
-    "hp": "1,450+ HP",
-    "quarterMile": "8.450 сек",
-    "topSpeed": "340+ км/ч",
-    "img": "assets/cars/gtr_red_tail_rdrc.jpg",
-    "videoSrc": "",
-    "descRu": "Именной болид «FIFA», созданный в ателье GoshaTurboTech. Сочетает комфортный салон и бескомпромиссные характеристики разгона из 8.5 секунд на квотере.",
-    "is_featured": 0
-  },
-  {
     "id": "porsche_991_1200",
     "brand": "PORSCHE & GTT",
     "type": "porsche",
@@ -434,34 +420,6 @@ const defaultProjects = [
     "is_photo": 1
   },
   {
-    "id": "porsche_991_900",
-    "brand": "PORSCHE & GTT",
-    "type": "porsche",
-    "nameRu": "PORSCHE 911 TURBO S (991.2) GTT-900",
-    "nameEn": "PORSCHE 911 TURBO S (991.2) GTT-900",
-    "hp": "900+ HP",
-    "quarterMile": "9.450 сек",
-    "topSpeed": "335+ км/ч",
-    "img": "assets/archive_tilda/porsche_992_puncher.jpg",
-    "videoSrc": "",
-    "descRu": "Идеальный баланс повседневного суперкара и рекордного темпа. 900 сил на товарном 100-м бензине с ресурсом заводского мотора.",
-    "is_featured": 0
-  },
-  {
-    "id": "porsche_992_puncher",
-    "brand": "PORSCHE & GTT",
-    "type": "porsche",
-    "nameRu": "PORSCHE 911 TURBO S (992) GTT «PUNCHER»",
-    "nameEn": "PORSCHE 911 TURBO S (992) GTT «PUNCHER»",
-    "hp": "1,000+ HP",
-    "quarterMile": "9.303 сек",
-    "topSpeed": "276.92 км/ч",
-    "img": "assets/archive_tilda/porsche_992_puncher.jpg",
-    "videoSrc": "",
-    "descRu": "Культовый Porsche 992 Turbo S «Puncher» Сергея Никитина. Мировой рекорд в категории на UNLIM FEST 2021: 9.303 сек со скоростью 235.83 км/ч на 1/4 мили и 14.778 сек со скоростью 276.92 км/ч на 1/2 мили.",
-    "is_featured": 0
-  },
-  {
     "id": "bmw_m7_gtt",
     "brand": "BMW M-POWER",
     "type": "bmw",
@@ -479,20 +437,6 @@ const defaultProjects = [
     "is_photo": 1
   },
   {
-    "id": "mercedes_e63",
-    "brand": "MERCEDES-AMG & GTT",
-    "type": "other",
-    "nameRu": "MERCEDES-AMG E63S 4MATIC+ GTT-950",
-    "nameEn": "MERCEDES-AMG E63S 4MATIC+ GTT-950",
-    "hp": "950+ HP",
-    "quarterMile": "9.880 сек",
-    "topSpeed": "335+ км/ч",
-    "img": "assets/cars/gtt_classified_car.svg",
-    "videoSrc": "",
-    "descRu": "Беспощадный бизнес-седан с 4.0L V8 Biturbo, форсированный до 950 л.с. Пилот В. Щед на RDRC 2026 показал подтвержденное время 9.880 сек со скоростью 234.91 км/ч на 1/4 мили.",
-    "is_featured": 0
-  },
-  {
     "id": "volga_kgb",
     "brand": "ГАЗ & GTT",
     "type": "other",
@@ -501,10 +445,13 @@ const defaultProjects = [
     "hp": "1,050+ HP",
     "quarterMile": "9.420 сек",
     "topSpeed": "340+ км/ч",
-    "img": "assets/cars/volga_kgb_v8_sleeper.jpg",
+    "img": "assets/cars/volga_kgb_v8_workshop.jpg",
     "videoSrc": "",
     "descRu": "Легендарный советский проект в кузове ГАЗ-24 «Догонялка». Внешне аутентичный хромированный силуэт спецслужб, внутри — современный турбированный V8 и кастомное спортивное шасси.",
-    "is_featured": 0
+    "is_featured": 0,
+    "fallbackImg": "assets/cars/volga_kgb_v8_workshop.jpg",
+    "objectPosition": "center center",
+    "is_photo": 1
   },
   {
     "id": "ferrari_512tr",
@@ -515,10 +462,89 @@ const defaultProjects = [
     "hp": "550+ HP",
     "quarterMile": "10.800 сек",
     "topSpeed": "315+ км/ч",
-    "img": "assets/cars/gtt_classified_car.svg",
+    "img": "assets/cars/ferrari_512tr_dyno_red.jpg",
     "videoSrc": "",
     "descRu": "Итальянская икона с 12-цилиндровым оппозитным двигателем Flat-12. Комплексная механическая доработка в цехах GTT, индивидуальный титановый выпуск и филигранная калибровка впрыска.",
-    "is_featured": 0
+    "is_featured": 0,
+    "fallbackImg": "assets/cars/ferrari_512tr_dyno_red.jpg",
+    "objectPosition": "center center",
+    "is_photo": 1
+  },
+  {
+    "id": "gtr_fifa",
+    "brand": "NISSAN & GTT",
+    "type": "gtr",
+    "nameRu": "GT-R R35 GTT «FIFA» #10",
+    "nameEn": "GT-R R35 GTT «FIFA» #10",
+    "hp": "—",
+    "quarterMile": "—",
+    "topSpeed": "—",
+    "img": "assets/cars/gtt_classified_car.svg",
+    "videoSrc": "",
+    "descRu": "Именной болид «FIFA», созданный в ателье GoshaTurboTech. Сочетает комфортный салон и бескомпромиссные характеристики разгона из 8.5 секунд на квотере.",
+    "is_featured": 0,
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "objectPosition": "center center",
+    "is_photo": 0,
+    "isClassified": true,
+    "isTeaser": true
+  },
+  {
+    "id": "porsche_991_900",
+    "brand": "PORSCHE & GTT",
+    "type": "porsche",
+    "nameRu": "PORSCHE 911 TURBO S (991.2) GTT-900",
+    "nameEn": "PORSCHE 911 TURBO S (991.2) GTT-900",
+    "hp": "—",
+    "quarterMile": "—",
+    "topSpeed": "—",
+    "img": "assets/cars/gtt_classified_car.svg",
+    "videoSrc": "",
+    "descRu": "Идеальный баланс повседневного суперкара и рекордного темпа. 900 сил на товарном 100-м бензине с ресурсом заводского мотора.",
+    "is_featured": 0,
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "objectPosition": "center center",
+    "is_photo": 0,
+    "isClassified": true,
+    "isTeaser": true
+  },
+  {
+    "id": "porsche_992_puncher",
+    "brand": "PORSCHE & GTT",
+    "type": "porsche",
+    "nameRu": "PORSCHE 911 TURBO S (992) GTT «PUNCHER»",
+    "nameEn": "PORSCHE 911 TURBO S (992) GTT «PUNCHER»",
+    "hp": "—",
+    "quarterMile": "—",
+    "topSpeed": "—",
+    "img": "assets/cars/gtt_classified_car.svg",
+    "videoSrc": "",
+    "descRu": "Культовый Porsche 992 Turbo S «Puncher» Сергея Никитина. Мировой рекорд в категории на UNLIM FEST 2021: 9.303 сек со скоростью 235.83 км/ч на 1/4 мили и 14.778 сек со скоростью 276.92 км/ч на 1/2 мили.",
+    "is_featured": 0,
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "objectPosition": "center center",
+    "is_photo": 0,
+    "isClassified": true,
+    "isTeaser": true
+  },
+  {
+    "id": "mercedes_e63",
+    "brand": "MERCEDES-AMG & GTT",
+    "type": "other",
+    "nameRu": "MERCEDES-AMG E63S 4MATIC+ GTT-950",
+    "nameEn": "MERCEDES-AMG E63S 4MATIC+ GTT-950",
+    "hp": "—",
+    "quarterMile": "—",
+    "topSpeed": "—",
+    "img": "assets/cars/gtt_classified_car.svg",
+    "videoSrc": "",
+    "descRu": "Беспощадный бизнес-седан с 4.0L V8 Biturbo, форсированный до 950 л.с. Пилот В. Щед на RDRC 2026 показал подтвержденное время 9.880 сек со скоростью 234.91 км/ч на 1/4 мили.",
+    "is_featured": 0,
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "objectPosition": "center center",
+    "is_photo": 0,
+    "isClassified": true,
+    "isTeaser": true
   },
   {
     "id": "tesla_plaid",
@@ -526,69 +552,18 @@ const defaultProjects = [
     "type": "other",
     "nameRu": "TESLA MODEL S PLAID GTT DYNAMICS SPEC",
     "nameEn": "TESLA MODEL S PLAID GTT DYNAMICS SPEC",
-    "hp": "1,020+ HP",
-    "quarterMile": "9.230 сек",
-    "topSpeed": "322+ км/ч",
+    "hp": "—",
+    "quarterMile": "—",
+    "topSpeed": "—",
     "img": "assets/cars/gtt_classified_car.svg",
     "videoSrc": "",
     "descRu": "Трековый проект на базе трехмоторного седана Tesla Model S Plaid. Спортивная карбон-керамическая тормозная система GTT, оптимизация охлаждения инверторов и аэродинамический сплиттер.",
-    "is_featured": 0
-  },
-  {
-    "id": "xiaomi_su7",
-    "brand": "XIAOMI & GTT",
-    "type": "other",
-    "nameRu": "XIAOMI SU7 ULTRA GTT RACE SPEC",
-    "nameEn": "XIAOMI SU7 ULTRA GTT RACE SPEC",
-    "hp": "1,548 HP",
-    "quarterMile": "9.130 сек",
-    "topSpeed": "350+ км/ч",
-    "img": "assets/cars/gtt_classified_car.svg",
-    "videoSrc": "",
-    "descRu": "Сенсационный электрический гиперседан Xiaomi SU7 Ultra под управлением В. Щед в зачете GoshaTurboTech. Официальный результат на Суперкубке RDRC 2026: 9.130 сек со скоростью 249.31 км/ч на 1/4 мили (3/8 мили: 11.769 с / 287.31 км/ч).",
-    "is_featured": 0
-  },
-  {
-    "id": "zeekr_zevs",
-    "brand": "ZEEKR & GTT",
-    "type": "other",
-    "nameRu": "ZEEKR 007 PERFORMANCE ZEVS GTT",
-    "nameEn": "ZEEKR 007 PERFORMANCE ZEVS GTT",
-    "hp": "646 HP",
-    "quarterMile": "11.317 сек",
-    "topSpeed": "210+ км/ч",
-    "img": "assets/cars/gtt_classified_car.svg",
-    "videoSrc": "",
-    "descRu": "Zeekr 007 Performance «ZEVS» команды GoshaTurboTech под управлением Кирилла Авдейко и Сергея Савченко. Зафиксированное время на этапе RDRC 2026: 11.317 сек со скоростью 204.31 км/ч.",
-    "is_featured": 0
-  },
-  {
-    "id": "lambo_nera",
-    "brand": "LAMBORGHINI & GTT",
-    "type": "lambo",
-    "nameRu": "GALLARDO NERA TWIN TURBO GTT",
-    "nameEn": "GALLARDO NERA TWIN TURBO GTT",
-    "hp": "1,800+ HP",
-    "quarterMile": "8.500 сек",
-    "topSpeed": "409.55 км/ч",
-    "img": "assets/photos/huracan_zelenka_gtt.jpg",
-    "videoSrc": "",
-    "descRu": "Исторический мировой рекорд скорости на дистанции 1 миля на аэродроме Крит (Греция): 20.845 сек со скоростью 409.55 км/ч! Легендарный проект, принесший GoshaTurboTech всемирную славу в суперкар-сообществе.",
-    "is_featured": 0
-  },
-  {
-    "id": "audi_gyurza",
-    "brand": "AUDI & GTT",
-    "type": "audi",
-    "nameRu": "AUDI R8 V10 PLUS TT «GYURZA» БАЙКАЛ",
-    "nameEn": "AUDI R8 V10 PLUS TT «GYURZA» BAIKAL",
-    "hp": "1,350+ HP",
-    "quarterMile": "9.100 сек",
-    "topSpeed": "345+ км/ч",
-    "img": "assets/archive_tilda/audi_r8_gyurza_ice.jpg",
-    "videoSrc": "",
-    "descRu": "Подготовленный в лаборатории GTT совместно с Kiwamaru болид Audi R8 V10 Plus Twin Turbo «Гюрза». Официальный рекорд России на Днях скорости на льду озера Байкал: средняя скорость 124 км/ч на дистанции 1 км с места по голому льду.",
-    "is_featured": 0
+    "is_featured": 0,
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "objectPosition": "center center",
+    "is_photo": 0,
+    "isClassified": true,
+    "isTeaser": true
   }
 ];
 
@@ -2580,10 +2555,11 @@ function renderCarsTable() {
   tbody.innerHTML = projects.map((car, idx) => {
     const rawName = car.nameRu || car.name_ru || (car.name && (car.name.ru || car.name.en)) || car.id;
     const name = escapeHTML(rawName);
+    const isClass = Boolean(car.isClassified || car.is_classified || (car.img && (car.img.includes('classified') || car.img.endsWith('.svg'))));
     const rawHp = (car.hp || '').trim();
-    const hp = escapeHTML((!rawHp || rawHp === '-' || rawHp === '- HP' || rawHp === '—') ? '1,050+ HP' : rawHp);
+    const hp = escapeHTML(isClass ? (rawHp || '—') : ((!rawHp || rawHp === '-' || rawHp === '- HP' || rawHp === '—') ? '1,050+ HP' : rawHp));
     const rawQ = (car.quarterMile || car.quarter_mile || '').trim();
-    const quarter = escapeHTML((!rawQ || rawQ === '-' || rawQ === '- сек' || rawQ === '—') ? '9.420 сек' : rawQ);
+    const quarter = escapeHTML(isClass ? (rawQ || '—') : ((!rawQ || rawQ === '-' || rawQ === '- сек' || rawQ === '—') ? '9.420 сек' : rawQ));
     const img = escapeHTML(convertGoogleDriveUrl(car.img) || 'assets/cars/bmw_m5_rdrc_race.jpg');
     const carId = escapeHTML(car.id);
     const carIdAttr = escapeJS(car.id);

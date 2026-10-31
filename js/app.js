@@ -811,43 +811,6 @@ let gttProjects = [
     "isFeatured": false
   },
   {
-    "id": "gtr_fifa",
-    "brand": "NISSAN & GTT",
-    "type": "gtr",
-    "name": {
-      "ru": "GT-R R35 GTT «FIFA» #10",
-      "en": "GT-R R35 GTT «FIFA» #10"
-    },
-    "tag": {
-      "ru": "ИМЕННОЙ БОЛИД • LUXURY & DRAG",
-      "en": "BESPOKE BUILD • LUXURY & DRAG"
-    },
-    "hp": "1,450+ HP",
-    "quarterMile": "8.450 сек",
-    "topSpeed": "340+ км/ч",
-    "badge": {
-      "ru": "GT-R FIFA #10",
-      "en": "GT-R FIFA #10"
-    },
-    "img": "assets/cars/gtr_red_tail_rdrc.jpg",
-    "fallbackImg": "assets/cars/gtr_lucifer_solo.jpg",
-    "isPhoto": true,
-    "objectPosition": "center center",
-    "desc": {
-      "ru": "Именной болид «FIFA», созданный в ателье GoshaTurboTech. Сочетает комфортный салон и бескомпромиссные характеристики разгона из 8.5 секунд на квотере.",
-      "en": "Bespoke FIFA build crafted by GoshaTurboTech atelier, pairing premium cockpit refinement with sub-8.5 quarter-mile violence."
-    },
-    "specs": {
-      "engine": "4.1L Billet Stroker VR38 GTT",
-      "turbos": "Precision Gen2 Turbochargers",
-      "transmission": "Dodson Motorsport Billet Gearset",
-      "ecu": "Motec M150"
-    },
-    "videoSrc": "",
-    "is_featured": 0,
-    "isFeatured": false
-  },
-  {
     "id": "porsche_991_1200",
     "brand": "PORSCHE & GTT",
     "type": "porsche",
@@ -922,80 +885,6 @@ let gttProjects = [
     "isFeatured": false
   },
   {
-    "id": "porsche_991_900",
-    "brand": "PORSCHE & GTT",
-    "type": "porsche",
-    "name": {
-      "ru": "PORSCHE 911 TURBO S (991.2) GTT-900",
-      "en": "PORSCHE 911 TURBO S (991.2) GTT-900"
-    },
-    "tag": {
-      "ru": "GTT STAGE 2+ • 900 HP НА 100 БЕНЗИНЕ",
-      "en": "GTT STAGE 2+ • 900 HP PUMP FUEL"
-    },
-    "hp": "900+ HP",
-    "quarterMile": "9.450 сек",
-    "topSpeed": "335+ км/ч",
-    "badge": {
-      "ru": "GTT-900 Stage 2+",
-      "en": "GTT-900 Stage 2+"
-    },
-    "img": "assets/archive_tilda/porsche_992_puncher.jpg",
-    "fallbackImg": "assets/cars/gtr_rdrc_red_panamera.jpg",
-    "isPhoto": true,
-    "objectPosition": "center 50%",
-    "desc": {
-      "ru": "Идеальный баланс повседневного суперкара и рекордного темпа. 900 сил на товарном 100-м бензине с ресурсом заводского мотора.",
-      "en": "The quintessential balance of daily driveability and track dominance. 900 reliable horsepower on pump 100 RON gasoline."
-    },
-    "specs": {
-      "engine": "3.8L Boxer-6 Twin-Turbo GTT Stage 2",
-      "turbos": "Upgraded High-Efficiency Turbos",
-      "intercoolers": "CSF High-Capacity Charge Coolers",
-      "ecu": "Custom GTT ECU & TCU Map"
-    },
-    "videoSrc": "",
-    "is_featured": 0,
-    "isFeatured": false
-  },
-  {
-    "id": "porsche_992_puncher",
-    "brand": "PORSCHE & GTT",
-    "type": "porsche",
-    "name": {
-      "ru": "PORSCHE 911 TURBO S (992) GTT «PUNCHER»",
-      "en": "PORSCHE 911 TURBO S (992) GTT «PUNCHER»"
-    },
-    "tag": {
-      "ru": "МИРОВОЙ РЕКОРД В КАТЕГОРИИ • 9.303 СЕК",
-      "en": "WORLD CATEGORY RECORD • 9.303 SEC"
-    },
-    "hp": "1,000+ HP",
-    "quarterMile": "9.303 сек",
-    "topSpeed": "276.92 км/ч",
-    "badge": {
-      "ru": "Puncher 992 GTT",
-      "en": "Puncher 992 GTT"
-    },
-    "img": "assets/archive_tilda/porsche_992_puncher.jpg",
-    "fallbackImg": "assets/cars/gtr_rdrc_red_panamera.jpg",
-    "isPhoto": true,
-    "objectPosition": "center 50%",
-    "desc": {
-      "ru": "Культовый Porsche 992 Turbo S «Puncher» Сергея Никитина. Мировой рекорд в категории на UNLIM FEST 2021: 9.303 сек со скоростью 235.83 км/ч на 1/4 мили и 14.778 сек со скоростью 276.92 км/ч на 1/2 мили.",
-      "en": "Iconic Porsche 992 Turbo S Puncher driven by Sergey Nikitin. World Category Record at UNLIM FEST 2021: 9.303 sec at 235.83 km/h on 1/4 mile and 14.778 sec at 276.92 km/h on 1/2 mile."
-    },
-    "specs": {
-      "engine": "3.8L Boxer-6 992 GTT Spec",
-      "turbos": "Billet Precision Mirror Turbos",
-      "intercooling": "High-Flow Core Package",
-      "fuel": "Methanol Multi-Port System"
-    },
-    "videoSrc": "",
-    "is_featured": 0,
-    "isFeatured": false
-  },
-  {
     "id": "bmw_m7_gtt",
     "brand": "BMW M-POWER",
     "type": "bmw",
@@ -1033,44 +922,6 @@ let gttProjects = [
     "isFeatured": false
   },
   {
-    "id": "mercedes_e63",
-    "brand": "MERCEDES-AMG & GTT",
-    "type": "other",
-    "name": {
-      "ru": "MERCEDES-AMG E63S 4MATIC+ GTT-950",
-      "en": "MERCEDES-AMG E63S 4MATIC+ GTT-950"
-    },
-    "tag": {
-      "ru": "RDRC 2026 • 9.880 СЕК • ПИЛОТ В. ЩЕД",
-      "en": "RDRC 2026 • 9.880 SEC • PILOT V. SHCHED"
-    },
-    "hp": "950+ HP",
-    "quarterMile": "9.880 сек",
-    "topSpeed": "335+ км/ч",
-    "badge": {
-      "ru": "E63S GTT-950",
-      "en": "E63S GTT-950"
-    },
-    "img": "assets/cars/gtt_classified_car.svg",
-    "fallbackImg": "assets/cars/gtt_classified_car.svg",
-    "isPhoto": false,
-    "isClassified": true,
-    "objectPosition": "center center",
-    "desc": {
-      "ru": "Беспощадный бизнес-седан с 4.0L V8 Biturbo, форсированный до 950 л.с. Пилот В. Щед на RDRC 2026 показал подтвержденное время 9.880 сек со скоростью 234.91 км/ч на 1/4 мили.",
-      "en": "Savage executive sedan boasting 950 horsepower from 4.0L V8 Biturbo. Piloted by V. Shched on RDRC 2026 with verified 9.880 sec pass at 234.91 km/h."
-    },
-    "specs": {
-      "engine": "4.0L V8 Biturbo M177 Built by GTT",
-      "turbos": "Billet Upgraded Stage 3 Turbos",
-      "downpipes": "Inconel Catless Thermal-Wrapped Pipes",
-      "transmission": "AMG SPEEDSHIFT MCT 9G Flashed"
-    },
-    "videoSrc": "",
-    "is_featured": 0,
-    "isFeatured": false
-  },
-  {
     "id": "volga_kgb",
     "brand": "ГАЗ & GTT",
     "type": "other",
@@ -1089,8 +940,8 @@ let gttProjects = [
       "ru": "Волга КГБ V8",
       "en": "Volga KGB V8"
     },
-    "img": "assets/cars/volga_kgb_v8_sleeper.jpg",
-    "fallbackImg": "assets/cars/volga_kgb_v8_sleeper.jpg",
+    "img": "assets/cars/volga_kgb_v8_workshop.jpg",
+    "fallbackImg": "assets/cars/volga_kgb_v8_workshop.jpg",
     "isPhoto": true,
     "objectPosition": "center center",
     "desc": {
@@ -1126,9 +977,9 @@ let gttProjects = [
       "ru": "Ferrari 512 TR",
       "en": "Ferrari 512 TR"
     },
-    "img": "assets/cars/gtt_classified_car.svg",
-    "fallbackImg": "assets/cars/gtt_classified_car.svg",
-    "isPhoto": false,
+    "img": "assets/cars/ferrari_512tr_dyno_red.jpg",
+    "fallbackImg": "assets/cars/ferrari_512tr_dyno_red.jpg",
+    "isPhoto": true,
     "isClassified": true,
     "objectPosition": "center center",
     "desc": {
@@ -1146,6 +997,162 @@ let gttProjects = [
     "isFeatured": false
   },
   {
+    "id": "gtr_fifa",
+    "brand": "NISSAN & GTT",
+    "type": "gtr",
+    "name": {
+      "ru": "GT-R R35 GTT «FIFA» #10",
+      "en": "GT-R R35 GTT «FIFA» #10"
+    },
+    "tag": {
+      "ru": "ИМЕННОЙ БОЛИД • LUXURY & DRAG",
+      "en": "BESPOKE BUILD • LUXURY & DRAG"
+    },
+    "hp": "—",
+    "quarterMile": "—",
+    "topSpeed": "—",
+    "badge": {
+      "ru": "GT-R FIFA #10",
+      "en": "GT-R FIFA #10"
+    },
+    "img": "assets/cars/gtt_classified_car.svg",
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "isPhoto": false,
+    "objectPosition": "center center",
+    "desc": {
+      "ru": "Именной болид «FIFA», созданный в ателье GoshaTurboTech. Сочетает комфортный салон и бескомпромиссные характеристики разгона из 8.5 секунд на квотере.",
+      "en": "Bespoke FIFA build crafted by GoshaTurboTech atelier, pairing premium cockpit refinement with sub-8.5 quarter-mile violence."
+    },
+    "specs": {
+      "engine": "4.1L Billet Stroker VR38 GTT",
+      "turbos": "Precision Gen2 Turbochargers",
+      "transmission": "Dodson Motorsport Billet Gearset",
+      "ecu": "Motec M150"
+    },
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false,
+    "isClassified": true,
+    "isTeaser": true
+  },
+  {
+    "id": "porsche_991_900",
+    "brand": "PORSCHE & GTT",
+    "type": "porsche",
+    "name": {
+      "ru": "PORSCHE 911 TURBO S (991.2) GTT-900",
+      "en": "PORSCHE 911 TURBO S (991.2) GTT-900"
+    },
+    "tag": {
+      "ru": "GTT STAGE 2+ • 900 HP НА 100 БЕНЗИНЕ",
+      "en": "GTT STAGE 2+ • 900 HP PUMP FUEL"
+    },
+    "hp": "—",
+    "quarterMile": "—",
+    "topSpeed": "—",
+    "badge": {
+      "ru": "GTT-900 Stage 2+",
+      "en": "GTT-900 Stage 2+"
+    },
+    "img": "assets/cars/gtt_classified_car.svg",
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "isPhoto": false,
+    "objectPosition": "center center",
+    "desc": {
+      "ru": "Идеальный баланс повседневного суперкара и рекордного темпа. 900 сил на товарном 100-м бензине с ресурсом заводского мотора.",
+      "en": "The quintessential balance of daily driveability and track dominance. 900 reliable horsepower on pump 100 RON gasoline."
+    },
+    "specs": {
+      "engine": "3.8L Boxer-6 Twin-Turbo GTT Stage 2",
+      "turbos": "Upgraded High-Efficiency Turbos",
+      "intercoolers": "CSF High-Capacity Charge Coolers",
+      "ecu": "Custom GTT ECU & TCU Map"
+    },
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false,
+    "isClassified": true,
+    "isTeaser": true
+  },
+  {
+    "id": "porsche_992_puncher",
+    "brand": "PORSCHE & GTT",
+    "type": "porsche",
+    "name": {
+      "ru": "PORSCHE 911 TURBO S (992) GTT «PUNCHER»",
+      "en": "PORSCHE 911 TURBO S (992) GTT «PUNCHER»"
+    },
+    "tag": {
+      "ru": "МИРОВОЙ РЕКОРД В КАТЕГОРИИ • 9.303 СЕК",
+      "en": "WORLD CATEGORY RECORD • 9.303 SEC"
+    },
+    "hp": "—",
+    "quarterMile": "—",
+    "topSpeed": "—",
+    "badge": {
+      "ru": "Puncher 992 GTT",
+      "en": "Puncher 992 GTT"
+    },
+    "img": "assets/cars/gtt_classified_car.svg",
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "isPhoto": false,
+    "objectPosition": "center center",
+    "desc": {
+      "ru": "Культовый Porsche 992 Turbo S «Puncher» Сергея Никитина. Мировой рекорд в категории на UNLIM FEST 2021: 9.303 сек со скоростью 235.83 км/ч на 1/4 мили и 14.778 сек со скоростью 276.92 км/ч на 1/2 мили.",
+      "en": "Iconic Porsche 992 Turbo S Puncher driven by Sergey Nikitin. World Category Record at UNLIM FEST 2021: 9.303 sec at 235.83 km/h on 1/4 mile and 14.778 sec at 276.92 km/h on 1/2 mile."
+    },
+    "specs": {
+      "engine": "3.8L Boxer-6 992 GTT Spec",
+      "turbos": "Billet Precision Mirror Turbos",
+      "intercooling": "High-Flow Core Package",
+      "fuel": "Methanol Multi-Port System"
+    },
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false,
+    "isClassified": true,
+    "isTeaser": true
+  },
+  {
+    "id": "mercedes_e63",
+    "brand": "MERCEDES-AMG & GTT",
+    "type": "other",
+    "name": {
+      "ru": "MERCEDES-AMG E63S 4MATIC+ GTT-950",
+      "en": "MERCEDES-AMG E63S 4MATIC+ GTT-950"
+    },
+    "tag": {
+      "ru": "RDRC 2026 • 9.880 СЕК • ПИЛОТ В. ЩЕД",
+      "en": "RDRC 2026 • 9.880 SEC • PILOT V. SHCHED"
+    },
+    "hp": "—",
+    "quarterMile": "—",
+    "topSpeed": "—",
+    "badge": {
+      "ru": "E63S GTT-950",
+      "en": "E63S GTT-950"
+    },
+    "img": "assets/cars/gtt_classified_car.svg",
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "isPhoto": false,
+    "isClassified": true,
+    "objectPosition": "center center",
+    "desc": {
+      "ru": "Беспощадный бизнес-седан с 4.0L V8 Biturbo, форсированный до 950 л.с. Пилот В. Щед на RDRC 2026 показал подтвержденное время 9.880 сек со скоростью 234.91 км/ч на 1/4 мили.",
+      "en": "Savage executive sedan boasting 950 horsepower from 4.0L V8 Biturbo. Piloted by V. Shched on RDRC 2026 with verified 9.880 sec pass at 234.91 km/h."
+    },
+    "specs": {
+      "engine": "4.0L V8 Biturbo M177 Built by GTT",
+      "turbos": "Billet Upgraded Stage 3 Turbos",
+      "downpipes": "Inconel Catless Thermal-Wrapped Pipes",
+      "transmission": "AMG SPEEDSHIFT MCT 9G Flashed"
+    },
+    "videoSrc": "",
+    "is_featured": 0,
+    "isFeatured": false,
+    "isTeaser": true
+  },
+  {
     "id": "tesla_plaid",
     "brand": "TESLA & GTT",
     "type": "other",
@@ -1157,9 +1164,9 @@ let gttProjects = [
       "ru": "ЭЛЕКТРО-ГИПЕРКАР • 1020 HP • 9.230 СЕК",
       "en": "ELECTRIC HYPERCAR • 1020 HP • 9.230 SEC"
     },
-    "hp": "1,020+ HP",
-    "quarterMile": "9.230 сек",
-    "topSpeed": "322+ км/ч",
+    "hp": "—",
+    "quarterMile": "—",
+    "topSpeed": "—",
     "badge": {
       "ru": "Tesla Plaid GTT",
       "en": "Tesla Plaid GTT"
@@ -1181,157 +1188,8 @@ let gttProjects = [
     },
     "videoSrc": "",
     "is_featured": 0,
-    "isFeatured": false
-  },
-  {
-    "id": "xiaomi_su7",
-    "brand": "XIAOMI & GTT",
-    "type": "other",
-    "name": {
-      "ru": "XIAOMI SU7 ULTRA GTT RACE SPEC",
-      "en": "XIAOMI SU7 ULTRA GTT RACE SPEC"
-    },
-    "tag": {
-      "ru": "RDRC СУПЕРКУБОК 2026 • 9.130 СЕК",
-      "en": "RDRC SUPERCUP 2026 • 9.130 SEC"
-    },
-    "hp": "1,548 HP",
-    "quarterMile": "9.130 сек",
-    "topSpeed": "350+ км/ч",
-    "badge": {
-      "ru": "SU7 Ultra 9.130s",
-      "en": "SU7 Ultra 9.130s"
-    },
-    "img": "assets/cars/gtt_classified_car.svg",
-    "fallbackImg": "assets/cars/gtt_classified_car.svg",
-    "isPhoto": false,
-    "isClassified": true,
-    "objectPosition": "center center",
-    "desc": {
-      "ru": "Сенсационный электрический гиперседан Xiaomi SU7 Ultra под управлением В. Щед в зачете GoshaTurboTech. Официальный результат на Суперкубке RDRC 2026: 9.130 сек со скоростью 249.31 км/ч на 1/4 мили (3/8 мили: 11.769 с / 287.31 км/ч).",
-      "en": "Sensational Xiaomi SU7 Ultra hyper-sedan piloted by V. Shched for GoshaTurboTech. Official RDRC Supercup 2026 pass: 9.130 sec at 249.31 km/h on 1/4 mile."
-    },
-    "specs": {
-      "engine": "Triple V8s Electric Hyper-Motor System",
-      "power": "1,548 HP / 0-100 km/h in 1.97 sec",
-      "brakes": "Carbon Ceramic 6-Piston AP Racing",
-      "aero": "Carbon Rear Wing Generating 285 kg Downforce"
-    },
-    "videoSrc": "",
-    "is_featured": 0,
-    "isFeatured": false
-  },
-  {
-    "id": "zeekr_zevs",
-    "brand": "ZEEKR & GTT",
-    "type": "other",
-    "name": {
-      "ru": "ZEEKR 007 PERFORMANCE ZEVS GTT",
-      "en": "ZEEKR 007 PERFORMANCE ZEVS GTT"
-    },
-    "tag": {
-      "ru": "RDRC 2026 • 11.317 СЕК • К. АВДЕЙКО",
-      "en": "RDRC 2026 • 11.317 SEC • K. AVDEYKO"
-    },
-    "hp": "646 HP",
-    "quarterMile": "11.317 сек",
-    "topSpeed": "210+ км/ч",
-    "badge": {
-      "ru": "Zeekr ZEVS",
-      "en": "Zeekr ZEVS"
-    },
-    "img": "assets/cars/gtt_classified_car.svg",
-    "fallbackImg": "assets/cars/gtt_classified_car.svg",
-    "isPhoto": false,
-    "isClassified": true,
-    "objectPosition": "center center",
-    "desc": {
-      "ru": "Zeekr 007 Performance «ZEVS» команды GoshaTurboTech под управлением Кирилла Авдейко и Сергея Савченко. Зафиксированное время на этапе RDRC 2026: 11.317 сек со скоростью 204.31 км/ч.",
-      "en": "Zeekr 007 Performance ZEVS competing for GoshaTurboTech under K. Avdeyko and S. Savchenko. Official RDRC 2026 best pass: 11.317 sec at 204.31 km/h."
-    },
-    "specs": {
-      "engine": "Dual Silicon Carbide Electric Motors",
-      "power": "646 HP Silicon Carbide AWD",
-      "battery": "800V Golden Battery Technology",
-      "chassis": "CCD Electromagnetic Active Suspension"
-    },
-    "videoSrc": "",
-    "is_featured": 0,
-    "isFeatured": false
-  },
-  {
-    "id": "lambo_nera",
-    "brand": "LAMBORGHINI & GTT",
-    "type": "lambo",
-    "name": {
-      "ru": "GALLARDO NERA TWIN TURBO GTT",
-      "en": "GALLARDO NERA TWIN TURBO GTT"
-    },
-    "tag": {
-      "ru": "МИРОВОЙ РЕКОРД 1 МИЛЯ • 409.55 КМ/Ч",
-      "en": "WORLD 1-MILE RECORD • 409.55 KM/H"
-    },
-    "hp": "1,800+ HP",
-    "quarterMile": "8.500 сек",
-    "topSpeed": "409.55 км/ч",
-    "badge": {
-      "ru": "Мировой Рекорд 409 км/ч",
-      "en": "World Record 409 km/h"
-    },
-    "img": "assets/photos/huracan_zelenka_gtt.jpg",
-    "fallbackImg": "assets/photos/huracan_rdrc_stage_line.jpg",
-    "isPhoto": true,
-    "objectPosition": "center center",
-    "desc": {
-      "ru": "Исторический мировой рекорд скорости на дистанции 1 миля на аэродроме Крит (Греция): 20.845 сек со скоростью 409.55 км/ч! Легендарный проект, принесший GoshaTurboTech всемирную славу в суперкар-сообществе.",
-      "en": "Historic World Record on 1 Mile distance at Crete airfield (Greece): 20.845 sec at 409.55 km/h! The legendary build that cemented GoshaTurboTech on the global motorsport stage."
-    },
-    "specs": {
-      "engine": "5.0L V10 Billet Internals GTT Spec",
-      "turbos": "Dual Precision High-Flow Turbochargers",
-      "fuel": "VP Racing C16 Race Gasoline",
-      "aero": "High-Speed Salt-Flat Style Rear Wing"
-    },
-    "videoSrc": "",
-    "is_featured": 0,
-    "isFeatured": false
-  },
-  {
-    "id": "audi_gyurza",
-    "brand": "AUDI & GTT",
-    "type": "audi",
-    "name": {
-      "ru": "AUDI R8 V10 PLUS TT «GYURZA» БАЙКАЛ",
-      "en": "AUDI R8 V10 PLUS TT «GYURZA» BAIKAL"
-    },
-    "tag": {
-      "ru": "РЕКОРД РОССИИ НА ЛЬДУ БАЙКАЛА • 124 КМ/Ч",
-      "en": "BAIKAL ICE SPEED RECORD • 124 KM/H"
-    },
-    "hp": "1,350+ HP",
-    "quarterMile": "9.100 сек",
-    "topSpeed": "345+ км/ч",
-    "badge": {
-      "ru": "Рекорд льда Байкала",
-      "en": "Baikal Ice Record"
-    },
-    "img": "assets/archive_tilda/audi_r8_gyurza_ice.jpg",
-    "fallbackImg": "assets/cars/audi_r8_tsmr_launch.jpg",
-    "isPhoto": true,
-    "objectPosition": "center 60%",
-    "desc": {
-      "ru": "Подготовленный в ателье GTT совместно с Kiwamaru болид Audi R8 V10 Plus Twin Turbo «Гюрза». Официальный рекорд России на Днях скорости на льду озера Байкал: средняя скорость 124 км/ч на дистанции 1 км с места по голому льду.",
-      "en": "Engineered by GTT alongside Kiwamaru. Official Russian record at Speed Days on Lake Baikal ice: 124 km/h average speed across 1 km from standing start on bare ice."
-    },
-    "specs": {
-      "engine": "5.2L V10 FSI Twin Turbo Winter Spec",
-      "turbos": "Custom Fast-Spool Billet Turbochargers",
-      "tires": "Studded Competition Ice Rally Rubber",
-      "ecu": "GTT Ice-Traction Electronic Calibration"
-    },
-    "videoSrc": "",
-    "is_featured": 0,
-    "isFeatured": false
+    "isFeatured": false,
+    "isTeaser": true
   }
 ];
 
@@ -1851,9 +1709,9 @@ function sanitizeCarRecord(c) {
   const isVolga = c.id === 'volga_kgb' || c.id === 'gtt_car_1793314607236' || rawName.includes('ВОЛГА') || rawName.includes('VOLGA');
   if (isVolga) {
     if (!c.img || c.img.includes('gtr-min.png') || c.img.includes('7tuUxJxwl5e8') || c.img.includes('bmw_m5')) {
-      c.img = 'assets/cars/volga_kgb_v8_sleeper.jpg';
+      c.img = 'assets/cars/volga_kgb_v8_workshop.jpg';
     }
-    c.fallbackImg = 'assets/cars/volga_kgb_v8_sleeper.jpg';
+    c.fallbackImg = 'assets/cars/volga_kgb_v8_workshop.jpg';
     if (!c.hp || c.hp === '-' || c.hp === '- HP' || c.hp === '—') c.hp = '1,050+ HP';
     if (!c.quarter_mile && !c.quarterMile) c.quarterMile = '9.420 сек';
     if (!c.top_speed && !c.topSpeed) c.topSpeed = '340+ км/ч';
@@ -1865,19 +1723,22 @@ function sanitizeCarRecord(c) {
 
   // 2. Clear broken phantom paths (e.g. assets/cars/7tuUx...)
   if (c.img && typeof c.img === 'string' && c.img.startsWith('assets/cars/') && c.img.includes('7tuUxJxwl5e8')) {
-    c.img = 'assets/cars/volga_kgb_v8_sleeper.jpg';
+    c.img = 'assets/cars/volga_kgb_v8_workshop.jpg';
   }
 
-  // 3. Clear placeholder dashes on any car
-  if (c.hp === '-' || c.hp === '- HP') c.hp = '1,050+ HP';
-  if (c.quarterMile === '-' || c.quarterMile === '- сек') c.quarterMile = '9.420 сек';
-  if (c.topSpeed === '-' || c.topSpeed === '- км/ч') c.topSpeed = '340+ км/ч';
+  // 3. Clear placeholder dashes on any car ONLY if not classified
+  const isClassifiedCar = Boolean(c.isClassified || c.is_classified || c.isTeaser || (c.img && (c.img.includes('classified') || c.img.endsWith('.svg'))));
+  if (!isClassifiedCar) {
+    if (c.hp === '-' || c.hp === '- HP') c.hp = '1,050+ HP';
+    if (c.quarterMile === '-' || c.quarterMile === '- сек') c.quarterMile = '9.420 сек';
+    if (c.topSpeed === '-' || c.topSpeed === '- км/ч') c.topSpeed = '340+ км/ч';
+  }
 
   return c;
 }
 
 function applyCarsData(carList) {
-  const cleanList = Array.isArray(carList) ? carList.filter(c => c && c.hp !== '?' && c.img && !c.isTeaser) : [];
+  const cleanList = Array.isArray(carList) ? carList.filter(c => c && c.id) : [];
   const listToUse = (cleanList.length > 0 ? cleanList : carList).map(sanitizeCarRecord);
 
   // Sort so featured cars come first if sort_order isn't doing so
@@ -3615,15 +3476,15 @@ function convertGoogleDriveUrl(url) {
 
 function formatSpecVal(val, lang, type) {
   let str = (typeof val === 'object' && val !== null) ? (val[lang] || val.ru || val.en || '') : String(val || '').trim();
-  const isDashOrEmpty = !str || str === '-' || str === '—' || str === 'undefined' || 
+  if (str === '—' || str === '-') {
+    return '—';
+  }
+  const isDashOrEmpty = !str || str === 'undefined' || 
     str === '- HP' || str === '— HP' || 
     str === '- сек' || str === '— сек' || str === '- sec' || str === '— sec' || 
     str === '- км/ч' || str === '— км/ч' || str === '- km/h' || str === '— km/h';
 
   if (isDashOrEmpty) {
-    if (type === 'hp') return '1,050+ HP';
-    if (type === 'quarterMile') return lang === 'en' ? '9.420 sec' : '9.420 сек';
-    if (type === 'topSpeed') return lang === 'en' ? '340+ km/h' : '340+ км/ч';
     return '—';
   }
   if (lang === 'en') {
@@ -3737,10 +3598,10 @@ function renderGarageGrid(filterType) {
           : `<span class="car-card-badge">${badge}</span>`
         }
         <div class="car-card-media ${isClass ? 'classified-media' : ''}" style="position: relative;">
-          ${isNewCar ? `
+          ${(isNewCar || isClass) ? `
             <div class="card-question-overlay">
               <div class="card-question-icon">?</div>
-              <div class="card-question-badge">${currentLang === 'ru' ? 'НОВЫЙ БОЛИД • ВЫБОР ФОТО' : 'NEW BUILD • SELECT PHOTO'}</div>
+              <div class="card-question-badge">${isNewCar ? (currentLang === 'ru' ? 'НОВЫЙ БОЛИД • ВЫБОР ФОТО' : 'NEW BUILD • SELECT PHOTO') : (currentLang === 'ru' ? 'СЕКРЕТНЫЙ ПРОЕКТ • ЗАСЕКРЕЧЕНО' : 'CLASSIFIED BUILD • TOP SECRET')}</div>
             </div>
           ` : ''}
           <img class="car-card-img ${car.isPhoto ? 'photo-fit' : ''}" 
