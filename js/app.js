@@ -1996,7 +1996,7 @@ let cachedPartnersData = null;
 let currentPartnerFilter = 'all';
 
 function normalizePartnerList(list) {
-  if (!Array.isArray(list) || list.length < 28) return defaultPartnersList;
+  if (!Array.isArray(list) || list.length === 0) return defaultPartnersList;
   return list.map(p => {
     let logo = p.logo;
     const match = defaultPartnersList.find(d => d.id === p.id);
@@ -2038,6 +2038,25 @@ function renderPartnersMarquee(partners) {
   }).join('');
 }
 
+function getOptimalPartnerColumns(count) {
+  if (count <= 2) return count;
+  if (count <= 4) return 2;
+  if (count <= 6) return 3;
+
+  // Exact division with zero orphans
+  if (count % 4 === 0) return 4;
+  if (count % 3 === 0) return 3;
+
+  // Remainder analysis to eliminate lonely single orphan cards
+  const rem4 = count % 4; // e.g. for 21: 1 (orphan!)
+  const rem3 = count % 3; // e.g. for 21: 0 (perfect!)
+
+  if (rem4 === 1 && rem3 !== 1) return 3;
+  if (rem3 === 1 && rem4 !== 1) return 4;
+
+  return rem4 >= rem3 ? 4 : 3;
+}
+
 function renderPartnersGrid(partners) {
   const container = document.getElementById('partnersGrid');
   if (!container) return;
@@ -2052,34 +2071,37 @@ function renderPartnersGrid(partners) {
 
   if (activePartners.length === 0) {
     container.innerHTML = `
-      <div style="grid-column: 1 / -1; text-align: center; padding: 48px 20px; color: var(--text-muted); font-family: var(--font-mono); font-size: 14px;">
-        // Бренды не найдены
+      <div style="text-align: center; padding: 48px 20px; color: var(--text-muted); font-family: var(--font-mono); font-size: 14px; width: 100%;">
+        // Список партнеров обновляется
       </div>
     `;
     return;
   }
+
+  // Set optimal column layout on the grid to prevent awkward orphan cards
+  const optimalCols = getOptimalPartnerColumns(activePartners.length);
+  container.setAttribute('data-cols', String(optimalCols));
 
   container.innerHTML = activePartners.map(p => {
     const name = escapeHtml(p.name || '');
     const tag = escapeHtml(p.category || 'Партнер GTT');
     const link = p.link && p.link !== '#' ? escapeHtml(p.link) : '#';
     const logoSrc = escapeHtml(p.logo || '');
-    const monogram = name.slice(0, 2).toUpperCase();
+    const monogram = name.split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase();
     const hrefAttr = link !== '#' ? `href="${link}" target="_blank" rel="noopener noreferrer"` : `href="#partners"`;
     
     return `
       <a ${hrefAttr} class="partner-card" data-partner-id="${escapeHtml(p.id || '')}" title="${name} — Официальный сайт">
-        <div class="partner-card-header">
-          <div class="partner-logo-box">
-            ${logoSrc ? `<img src="${logoSrc}" alt="${name}" class="partner-card-logo-img" loading="lazy" onerror="this.parentElement.innerHTML='<span class=\\'partner-monogram-badge\\'>${monogram}</span>'">` : `<span class="partner-monogram-badge">${monogram}</span>`}
-          </div>
-          <div class="partner-card-arrow">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
-          </div>
+        <div class="partner-logo-box">
+          ${logoSrc ? `<img src="${logoSrc}" alt="${name}" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">` : ''}
+          <span class="partner-monogram-badge" style="${logoSrc ? 'display:none;' : 'display:block;'}">${monogram}</span>
         </div>
         <div class="partner-card-meta">
           <h3 class="partner-card-name">${name}</h3>
           <span class="partner-card-tag">${tag}</span>
+        </div>
+        <div class="partner-card-arrow" aria-hidden="true">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
         </div>
       </a>
     `;
@@ -2100,7 +2122,7 @@ async function syncPartnersFromAPI() {
     const local = localStorage.getItem('gtt_admin_partners_db');
     if (local) {
       const parsed = JSON.parse(local);
-      if (Array.isArray(parsed) && parsed.length >= 28) {
+      if (Array.isArray(parsed) && parsed.length > 0) {
         const upgraded = normalizePartnerList(parsed);
         cachedPartnersData = upgraded;
         localStorage.setItem('gtt_admin_partners_db', JSON.stringify(upgraded));
@@ -2128,7 +2150,7 @@ async function syncPartnersFromAPI() {
     const res = await fetch('/api/partners');
     if (!res.ok) return;
     const serverPartners = await res.json();
-    if (Array.isArray(serverPartners) && serverPartners.length >= 28) {
+    if (Array.isArray(serverPartners) && serverPartners.length > 0) {
       const upgraded = normalizePartnerList(serverPartners);
       cachedPartnersData = upgraded;
       localStorage.setItem('gtt_admin_partners_db', JSON.stringify(upgraded));
