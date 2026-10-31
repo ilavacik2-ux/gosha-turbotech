@@ -2372,8 +2372,15 @@ body.is-loading {
 
 @media (max-width: 768px) {
   .moto-hero-photo-wrap {
-    aspect-ratio: 1 / 1;
-    max-height: 340px;
+    aspect-ratio: 16 / 10;
+    max-height: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .moto-hero-photo-wrap {
+    aspect-ratio: 16 / 9;
+    max-height: 220px;
   }
 }
 
@@ -3084,12 +3091,27 @@ body.is-loading {
 @media (max-width: 900px) {
   .moto-banner-specs {
     grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 18px;
+    padding-top: 16px;
   }
 }
 
 @media (max-width: 520px) {
   .moto-banner-specs {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-top: 14px;
+    padding-top: 14px;
+  }
+  .moto-spec-stat-card {
+    padding: 10px 10px;
+  }
+  .moto-spec-stat-card .m-stat-val {
+    font-size: 17px;
+  }
+  .moto-spec-stat-card .m-stat-lbl {
+    font-size: 9px;
   }
 }
 
@@ -4971,27 +4993,92 @@ body.modal-open {
     font-size: 12px;
   }
 
-  /* Moto Section */
+  /* Moto Section (Mobile Optimized) */
   .moto-section {
-    padding: 70px 4%;
+    padding: 44px 4% 48px;
   }
-  .moto-gallery-grid-duo {
+  .moto-hero-banner {
+    margin-bottom: 24px;
+    border-radius: 12px;
+  }
+  .moto-hero-media {
     grid-template-columns: 1fr;
-    gap: 16px;
-    padding: 12px;
+    padding: 10px;
+    gap: 10px;
   }
-  .moto-duo-photo-wrap {
-    height: auto;
-    aspect-ratio: 1 / 1;
-    max-height: none;
+  .moto-hero-photo-wrap {
+    aspect-ratio: 16 / 10;
+    max-height: 240px;
+    border-radius: 8px;
   }
-  .moto-showcase-img {
-    object-position: center bottom;
-    object-fit: cover;
+  .moto-hero-badge {
+    bottom: 10px;
+    left: 10px;
+    font-size: 9px;
+    padding: 4px 8px;
+    max-width: calc(100% - 20px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .moto-hero-info {
+    padding: 18px 16px 20px;
+  }
+  .moto-hero-title {
+    font-size: 19px;
+    margin-bottom: 6px;
+  }
+  .moto-hero-desc {
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+  .moto-banner-specs {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-top: 14px;
+    padding-top: 14px;
+  }
+  .moto-spec-stat-card {
+    padding: 9px 10px;
+    border-radius: 6px;
+  }
+  .moto-spec-stat-card .m-stat-val {
+    font-size: 17px;
+  }
+  .moto-spec-stat-card .m-stat-lbl {
+    font-size: 8.5px;
+    letter-spacing: 0.02em;
   }
   .moto-cards-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 14px;
+  }
+  .moto-card {
+    padding: 20px 16px 18px;
+    border-radius: 10px;
+    transform: none !important;
+  }
+  .moto-card:hover {
+    transform: none !important;
+  }
+  .moto-card-header {
+    margin-bottom: 10px;
+  }
+  .moto-card-title {
+    font-size: 17px;
+    margin-bottom: 6px;
+  }
+  .moto-card-desc {
+    font-size: 12.5px;
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+  .moto-spec-strip {
+    padding-top: 10px;
+  }
+  .moto-spec-item {
+    padding: 7px 0;
+    font-size: 12.5px;
   }
 
   /* Contact Hub */
@@ -5065,6 +5152,32 @@ body.modal-open {
   }
   .hero-title {
     font-size: 28px;
+  }
+  .moto-hero-photo-wrap {
+    aspect-ratio: 16 / 9;
+    max-height: 190px;
+  }
+  .moto-banner-specs {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+  .moto-spec-stat-card {
+    padding: 8px 7px;
+  }
+  .moto-spec-stat-card .m-stat-val {
+    font-size: 15px;
+  }
+  .moto-spec-stat-card .m-stat-lbl {
+    font-size: 8px;
+  }
+  .moto-card {
+    padding: 16px 12px;
+  }
+  .moto-card-title {
+    font-size: 15.5px;
+  }
+  .moto-spec-item {
+    font-size: 11.5px;
   }
 }
 
