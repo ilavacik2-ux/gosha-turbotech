@@ -1678,6 +1678,7 @@ document.addEventListener('DOMContentLoaded', () => {
   syncRecordsFromAPI();
   syncPartnersFromAPI();
   syncMotoFromAPI();
+  syncMotoBannersFromAPI();
   initNavigation();
   initFilters();
   initModal();
@@ -2312,6 +2313,50 @@ async function syncMotoFromAPI() {
   }
 }
 
+function applyMotoBanners(data) {
+  if (!data) return;
+  const b1 = data.banner1 || {};
+  const b2 = data.banner2 || {};
+  const img1 = document.getElementById('motoHeroImg1');
+  const badge1 = document.getElementById('motoHeroBadge1');
+  const img2 = document.getElementById('motoHeroImg2');
+  const badge2 = document.getElementById('motoHeroBadge2');
+
+  if (img1 && b1.img) {
+    img1.src = b1.img;
+    const pos1 = b1.object_position || b1.objectPosition || 'center 50%';
+    img1.style.setProperty('object-position', pos1, 'important');
+  }
+  if (badge1 && b1.badge) badge1.textContent = b1.badge;
+
+  if (img2 && b2.img) {
+    img2.src = b2.img;
+    const pos2 = b2.object_position || b2.objectPosition || 'center 50%';
+    img2.style.setProperty('object-position', pos2, 'important');
+  }
+  if (badge2 && b2.badge) badge2.textContent = b2.badge;
+}
+
+async function syncMotoBannersFromAPI() {
+  try {
+    const local = localStorage.getItem('gtt_moto_banners');
+    if (local) {
+      applyMotoBanners(JSON.parse(local));
+    }
+  } catch (e) {}
+
+  try {
+    const res = await fetch('/api/moto/banners');
+    if (res.ok) {
+      const data = await res.json();
+      if (data && (data.banner1 || data.banner2)) {
+        localStorage.setItem('gtt_moto_banners', JSON.stringify(data));
+        applyMotoBanners(data);
+      }
+    }
+  } catch (err) {}
+}
+
 function getGalleryBilingual(rawTitle, rawTag) {
   let title = rawTitle || '';
   let tag = rawTag || 'RDRC';
@@ -2553,9 +2598,10 @@ function renderGalleryTrack(items) {
     const rawTitle = (g.title || '').replace(/\s*проверка/gi, '').trim();
     const rawTag = g.tag || 'RDRC';
     const bilingual = getGalleryBilingual(rawTitle, rawTag);
+    const objPos = g.object_position || g.objectPosition || 'center 50%';
     return `
     <div class="marquee-card" data-raw-title="${rawTitle.replace(/"/g, '&quot;')}" data-raw-tag="${rawTag.replace(/"/g, '&quot;')}" onclick="openGalleryLightbox('${g.img}', '${rawTitle.replace(/'/g, "\\'")}')">
-      <img src="${g.img}" alt="${bilingual.title || 'GTT'}" decoding="async" onerror="this.onerror=null; this.src='assets/photos/gtt_shield_logo.svg';">
+      <img src="${g.img}" alt="${bilingual.title || 'GTT'}" style="object-position: ${objPos} !important;" decoding="async" onerror="this.onerror=null; this.src='assets/photos/gtt_shield_logo.svg';">
       <div class="marquee-card-meta">
         <span class="marquee-card-tag">${bilingual.tag}</span>
         <div class="marquee-card-title">${bilingual.title}</div>
@@ -3324,6 +3370,8 @@ window.addEventListener('storage', (e) => {
     syncPartnersFromAPI();
   } else if (e.key === 'gtt_admin_moto_db') {
     syncMotoFromAPI();
+  } else if (e.key === 'gtt_moto_banners') {
+    syncMotoBannersFromAPI();
   } else if (e.key === 'gtt_hero_telemetry_custom') {
     if (typeof applyCustomHeroTelemetry === 'function') applyCustomHeroTelemetry();
   }
@@ -3354,6 +3402,12 @@ if (window.BroadcastChannel) {
           renderMotoGrid(e.data.moto);
         } else {
           syncMotoFromAPI();
+        }
+      } else if (e.data && e.data.type === 'moto_banners_updated') {
+        if (e.data.banners) {
+          applyMotoBanners(e.data.banners);
+        } else {
+          syncMotoBannersFromAPI();
         }
       }
     };
@@ -3792,7 +3846,7 @@ function renderGarageGrid(filterType) {
         <div class="car-card car-card-fade-in ${isClass ? 'is-classified' : ''} ${isNewCar ? 'is-new-car-pending' : ''}" data-id="${car.id}" onclick="openCarModal('${car.id}')" style="cursor: pointer; animation-delay: ${idx * 0.04}s">
           ${isNewCar 
             ? `<span class="car-card-badge is-new-badge">${currentLang === 'ru' ? 'НОВЫЙ ПРОЕКТ // ВЫБОР ФОТО' : 'NEW BUILD // PENDING PHOTO'}</span>` 
-            : `<span class="car-card-badge">${badge}</span>`
+            : ''
           }
           <div class="car-card-media ${isClass ? 'classified-media' : ''}" style="position: relative;">
             ${isNewCar ? `

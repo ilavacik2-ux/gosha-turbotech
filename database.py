@@ -101,6 +101,11 @@ def init_db():
         sort_order INTEGER DEFAULT 0
     )
     """)
+    for col in ["object_position"]:
+        try:
+            cursor.execute(f"ALTER TABLE gallery ADD COLUMN {col} TEXT")
+        except Exception:
+            pass
 
     # 5. Media Table
     cursor.execute("""
@@ -1467,16 +1472,19 @@ def get_all_gallery() -> List[Dict[str, Any]]:
 def upsert_gallery(item: Dict[str, Any]) -> Dict[str, Any]:
     conn = get_connection()
     cursor = conn.cursor()
+    obj_pos = item.get("object_position") or item.get("objectPosition") or "center 50%"
     cursor.execute("""
-    INSERT INTO gallery (id, tag, title, img)
-    VALUES (?, ?, ?, ?)
+    INSERT INTO gallery (id, tag, title, img, object_position)
+    VALUES (?, ?, ?, ?, ?)
     ON CONFLICT(id) DO UPDATE SET
         tag=excluded.tag,
         title=excluded.title,
-        img=excluded.img
-    """, (item["id"], item["tag"], item["title"], item["img"]))
+        img=excluded.img,
+        object_position=excluded.object_position
+    """, (item["id"], item["tag"], item["title"], item["img"], obj_pos))
     conn.commit()
     conn.close()
+    item["object_position"] = obj_pos
     return item
 
 def delete_gallery(item_id: str) -> bool:

@@ -320,8 +320,11 @@ async def login(req: LoginRequest, request: Request):
     # Airlock 5: Master Password Comparison (constant time)
     stored_password = database.get_setting("admin_password", "")
     cfg_password = cfg.get("ADMIN_PASSWORD", "gtt_master_password_2026!")
-    backup_passwords = cfg.get("BACKUP_PASSWORDS", ["gtt71", "gtt_atelier_2026"])
-    valid_passwords = [p for p in [cfg_password, stored_password] + backup_passwords if p]
+    if stored_password:
+        valid_passwords = [stored_password]
+    else:
+        backup_passwords = cfg.get("BACKUP_PASSWORDS", ["gtt71", "gtt_atelier_2026"])
+        valid_passwords = [p for p in [cfg_password] + backup_passwords if p]
     
     entered_pass = req.password.strip()
     pass_valid = any(hmac.compare_digest(entered_pass.encode("utf-8"), p.encode("utf-8")) for p in valid_passwords)
@@ -369,14 +372,32 @@ async def logout(request: Request):
 
 @app.post("/api/auth/change-password")
 async def change_password(req: ChangePasswordRequest, session: str = Depends(verify_admin_session)):
-    stored_password = database.get_setting("admin_password", "gtt71")
-    if req.current_password.strip() != stored_password and req.current_password.strip() != SERVER_CONFIG.get("ADMIN_PASSWORD"):
+    stored_password = database.get_setting("admin_password", "")
+    expected = stored_password if stored_password else SERVER_CONFIG.get("ADMIN_PASSWORD", "gtt71")
+    entered_cur = req.current_password.strip()
+    if not (hmac.compare_digest(entered_cur.encode("utf-8"), expected.encode("utf-8")) or 
+            entered_cur == SERVER_CONFIG.get("ADMIN_PASSWORD")):
         raise HTTPException(status_code=400, detail="Неверный текущий пароль")
     
     if len(req.new_password.strip()) < 6:
         raise HTTPException(status_code=400, detail="Новый пароль должен содержать минимум 6 символов")
 
-    database.set_setting("admin_password", req.new_password.strip())
+    new_pass = req.new_password.strip()
+    database.set_setting("admin_password", new_pass)
+    SERVER_CONFIG["ADMIN_PASSWORD"] = new_pass
+
+    config_path = os.path.join(BASE_DIR, "gtt_config.json")
+    if os.path.exists(config_path):
+        try:
+            with open(config_path, "r+", encoding="utf-8") as f:
+                cfg = json.load(f)
+                cfg["ADMIN_PASSWORD"] = new_pass
+                f.seek(0)
+                json.dump(cfg, f, indent=2, ensure_ascii=False)
+                f.truncate()
+        except Exception as e:
+            print("[GTT CONFIG] Warning updating gtt_config.json:", e)
+
     send_telegram_notification(
         f"🔑 <b>GTT Atelier Hub: Пароль изменен</b>\n"
         f"Мастер-пароль администратора был успешно обновлен.\n"
@@ -668,6 +689,34 @@ async def remove_moto_item(moto_id: str, session: str = Depends(verify_admin_ses
         raise HTTPException(status_code=404, detail="Мотопроект не найден")
     send_telegram_notification(f"🗑️ <b>Мотопроект удален:</b> {m_title}")
     return {"status": "ok", "deleted_id": moto_id}
+
+# Moto Division Showcase Banners (Headers)
+@app.get("/api/moto/banners")
+async def get_moto_banners():
+    raw = database.get_setting("moto_banners", "")
+    if raw:
+        try:
+            return json.loads(raw)
+        except Exception:
+            pass
+    return {
+        "banner1": {
+            "img": "assets/moto/bmw_m1000rr_cafe.jpg",
+            "badge": "FLAGSHIP // BMW M1000RR GOSHATURBOTECH",
+            "object_position": "center 50%"
+        },
+        "banner2": {
+            "img": "assets/moto/gtt_superbikes_trio_night.jpg",
+            "badge": "GTT MOTORSPORT FLEET",
+            "object_position": "center 50%"
+        }
+    }
+
+@app.post("/api/moto/banners")
+async def save_moto_banners(payload: Dict[str, Any], session: str = Depends(verify_admin_session)):
+    database.set_setting("moto_banners", json.dumps(payload, ensure_ascii=False))
+    send_telegram_notification("🏍️ <b>GTT Moto:</b> Обновлены главные фото-баннеры витрины супербайков")
+    return {"status": "ok", "banners": payload}
 
 # ================= TRAFFIC TELEMETRY =================
 

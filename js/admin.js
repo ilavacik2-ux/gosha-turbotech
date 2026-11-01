@@ -3082,14 +3082,14 @@ function clearRecordPhotoPreview() {
 }
 
 async function updateMediaFilePreviewUI(src, name = '', meta = '') {
-  const wrap = document.getElementById('mediaFilePreviewWrap');
   const videoEl = document.getElementById('mediaVideoPreview');
   const imgEl = document.getElementById('mediaImgPreview');
+  const emptyEl = document.getElementById('mediaEmptyPlaceholder');
   const nameEl = document.getElementById('mediaMetaName');
   const infoEl = document.getElementById('mediaMetaInfo');
 
   if (!src) {
-    if (wrap) wrap.style.display = 'none';
+    if (emptyEl) emptyEl.style.display = 'flex';
     if (videoEl) {
       videoEl.pause();
       videoEl.removeAttribute('src');
@@ -3099,6 +3099,8 @@ async function updateMediaFilePreviewUI(src, name = '', meta = '') {
       imgEl.removeAttribute('src');
       imgEl.style.display = 'none';
     }
+    if (nameEl) nameEl.textContent = 'Файл не выбран';
+    if (infoEl) infoEl.textContent = 'Ожидание';
     return;
   }
 
@@ -3108,6 +3110,8 @@ async function updateMediaFilePreviewUI(src, name = '', meta = '') {
   }
 
   const isImg = /\.(jpg|jpeg|png|webp|gif|avif|svg)$/i.test(src) || src.startsWith('data:image/');
+
+  if (emptyEl) emptyEl.style.display = 'none';
 
   if (isImg) {
     if (videoEl) {
@@ -3129,7 +3133,6 @@ async function updateMediaFilePreviewUI(src, name = '', meta = '') {
 
   if (nameEl) nameEl.textContent = name || (src.startsWith('blob:') ? 'Локальный файл' : src.split('/').pop());
   if (infoEl) infoEl.textContent = meta || '● Готово';
-  if (wrap) wrap.style.display = 'block';
 }
 
 async function handleMediaFileInput(val) {
@@ -3186,11 +3189,59 @@ function handleGalleryPhotoSelected(e) {
   if (file) {
     handleGenericUpload(file, {
       inputId: 'editGalleryImg',
+      previewWrapId: 'galleryImgPreviewWrap',
+      previewImgId: 'galleryImgPreview',
+      previewNameId: 'galleryImgMetaName',
+      previewInfoId: 'galleryImgMetaInfo',
       folder: 'photos',
       isVideo: false,
       successMsg: `Кадр «${file.name}» сохранен в галерее`
     });
   }
+}
+
+function handleGalleryPhotoInput(val) {
+  const trimmed = (val || '').trim();
+  const wrap = document.getElementById('galleryImgPreviewWrap');
+  const img = document.getElementById('galleryImgPreview');
+  const nameEl = document.getElementById('galleryImgMetaName');
+  if (trimmed) {
+    if (img) img.src = trimmed;
+    if (wrap) wrap.style.display = 'block';
+    if (nameEl) nameEl.textContent = trimmed.split('/').pop();
+  } else {
+    if (wrap) wrap.style.display = 'none';
+  }
+}
+
+function clearGalleryPhotoPreview() {
+  const input = document.getElementById('editGalleryImg');
+  const fileInput = document.getElementById('galleryPhotoFileInput');
+  const wrap = document.getElementById('galleryImgPreviewWrap');
+  if (input) input.value = '';
+  if (fileInput) fileInput.value = '';
+  if (wrap) wrap.style.display = 'none';
+}
+
+function handleGalleryPhotoPositionChange(val) {
+  const num = parseInt(val, 10);
+  const display = document.getElementById('galleryPosValueDisplay');
+  const hiddenInput = document.getElementById('editGalleryObjectPosition');
+  const slider = document.getElementById('editGalleryPositionY');
+  const previewImg = document.getElementById('galleryImgPreview');
+  if (display) display.textContent = `${num}%`;
+  const posString = `center ${num}%`;
+  if (hiddenInput) hiddenInput.value = posString;
+  if (slider && slider.value !== String(num)) slider.value = num;
+  if (previewImg) previewImg.style.objectPosition = posString;
+}
+
+function setGalleryPhotoPreset(preset) {
+  let val = 50;
+  if (preset === 'top') val = 20;
+  if (preset === 'center') val = 50;
+  if (preset === 'bottom') val = 75;
+  handleGalleryPhotoPositionChange(val);
 }
 
 let isDragDropInitialized = false;
@@ -3656,10 +3707,11 @@ function renderGalleryTable() {
     const title = escapeHTML(item.title);
     const tag = escapeHTML(item.tag);
     const img = escapeHTML(item.img);
+    const objPos = escapeHTML(item.object_position || item.objectPosition || 'center 50%');
     return `
     <tr>
       <td>
-        <img src="${img}" alt="${title}" class="car-thumb" onerror="this.src='assets/photos/huracan_zelenka_gtt.jpg'">
+        <img src="${img}" alt="${title}" class="car-thumb" style="width: 54px; height: 38px; object-fit: cover; object-position: ${objPos}; border-radius: 4px; border: 1px solid rgba(255,255,255,0.12);" onerror="this.src='assets/photos/huracan_zelenka_gtt.jpg'">
       </td>
       <td><span class="tag-pill" style="color: var(--gtt-orange);">${tag}</span></td>
       <td style="font-weight: 600; color: #fff;">${title}</td>
@@ -3692,15 +3744,23 @@ function openGalleryPhotoModal(id) {
     document.getElementById('editGalleryTitle').value = item.title;
     document.getElementById('editGalleryTag').value = item.tag;
     document.getElementById('editGalleryImg').value = item.img;
+    const pos = item.object_position || item.objectPosition || 'center 50%';
+    const match = pos.match(/(\d+)%/);
+    const posNum = match ? parseInt(match[1], 10) : 50;
+    handleGalleryPhotoPositionChange(posNum);
+    handleGalleryPhotoInput(item.img);
   } else {
     title.textContent = 'Добавить новый кадр в галерею';
     form.reset();
     document.getElementById('editGalleryId').value = '';
+    handleGalleryPhotoPositionChange(50);
+    clearGalleryPhotoPreview();
   }
 }
 
 function closeGalleryPhotoModal() {
   document.getElementById('galleryPhotoModal').style.display = 'none';
+  clearGalleryPhotoPreview();
 }
 
 async function saveGalleryPhoto(e) {
@@ -3719,7 +3779,8 @@ async function saveGalleryPhoto(e) {
     id: idInput || ('gal_' + Date.now()),
     title: rawTitle,
     tag: document.getElementById('editGalleryTag').value.trim() || 'RDRC',
-    img: document.getElementById('editGalleryImg').value.trim() || 'assets/photos/huracan_zelenka_gtt.jpg'
+    img: document.getElementById('editGalleryImg').value.trim() || 'assets/photos/huracan_zelenka_gtt.jpg',
+    object_position: document.getElementById('editGalleryObjectPosition')?.value || 'center 50%'
   };
 
   // 1. Direct reliable save to SQLite backend FIRST
@@ -4064,9 +4125,15 @@ function renderRecordsTable() {
     const car = escapeHTML(rec.car);
     const telemetry = escapeHTML(rec.telemetry);
     const desc = escapeHTML(rec.desc);
+    const rawImg = rec.img || 'assets/cars/bmw_m5_rdrc_race.jpg';
+    const img = escapeHTML(convertGoogleDriveUrl(rawImg) || rawImg);
+    const objPos = escapeHTML(rec.objectPosition || rec.object_position || 'center 50%');
     return `
     <tr>
       <td><span class="tag-pill" style="color: var(--gtt-orange);">${year}</span></td>
+      <td style="text-align: center;">
+        <img src="${img}" alt="${car}" class="car-thumb" style="width: 54px; height: 38px; object-fit: cover; object-position: ${objPos}; border-radius: 4px; border: 1px solid rgba(255,255,255,0.12); display: inline-block; vertical-align: middle;" onerror="this.onerror=null; this.src='assets/cars/bmw_m5_rdrc_race.jpg';">
+      </td>
       <td style="font-weight: 700; color: #fff;">${car}</td>
       <td style="font-family: var(--font-mono);">${telemetry}</td>
       <td style="color: var(--text-muted); font-size: 11.5px;">${desc}</td>
@@ -4284,8 +4351,21 @@ function renderMediaTable() {
     const type = escapeHTML((item.type || '').toUpperCase());
     const url = escapeHTML(item.url);
     const car = escapeHTML(item.car);
+    const isVideo = !(/\.(jpg|jpeg|png|webp|gif|avif|svg)$/i.test(item.url || ''));
     return `
     <tr>
+      <td style="text-align: center;">
+        <div style="width: 54px; height: 38px; border-radius: 4px; overflow: hidden; background: #000; border: 1px solid rgba(255,255,255,0.12); display: inline-flex; align-items: center; justify-content: center; position: relative;">
+          ${isVideo ? `
+            <video src="${url}" preload="metadata" muted playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
+            <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center;">
+              <span style="font-size: 10px; color: #fff;">▶</span>
+            </div>
+          ` : `
+            <img src="${url}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.src='assets/photos/gtt_shield_logo.svg';">
+          `}
+        </div>
+      </td>
       <td style="font-weight: 600; color: #fff;">${title}</td>
       <td><span class="tag-pill">${type}</span></td>
       <td style="font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
@@ -5180,9 +5260,153 @@ window.toggleAdminNotifications = toggleAdminNotifications;
 window.clearAdminNotifications = clearAdminNotifications;
 window.updateAdminBellUI = updateAdminBellUI;
 
+// ================= MOTO SHOWCASE BANNERS MANAGER =================
+const MOTO_BANNERS_STORAGE_KEY = 'gtt_moto_banners';
+const defaultMotoBanners = {
+  banner1: {
+    img: 'assets/moto/bmw_m1000rr_cafe.jpg',
+    badge: 'FLAGSHIP // BMW M1000RR GOSHATURBOTECH',
+    object_position: 'center 50%'
+  },
+  banner2: {
+    img: 'assets/moto/gtt_superbikes_trio_night.jpg',
+    badge: 'GTT MOTORSPORT FLEET',
+    object_position: 'center 50%'
+  }
+};
+
+async function loadMotoBanners() {
+  let banners = defaultMotoBanners;
+  try {
+    const raw = localStorage.getItem(MOTO_BANNERS_STORAGE_KEY);
+    if (raw) banners = JSON.parse(raw);
+  } catch (e) {}
+
+  try {
+    const serverData = await apiFetch('/api/moto/banners');
+    if (serverData && (serverData.banner1 || serverData.banner2)) {
+      banners = serverData;
+      localStorage.setItem(MOTO_BANNERS_STORAGE_KEY, JSON.stringify(banners));
+    }
+  } catch (err) {}
+
+  const b1 = banners.banner1 || defaultMotoBanners.banner1;
+  const b2 = banners.banner2 || defaultMotoBanners.banner2;
+
+  // Banner 1
+  const b1Url = document.getElementById('adminMotoBanner1Url');
+  const b1Badge = document.getElementById('adminMotoBanner1Badge');
+  const b1Img = document.getElementById('adminMotoBanner1Preview');
+  const b1BadgePrev = document.getElementById('adminMotoBanner1BadgePreview');
+  if (b1Url) b1Url.value = b1.img || '';
+  if (b1Badge) b1Badge.value = b1.badge || '';
+  if (b1Img && b1.img) b1Img.src = b1.img;
+  if (b1BadgePrev && b1.badge) b1BadgePrev.textContent = b1.badge;
+  const pos1 = b1.object_position || 'center 50%';
+  const match1 = pos1.match(/(\d+)%/);
+  const num1 = match1 ? parseInt(match1[1], 10) : 50;
+  handleMotoBannerPosChange(1, num1);
+
+  // Banner 2
+  const b2Url = document.getElementById('adminMotoBanner2Url');
+  const b2Badge = document.getElementById('adminMotoBanner2Badge');
+  const b2Img = document.getElementById('adminMotoBanner2Preview');
+  const b2BadgePrev = document.getElementById('adminMotoBanner2BadgePreview');
+  if (b2Url) b2Url.value = b2.img || '';
+  if (b2Badge) b2Badge.value = b2.badge || '';
+  if (b2Img && b2.img) b2Img.src = b2.img;
+  if (b2BadgePrev && b2.badge) b2BadgePrev.textContent = b2.badge;
+  const pos2 = b2.object_position || 'center 50%';
+  const match2 = pos2.match(/(\d+)%/);
+  const num2 = match2 ? parseInt(match2[1], 10) : 50;
+  handleMotoBannerPosChange(2, num2);
+}
+
+function handleMotoBannerPosChange(idx, val) {
+  const num = parseInt(val, 10);
+  const badge = document.getElementById(`motoBanner${idx}PosBadge`);
+  const slider = document.getElementById(`adminMotoBanner${idx}Slider`);
+  const hidden = document.getElementById(`adminMotoBanner${idx}Pos`);
+  const preview = document.getElementById(`adminMotoBanner${idx}Preview`);
+  const posString = `center ${num}%`;
+  if (badge) badge.textContent = `${num}%`;
+  if (slider && slider.value !== String(num)) slider.value = num;
+  if (hidden) hidden.value = posString;
+  if (preview) preview.style.objectPosition = posString;
+}
+
+function setMotoBannerPreset(idx, preset) {
+  let val = 50;
+  if (preset === 'top') val = 15;
+  if (preset === 'center') val = 50;
+  if (preset === 'bottom') val = 75;
+  handleMotoBannerPosChange(idx, val);
+}
+
+function handleMotoBannerUrlInput(idx, val) {
+  const trimmed = (val || '').trim();
+  const preview = document.getElementById(`adminMotoBanner${idx}Preview`);
+  if (preview && trimmed) {
+    preview.src = trimmed;
+  }
+}
+
+function handleMotoBannerFileSelected(idx, e) {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  handleGenericUpload(file, {
+    inputId: `adminMotoBanner${idx}Url`,
+    previewImgId: `adminMotoBanner${idx}Preview`,
+    folder: 'photos',
+    isVideo: false,
+    successMsg: `Баннер #${idx} «${file.name}» загружен`
+  });
+}
+
+async function saveMotoBanners() {
+  const banner1 = {
+    img: document.getElementById('adminMotoBanner1Url')?.value.trim() || 'assets/moto/bmw_m1000rr_cafe.jpg',
+    badge: document.getElementById('adminMotoBanner1Badge')?.value.trim() || 'FLAGSHIP // BMW M1000RR GOSHATURBOTECH',
+    object_position: document.getElementById('adminMotoBanner1Pos')?.value || 'center 50%'
+  };
+  const banner2 = {
+    img: document.getElementById('adminMotoBanner2Url')?.value.trim() || 'assets/moto/gtt_superbikes_trio_night.jpg',
+    badge: document.getElementById('adminMotoBanner2Badge')?.value.trim() || 'GTT MOTORSPORT FLEET',
+    object_position: document.getElementById('adminMotoBanner2Pos')?.value || 'center 50%'
+  };
+
+  const payload = { banner1, banner2 };
+  localStorage.setItem(MOTO_BANNERS_STORAGE_KEY, JSON.stringify(payload));
+
+  if (window.BroadcastChannel) {
+    try {
+      const ch = new BroadcastChannel('gtt_channel');
+      ch.postMessage({ type: 'moto_banners_updated', banners: payload });
+    } catch (e) {}
+  }
+
+  try {
+    await apiFetch('/api/moto/banners', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+    showToast('Баннеры Moto сохранены', 'Фото и кадрирование баннеров применены на сайте!', 'success');
+  } catch (err) {
+    showToast('Сохранено локально', 'Синхронизация с сервером будет повторена позже', 'warning');
+  }
+
+  recordAuditEvent({
+    section: 'Moto Division',
+    action: 'Обновлены фото баннеров',
+    item: 'M1000RR & Мотопарк GTT',
+    details: 'Настроено кадрирование по высоте'
+  });
+}
+
 // ================= MOTO CRUD MODULE =================
 
 function renderMotoTable() {
+  loadMotoBanners();
   let moto = getDB(MOTO_STORAGE_KEY, defaultMoto);
   const tbody = document.getElementById('motoTableBody');
   if (!tbody) return;
@@ -5430,6 +5654,18 @@ window.saveMoto = saveMoto;
 window.deleteMoto = deleteMoto;
 window.handleMotoPhotoSelected = handleMotoPhotoSelected;
 window.updateMotoPhotoPreview = updateMotoPhotoPreview;
+window.loadMotoBanners = loadMotoBanners;
+window.saveMotoBanners = saveMotoBanners;
+window.handleMotoBannerPosChange = handleMotoBannerPosChange;
+window.setMotoBannerPreset = setMotoBannerPreset;
+window.handleMotoBannerUrlInput = handleMotoBannerUrlInput;
+window.handleMotoBannerFileSelected = handleMotoBannerFileSelected;
+
+// Gallery Framing & Preview Exports
+window.handleGalleryPhotoInput = handleGalleryPhotoInput;
+window.clearGalleryPhotoPreview = clearGalleryPhotoPreview;
+window.handleGalleryPhotoPositionChange = handleGalleryPhotoPositionChange;
+window.setGalleryPhotoPreset = setGalleryPhotoPreset;
 
 // Project Name Auto-Translate & Edit Exports
 window.handleNameRuInput = handleNameRuInput;

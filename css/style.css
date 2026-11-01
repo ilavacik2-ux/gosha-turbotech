@@ -938,6 +938,11 @@ body.is-loading {
   backdrop-filter: blur(10px);
 }
 
+/* User requirement: Remove GTT spec and badges sitting above each car */
+.car-card-badge:not(.is-new-badge) {
+  display: none !important;
+}
+
 .car-card-media {
   position: relative;
   height: 260px;
@@ -5543,7 +5548,7 @@ body.modal-open {
     right: 5px !important;
   }
   .moto-hero-img {
-    object-position: center center !important;
+    object-position: center center;
   }
   .moto-card-header {
     display: flex !important;

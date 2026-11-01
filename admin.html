@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/admin.css?v=28.0">
+  <link rel="stylesheet" href="css/admin.css?v=39.0">
 </head>
 <body>
 
@@ -427,6 +427,116 @@
           <div class="admin-actions-group">
             <button class="btn-primary" onclick="openMotoModal(null)">+ Добавить мотопроект</button>
           </div>
+        <!-- Moto Showcase Banners Manager -->
+        <div class="stat-card" style="display: block; margin-bottom: 24px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <h3 style="font-size: 15px; font-weight: 700; color: #fff; margin: 0; display: flex; align-items: center; gap: 8px;">
+                <span>📸</span> Главные фото-баннеры витрины Moto Division
+              </h3>
+              <p style="font-size: 11.5px; color: var(--text-dim); margin-top: 4px;">
+                Управление верхними широкоформатными карточками (BMW M1000RR и мотопарк GTT) с регулировкой кадрирования по высоте.
+              </p>
+            </div>
+            <button type="button" class="btn-primary" onclick="saveMotoBanners()" style="display: inline-flex; align-items: center; gap: 6px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+              <span>Сохранить фото баннеров</span>
+            </button>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+            <!-- Banner 1: Flagship M1000RR -->
+            <div style="background: rgba(14, 18, 26, 0.7); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 16px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span style="font-weight: 700; font-size: 13px; color: var(--gtt-orange);">Баннер #1 • Флагман BMW M1000RR</span>
+                <span id="motoBanner1PosBadge" class="tag-pill">50%</span>
+              </div>
+              <div style="width: 100%; height: 160px; background: #000; border-radius: 6px; overflow: hidden; border: 1px solid rgba(255,255,255,0.12); margin-bottom: 10px; position: relative;">
+                <img id="adminMotoBanner1Preview" src="assets/moto/bmw_m1000rr_cafe.jpg" alt="Баннер 1" style="width: 100%; height: 100%; object-fit: cover; object-position: center 50%; display: block;" onerror="this.onerror=null; this.src='assets/moto/bmw_m1000rr_cafe.jpg';">
+                <div id="adminMotoBanner1BadgePreview" style="position: absolute; bottom: 8px; left: 8px; background: rgba(8, 10, 14, 0.85); border: 1px solid rgba(255,255,255,0.14); color: #fff; font-size: 9.5px; font-weight: 700; padding: 3px 8px; border-radius: 4px;">
+                  FLAGSHIP // BMW M1000RR GOSHATURBOTECH
+                </div>
+              </div>
+              <div class="form-group full-width" style="margin-bottom: 10px;">
+                <label style="font-size: 11px;">Путь к фото / Файл</label>
+                <div class="file-picker-input-group">
+                  <input type="text" id="adminMotoBanner1Url" value="assets/moto/bmw_m1000rr_cafe.jpg" oninput="handleMotoBannerUrlInput(1, this.value)">
+                  <label for="adminMotoBanner1File" class="btn-folder-browse" title="Выбрать файл">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                    <span>Папка</span>
+                  </label>
+                  <input type="file" id="adminMotoBanner1File" class="visually-hidden-file-input" accept="image/*" onchange="handleMotoBannerFileSelected(1, event)">
+                </div>
+              </div>
+              <div class="form-group full-width" style="margin-bottom: 10px;">
+                <label style="font-size: 11px;">Надпись на бейдже</label>
+                <input type="text" id="adminMotoBanner1Badge" value="FLAGSHIP // BMW M1000RR GOSHATURBOTECH" oninput="document.getElementById('adminMotoBanner1BadgePreview').textContent = this.value">
+              </div>
+              <!-- Height / Framing slider -->
+              <div class="photo-position-control-box" style="padding: 10px; margin-top: 6px;">
+                <div class="photo-pos-top-row">
+                  <span class="photo-pos-label" style="font-size: 11px;">📐 Положение по высоте:</span>
+                  <div class="photo-pos-presets">
+                    <button type="button" class="btn-slot-arrow" onclick="setMotoBannerPreset(1, 'top')">⬆ 15%</button>
+                    <button type="button" class="btn-slot-arrow" onclick="setMotoBannerPreset(1, 'center')">🎯 50%</button>
+                    <button type="button" class="btn-slot-arrow" onclick="setMotoBannerPreset(1, 'bottom')">⬇ 75%</button>
+                  </div>
+                </div>
+                <div class="photo-pos-slider-row" style="margin-top: 6px;">
+                  <span class="photo-pos-edge-label">Верх</span>
+                  <input type="range" id="adminMotoBanner1Slider" min="0" max="100" value="50" step="1" oninput="handleMotoBannerPosChange(1, this.value)">
+                  <span class="photo-pos-edge-label">Низ</span>
+                </div>
+                <input type="hidden" id="adminMotoBanner1Pos" value="center 50%">
+              </div>
+            </div>
+
+            <!-- Banner 2: GTT Motorsport Fleet -->
+            <div style="background: rgba(14, 18, 26, 0.7); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 16px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <span style="font-weight: 700; font-size: 13px; color: var(--gtt-orange);">Баннер #2 • Мотопарк GTT Motorsport</span>
+                <span id="motoBanner2PosBadge" class="tag-pill">50%</span>
+              </div>
+              <div style="width: 100%; height: 160px; background: #000; border-radius: 6px; overflow: hidden; border: 1px solid rgba(255,255,255,0.12); margin-bottom: 10px; position: relative;">
+                <img id="adminMotoBanner2Preview" src="assets/moto/gtt_superbikes_trio_night.jpg" alt="Баннер 2" style="width: 100%; height: 100%; object-fit: cover; object-position: center 50%; display: block;" onerror="this.onerror=null; this.src='assets/moto/gtt_superbikes_trio_night.jpg';">
+                <div id="adminMotoBanner2BadgePreview" style="position: absolute; bottom: 8px; left: 8px; background: rgba(8, 10, 14, 0.85); border: 1px solid rgba(255,255,255,0.14); color: #fff; font-size: 9.5px; font-weight: 700; padding: 3px 8px; border-radius: 4px;">
+                  GTT MOTORSPORT FLEET
+                </div>
+              </div>
+              <div class="form-group full-width" style="margin-bottom: 10px;">
+                <label style="font-size: 11px;">Путь к фото / Файл</label>
+                <div class="file-picker-input-group">
+                  <input type="text" id="adminMotoBanner2Url" value="assets/moto/gtt_superbikes_trio_night.jpg" oninput="handleMotoBannerUrlInput(2, this.value)">
+                  <label for="adminMotoBanner2File" class="btn-folder-browse" title="Выбрать файл">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                    <span>Папка</span>
+                  </label>
+                  <input type="file" id="adminMotoBanner2File" class="visually-hidden-file-input" accept="image/*" onchange="handleMotoBannerFileSelected(2, event)">
+                </div>
+              </div>
+              <div class="form-group full-width" style="margin-bottom: 10px;">
+                <label style="font-size: 11px;">Надпись на бейдже</label>
+                <input type="text" id="adminMotoBanner2Badge" value="GTT MOTORSPORT FLEET" oninput="document.getElementById('adminMotoBanner2BadgePreview').textContent = this.value">
+              </div>
+              <!-- Height / Framing slider -->
+              <div class="photo-position-control-box" style="padding: 10px; margin-top: 6px;">
+                <div class="photo-pos-top-row">
+                  <span class="photo-pos-label" style="font-size: 11px;">📐 Положение по высоте:</span>
+                  <div class="photo-pos-presets">
+                    <button type="button" class="btn-slot-arrow" onclick="setMotoBannerPreset(2, 'top')">⬆ 15%</button>
+                    <button type="button" class="btn-slot-arrow" onclick="setMotoBannerPreset(2, 'center')">🎯 50%</button>
+                    <button type="button" class="btn-slot-arrow" onclick="setMotoBannerPreset(2, 'bottom')">⬇ 75%</button>
+                  </div>
+                </div>
+                <div class="photo-pos-slider-row" style="margin-top: 6px;">
+                  <span class="photo-pos-edge-label">Верх</span>
+                  <input type="range" id="adminMotoBanner2Slider" min="0" max="100" value="50" step="1" oninput="handleMotoBannerPosChange(2, this.value)">
+                  <span class="photo-pos-edge-label">Низ</span>
+                </div>
+                <input type="hidden" id="adminMotoBanner2Pos" value="center 50%">
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="admin-table-wrapper">
@@ -465,11 +575,12 @@
           <table class="admin-table">
             <thead>
               <tr>
-                <th>Год • Событие</th>
+                <th style="width: 150px;">Год • Событие</th>
+                <th style="width: 75px; text-align: center;">Фото</th>
                 <th>Болид</th>
                 <th>Телеметрия (квотер / скорость)</th>
                 <th>Официальный статус</th>
-                <th>Действия</th>
+                <th style="width: 140px;">Действия</th>
               </tr>
             </thead>
             <tbody id="recordsTableBody">
@@ -495,11 +606,12 @@
           <table class="admin-table">
             <thead>
               <tr>
+                <th style="width: 80px; text-align: center;">Превью</th>
                 <th>Название видео / Заезд</th>
                 <th>Тип источника</th>
                 <th>Локальный путь / URL</th>
                 <th>Привязан к болиду</th>
-                <th>Действия</th>
+                <th style="width: 140px;">Действия</th>
               </tr>
             </thead>
             <tbody id="mediaTableBody">
@@ -883,62 +995,82 @@
 
   <!-- Media Modal -->
   <div id="mediaModal" class="admin-modal-overlay" style="display: none;">
-    <div class="admin-modal-card">
+    <div class="admin-modal-card admin-modal-card-wide" style="max-width: 960px; width: 100%;">
       <div class="admin-modal-header">
         <h3 id="mediaModalTitle">Добавить видеоматериал</h3>
         <button class="modal-close-btn" onclick="closeMediaModal()">&times;</button>
       </div>
       <form id="mediaEditForm" novalidate onsubmit="saveMediaItem(event)">
         <input type="hidden" id="editMediaId">
-        <div class="form-grid">
-          <div class="form-group full-width">
-            <label>Название ролика *</label>
-            <input type="text" id="editMediaTitle" placeholder="Боевой заезд Huracan TT «Зеленка» RDRC">
-          </div>
-          <div class="form-group">
-            <label>Тип видео</label>
-            <select id="editMediaType">
-              <option value="mp4">Локальный MP4 файл</option>
-              <option value="youtube">YouTube Embed</option>
-              <option value="vk">VK Video</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Привязка к автомобилю</label>
-            <input type="text" id="editMediaCar" placeholder="Huracan Зеленка / Draco">
-          </div>
-          <div class="form-group full-width">
-            <label for="editMediaUrl">Ссылка или файл видео / Reels *</label>
-            <div class="file-picker-input-group">
-              <input type="text" id="editMediaUrl" placeholder="assets/videos/... или выберите файл из папки" oninput="handleMediaFileInput(this.value)">
-              <label for="mediaFileInput" class="btn-folder-browse" title="Выбрать файл через Finder / Проводник">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-                </svg>
-                <span>Папка</span>
-              </label>
-              <input type="file" id="mediaFileInput" class="visually-hidden-file-input" accept="video/mp4,video/webm,video/quicktime,video/*,image/*" onchange="handleMediaFileSelected(event)">
+        <div class="media-modal-split-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 24px; align-items: start;">
+          <!-- Left Column: Form inputs -->
+          <div class="form-grid" style="display: flex; flex-direction: column; gap: 14px;">
+            <div class="form-group full-width">
+              <label>Название ролика *</label>
+              <input type="text" id="editMediaTitle" placeholder="Боевой заезд Huracan TT «Зеленка» RDRC">
             </div>
-            <!-- Media Preview -->
-            <div class="file-preview-wrap" id="mediaFilePreviewWrap" style="display: none; margin-top: 10px;">
-              <div class="preview-header">
-                <span class="preview-label">Предпросмотр медиафайла:</span>
-                <button type="button" class="btn-clear-preview" onclick="clearMediaFilePreview()">&times; Убрать файл</button>
+            <div class="form-group full-width">
+              <label>Тип видео</label>
+              <select id="editMediaType" onchange="handleMediaTypeChange(this.value)">
+                <option value="mp4">Локальный MP4 / WebM / QuickTime файл</option>
+                <option value="youtube">YouTube Embed / Ссылка</option>
+                <option value="vk">VK Video</option>
+              </select>
+            </div>
+            <div class="form-group full-width">
+              <label>Привязка к автомобилю</label>
+              <input type="text" id="editMediaCar" placeholder="Huracan Зеленка / Draco / BMW M5">
+            </div>
+            <div class="form-group full-width">
+              <label for="editMediaUrl" style="display: flex; justify-content: space-between; align-items: center;">
+                <span>Ссылка или файл видео / Reels *</span>
+                <span style="font-size: 11px; color: var(--text-dim); text-transform: none; font-weight: normal;">Finder / Проводник</span>
+              </label>
+              <div class="file-picker-input-group">
+                <input type="text" id="editMediaUrl" placeholder="assets/videos/... или выберите файл из папки" oninput="handleMediaFileInput(this.value)">
+                <label for="mediaFileInput" class="btn-folder-browse" title="Выбрать файл через Finder / Проводник">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                  <span>Папка</span>
+                </label>
+                <input type="file" id="mediaFileInput" class="visually-hidden-file-input" accept="video/mp4,video/webm,video/quicktime,video/*,image/*" onchange="handleMediaFileSelected(event)">
               </div>
-              <div class="preview-video-container" style="background: #090c12; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.12); padding: 8px;">
-                <video id="mediaVideoPreview" controls playsinline preload="metadata" style="width: 100%; max-height: 200px; border-radius: 6px; background: #000; display: none;"></video>
-                <img id="mediaImgPreview" src="" alt="Превью" style="width: 100%; max-height: 200px; object-fit: contain; border-radius: 6px; background: #000; display: none;">
-                <div class="preview-meta" style="margin-top: 8px; display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: var(--text-muted); font-family: var(--font-mono);">
-                  <span class="meta-name" id="mediaMetaName" style="color: #fff; max-width: 65%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Файл не выбран</span>
-                  <span class="meta-info" id="mediaMetaInfo" style="color: #22c55e;">● Готово</span>
+            </div>
+          </div>
+
+          <!-- Right Column: Dedicated Live Video Preview Player -->
+          <div class="media-video-preview-panel" style="background: rgba(9, 12, 18, 0.95); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 8px; padding: 18px; display: flex; flex-direction: column; gap: 12px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-weight: 700; color: #fff; font-size: 13px; display: flex; align-items: center; gap: 6px;">
+                <span>🎬</span> Предпросмотр видео
+              </span>
+              <span id="mediaMetaInfo" style="font-size: 11px; font-family: var(--font-mono); color: #22c55e;">● Готово</span>
+            </div>
+
+            <div id="mediaPlayerContainer" style="width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 6px; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative; border: 1px solid rgba(255, 100, 37, 0.25);">
+              <video id="mediaVideoPreview" controls playsinline preload="metadata" style="width: 100%; height: 100%; object-fit: contain; display: none; background: #000;"></video>
+              <img id="mediaImgPreview" src="" alt="Превью" style="width: 100%; height: 100%; object-fit: contain; display: none; background: #000;">
+              
+              <div id="mediaEmptyPlaceholder" style="text-align: center; padding: 24px 16px; color: var(--text-dim); display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                <div style="width: 48px; height: 48px; border-radius: 50%; background: rgba(255, 100, 37, 0.1); border: 1px solid rgba(255, 100, 37, 0.3); display: flex; align-items: center; justify-content: center; color: var(--gtt-orange);">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                 </div>
+                <div style="font-size: 12px; color: #fff; font-weight: 600;">Плеер предварительного просмотра</div>
+                <div style="font-size: 11px; max-width: 260px; line-height: 1.4;">Введите ссылку на видео или прикрепите файл из папки, чтобы сразу проверить ролик перед сохранением.</div>
               </div>
+            </div>
+
+            <div class="preview-meta" style="display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: var(--text-muted); font-family: var(--font-mono); padding-top: 4px;">
+              <span id="mediaMetaName" style="color: #fff; max-width: 65%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Файл не выбран</span>
+              <button type="button" class="btn-clear-preview" onclick="clearMediaFilePreview()" style="background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 11px;">&times; Очистить</button>
             </div>
           </div>
         </div>
-        <div class="admin-modal-actions">
+
+        <div class="admin-modal-actions" style="margin-top: 24px;">
           <button type="button" class="topbar-btn outline-btn" onclick="closeMediaModal()">Отмена</button>
-          <button type="submit" class="btn-primary">Сохранить</button>
+          <button type="submit" class="btn-primary">Сохранить видеоматериал</button>
         </div>
       </form>
     </div>
@@ -963,9 +1095,12 @@
             <input type="text" id="editGalleryTag" placeholder="RDRC CHAMPION, BURNOUT SMOKE...">
           </div>
           <div class="form-group full-width">
-            <label for="editGalleryImg">Путь к фото / URL</label>
+            <label for="editGalleryImg" style="display: flex; justify-content: space-between; align-items: center;">
+              <span>Путь к фото / URL</span>
+              <span style="font-size: 11px; color: var(--text-dim); text-transform: none; font-weight: normal;">Finder / Проводник</span>
+            </label>
             <div class="file-picker-input-group">
-              <input type="text" id="editGalleryImg" placeholder="assets/photos/huracan_zelenka_gtt.jpg или выберите файл из папки">
+              <input type="text" id="editGalleryImg" placeholder="assets/photos/huracan_zelenka_gtt.jpg или выберите файл из папки" oninput="handleGalleryPhotoInput(this.value)">
               <label for="galleryPhotoFileInput" class="btn-folder-browse" title="Выбрать файл через Finder / Проводник">
                 <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
@@ -973,6 +1108,48 @@
                 <span>Папка</span>
               </label>
               <input type="file" id="galleryPhotoFileInput" class="visually-hidden-file-input" accept="image/png,image/jpeg,image/jpg,image/webp,image/avif" onchange="handleGalleryPhotoSelected(event)">
+            </div>
+
+            <!-- Live Gallery Image Preview Box with Framing Adjustment -->
+            <div class="admin-img-preview-wrap" id="galleryImgPreviewWrap" style="display: none; margin-top: 10px;">
+              <div class="preview-header">
+                <span class="preview-label">Предпросмотр кадра галереи:</span>
+                <button type="button" class="btn-clear-preview" onclick="clearGalleryPhotoPreview()">&times; Очистить</button>
+              </div>
+              <div class="preview-img-container" style="max-height: 220px; overflow: hidden; border-radius: 8px; background: #000; border: 1px solid rgba(255,255,255,0.12);">
+                <img id="galleryImgPreview" src="" alt="Предпросмотр фото" style="width: 100%; height: 200px; object-fit: cover; object-position: center 50%; display: block;" onerror="this.onerror=null; this.src='assets/photos/huracan_zelenka_gtt.jpg';">
+                <div class="preview-meta" id="galleryImgMeta" style="margin-top: 6px; display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">
+                  <span class="meta-name" id="galleryImgMetaName">Файл не выбран</span>
+                  <span class="meta-info" id="galleryImgMetaInfo" style="color: #22c55e;">● Готово</span>
+                </div>
+              </div>
+
+              <!-- Vertical Photo Align / Height Adjustment Control -->
+              <div class="photo-position-control-box" style="margin-top: 10px;">
+                <div class="photo-pos-top-row">
+                  <label class="photo-pos-label">
+                    <span class="photo-pos-icon">📐</span>
+                    <span>Регулировка фото по высоте:</span>
+                  </label>
+                  <div class="photo-pos-actions">
+                    <span id="galleryPosValueDisplay" class="photo-pos-badge">50%</span>
+                    <div class="photo-pos-presets">
+                      <button type="button" class="btn-slot-arrow" onclick="setGalleryPhotoPreset('top')" title="Прижать к верху">⬆ Верх (20%)</button>
+                      <button type="button" class="btn-slot-arrow" onclick="setGalleryPhotoPreset('center')" title="По центру">🎯 Центр (50%)</button>
+                      <button type="button" class="btn-slot-arrow" onclick="setGalleryPhotoPreset('bottom')" title="Прижать к низу">⬇ Низ (75%)</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="photo-pos-slider-row">
+                  <span class="photo-pos-edge-label">0% (Верх)</span>
+                  <input type="range" id="editGalleryPositionY" min="0" max="100" value="50" step="1" oninput="handleGalleryPhotoPositionChange(this.value)">
+                  <span class="photo-pos-edge-label">100% (Низ)</span>
+                </div>
+                <input type="hidden" id="editGalleryObjectPosition" value="center 50%">
+                <p class="photo-pos-hint">
+                  Регулируйте вертикальное положение кадра, чтобы объект съемки идеально попадал в видимую область стрима.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -1232,6 +1409,6 @@
   </div>
 
   <script src="js/media-db.js?v=23.0"></script>
-  <script src="js/admin.js?v=38.0"></script>
+  <script src="js/admin.js?v=39.0"></script>
 </body>
 </html>
