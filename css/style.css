@@ -1707,7 +1707,7 @@ body.is-loading {
   right: 14px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 10px;
   z-index: 10;
   pointer-events: none;
@@ -1745,21 +1745,7 @@ body.is-loading {
 }
 
 .founder-caption-tag {
-  position: static;
-  background: rgba(7, 8, 10, 0.85);
-  border: 1px solid rgba(255, 100, 37, 0.3);
-  padding: 5px 12px;
-  border-radius: var(--radius-xs);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--gtt-orange);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: calc(100% - 70px);
-  pointer-events: auto;
+  display: none !important;
 }
 
 .founder-badge-telemetry {
