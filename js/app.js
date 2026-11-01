@@ -3665,8 +3665,37 @@ let isGarageExpanded = false;
 
 window.toggleGarageExpand = function() {
   isGarageExpanded = !isGarageExpanded;
-  const activeFilter = document.querySelector('#carsFilterPills .filter-pill.active')?.getAttribute('data-filter') || 'all';
-  renderGarageGrid(activeFilter);
+  const filterPills = document.getElementById('carsFilterPills');
+
+  if (!isGarageExpanded) {
+    // When collapsing: reset active pill to 'all' and hide filter pills
+    const pills = document.querySelectorAll('#carsFilterPills .filter-pill');
+    pills.forEach(p => p.classList.remove('active'));
+    const pillAll = document.querySelector('#carsFilterPills .filter-pill[data-filter="all"]');
+    if (pillAll) pillAll.classList.add('active');
+
+    if (filterPills) {
+      filterPills.style.display = 'none';
+      filterPills.classList.remove('is-revealed');
+    }
+
+    renderGarageGrid('all');
+
+    // Smoothly scroll back to garage section header
+    const garageEl = document.getElementById('garage');
+    if (garageEl) {
+      const topOffset = garageEl.getBoundingClientRect().top + window.pageYOffset - 80;
+      window.scrollTo({ top: topOffset, behavior: 'smooth' });
+    }
+  } else {
+    // When expanding: reveal filter pills bar
+    if (filterPills) {
+      filterPills.style.display = 'flex';
+      filterPills.classList.add('is-revealed');
+    }
+    const activeFilter = document.querySelector('#carsFilterPills .filter-pill.active')?.getAttribute('data-filter') || 'all';
+    renderGarageGrid(activeFilter);
+  }
 };
 
 window.handleCarCardImgLoad = function(imgEl, configuredPos) {
@@ -3704,6 +3733,7 @@ function renderGarageGrid(filterType) {
       const expandWrap = document.getElementById('garageExpandWrap');
       const expandBtn = document.getElementById('btnGarageExpand');
       const expandText = document.getElementById('garageExpandText');
+      const filterPills = document.getElementById('carsFilterPills');
 
       const featuredCount = gttProjects.filter(c => c.isFeatured || c.is_featured === 1 || c.is_featured === true).length || 4;
 
@@ -3712,17 +3742,29 @@ function renderGarageGrid(filterType) {
         if (!isGarageExpanded && filtered.length > featuredCount) {
           displayList = filtered.slice(0, featuredCount);
           container.classList.add('is-collapsed-4');
+          if (filterPills) {
+            filterPills.style.display = 'none';
+            filterPills.classList.remove('is-revealed');
+          }
           if (expandWrap) expandWrap.style.display = 'flex';
           if (expandBtn) expandBtn.classList.remove('is-expanded');
           if (expandText) expandText.textContent = formatGarageExpandText(filtered.length - featuredCount, false, currentLang);
         } else {
           container.classList.remove('is-collapsed-4');
+          if (filterPills) {
+            filterPills.style.display = 'flex';
+            filterPills.classList.add('is-revealed');
+          }
           if (expandWrap) expandWrap.style.display = 'flex';
           if (expandBtn) expandBtn.classList.add('is-expanded');
           if (expandText) expandText.textContent = formatGarageExpandText(0, true, currentLang);
         }
       } else {
         container.classList.remove('is-collapsed-4');
+        if (filterPills) {
+          filterPills.style.display = 'flex';
+          filterPills.classList.add('is-revealed');
+        }
         if (expandWrap) expandWrap.style.display = 'none';
       }
 
