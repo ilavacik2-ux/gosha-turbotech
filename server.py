@@ -899,11 +899,25 @@ async def serve_secret_admin(request: Request, token: Optional[str] = None):
 async def serve_favicon():
     return FileResponse(os.path.join(BASE_DIR, "favicon.ico"))
 
+def get_local_ip():
+    import socket
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        ip = s.getsockname()[0]
+        s.close()
+        return ip
+    except Exception:
+        return "192.168.0.102"
+
 if __name__ == "__main__":
     import uvicorn
+    local_ip = get_local_ip()
     print("\n" + "="*60)
     print("🚀 GOSHA TURBOTECH - FASTAPI & SQLITE SERVER STARTING")
-    print("👉 Main Site: http://127.0.0.1:8000")
-    print("👉 Phone / Local Network: http://192.168.0.106:8000")
+    print(f"👉 Main Site:          http://localhost:8000")
+    print(f"👉 Main Site (127):    http://127.0.0.1:8000")
+    print(f"👉 Phone / Local Net:  http://{local_ip}:8000")
+    print(f"👉 Admin Panel:        http://localhost:8000/admin?token=gtt_atelier_2026_x71k")
     print("="*60 + "\n")
     uvicorn.run("server:app", host="0.0.0.0", port=8000, reload=True)

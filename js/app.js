@@ -3574,6 +3574,21 @@ function setupHeroVideo() {
     events.forEach(evt => window.addEventListener(evt, onAction, { passive: true, once: true }));
   }
 
+  // Resilient error recovery: fallback to lightweight video if primary stream fails
+  function handleVideoError() {
+    if (!heroVideo.dataset.retried) {
+      heroVideo.dataset.retried = 'true';
+      heroVideo.src = 'assets/videos/hero_burnout_action.mp4';
+      heroVideo.load();
+      attemptPlay();
+    }
+  }
+
+  heroVideo.addEventListener('error', handleVideoError);
+  heroVideo.querySelectorAll('source').forEach(source => {
+    source.addEventListener('error', handleVideoError);
+  });
+
   attemptPlay();
   heroVideo.addEventListener('loadedmetadata', attemptPlay, { once: true });
   heroVideo.addEventListener('canplay', attemptPlay, { once: true });
