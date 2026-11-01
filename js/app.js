@@ -14,6 +14,15 @@ function escapeHtml(str) {
 }
 window.escapeHtml = escapeHtml;
 
+function escapeJS(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/\\/g, '\\\\')
+    .replace(/'/g, "\\'")
+    .replace(/"/g, '&quot;');
+}
+window.escapeJS = escapeJS;
+
 let gttProjects = [
   {
     "id": "gtr_lucifer",
@@ -3685,105 +3694,109 @@ function renderGarageGrid(filterType) {
   if (countEl) countEl.textContent = gttProjects.length;
 
   setTimeout(() => {
-    // 1. Filter items
-    let filtered = (filterType === 'all')
-      ? [...gttProjects]
-      : gttProjects.filter(c => c.type === filterType);
+    try {
+      // 1. Filter items
+      let filtered = (filterType === 'all')
+        ? [...gttProjects]
+        : gttProjects.filter(c => c.type === filterType);
 
-    // 2. Pagination for 'all' filter (flagship featured builds shown first, rest expandable)
-    const expandWrap = document.getElementById('garageExpandWrap');
-    const expandBtn = document.getElementById('btnGarageExpand');
-    const expandText = document.getElementById('garageExpandText');
+      // 2. Pagination for 'all' filter (flagship featured builds shown first, rest expandable)
+      const expandWrap = document.getElementById('garageExpandWrap');
+      const expandBtn = document.getElementById('btnGarageExpand');
+      const expandText = document.getElementById('garageExpandText');
 
-    const featuredCount = gttProjects.filter(c => c.isFeatured || c.is_featured === 1 || c.is_featured === true).length || 4;
+      const featuredCount = gttProjects.filter(c => c.isFeatured || c.is_featured === 1 || c.is_featured === true).length || 4;
 
-    let displayList = filtered;
-    if (filterType === 'all') {
-      if (!isGarageExpanded && filtered.length > featuredCount) {
-        displayList = filtered.slice(0, featuredCount);
-        container.classList.add('is-collapsed-4');
-        if (expandWrap) expandWrap.style.display = 'flex';
-        if (expandBtn) expandBtn.classList.remove('is-expanded');
-        if (expandText) expandText.textContent = formatGarageExpandText(filtered.length - featuredCount, false, currentLang);
+      let displayList = filtered;
+      if (filterType === 'all') {
+        if (!isGarageExpanded && filtered.length > featuredCount) {
+          displayList = filtered.slice(0, featuredCount);
+          container.classList.add('is-collapsed-4');
+          if (expandWrap) expandWrap.style.display = 'flex';
+          if (expandBtn) expandBtn.classList.remove('is-expanded');
+          if (expandText) expandText.textContent = formatGarageExpandText(filtered.length - featuredCount, false, currentLang);
+        } else {
+          container.classList.remove('is-collapsed-4');
+          if (expandWrap) expandWrap.style.display = 'flex';
+          if (expandBtn) expandBtn.classList.add('is-expanded');
+          if (expandText) expandText.textContent = formatGarageExpandText(0, true, currentLang);
+        }
       } else {
         container.classList.remove('is-collapsed-4');
-        if (expandWrap) expandWrap.style.display = 'flex';
-        if (expandBtn) expandBtn.classList.add('is-expanded');
-        if (expandText) expandText.textContent = formatGarageExpandText(0, true, currentLang);
+        if (expandWrap) expandWrap.style.display = 'none';
       }
-    } else {
-      container.classList.remove('is-collapsed-4');
-      if (expandWrap) expandWrap.style.display = 'none';
-    }
 
-    const featuredCarsSet = new Set(gttProjects.filter(c => c.isFeatured || c.is_featured === 1 || c.is_featured === true).map(c => c.id));
-    if (featuredCarsSet.size === 0) {
-      gttProjects.slice(0, 4).forEach(c => featuredCarsSet.add(c.id));
-    }
+      const featuredCarsSet = new Set(gttProjects.filter(c => c.isFeatured || c.is_featured === 1 || c.is_featured === true).map(c => c.id));
+      if (featuredCarsSet.size === 0) {
+        gttProjects.slice(0, 4).forEach(c => featuredCarsSet.add(c.id));
+      }
 
-    container.innerHTML = displayList.map((car, idx) => {
-      const name = (typeof car.name === 'object') ? (car.name[currentLang] || car.name.ru) : car.name;
-      const desc = (typeof car.desc === 'object') ? (car.desc[currentLang] || car.desc.ru) : car.desc;
-      const badge = (typeof car.badge === 'object') ? (car.badge[currentLang] || car.badge.ru) : car.badge;
-      const tag = (typeof car.tag === 'object') ? (car.tag[currentLang] || car.tag.ru) : car.tag;
-      const isClass = car.isClassified || (car.img && (car.img.includes('classified') || car.img.endsWith('.svg')));
+      container.innerHTML = displayList.map((car, idx) => {
+        const name = (typeof car.name === 'object') ? (car.name[currentLang] || car.name.ru) : car.name;
+        const desc = (typeof car.desc === 'object') ? (car.desc[currentLang] || car.desc.ru) : car.desc;
+        const badge = (typeof car.badge === 'object') ? (car.badge[currentLang] || car.badge.ru) : car.badge;
+        const tag = (typeof car.tag === 'object') ? (car.tag[currentLang] || car.tag.ru) : car.tag;
+        const isClass = car.isClassified || (car.img && (car.img.includes('classified') || car.img.endsWith('.svg')));
 
-      const isNewCar = Boolean(car.isNew);
-      const isTopFeatured = featuredCarsSet.has(car.id);
-      const showVideoBtn = isTopFeatured && Boolean(car.videoSrc || car.youtubeId);
+        const isNewCar = Boolean(car.isNew);
+        const isTopFeatured = featuredCarsSet.has(car.id);
+        const showVideoBtn = isTopFeatured && Boolean(car.videoSrc || car.youtubeId);
 
-      return `
-      <div class="car-card car-card-fade-in ${isClass ? 'is-classified' : ''} ${isNewCar ? 'is-new-car-pending' : ''}" data-id="${car.id}" onclick="openCarModal('${car.id}')" style="cursor: pointer; animation-delay: ${idx * 0.04}s">
-        ${isNewCar 
-          ? `<span class="car-card-badge is-new-badge">${currentLang === 'ru' ? 'НОВЫЙ ПРОЕКТ // ВЫБОР ФОТО' : 'NEW BUILD // PENDING PHOTO'}</span>` 
-          : `<span class="car-card-badge">${badge}</span>`
-        }
-        <div class="car-card-media ${isClass ? 'classified-media' : ''}" style="position: relative;">
-          ${isNewCar ? `
-            <div class="card-question-overlay">
-              <div class="card-question-icon">?</div>
-            </div>
-          ` : ''}
-          <img class="car-card-img ${car.isPhoto ? 'photo-fit' : ''}" 
-               src="${convertGoogleDriveUrl(car.img)}" 
-               alt="${name}" 
-               style="${car.objectPosition ? `object-position: ${car.objectPosition} !important;` : ''}"
-               onload="handleCarCardImgLoad(this, '${escapeJS(car.objectPosition || '')}')"
-               onerror="this.onerror=null; this.src='${car.fallbackImg || 'assets/cars/gtt_classified_car.svg'}';">
-        </div>
-        <div class="car-card-info">
-          <div class="car-brand">${tag || car.brand}</div>
-          <h3 class="car-model-title">${name}</h3>
-          <p class="car-card-desc">${desc}</p>
-          <div class="car-specs-row">
-            <div class="spec-cell">
-              <div class="spec-val">${formatSpecVal(car.hp, currentLang, 'hp')}</div>
-              <div class="spec-lbl">${i18n[currentLang].spec_power}</div>
-            </div>
-            <div class="spec-cell">
-              <div class="spec-val">${formatSpecVal(car.quarterMile, currentLang, 'quarterMile')}</div>
-              <div class="spec-lbl">${i18n[currentLang].spec_402}</div>
-            </div>
-            <div class="spec-cell">
-              <div class="spec-val">${formatSpecVal(car.topSpeed, currentLang, 'topSpeed')}</div>
-              <div class="spec-lbl">${i18n[currentLang].spec_speed}</div>
-            </div>
-          </div>
-          <div class="car-card-footer">
-            ${showVideoBtn ? `
-              <button class="btn-card-details btn-card-video" onclick="event.stopPropagation(); openCarVideo('${car.id}')">
-                <span>▶</span> ${currentLang === 'ru' ? 'Видео заезда' : 'Race Video'}
-              </button>
+        return `
+        <div class="car-card car-card-fade-in ${isClass ? 'is-classified' : ''} ${isNewCar ? 'is-new-car-pending' : ''}" data-id="${car.id}" onclick="openCarModal('${car.id}')" style="cursor: pointer; animation-delay: ${idx * 0.04}s">
+          ${isNewCar 
+            ? `<span class="car-card-badge is-new-badge">${currentLang === 'ru' ? 'НОВЫЙ ПРОЕКТ // ВЫБОР ФОТО' : 'NEW BUILD // PENDING PHOTO'}</span>` 
+            : `<span class="car-card-badge">${badge}</span>`
+          }
+          <div class="car-card-media ${isClass ? 'classified-media' : ''}" style="position: relative;">
+            ${isNewCar ? `
+              <div class="card-question-overlay">
+                <div class="card-question-icon">?</div>
+              </div>
             ` : ''}
-            <button class="btn-card-details" onclick="event.stopPropagation(); openCarModal('${car.id}')">${i18n[currentLang].btn_passport}</button>
+            <img class="car-card-img ${car.isPhoto ? 'photo-fit' : ''}" 
+                 src="${convertGoogleDriveUrl(car.img)}" 
+                 alt="${name}" 
+                 style="${car.objectPosition ? `object-position: ${car.objectPosition} !important;` : ''}"
+                 onload="handleCarCardImgLoad(this, '${escapeJS(car.objectPosition || '')}')"
+                 onerror="this.onerror=null; this.src='${car.fallbackImg || 'assets/cars/gtt_classified_car.svg'}';">
+          </div>
+          <div class="car-card-info">
+            <div class="car-brand">${tag || car.brand}</div>
+            <h3 class="car-model-title">${name}</h3>
+            <p class="car-card-desc">${desc}</p>
+            <div class="car-specs-row">
+              <div class="spec-cell">
+                <div class="spec-val">${formatSpecVal(car.hp, currentLang, 'hp')}</div>
+                <div class="spec-lbl">${i18n[currentLang].spec_power}</div>
+              </div>
+              <div class="spec-cell">
+                <div class="spec-val">${formatSpecVal(car.quarterMile, currentLang, 'quarterMile')}</div>
+                <div class="spec-lbl">${i18n[currentLang].spec_402}</div>
+              </div>
+              <div class="spec-cell">
+                <div class="spec-val">${formatSpecVal(car.topSpeed, currentLang, 'topSpeed')}</div>
+                <div class="spec-lbl">${i18n[currentLang].spec_speed}</div>
+              </div>
+            </div>
+            <div class="car-card-footer">
+              ${showVideoBtn ? `
+                <button class="btn-card-details btn-card-video" onclick="event.stopPropagation(); openCarVideo('${car.id}')">
+                  <span>▶</span> ${currentLang === 'ru' ? 'Видео заезда' : 'Race Video'}
+                </button>
+              ` : ''}
+              <button class="btn-card-details" onclick="event.stopPropagation(); openCarModal('${car.id}')">${i18n[currentLang].btn_passport}</button>
+            </div>
           </div>
         </div>
-      </div>
-      `;
-    }).join('');
-
-    container.classList.remove('filtering');
-    if (window.apply3DTiltCards) window.apply3DTiltCards();
+        `;
+      }).join('');
+    } catch (err) {
+      console.error('Error in renderGarageGrid:', err);
+    } finally {
+      container.classList.remove('filtering');
+      if (window.apply3DTiltCards) window.apply3DTiltCards();
+    }
   }, 140);
 }
 
