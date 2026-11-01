@@ -636,7 +636,7 @@ const defaultRecords = [
     car: 'NISSAN GT-R R35 «КУРДАЛАГОН»',
     telemetry: '1/4 мили: 7.766 сек • 300.00 км/ч',
     desc: 'Свежайший подтвержденный рекорд команды GoshaTurboTech, зафиксированный на трек-дне в Быково в конце октября 2026 года.',
-    img: 'assets/archive_tilda/gtr_kurdalagon.png'
+    img: 'assets/cars/gtr_korzhik_712.jpg'
   },
   {
     id: 'rec_rokot',

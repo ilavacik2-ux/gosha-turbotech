@@ -2872,24 +2872,27 @@ window.handleRecordImgLoad = function(img) {
   }
 };
 
-function stepRecordsContinuousMotion() {
-  const track = document.getElementById('recordsCarouselTrack');
-  if (track && !recordsIsHovered && !recordsIsManualSliding) {
-    const singleHalfWidth = track.scrollWidth / 2;
-    if (singleHalfWidth > 100) {
-      if (Math.abs(recordsTrackPos) >= singleHalfWidth * 2) {
-        recordsTrackPos = 0;
-      }
-      // Neat, elegant continuous rotation on both mobile and desktop
-      const speed = window.innerWidth <= 820 ? 0.45 : 0.65;
-      recordsTrackPos -= speed;
-      if (Math.abs(recordsTrackPos) >= singleHalfWidth) {
-        recordsTrackPos += singleHalfWidth;
-      }
-      track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
+let recordsAutoSlideTimer = null;
+
+function startRecordsAutoSlide() {
+  stopRecordsAutoSlide();
+  recordsAutoSlideTimer = setInterval(() => {
+    if (!recordsIsHovered && !recordsIsManualSliding) {
+      recordsCarouselNext();
     }
+  }, 4500);
+}
+
+function stopRecordsAutoSlide() {
+  if (recordsAutoSlideTimer) {
+    clearInterval(recordsAutoSlideTimer);
+    recordsAutoSlideTimer = null;
   }
-  recordsRafId = requestAnimationFrame(stepRecordsContinuousMotion);
+}
+
+function stepRecordsContinuousMotion() {
+  // Graceful fallback to card-aligned auto slide
+  startRecordsAutoSlide();
 }
 
 window.recordsCarouselNext = function() {
@@ -2903,18 +2906,28 @@ window.recordsCarouselNext = function() {
   const gap = window.innerWidth <= 820 ? 16 : 24;
   const step = cardWidth + gap;
   const singleHalfWidth = track.scrollWidth / 2;
-  recordsTrackPos -= step;
+
+  let currentSlot = Math.round(recordsTrackPos / step);
+  recordsTrackPos = (currentSlot - 1) * step;
+
   if (Math.abs(recordsTrackPos) >= singleHalfWidth) {
-    recordsTrackPos += singleHalfWidth;
+    track.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+    track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
+    setTimeout(() => {
+      recordsTrackPos += singleHalfWidth;
+      if (track) {
+        track.style.transition = 'none';
+        track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
+      }
+    }, 450);
+  } else {
+    track.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+    track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
   }
-  track.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
-  track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
 
   recordsResumeTimeout = setTimeout(() => {
-    if (track) track.style.transition = 'none';
     recordsIsManualSliding = false;
-    recordsIsHovered = false;
-  }, 1800);
+  }, 600);
 };
 
 window.recordsCarouselPrev = function() {
@@ -2928,18 +2941,28 @@ window.recordsCarouselPrev = function() {
   const gap = window.innerWidth <= 820 ? 16 : 24;
   const step = cardWidth + gap;
   const singleHalfWidth = track.scrollWidth / 2;
-  recordsTrackPos += step;
+
+  let currentSlot = Math.round(recordsTrackPos / step);
+  recordsTrackPos = (currentSlot + 1) * step;
+
   if (recordsTrackPos > 0) {
-    recordsTrackPos -= singleHalfWidth;
+    track.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+    track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
+    setTimeout(() => {
+      recordsTrackPos -= singleHalfWidth;
+      if (track) {
+        track.style.transition = 'none';
+        track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
+      }
+    }, 450);
+  } else {
+    track.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
+    track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
   }
-  track.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
-  track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
 
   recordsResumeTimeout = setTimeout(() => {
-    if (track) track.style.transition = 'none';
     recordsIsManualSliding = false;
-    recordsIsHovered = false;
-  }, 1800);
+  }, 600);
 };
 
 window.goToRecordSlide = function(idx) {
@@ -3063,10 +3086,7 @@ function initRecordsCarousel() {
   const track = document.getElementById('recordsCarouselTrack');
   if (!track) return;
 
-  if (recordsRafId) {
-    cancelAnimationFrame(recordsRafId);
-  }
-  recordsRafId = requestAnimationFrame(stepRecordsContinuousMotion);
+  startRecordsAutoSlide();
 
   if (stage && !stage._recordsListenersAttached) {
     stage._recordsListenersAttached = true;
@@ -3162,50 +3182,23 @@ function initRecordsCarousel() {
       if (viewport) viewport.classList.remove('is-dragging');
 
       if (hasMovedSignificantly && isHorizontalGesture) {
-        if (window.innerWidth <= 820) {
-          const cardEl = track.querySelector('.record-item');
-          const cardWidth = cardEl ? cardEl.offsetWidth : 320;
-          const gap = 16;
-          const step = cardWidth + gap;
-          let targetSlot = Math.round(recordsTrackPos / step);
-          recordsTrackPos = targetSlot * step;
-          wrapRecordsPosition();
-          if (track) {
-            track.style.transition = 'transform 0.42s cubic-bezier(0.16, 1, 0.3, 1)';
-            track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
-          }
-          clearTimeout(recordsResumeTimeout);
-          recordsResumeTimeout = setTimeout(() => {
-            if (track) track.style.transition = 'none';
-            recordsIsManualSliding = false;
-            recordsIsHovered = false;
-          }, 1800);
-          return;
+        const cardEl = track.querySelector('.record-item');
+        const cardWidth = cardEl ? cardEl.offsetWidth : (window.innerWidth <= 820 ? 320 : 360);
+        const gap = window.innerWidth <= 820 ? 16 : 24;
+        const step = cardWidth + gap;
+        let targetSlot = Math.round(recordsTrackPos / step);
+        recordsTrackPos = targetSlot * step;
+        wrapRecordsPosition();
+        if (track) {
+          track.style.transition = 'transform 0.42s cubic-bezier(0.16, 1, 0.3, 1)';
+          track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
         }
-
-        // Inertial flick / momentum
-        const absVel = Math.abs(pointerVelocityX);
-        if (absVel > 0.35) {
-          const momentum = Math.max(-800, Math.min(800, pointerVelocityX * 240));
-          recordsTrackPos += momentum;
-          wrapRecordsPosition();
-          if (track) {
-            track.style.transition = 'transform 0.55s cubic-bezier(0.16, 1, 0.3, 1)';
-            track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
-          }
-          recordsResumeTimeout = setTimeout(() => {
-            if (track) track.style.transition = 'none';
-            recordsIsManualSliding = false;
-            recordsIsHovered = false;
-          }, 350);
-          return;
-        }
-
-        // Fast resume: 150ms after manual swipe release
+        clearTimeout(recordsResumeTimeout);
         recordsResumeTimeout = setTimeout(() => {
+          if (track) track.style.transition = 'none';
           recordsIsManualSliding = false;
           recordsIsHovered = false;
-        }, 150);
+        }, 800);
       } else {
         recordsIsManualSliding = false;
         recordsIsHovered = false;
