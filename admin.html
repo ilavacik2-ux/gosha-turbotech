@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/admin.css?v=27.0">
+  <link rel="stylesheet" href="css/admin.css?v=28.0">
 </head>
 <body>
 
@@ -659,32 +659,33 @@
                   <span class="meta-info" id="carImgMetaInfo">Разрешение и размер</span>
                 </div>
               </div>
-            </div>
 
-            <!-- Vertical Photo Align / Height Adjustment Control -->
-            <div class="photo-position-control-box" style="margin-top: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px 14px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
-                <label style="font-size: 11px; text-transform: uppercase; color: #fff; font-family: var(--font-mono); margin: 0; display: flex; align-items: center; gap: 6px;">
-                  <span style="color: var(--gtt-orange);">📐</span> Регулировка фото по высоте:
-                </label>
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <span id="carPosValueDisplay" style="font-family: var(--font-mono); font-size: 12px; color: var(--gtt-orange); font-weight: 700; background: rgba(255,85,0,0.12); padding: 2px 7px; border-radius: 4px; border: 1px solid rgba(255,85,0,0.3);">50%</span>
-                  <div style="display: flex; gap: 4px;">
-                    <button type="button" class="btn-slot-arrow" style="width: auto; padding: 2px 8px; font-size: 10px;" onclick="setCarPhotoPreset('top')" title="Прижать к верху">⬆ Верх (15%)</button>
-                    <button type="button" class="btn-slot-arrow" style="width: auto; padding: 2px 8px; font-size: 10px;" onclick="setCarPhotoPreset('center')" title="По центру">🎯 Центр (50%)</button>
-                    <button type="button" class="btn-slot-arrow" style="width: auto; padding: 2px 8px; font-size: 10px;" onclick="setCarPhotoPreset('bottom')" title="Прижать к низу для портретных фото (BMW, Kurdalagon, Porsche)">⬇ Низ / Портрет (82%)</button>
+              <!-- Vertical Photo Align / Height Adjustment Control (Integrated) -->
+              <div class="photo-position-control-box">
+                <div class="photo-pos-top-row">
+                  <label class="photo-pos-label">
+                    <span class="photo-pos-icon">📐</span>
+                    <span>Регулировка фото по высоте:</span>
+                  </label>
+                  <div class="photo-pos-actions">
+                    <span id="carPosValueDisplay" class="photo-pos-badge">50%</span>
+                    <div class="photo-pos-presets">
+                      <button type="button" class="btn-slot-arrow" onclick="setCarPhotoPreset('top')" title="Прижать к верху">⬆ Верх (15%)</button>
+                      <button type="button" class="btn-slot-arrow" onclick="setCarPhotoPreset('center')" title="По центру">🎯 Центр (50%)</button>
+                      <button type="button" class="btn-slot-arrow" onclick="setCarPhotoPreset('bottom')" title="Прижать к низу для портретных фото (BMW, Kurdalagon, Porsche)">⬇ Низ (82%)</button>
+                    </div>
                   </div>
                 </div>
+                <div class="photo-pos-slider-row">
+                  <span class="photo-pos-edge-label">0% (Верх)</span>
+                  <input type="range" id="editObjectPositionY" min="0" max="100" value="50" step="1" oninput="handleCarPhotoPositionChange(this.value)">
+                  <span class="photo-pos-edge-label">100% (Низ)</span>
+                </div>
+                <input type="hidden" id="editObjectPosition" value="center 50%">
+                <p class="photo-pos-hint">
+                  Регулируйте вертикальное положение изображения, чтобы колеса или крыша не срезались на карточке болида. Результат сразу виден в предпросмотре.
+                </p>
               </div>
-              <div style="display: flex; align-items: center; gap: 12px;">
-                <span style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">0% (Верх)</span>
-                <input type="range" id="editObjectPositionY" min="0" max="100" value="50" step="1" style="flex: 1; accent-color: var(--gtt-orange); cursor: pointer;" oninput="handleCarPhotoPositionChange(this.value)">
-                <span style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">100% (Низ)</span>
-              </div>
-              <input type="hidden" id="editObjectPosition" value="center 50%">
-              <p style="font-size: 11px; color: var(--text-muted); margin-top: 6px; margin-bottom: 0; line-height: 1.4;">
-                Регулируйте вертикальное положение изображения, чтобы колеса или крыша не срезались на карточке болида. Результат сразу виден в предпросмотре.
-              </p>
             </div>
           </div>
           <div class="form-group full-width">
@@ -841,28 +842,30 @@
                   <span class="meta-info" id="recordImgMetaInfo">Готово к сохранению</span>
                 </div>
               </div>
-            </div>
-            <!-- Vertical Photo Align / Height Adjustment Control for Records -->
-            <div class="photo-position-control-box" style="margin-top: 10px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px 14px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 8px;">
-                <label style="font-size: 11px; text-transform: uppercase; color: #fff; font-family: var(--font-mono); margin: 0; display: flex; align-items: center; gap: 6px;">
-                  <span style="color: var(--gtt-orange);">📐</span> Регулировка фото по высоте:
-                </label>
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <span id="recordPosValueDisplay" style="font-family: var(--font-mono); font-size: 12px; color: var(--gtt-orange); font-weight: 700; background: rgba(255,85,0,0.12); padding: 2px 7px; border-radius: 4px; border: 1px solid rgba(255,85,0,0.3);">50%</span>
-                  <div style="display: flex; gap: 4px;">
-                    <button type="button" class="btn-slot-arrow" style="width: auto; padding: 2px 8px; font-size: 10px;" onclick="setRecordPhotoPreset('top')" title="Прижать к верху">⬆ Верх (15%)</button>
-                    <button type="button" class="btn-slot-arrow" style="width: auto; padding: 2px 8px; font-size: 10px;" onclick="setRecordPhotoPreset('center')" title="По центру">🎯 Центр (50%)</button>
-                    <button type="button" class="btn-slot-arrow" style="width: auto; padding: 2px 8px; font-size: 10px;" onclick="setRecordPhotoPreset('bottom')" title="Прижать к низу для болидов (Lucifer, Zelenka, Draco)">⬇ Низ / Болиды (65%)</button>
+
+              <!-- Vertical Photo Align / Height Adjustment Control for Records (Integrated) -->
+              <div class="photo-position-control-box">
+                <div class="photo-pos-top-row">
+                  <label class="photo-pos-label">
+                    <span class="photo-pos-icon">📐</span>
+                    <span>Регулировка фото по высоте:</span>
+                  </label>
+                  <div class="photo-pos-actions">
+                    <span id="recordPosValueDisplay" class="photo-pos-badge">50%</span>
+                    <div class="photo-pos-presets">
+                      <button type="button" class="btn-slot-arrow" onclick="setRecordPhotoPreset('top')" title="Прижать к верху">⬆ Верх (15%)</button>
+                      <button type="button" class="btn-slot-arrow" onclick="setRecordPhotoPreset('center')" title="По центру">🎯 Центр (50%)</button>
+                      <button type="button" class="btn-slot-arrow" onclick="setRecordPhotoPreset('bottom')" title="Прижать к низу для болидов (Lucifer, Zelenka, Draco)">⬇ Низ (65%)</button>
+                    </div>
                   </div>
                 </div>
+                <div class="photo-pos-slider-row">
+                  <span class="photo-pos-edge-label">0% (Верх)</span>
+                  <input type="range" id="editRecordPositionY" min="0" max="100" value="50" step="1" oninput="handleRecordPhotoPositionChange(this.value)">
+                  <span class="photo-pos-edge-label">100% (Низ)</span>
+                </div>
+                <input type="hidden" id="editRecordObjectPosition" value="center 50%">
               </div>
-              <div style="display: flex; align-items: center; gap: 12px;">
-                <span style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">0% (Верх)</span>
-                <input type="range" id="editRecordPositionY" min="0" max="100" value="50" step="1" style="flex: 1; accent-color: var(--gtt-orange); cursor: pointer;" oninput="handleRecordPhotoPositionChange(this.value)">
-                <span style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">100% (Низ)</span>
-              </div>
-              <input type="hidden" id="editRecordObjectPosition" value="center 50%">
             </div>
           </div>
           <div class="form-group full-width">
@@ -1229,6 +1232,6 @@
   </div>
 
   <script src="js/media-db.js?v=23.0"></script>
-  <script src="js/admin.js?v=36.0"></script>
+  <script src="js/admin.js?v=37.0"></script>
 </body>
 </html>
