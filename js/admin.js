@@ -1306,7 +1306,7 @@ async function handleAdminLogin(e) {
       // Offline fallback: Cryptographically secure SHA-256 hash check
       try {
         const inputHash = await sha256Hex(password.trim());
-        const isUserOk = (username.toLowerCase() === 'gosha');
+        const isUserOk = ['gosha', 'admin', 'gtt'].includes(username.toLowerCase());
         const authorizedHashes = [
           '4c457e64bb36ed3df535c84837abac5b57626615b5b2630dc8f72c66e1a565e5', // gtt71
           'b7840a350b9cb095a0075eef96c675a8739af0ac120c68d6b601fee091328285', // gtt_atelier_2026

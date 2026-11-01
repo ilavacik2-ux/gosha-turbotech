@@ -1362,6 +1362,10 @@ const i18n = {
     moto_subtitle: "Сверхмощный инжиниринг теперь на двух колесах: личные супербайки Гоши, трековые болиды и титановые выхлопные системы.",
     moto_hero_badge: "GTT MOTO FLEET // 200+ HP",
     moto_hero_desc: "Личный боевой супербайк Гоши BMW M1000RR M-Performance. Полный цикл спортивной калибровки ECU, снятие заводских лимитов, титановые выхлопные трассы ручной сварки и сухой автоклавный карбон.",
+    moto_stat1_lbl: "14 500 RPM • Двигатель ShiftCam",
+    moto_stat2_lbl: "Сухой вес супербайка",
+    moto_stat3_lbl: "Прижимная сила M-Winglets",
+    moto_stat4_lbl: "Full Titanium Race Exhaust",
     moto_spec_1: "212 л.с. при 14 500 об/мин • Сухой вес 168 кг",
     moto_spec_2: "Титановый выпуск Akrapovic Full System с отстрелами огнем",
     moto_spec_3: "M-Winglets карбоновые крылья с прижимной силой 16.3 кг",
@@ -1564,6 +1568,10 @@ const i18n = {
     moto_subtitle: "Extreme engineering now unleashed on two wheels: Gosha's personal superbikes, track weapons, and bespoke titanium exhaust systems.",
     moto_hero_badge: "GTT MOTO FLEET // 200+ HP",
     moto_hero_desc: "Gosha's personal race-prepped BMW M1000RR M-Performance superbike. Complete motorsport ECU calibrations, factory rev limiter removal, custom handcrafted titanium exhaust, and autoclave dry carbon fiber.",
+    moto_stat1_lbl: "14,500 RPM • ShiftCam Engine",
+    moto_stat2_lbl: "Superbike Dry Weight",
+    moto_stat3_lbl: "M-Winglets Downforce",
+    moto_stat4_lbl: "Full Titanium Race Exhaust",
     moto_spec_1: "212 HP @ 14,500 RPM • Dry Weight 168 kg",
     moto_spec_2: "Akrapovic Full System Titanium Exhaust with flame backfires",
     moto_spec_3: "M-Winglets carbon aerodynamic wings with 16.3 kg downforce",
@@ -1661,6 +1669,9 @@ window.setLanguage = function(lang) {
   }
   if (typeof renderPartnersGrid === 'function') {
     renderPartnersGrid(cachedPartnersData || defaultPartnersList);
+  }
+  if (typeof renderMotoGrid === 'function') {
+    renderMotoGrid(cachedMotoData || defaultMotoList);
   }
 };
 
@@ -2043,21 +2054,79 @@ function getOptimalPartnerColumns(count) {
 }
 
 const partnerCategoryTranslations = {
+  // Electronics, Dyno & Telemetry
+  'Телеметрия & Электроника': 'Telemetry & Electronics',
   'Телеметрия & Софт': 'Telemetry & Software',
-  'Детейлинг & Защита': 'Detailing & Protection',
-  'Интерьер & Стиль': 'Interior & Bespoke',
-  'Спортивное топливо': 'Race Fuel',
-  'Смазочные материалы': 'Lubricants & Oils',
+  'Электроника & ЭБУ': 'Engine Management & ECUs',
+  'Спортивные ЭБУ': 'Motorsport ECUs',
+  'Калибровка & Софт': 'ECU Tuning & Software',
+  'Accessport & Софт': 'Accessport & Software',
+  'Программное обеспечение': 'ECU Tuning Software',
+  'Диностенды & Замеры': 'Dyno Systems & Telemetry',
+  'Диностенды до 3000 HP': 'Dyno Systems to 3000 HP',
+
+  // Engine, Pistons & Turbocharging
+  'Кованая поршневая': 'Forged Pistons & Internals',
+  'Турбосистемы': 'Turbo Systems & Boost',
+  'Турбокомпрессоры': 'Turbochargers',
+  'Турбокомпрессоры CEA': 'CEA Turbochargers',
+  'Впуск & Охлаждение': 'Intake & Intercooling',
+  'Впуск & Интеркулеры': 'Intake & Intercoolers',
+  'Охлаждение & Впуск': 'Intercoolers & Induction',
+  'Теплообменники & Кулеры': 'Heat Exchangers & Intercoolers',
+  'Охлаждение & Радиаторы': 'Cooling & Race Radiators',
+  'Радиаторы охлаждения': 'Cooling Radiators',
+  'Инженерия VR38 & V10': 'VR38 & V10 Engineering',
+
+  // Fuel Systems
+  'Топливо & Метанол': 'Racing Fuel & Methanol',
+  'Спортивное топливо': 'Race Fuel & Methanol',
+  'Топливные системы': 'Fuel Systems & Rails',
+  'Топливные форсунки': 'High-Flow Fuel Injectors',
+
+  // Transmission & Drivetrain
+  'Сцепления & Трансмиссия': 'Clutches & Transmissions',
+  'Сцепления GR6 / DL800': 'GR6 / DL800 Clutches',
   'Трансмиссия & Сцепление': 'Transmission & Clutch',
+  'Трансмиссия & КПП': 'Sequential Gearboxes & Transmissions',
+  'Кулачковые КПП': 'Dog Box Gearboxes',
+  'ЭБУ & Контроллеры AWD': 'AWD Controllers & ECUs',
+
+  // Exhaust & Titanium
+  'Титановые компоненты': 'Titanium Exhaust Components',
+  'Титановый выхлоп': 'Titanium Exhaust Systems',
   'Выхлопные системы': 'Exhaust Systems',
+  'Valvetronic Выхлоп': 'Valvetronic Exhaust',
+  'Exhaust Systems': 'Exhaust Systems',
+
+  // Lubricants & Fluids
+  'Смазочные материалы': 'Lubricants & Oils',
+  'Спортивные масла': 'Motorsport Lubricants',
+  'Моторные масла 300V': '300V Motorsport Oils',
+  'Lubricants & Oils': 'Lubricants & Oils',
+
+  // Detailing, Styling & Interior
+  'Детейлинг & Защита': 'Detailing & Protection',
+  'Detailing & Protection': 'Detailing & Protection',
+  'Интерьер & Стиль': 'Interior & Bespoke',
+  'Interior & Bespoke': 'Interior & Bespoke',
   'Кованые диски': 'Forged Wheels',
   'Тормозные системы': 'Braking Systems',
   'Шины & Слики': 'Tires & Racing Slicks',
-  'Турбокомпрессоры': 'Turbochargers',
-  'Дрэг-стрип & Трек': 'Dragstrip & Circuit',
-  'Автоспорт': 'Motorsport',
-  'Медиа & Автоспорт': 'Media & Motorsport',
   'Спортивные ремни & Экипировка': 'Racing Harnesses & Gear',
+
+  // Media, Motorsport & Racetracks
+  'Автоспорт & Трассы': 'Motorsport & Racetracks',
+  'Дрэг-стрип RDRC': 'RDRC Drag Strip',
+  'Дрэг-стрип & Трек': 'Dragstrip & Circuit',
+  'Автоспорт & Стиль': 'Motorsport & Lifestyle',
+  'Автоспорт': 'Motorsport',
+  'Автоспортивное медиа': 'Motorsport Media',
+  'Медиа & Автоспорт': 'Media & Motorsport',
+  'Медиа & Суперкары': 'Media & Supercars',
+  'Суперкары & Дрэг': 'Supercars & Drag Racing',
+  'Медиа & Хроника': 'Media & Chronicle',
+  'Партнерский клуб': 'Official Partner Club',
   'Партнер GTT': 'GTT Technical Partner'
 };
 
@@ -2221,6 +2290,39 @@ const defaultMotoList = [
 
 let cachedMotoData = null;
 
+const motoTranslationsEn = {
+  'moto_1': {
+    title: 'Superbike Stage 1 / 2',
+    code: 'STAGE 1 / 2 • ECU',
+    desc: 'Software potential unlock for 1000cc superbikes BMW S1000RR / M1000RR, Ducati Panigale V4, Yamaha R1. Custom ignition maps, rev limiter removal and dyno quickshifter calibration.',
+    bullets: [
+      'Individual dyno calibration and tuning',
+      'Wheelie & Launch Control optimization',
+      'Zero-lag electronic ride-by-wire throttle mapping'
+    ]
+  },
+  'moto_2': {
+    title: 'GTT Moto Titanium Exhaust',
+    code: 'TITANIUM EXHAUST',
+    desc: 'Handcrafted TIG argon welding of titanium and Inconel for superbikes. Extreme weight reduction, throaty acoustic note, and broad torque band gains.',
+    bullets: [
+      'Ultralight Titan-Gr5 alloy headers',
+      'Custom CNC milled exhaust tips',
+      'Flame anti-lag backfires & deep bass roar'
+    ]
+  },
+  'moto_3': {
+    title: 'Bespoke Customization',
+    code: 'BESPOKE & CARBON',
+    desc: 'Comprehensive enhancement cycle for elite superbikes: ultra-lightweight forged wheels, dry clutch conversions, carbon aerodynamic fairings and full pre-season service.',
+    bullets: [
+      'Dry autoclave 3K/12K carbon fiber',
+      'Brembo Racing / GP4 master braking systems',
+      'Custom livery design & precision painting'
+    ]
+  }
+};
+
 function renderMotoGrid(motoList) {
   const container = document.getElementById('motoCardsGrid');
   if (!container) return;
@@ -2235,20 +2337,41 @@ function renderMotoGrid(motoList) {
     return;
   }
 
+  const isEn = (typeof currentLang !== 'undefined' && currentLang === 'en');
+
   container.innerHTML = activeMoto.map((m, idx) => {
-    const title = escapeHtml(m.title || '');
-    const code = escapeHtml(m.code || 'GTT // MOTO');
-    const desc = escapeHtml(m.desc || '');
-    const rawBullets = m.bullets || '';
-    const bullets = (Array.isArray(rawBullets) ? rawBullets : String(rawBullets).split('\n'))
+    let title = m.title || '';
+    let code = m.code || 'GTT // MOTO';
+    let desc = m.desc || '';
+    let rawBullets = m.bullets || '';
+    let bullets = (Array.isArray(rawBullets) ? rawBullets : String(rawBullets).split('\n'))
       .map(b => b.trim())
       .filter(Boolean);
 
-    // Clean up code badge (e.g. "SUPERBIKE // STAGE 2" -> "STAGE 1 / 2 • ECU")
+    // Apply translations if English
+    if (isEn) {
+      const en = motoTranslationsEn[m.id];
+      if (en) {
+        if (en.title) title = en.title;
+        if (en.code) code = en.code;
+        if (en.desc) desc = en.desc;
+        if (en.bullets) bullets = en.bullets;
+      } else {
+        if (title === 'Титановый выпуск GTT Moto') title = 'GTT Moto Titanium Exhaust';
+        if (title === 'Bespoke кастомизация') title = 'Bespoke Customization';
+        if (title.toLowerCase().includes('калибровка')) title = 'Track ECU Calibration';
+      }
+    }
+
+    // Clean up code badge
     let cleanCode = code;
-    if (code.includes('STAGE')) cleanCode = 'STAGE 1 / 2 • ECU';
-    else if (code.includes('TITANIUM') || code.includes('EXH')) cleanCode = 'ТИТАНОВЫЙ ВЫПУСК';
-    else if (code.includes('BESPOKE') || code.includes('CNC')) cleanCode = 'BESPOKE & КАРБОН';
+    if (code.includes('STAGE')) {
+      cleanCode = 'STAGE 1 / 2 • ECU';
+    } else if (code.includes('TITANIUM') || code.includes('EXH') || code.includes('ТИТАН')) {
+      cleanCode = isEn ? 'TITANIUM EXHAUST' : 'ТИТАНОВЫЙ ВЫПУСК';
+    } else if (code.includes('BESPOKE') || code.includes('CNC') || code.includes('КАРБОН')) {
+      cleanCode = isEn ? 'BESPOKE & CARBON' : 'BESPOKE & КАРБОН';
+    }
 
     const bulletsHtml = bullets.map(b => `
       <div class="moto-spec-item">
@@ -2270,10 +2393,10 @@ function renderMotoGrid(motoList) {
         </div>
         <div class="moto-card-header">
           <span class="moto-card-num">0${idx + 1}</span>
-          <span class="moto-card-pill">${cleanCode}</span>
+          <span class="moto-card-pill">${escapeHtml(cleanCode)}</span>
         </div>
-        <h3 class="moto-card-title">${title}</h3>
-        <p class="moto-card-desc">${desc}</p>
+        <h3 class="moto-card-title">${escapeHtml(title)}</h3>
+        <p class="moto-card-desc">${escapeHtml(desc)}</p>
         <div class="moto-spec-strip">
           ${bulletsHtml}
         </div>

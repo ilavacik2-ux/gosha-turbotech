@@ -56,11 +56,13 @@ body {
 .admin-auth-container {
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 24px 16px;
   position: relative;
   z-index: 10;
+  box-sizing: border-box;
 }
 
 .auth-card {
@@ -73,6 +75,18 @@ body {
   max-width: 440px;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(234, 91, 12, 0.15);
   text-align: center;
+  box-sizing: border-box;
+}
+
+.auth-submit-btn {
+  width: 100%;
+  display: block;
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 28px 18px;
+  }
 }
 
 .auth-brand {

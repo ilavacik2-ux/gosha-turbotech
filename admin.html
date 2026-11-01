@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/admin.css?v=39.0">
+  <link rel="stylesheet" href="css/admin.css?v=40.0">
 </head>
 <body>
 
@@ -34,29 +34,29 @@
 
   <!-- Admin Login Screen -->
   <div id="loginScreen" class="admin-auth-container">
-    <div class="auth-brand" style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 24px;">
-      <img src="assets/photos/gtt_shield_logo.svg" alt="GoshaTurboTech" class="auth-shield-logo" style="width: 48px; height: 48px; object-fit: contain; filter: drop-shadow(0 0 12px rgba(234, 91, 12, 0.5));">
-      <div class="brand-title" style="text-align: center; line-height: 1.1;">
-        <div style="font-family: var(--font-display); font-size: 16px; font-weight: 800; font-style: italic; letter-spacing: 0.18em; color: #FFFFFF;">GOSHA</div>
-        <div style="font-family: var(--font-display); font-size: 14px; font-weight: 800; font-style: italic; letter-spacing: 0.14em; color: var(--gtt-orange);">TURBOTECH</div>
+    <div class="auth-card">
+      <div class="auth-brand">
+        <img src="assets/photos/gtt_shield_logo.svg" alt="GoshaTurboTech" class="auth-shield">
+        <div class="auth-title">GOSHA <span>TURBOTECH</span></div>
+        <div class="auth-badge">ATELIER CONTROL PANEL</div>
       </div>
+      
+      <form id="loginForm" onsubmit="handleAdminLogin(event); return false;">
+        <div class="input-group">
+          <label for="adminUser">Позывной / Логин инженера</label>
+          <input type="text" id="adminUser" placeholder="Введите логин..." autocomplete="username" autofocus required>
+        </div>
+        <div class="input-group">
+          <label for="adminPass">Пароль доступа (Master Pass)</label>
+          <input type="password" id="adminPass" placeholder="Введите пароль..." autocomplete="current-password" required>
+        </div>
+        <!-- Bot Defense Honeypot -->
+        <input type="text" name="sec_trap_check" id="adminSecurityTrap" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;pointer-events:none;" aria-hidden="true">
+        <button type="submit" id="loginBtn" class="btn-primary auth-submit-btn">Войти в панель GTT</button>
+        <div id="authError" class="auth-error-msg">⚠️ Неверный логин или пароль доступа. Попытка зафиксирована.</div>
+        <div class="auth-hint">🔐 Защищенный шлюз GTT Atelier Skunkworks. Двухуровневая аутентификация инженера.</div>
+      </form>
     </div>
-    
-    <form id="loginForm" onsubmit="handleAdminLogin(event); return false;">
-      <div class="input-group" style="margin-bottom: 14px;">
-        <label for="adminUser">Позывной / Логин инженера</label>
-        <input type="text" id="adminUser" placeholder="Введите логин..." autocomplete="username" autofocus required>
-      </div>
-      <div class="input-group">
-        <label for="adminPass">Пароль доступа (Master Pass)</label>
-        <input type="password" id="adminPass" placeholder="Введите пароль..." autocomplete="current-password" required>
-      </div>
-      <!-- Bot Defense Honeypot -->
-      <input type="text" name="sec_trap_check" id="adminSecurityTrap" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;pointer-events:none;" aria-hidden="true">
-      <button type="submit" id="loginBtn" class="btn-primary auth-submit-btn">Войти в панель GTT</button>
-      <div id="authError" class="auth-error-msg">⚠️ Неверный логин или пароль доступа. Попытка зафиксирована.</div>
-      <div class="auth-hint">🔐 Защищенный шлюз GTT Atelier Skunkworks. Двухуровневая аутентификация инженера.</div>
-    </form>
   </div>
 
   <!-- Admin Dashboard Screen -->
@@ -1409,6 +1409,6 @@
   </div>
 
   <script src="js/media-db.js?v=23.0"></script>
-  <script src="js/admin.js?v=39.0"></script>
+  <script src="js/admin.js?v=40.0"></script>
 </body>
 </html>
