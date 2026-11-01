@@ -845,14 +845,16 @@ async function apiFetch(endpoint, options = {}) {
     const authHeaders = sessionToken ? { 'Authorization': `Bearer ${sessionToken}` } : {};
     const gateToken = (typeof getSecretGatewayToken === 'function') ? getSecretGatewayToken() : (sessionStorage.getItem('gtt_gate_token') || 'gtt_atelier_2026_x71k');
 
+    const { headers: optHeaders, ...restOptions } = options;
+
     const res = await fetch(API_BASE + endpoint, {
+      ...restOptions,
       headers: {
         'Content-Type': 'application/json',
         'x-gateway-token': gateToken,
         ...authHeaders,
-        ...(options.headers || {})
-      },
-      ...options
+        ...(optHeaders || {})
+      }
     });
     if (!res.ok) {
       const errData = await res.json().catch(() => ({ detail: res.statusText }));
@@ -3027,9 +3029,15 @@ function clearTeamPhotoPreview() {
   const input = document.getElementById('editMemberPhoto');
   const fileInput = document.getElementById('teamPhotoFileInput');
   const img = document.getElementById('teamImgPreview');
-  if (input) input.value = '';
+  const memberId = document.getElementById('editMemberId')?.value;
+  const fallback = (memberId && defaultTeamPhotos[memberId]) ? defaultTeamPhotos[memberId] : 'assets/photos/gtt_shield_logo.svg';
+
+  if (input) input.value = (memberId && defaultTeamPhotos[memberId]) ? defaultTeamPhotos[memberId] : '';
   if (fileInput) fileInput.value = '';
-  if (img) img.src = 'assets/photos/team_pilot_paddock.jpg';
+  if (img) {
+    img.src = fallback;
+    img.onerror = () => { img.src = 'assets/photos/gtt_shield_logo.svg'; };
+  }
   updateTeamLiveCardPreview();
 }
 
@@ -4920,7 +4928,7 @@ window.deleteGalleryPhoto = deleteGalleryPhoto;
 
 function renderPartnersTable() {
   let partners = getDB(PARTNERS_STORAGE_KEY, defaultPartners);
-  if (!Array.isArray(partners) || partners.length < 28) {
+  if (!Array.isArray(partners)) {
     partners = defaultPartners;
     saveDB(PARTNERS_STORAGE_KEY, partners);
   } else {
@@ -5089,6 +5097,23 @@ async function savePartner(e) {
     is_active: document.getElementById('editPartnerIsActive').checked ? 1 : 0
   };
 
+  // 1. Direct reliable save to SQLite backend FIRST
+  try {
+    const method = idInput ? 'PUT' : 'POST';
+    const url = idInput ? `/api/partners/${encodeURIComponent(partnerData.id)}` : '/api/partners';
+    await apiFetch(url, {
+      method: method,
+      body: JSON.stringify(partnerData)
+    });
+  } catch (err) {
+    if (!isStaticDeployment()) {
+      console.error('[GTT API] Partner backend save failed:', err);
+      showToast('Ошибка сохранения', 'Не удалось сохранить партнера в базе: ' + (err.message || err), 'error');
+      return;
+    }
+  }
+
+  // 2. Update local state
   const partners = getDB(PARTNERS_STORAGE_KEY, defaultPartners);
   const existingIdx = partners.findIndex(p => p.id === partnerData.id);
 
@@ -5099,20 +5124,7 @@ async function savePartner(e) {
   }
   saveDB(PARTNERS_STORAGE_KEY, partners);
 
-  // Sync with FastAPI backend if online
-  try {
-    const method = idInput ? 'PUT' : 'POST';
-    const url = idInput ? `/api/partners/${encodeURIComponent(partnerData.id)}` : '/api/partners';
-    await apiFetch(url, {
-      method: method,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(partnerData)
-    });
-  } catch (err) {
-    console.warn('[GTT API] Partner offline/static note:', err);
-  }
-
-  // Real-time broadcast sync across all browser tabs
+  // 3. Real-time broadcast sync across all browser tabs
   if (window.BroadcastChannel) {
     try {
       const ch = new BroadcastChannel('gtt_channel');
@@ -5122,21 +5134,27 @@ async function savePartner(e) {
 
   closePartnerModal();
   renderPartnersTable();
-  showToast('Успешно', `Данные партнера «${partnerData.name}» сохранены`, 'success');
+  showToast('Успешно', `Данные партнера «${partnerData.name}» сохранены в базе и обновлены!`, 'success');
 }
 
 async function deletePartner(id) {
   if (!confirm('Вы уверены, что хотите удалить этого партнера?')) return;
 
-  const partners = getDB(PARTNERS_STORAGE_KEY, defaultPartners);
-  const updated = partners.filter(p => p.id !== id);
-  saveDB(PARTNERS_STORAGE_KEY, updated);
-
+  // 1. Backend delete first
   try {
     await apiFetch(`/api/partners/${encodeURIComponent(id)}`, { method: 'DELETE' });
   } catch (err) {
-    console.warn('[GTT API] Partner delete note:', err);
+    if (!isStaticDeployment()) {
+      console.error('[GTT API] Partner delete failed:', err);
+      showToast('Ошибка удаления', 'Не удалось удалить партнера из базы: ' + (err.message || err), 'error');
+      return;
+    }
   }
+
+  // 2. Local state
+  const partners = getDB(PARTNERS_STORAGE_KEY, defaultPartners);
+  const updated = partners.filter(p => p.id !== id);
+  saveDB(PARTNERS_STORAGE_KEY, updated);
 
   if (window.BroadcastChannel) {
     try {
@@ -5146,7 +5164,7 @@ async function deletePartner(id) {
   }
 
   renderPartnersTable();
-  showToast('Удалено', 'Партнер успешно удален', 'info');
+  showToast('Удалено', 'Партнер успешно удален из базы', 'info');
 }
 
 // Partner module exports
@@ -5368,7 +5386,7 @@ async function saveMoto(e) {
       method,
       body: JSON.stringify(payload)
     });
-    if (res.ok) {
+    if (res && (res.id || res.status === 'ok' || !res.error)) {
       showToast('Успешно', `Мотопроект "${title}" сохранен в БД`, 'success');
       addAuditNotification('updated', `Мотопроект: ${title} (${code})`);
     }
@@ -5395,7 +5413,7 @@ async function deleteMoto(id) {
 
   try {
     const res = await apiFetch(`/api/moto/${id}`, { method: 'DELETE' });
-    if (res.ok) {
+    if (res && (res.status === 'ok' || !res.error)) {
       showToast('Удалено', `Мотопроект "${title}" удален из базы данных`, 'info');
       addAuditNotification('removed', `Удален мотопроект: ${title}`);
     }

@@ -1997,7 +1997,18 @@ function renderPartnersMarquee(partners) {
   marqueeTrack.innerHTML = loopList.map(p => {
     const name = escapeHtml(p.name || '');
     const logoSrc = escapeHtml(p.logo || '');
+    const link = escapeHtml(p.link || '#');
+    const hasLink = link && link !== '#';
     
+    if (hasLink) {
+      return `
+        <a href="${link}" target="_blank" rel="noopener noreferrer" class="partners-marquee-item" title="${name}">
+          ${logoSrc ? `<img src="${logoSrc}" alt="${name}" class="partners-marquee-logo" loading="lazy" onerror="this.style.display='none'">` : ''}
+          <span class="partners-marquee-text">${name}</span>
+        </a>
+      `;
+    }
+
     return `
       <div class="partners-marquee-item" title="${name}">
         ${logoSrc ? `<img src="${logoSrc}" alt="${name}" class="partners-marquee-logo" loading="lazy" onerror="this.style.display='none'">` : ''}
