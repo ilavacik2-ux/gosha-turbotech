@@ -1263,6 +1263,8 @@ const i18n = {
     records_tag: "// HALL OF FAME",
     records_title: "Мировые рекорды и победы RDRC",
     records_subtitle: "Более 15 лет непрерывных побед на дистанциях 402 м, 804 м, 1000 м и ледовых трассах.",
+    records_stream_label: "GTT RECORD STREAM // ПЛАВНЫЙ ПРОСМОТР",
+    records_stream_hint: "Наведите курсор для паузы • Свайп или стрелки для перелистывания",
     rec1_badge: "2022 • Мировой рекорд",
     rec1_title: "Быстрейший Porsche 992 на заводских турбинах",
     rec1_telemetry: "1/4 мили: 9.252 сек • 231.80 км/ч",
@@ -1463,6 +1465,8 @@ const i18n = {
     records_tag: "// HALL OF FAME",
     records_title: "World Records & RDRC Victories",
     records_subtitle: "Over 15 years of uninterrupted victories across 1/4 mile, 1/2 mile, 1000m and ice tracks.",
+    records_stream_label: "GTT RECORD STREAM // CONTINUOUS GLIDE",
+    records_stream_hint: "Hover to pause • Swipe or use arrows to navigate",
     rec1_badge: "2022 • World Record",
     rec1_title: "Fastest Porsche 992 on Stock Turbochargers",
     rec1_telemetry: "1/4 Mile: 9.252 sec • 231.80 km/h",
@@ -2893,15 +2897,70 @@ const recordTranslationsEn = {
   }
 };
 
-// Dynamic Records Synchronization & Smooth Continuous Carousel Stream
-let recordsTrackPos = 0;
-let recordsIsHovered = false;
+// ============================================================================
+// GOSHA TURBOTECH: ULTRA-SMOOTH EDITORIAL RECORDS GALLERY ENGINE
+// Continuous 60fps Silk Glide, Hover Freeze, Smart Spring Step & Touch Physics
+// ============================================================================
+
+let recordsOffset = 0;
+let recordsIsPaused = false;
+let recordsIsDragging = false;
 let recordsIsManualSliding = false;
 let recordsRafId = null;
 let recordsResumeTimeout = null;
+let recordsHalfWidth = 0;
+const RECORDS_TICKER_SPEED = 0.72; // ~43px/sec - elegant, comfortable, readable pace
+
+function getRecordStep(track) {
+  const cardEl = track ? track.querySelector('.record-item') : null;
+  const cardWidth = cardEl ? cardEl.offsetWidth : (window.innerWidth <= 820 ? 300 : 360);
+  const gap = window.innerWidth <= 820 ? 16 : 24;
+  return cardWidth + gap;
+}
+
+function updateRecordsHalfWidth() {
+  const track = document.getElementById('recordsCarouselTrack');
+  if (!track) return;
+  recordsHalfWidth = track.scrollWidth / 2;
+}
+
+function wrapRecordsOffset() {
+  if (recordsHalfWidth <= 50) updateRecordsHalfWidth();
+  if (recordsHalfWidth <= 50) return;
+  while (recordsOffset <= -recordsHalfWidth) {
+    recordsOffset += recordsHalfWidth;
+  }
+  while (recordsOffset > 0) {
+    recordsOffset -= recordsHalfWidth;
+  }
+}
+
+function startRecordsContinuousMotion() {
+  const track = document.getElementById('recordsCarouselTrack');
+  if (!track) return;
+
+  if (recordsRafId) {
+    cancelAnimationFrame(recordsRafId);
+    recordsRafId = null;
+  }
+
+  updateRecordsHalfWidth();
+
+  function tick() {
+    if (!recordsIsPaused && !recordsIsDragging && !recordsIsManualSliding && recordsHalfWidth > 50) {
+      recordsOffset -= RECORDS_TICKER_SPEED;
+      wrapRecordsOffset();
+      track.style.transform = `translate3d(${recordsOffset}px, 0, 0)`;
+    }
+    recordsRafId = requestAnimationFrame(tick);
+  }
+
+  recordsRafId = requestAnimationFrame(tick);
+}
 
 window.handleRecordImgLoad = function(img) {
   if (!img || !img.naturalWidth || !img.naturalHeight) return;
+  updateRecordsHalfWidth();
   if (!img.getAttribute('data-custom-pos')) {
     const src = (img.currentSrc || img.src || '').toLowerCase();
     if (src.includes('lucifer')) {
@@ -2918,62 +2977,33 @@ window.handleRecordImgLoad = function(img) {
   }
 };
 
-let recordsAutoSlideTimer = null;
-
-function startRecordsAutoSlide() {
-  stopRecordsAutoSlide();
-  recordsAutoSlideTimer = setInterval(() => {
-    if (!recordsIsHovered && !recordsIsManualSliding) {
-      recordsCarouselNext();
-    }
-  }, 4500);
-}
-
-function stopRecordsAutoSlide() {
-  if (recordsAutoSlideTimer) {
-    clearInterval(recordsAutoSlideTimer);
-    recordsAutoSlideTimer = null;
-  }
-}
-
-function stepRecordsContinuousMotion() {
-  // Graceful fallback to card-aligned auto slide
-  startRecordsAutoSlide();
-}
-
 window.recordsCarouselNext = function() {
   const track = document.getElementById('recordsCarouselTrack');
   if (!track) return;
   recordsIsManualSliding = true;
   clearTimeout(recordsResumeTimeout);
 
-  const cardEl = track.querySelector('.record-item');
-  const cardWidth = cardEl ? cardEl.offsetWidth : (window.innerWidth <= 820 ? 320 : 360);
-  const gap = window.innerWidth <= 820 ? 16 : 24;
-  const step = cardWidth + gap;
-  const singleHalfWidth = track.scrollWidth / 2;
+  updateRecordsHalfWidth();
+  const step = getRecordStep(track);
 
-  let currentSlot = Math.round(recordsTrackPos / step);
-  recordsTrackPos = (currentSlot - 1) * step;
+  let currentSlot = Math.round(recordsOffset / step);
+  let targetOffset = (currentSlot - 1) * step;
 
-  if (Math.abs(recordsTrackPos) >= singleHalfWidth) {
-    track.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
-    track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
-    setTimeout(() => {
-      recordsTrackPos += singleHalfWidth;
-      if (track) {
-        track.style.transition = 'none';
-        track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
-      }
-    }, 450);
-  } else {
-    track.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
-    track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
-  }
+  track.style.transition = 'transform 0.65s cubic-bezier(0.2, 0.85, 0.25, 1)';
+  track.style.transform = `translate3d(${targetOffset}px, 0, 0)`;
+  recordsOffset = targetOffset;
+
+  setTimeout(() => {
+    wrapRecordsOffset();
+    if (track) {
+      track.style.transition = 'none';
+      track.style.transform = `translate3d(${recordsOffset}px, 0, 0)`;
+    }
+  }, 650);
 
   recordsResumeTimeout = setTimeout(() => {
     recordsIsManualSliding = false;
-  }, 600);
+  }, 3500);
 };
 
 window.recordsCarouselPrev = function() {
@@ -2982,46 +3012,53 @@ window.recordsCarouselPrev = function() {
   recordsIsManualSliding = true;
   clearTimeout(recordsResumeTimeout);
 
-  const cardEl = track.querySelector('.record-item');
-  const cardWidth = cardEl ? cardEl.offsetWidth : (window.innerWidth <= 820 ? 320 : 360);
-  const gap = window.innerWidth <= 820 ? 16 : 24;
-  const step = cardWidth + gap;
-  const singleHalfWidth = track.scrollWidth / 2;
+  updateRecordsHalfWidth();
+  const step = getRecordStep(track);
 
-  let currentSlot = Math.round(recordsTrackPos / step);
-  recordsTrackPos = (currentSlot + 1) * step;
+  let currentSlot = Math.round(recordsOffset / step);
+  let targetOffset = (currentSlot + 1) * step;
 
-  if (recordsTrackPos > 0) {
-    track.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
-    track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
-    setTimeout(() => {
-      recordsTrackPos -= singleHalfWidth;
-      if (track) {
-        track.style.transition = 'none';
-        track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
-      }
-    }, 450);
-  } else {
-    track.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
-    track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
-  }
+  track.style.transition = 'transform 0.65s cubic-bezier(0.2, 0.85, 0.25, 1)';
+  track.style.transform = `translate3d(${targetOffset}px, 0, 0)`;
+  recordsOffset = targetOffset;
+
+  setTimeout(() => {
+    wrapRecordsOffset();
+    if (track) {
+      track.style.transition = 'none';
+      track.style.transform = `translate3d(${recordsOffset}px, 0, 0)`;
+    }
+  }, 650);
 
   recordsResumeTimeout = setTimeout(() => {
     recordsIsManualSliding = false;
-  }, 600);
+  }, 3500);
 };
 
 window.goToRecordSlide = function(idx) {
   const track = document.getElementById('recordsCarouselTrack');
   if (!track) return;
-  const cardEl = track.querySelector('.record-item');
-  const cardWidth = cardEl ? cardEl.offsetWidth : (window.innerWidth <= 820 ? 320 : 360);
-  const gap = window.innerWidth <= 820 ? 16 : 24;
-  const step = cardWidth + gap;
-  recordsTrackPos = -(idx * step);
-  track.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)';
-  track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
-  setTimeout(() => { if (track) track.style.transition = 'none'; }, 480);
+  recordsIsManualSliding = true;
+  clearTimeout(recordsResumeTimeout);
+
+  updateRecordsHalfWidth();
+  const step = getRecordStep(track);
+
+  recordsOffset = -(idx * step);
+  track.style.transition = 'transform 0.65s cubic-bezier(0.2, 0.85, 0.25, 1)';
+  track.style.transform = `translate3d(${recordsOffset}px, 0, 0)`;
+
+  setTimeout(() => {
+    wrapRecordsOffset();
+    if (track) {
+      track.style.transition = 'none';
+      track.style.transform = `translate3d(${recordsOffset}px, 0, 0)`;
+    }
+  }, 650);
+
+  recordsResumeTimeout = setTimeout(() => {
+    recordsIsManualSliding = false;
+  }, 3500);
 };
 
 function renderRecordsEditorial(recordsList) {
@@ -3132,34 +3169,40 @@ function initRecordsCarousel() {
   const track = document.getElementById('recordsCarouselTrack');
   if (!track) return;
 
-  startRecordsAutoSlide();
+  // Ensure native wrapper scrollLeft remains 0 forever to prevent runaway displacement
+  if (viewport) viewport.scrollLeft = 0;
+
+  updateRecordsHalfWidth();
+  startRecordsContinuousMotion();
+
+  // Recalculate halfWidth when window resizes
+  if (!window._recordsResizeAttached) {
+    window._recordsResizeAttached = true;
+    window.addEventListener('resize', () => {
+      updateRecordsHalfWidth();
+    }, { passive: true });
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        recordsIsPaused = true;
+      } else {
+        recordsIsPaused = false;
+        updateRecordsHalfWidth();
+      }
+    });
+  }
 
   if (stage && !stage._recordsListenersAttached) {
     stage._recordsListenersAttached = true;
 
-    // Helper: Seamless infinite loop position wrapping
-    const wrapRecordsPosition = () => {
-      const singleHalfWidth = track.scrollWidth / 2;
-      if (singleHalfWidth > 100) {
-        while (Math.abs(recordsTrackPos) >= singleHalfWidth) {
-          recordsTrackPos += singleHalfWidth;
-        }
-        while (recordsTrackPos > 0) {
-          recordsTrackPos -= singleHalfWidth;
-        }
-      } else {
-        recordsTrackPos = 0;
-      }
-    };
-
     // 1. Smooth pause on hover (desktop cursor only)
     stage.addEventListener('mouseenter', () => { 
       if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-        recordsIsHovered = true; 
+        recordsIsPaused = true; 
       }
     });
     stage.addEventListener('mouseleave', () => { 
-      recordsIsHovered = false; 
+      recordsIsPaused = false; 
     });
 
     // 2. Multi-Device Swipe & Drag Engine (Mouse, Touch, Tablet Stylus, Trackpad)
@@ -3175,15 +3218,16 @@ function initRecordsCarousel() {
 
     const onPointerDown = (clientX, clientY) => {
       isPointerDown = true;
-      recordsIsHovered = true; // immediately pause smooth drift on touch/press
+      recordsIsPaused = true;
+      recordsIsDragging = false;
+      hasMovedSignificantly = false;
+      isHorizontalGesture = false;
       pointerStartX = clientX;
       pointerStartY = clientY;
       lastPointerX = clientX;
       lastPointerTime = performance.now();
       pointerVelocityX = 0;
-      pointerInitialPos = recordsTrackPos;
-      isHorizontalGesture = false;
-      hasMovedSignificantly = false;
+      pointerInitialPos = recordsOffset;
     };
 
     const onPointerMove = (clientX, clientY, e) => {
@@ -3197,6 +3241,7 @@ function initRecordsCarousel() {
           hasMovedSignificantly = true;
           isHorizontalGesture = Math.abs(deltaX) > Math.abs(deltaY);
           if (isHorizontalGesture) {
+            recordsIsDragging = true;
             recordsIsManualSliding = true;
             clearTimeout(recordsResumeTimeout);
             if (track) track.style.transition = 'none';
@@ -3216,38 +3261,48 @@ function initRecordsCarousel() {
           lastPointerTime = now;
         }
 
-        recordsTrackPos = pointerInitialPos + deltaX;
-        wrapRecordsPosition();
-        if (track) track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
+        recordsOffset = pointerInitialPos + deltaX;
+        wrapRecordsOffset();
+        if (track) track.style.transform = `translate3d(${recordsOffset}px, 0, 0)`;
       }
     };
 
     const onPointerUp = () => {
       if (!isPointerDown) return;
       isPointerDown = false;
+      recordsIsDragging = false;
       if (viewport) viewport.classList.remove('is-dragging');
 
       if (hasMovedSignificantly && isHorizontalGesture) {
-        const cardEl = track.querySelector('.record-item');
-        const cardWidth = cardEl ? cardEl.offsetWidth : (window.innerWidth <= 820 ? 320 : 360);
-        const gap = window.innerWidth <= 820 ? 16 : 24;
-        const step = cardWidth + gap;
-        let targetSlot = Math.round(recordsTrackPos / step);
-        recordsTrackPos = targetSlot * step;
-        wrapRecordsPosition();
+        const step = getRecordStep(track);
+
+        // Calculate smooth target with slight inertia flick
+        let projected = recordsOffset + (pointerVelocityX * 120);
+        let targetSlot = Math.round(projected / step);
+        recordsOffset = targetSlot * step;
+        wrapRecordsOffset();
+
         if (track) {
-          track.style.transition = 'transform 0.42s cubic-bezier(0.16, 1, 0.3, 1)';
-          track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
+          track.style.transition = 'transform 0.5s cubic-bezier(0.2, 0.85, 0.25, 1)';
+          track.style.transform = `translate3d(${recordsOffset}px, 0, 0)`;
         }
+
+        setTimeout(() => {
+          wrapRecordsOffset();
+          if (track) {
+            track.style.transition = 'none';
+            track.style.transform = `translate3d(${recordsOffset}px, 0, 0)`;
+          }
+        }, 500);
+
         clearTimeout(recordsResumeTimeout);
         recordsResumeTimeout = setTimeout(() => {
-          if (track) track.style.transition = 'none';
           recordsIsManualSliding = false;
-          recordsIsHovered = false;
-        }, 800);
+          recordsIsPaused = false;
+        }, 3200);
       } else {
         recordsIsManualSliding = false;
-        recordsIsHovered = false;
+        recordsIsPaused = false;
       }
     };
 
@@ -3266,13 +3321,8 @@ function initRecordsCarousel() {
       }
     }, { passive: false });
 
-    targetElement.addEventListener('touchend', () => {
-      onPointerUp();
-    }, { passive: true });
-
-    targetElement.addEventListener('touchcancel', () => {
-      onPointerUp();
-    }, { passive: true });
+    targetElement.addEventListener('touchend', onPointerUp, { passive: true });
+    targetElement.addEventListener('touchcancel', onPointerUp, { passive: true });
 
     // --- Mouse Drag Listeners (Laptop & Desktop) ---
     targetElement.addEventListener('mousedown', (e) => {
@@ -3309,16 +3359,16 @@ function initRecordsCarousel() {
         recordsIsManualSliding = true;
         clearTimeout(recordsResumeTimeout);
 
-        recordsTrackPos -= dx * 1.15;
-        wrapRecordsPosition();
+        recordsOffset -= dx * 1.15;
+        wrapRecordsOffset();
         if (track) {
           track.style.transition = 'none';
-          track.style.transform = `translate3d(${recordsTrackPos}px, 0, 0)`;
+          track.style.transform = `translate3d(${recordsOffset}px, 0, 0)`;
         }
 
         recordsResumeTimeout = setTimeout(() => {
           recordsIsManualSliding = false;
-        }, 1200);
+        }, 1500);
       }
     }, { passive: false });
   }
