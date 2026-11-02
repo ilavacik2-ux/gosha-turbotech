@@ -3829,35 +3829,12 @@ function renderTeamGrid(teamList) {
   updateTeamVisibility();
 }
 
-// Reliable Multi-Platform Hero Video Engine (Adaptive Bitrate, Stall Guard & Low-Bandwidth Mode)
+// Reliable Multi-Platform Hero Video Engine
 function setupHeroVideo() {
   const heroVideo = document.querySelector('.hero-video-bg');
   if (!heroVideo) return;
 
-  const toggleBtn = document.getElementById('heroStreamToggle');
-  const toggleText = document.getElementById('heroStreamToggleText');
-
-  // 1. Connection-Aware Bandwidth Optimization (SaveData / 2G / 3G)
-  const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-  const isSlowNetwork = conn && (
-    conn.saveData === true ||
-    conn.effectiveType === 'slow-2g' ||
-    conn.effectiveType === '2g' ||
-    (conn.effectiveType === '3g' && conn.downlink < 1.4)
-  );
-
-  // If slow network / save-data detected, prioritize instant fluid poster animation without video lag
-  if (isSlowNetwork) {
-    if (toggleBtn) {
-      toggleBtn.style.display = 'inline-flex';
-      if (toggleText) toggleText.textContent = 'Экономия трафика (фото)';
-    }
-    // Do not auto-start video on weak network to save user data and prevent frozen frames
-    window._heroVideoDisabledByBandwidth = true;
-    return;
-  }
-
-  // 2. Strict mobile autoplay compliance
+  // Strict mobile autoplay compliance
   heroVideo.muted = true;
   heroVideo.defaultMuted = true;
   heroVideo.playsInline = true;
@@ -3865,52 +3842,13 @@ function setupHeroVideo() {
   heroVideo.setAttribute('playsinline', '');
   heroVideo.setAttribute('webkit-playsinline', '');
 
-  let stallTimeout = null;
-  let stallCount = 0;
-
-  // Fade video in only when frames are actively rendering smoothly
-  function onPlaying() {
-    clearTimeout(stallTimeout);
-    heroVideo.classList.add('is-playing');
-  }
-
-  // Guard against frozen video during network buffer delays
-  function onWaiting() {
-    clearTimeout(stallTimeout);
-    stallTimeout = setTimeout(() => {
-      // If stalled for > 2.5s, gently fade to high-res poster rather than showing frozen video
-      heroVideo.classList.remove('is-playing');
-      stallCount++;
-      // Auto-fallback to lighter stream if network keeps choking
-      if (stallCount >= 2 && !heroVideo.dataset.lightFallback) {
-        heroVideo.dataset.lightFallback = 'true';
-        heroVideo.src = 'assets/videos/hero_burnout_action.mp4';
-        heroVideo.load();
-        attemptPlay();
-      }
-    }, 2500);
-  }
-
-  heroVideo.addEventListener('playing', onPlaying);
-  heroVideo.addEventListener('timeupdate', () => {
-    if (heroVideo.currentTime > 0.3 && !heroVideo.classList.contains('is-playing')) {
-      heroVideo.classList.add('is-playing');
-    }
-  });
-  heroVideo.addEventListener('waiting', onWaiting);
-  heroVideo.addEventListener('stalled', onWaiting);
-
   function attemptPlay() {
     heroVideo.muted = true;
     const playPromise = heroVideo.play();
     if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          heroVideo.classList.add('is-playing');
-        })
-        .catch(() => {
-          attachInteractionFallback();
-        });
+      playPromise.catch(() => {
+        attachInteractionFallback();
+      });
     }
   }
 
@@ -3918,15 +3856,13 @@ function setupHeroVideo() {
     const events = ['touchstart', 'pointerdown', 'mousedown', 'scroll', 'click', 'keydown'];
     const onAction = () => {
       heroVideo.muted = true;
-      heroVideo.play().then(() => {
-        heroVideo.classList.add('is-playing');
-      }).catch(() => {});
+      heroVideo.play().catch(() => {});
       events.forEach(evt => window.removeEventListener(evt, onAction));
     };
     events.forEach(evt => window.addEventListener(evt, onAction, { passive: true, once: true }));
   }
 
-  // Resilient error recovery: fallback to lightweight video if primary stream fails
+  // Resilient error recovery: fallback to secondary stream if needed
   function handleVideoError() {
     if (!heroVideo.dataset.retried) {
       heroVideo.dataset.retried = 'true';
@@ -3946,31 +3882,11 @@ function setupHeroVideo() {
   heroVideo.addEventListener('canplay', attemptPlay, { once: true });
 
   document.addEventListener('visibilitychange', () => {
-    if (!document.hidden && heroVideo.paused && !window._heroVideoDisabledByBandwidth) {
+    if (!document.hidden && heroVideo.paused) {
       attemptPlay();
     }
   });
 }
-
-window.toggleHeroVideoPlayback = function() {
-  const heroVideo = document.querySelector('.hero-video-bg');
-  const toggleText = document.getElementById('heroStreamToggleText');
-  if (!heroVideo) return;
-
-  if (heroVideo.paused || window._heroVideoDisabledByBandwidth) {
-    window._heroVideoDisabledByBandwidth = false;
-    heroVideo.muted = true;
-    heroVideo.play().then(() => {
-      heroVideo.classList.add('is-playing');
-      if (toggleText) toggleText.textContent = 'Видео активно';
-    }).catch(() => {});
-  } else {
-    heroVideo.pause();
-    heroVideo.classList.remove('is-playing');
-    window._heroVideoDisabledByBandwidth = true;
-    if (toggleText) toggleText.textContent = 'Экономия трафика';
-  }
-};
 
 // Clean Premium Motorsport Preloader (Fast, Seamless & Silky Smooth)
 function initPreloader() {

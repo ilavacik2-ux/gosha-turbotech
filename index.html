@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=60.0">
+  <link rel="stylesheet" href="css/style.css?v=61.0">
 </head>
 <body class="is-loading">
 
@@ -138,19 +138,12 @@
   <!-- Hero Section -->
   <section class="hero" id="hero">
     <div class="hero-bg-container">
-      <div class="hero-poster-bg" style="background-image: url('assets/photos/huracan_rdrc_stage_line.jpg');" aria-hidden="true"></div>
-      <video class="hero-video-bg" autoplay loop muted playsinline webkit-playsinline preload="metadata" poster="assets/photos/huracan_rdrc_stage_line.jpg">
+      <video class="hero-video-bg" autoplay loop muted playsinline webkit-playsinline preload="auto">
         <source src="assets/videos/hero_bg_optimized.mp4" type="video/mp4">
         <source src="assets/videos/hero_burnout_action.mp4" type="video/mp4">
       </video>
       <div class="hero-video-overlay"></div>
     </div>
-
-    <!-- Adaptive Bandwidth Toggle Badge -->
-    <button type="button" class="hero-stream-toggle" id="heroStreamToggle" onclick="toggleHeroVideoPlayback()" title="Режим воспроизведения видео" style="display: none;">
-      <span class="stream-icon">⚡</span>
-      <span class="stream-text" id="heroStreamToggleText">Экономия трафика</span>
-    </button>
 
     <!-- Hero Visual Focus -->
 
@@ -2050,7 +2043,7 @@
   </button>
 
   <script src="js/media-db.js?v=23.0"></script>
-  <script src="js/app.js?v=62.0"></script>
+  <script src="js/app.js?v=63.0"></script>
   <script>
     // Failsafe Preloader Dismissal (Max 1.6s)
     setTimeout(function() {
