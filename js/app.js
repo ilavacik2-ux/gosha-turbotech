@@ -3369,7 +3369,6 @@ function renderRecordsEditorial(recordsList) {
           <div class="record-photo-overlay"></div>
           <div class="record-photo-badges">
             <span class="record-event-pill">${eventPill}</span>
-            <span class="record-num-pill">#${num}</span>
           </div>
         </div>
         <div class="record-content-box">

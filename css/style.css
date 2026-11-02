@@ -1406,7 +1406,7 @@ body.is-loading {
   border-radius: 4px;
   backdrop-filter: blur(8px);
   text-transform: uppercase;
-  max-width: calc(100% - 46px);
+  max-width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1414,17 +1414,7 @@ body.is-loading {
 }
 
 .record-num-pill {
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  font-weight: 800;
-  color: var(--gtt-orange);
-  background: rgba(0, 0, 0, 0.78);
-  border: 1px solid rgba(234, 91, 12, 0.35);
-  padding: 4px 7px;
-  border-radius: 4px;
-  backdrop-filter: blur(8px);
-  flex-shrink: 0;
-  line-height: 1.2;
+  display: none !important;
 }
 
 .record-content-box {
