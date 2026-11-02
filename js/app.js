@@ -23,45 +23,63 @@ function escapeJS(str) {
 }
 window.escapeJS = escapeJS;
 
+// Dynamic LocalStorage Invalidation Guard (Ensures fresh 31-car lineup & clears obsolete 11-car caches)
+const GTT_APP_DATA_VERSION = 'v62_31cars_sync';
+try {
+  if (localStorage.getItem('gtt_data_version') !== GTT_APP_DATA_VERSION) {
+    localStorage.removeItem('gtt_admin_cars_db');
+    localStorage.removeItem('gtt_projects_v2');
+    localStorage.removeItem('gtt_admin_records_db');
+    localStorage.removeItem('gtt_records_v2');
+    localStorage.removeItem('gtt_admin_team_db');
+    localStorage.removeItem('gtt_team_v2');
+    localStorage.removeItem('gtt_admin_partners_db');
+    localStorage.removeItem('gtt_admin_moto_db');
+    localStorage.removeItem('gtt_admin_gallery_db');
+    localStorage.setItem('gtt_data_version', GTT_APP_DATA_VERSION);
+  }
+} catch (e) {}
+
 let gttProjects = [
   {
-    "id": "gtr_lucifer",
-    "brand": "NISSAN & GTT",
-    "type": "gtr",
+    "id": "r8_rokot",
+    "brand": "AUDI & GTT",
+    "type": "audi",
     "name": {
-      "ru": "GT-R R35 «LUCIFER» GTT #71 CHAMPION",
-      "en": "GT-R R35 «LUCIFER» GTT #71 CHAMPION"
+      "ru": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT",
+      "en": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT"
     },
     "tag": {
-      "ru": "ЧЕМПИОН RDRC • ПИЛОТ ГОША ПЕРЦХЕЛИЯ #71",
-      "en": "RDRC CHAMPION • PILOT GOSHA PERTSKHELIYA #71"
+      "ru": "РЕКОРД РОССИИ ДЛЯ AUDI • 7.877 СЕК",
+      "en": "RUSSIAN RECORD FOR AUDI • 7.877 SEC"
     },
-    "hp": "1,850+ HP",
-    "quarterMile": "8.400 сек",
-    "topSpeed": "343.67 км/ч",
+    "hp": "1,600+ HP",
+    "quarterMile": "7.877 сек",
+    "topSpeed": "350+ км/ч",
     "badge": {
-      "ru": "Боевой Огненный Болид Гоши #71",
-      "en": "Gosha Fire Drag Weapon #71"
+      "ru": "Рекорд России для Audi 7.877s",
+      "en": "Russia Audi Record 7.877s"
     },
-    "img": "assets/cars/gtr_lucifer_solo.jpg",
-    "fallbackImg": "assets/cars/gtr_lucifer_full.jpg",
+    "img": "assets/cars/audi_r8_tsmr_launch.jpg",
+    "fallbackImg": "assets/archive_tilda/audi_r8_tonystark.png",
     "isPhoto": true,
-    "objectPosition": "center 46%",
-    "videoSrc": "assets/videos/gosha_na_svoem_lucifer_web.mp4",
-    "videoTitle": "Гоша на своей // GT-R Lucifer RDRC",
+    "objectPosition": "center 55%",
+    "videoSrc": "assets/videos/gtr_launch_pass.mp4",
+    "videoTitle": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT",
     "desc": {
-      "ru": "Победоносный огненный болид Гоши Перцхелия, борт №71. Личный драг-монстр в культовой ливрее адского пламени — триумфатор и победитель чемпионата России RDRC (лучшее время 8.400 сек / 1/2 мили 13.690 с / 343.67 км/ч).",
-      "en": "Victorious hellfire-liveried race weapon piloted by Gosha Pertskheliya himself (race car #71). Built in the GoshaTurboTech skunkworks — champion and winner of Russian Drag Racing Championship (RDRC) finals."
+      "ru": "Боевая Audi R8 «ROKOT» от GoshaTurboTech под управлением Эдуарда Саркисяна и Руслана Арефьева. Абсолютный национальный рекорд России для марки Audi на 1/4 мили (7.877 сек). Первый и единственный автомобиль марки Audi в стране, выехавший из 8 секунд!",
+      "en": "Competition Audi R8 «ROKOT» by GoshaTurboTech piloted by Eduard Sarkisyan and Ruslan Arefyev. Absolute Russian National Record for Audi on the 1/4 mile (7.877 sec). The first and only Audi in Russia to conquer the 7-second barrier!"
     },
     "specs": {
-      "engine": "4.1L Billet Stroker VR38DETT GTT Race Spec",
-      "turbos": "Dual Precision 7675 Gen2 Pro Mod Billet Turbos",
-      "fuel": "VP Racing Ethanol M5 / Dual In-Tank 1700cc Injection",
-      "ecu": "Motec M150 Drag AWD Management + GTT Flame Map",
-      "chassis": "Full Drag Suspension, Parachute System & Weld Beadlocks"
+      "engine": "5.2L FSI V10 Twin Turbo Mid-Engine GTT Stage 3",
+      "turbos": "Mirror Twin Turbo Kit with Air-to-Water Intercooling",
+      "cooling": "CSF Triple Billet Heat Exchangers",
+      "ecu": "Syvecs S12 Standalone Motorsport Setup",
+      "clutch": "GTT Upgraded Billet 9-Plate Dual Clutch"
     },
     "is_featured": 1,
-    "isFeatured": true
+    "isFeatured": true,
+    "sort_order": 1
   },
   {
     "id": "draco_promod",
@@ -85,7 +103,7 @@ let gttProjects = [
     "img": "assets/cars/gtr_draco_promod_front.jpg",
     "fallbackImg": "assets/cars/gtr_draco_wrap_detail.jpg",
     "isPhoto": true,
-    "objectPosition": "center 64%",
+    "objectPosition": "center 65%",
     "videoSrc": "assets/videos/draco_gtr_action.mp4",
     "videoTitle": "Nissan GT-R Draco Pro-Mod 3000+ HP — боевой рекордный заезд RDRC",
     "desc": {
@@ -100,46 +118,48 @@ let gttProjects = [
       "chassis": "Full Chrome-Moly Tube Chassis & Carbon Body"
     },
     "is_featured": 1,
-    "isFeatured": true
+    "isFeatured": true,
+    "sort_order": 2
   },
   {
-    "id": "r8_rokot",
-    "brand": "AUDI & GTT",
-    "type": "audi",
+    "id": "gtr_lucifer",
+    "brand": "NISSAN & GTT",
+    "type": "gtr",
     "name": {
-      "ru": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT",
-      "en": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT"
+      "ru": "GT-R R35 «LUCIFER» GTT #71 CHAMPION",
+      "en": "GT-R R35 «LUCIFER» GTT #71 CHAMPION"
     },
     "tag": {
-      "ru": "РЕКОРД РОССИИ ДЛЯ AUDI • 7.877 СЕК",
-      "en": "RUSSIAN RECORD FOR AUDI • 7.877 SEC"
+      "ru": "ЧЕМПИОН RDRC • ПИЛОТ ГОША ПЕРЦХЕЛИЯ #71",
+      "en": "RDRC CHAMPION • PILOT GOSHA PERTSKHELIYA #71"
     },
-    "hp": "1,600+ HP",
-    "quarterMile": "7.877 сек",
-    "topSpeed": "350+ км/ч",
+    "hp": "1,850+ HP",
+    "quarterMile": "8.400 сек",
+    "topSpeed": "343.67 км/ч",
     "badge": {
-      "ru": "Рекорд России для Audi 7.877s",
-      "en": "Russia Audi Record 7.877s"
+      "ru": "Боевой Огненный Болид Гоши #71",
+      "en": "Gosha Fire Drag Weapon #71"
     },
-    "img": "assets/cars/audi_r8_tsmr_launch.jpg",
-    "fallbackImg": "assets/archive_tilda/audi_r8_tonystark.png",
+    "img": "assets/cars/gtr_lucifer_solo.jpg",
+    "fallbackImg": "assets/cars/gtr_lucifer_full.jpg",
     "isPhoto": true,
-    "objectPosition": "center 75%",
-    "videoSrc": "assets/videos/gtr_launch_pass.mp4",
-    "videoTitle": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT",
+    "objectPosition": "center 61%",
+    "videoSrc": "assets/videos/gosha_na_svoem_lucifer_web.mp4",
+    "videoTitle": "Гоша на своей // GT-R Lucifer RDRC",
     "desc": {
-      "ru": "Боевая Audi R8 «ROKOT» от GoshaTurboTech под управлением Эдуарда Саркисяна и Руслана Арефьева. Абсолютный национальный рекорд России для марки Audi на 1/4 мили (7.877 сек). Первый и единственный автомобиль марки Audi в стране, выехавший из 8 секунд!",
-      "en": "Competition Audi R8 «ROKOT» by GoshaTurboTech piloted by Eduard Sarkisyan and Ruslan Arefyev. Absolute Russian National Record for Audi on the 1/4 mile (7.877 sec). The first and only Audi in Russia to conquer the 7-second barrier!"
+      "ru": "Победоносный огненный болид Гоши Перцхелия, борт №71. Личный драг-монстр в культовой ливрее адского пламени — триумфатор и победитель чемпионата России RDRC (лучшее время 8.400 сек / 1/2 мили 13.690 с / 343.67 км/ч).",
+      "en": "Victorious hellfire-liveried race weapon piloted by Gosha Pertskheliya himself (race car #71). Built in the GoshaTurboTech skunkworks — champion and winner of Russian Drag Racing Championship (RDRC) finals."
     },
     "specs": {
-      "engine": "5.2L FSI V10 Twin Turbo Mid-Engine GTT Stage 3",
-      "turbos": "Mirror Twin Turbo Kit with Air-to-Water Intercooling",
-      "cooling": "CSF Triple Billet Heat Exchangers",
-      "ecu": "Syvecs S12 Standalone Motorsport Setup",
-      "clutch": "GTT Upgraded Billet 9-Plate Dual Clutch"
+      "engine": "4.1L Billet Stroker VR38DETT GTT Race Spec",
+      "turbos": "Dual Precision 7675 Gen2 Pro Mod Billet Turbos",
+      "fuel": "VP Racing Ethanol M5 / Dual In-Tank 1700cc Injection",
+      "ecu": "Motec M150 Drag AWD Management + GTT Flame Map",
+      "chassis": "Full Drag Suspension, Parachute System & Weld Beadlocks"
     },
     "is_featured": 1,
-    "isFeatured": true
+    "isFeatured": true,
+    "sort_order": 3
   },
   {
     "id": "gtr_kurdalagon",
@@ -176,7 +196,8 @@ let gttProjects = [
       "chassis": "Drag Parachute & Weld Racing Beadlocks"
     },
     "is_featured": 1,
-    "isFeatured": true
+    "isFeatured": true,
+    "sort_order": 4
   },
   {
     "id": "bezzubik",
@@ -200,7 +221,7 @@ let gttProjects = [
     "img": "assets/photos/huracan_rdrc_stage_line.jpg",
     "fallbackImg": "assets/cars/huracan_green_grey_rdrc.jpg",
     "isPhoto": true,
-    "objectPosition": "center 65%",
+    "objectPosition": "center 50%",
     "videoSrc": "",
     "desc": {
       "ru": "Культовый европейский триумфатор Race 1000 в Германии и звезда RDRC. Официальный рекорд Европы со скоростью 353.02 км/ч на дистанции 804 метра и лучший квотер 8.054 сек. Построен и настроен в ателье GoshaTurboTech.",
@@ -214,7 +235,8 @@ let gttProjects = [
       "fuel": "100 RON Daily / Ethanol E85 Race Map"
     },
     "is_featured": 0,
-    "isFeatured": false
+    "isFeatured": false,
+    "sort_order": 5
   },
   {
     "id": "porsche_911_imba",
@@ -238,7 +260,7 @@ let gttProjects = [
     "img": "assets/cars/porsche_992_imba_silver.jpg",
     "fallbackImg": "assets/cars/porsche_992_imba_silver.jpg",
     "isPhoto": true,
-    "objectPosition": "center 64%",
+    "objectPosition": "center 81%",
     "videoSrc": "",
     "videoTitle": "Porsche 911 Turbo S IMBA — заезд RDRC 9.167 сек",
     "desc": {
@@ -252,7 +274,8 @@ let gttProjects = [
       "ecu": "Syvecs S7 Plus Standalone Porsche Kit"
     },
     "is_featured": 0,
-    "isFeatured": false
+    "isFeatured": false,
+    "sort_order": 6
   },
   {
     "id": "bmw_m5",
@@ -291,7 +314,8 @@ let gttProjects = [
       "exhaust": "Inconel Catless Downpipes + Full Titanium System"
     },
     "is_featured": 0,
-    "isFeatured": false
+    "isFeatured": false,
+    "sort_order": 7
   },
   {
     "id": "dodge_demon",
@@ -315,7 +339,7 @@ let gttProjects = [
     "img": "assets/cars/dodge_burnout_sunset.jpg",
     "fallbackImg": "assets/cars/challenger_srt_gtt.jpg",
     "isPhoto": true,
-    "objectPosition": "center 70%",
+    "objectPosition": "center 58%",
     "videoSrc": "",
     "videoTitle": "Dodge Challenger SRT Demon GTT — дымный бернаут RDRC",
     "desc": {
@@ -330,7 +354,8 @@ let gttProjects = [
       "tires": "Mickey Thompson ET Street R Drag Radials"
     },
     "is_featured": 0,
-    "isFeatured": false
+    "isFeatured": false,
+    "sort_order": 8
   },
   {
     "id": "dodge_demon_170",
@@ -367,7 +392,8 @@ let gttProjects = [
     },
     "videoSrc": "",
     "is_featured": 0,
-    "isFeatured": false
+    "isFeatured": false,
+    "sort_order": 9
   },
   {
     "id": "audi_zlayazaya",
@@ -391,7 +417,7 @@ let gttProjects = [
     "img": "assets/cars/audi_r8_zlayazaya_launch.jpg",
     "fallbackImg": "assets/cars/audi_r8_zlayazaya_launch.jpg",
     "isPhoto": true,
-    "objectPosition": "center center",
+    "objectPosition": "center 50%",
     "videoSrc": "",
     "videoTitle": "Audi R8 «Злая Зая» — боевой выезд RDRC",
     "desc": {
@@ -405,7 +431,8 @@ let gttProjects = [
       "ecu": "Syvecs Powertrain Management"
     },
     "is_featured": 0,
-    "isFeatured": false
+    "isFeatured": false,
+    "sort_order": 10
   },
   {
     "id": "zelenka",
@@ -429,7 +456,7 @@ let gttProjects = [
     "img": "assets/photos/huracan_zelenka_gtt.jpg",
     "fallbackImg": "assets/cars/huracan_green_grey_rdrc.jpg",
     "isPhoto": true,
-    "objectPosition": "center 45%",
+    "objectPosition": "center 47%",
     "videoSrc": "",
     "videoTitle": "Lamborghini Huracan Twin Turbo «Зеленка» GTT — боевой заезд RDRC",
     "desc": {
@@ -444,7 +471,8 @@ let gttProjects = [
       "wheels": "Weld Racing Rear Beadlocks with Mickey Thompson ET"
     },
     "is_featured": 0,
-    "isFeatured": false
+    "isFeatured": false,
+    "sort_order": 11
   },
   {
     "id": "lambo_maxpain",
@@ -481,7 +509,8 @@ let gttProjects = [
     },
     "videoSrc": "",
     "is_featured": 0,
-    "isFeatured": false
+    "isFeatured": false,
+    "sort_order": 12
   },
   {
     "id": "lambo_spyder_800",
@@ -505,7 +534,7 @@ let gttProjects = [
     "img": "assets/cars/huracan_spyder_orange.jpg",
     "fallbackImg": "assets/cars/huracan_spyder_orange.jpg",
     "isPhoto": true,
-    "objectPosition": "center center",
+    "objectPosition": "center 50%",
     "desc": {
       "ru": "Открытый родстер Huracan Spyder с доработанной выхлопной трассой Inconel и пакетом GTT Stage 2. Официальное 2-е место на Чемпионате ПФО с результатом 9.988 сек на 402 метра.",
       "en": "Atmospheric open-top roadster tuned with Inconel race exhaust and GTT Stage 2 package. PFO Championship podium with 9.988 sec quarter mile pass."
@@ -518,7 +547,8 @@ let gttProjects = [
     },
     "videoSrc": "",
     "is_featured": 0,
-    "isFeatured": false
+    "isFeatured": false,
+    "sort_order": 13
   },
   {
     "id": "moses",
@@ -555,7 +585,9 @@ let gttProjects = [
     },
     "videoSrc": "",
     "is_featured": 0,
-    "isFeatured": false
+    "isFeatured": false,
+    "sort_order": 14,
+    "objectPosition": "center center"
   },
   {
     "id": "gtr_korzhik",
@@ -592,7 +624,8 @@ let gttProjects = [
     "videoSrc": "",
     "is_featured": 0,
     "isFeatured": false,
-    "objectPosition": "center center"
+    "objectPosition": "center 50%",
+    "sort_order": 15
   },
   {
     "id": "gtr_baloo",
@@ -616,7 +649,7 @@ let gttProjects = [
     "img": "assets/cars/gtr_red_strip_sunset.jpg",
     "fallbackImg": "assets/cars/gtr_draco_connections.jpg",
     "isPhoto": true,
-    "objectPosition": "center 60%",
+    "objectPosition": "center center",
     "desc": {
       "ru": "Уникальный проект «Baloo» с мощнейшим средним диапазоном оборотов и полным приводом. Личные показатели команды: 8.875 сек на 402 м со скоростью 262.39 км/ч и 13.726 сек на 1/2 мили со скоростью 322.00 км/ч.",
       "en": "Unique Baloo build optimized for high mid-range torque and lethal AWD traction. Official team records: 8.875 sec at 262.39 km/h on 1/4 mile and 13.726 sec at 322.00 km/h on 1/2 mile."
@@ -629,7 +662,8 @@ let gttProjects = [
     },
     "videoSrc": "",
     "is_featured": 0,
-    "isFeatured": false
+    "isFeatured": false,
+    "sort_order": 16
   },
   {
     "id": "gtr_blue_888",
@@ -653,7 +687,7 @@ let gttProjects = [
     "img": "assets/photos/gtr_blue_888_rdrc.jpg",
     "fallbackImg": "assets/cars/gtr_blue_rdrc_888.jpg",
     "isPhoto": true,
-    "objectPosition": "center 45%",
+    "objectPosition": "center 49%",
     "videoSrc": "",
     "videoTitle": "Nissan GT-R #888 Midnight Blue GTT — боевой заезд RDRC",
     "desc": {
@@ -668,7 +702,8 @@ let gttProjects = [
       "trans": "Dodson Pro-Max 8-Plate Drag Clutch"
     },
     "is_featured": 0,
-    "isFeatured": false
+    "isFeatured": false,
+    "sort_order": 17
   },
   {
     "id": "gtr_red",
@@ -692,7 +727,7 @@ let gttProjects = [
     "img": "assets/cars/gtr_red_front_rdrc.jpg",
     "fallbackImg": "assets/cars/gtr_red_chrome_rdrc.jpg",
     "isPhoto": true,
-    "objectPosition": "center 62%",
+    "objectPosition": "center 50%",
     "videoSrc": "",
     "videoTitle": "Nissan GT-R GTT Red Chrome G35 — боевой заезд RDRC",
     "desc": {
@@ -706,7 +741,8 @@ let gttProjects = [
       "ecu": "Syvecs S8 ECU with Launch & Traction Control"
     },
     "is_featured": 0,
-    "isFeatured": false
+    "isFeatured": false,
+    "sort_order": 18
   },
   {
     "id": "gtr_rocket",
@@ -743,7 +779,8 @@ let gttProjects = [
     },
     "videoSrc": "",
     "is_featured": 0,
-    "isFeatured": false
+    "isFeatured": false,
+    "sort_order": 19
   },
   {
     "id": "gtr_alpha12x",
@@ -780,7 +817,8 @@ let gttProjects = [
     },
     "videoSrc": "",
     "is_featured": 0,
-    "isFeatured": false
+    "isFeatured": false,
+    "sort_order": 20
   },
   {
     "id": "porsche_991_1200",
@@ -817,7 +855,8 @@ let gttProjects = [
     },
     "videoSrc": "",
     "is_featured": 0,
-    "isFeatured": false
+    "isFeatured": false,
+    "sort_order": 21
   },
   {
     "id": "porsche_991_felix",
@@ -854,7 +893,8 @@ let gttProjects = [
     },
     "videoSrc": "",
     "is_featured": 0,
-    "isFeatured": false
+    "isFeatured": false,
+    "sort_order": 22
   },
   {
     "id": "bmw_m7_gtt",
@@ -878,7 +918,7 @@ let gttProjects = [
     "img": "assets/cars/bmw_m7_gtt_blue.jpg",
     "fallbackImg": "assets/cars/bmw_m7_gtt_blue.jpg",
     "isPhoto": true,
-    "objectPosition": "center 82%",
+    "objectPosition": "center 71%",
     "desc": {
       "ru": "Представительский флагман BMW 7 серии в глубокой доработке GoshaTurboTech. Двухтурбинный V8/V12, бесшумный акустический комфорт в салоне и ураганная динамика на скоростных прямых.",
       "en": "Executive flagship 7-series heavily enhanced by GoshaTurboTech. Twin-turbocharged powertrain offering silent luxury alongside autobahn supremacy."
@@ -891,7 +931,8 @@ let gttProjects = [
     },
     "videoSrc": "",
     "is_featured": 0,
-    "isFeatured": false
+    "isFeatured": false,
+    "sort_order": 23
   },
   {
     "id": "volga_kgb",
@@ -928,7 +969,8 @@ let gttProjects = [
     },
     "videoSrc": "",
     "is_featured": 0,
-    "isFeatured": false
+    "isFeatured": false,
+    "sort_order": 24
   },
   {
     "id": "ferrari_512tr",
@@ -966,7 +1008,8 @@ let gttProjects = [
     },
     "videoSrc": "",
     "is_featured": 0,
-    "isFeatured": false
+    "isFeatured": false,
+    "sort_order": 25
   },
   {
     "id": "gtr_fifa",
@@ -1005,7 +1048,8 @@ let gttProjects = [
     "is_featured": 0,
     "isFeatured": false,
     "isClassified": true,
-    "isTeaser": true
+    "isTeaser": true,
+    "sort_order": 26
   },
   {
     "id": "porsche_991_900",
@@ -1044,7 +1088,8 @@ let gttProjects = [
     "is_featured": 0,
     "isFeatured": false,
     "isClassified": true,
-    "isTeaser": true
+    "isTeaser": true,
+    "sort_order": 27
   },
   {
     "id": "porsche_992_puncher",
@@ -1083,7 +1128,8 @@ let gttProjects = [
     "is_featured": 0,
     "isFeatured": false,
     "isClassified": true,
-    "isTeaser": true
+    "isTeaser": true,
+    "sort_order": 28
   },
   {
     "id": "mercedes_e63",
@@ -1122,7 +1168,8 @@ let gttProjects = [
     "videoSrc": "",
     "is_featured": 0,
     "isFeatured": false,
-    "isTeaser": true
+    "isTeaser": true,
+    "sort_order": 29
   },
   {
     "id": "tesla_plaid",
@@ -1161,7 +1208,8 @@ let gttProjects = [
     "videoSrc": "",
     "is_featured": 0,
     "isFeatured": false,
-    "isTeaser": true
+    "isTeaser": true,
+    "sort_order": 30
   },
   {
     "id": "tonystark",
@@ -1185,7 +1233,7 @@ let gttProjects = [
     "img": "assets/cars/gtt_classified_car.svg",
     "fallbackImg": "assets/cars/gtt_classified_car.svg",
     "isPhoto": false,
-    "objectPosition": "center center",
+    "objectPosition": "center 50%",
     "videoSrc": "",
     "videoTitle": "Audi R8 V10 Twin Turbo Tony Stark — боевой заезд",
     "desc": {
@@ -1201,7 +1249,8 @@ let gttProjects = [
     "is_featured": 0,
     "isFeatured": false,
     "isClassified": true,
-    "isTeaser": true
+    "isTeaser": true,
+    "sort_order": 31
   }
 ];
 
@@ -1710,22 +1759,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Dynamic SQLite & LocalStorage Synchronization for Cars
 async function syncProjectsFromAPI() {
-  // 1. Instant render from local cache
+  // 1. Instant render from local cache (ONLY if valid and contains all 31 cars)
   try {
     const local = localStorage.getItem('gtt_admin_cars_db') || localStorage.getItem('gtt_projects_v2');
     if (local) {
       const parsed = JSON.parse(local);
-      if (Array.isArray(parsed) && parsed.length > 0) {
+      if (Array.isArray(parsed) && parsed.length >= 31) {
         applyCarsData(parsed);
       }
     }
   } catch (e) {}
 
-  // 2. Fetch live data from SQLite backend
+  // 2. Fetch live data from SQLite backend or static data fallback
   try {
-    const res = await fetch('/api/cars');
-    if (!res.ok) return;
-    const serverCars = await res.json();
+    let serverCars = null;
+    try {
+      const res = await fetch('/api/cars');
+      if (res.ok) serverCars = await res.json();
+    } catch (e) {}
+
+    if (!serverCars || !Array.isArray(serverCars) || serverCars.length === 0) {
+      try {
+        const res = await fetch('data/cars.json');
+        if (res.ok) serverCars = await res.json();
+      } catch (e) {}
+    }
+
     if (Array.isArray(serverCars) && serverCars.length > 0) {
       localStorage.setItem('gtt_admin_cars_db', JSON.stringify(serverCars));
       localStorage.setItem('gtt_projects_v2', JSON.stringify(serverCars));
@@ -1908,11 +1967,21 @@ async function syncTeamFromAPI() {
     }
   } catch (e) {}
 
-  // 2. Fetch live data from SQLite backend
+  // 2. Fetch live data from SQLite backend or static data fallback
   try {
-    const res = await fetch('/api/team');
-    if (!res.ok) return;
-    const serverTeam = await res.json();
+    let serverTeam = null;
+    try {
+      const res = await fetch('/api/team');
+      if (res.ok) serverTeam = await res.json();
+    } catch (e) {}
+
+    if (!serverTeam || !Array.isArray(serverTeam) || serverTeam.length === 0) {
+      try {
+        const res = await fetch('data/team.json');
+        if (res.ok) serverTeam = await res.json();
+      } catch (e) {}
+    }
+
     if (Array.isArray(serverTeam) && serverTeam.length > 0) {
       cachedTeamData = serverTeam;
       localStorage.setItem('gtt_admin_team_db', JSON.stringify(serverTeam));
@@ -1937,9 +2006,19 @@ async function syncGalleryFromAPI() {
   } catch (e) {}
 
   try {
-    const res = await fetch('/api/gallery');
-    if (!res.ok) return;
-    const serverGal = await res.json();
+    let serverGal = null;
+    try {
+      const res = await fetch('/api/gallery');
+      if (res.ok) serverGal = await res.json();
+    } catch (e) {}
+
+    if (!serverGal || !Array.isArray(serverGal) || serverGal.length === 0) {
+      try {
+        const res = await fetch('data/gallery.json');
+        if (res.ok) serverGal = await res.json();
+      } catch (e) {}
+    }
+
     if (Array.isArray(serverGal) && serverGal.length > 0) {
       localStorage.setItem('gtt_admin_gallery_db', JSON.stringify(serverGal));
       renderGalleryTrack(serverGal);
@@ -2240,11 +2319,21 @@ async function syncPartnersFromAPI() {
     renderPartnersGrid(defaultPartnersList);
   }
 
-  // 2. Fetch from backend API
+  // 2. Fetch from backend API or static data fallback
   try {
-    const res = await fetch('/api/partners');
-    if (!res.ok) return;
-    const serverPartners = await res.json();
+    let serverPartners = null;
+    try {
+      const res = await fetch('/api/partners');
+      if (res.ok) serverPartners = await res.json();
+    } catch (e) {}
+
+    if (!serverPartners || !Array.isArray(serverPartners) || serverPartners.length === 0) {
+      try {
+        const res = await fetch('data/partners.json');
+        if (res.ok) serverPartners = await res.json();
+      } catch (e) {}
+    }
+
     if (Array.isArray(serverPartners) && serverPartners.length > 0) {
       const upgraded = normalizePartnerList(serverPartners);
       cachedPartnersData = upgraded;
@@ -2418,14 +2507,21 @@ async function syncMotoFromAPI() {
     }
   } catch (e) {}
 
-  // 2. Fetch from backend API
+  // 2. Fetch from backend API or static data fallback
   try {
-    const res = await fetch('/api/moto');
-    if (!res.ok) {
-      if (!cachedMotoData) renderMotoGrid(defaultMotoList);
-      return;
+    let serverMoto = null;
+    try {
+      const res = await fetch('/api/moto');
+      if (res.ok) serverMoto = await res.json();
+    } catch (e) {}
+
+    if (!serverMoto || !Array.isArray(serverMoto) || serverMoto.length === 0) {
+      try {
+        const res = await fetch('data/moto.json');
+        if (res.ok) serverMoto = await res.json();
+      } catch (e) {}
     }
-    const serverMoto = await res.json();
+
     if (Array.isArray(serverMoto) && serverMoto.length > 0) {
       cachedMotoData = serverMoto;
       localStorage.setItem('gtt_admin_moto_db', JSON.stringify(serverMoto));
@@ -2473,13 +2569,22 @@ async function syncMotoBannersFromAPI() {
   } catch (e) {}
 
   try {
-    const res = await fetch('/api/moto/banners');
-    if (res.ok) {
-      const data = await res.json();
-      if (data && (data.banner1 || data.banner2)) {
-        localStorage.setItem('gtt_moto_banners', JSON.stringify(data));
-        applyMotoBanners(data);
-      }
+    let data = null;
+    try {
+      const res = await fetch('/api/moto/banners');
+      if (res.ok) data = await res.json();
+    } catch (e) {}
+
+    if (!data || (!data.banner1 && !data.banner2)) {
+      try {
+        const res = await fetch('data/moto_banners.json');
+        if (res.ok) data = await res.json();
+      } catch (e) {}
+    }
+
+    if (data && (data.banner1 || data.banner2)) {
+      localStorage.setItem('gtt_moto_banners', JSON.stringify(data));
+      applyMotoBanners(data);
     }
   } catch (err) {}
 }
@@ -3517,9 +3622,19 @@ async function syncRecordsFromAPI() {
   renderRecordsEditorial(recordsToUse);
 
   try {
-    const res = await fetch('/api/records');
-    if (!res.ok) return;
-    const serverRecs = await res.json();
+    let serverRecs = null;
+    try {
+      const res = await fetch('/api/records');
+      if (res.ok) serverRecs = await res.json();
+    } catch (e) {}
+
+    if (!serverRecs || !Array.isArray(serverRecs) || serverRecs.length === 0) {
+      try {
+        const res = await fetch('data/records.json');
+        if (res.ok) serverRecs = await res.json();
+      } catch (e) {}
+    }
+
     if (Array.isArray(serverRecs) && serverRecs.length > 0) {
       cachedRecordsData = serverRecs;
       localStorage.setItem('gtt_admin_records_db', JSON.stringify(serverRecs));
@@ -5636,15 +5751,26 @@ function initTelemetryCounters() {
 
   // Background server fetch to sync custom hero telemetry
   try {
-    fetch('/api/settings/hero_telemetry')
-      .then(r => r.json())
-      .then(res => {
-        if (res && res.value) {
-          localStorage.setItem(HERO_TELEMETRY_KEY, res.value);
-          applyCustomHeroTelemetry();
-        }
-      })
-      .catch(() => {});
+    const fetchHero = async () => {
+      let resData = null;
+      try {
+        const res = await fetch('/api/settings/hero_telemetry');
+        if (res.ok) resData = await res.json();
+      } catch (e) {}
+
+      if (!resData || !resData.value) {
+        try {
+          const res = await fetch('data/hero_telemetry.json');
+          if (res.ok) resData = await res.json();
+        } catch (e) {}
+      }
+
+      if (resData && resData.value) {
+        localStorage.setItem(HERO_TELEMETRY_KEY, resData.value);
+        applyCustomHeroTelemetry();
+      }
+    };
+    fetchHero();
   } catch (e) {}
 
   let hasAnimated = false;

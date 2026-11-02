@@ -43,7 +43,7 @@ async def security_shield_middleware(request: Request, call_next):
     
     # 1. Block unauthorized access to config files, database files, python sources, and hidden dotfiles
     blocked_exts = (".json", ".db", ".sqlite", ".sqlite3", ".env", ".py", ".pyc", ".sh", ".yaml", ".yml", ".md", ".log")
-    if (raw_path.endswith(blocked_exts) or "/." in raw_path) and not raw_path.startswith("/assets/"):
+    if (raw_path.endswith(blocked_exts) or "/." in raw_path) and not raw_path.startswith("/assets/") and not raw_path.startswith("/data/"):
         return Response(status_code=404, content="Not Found")
         
     response = await call_next(request)
@@ -883,6 +883,7 @@ async def export_all_data(session: str = Depends(verify_admin_session)):
 app.mount("/css", StaticFiles(directory=os.path.join(BASE_DIR, "css")), name="css")
 app.mount("/js", StaticFiles(directory=os.path.join(BASE_DIR, "js")), name="js")
 app.mount("/assets", StaticFiles(directory=os.path.join(BASE_DIR, "assets")), name="assets")
+app.mount("/data", StaticFiles(directory=os.path.join(BASE_DIR, "data")), name="data")
 
 @app.get("/")
 @app.get("/index.html")
