@@ -492,18 +492,25 @@ async def test_telegram_alert(req: TelegramConfigRequest, session: str = Depends
 
 # ================= GENERIC SETTINGS ENDPOINTS =================
 
-class SettingUpdateRequest(BaseModel):
-    value: str
-
 @app.get("/api/settings/{key}")
 async def get_system_setting(key: str):
     val = database.get_setting(key, "")
     return {"key": key, "value": val}
 
 @app.post("/api/settings/{key}")
-async def save_system_setting(key: str, body: SettingUpdateRequest, session: str = Depends(verify_admin_session)):
-    database.set_setting(key, body.value)
-    return {"status": "ok", "key": key, "value": body.value}
+async def save_system_setting(key: str, request: Request, session: str = Depends(verify_admin_session)):
+    try:
+        body = await request.json()
+    except Exception:
+        body = {}
+    if isinstance(body, dict) and "value" in body:
+        val = body["value"]
+    else:
+        val = body
+    if not isinstance(val, str):
+        val = json.dumps(val, ensure_ascii=False)
+    database.set_setting(key, val)
+    return {"status": "ok", "key": key, "value": val}
 
 # ================= CARS ENDPOINTS =================
 

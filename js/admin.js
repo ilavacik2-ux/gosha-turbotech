@@ -125,7 +125,7 @@ const defaultProjects = [
     "hp": "1,650+ HP",
     "quarterMile": "7.766 сек",
     "topSpeed": "300.00 км/ч",
-    "img": "assets/archive_tilda/gtr_kurdalagon.png",
+    "img": "assets/cars/gtr_kurdalagon_white.jpg",
     "descRu": "Боевой болид Nissan GT-R R35 «Курдалагон» — имя древнего осетинского бога-кузнеца. 26 октября 2026 года на трек-дне в Быково установил новый личный рекорд команды: 7.766 сек на 402 метра со скоростью на выходе 300.00 км/ч.",
     "is_featured": 1,
     "isFeatured": true

@@ -304,7 +304,7 @@ def seed_initial_data(cursor):
                 'fallback_img': 'assets/cars/gtr_red_front_rdrc.jpg',
                 'hp': '1,650+ HP',
                 'id': 'gtr_kurdalagon',
-                'img': 'assets/cars/___________1793144311_27df8e5d.jpg',
+                'img': 'assets/cars/gtr_kurdalagon_white.jpg',
                 'name_en': 'GT-R R35 GTT «KURDALAGON»',
                 'name_ru': 'GT-R R35 GTT «KURDALAGON»',
                 'object_position': 'center 65%',
@@ -1293,6 +1293,10 @@ def upsert_car(car_data: Dict[str, Any]) -> Dict[str, Any]:
             pass
     conn.commit()
     conn.close()
+    try:
+        sync_all_json_caches()
+    except Exception:
+        pass
     return get_car_by_id(car_data["id"])
 
 # ================= PERSISTENT SESSIONS =================
@@ -1357,6 +1361,10 @@ def delete_car(car_id: str) -> bool:
     deleted = cursor.rowcount > 0
     conn.commit()
     conn.close()
+    try:
+        sync_all_json_caches()
+    except Exception:
+        pass
     return deleted
 
 def reorder_featured_cars(featured_ids: List[str]) -> bool:
@@ -1375,6 +1383,10 @@ def reorder_featured_cars(featured_ids: List[str]) -> bool:
             cursor.execute("UPDATE cars SET sort_order = ?, is_featured = 0 WHERE id = ?", (len(featured_ids) + 1 + idx, r[0]))
         conn.commit()
         conn.close()
+        try:
+            sync_all_json_caches()
+        except Exception:
+            pass
         return True
     except Exception as e:
         conn.rollback()
@@ -1413,6 +1425,10 @@ def upsert_team_member(member: Dict[str, Any]) -> Dict[str, Any]:
     ))
     conn.commit()
     conn.close()
+    try:
+        sync_all_json_caches()
+    except Exception:
+        pass
     return member
 
 def delete_team_member(member_id: str) -> bool:
@@ -1422,6 +1438,10 @@ def delete_team_member(member_id: str) -> bool:
     deleted = cursor.rowcount > 0
     conn.commit()
     conn.close()
+    try:
+        sync_all_json_caches()
+    except Exception:
+        pass
     return deleted
 
 # --- Records ---
@@ -1450,6 +1470,10 @@ def upsert_record(record: Dict[str, Any]) -> Dict[str, Any]:
     """, (record["id"], record["year"], record["car"], record["telemetry"], record.get("desc", ""), record.get("img", ""), obj_pos))
     conn.commit()
     conn.close()
+    try:
+        sync_all_json_caches()
+    except Exception:
+        pass
     return record
 
 def delete_record(record_id: str) -> bool:
@@ -1459,6 +1483,10 @@ def delete_record(record_id: str) -> bool:
     deleted = cursor.rowcount > 0
     conn.commit()
     conn.close()
+    try:
+        sync_all_json_caches()
+    except Exception:
+        pass
     return deleted
 
 # --- Gallery ---
@@ -1485,6 +1513,10 @@ def upsert_gallery(item: Dict[str, Any]) -> Dict[str, Any]:
     """, (item["id"], item["tag"], item["title"], item["img"], obj_pos))
     conn.commit()
     conn.close()
+    try:
+        sync_all_json_caches()
+    except Exception:
+        pass
     item["object_position"] = obj_pos
     return item
 
@@ -1495,6 +1527,10 @@ def delete_gallery(item_id: str) -> bool:
     deleted = cursor.rowcount > 0
     conn.commit()
     conn.close()
+    try:
+        sync_all_json_caches()
+    except Exception:
+        pass
     return deleted
 
 # --- Media ---
@@ -1520,6 +1556,10 @@ def upsert_media(item: Dict[str, Any]) -> Dict[str, Any]:
     """, (item["id"], item["title"], item["type"], item["url"], item["car"]))
     conn.commit()
     conn.close()
+    try:
+        sync_all_json_caches()
+    except Exception:
+        pass
     return item
 
 def delete_media(item_id: str) -> bool:
@@ -1529,6 +1569,10 @@ def delete_media(item_id: str) -> bool:
     deleted = cursor.rowcount > 0
     conn.commit()
     conn.close()
+    try:
+        sync_all_json_caches()
+    except Exception:
+        pass
     return deleted
 
 # --- Settings ---
@@ -1546,6 +1590,10 @@ def set_setting(key: str, value: str):
     cursor.execute("INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value", (key, value))
     conn.commit()
     conn.close()
+    try:
+        sync_all_json_caches()
+    except Exception:
+        pass
 
 # --- Traffic Analytics ---
 def record_traffic(device: str, source: str, page: str, is_new: bool = True):
@@ -1943,6 +1991,10 @@ def upsert_partner(item: Dict[str, Any]) -> Dict[str, Any]:
     ))
     conn.commit()
     conn.close()
+    try:
+        sync_all_json_caches()
+    except Exception:
+        pass
     return item
 
 def delete_partner(partner_id: str) -> bool:
@@ -1952,6 +2004,10 @@ def delete_partner(partner_id: str) -> bool:
     deleted = cursor.rowcount > 0
     conn.commit()
     conn.close()
+    try:
+        sync_all_json_caches()
+    except Exception:
+        pass
     return deleted
 
 # ================= MOTO DIVISION METHODS =================
@@ -2046,6 +2102,10 @@ def upsert_moto(item: Dict[str, Any]) -> Dict[str, Any]:
     ))
     conn.commit()
     conn.close()
+    try:
+        sync_all_json_caches()
+    except Exception:
+        pass
     return item
 
 def delete_moto(moto_id: str) -> bool:
@@ -2055,6 +2115,64 @@ def delete_moto(moto_id: str) -> bool:
     deleted = cursor.rowcount > 0
     conn.commit()
     conn.close()
+    try:
+        sync_all_json_caches()
+    except Exception:
+        pass
     return deleted
+
+# ==============================================================================
+# AUTOMATIC JSON CACHE SYNCHRONIZATION FOR GITHUB PAGES PARITY
+# ==============================================================================
+DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
+
+def sync_all_json_caches():
+    """Synchronize all SQLite tables into static JSON fallbacks in data/ directory.
+    Guarantees seamless parity between local SQLite database and static GitHub Pages hosting."""
+    try:
+        os.makedirs(DATA_DIR, exist_ok=True)
+        # 1. Cars
+        cars = get_all_cars()
+        with open(os.path.join(DATA_DIR, "cars.json"), "w", encoding="utf-8") as f:
+            json.dump(cars, f, ensure_ascii=False, indent=2)
+        # 2. Team
+        team = get_all_team()
+        with open(os.path.join(DATA_DIR, "team.json"), "w", encoding="utf-8") as f:
+            json.dump(team, f, ensure_ascii=False, indent=2)
+        # 3. Records
+        records = get_all_records()
+        with open(os.path.join(DATA_DIR, "records.json"), "w", encoding="utf-8") as f:
+            json.dump(records, f, ensure_ascii=False, indent=2)
+        # 4. Gallery
+        gallery = get_all_gallery()
+        with open(os.path.join(DATA_DIR, "gallery.json"), "w", encoding="utf-8") as f:
+            json.dump(gallery, f, ensure_ascii=False, indent=2)
+        # 5. Moto
+        moto = get_all_moto()
+        with open(os.path.join(DATA_DIR, "moto.json"), "w", encoding="utf-8") as f:
+            json.dump(moto, f, ensure_ascii=False, indent=2)
+        # 6. Partners
+        partners = get_all_partners()
+        with open(os.path.join(DATA_DIR, "partners.json"), "w", encoding="utf-8") as f:
+            json.dump(partners, f, ensure_ascii=False, indent=2)
+        # 7. Moto banners
+        mb = get_setting("moto_banners", "[]")
+        try:
+            mb_parsed = json.loads(mb)
+        except Exception:
+            mb_parsed = []
+        with open(os.path.join(DATA_DIR, "moto_banners.json"), "w", encoding="utf-8") as f:
+            json.dump(mb_parsed, f, ensure_ascii=False, indent=2)
+        # 8. Hero Telemetry
+        ht = get_setting("hero_telemetry", "{}")
+        try:
+            ht_parsed = json.loads(ht)
+        except Exception:
+            ht_parsed = {}
+        with open(os.path.join(DATA_DIR, "hero_telemetry.json"), "w", encoding="utf-8") as f:
+            json.dump(ht_parsed, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"[GTT DB Sync] Warning during JSON cache sync: {e}")
+
 
 
