@@ -1766,7 +1766,7 @@ async function syncProjectsFromAPI() {
     const local = localStorage.getItem('gtt_admin_cars_db') || localStorage.getItem('gtt_projects_v2');
     if (local) {
       const parsed = JSON.parse(local);
-      if (Array.isArray(parsed) && parsed.length >= 31) {
+      if (Array.isArray(parsed) && parsed.length > 0) {
         applyCarsData(parsed);
       }
     }
@@ -1886,8 +1886,8 @@ function applyCarsData(carList) {
       isPhoto: (c.is_photo !== undefined ? Boolean(c.is_photo) : true) && !(c.img || '').toLowerCase().includes('.svg'),
       isClassified: Boolean(c.is_classified) || Boolean(c.isClassified) || (c.img || '').includes('classified') || (c.img || '').toLowerCase().endsWith('.svg'),
       objectPosition: c.object_position || c.objectPosition || 'center center',
-      videoSrc: isFeat ? (c.video_src || c.videoSrc || '') : '',
-      videoTitle: isFeat ? (c.video_title || c.videoTitle || '') : '',
+      videoSrc: c.video_src || c.videoSrc || '',
+      videoTitle: c.video_title || c.videoTitle || '',
       desc: {
         ru: c.desc_ru || c.descRu || (c.desc && c.desc.ru) || c.desc || '',
         en: c.desc_en || c.descEn || (c.desc && c.desc.en) || c.desc_ru || c.descRu || ''
@@ -4144,7 +4144,7 @@ function renderGarageGrid(filterType) {
 
         const isNewCar = Boolean(car.isNew);
         const isTopFeatured = featuredCarsSet.has(car.id);
-        const showVideoBtn = isTopFeatured && Boolean(car.videoSrc || car.youtubeId);
+        const showVideoBtn = Boolean(car.videoSrc || car.video_src || car.youtubeId);
 
         return `
         <div class="car-card car-card-fade-in ${isClass ? 'is-classified' : ''} ${isNewCar ? 'is-new-car-pending' : ''}" data-id="${car.id}" onclick="openCarModal('${car.id}')" style="cursor: pointer; animation-delay: ${idx * 0.04}s">
@@ -4537,7 +4537,7 @@ window.openCarModal = function(carId) {
         <span class="carmodal-specs-badge">GTT RACE SPEC</span>
       </div>
       <div class="carmodal-specs-grid">
-        ${Object.entries(car.specs).map(([key, val]) => `
+        ${Object.entries(car.specs || {}).map(([key, val]) => `
           <div class="carmodal-spec-row">
             <span class="carmodal-spec-key">${key}</span>
             <span class="carmodal-spec-val">${val}</span>
@@ -4548,7 +4548,7 @@ window.openCarModal = function(carId) {
 
     <!-- Modal Actions Footer -->
     <div class="carmodal-footer-actions">
-      ${(car.videoSrc || car.youtubeId) ? `
+      ${(car.videoSrc || car.video_src || car.youtubeId) ? `
         <button class="carmodal-btn-video" onclick="openCarVideo('${car.id}')">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
           ${currentLang === 'ru' ? 'Смотреть видео заезда' : 'Watch Race Video'}
@@ -4569,12 +4569,12 @@ window.openCarVideo = async function(carId) {
   
   if (car.youtubeId) {
     window.openYouTubePlayer(car.youtubeId, car.videoStart, car.videoEnd, car.videoTitle || name);
-  } else if (car.videoSrc) {
-    let finalSrc = car.videoSrc;
+  } else if (car.videoSrc || car.video_src) {
+    let finalSrc = car.videoSrc || car.video_src;
     if (typeof GTTMediaDB !== 'undefined') {
-      finalSrc = await GTTMediaDB.resolveMediaUrl(car.videoSrc);
+      finalSrc = await GTTMediaDB.resolveMediaUrl(finalSrc);
     }
-    window.openVideoPlayer(finalSrc, car.videoTitle || name);
+    window.openVideoPlayer(finalSrc, car.videoTitle || car.video_title || name);
   }
 };
 

@@ -48,7 +48,13 @@
         </div>
         <div class="input-group">
           <label for="adminPass">Пароль доступа (Master Pass)</label>
-          <input type="password" id="adminPass" placeholder="Введите пароль..." autocomplete="current-password" required>
+          <div class="password-field-wrap">
+            <input type="password" id="adminPass" placeholder="Введите пароль..." autocomplete="current-password" required>
+            <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('adminPass', this)" title="Показать/скрыть пароль" aria-label="Показать пароль">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="eye-open-icon"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="eye-closed-icon" style="display: none;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            </button>
+          </div>
         </div>
         <!-- Bot Defense Honeypot -->
         <input type="text" name="sec_trap_check" id="adminSecurityTrap" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;pointer-events:none;" aria-hidden="true">
@@ -630,23 +636,35 @@
           </div>
         </div>
 
-        <div style="max-width: 650px; margin-bottom: 30px;">
+        <div style="max-width: 650px; margin-bottom: 24px;">
           <!-- Password Card -->
           <div class="stat-card" style="display: block;">
             <div style="font-family: var(--font-display); font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
               <span>🔑</span> Смена мастер-пароля
             </div>
             <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.4;">
-              Установите надежный инженерный пароль для входа в панель. Пароль сохраняется в защищенной базе SQLite.
+              Установите надежный инженерный пароль для входа в панель. Пароль сохраняется в защищенной базе SQLite и локальном хранилище.
             </p>
             <form onsubmit="handlePasswordChange(event)">
               <div class="form-group" style="margin-bottom: 12px;">
                 <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 6px;">Текущий пароль</label>
-                <input type="password" id="currentPassInput" required placeholder="Введите текущий пароль...">
+                <div class="password-field-wrap">
+                  <input type="password" id="currentPassInput" required placeholder="Введите текущий пароль...">
+                  <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('currentPassInput', this)" title="Показать/скрыть пароль" aria-label="Показать пароль">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="eye-open-icon"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="eye-closed-icon" style="display: none;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                  </button>
+                </div>
               </div>
               <div class="form-group" style="margin-bottom: 16px;">
                 <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 6px;">Новый пароль</label>
-                <input type="password" id="newPassInput" required minlength="6" placeholder="Минимум 6 символов...">
+                <div class="password-field-wrap">
+                  <input type="password" id="newPassInput" required minlength="6" placeholder="Минимум 6 символов...">
+                  <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('newPassInput', this)" title="Показать/скрыть пароль" aria-label="Показать пароль">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="eye-open-icon"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="eye-closed-icon" style="display: none;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                  </button>
+                </div>
               </div>
               <button type="submit" class="btn-primary" style="width: 100%;">Обновить мастер-пароль</button>
               <div id="passChangeStatus" style="display: none; margin-top: 10px; font-size: 12px; padding: 8px 12px; border-radius: 6px;"></div>
@@ -654,16 +672,48 @@
           </div>
         </div>
 
+        <!-- Telegram Integration Card -->
+        <div style="max-width: 650px; margin-bottom: 24px;">
+          <div class="stat-card" style="display: block;">
+            <div style="font-family: var(--font-display); font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+              <span>✈️</span> Telegram Уведомления (Бот алертов)
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.4;">
+              Мгновенные оповещения в Telegram при попытках подбора пароля, входах в терминал и редактировании проектов.
+            </p>
+            <form onsubmit="handleSaveTelegramConfig(event)">
+              <div class="form-group" style="margin-bottom: 12px;">
+                <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 6px;">Telegram Bot Token</label>
+                <input type="text" id="tgBotTokenInput" placeholder="Например: 7123456789:AAHk...">
+              </div>
+              <div class="form-group" style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 6px;">Chat ID / Telegram ID</label>
+                <input type="text" id="tgChatIdInput" placeholder="Например: 123456789">
+              </div>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button type="submit" class="btn-primary" style="flex: 1; min-width: 180px;">Сохранить Telegram</button>
+                <button type="button" class="topbar-btn outline-btn" onclick="testTelegramAlert()" style="padding: 10px 16px; cursor: pointer;">Тестовое сообщение ↗</button>
+              </div>
+              <div id="tgStatus" style="display: none; margin-top: 10px; font-size: 12px; padding: 8px 12px; border-radius: 6px;"></div>
+            </form>
+          </div>
+        </div>
+
         <!-- Secret URL Token Info Card -->
-        <div class="stat-card" style="display: block; border-left: 3px solid var(--gtt-orange);">
+        <div class="stat-card" style="display: block; border-left: 3px solid var(--gtt-orange); max-width: 650px; margin-bottom: 30px;">
           <div style="font-family: var(--font-display); font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px;">
             🛡️ Секретная ссылка доступа (URL Token Shield)
           </div>
           <p style="font-size: 12.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 12px;">
             Панель защищена от сканирования и случайного подбора. Без правильного секретного ключа в параметрах адреса браузер немедленно перенаправляет постороннего посетителя на главную страницу сайта.
           </p>
-          <div style="background: rgba(0,0,0,0.5); padding: 12px 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); font-family: var(--font-mono); font-size: 12px; color: var(--gtt-orange); word-break: break-all;" id="secretUrlDisplay">
-            /admin?token=gtt_atelier_2026
+          <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 220px; background: rgba(0,0,0,0.5); padding: 12px 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); font-family: var(--font-mono); font-size: 12px; color: var(--gtt-orange); word-break: break-all;" id="secretUrlDisplay">
+              /admin?token=gtt_atelier_2026
+            </div>
+            <button type="button" class="topbar-btn outline-btn" onclick="copySecretAdminUrl(this)" style="padding: 12px 16px; white-space: nowrap; cursor: pointer;">
+              📋 Скопировать
+            </button>
           </div>
         </div>
       </section>
