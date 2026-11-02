@@ -24,7 +24,7 @@ function escapeJS(str) {
 window.escapeJS = escapeJS;
 
 // Dynamic LocalStorage Invalidation Guard (Ensures fresh 31-car lineup & clears obsolete 11-car caches)
-const GTT_APP_DATA_VERSION = 'v64_kurdalagon_img_sync';
+const GTT_APP_DATA_VERSION = 'v65_kurdalagon_video_sync';
 try {
   if (localStorage.getItem('gtt_data_version') !== GTT_APP_DATA_VERSION) {
     localStorage.removeItem('gtt_admin_cars_db');
@@ -184,6 +184,8 @@ let gttProjects = [
     "fallbackImg": "assets/cars/gtr_red_front_rdrc.jpg",
     "isPhoto": true,
     "objectPosition": "center 65%",
+    "videoSrc": "assets/videos/gtr_kurdalagon_action.mp4",
+    "videoTitle": "GT-R R35 GTT «KURDALAGON»",
     "desc": {
       "ru": "Боевой болид Nissan GT-R R35 «Курдалагон» — имя древнего осетинского бога-кузнеца. 26 октября 2026 года на трек-дне в Быково установил новый личный рекорд команды: 7.766 сек на 402 метра со скоростью на выходе 300.00 км/ч.",
       "en": "Mythical Kurdalagon GT-R named after the ancient blacksmith deity. Set a brand new personal best of 7.766 sec at 300.00 km/h on October 26, 2026 at Bykovo Drag Track."
