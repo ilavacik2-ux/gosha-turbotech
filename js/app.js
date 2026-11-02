@@ -24,7 +24,7 @@ function escapeJS(str) {
 window.escapeJS = escapeJS;
 
 // Dynamic LocalStorage Invalidation Guard (Ensures fresh 31-car lineup & clears obsolete 11-car caches)
-const GTT_APP_DATA_VERSION = 'v62_31cars_sync';
+const GTT_APP_DATA_VERSION = 'v64_kurdalagon_img_sync';
 try {
   if (localStorage.getItem('gtt_data_version') !== GTT_APP_DATA_VERSION) {
     localStorage.removeItem('gtt_admin_cars_db');
@@ -180,7 +180,7 @@ let gttProjects = [
       "ru": "Рекорд трек-дня 7.766s",
       "en": "Track-Day Record 7.766s"
     },
-    "img": "assets/cars/___________1793144311_27df8e5d.jpg",
+    "img": "assets/cars/gtr_kurdalagon_white.jpg",
     "fallbackImg": "assets/cars/gtr_red_front_rdrc.jpg",
     "isPhoto": true,
     "objectPosition": "center 65%",
