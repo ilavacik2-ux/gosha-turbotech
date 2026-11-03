@@ -1014,46 +1014,6 @@ let gttProjects = [
     "sort_order": 25
   },
   {
-    "id": "gtr_fifa",
-    "brand": "NISSAN & GTT",
-    "type": "gtr",
-    "name": {
-      "ru": "GT-R R35 GTT «FIFA» #10",
-      "en": "GT-R R35 GTT «FIFA» #10"
-    },
-    "tag": {
-      "ru": "ИМЕННОЙ БОЛИД • LUXURY & DRAG",
-      "en": "BESPOKE BUILD • LUXURY & DRAG"
-    },
-    "hp": "—",
-    "quarterMile": "—",
-    "topSpeed": "—",
-    "badge": {
-      "ru": "GT-R FIFA #10",
-      "en": "GT-R FIFA #10"
-    },
-    "img": "assets/cars/gtt_classified_car.svg",
-    "fallbackImg": "assets/cars/gtt_classified_car.svg",
-    "isPhoto": false,
-    "objectPosition": "center center",
-    "desc": {
-      "ru": "Именной болид «FIFA», созданный в ателье GoshaTurboTech. Сочетает комфортный салон и бескомпромиссные характеристики разгона из 8.5 секунд на квотере.",
-      "en": "Bespoke FIFA build crafted by GoshaTurboTech atelier, pairing premium cockpit refinement with sub-8.5 quarter-mile violence."
-    },
-    "specs": {
-      "engine": "4.1L Billet Stroker VR38 GTT",
-      "turbos": "Precision Gen2 Turbochargers",
-      "transmission": "Dodson Motorsport Billet Gearset",
-      "ecu": "Motec M150"
-    },
-    "videoSrc": "",
-    "is_featured": 0,
-    "isFeatured": false,
-    "isClassified": true,
-    "isTeaser": true,
-    "sort_order": 26
-  },
-  {
     "id": "porsche_991_900",
     "brand": "PORSCHE & GTT",
     "type": "porsche",
@@ -1303,8 +1263,9 @@ const i18n = {
     contact_hq_desc: "Центр спортивного инжиниринга и персональной доработки суперкаров и супербайков. Предварительный осмотр, диностенд и онлайн-согласование проектов.",
     contact_phone_lbl: "Телефон мастерской",
     contact_tg_lbl: "Официальный Telegram канал",
+    contact_media_lbl: "Реклама и сотрудничество",
     contact_loc_lbl: "Локация ателье",
-    contact_loc_val: "Можайское ш., стр. 166В (Новоивановское)",
+    contact_loc_val: "Можайское ш., 168 (Новоивановское)",
     contact_btn_call: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> <span>Позвонить в GTT</span>',
     contact_btn_navi: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg> <span>Яндекс Навигатор</span>',
     partners_tag: "// GTT TECHNICAL & MOTORSPORT PARTNERS",
@@ -1509,8 +1470,9 @@ const i18n = {
     contact_hq_desc: "Motorsport engineering center and bespoke performance atelier for supercars and superbikes. Pre-tuning inspection, dyno hub and online project advisory.",
     contact_phone_lbl: "Workshop Direct Line",
     contact_tg_lbl: "Official Telegram Channel",
+    contact_media_lbl: "PR, Media & Partnerships",
     contact_loc_lbl: "Atelier Location",
-    contact_loc_val: "166B Mozhayskoye Hwy (Novoivanovskoye)",
+    contact_loc_val: "168 Mozhayskoye Hwy (Novoivanovskoye)",
     contact_btn_call: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> <span>Call GTT Workshop</span>',
     contact_btn_navi: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg> <span>Yandex Navigator</span>',
     partners_tag: "// GTT TECHNICAL & MOTORSPORT PARTNERS",
@@ -2348,33 +2310,83 @@ async function syncPartnersFromAPI() {
 
 const defaultMotoList = [
   {
-    id: 'moto_1',
-    title: 'Superbike Stage 1 / 2',
-    code: 'SUPERBIKE // STAGE 2',
-    desc: 'Программное раскрытие потенциала литровых спортбайков BMW S1000RR / M1000RR, Ducati Panigale V4, Yamaha R1. Индивидуальные карты зажигания, снятие ограничителей и калибровка квикшифтера на диностенде.',
-    bullets: 'Индивидуальная калибровка на диностенде\nОптимизация Wheelie & Launch Control\nКалибровка электронного дросселя без задержек',
+    id: 'moto_bmw_m1000rr',
+    title: 'BMW M 1000 RR',
+    code: 'BMW MOTORSPORT // M-PERFORMANCE',
+    desc: 'Флагманский супербайк литрового класса. 4-цилиндровый двигатель BMW ShiftCam, титановая выпускная трасса Akrapovič, карбоновые аэродинамические винглеты M-Winglets и комплексная трековая калибровка блока управления.',
+    bullets: '212 л.с. // 14 500 об/мин\nКарбоновые винглеты M-Winglets\nСухой вес 170 кг',
     img: '',
     sort_order: 1,
     is_active: 1
   },
   {
-    id: 'moto_2',
-    title: 'Титановый выпуск GTT Moto',
-    code: 'TITANIUM // EXH',
-    desc: 'Ручная аргоновая сварка титана и инконеля для мотоциклов. Экстремальное снижение веса, породистый акустический звук и прибавка крутящего момента во всем диапазоне.',
-    bullets: 'Ультралегкие коллекторы из сплава Titan-Gr5\nКастомная фрезеровка насадок\nОгненные отстрелы и сочный басовитый тон',
+    id: 'moto_ducati_v4s',
+    title: 'Ducati Panigale V4 S',
+    code: 'BORGO PANIGALE // DESMOSEDICI',
+    desc: 'Итальянский трековый шедевр с мотором Desmosedici Stradale V4 1103 см³. Активная электронная подвеска Öhlins Smart EC 2.0, сухое сцепление STM EVO и титановый спортивный выпуск.',
+    bullets: '215.5 л.с. // 13 000 об/мин\nПодвеска Öhlins Smart EC 2.0\nСухое гоночное сцепление',
     img: '',
     sort_order: 2,
     is_active: 1
   },
   {
-    id: 'moto_3',
-    title: 'Bespoke кастомизация',
-    code: 'BESPOKE // CNC',
-    desc: 'Полный цикл доработки премиальной мототехники: кованые сверхлегкие диски, сухое сцепление, карбоновое оперение и комплексное предсезонное ТО.',
-    bullets: 'Сухой автоклавный карбон 3K/12K\nТормозные системы Brembo Racing / GP4\nИндивидуальный дизайн и покраска',
+    id: 'moto_mv_superveloce_800',
+    title: 'MV Agusta Superveloce 800',
+    code: 'SCHIRANNA // NEO-RETRO RACER',
+    desc: 'Эксклюзивный нео-классический спортбайк. Трехцилиндровый двигатель с противовращающимся коленвалом, фирменный выпуск SC-Project, кастомные фрезерованные детали и утонченная аэродинамика.',
+    bullets: '147 л.с. // 13 000 об/мин\n3-цилиндровый мотор с обратным вращением коленвала\nКастомный выпуск SC-Project',
     img: '',
     sort_order: 3,
+    is_active: 1
+  },
+  {
+    id: 'moto_mv_superveloce_1000',
+    title: 'MV Agusta Superveloce 1000 Serie Oro',
+    code: 'LIMITED EDITION // HYPERBIKE',
+    desc: 'Лимитированный коллекционный гипербайк Schiranna. 4-цилиндровый мотор мощностью 208 л.с., титановый 4-ствольный выхлоп Arrow, карбоновый аэропакет с активными крыльями и титановые клапаны.',
+    bullets: '208 л.с. // 13 200 об/мин\n4-ствольный титановый выхлоп Arrow\nОграниченный тираж Serie Oro',
+    img: '',
+    sort_order: 4,
+    is_active: 1
+  },
+  {
+    id: 'moto_kawasaki_zx10r',
+    title: 'Kawasaki Ninja ZX-10R',
+    code: 'WSBK CHAMPION // NINJA',
+    desc: 'Многократный триумфатор мирового супербайка WSBK. Высокооборотистый рядный 4-цилиндровый мотор, аэродинамические винглеты в переднем обтекателе, вилка Showa BFF и гоночная калибровка ланч-контроля.',
+    bullets: '203 л.с. (213 л.с. с Ram-Air)\nИнтегрированные винглеты\nГоночная вилка Showa BFF',
+    img: '',
+    sort_order: 5,
+    is_active: 1
+  },
+  {
+    id: 'moto_honda_cbr1000rrr',
+    title: 'Honda CBR1000RR-R Fireblade SP',
+    code: 'HRC RACING // TRIPLE-R',
+    desc: 'Бескомпромиссный болид с технологиями MotoGP. Диаметр цилиндров и ход поршня как у RC213V-S, титановый глушитель Akrapovič, подвеска Öhlins Smart-EC и прижимные аэродинамические крылья HRC.',
+    bullets: '217 л.с. // 14 500 об/мин\nДНК формульного болида RC213V-S\nЭлектронная подвеска Öhlins Smart-EC',
+    img: '',
+    sort_order: 6,
+    is_active: 1
+  },
+  {
+    id: 'moto_yamaha_r1m',
+    title: 'Yamaha YZF-R1M',
+    code: 'FACTORY RACING // CROSSPLANE CP4',
+    desc: 'Заводская спецверсия с крестообразным коленвалом Crossplane CP4. Полный кузов из сухого автоклавного карбона, электронная подвеска Öhlins ERS NPX и телеметрия гоночного трека Y-TRAC.',
+    bullets: '200 л.с. // 13 500 об/мин\nКрестообразный коленвал Crossplane CP4\nКузов из сухого карбона',
+    img: '',
+    sort_order: 7,
+    is_active: 1
+  },
+  {
+    id: 'moto_suzuki_gsxr1000r',
+    title: 'Suzuki GSX-R1000R',
+    code: 'LEGENDARY GIXER // SR-VVT',
+    desc: 'Легендарный литровый «Джиксер» в топовой модификации R. Система изменения фаз газораспределения Suzuki Racing VVT из MotoGP, вилка Showa BFF, двусторонний квикшифтер и тормоза Brembo Monobloc.',
+    bullets: '202 л.с. // 13 200 об/мин\nСистема изменения фаз SR-VVT MotoGP\nТормозные моноблоки Brembo',
+    img: '',
+    sort_order: 8,
     is_active: 1
   }
 ];
@@ -2382,34 +2394,84 @@ const defaultMotoList = [
 let cachedMotoData = null;
 
 const motoTranslationsEn = {
-  'moto_1': {
-    title: 'Superbike Stage 1 / 2',
-    code: 'STAGE 1 / 2 • ECU',
-    desc: 'Software potential unlock for 1000cc superbikes BMW S1000RR / M1000RR, Ducati Panigale V4, Yamaha R1. Custom ignition maps, rev limiter removal and dyno quickshifter calibration.',
+  'moto_bmw_m1000rr': {
+    title: 'BMW M 1000 RR',
+    code: 'BMW MOTORSPORT // M-PERFORMANCE',
+    desc: 'Flagship liter-class superbike. 999cc BMW ShiftCam inline-4, Akrapovič full titanium exhaust, M carbon aerodynamic winglets and bespoke race track ECU calibration.',
     bullets: [
-      'Individual dyno calibration and tuning',
-      'Wheelie & Launch Control optimization',
-      'Zero-lag electronic ride-by-wire throttle mapping'
+      '212 HP // 14,500 RPM',
+      'M-Carbon aerodynamic winglets',
+      'Dry weight 170 kg'
     ]
   },
-  'moto_2': {
-    title: 'GTT Moto Titanium Exhaust',
-    code: 'TITANIUM EXHAUST',
-    desc: 'Handcrafted TIG argon welding of titanium and Inconel for superbikes. Extreme weight reduction, throaty acoustic note, and broad torque band gains.',
+  'moto_ducati_v4s': {
+    title: 'Ducati Panigale V4 S',
+    code: 'BORGO PANIGALE // DESMOSEDICI',
+    desc: 'Italian track masterpiece powered by 1,103cc Desmosedici Stradale V4. Öhlins Smart EC 2.0 electronic suspension, STM EVO dry clutch and titanium racing exhaust.',
     bullets: [
-      'Ultralight Titan-Gr5 alloy headers',
-      'Custom CNC milled exhaust tips',
-      'Flame anti-lag backfires & deep bass roar'
+      '215.5 HP // 13,000 RPM',
+      'Öhlins Smart EC 2.0 electronic suspension',
+      'STM EVO racing dry clutch'
     ]
   },
-  'moto_3': {
-    title: 'Bespoke Customization',
-    code: 'BESPOKE & CARBON',
-    desc: 'Comprehensive enhancement cycle for elite superbikes: ultra-lightweight forged wheels, dry clutch conversions, carbon aerodynamic fairings and full pre-season service.',
+  'moto_mv_superveloce_800': {
+    title: 'MV Agusta Superveloce 800',
+    code: 'SCHIRANNA // NEO-RETRO RACER',
+    desc: 'Exclusive neo-retro racing superbike. 798cc Triple with counter-rotating crankshaft, signature SC-Project exhaust, CNC-machined components and exquisite aerodynamic silhouette.',
     bullets: [
-      'Dry autoclave 3K/12K carbon fiber',
-      'Brembo Racing / GP4 master braking systems',
-      'Custom livery design & precision painting'
+      '147 HP // 13,000 RPM',
+      'Counter-rotating crankshaft Triple',
+      'SC-Project bespoke exhaust'
+    ]
+  },
+  'moto_mv_superveloce_1000': {
+    title: 'MV Agusta Superveloce 1000 Serie Oro',
+    code: 'LIMITED EDITION // HYPERBIKE',
+    desc: 'Limited-edition collector hyperbike from Schiranna. 208 HP inline-4, quad titanium Arrow underseat exhaust, carbon aerodynamic bodywork with active wings and titanium valves.',
+    bullets: [
+      '208 HP // 13,200 RPM',
+      'Arrow quad titanium exhaust',
+      'Ultra-limited Serie Oro build'
+    ]
+  },
+  'moto_kawasaki_zx10r': {
+    title: 'Kawasaki Ninja ZX-10R',
+    code: 'WSBK CHAMPION // NINJA',
+    desc: 'Multi-time WSBK World Championship winning platform. High-revving 998cc inline-4, integrated aerodynamic cowl winglets, Showa BFF suspension and race-spec launch control.',
+    bullets: [
+      '203 HP (213 HP with Ram-Air)',
+      'Integrated aerodynamic winglets',
+      'Showa BFF race suspension'
+    ]
+  },
+  'moto_honda_cbr1000rrr': {
+    title: 'Honda CBR1000RR-R Fireblade SP',
+    code: 'HRC RACING // TRIPLE-R',
+    desc: 'Uncompromising superbike engineered with MotoGP DNA. RC213V-S bore and stroke architecture, Akrapovič titanium muffler, Öhlins Smart-EC suspension and HRC aero winglets.',
+    bullets: [
+      '217 HP // 14,500 RPM',
+      'MotoGP RC213V-S engine geometry',
+      'Öhlins Smart-EC semi-active suspension'
+    ]
+  },
+  'moto_yamaha_r1m': {
+    title: 'Yamaha YZF-R1M',
+    code: 'FACTORY RACING // CROSSPLANE CP4',
+    desc: 'Factory race edition powered by iconic Crossplane CP4 engine. Autoclave carbon fiber fairings, Öhlins ERS NPX gas-charged electronic suspension and Y-TRAC telemetry logger.',
+    bullets: [
+      '200 HP // 13,500 RPM',
+      'Crossplane CP4 firing order engine',
+      'Full autoclave carbon fiber bodywork'
+    ]
+  },
+  'moto_suzuki_gsxr1000r': {
+    title: 'Suzuki GSX-R1000R',
+    code: 'LEGENDARY GIXER // SR-VVT',
+    desc: 'Legendary flagship GSX-R in peak R-specification. MotoGP-developed Suzuki Racing Variable Valve Timing (SR-VVT), Showa BFF suspension, bi-directional quickshifter and Brembo Monoblocs.',
+    bullets: [
+      '202 HP // 13,200 RPM',
+      'MotoGP-derived SR-VVT valve timing',
+      'Brembo Monobloc radial brakes'
     ]
   }
 };
@@ -2471,17 +2533,25 @@ function renderMotoGrid(motoList) {
       </div>
     `).join('');
 
-    return `
-      <div class="moto-card" data-moto-id="${escapeHtml(m.id || '')}">
-        <!-- Question Mark Teaser On Top -->
+    const photoHtml = m.img ? `
+        <div class="moto-card-photo-media" style="width: 100%; height: 180px; overflow: hidden; border-radius: 8px; margin-bottom: 14px;">
+          <img src="${escapeHtml(m.img)}" alt="${escapeHtml(title)}" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+        </div>
+      ` : `
+        <!-- Teaser Media Placeholder (Photos coming soon) -->
         <div class="moto-card-teaser-media">
           <div class="moto-teaser-glow-orbit"></div>
           <div class="moto-teaser-icon-wrap">
-            <span class="moto-teaser-qmark">?</span>
+            <span class="moto-teaser-qmark">🏍️</span>
             <span class="moto-teaser-radar"></span>
           </div>
-          <span class="moto-card-teaser-status">PROJECT #0${idx + 1}</span>
+          <span class="moto-card-teaser-status">${isEn ? 'MOSCOW FLEET' : 'МОСКВА // GTT FLEET'}</span>
         </div>
+      `;
+
+    return `
+      <div class="moto-card" data-moto-id="${escapeHtml(m.id || '')}">
+        ${photoHtml}
         <div class="moto-card-header">
           <span class="moto-card-num">0${idx + 1}</span>
           <span class="moto-card-pill">${escapeHtml(cleanCode)}</span>
@@ -4752,7 +4822,7 @@ window.openLegalDoc = function(type) {
           </tr>
           <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);">
             <td style="color: var(--text-muted); padding: 8px 0;">Юридический адрес:</td>
-            <td style="color: #fff;">Московская обл., г.о. Одинцовский, р.п. Новоивановское, ш. Можайское, стр. 166В</td>
+            <td style="color: #fff;">Московская обл., г.о. Одинцовский, р.п. Новоивановское, ш. Можайское, д. 168</td>
           </tr>
           <tr style="border-bottom: 1px solid rgba(255,255,255,0.08);">
             <td style="color: var(--text-muted); padding: 8px 0;">Банк:</td>

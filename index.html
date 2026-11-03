@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=65.0">
+  <link rel="stylesheet" href="css/style.css?v=67.0">
 </head>
 <body class="is-loading">
 
@@ -27,10 +27,7 @@
     <div class="preloader-inner">
       <div class="preloader-logo-wrap">
         <img src="assets/photos/gtt_shield_logo.svg" alt="GoshaTurboTech Shield Logo" class="preloader-shield-img">
-        <div class="preloader-text-brand">
-          <span class="pre-gosha">GOSHA</span>
-          <span class="pre-turbo">TURBOTECH</span>
-        </div>
+        <img src="assets/photos/gtt_logo_text_authentic.svg" alt="GOSHA TURBOTECH" class="preloader-text-brand" style="height: 38px; width: auto; object-fit: contain;">
       </div>
       <div class="preloader-progress-bar">
         <div class="preloader-progress-fill" id="preloaderFill"></div>
@@ -42,10 +39,7 @@
   <header class="navbar">
     <a href="#" class="brand-logo" aria-label="GoshaTurboTech Главная">
       <img src="assets/photos/gtt_shield_logo.svg" alt="GoshaTurboTech" class="brand-shield-img">
-      <div class="brand-title">
-        <span class="brand-word-gosha">GOSHA</span>
-        <span class="brand-word-turbo">TURBOTECH</span>
-      </div>
+      <img src="assets/photos/gtt_logo_text_authentic.svg" alt="GOSHA TURBOTECH" class="brand-text-img">
     </a>
 
     <nav>
@@ -101,10 +95,7 @@
       <div class="mobile-drawer-header">
         <a href="#" class="brand-logo" onclick="toggleMobileNav(false)" aria-label="GoshaTurboTech">
           <img src="assets/photos/gtt_shield_logo.svg" alt="GTT Shield Logo" class="brand-shield-img">
-          <div class="brand-title">
-            <span class="brand-word-gosha">GOSHA</span>
-            <span class="brand-word-turbo">TURBOTECH</span>
-          </div>
+          <img src="assets/photos/gtt_logo_text_authentic.svg" alt="GOSHA TURBOTECH" class="brand-text-img">
         </a>
         <button class="mobile-drawer-close" onclick="toggleMobileNav(false)" aria-label="Закрыть меню">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -128,7 +119,7 @@
       <div class="mobile-drawer-footer">
         <a href="https://t.me/goshaturbotech" target="_blank" rel="noopener" class="btn-primary" style="text-align: center;" data-i18n="nav_telegram">Telegram Канал</a>
         <div class="mobile-drawer-contacts">
-          <div>Штаб: <a href="https://yandex.ru/maps/?rtext=~55.708892,37.382897&rtt=auto" target="_blank" rel="noopener">Можайское ш., стр. 166В</a></div>
+          <div>Штаб: <a href="https://yandex.ru/maps/?text=%D0%9C%D0%BE%D1%81%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C%2C%20%D0%9C%D0%BE%D0%B6%D0%B0%D0%B9%D1%81%D0%BA%D0%BE%D0%B5%20%D1%88%D0%BE%D1%81%D1%81%D0%B5%2C%20168" target="_blank" rel="noopener">Можайское ш., 168</a></div>
           <div>Связь: <a href="tel:+74959900077">+7 (495) 990-00-77</a></div>
         </div>
       </div>
@@ -1162,99 +1153,187 @@
 
 
     <div class="moto-cards-grid" id="motoCardsGrid">
-      <div class="moto-card" data-moto-id="moto_1">
-        <!-- Question Mark Teaser On Top -->
+      <!-- 01 BMW M 1000 RR -->
+      <div class="moto-card" data-moto-id="moto_bmw_m1000rr">
         <div class="moto-card-teaser-media">
           <div class="moto-teaser-glow-orbit"></div>
           <div class="moto-teaser-icon-wrap">
-            <span class="moto-teaser-qmark">?</span>
+            <span class="moto-teaser-qmark">🏍️</span>
             <span class="moto-teaser-radar"></span>
           </div>
-          <span class="moto-card-teaser-status">PROJECT #01</span>
+          <span class="moto-card-teaser-status">МОСКВА // GTT FLEET</span>
         </div>
         <div class="moto-card-header">
           <span class="moto-card-num">01</span>
-          <span class="moto-card-pill">STAGE 1 / 2 • ECU</span>
+          <span class="moto-card-pill">M-PERFORMANCE // 212 HP</span>
         </div>
-        <h3 class="moto-card-title" data-i18n="moto_card1_title">Трековая калибровка ECU</h3>
-        <p class="moto-card-desc" data-i18n="moto_card1_desc">Индивидуальная настройка блоков управления для BMW S1000RR, Ducati Panigale V4, Yamaha R1. Снятие заводских ограничителей, квикшифтер, автоблип и контроль тяги.</p>
+        <h3 class="moto-card-title">BMW M 1000 RR</h3>
+        <p class="moto-card-desc">Флагманский супербайк литрового класса. 4-цилиндровый двигатель BMW ShiftCam, титановая выпускная трасса Akrapovič, карбоновые аэродинамические винглеты M-Winglets и комплексная трековая калибровка блока управления.</p>
         <div class="moto-spec-strip">
-          <div class="moto-spec-item">
-            <span class="spec-bullet">—</span>
-            <span class="spec-label" data-i18n="moto_card1_b1">Индивидуальные топливные карты под 100 RON</span>
-          </div>
-          <div class="moto-spec-item">
-            <span class="spec-bullet">—</span>
-            <span class="spec-label" data-i18n="moto_card1_b2">Оптимизация Wheelie &amp; Launch Control</span>
-          </div>
-          <div class="moto-spec-item">
-            <span class="spec-bullet">—</span>
-            <span class="spec-label" data-i18n="moto_card1_b3">Калибровка электронного дросселя без задержек</span>
-          </div>
+          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">212 л.с. // 14 500 об/мин</span></div>
+          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Карбоновые винглеты M-Winglets</span></div>
+          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Сухой вес 170 кг</span></div>
         </div>
       </div>
 
-      <div class="moto-card" data-moto-id="moto_2">
-        <!-- Question Mark Teaser On Top -->
+      <!-- 02 Ducati Panigale V4 S -->
+      <div class="moto-card" data-moto-id="moto_ducati_v4s">
         <div class="moto-card-teaser-media">
           <div class="moto-teaser-glow-orbit"></div>
           <div class="moto-teaser-icon-wrap">
-            <span class="moto-teaser-qmark">?</span>
+            <span class="moto-teaser-qmark">🏍️</span>
             <span class="moto-teaser-radar"></span>
           </div>
-          <span class="moto-card-teaser-status">PROJECT #02</span>
+          <span class="moto-card-teaser-status">МОСКВА // GTT FLEET</span>
         </div>
         <div class="moto-card-header">
           <span class="moto-card-num">02</span>
-          <span class="moto-card-pill">ТИТАНОВЫЙ ВЫПУСК</span>
+          <span class="moto-card-pill">DESMOSEDICI // 215.5 HP</span>
         </div>
-        <h3 class="moto-card-title" data-i18n="moto_card2_title">Титановый выпуск GTT Moto</h3>
-        <p class="moto-card-desc" data-i18n="moto_card2_desc">Ручная аргоновая сварка титана и инконеля для мотоциклов. Экстремальное снижение веса, породистый акустический звук и прибавка крутящего момента во всем диапазоне.</p>
+        <h3 class="moto-card-title">Ducati Panigale V4 S</h3>
+        <p class="moto-card-desc">Итальянский трековый шедевр с мотором Desmosedici Stradale V4 1103 см³. Активная электронная подвеска Öhlins Smart EC 2.0, сухое сцепление STM EVO и титановый спортивный выпуск.</p>
         <div class="moto-spec-strip">
-          <div class="moto-spec-item">
-            <span class="spec-bullet">—</span>
-            <span class="spec-label" data-i18n="moto_card2_b1">Ультралегкие коллекторы из сплава Titan-Gr5</span>
-          </div>
-          <div class="moto-spec-item">
-            <span class="spec-bullet">—</span>
-            <span class="spec-label" data-i18n="moto_card2_b2">Кастомная фрезеровка насадок</span>
-          </div>
-          <div class="moto-spec-item">
-            <span class="spec-bullet">—</span>
-            <span class="spec-label" data-i18n="moto_card2_b3">Огненные отстрелы и сочный басовитый тон</span>
-          </div>
+          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">215.5 л.с. // 13 000 об/мин</span></div>
+          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Подвеска Öhlins Smart EC 2.0</span></div>
+          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Сухое гоночное сцепление</span></div>
         </div>
       </div>
 
-      <div class="moto-card" data-moto-id="moto_3">
-        <!-- Question Mark Teaser On Top -->
+      <!-- 03 MV Agusta Superveloce 800 -->
+      <div class="moto-card" data-moto-id="moto_mv_superveloce_800">
         <div class="moto-card-teaser-media">
           <div class="moto-teaser-glow-orbit"></div>
           <div class="moto-teaser-icon-wrap">
-            <span class="moto-teaser-qmark">?</span>
+            <span class="moto-teaser-qmark">🏍️</span>
             <span class="moto-teaser-radar"></span>
           </div>
-          <span class="moto-card-teaser-status">PROJECT #03</span>
+          <span class="moto-card-teaser-status">МОСКВА // GTT FLEET</span>
         </div>
         <div class="moto-card-header">
           <span class="moto-card-num">03</span>
-          <span class="moto-card-pill">BESPOKE &amp; КАРБОН</span>
+          <span class="moto-card-pill">NEO-RETRO // SC-PROJECT</span>
         </div>
-        <h3 class="moto-card-title" data-i18n="moto_card3_title">Bespoke кастомизация</h3>
-        <p class="moto-card-desc" data-i18n="moto_card3_desc">Полный цикл доработки премиальной мототехники: кованые сверхлегкие диски, сухое сцепление, карбоновое оперение и комплексное предсезонное ТО.</p>
+        <h3 class="moto-card-title">MV Agusta Superveloce 800</h3>
+        <p class="moto-card-desc">Эксклюзивный нео-классический спортбайк. Трехцилиндровый двигатель с противовращающимся коленвалом, фирменный выпуск SC-Project, кастомные фрезерованные детали и утонченная аэродинамика.</p>
         <div class="moto-spec-strip">
-          <div class="moto-spec-item">
-            <span class="spec-bullet">—</span>
-            <span class="spec-label" data-i18n="moto_card3_b1">Сухой автоклавный карбон 3K/12K</span>
+          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">147 л.с. // 13 000 об/мин</span></div>
+          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">3-цилиндровый мотор с обратным вращением коленвала</span></div>
+          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Кастомный выпуск SC-Project</span></div>
+        </div>
+      </div>
+
+      <!-- 04 MV Agusta Superveloce 1000 Serie Oro -->
+      <div class="moto-card" data-moto-id="moto_mv_superveloce_1000">
+        <div class="moto-card-teaser-media">
+          <div class="moto-teaser-glow-orbit"></div>
+          <div class="moto-teaser-icon-wrap">
+            <span class="moto-teaser-qmark">🏍️</span>
+            <span class="moto-teaser-radar"></span>
           </div>
-          <div class="moto-spec-item">
-            <span class="spec-bullet">—</span>
-            <span class="spec-label" data-i18n="moto_card3_b2">Тормозные системы Brembo Racing / GP4</span>
+          <span class="moto-card-teaser-status">МОСКВА // GTT FLEET</span>
+        </div>
+        <div class="moto-card-header">
+          <span class="moto-card-num">04</span>
+          <span class="moto-card-pill">SERIE ORO // 208 HP</span>
+        </div>
+        <h3 class="moto-card-title">MV Agusta Superveloce 1000 Serie Oro</h3>
+        <p class="moto-card-desc">Лимитированный коллекционный гипербайк Schiranna. 4-цилиндровый мотор мощностью 208 л.с., титановый 4-ствольный выхлоп Arrow, карбоновый аэропакет с активными крыльями и титановые клапаны.</p>
+        <div class="moto-spec-strip">
+          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">208 л.с. // 13 200 об/мин</span></div>
+          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">4-ствольный титановый выхлоп Arrow</span></div>
+          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Ограниченный тираж Serie Oro</span></div>
+        </div>
+      </div>
+
+      <!-- 05 Kawasaki Ninja ZX-10R -->
+      <div class="moto-card" data-moto-id="moto_kawasaki_zx10r">
+        <div class="moto-card-teaser-media">
+          <div class="moto-teaser-glow-orbit"></div>
+          <div class="moto-teaser-icon-wrap">
+            <span class="moto-teaser-qmark">🏍️</span>
+            <span class="moto-teaser-radar"></span>
           </div>
-          <div class="moto-spec-item">
-            <span class="spec-bullet">—</span>
-            <span class="spec-label" data-i18n="moto_card3_b3">Индивидуальный дизайн и покраска</span>
+          <span class="moto-card-teaser-status">МОСКВА // GTT FLEET</span>
+        </div>
+        <div class="moto-card-header">
+          <span class="moto-card-num">05</span>
+          <span class="moto-card-pill">WSBK CHAMPION // 203 HP</span>
+        </div>
+        <h3 class="moto-card-title">Kawasaki Ninja ZX-10R</h3>
+        <p class="moto-card-desc">Многократный триумфатор мирового супербайка WSBK. Высокооборотистый рядный 4-цилиндровый мотор, аэродинамические винглеты в переднем обтекателе, вилка Showa BFF и гоночная калибровка ланч-контроля.</p>
+        <div class="moto-spec-strip">
+          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">203 л.с. (213 л.с. с Ram-Air)</span></div>
+          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Интегрированные винглеты</span></div>
+          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Гоночная вилка Showa BFF</span></div>
+        </div>
+      </div>
+
+      <!-- 06 Honda CBR1000RR-R Fireblade SP -->
+      <div class="moto-card" data-moto-id="moto_honda_cbr1000rrr">
+        <div class="moto-card-teaser-media">
+          <div class="moto-teaser-glow-orbit"></div>
+          <div class="moto-teaser-icon-wrap">
+            <span class="moto-teaser-qmark">🏍️</span>
+            <span class="moto-teaser-radar"></span>
           </div>
+          <span class="moto-card-teaser-status">МОСКВА // GTT FLEET</span>
+        </div>
+        <div class="moto-card-header">
+          <span class="moto-card-num">06</span>
+          <span class="moto-card-pill">TRIPLE-R SP // 217 HP</span>
+        </div>
+        <h3 class="moto-card-title">Honda CBR1000RR-R Fireblade SP</h3>
+        <p class="moto-card-desc">Бескомпромиссный болид с технологиями MotoGP. Диаметр цилиндров и ход поршня как у RC213V-S, титановый глушитель Akrapovič, подвеска Öhlins Smart-EC и прижимные аэродинамические крылья HRC.</p>
+        <div class="moto-spec-strip">
+          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">217 л.с. // 14 500 об/мин</span></div>
+          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">ДНК формульного болида RC213V-S</span></div>
+          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Электронная подвеска Öhlins Smart-EC</span></div>
+        </div>
+      </div>
+
+      <!-- 07 Yamaha YZF-R1M -->
+      <div class="moto-card" data-moto-id="moto_yamaha_r1m">
+        <div class="moto-card-teaser-media">
+          <div class="moto-teaser-glow-orbit"></div>
+          <div class="moto-teaser-icon-wrap">
+            <span class="moto-teaser-qmark">🏍️</span>
+            <span class="moto-teaser-radar"></span>
+          </div>
+          <span class="moto-card-teaser-status">МОСКВА // GTT FLEET</span>
+        </div>
+        <div class="moto-card-header">
+          <span class="moto-card-num">07</span>
+          <span class="moto-card-pill">CROSSPLANE CP4 // 200 HP</span>
+        </div>
+        <h3 class="moto-card-title">Yamaha YZF-R1M</h3>
+        <p class="moto-card-desc">Заводская спецверсия с крестообразным коленвалом Crossplane CP4. Полный кузов из сухого автоклавного карбона, электронная подвеска Öhlins ERS NPX и телеметрия гоночного трека Y-TRAC.</p>
+        <div class="moto-spec-strip">
+          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">200 л.с. // 13 500 об/мин</span></div>
+          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Крестообразный коленвал Crossplane CP4</span></div>
+          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Кузов из сухого карбона</span></div>
+        </div>
+      </div>
+
+      <!-- 08 Suzuki GSX-R1000R -->
+      <div class="moto-card" data-moto-id="moto_suzuki_gsxr1000r">
+        <div class="moto-card-teaser-media">
+          <div class="moto-teaser-glow-orbit"></div>
+          <div class="moto-teaser-icon-wrap">
+            <span class="moto-teaser-qmark">🏍️</span>
+            <span class="moto-teaser-radar"></span>
+          </div>
+          <span class="moto-card-teaser-status">МОСКВА // GTT FLEET</span>
+        </div>
+        <div class="moto-card-header">
+          <span class="moto-card-num">08</span>
+          <span class="moto-card-pill">SR-VVT // 202 HP</span>
+        </div>
+        <h3 class="moto-card-title">Suzuki GSX-R1000R</h3>
+        <p class="moto-card-desc">Легендарный литровый «Джиксер» в топовой модификации R. Система изменения фаз газораспределения Suzuki Racing VVT из MotoGP, вилка Showa BFF, двусторонний квикшифтер и тормоза Brembo Monobloc.</p>
+        <div class="moto-spec-strip">
+          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">202 л.с. // 13 200 об/мин</span></div>
+          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Система изменения фаз SR-VVT MotoGP</span></div>
+          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Тормозные моноблоки Brembo</span></div>
         </div>
       </div>
     </div>
@@ -1850,13 +1929,24 @@
             </div>
           </a>
 
+
+          <a href="mailto:media@goshaturbotech.com" class="c-item">
+            <div class="c-item-icon" style="background: linear-gradient(135deg, rgba(56, 189, 248, 0.16), rgba(56, 189, 248, 0.04)); border-color: rgba(56, 189, 248, 0.35); color: #38bdf8;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="c-item-content">
+              <div class="c-item-label" data-i18n="contact_media_lbl">Реклама и сотрудничество</div>
+              <div class="c-item-val" style="color: #38bdf8;">media@goshaturbotech.com</div>
+            </div>
+          </a>
+
           <div class="c-item">
             <div class="c-item-icon">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             </div>
             <div class="c-item-content">
               <div class="c-item-label" data-i18n="contact_loc_lbl">Локация ателье</div>
-              <div class="c-item-val" data-i18n="contact_loc_val">Можайское ш., стр. 166В (Новоивановское)</div>
+              <div class="c-item-val" data-i18n="contact_loc_val">Можайское ш., 168 (Новоивановское)</div>
             </div>
           </div>
         </div>
@@ -1877,14 +1967,22 @@
       <div class="contact-map-card">
         <div class="map-wrapper">
           <iframe 
-            src="https://yandex.ru/map-widget/v1/?ll=37.382897%2C55.708892&z=15&pt=37.382897%2C55.708892,pm2rdm" 
+            src="https://yandex.ru/map-widget/v1/?text=%D0%9C%D0%BE%D1%81%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B0%D1%8F%20%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C%2C%20%D0%9C%D0%BE%D0%B6%D0%B0%D0%B9%D1%81%D0%BA%D0%BE%D0%B5%20%D1%88%D0%BE%D1%81%D1%81%D0%B5%2C%20168&z=16" 
             width="100%" 
             height="100%" 
             frameborder="0" 
             allowfullscreen="true" 
-            title="Интерактивная карта GoshaTurboTech"
+            title="Интерактивная карта GoshaTurboTech — Можайское шоссе, 168"
             class="yandex-map-iframe"
           ></iframe>
+          <div class="map-badge">
+            <span class="map-badge-dot"></span>
+            <span>ШТАБ GTT // МОЖАЙСКОЕ Ш., 168</span>
+          </div>
+          <a href="https://yandex.ru/maps/?rtext=~55.708892,37.382897&rtt=auto" target="_blank" rel="noopener" class="map-direct-btn" style="position: absolute; bottom: 16px; right: 16px; background: rgba(8, 10, 14, 0.92); border: 1px solid rgba(255, 100, 37, 0.5); color: #fff; padding: 8px 16px; border-radius: 6px; font-family: var(--font-mono); font-size: 11px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 8px; backdrop-filter: blur(12px); box-shadow: 0 4px 15px rgba(0,0,0,0.6); z-index: 10;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gtt-orange)" stroke-width="2.5"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+            <span>Построить маршрут</span>
+          </a>
         </div>
       </div>
     </div>
@@ -2029,7 +2127,7 @@
   </button>
 
   <script src="js/media-db.js?v=23.0"></script>
-  <script src="js/app.js?v=65.0"></script>
+  <script src="js/app.js?v=67.0"></script>
   <script>
     // Failsafe Preloader Dismissal (Max 1.6s)
     setTimeout(function() {

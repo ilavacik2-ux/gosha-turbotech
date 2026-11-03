@@ -331,6 +331,20 @@ body.is-loading {
   filter: drop-shadow(0 0 18px rgba(234, 91, 12, 0.8));
 }
 
+.brand-text-img {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.7));
+  transition: transform 0.25s ease, filter 0.25s ease;
+  display: block;
+}
+
+.brand-logo:hover .brand-text-img {
+  transform: scale(1.02);
+  filter: drop-shadow(0 0 12px rgba(234, 91, 12, 0.5));
+}
+
 .brand-title {
   display: flex;
   flex-direction: column;
@@ -1058,27 +1072,38 @@ body.is-loading {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 60%;
+  object-position: center 54%;
   transition: transform 0.6s var(--ease-out-expo), filter 0.6s ease;
   filter: contrast(1.06) brightness(0.96);
 }
 
 /* Ensure isolated car renders (transparent cutouts) sit uncropped */
-.car-card-img[src*="-min.png"]:not(.photo-fit) {
+.car-card-img[src*="-min.png"]:not(.photo-fit),
+.car-card-img[src*="gtr_moses.png"] {
   width: 92%;
   height: 88%;
   object-fit: contain;
   filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.85));
 }
 
-/* Default framing fallback for Lucifer and Draco if not overridden inline */
-.car-card[data-id="gtr_lucifer"] .car-card-img:not([style*="object-position"]) {
-  object-position: center 46%;
-}
-
-.car-card[data-id="draco_promod"] .car-card-img:not([style*="object-position"]) {
-  object-position: center 64%;
-}
+/* Precise waterline alignment across all car cards */
+.car-card[data-id="draco_promod"] .car-card-img { object-position: center 65%; }
+.car-card[data-id="gtr_lucifer"] .car-card-img { object-position: center 60%; }
+.car-card[data-id="gtr_kurdalagon"] .car-card-img { object-position: center 65%; }
+.car-card[data-id="moses"] .car-card-img { object-position: center center; }
+.car-card[data-id="gtr_korzhik"] .car-card-img { object-position: center 58%; }
+.car-card[data-id="gtr_baloo"] .car-card-img { object-position: center 50%; }
+.car-card[data-id="gtr_blue_888"] .car-card-img { object-position: center 52%; }
+.car-card[data-id="gtr_red"] .car-card-img { object-position: center 50%; }
+.car-card[data-id="gtr_rocket"] .car-card-img { object-position: center 50%; }
+.car-card[data-id="gtr_alpha12x"] .car-card-img { object-position: center 60%; }
+.car-card[data-id="bmw_m5"] .car-card-img { object-position: center 54%; }
+.car-card[data-id="porsche_911_imba"] .car-card-img { object-position: center 80%; }
+.car-card[data-id="dodge_demon"] .car-card-img { object-position: center 58%; }
+.car-card[data-id="audi_zlayazaya"] .car-card-img { object-position: center 50%; }
+.car-card[data-id="r8_rokot"] .car-card-img { object-position: center 55%; }
+.car-card[data-id="zelenka"] .car-card-img { object-position: center 48%; }
+.car-card[data-id="bmw_m7_gtt"] .car-card-img { object-position: center 70%; }
 
 /* Classified Blueprint SVG Styling */
 .car-card-img[src*=".svg"] {
@@ -3725,7 +3750,7 @@ body.is-loading {
   align-items: center;
   gap: 32px;
   width: max-content;
-  animation: partnerMarqueeScroll 38s linear infinite;
+  animation: partnerMarqueeScroll 75s linear infinite;
 }
 
 .partners-marquee-wrap:hover .partners-marquee-track {
