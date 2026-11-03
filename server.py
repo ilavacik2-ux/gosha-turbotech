@@ -36,26 +36,41 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Security Headers & Sensitive Files Shield Middleware
-@app.middleware("http")
-async def security_shield_middleware(request: Request, call_next):
-    raw_path = request.url.path.lower()
-    
-    # 1. Block unauthorized access to config files, database files, python sources, and hidden dotfiles
-    blocked_exts = (".json", ".db", ".sqlite", ".sqlite3", ".env", ".py", ".pyc", ".sh", ".yaml", ".yml", ".md", ".log")
-    if (raw_path.endswith(blocked_exts) or "/." in raw_path) and not raw_path.startswith("/assets/") and not raw_path.startswith("/data/"):
-        return Response(status_code=404, content="Not Found")
-        
-    response = await call_next(request)
-    
-    # 2. Enforce High-Security HTTP Response Headers
-    response.headers["X-Content-Type-Options"] = "nosniff"
-    response.headers["X-Frame-Options"] = "SAMEORIGIN"
-    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
-    response.headers["X-XSS-Protection"] = "1; mode=block"
-    response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
-    
-    return response
+# High-Performance ASGI Security Headers & Sensitive Files Shield Middleware
+# Uses pure ASGI to support Safari 206 Partial Content video streaming without BaseHTTPMiddleware Content-Length errors
+class SecurityShieldMiddleware:
+    def __init__(self, app):
+        self.app = app
+        self.blocked_exts = (".json", ".db", ".sqlite", ".sqlite3", ".env", ".py", ".pyc", ".sh", ".yaml", ".yml", ".md", ".log")
+
+    async def __call__(self, scope, receive, send):
+        if scope["type"] != "http":
+            await self.app(scope, receive, send)
+            return
+
+        raw_path = scope.get("path", "").lower()
+        if (raw_path.endswith(self.blocked_exts) or "/." in raw_path) and not raw_path.startswith("/assets/") and not raw_path.startswith("/data/"):
+            response = Response(status_code=404, content="Not Found")
+            await response(scope, receive, send)
+            return
+
+        async def send_wrapper(message):
+            if message["type"] == "http.response.start":
+                headers = list(message.get("headers", []))
+                headers.extend([
+                    (b"x-content-type-options", b"nosniff"),
+                    (b"x-frame-options", b"SAMEORIGIN"),
+                    (b"referrer-policy", b"strict-origin-when-cross-origin"),
+                    (b"x-xss-protection", b"1; mode=block"),
+                    (b"permissions-policy", b"camera=(), microphone=(), geolocation=()")
+                ])
+                message["headers"] = headers
+            await send(message)
+
+        await self.app(scope, receive, send_wrapper)
+
+app.add_middleware(SecurityShieldMiddleware)
+
 
 # Initialize SQLite database on startup
 @app.on_event("startup")
