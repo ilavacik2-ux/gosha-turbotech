@@ -236,19 +236,26 @@ def record_gate_probe(ip: str):
     if len(valid_probes) > 10:
         time.sleep(3.0)
 
-def verify_admin_session(request: Request):
-    # Airlock Alpha: Valid Secret Gateway Token grants atelier administrator authorization
-    cfg = SERVER_CONFIG
-    valid_gate = cfg.get("GATEWAY_TOKEN", "gtt_atelier_2026_x71k")
-    allowed_gate_tokens = {valid_gate, "gtt_atelier_2026", "gtt_secret_atelier_2026_unlim"}
-    
-    provided_gate = (
-        request.headers.get("x-gateway-token", "").strip()
-        or request.query_params.get("token", "").strip()
-    )
-    if provided_gate and provided_gate in allowed_gate_tokens:
-        return "gateway_authorized"
+def get_client_ip(request: Request) -> str:
+    """Extract real client IP even behind Cloudflare, Nginx, or Docker reverse proxies."""
+    if not request:
+        return "unknown"
+    cf_ip = request.headers.get("cf-connecting-ip")
+    if cf_ip:
+        return cf_ip.strip()
+    xff = request.headers.get("x-forwarded-for")
+    if xff:
+        return xff.split(",")[0].strip()
+    if request.client and request.client.host:
+        return request.client.host
+    return "unknown"
 
+def verify_admin_session(request: Request):
+    """
+    Strict Admin Authorization:
+    Requires a valid cryptographic session token issued only after password verification.
+    Gateway Token is NOT accepted here (gateway token only gates access to the login door).
+    """
     auth_header = request.headers.get("authorization", "")
     token = None
     if auth_header.startswith("Bearer "):
@@ -284,7 +291,7 @@ def verify_admin_session(request: Request):
 
 @app.post("/api/auth/login")
 async def login(req: LoginRequest, request: Request):
-    client_ip = request.client.host if request.client else "unknown"
+    client_ip = get_client_ip(request)
     user_agent = request.headers.get("user-agent", "unknown")[:80]
 
     # Airlock 1: Stealth Gateway Token Verification
@@ -910,7 +917,7 @@ async def serve_secret_admin(request: Request, token: Optional[str] = None):
     valid_token = cfg.get("GATEWAY_TOKEN", "gtt_atelier_2026_x71k")
     allowed_tokens = {valid_token, "gtt_atelier_2026", "gtt_secret_atelier_2026_unlim"}
 
-    client_ip = request.client.host if request and request.client else "unknown"
+    client_ip = get_client_ip(request)
 
     # Allow local development and local Wi-Fi network without requiring token in URL
     is_local = (

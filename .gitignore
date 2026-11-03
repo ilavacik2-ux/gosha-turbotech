@@ -12,3 +12,4 @@ __pycache__/
 gtt_config.json
 .env
 *.bak
+*.bak.*
