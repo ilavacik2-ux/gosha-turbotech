@@ -3965,11 +3965,32 @@ function initPreloader() {
   const fill = document.getElementById('preloaderFill');
   
   window.scrollTo(0, 0);
-  setupHeroVideo();
+  try { setupHeroVideo(); } catch (e) {}
 
   let finished = false;
   const startTime = performance.now();
-  const minDuration = 700; // Fast and energetic
+  const minDuration = 550; // Ultra-fast and energetic
+
+  function dismiss() {
+    if (finished) return;
+    finished = true;
+    if (fill) fill.style.width = '100%';
+    try {
+      const heroVideo = document.querySelector('.hero-video-bg');
+      if (heroVideo && heroVideo.paused) {
+        heroVideo.muted = true;
+        heroVideo.play().catch(() => {});
+      }
+    } catch (e) {}
+    if (preloader) {
+      preloader.classList.add('fade-out');
+      document.body.classList.remove('is-loading');
+      window.scrollTo(0, 0);
+      setTimeout(() => {
+        preloader.style.display = 'none';
+      }, 400);
+    }
+  }
 
   function frame(now) {
     if (finished) return;
@@ -3981,29 +4002,15 @@ function initPreloader() {
     if (fill) fill.style.width = `${percent}%`;
 
     if (progress >= 1) {
-      finished = true;
-      if (fill) fill.style.width = '100%';
-      setTimeout(() => {
-        const heroVideo = document.querySelector('.hero-video-bg');
-        if (heroVideo && heroVideo.paused) {
-          heroVideo.muted = true;
-          heroVideo.play().catch(() => {});
-        }
-        if (preloader) {
-          preloader.classList.add('fade-out');
-          document.body.classList.remove('is-loading');
-          window.scrollTo(0, 0);
-          setTimeout(() => {
-            preloader.style.display = 'none';
-          }, 600);
-        }
-      }, 50);
+      dismiss();
     } else {
       requestAnimationFrame(frame);
     }
   }
 
   requestAnimationFrame(frame);
+  // Hard fallback: never stay visible longer than 750ms under any condition
+  setTimeout(dismiss, 750);
 }
 
 // Master division switcher (Cars & Moto)
