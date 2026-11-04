@@ -914,8 +914,8 @@ app.mount("/js", StaticFiles(directory=os.path.join(BASE_DIR, "js")), name="js")
 app.mount("/assets", StaticFiles(directory=os.path.join(BASE_DIR, "assets")), name="assets")
 app.mount("/data", StaticFiles(directory=os.path.join(BASE_DIR, "data")), name="data")
 
-@app.get("/")
-@app.get("/index.html")
+@app.api_route("/", methods=["GET", "HEAD"])
+@app.api_route("/index.html", methods=["GET", "HEAD"])
 async def serve_index():
     return FileResponse(os.path.join(BASE_DIR, "index.html"))
 
