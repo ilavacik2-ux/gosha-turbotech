@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/admin.css?v=42.0">
+  <link rel="stylesheet" href="css/admin.css?v=43.0">
 </head>
 <body>
 
@@ -85,7 +85,7 @@
           </div>
 
           <!-- Restore Factory DB Button -->
-          <button type="button" class="topbar-btn outline-btn" onclick="restoreFactoryDatabase()" title="Восстановить заводскую базу болидов, рекордов и партнеров" style="display: inline-flex; align-items: center; gap: 6px;">
+          <button type="button" class="topbar-btn outline-btn btn-factory-db" onclick="restoreFactoryDatabase()" title="Восстановить заводскую базу болидов, рекордов и партнеров" style="display: inline-flex; align-items: center; gap: 6px;">
             <span>🔄 База GTT</span>
           </button>
 
@@ -124,7 +124,7 @@
             </div>
           </div>
 
-          <a href="index.html" class="topbar-btn outline-btn" target="_blank">Открыть сайт ↗</a>
+          <a href="index.html" class="topbar-btn outline-btn" target="_blank" title="Открыть сайт"><span class="topbar-open-text">Открыть </span>сайт ↗</a>
           <button class="topbar-btn danger-btn" onclick="handleAdminLogout()">Выйти</button>
         </div>
       </div>
@@ -1459,6 +1459,6 @@
   </div>
 
   <script src="js/media-db.js?v=23.0"></script>
-  <script src="js/admin.js?v=42.0"></script>
+  <script src="js/admin.js?v=43.0"></script>
 </body>
 </html>

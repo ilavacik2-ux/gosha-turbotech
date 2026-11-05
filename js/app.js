@@ -3888,9 +3888,10 @@ function renderTeamGrid(teamList) {
   updateTeamVisibility();
 }
 
-// Reliable Multi-Platform Hero Video Engine
+// Reliable Multi-Platform Hero Video Engine with Instant Backdrop Fallback
 function setupHeroVideo() {
   const heroVideo = document.querySelector('.hero-video-bg');
+  const hero = document.getElementById('hero');
   if (!heroVideo) return;
 
   // Strict mobile autoplay compliance
@@ -3901,7 +3902,20 @@ function setupHeroVideo() {
   heroVideo.setAttribute('playsinline', '');
   heroVideo.setAttribute('webkit-playsinline', '');
 
+  // Smooth cross-fade once frames are actually playing (eliminates any black frame flash)
+  function markVideoActive() {
+    if (!heroVideo.classList.contains('is-playing')) {
+      heroVideo.classList.add('is-playing');
+    }
+  }
+
+  heroVideo.addEventListener('playing', markVideoActive);
+  heroVideo.addEventListener('timeupdate', () => {
+    if (heroVideo.currentTime > 0.05) markVideoActive();
+  });
+
   function attemptPlay() {
+    if (hero && hero.classList.contains('photo-only-mode')) return;
     heroVideo.muted = true;
     const playPromise = heroVideo.play();
     if (playPromise !== undefined) {
@@ -3914,8 +3928,9 @@ function setupHeroVideo() {
   function attachInteractionFallback() {
     const events = ['touchstart', 'pointerdown', 'mousedown', 'scroll', 'click', 'keydown'];
     const onAction = () => {
+      if (hero && hero.classList.contains('photo-only-mode')) return;
       heroVideo.muted = true;
-      heroVideo.play().catch(() => {});
+      heroVideo.play().then(markVideoActive).catch(() => {});
       events.forEach(evt => window.removeEventListener(evt, onAction));
     };
     events.forEach(evt => window.addEventListener(evt, onAction, { passive: true, once: true }));
@@ -3941,11 +3956,116 @@ function setupHeroVideo() {
   heroVideo.addEventListener('canplay', attemptPlay, { once: true });
 
   document.addEventListener('visibilitychange', () => {
-    if (!document.hidden && heroVideo.paused) {
+    if (!document.hidden && heroVideo.paused && (!hero || !hero.classList.contains('photo-only-mode'))) {
       attemptPlay();
     }
   });
+
+  // Query parameter & localStorage preference check for testing photo backdrop
+  try {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('hero') === 'photo' || params.get('mode') === 'photo') {
+      window.toggleHeroMediaMode(true);
+    } else if (localStorage.getItem('gtt_hero_mode') === 'photo') {
+      window.toggleHeroMediaMode(true);
+    }
+  } catch (e) {}
 }
+
+window.toggleHeroMediaMode = function(forceMode) {
+  const hero = document.getElementById('hero');
+  const heroVideo = document.querySelector('.hero-video-bg');
+  const label = document.getElementById('heroStreamLabel');
+  if (!hero) return;
+
+  const shouldBePhoto = (typeof forceMode === 'boolean') 
+    ? forceMode 
+    : !hero.classList.contains('photo-only-mode');
+
+  hero.classList.toggle('photo-only-mode', shouldBePhoto);
+
+  if (shouldBePhoto) {
+    if (heroVideo) {
+      heroVideo.pause();
+      heroVideo.classList.remove('is-playing');
+    }
+    if (label) label.textContent = 'ФОН: ФОТО АТЕЛЬЕ';
+    try { localStorage.setItem('gtt_hero_mode', 'photo'); } catch (e) {}
+  } else {
+    if (label) label.textContent = 'ФОН: ВИДЕО RDRC';
+    try { localStorage.removeItem('gtt_hero_mode'); } catch (e) {}
+    if (heroVideo) {
+      heroVideo.muted = true;
+      heroVideo.play().then(() => {
+        heroVideo.classList.add('is-playing');
+      }).catch(() => {});
+    }
+  }
+};
+
+window.testHeroBackdrop = function(showPhoto = true) {
+  window.toggleHeroMediaMode(showPhoto);
+  console.log(`[GTT Hero] Mode set to: ${showPhoto ? 'PHOTO BACKDROP (7R204229.jpg)' : 'VIDEO STREAM (hero_bg_optimized.mp4)'}`);
+};
+
+// GTT Atelier Navigation & Route Handlers
+window.copyGttCoords = function(btn) {
+  const coords = '55.708892, 37.382897';
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(coords).then(() => {
+      showCopyFeedback(btn);
+    }).catch(() => fallbackCopy(coords, btn));
+  } else {
+    fallbackCopy(coords, btn);
+  }
+
+  function showCopyFeedback(element) {
+    if (!element) return;
+    const span = element.querySelector('span');
+    const originalText = span ? span.textContent : '';
+    if (span) span.textContent = 'Скопировано! ✓';
+    element.style.borderColor = 'var(--gtt-orange)';
+    element.style.color = 'var(--gtt-orange)';
+    setTimeout(() => {
+      if (span) span.textContent = originalText || 'Копировать';
+      element.style.borderColor = '';
+      element.style.color = '';
+    }, 2000);
+  }
+
+  function fallbackCopy(text, element) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    try {
+      document.execCommand('copy');
+      showCopyFeedback(element);
+    } catch (e) {}
+    document.body.removeChild(textarea);
+  }
+};
+
+window.openYandexNavi = function(event, link) {
+  // If desktop browser, redirect directly to Yandex Maps web
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if (!isMobile) {
+    if (event) event.preventDefault();
+    window.open('https://yandex.ru/maps/?rtext=~55.708892,37.382897&rtt=auto', '_blank', 'noopener,noreferrer');
+    return;
+  }
+  // On mobile devices, try deep link into app with timer fallback to web
+  const webFallback = 'https://yandex.ru/maps/?rtext=~55.708892,37.382897&rtt=auto';
+  const start = Date.now();
+  setTimeout(() => {
+    // If user is still on page after 1.2s, app wasn't launched -> open web maps
+    if (Date.now() - start < 1800 && !document.hidden) {
+      window.location.href = webFallback;
+    }
+  }, 1200);
+};
 
 // Clean Premium Motorsport Preloader (Fast, Seamless & Silky Smooth)
 function initPreloader() {
