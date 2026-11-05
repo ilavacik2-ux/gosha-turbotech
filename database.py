@@ -1044,26 +1044,55 @@ def seed_initial_data(cursor):
             json.dumps(car.get("specs", {})), idx + 1
         ))
 
-    default_team = [
-        {"id": "m1", "name": "Гоша", "role": "Основатель & Главный конструктор GTT", "status": "active", "photo": "assets/archive_tilda/team_gosha.jpg"},
-        {"id": "m2", "name": "Эдик", "role": "Технический директор ателье", "status": "active", "photo": "assets/archive_tilda/team_edik.jpg"},
-        {"id": "m3", "name": "Дмитрий", "role": "Администратор проектов", "status": "atelier", "photo": "assets/archive_tilda/team_dmitry.jpg"},
-        {"id": "m4", "name": "Мария", "role": "Делопроизводитель & Менеджер рекордов", "status": "atelier", "photo": "assets/archive_tilda/team_maria.jpg"},
-        {"id": "m5", "name": "Павел", "role": "Делопроизводитель & Логист команды", "status": "atelier", "photo": "assets/archive_tilda/team_pavel.jpg"},
-        {"id": "m6", "name": "Георгий", "role": "Инженер-электрик & Калибровщик Motec/Syvecs", "status": "active", "photo": "assets/archive_tilda/team_georgy.jpg"},
-        {"id": "m7", "name": "Рустам", "role": "Моторист высшей квалификации", "status": "active", "photo": "assets/archive_tilda/team_rustam.jpg"},
-        {"id": "m8", "name": "Никита", "role": "Гоночный механик паддока", "status": "paddock", "photo": "assets/archive_tilda/team_nikita.jpg"},
-        {"id": "m9", "name": "Иван", "role": "Гоночный механик паддока", "status": "paddock", "photo": "assets/archive_tilda/team_ivan.jpg"},
-        {"id": "m10", "name": "Алексей", "role": "Гоночный механик паддока", "status": "paddock", "photo": "assets/archive_tilda/team_alexey_paddock.jpg"},
-        {"id": "m11", "name": "Фазик", "role": "Механик сборочного цеха", "status": "atelier", "photo": "assets/archive_tilda/team_fazik.jpg"},
-        {"id": "m12", "name": "Степан", "role": "Механик сборочного цеха", "status": "atelier", "photo": "assets/archive_tilda/team_stepan.jpg"},
-        {"id": "m13", "name": "Алексей", "role": "Механик ходовой части", "status": "atelier", "photo": "assets/archive_tilda/team_alexey_mech.jpg"},
-        {"id": "m14", "name": "Роман", "role": "Сварщик-фабрикатор титана и инконеля", "status": "active", "photo": "assets/archive_tilda/team_roman.jpg"},
-        {"id": "m15", "name": "Евгений", "role": "Диагност электронных систем", "status": "active", "photo": "assets/archive_tilda/team_evgeny.jpg"}
-    ]
+    team_json_path = os.path.join(os.path.dirname(__file__), "data", "team.json")
+    if os.path.exists(team_json_path):
+        try:
+            with open(team_json_path, "r", encoding="utf-8") as f:
+                default_team = json.load(f)
+        except Exception:
+            default_team = []
+    else:
+        default_team = []
+
+    if not default_team:
+        default_team = [
+            {"id": "m_gosha", "name": "Гоша Перцхелия", "role": "Основатель & Главный конструктор GTT", "status": "active", "photo": "", "social": "@goshaturbotech"},
+            {"id": "m_pertskheliya_givi", "name": "Гиви Перцхелия", "role": "Босс", "status": "active", "photo": "", "social": None},
+            {"id": "m_pertskheliya_mikhail", "name": "Михаил Перцхелия", "role": "Исполнительный директор", "status": "active", "photo": "", "social": None},
+            {"id": "m_sarkisyan", "name": "Эдуард Саркисян", "role": "Технический директор", "status": "active", "photo": "", "social": None},
+            {"id": "m_pertskheliya_zurab", "name": "Зураб Перцхелия", "role": "Помощник руководителя", "status": "active", "photo": "", "social": None},
+            {"id": "m_pashchenko", "name": "Даниил Пащенко", "role": "Руководитель Медиа отдела", "status": "active", "photo": "", "social": None},
+            {"id": "m_gurov", "name": "Дмитрий Гуров", "role": "Инженер-проектировщик", "status": "atelier", "photo": "", "social": None},
+            {"id": "m_shevtsov", "name": "Георгий Шевцов", "role": "Ст. Электрик", "status": "active", "photo": "", "social": None},
+            {"id": "m_nikolaev", "name": "Артем Николаев", "role": "Мл. Электрик", "status": "atelier", "photo": "", "social": None},
+            {"id": "m_labkovich", "name": "Евгений Лабкович", "role": "Диагност", "status": "active", "photo": "", "social": None},
+            {"id": "m_stotsky", "name": "Сергей Стоцкий", "role": "Моторист-агрегатчик", "status": "active", "photo": "", "social": None},
+            {"id": "m_turdibaev", "name": "Рустам Турдибаев", "role": "Моторист-агрегатчик", "status": "active", "photo": "", "social": None},
+            {"id": "m_mazhnunov", "name": "Солехджон Мажнунов", "role": "Помощник моториста", "status": "atelier", "photo": "", "social": None},
+            {"id": "m_petrushin", "name": "Павел Петрушин", "role": "Помощник моториста", "status": "atelier", "photo": "", "social": None},
+            {"id": "m_mamsurov", "name": "Ксанти Мамсуров", "role": "Сварщик-фабрикатор", "status": "active", "photo": "", "social": None},
+            {"id": "m_fetkulin", "name": "Роман Феткулин", "role": "Сварщик-фабрикатор", "status": "active", "photo": "", "social": None},
+            {"id": "m_bagdasaryan", "name": "Микаел Багдасарян", "role": "Механик", "status": "paddock", "photo": "", "social": None},
+            {"id": "m_burnashov", "name": "Эрик Бурнашов", "role": "Механик", "status": "paddock", "photo": "", "social": None},
+            {"id": "m_ivanov", "name": "Никита Иванов", "role": "Механик", "status": "paddock", "photo": "", "social": None},
+            {"id": "m_mazhorov", "name": "Иван Мажоров", "role": "Механик", "status": "paddock", "photo": "", "social": None},
+            {"id": "m_malofeev", "name": "Алексей Малофеев", "role": "Механик", "status": "paddock", "photo": "", "social": None},
+            {"id": "m_marin", "name": "Вадим Марин", "role": "Механик", "status": "atelier", "photo": "", "social": None},
+            {"id": "m_osipov", "name": "Артем Осипов", "role": "Механик", "status": "atelier", "photo": "", "social": None},
+            {"id": "m_ponomarev", "name": "Николай Пономарев", "role": "Механик", "status": "atelier", "photo": "", "social": None},
+            {"id": "m_sergeev", "name": "Андрей Сергеев", "role": "Механик", "status": "atelier", "photo": "", "social": None},
+            {"id": "m_shinkarenko", "name": "Степан Шинкаренко", "role": "Механик", "status": "atelier", "photo": "", "social": None},
+            {"id": "m_yakovlev", "name": "Алексей Яковлев", "role": "Мото-механик", "status": "atelier", "photo": "", "social": None},
+            {"id": "m_barankin", "name": "Дмитрий Баранкин", "role": "Менеджер по закупкам", "status": "atelier", "photo": "", "social": None},
+            {"id": "m_gazaryan", "name": "Павел Газарьян", "role": "Менеджер по закупкам", "status": "atelier", "photo": "", "social": None},
+            {"id": "m_gusarov", "name": "Илья Гусаров", "role": "Заведующий складом", "status": "atelier", "photo": "", "social": None},
+            {"id": "m_zolotareva", "name": "Мария Золотарева", "role": "Делопроизводитель", "status": "atelier", "photo": "", "social": None},
+            {"id": "m_kopyl", "name": "Ульяна Копыл", "role": "Контент-Мейкер", "status": "atelier", "photo": "", "social": None},
+            {"id": "m_babyakin", "name": "Никита Бабякин", "role": "Специалист по хозяйственному обеспечению", "status": "atelier", "photo": "", "social": None}
+        ]
     for idx, member in enumerate(default_team):
-        cursor.execute("INSERT OR REPLACE INTO team (id, name, role, status, photo, sort_order) VALUES (?, ?, ?, ?, ?, ?)",
-                       (member["id"], member["name"], member["role"], member["status"], member.get("photo"), idx + 1))
+        cursor.execute("INSERT OR REPLACE INTO team (id, name, role, status, photo, social, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                       (member["id"], member["name"], member["role"], member["status"], member.get("photo", ""), member.get("social"), member.get("sort_order", idx + 1)))
 
     default_records = [
         {"id": "rec_moses", "year": "2016 • Абсолютный рекорд GTT", "car": "NISSAN GT-R R35 GTT-1800 «MOSES»", "telemetry": "1/4 мили: 7.526 сек • 304.36 км/ч", "desc": "Легендарные тесты в ОАЭ и UNLIM 500+ Greece. 7.526 сек со скоростью 304.36 км/ч — быстрейший результат на 402 м за всю историю ателье GoshaTurboTech.", "img": "assets/archive_tilda/gtr_moses.png"},
@@ -1380,21 +1409,23 @@ def upsert_team_member(member: Dict[str, Any]) -> Dict[str, Any]:
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("""
-    INSERT INTO team (id, name, role, status, photo, social)
-    VALUES (?, ?, ?, ?, ?, ?)
+    INSERT INTO team (id, name, role, status, photo, social, sort_order)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(id) DO UPDATE SET
         name=excluded.name,
         role=excluded.role,
         status=excluded.status,
-        photo=COALESCE(excluded.photo, team.photo),
-        social=COALESCE(excluded.social, team.social)
+        photo=excluded.photo,
+        social=excluded.social,
+        sort_order=COALESCE(excluded.sort_order, team.sort_order)
     """, (
         member["id"], 
         member["name"], 
         member["role"], 
         member.get("status", "active"),
-        member.get("photo"),
-        member.get("social")
+        member.get("photo", "") if member.get("photo") is not None else "",
+        member.get("social", "") if member.get("social") is not None else "",
+        member.get("sort_order")
     ))
     conn.commit()
     conn.close()

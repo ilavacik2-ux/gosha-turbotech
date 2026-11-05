@@ -630,41 +630,77 @@ const defaultProjects = [
   }
 ];
 
-// 2. Initial Team Seed (15 Members with high-res photos)
+// 2. Initial Team Seed (33 Members from Atelier Roster)
 const defaultTeamPhotos = {
-  m1: 'assets/archive_tilda/team_gosha.jpg',
-  m2: 'assets/archive_tilda/team_edik.jpg',
-  m3: 'assets/archive_tilda/team_dmitry.jpg',
-  m4: 'assets/archive_tilda/team_maria.jpg',
-  m5: 'assets/archive_tilda/team_pavel.jpg',
-  m6: 'assets/archive_tilda/team_georgy.jpg',
-  m7: 'assets/archive_tilda/team_rustam.jpg',
-  m8: 'assets/archive_tilda/team_nikita.jpg',
-  m9: 'assets/archive_tilda/team_ivan.jpg',
-  m10: 'assets/archive_tilda/team_alexey_paddock.jpg',
-  m11: 'assets/archive_tilda/team_fazik.jpg',
-  m12: 'assets/archive_tilda/team_stepan.jpg',
-  m13: 'assets/archive_tilda/team_alexey_mech.jpg',
-  m14: 'assets/archive_tilda/team_roman.jpg',
-  m15: 'assets/archive_tilda/team_evgeny.jpg'
+  m_gosha: '',
+  m_pertskheliya_givi: '',
+  m_pertskheliya_mikhail: '',
+  m_sarkisyan: '',
+  m_pertskheliya_zurab: '',
+  m_pashchenko: '',
+  m_gurov: '',
+  m_shevtsov: '',
+  m_nikolaev: '',
+  m_labkovich: '',
+  m_stotsky: '',
+  m_turdibaev: '',
+  m_mazhnunov: '',
+  m_petrushin: '',
+  m_mamsurov: '',
+  m_fetkulin: '',
+  m_bagdasaryan: '',
+  m_burnashov: '',
+  m_ivanov: '',
+  m_mazhorov: '',
+  m_malofeev: '',
+  m_marin: '',
+  m_osipov: '',
+  m_ponomarev: '',
+  m_sergeev: '',
+  m_shinkarenko: '',
+  m_yakovlev: '',
+  m_barankin: '',
+  m_gazaryan: '',
+  m_gusarov: '',
+  m_zolotareva: '',
+  m_kopyl: '',
+  m_babyakin: ''
 };
 
 const defaultTeam = [
-  { id: 'm1', name: 'Гоша', role: 'Основатель & Главный конструктор GTT', status: 'active', photo: defaultTeamPhotos.m1 },
-  { id: 'm2', name: 'Эдик', role: 'Технический директор ателье', status: 'active', photo: defaultTeamPhotos.m2 },
-  { id: 'm3', name: 'Дмитрий', role: 'Администратор проектов', status: 'atelier', photo: defaultTeamPhotos.m3 },
-  { id: 'm4', name: 'Мария', role: 'Делопроизводитель & Менеджер рекордов', status: 'atelier', photo: defaultTeamPhotos.m4 },
-  { id: 'm5', name: 'Павел', role: 'Делопроизводитель & Логист команды', status: 'atelier', photo: defaultTeamPhotos.m5 },
-  { id: 'm6', name: 'Георгий', role: 'Инженер-электрик & Калибровщик Motec/Syvecs', status: 'active', photo: defaultTeamPhotos.m6 },
-  { id: 'm7', name: 'Рустам', role: 'Моторист высшей квалификации', status: 'active', photo: defaultTeamPhotos.m7 },
-  { id: 'm8', name: 'Никита', role: 'Гоночный механик паддока', status: 'paddock', photo: defaultTeamPhotos.m8 },
-  { id: 'm9', name: 'Иван', role: 'Гоночный механик паддока', status: 'paddock', photo: defaultTeamPhotos.m9 },
-  { id: 'm10', name: 'Алексей', role: 'Гоночный механик паддока', status: 'paddock', photo: defaultTeamPhotos.m10 },
-  { id: 'm11', name: 'Фазик', role: 'Механик сборочного цеха', status: 'atelier', photo: defaultTeamPhotos.m11 },
-  { id: 'm12', name: 'Степан', role: 'Механик сборочного цеха', status: 'atelier', photo: defaultTeamPhotos.m12 },
-  { id: 'm13', name: 'Алексей', role: 'Механик ходовой части', status: 'atelier', photo: defaultTeamPhotos.m13 },
-  { id: 'm14', name: 'Роман', role: 'Сварщик-фабрикатор титана и инконеля', status: 'active', photo: defaultTeamPhotos.m14 },
-  { id: 'm15', name: 'Евгений', role: 'Диагност электронных систем', status: 'active', photo: defaultTeamPhotos.m15 }
+  { id: 'm_gosha', name: 'Гоша Перцхелия', role: 'Основатель & Главный конструктор GTT', status: 'active', photo: '', social: '@goshaturbotech', sort_order: 1 },
+  { id: 'm_pertskheliya_givi', name: 'Гиви Перцхелия', role: 'Босс', status: 'active', photo: '', social: '', sort_order: 2 },
+  { id: 'm_pertskheliya_mikhail', name: 'Михаил Перцхелия', role: 'Исполнительный директор', status: 'active', photo: '', social: '', sort_order: 3 },
+  { id: 'm_sarkisyan', name: 'Эдуард Саркисян', role: 'Технический директор', status: 'active', photo: '', social: '', sort_order: 4 },
+  { id: 'm_pertskheliya_zurab', name: 'Зураб Перцхелия', role: 'Помощник руководителя', status: 'active', photo: '', social: '', sort_order: 5 },
+  { id: 'm_pashchenko', name: 'Даниил Пащенко', role: 'Руководитель Медиа отдела', status: 'active', photo: '', social: '', sort_order: 6 },
+  { id: 'm_gurov', name: 'Дмитрий Гуров', role: 'Инженер-проектировщик', status: 'atelier', photo: '', social: '', sort_order: 7 },
+  { id: 'm_shevtsov', name: 'Георгий Шевцов', role: 'Ст. Электрик', status: 'active', photo: '', social: '', sort_order: 8 },
+  { id: 'm_nikolaev', name: 'Артем Николаев', role: 'Мл. Электрик', status: 'atelier', photo: '', social: '', sort_order: 9 },
+  { id: 'm_labkovich', name: 'Евгений Лабкович', role: 'Диагност', status: 'active', photo: '', social: '', sort_order: 10 },
+  { id: 'm_stotsky', name: 'Сергей Стоцкий', role: 'Моторист-агрегатчик', status: 'active', photo: '', social: '', sort_order: 11 },
+  { id: 'm_turdibaev', name: 'Рустам Турдибаев', role: 'Моторист-агрегатчик', status: 'active', photo: '', social: '', sort_order: 12 },
+  { id: 'm_mazhnunov', name: 'Солехджон Мажнунов', role: 'Помощник моториста', status: 'atelier', photo: '', social: '', sort_order: 13 },
+  { id: 'm_petrushin', name: 'Павел Петрушин', role: 'Помощник моториста', status: 'atelier', photo: '', social: '', sort_order: 14 },
+  { id: 'm_mamsurov', name: 'Ксанти Мамсуров', role: 'Сварщик-фабрикатор', status: 'active', photo: '', social: '', sort_order: 15 },
+  { id: 'm_fetkulin', name: 'Роман Феткулин', role: 'Сварщик-фабрикатор', status: 'active', photo: '', social: '', sort_order: 16 },
+  { id: 'm_bagdasaryan', name: 'Микаел Багдасарян', role: 'Механик', status: 'paddock', photo: '', social: '', sort_order: 17 },
+  { id: 'm_burnashov', name: 'Эрик Бурнашов', role: 'Механик', status: 'paddock', photo: '', social: '', sort_order: 18 },
+  { id: 'm_ivanov', name: 'Никита Иванов', role: 'Механик', status: 'paddock', photo: '', social: '', sort_order: 19 },
+  { id: 'm_mazhorov', name: 'Иван Мажоров', role: 'Механик', status: 'paddock', photo: '', social: '', sort_order: 20 },
+  { id: 'm_malofeev', name: 'Алексей Малофеев', role: 'Механик', status: 'paddock', photo: '', social: '', sort_order: 21 },
+  { id: 'm_marin', name: 'Вадим Марин', role: 'Механик', status: 'atelier', photo: '', social: '', sort_order: 22 },
+  { id: 'm_osipov', name: 'Артем Осипов', role: 'Механик', status: 'atelier', photo: '', social: '', sort_order: 23 },
+  { id: 'm_ponomarev', name: 'Николай Пономарев', role: 'Механик', status: 'atelier', photo: '', social: '', sort_order: 24 },
+  { id: 'm_sergeev', name: 'Андрей Сергеев', role: 'Механик', status: 'atelier', photo: '', social: '', sort_order: 25 },
+  { id: 'm_shinkarenko', name: 'Степан Шинкаренко', role: 'Механик', status: 'atelier', photo: '', social: '', sort_order: 26 },
+  { id: 'm_yakovlev', name: 'Алексей Яковлев', role: 'Мото-механик', status: 'atelier', photo: '', social: '', sort_order: 27 },
+  { id: 'm_barankin', name: 'Дмитрий Баранкин', role: 'Менеджер по закупкам', status: 'atelier', photo: '', social: '', sort_order: 28 },
+  { id: 'm_gazaryan', name: 'Павел Газарьян', role: 'Менеджер по закупкам', status: 'atelier', photo: '', social: '', sort_order: 29 },
+  { id: 'm_gusarov', name: 'Илья Гусаров', role: 'Заведующий складом', status: 'atelier', photo: '', social: '', sort_order: 30 },
+  { id: 'm_zolotareva', name: 'Мария Золотарева', role: 'Делопроизводитель', status: 'atelier', photo: '', social: '', sort_order: 31 },
+  { id: 'm_kopyl', name: 'Ульяна Копыл', role: 'Контент-Мейкер', status: 'atelier', photo: '', social: '', sort_order: 32 },
+  { id: 'm_babyakin', name: 'Никита Бабякин', role: 'Специалист по хозяйственному обеспечению', status: 'atelier', photo: '', social: '', sort_order: 33 }
 ];
 
 // 3. Initial Records Seed (Hall of Fame with authentic photos)
@@ -3048,7 +3084,7 @@ function handleTeamPhotoInput(val) {
   const trimmed = (val || '').trim();
   const img = document.getElementById('teamImgPreview');
   if (img) {
-    img.src = trimmed || 'assets/photos/team_pilot_paddock.jpg';
+    img.src = trimmed || 'assets/photos/gtt_shield_logo.svg';
   }
   updateTeamLiveCardPreview();
 }
@@ -3077,7 +3113,14 @@ function updateTeamLiveCardPreview() {
   }
   if (imgPrev && photoInput) {
     const p = photoInput.value.trim();
-    if (p) imgPrev.src = p;
+    imgPrev.src = p || 'assets/photos/gtt_shield_logo.svg';
+    if (!p) {
+      imgPrev.style.objectFit = 'contain';
+      imgPrev.style.padding = '12px';
+    } else {
+      imgPrev.style.objectFit = 'cover';
+      imgPrev.style.padding = '0';
+    }
   }
 }
 
@@ -3085,13 +3128,14 @@ function clearTeamPhotoPreview() {
   const input = document.getElementById('editMemberPhoto');
   const fileInput = document.getElementById('teamPhotoFileInput');
   const img = document.getElementById('teamImgPreview');
-  const memberId = document.getElementById('editMemberId')?.value;
-  const fallback = (memberId && defaultTeamPhotos[memberId]) ? defaultTeamPhotos[memberId] : 'assets/photos/gtt_shield_logo.svg';
+  const fallback = 'assets/photos/gtt_shield_logo.svg';
 
-  if (input) input.value = (memberId && defaultTeamPhotos[memberId]) ? defaultTeamPhotos[memberId] : '';
+  if (input) input.value = '';
   if (fileInput) fileInput.value = '';
   if (img) {
     img.src = fallback;
+    img.style.objectFit = 'contain';
+    img.style.padding = '12px';
     img.onerror = () => { img.src = 'assets/photos/gtt_shield_logo.svg'; };
   }
   updateTeamLiveCardPreview();
@@ -3953,8 +3997,20 @@ function selectTeamMemberForInspection(id) {
   const badgeEl = document.getElementById('inspectorMemberBadge');
   const editBtn = document.getElementById('inspectorEditBtn');
 
-  const photo = m.photo || defaultTeamPhotos[m.id] || 'assets/photos/team_pilot_paddock.jpg';
-  if (img) img.src = photo;
+  const hasPhoto = Boolean(m.photo && m.photo.trim());
+  const photo = hasPhoto ? m.photo : 'assets/photos/gtt_shield_logo.svg';
+  if (img) {
+    img.src = photo;
+    if (!hasPhoto) {
+      img.style.objectFit = 'contain';
+      img.style.padding = '30px';
+      img.style.background = 'radial-gradient(circle at center, rgba(230,0,0,0.08), rgba(0,0,0,0.85))';
+    } else {
+      img.style.objectFit = 'cover';
+      img.style.padding = '0';
+      img.style.background = 'none';
+    }
+  }
   if (nameEl) nameEl.textContent = m.name;
   if (roleEl) roleEl.textContent = m.role;
 
@@ -3964,7 +4020,9 @@ function selectTeamMemberForInspection(id) {
     paddock: '🏁 На выездном этапе паддока'
   };
   if (statusEl) statusEl.textContent = statusMap[m.status] || m.status;
-  if (badgeEl) badgeEl.textContent = m.status === 'active' ? 'RDRC Core' : (m.status === 'atelier' ? 'Lab Spec' : 'Paddock');
+  if (badgeEl) badgeEl.textContent = hasPhoto 
+    ? (m.status === 'active' ? 'RDRC Core' : (m.status === 'atelier' ? 'Lab Spec' : 'Paddock'))
+    : 'Ожидает фото';
   if (editBtn) editBtn.setAttribute('onclick', `openTeamMemberModal('${escapeJS(m.id)}')`);
 
   // Highlight selected table row
@@ -3988,16 +4046,20 @@ function renderTeamTable() {
   };
 
   tbody.innerHTML = team.map((m, idx) => {
-    const photoUrl = escapeHTML(m.photo || defaultTeamPhotos[m.id] || 'assets/photos/team_pilot_paddock.jpg');
+    const hasPhoto = Boolean(m.photo && m.photo.trim());
+    const photoUrl = escapeHTML(hasPhoto ? m.photo : 'assets/photos/gtt_shield_logo.svg');
     const name = escapeHTML(m.name);
     const role = escapeHTML(m.role);
     const id = escapeJS(m.id);
     const statusHtml = statusMap[m.status] || escapeHTML(m.status);
+    const thumbStyle = hasPhoto 
+      ? 'width: 44px; height: 44px; border-radius: 6px; object-fit: cover; border: 1px solid rgba(255,255,255,0.15); display: block;' 
+      : 'width: 44px; height: 44px; border-radius: 6px; object-fit: contain; padding: 6px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); display: block; opacity: 0.75;';
     return `
-    <tr data-team-id="${id}" onclick="selectTeamMemberForInspection('${id}')" style="cursor: pointer;" title="Кликните для просмотра фото и профиля справа">
+    <tr data-team-id="${id}" onclick="selectTeamMemberForInspection('${id}')" style="cursor: pointer;" title="Кликните для просмотра профиля сотрудника">
       <td style="color: var(--text-dim); font-family: var(--font-mono);">${idx + 1}</td>
       <td>
-        <img src="${photoUrl}" alt="${name}" class="team-member-thumb" style="width: 44px; height: 44px; border-radius: 6px; object-fit: cover; border: 1px solid rgba(255,255,255,0.15); display: block;" onerror="this.src='assets/photos/team_pilot_paddock.jpg'">
+        <img src="${photoUrl}" alt="${name}" class="team-member-thumb" style="${thumbStyle}" onerror="this.src='assets/photos/gtt_shield_logo.svg'">
       </td>
       <td style="font-weight: 700; color: #fff;">${name}</td>
       <td>${role}</td>
@@ -4033,7 +4095,7 @@ function openTeamMemberModal(id) {
     document.getElementById('editMemberName').value = m.name;
     document.getElementById('editMemberRole').value = m.role;
     document.getElementById('editMemberStatus').value = m.status;
-    const photo = m.photo || defaultTeamPhotos[m.id] || '';
+    const photo = m.photo || '';
     if (document.getElementById('editMemberPhoto')) {
       document.getElementById('editMemberPhoto').value = photo;
       handleTeamPhotoInput(photo);
@@ -4066,14 +4128,14 @@ async function saveTeamMember(e) {
   }
 
   const existingMember = idInput ? team.find(m => m.id === idInput) : null;
-  const photoVal = document.getElementById('editMemberPhoto')?.value.trim() || (existingMember ? existingMember.photo : '') || (idInput ? defaultTeamPhotos[idInput] : '');
+  const photoVal = document.getElementById('editMemberPhoto')?.value.trim() || '';
 
   const memberData = {
     id: idInput || ('team_' + Date.now()),
     name: rawName,
     role: document.getElementById('editMemberRole').value.trim() || 'Инженер GTT Atelier',
     status: document.getElementById('editMemberStatus').value || 'active',
-    photo: photoVal || undefined,
+    photo: photoVal,
     social: existingMember ? existingMember.social : undefined
   };
 

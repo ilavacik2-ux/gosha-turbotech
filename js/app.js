@@ -1897,23 +1897,9 @@ function updateFilterPillsCounts() {
   if (pillOther) pillOther.textContent = currentLang === 'ru' ? `Эксклюзив & Маслкары (${otherCount})` : `Exclusive & Muscle (${otherCount})`;
 }
 
-// Pre-configured official team assets & photos map
+// Pre-configured official team assets & photos map (photos cleared awaiting official shoot)
 const defaultTeamPhotos = {
-  m1: { photo: 'assets/archive_tilda/team_gosha.jpg', social: '@goshaturbotech' },
-  m2: { photo: 'assets/archive_tilda/team_edik.jpg', social: '@vip.hay' },
-  m3: { photo: 'assets/archive_tilda/team_dmitry.jpg', social: '' },
-  m4: { photo: 'assets/archive_tilda/team_maria.jpg', social: '@_zm_zima_' },
-  m5: { photo: 'assets/archive_tilda/team_pavel.jpg', social: '' },
-  m6: { photo: 'assets/archive_tilda/team_georgy.jpg', social: '' },
-  m7: { photo: 'assets/archive_tilda/team_rustam.jpg', social: '' },
-  m8: { photo: 'assets/archive_tilda/team_nikita.jpg', social: '' },
-  m9: { photo: 'assets/archive_tilda/team_ivan.jpg', social: '' },
-  m10: { photo: 'assets/archive_tilda/team_alexey_paddock.jpg', social: '' },
-  m11: { photo: 'assets/archive_tilda/team_fazik.jpg', social: '' },
-  m12: { photo: 'assets/archive_tilda/team_stepan.jpg', social: '' },
-  m13: { photo: 'assets/archive_tilda/team_alexey_mech.jpg', social: '' },
-  m14: { photo: 'assets/archive_tilda/team_roman.jpg', social: '' },
-  m15: { photo: 'assets/archive_tilda/team_evgeny.jpg', social: '' }
+  m_gosha: { photo: '', social: '@goshaturbotech' }
 };
 
 let cachedTeamData = null;
@@ -3779,11 +3765,11 @@ let isTeamExpanded = false;
 function getDeptByRole(role) {
   if (!role) return 'reserve';
   const r = role.toLowerCase();
-  if (r.includes('основатель') || r.includes('директор') || r.includes('администратор') || r.includes('делопроизводитель')) return 'management';
-  if (r.includes('инженер') || r.includes('моторист') || r.includes('диагност') || r.includes('электрик') || r.includes('калибровщик') || r.includes('телеметри')) return 'engineers';
-  if (r.includes('механик')) return 'mechanics';
+  if (r.includes('основатель') || r.includes('босс') || r.includes('директор') || r.includes('руководитель') || r.includes('помощник руководителя') || r.includes('администратор') || r.includes('делопроизводитель') || r.includes('заведующий') || r.includes('закупк') || r.includes('хозяйственн') || r.includes('контент') || r.includes('медиа')) return 'management';
+  if (r.includes('инженер') || r.includes('моторист') || r.includes('помощник моториста') || r.includes('диагност') || r.includes('электрик') || r.includes('калибровщик') || r.includes('телеметри')) return 'engineers';
+  if (r.includes('механик') || r.includes('мото-механик')) return 'mechanics';
   if (r.includes('сварщик') || r.includes('фабрикатор')) return 'fab';
-  return 'reserve';
+  return 'management';
 }
 
 function updateTeamVisibility() {
@@ -3856,17 +3842,14 @@ function renderTeamGrid(teamList) {
   const grid = document.getElementById('teamGrid');
   if (!grid || !Array.isArray(teamList)) return;
   grid.innerHTML = teamList.map(m => {
-    const asset = defaultTeamPhotos[m.id] || { photo: 'assets/photos/gtt_shield_logo.svg', social: '' };
-    let photo = m.photo || asset.photo;
-    if (!photo || photo.includes('tildacdn.com')) {
-      photo = asset.photo;
-    }
-    const social = m.social !== undefined ? m.social : asset.social;
+    const rawPhoto = (m.photo && typeof m.photo === 'string') ? m.photo.trim() : '';
+    const hasPhoto = Boolean(rawPhoto && !rawPhoto.includes('tildacdn.com'));
+    const social = m.social ? String(m.social) : '';
     const rawId = m.id || '';
     const num = rawId.replace(/\D/g, '');
     const dept = getDeptByRole(m.role);
-    let displayRole = m.role;
-    let displayName = m.name;
+    let displayRole = m.role || '';
+    let displayName = m.name || '';
 
     if (currentLang === 'en') {
       if (num && i18n.en[`team_role_${num}`]) {
@@ -3875,19 +3858,24 @@ function renderTeamGrid(teamList) {
       if (num && i18n.en[`team_name_${num}`]) {
         displayName = i18n.en[`team_name_${num}`];
       }
-    } else {
-      if (num && i18n.ru[`team_role_${num}`]) {
-        displayRole = i18n.ru[`team_role_${num}`];
-      }
-      if (num && i18n.ru[`team_name_${num}`]) {
-        displayName = i18n.ru[`team_name_${num}`];
-      }
     }
+
+    const photoContent = hasPhoto
+      ? `<img src="${rawPhoto}" alt="${displayName}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'team-card-photo-teaser\\'><div class=\\'team-placeholder-shield\\'><img src=\\'assets/photos/gtt_shield_logo.svg\\' alt=\\'GTT\\' class=\\'team-placeholder-shield-icon\\'></div><div class=\\'team-placeholder-badge\\'><span class=\\'team-placeholder-pill\\'>ШТАБ // GTT FLEET</span><span class=\\'team-placeholder-sub\\'>ФОТО СКОРО</span></div></div>';">`
+      : `<div class="team-card-photo-teaser">
+          <div class="team-placeholder-shield">
+            <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-shield-icon" loading="lazy">
+          </div>
+          <div class="team-placeholder-badge">
+            <span class="team-placeholder-pill">ШТАБ // GTT FLEET</span>
+            <span class="team-placeholder-sub">ФОТО СКОРО</span>
+          </div>
+        </div>`;
 
     return `
       <div class="team-card" data-team-dept="${dept}">
         <div class="team-card-photo">
-          <img src="${photo}" alt="${displayName}" loading="lazy" onerror="if(this.src!=='${asset.photo}'){this.src='${asset.photo}';}else{this.src='assets/photos/gtt_shield_logo.svg';}">
+          ${photoContent}
         </div>
         <div class="team-card-body">
           <span class="team-role">${displayRole}</span>
