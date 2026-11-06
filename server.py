@@ -56,6 +56,7 @@ class SecurityShieldMiddleware:
 
         async def send_wrapper(message):
             if message["type"] == "http.response.start":
+                headers = list(message.get("headers", []))
                 extra_headers = [
                     (b"x-content-type-options", b"nosniff"),
                     (b"x-frame-options", b"SAMEORIGIN"),
