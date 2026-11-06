@@ -973,5 +973,27 @@ if __name__ == "__main__":
     print(f"👉 Main Site (127):    http://127.0.0.1:8000")
     print(f"👉 Phone / Local Net:  http://{local_ip}:8000")
     print(f"👉 Admin Panel:        http://localhost:8000/admin?token=gtt_atelier_2026_x71k")
-    print("="*60 + "\n")
-    uvicorn.run("server:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run(
+        "server:app",
+        host="0.0.0.0",
+        port=8000,
+        reload=True,
+        reload_excludes=[
+            "assets/*",
+            "assets/cars/*",
+            "assets/videos/*",
+            "assets/team/*",
+            "assets/records/*",
+            "assets/gallery/*",
+            "data/*",
+            "*.sqlite*",
+            "*.sqlite-journal",
+            "*.json",
+            "*.log",
+            "*.jpg",
+            "*.jpeg",
+            "*.png",
+            "*.webp",
+            "*.mp4"
+        ]
+    )

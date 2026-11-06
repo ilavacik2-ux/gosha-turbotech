@@ -1337,6 +1337,102 @@ body {
   animation-play-state: paused;
 }
 
+/* Rich Media Toast with Uploaded Thumbnail Confirmation */
+.gtt-toast.toast-with-media {
+  gap: 14px;
+  align-items: center;
+  padding: 14px 16px;
+  max-width: 460px;
+}
+
+.gtt-toast-thumb-wrap {
+  width: 58px;
+  height: 58px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+  background: #000;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+.gtt-toast-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 50%;
+  display: block;
+}
+
+.gtt-toast-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: rgba(34, 197, 94, 0.18);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  color: #4ade80;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+/* Row Just Updated Pulse & Glow Animation */
+@keyframes rowPulseGlow {
+  0% {
+    background-color: rgba(34, 197, 94, 0.3) !important;
+    box-shadow: inset 0 0 0 2px #22c55e, 0 0 24px rgba(34, 197, 94, 0.4) !important;
+  }
+  50% {
+    background-color: rgba(234, 91, 12, 0.2) !important;
+    box-shadow: inset 0 0 0 2px var(--gtt-orange), 0 0 20px var(--gtt-orange-glow) !important;
+  }
+  100% {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
+
+tr.tr-just-updated {
+  animation: rowPulseGlow 3.5s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+.car-thumb-wrap {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.car-thumb-just-updated::after {
+  content: '✓';
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #22c55e;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 900;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px #22c55e;
+  border: 2px solid #0e1219;
+  z-index: 5;
+  animation: popBadge 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes popBadge {
+  0% { transform: scale(0); opacity: 0; }
+  70% { transform: scale(1.3); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
 @media (max-width: 768px) {
   .gtt-toast-container {
     top: 16px;

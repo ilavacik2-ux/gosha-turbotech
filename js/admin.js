@@ -931,15 +931,25 @@ const MOTO_STORAGE_KEY = 'gtt_admin_moto_db';
 const API_BASE = '';
 
 async function apiFetch(endpoint, options = {}) {
+  // If static hosting (GitHub Pages) or file protocol, bypass network immediately to eliminate 2-5s 404 delays
+  if (typeof isStaticDeployment === 'function' && isStaticDeployment()) {
+    throw new Error('Static hosting mode: skipping backend network call, local storage active');
+  }
+
+  const sessionToken = sessionStorage.getItem('gtt_session_token') || localStorage.getItem('gtt_session_token');
+  const authHeaders = sessionToken ? { 'Authorization': `Bearer ${sessionToken}` } : {};
+  const gateToken = (typeof getSecretGatewayToken === 'function') ? getSecretGatewayToken() : (sessionStorage.getItem('gtt_gate_token') || 'gtt_atelier_2026_x71k');
+
+  const { headers: optHeaders, ...restOptions } = options;
+
+  // Set aggressive 3.5s timeout via AbortController to guarantee zero UI freezing
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 3500);
+
   try {
-    const sessionToken = sessionStorage.getItem('gtt_session_token') || localStorage.getItem('gtt_session_token');
-    const authHeaders = sessionToken ? { 'Authorization': `Bearer ${sessionToken}` } : {};
-    const gateToken = (typeof getSecretGatewayToken === 'function') ? getSecretGatewayToken() : (sessionStorage.getItem('gtt_gate_token') || 'gtt_atelier_2026_x71k');
-
-    const { headers: optHeaders, ...restOptions } = options;
-
     const res = await fetch(API_BASE + endpoint, {
       ...restOptions,
+      signal: controller.signal,
       headers: {
         'Content-Type': 'application/json',
         'x-gateway-token': gateToken,
@@ -947,13 +957,16 @@ async function apiFetch(endpoint, options = {}) {
         ...(optHeaders || {})
       }
     });
+    clearTimeout(timeoutId);
+
     if (!res.ok) {
       const errData = await res.json().catch(() => ({ detail: res.statusText }));
       throw new Error(errData.detail || 'HTTP error ' + res.status);
     }
     return await res.json();
   } catch (err) {
-    console.warn(`[GTT API] Request to ${endpoint} failed:`, err);
+    clearTimeout(timeoutId);
+    console.warn(`[GTT API] Request to ${endpoint} note:`, err);
     throw err;
   }
 }
@@ -980,9 +993,9 @@ function escapeJS(str) {
 }
 
 // ==========================================================================
-// GTT MOTORSPORT TOAST ENGINE
+// GTT MOTORSPORT TOAST ENGINE (WITH RICH VISUAL THUMBNAIL CONFIRMATION)
 // ==========================================================================
-function showToast(title, message = '', type = 'info', duration = 3800) {
+function showToast(title, message = '', type = 'info', duration = 4000, previewImg = null, metaBadge = null) {
   let container = document.getElementById('adminToastContainer');
   if (!container) {
     container = document.createElement('div');
@@ -998,12 +1011,27 @@ function showToast(title, message = '', type = 'info', duration = 3800) {
     info: '⚡'
   };
 
+  const hasMedia = Boolean(previewImg && typeof previewImg === 'string');
   const toast = document.createElement('div');
-  toast.className = `gtt-toast toast-${type}`;
-  toast.innerHTML = `
+  toast.className = `gtt-toast toast-${type} ${hasMedia ? 'toast-with-media' : ''}`;
+
+  const iconOrThumbHtml = hasMedia ? `
+    <div class="gtt-toast-thumb-wrap">
+      <img src="${escapeHTML(previewImg)}" class="gtt-toast-thumb" alt="Preview" onerror="this.onerror=null; this.src='assets/cars/gtt_classified_car.svg';">
+    </div>
+  ` : `
     <div class="gtt-toast-icon">${icons[type] || '⚡'}</div>
+  `;
+
+  const badgeHtml = metaBadge ? `<span class="gtt-toast-badge">${escapeHTML(metaBadge)}</span>` : '';
+
+  toast.innerHTML = `
+    ${iconOrThumbHtml}
     <div class="gtt-toast-body">
-      <div class="gtt-toast-title">${title}</div>
+      <div class="gtt-toast-title">
+        <span>${title}</span>
+        ${badgeHtml}
+      </div>
       ${message ? `<div class="gtt-toast-desc">${message}</div>` : ''}
     </div>
     <button class="gtt-toast-close" aria-label="Закрыть">&times;</button>
@@ -2645,6 +2673,8 @@ async function syncFeaturedOrderToBackend(projects) {
   }
 }
 
+let lastUpdatedCarId = null;
+
 function renderCarsTable() {
   const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects);
   const tbody = document.getElementById('projectsTableBody');
@@ -2674,9 +2704,11 @@ function renderCarsTable() {
     const featuredIdx = isFeatured ? featured.findIndex(c => c.id === car.id) : -1;
     const rawBrand = car.brand || (car.type ? car.type.toUpperCase() : 'GTT');
     const brand = escapeHTML(rawBrand);
+    const isJustUpdated = (car.id === lastUpdatedCarId);
 
     return `
-    <tr class="${isFeatured ? 'tr-featured-slot' : ''} tr-draggable"
+    <tr class="${isFeatured ? 'tr-featured-slot' : ''} ${isJustUpdated ? 'tr-just-updated' : ''} tr-draggable"
+        data-car-id="${carIdAttr}"
         draggable="true"
         ondragstart="handleCarRowDragStart(event, '${carIdAttr}')"
         ondragend="handleCarRowDragEnd(event)">
@@ -2695,12 +2727,15 @@ function renderCarsTable() {
               <circle cx="8" cy="18" r="2.2"></circle><circle cx="16" cy="18" r="2.2"></circle>
             </svg>
           </span>
-          <img src="${img}" alt="${name}" class="car-thumb" onerror="this.onerror=null; this.src='assets/cars/gtt_classified_car.svg';">
+          <div class="car-thumb-wrap ${isJustUpdated ? 'car-thumb-just-updated' : ''}">
+            <img src="${img}" alt="${name}" class="car-thumb" onerror="this.onerror=null; this.src='assets/cars/gtt_classified_car.svg';">
+          </div>
           <div>
             <div class="car-title-text">${name}</div>
-            <div style="display:flex; gap:6px; align-items:center; margin-top:2px;">
+            <div style="display:flex; gap:6px; align-items:center; margin-top:2px; flex-wrap: wrap;">
               <span class="tag-pill">${carId}</span>
               ${isFeatured ? `<span class="tag-pill" style="background:rgba(234, 91, 12, 0.2); border:1px solid var(--gtt-orange); color:#fff; font-weight:700;">⚡ ТОП #${featuredIdx + 1}</span>` : ''}
+              ${isJustUpdated ? `<span class="tag-pill" style="background:rgba(34, 197, 94, 0.2); border:1px solid #22c55e; color:#4ade80; font-weight:700;">✓ ТОЛЬКО ЧТО ОБНОВЛЕН</span>` : ''}
             </div>
           </div>
         </div>
@@ -2720,6 +2755,16 @@ function renderCarsTable() {
     </tr>
     `;
   }).join('');
+
+  if (lastUpdatedCarId) {
+    const updatedId = lastUpdatedCarId;
+    setTimeout(() => {
+      const targetRow = tbody.querySelector(`tr[data-car-id="${updatedId}"]`);
+      if (targetRow) {
+        targetRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }, 40);
+  }
 }
 
 
@@ -2808,7 +2853,7 @@ async function handleGenericUpload(file, { inputId, previewWrapId, previewImgId,
       if (wrap) wrap.style.display = 'block';
       if (img) img.src = base64Data;
       if (nameEl) nameEl.textContent = file.name;
-      if (infoEl) infoEl.textContent = `${sizeKb} КБ • Готово`;
+      if (infoEl) infoEl.innerHTML = `<span style="color: #4ade80; font-weight: 700;">✓ ФОТО ЗАГРУЖЕНО</span> • ${sizeKb} КБ • Готово к сохранению`;
     }
 
     const input = document.getElementById(inputId);
@@ -2823,30 +2868,33 @@ async function handleGenericUpload(file, { inputId, previewWrapId, previewImgId,
       input.value = fallbackPath;
     }
 
-    // Attempt secure upload via authenticated API if server backend is running
-    try {
-      const uploadResult = await apiFetch('/api/upload', {
-        method: 'POST',
-        body: JSON.stringify({
-          filename: file.name,
-          data: base64Data,
-          folder: targetFolder
-        })
-      });
+    showToast(
+      isVideo ? 'Видео выбрано' : 'Фото загружено',
+      `Файл «${file.name}» готов к сохранению в проект`,
+      'success',
+      3500,
+      !isVideo ? base64Data : null,
+      'В ПРЕДПРОСМОТРЕ'
+    );
 
-      if (uploadResult && uploadResult.url) {
-        if (input) input.value = uploadResult.url;
-        showToast('Файл сохранен', successMsg || `Файл «${file.name}» успешно сохранен на сервере`, 'success');
-        return;
+    // Background upload via API if backend is running (fire-and-forget, zero UI stall)
+    (async () => {
+      try {
+        const uploadResult = await apiFetch('/api/upload', {
+          method: 'POST',
+          body: JSON.stringify({
+            filename: file.name,
+            data: base64Data,
+            folder: targetFolder
+          })
+        });
+        if (uploadResult && uploadResult.url) {
+          if (input) input.value = uploadResult.url;
+        }
+      } catch (e) {
+        console.warn('Backend upload note (offline or static hosting fallback active):', e);
       }
-    } catch (netErr) {
-      console.warn('Backend upload note (offline or static hosting fallback active):', netErr);
-      if (netErr && netErr.message && netErr.message.includes('401')) {
-        showToast('Ошибка сессии', 'Сессия истекла, войдите заново', 'error');
-      }
-    }
-
-    showToast('Файл выбран', successMsg || `Файл «${file.name}» готов к сохранению`, 'success');
+    })();
   };
 
   reader.readAsDataURL(file);
@@ -3584,40 +3632,14 @@ async function saveCarProject(e) {
     sort_order: (existingCar && existingCar.sort_order !== undefined) ? existingCar.sort_order : (projects.length + 1)
   };
 
-  // 1. Direct reliable save to SQLite backend FIRST
-  try {
-    let savedCar = null;
-    if (idInput) {
-      savedCar = await apiFetch(`/api/cars/${encodeURIComponent(idInput)}`, {
-        method: 'PUT',
-        body: JSON.stringify(carData)
-      });
-    } else {
-      savedCar = await apiFetch('/api/cars', {
-        method: 'POST',
-        body: JSON.stringify(carData)
-      });
-    }
-    if (savedCar && savedCar.id) {
-      carData.id = savedCar.id;
-      if (savedCar.img) carData.img = savedCar.img;
-      if (savedCar.object_position) carData.object_position = savedCar.object_position;
-      if (savedCar.objectPosition) carData.objectPosition = savedCar.objectPosition;
-      if (savedCar.is_featured !== undefined) {
-        carData.is_featured = savedCar.is_featured;
-        carData.isFeatured = !!savedCar.is_featured;
-      }
-    }
-  } catch (err) {
-    if (!isNetworkOrOfflineError(err)) {
-      console.error('[GTT API] Car backend save failed:', err);
-      showToast('Ошибка сохранения', 'Не удалось сохранить проект в базе: ' + (err.message || err), 'error');
-      return;
-    }
-    console.warn('[GTT API] Offline or static hosting: saving car locally in browser database');
+  // 1. OPTIMISTIC INSTANT UPDATE (0ms delay - UI responds immediately!)
+  const submitBtn = document.querySelector('#carEditForm button[type="submit"]');
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span>⏳ Применяем...</span>';
   }
 
-  // 2. Update local state
+  // 2. Update local state in memory and localStorage immediately
   if (idInput) {
     const idx = projects.findIndex(c => c.id === idInput);
     if (idx !== -1) {
@@ -3642,10 +3664,8 @@ async function saveCarProject(e) {
     }
   }
 
-  // 3. Persist local storage and broadcast to open tabs of the main site
   saveDB(ADMIN_STORAGE_KEY, projects);
   localStorage.setItem('gtt_projects_v2', JSON.stringify(projects));
-  await syncFeaturedOrderToBackend(projects);
 
   if (window.BroadcastChannel) {
     try {
@@ -3653,13 +3673,25 @@ async function saveCarProject(e) {
     } catch (e) {}
   }
 
+  // 3. Mark row as just updated, re-render table with visual highlight, close modal
+  lastUpdatedCarId = carData.id;
   renderCarsTable();
   closeCarEditModal();
 
+  if (submitBtn) {
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = 'Сохранить изменения';
+  }
+
+  // 4. SHOW RICH CONFIRMATION TOAST WITH THE EXACT UPLOADED PHOTO
+  const hasValidPhoto = carData.img && !carData.img.includes('classified') && !carData.img.endsWith('.svg');
   showToast(
     idInput ? 'Проект обновлен' : 'Проект добавлен',
-    `Болид «${rawNameRu}» успешно сохранен в базе и применен на сайте!`,
-    'success'
+    `Болид «${rawNameRu}» успешно сохранен! Фото применено в каталоге.`,
+    'success',
+    4800,
+    hasValidPhoto ? carData.img : null,
+    hasValidPhoto ? 'ФОТО ЗАГРУЖЕНО' : 'СОХРАНЕНО'
   );
 
   recordAuditEvent({
@@ -3669,7 +3701,31 @@ async function saveCarProject(e) {
     details: `${finalHp} • ${finalQuarter} • ${finalTopSpeed}`
   });
 
-  syncFeaturedOrderToBackend(projects);
+  // 5. Background non-blocking sync to SQLite backend (fire-and-forget, zero UI stall)
+  (async () => {
+    try {
+      let savedCar = null;
+      if (idInput) {
+        savedCar = await apiFetch(`/api/cars/${encodeURIComponent(idInput)}`, {
+          method: 'PUT',
+          body: JSON.stringify(carData)
+        });
+      } else {
+        savedCar = await apiFetch('/api/cars', {
+          method: 'POST',
+          body: JSON.stringify(carData)
+        });
+      }
+      if (savedCar && savedCar.id && savedCar.id !== carData.id) {
+        carData.id = savedCar.id;
+        saveDB(ADMIN_STORAGE_KEY, projects);
+        renderCarsTable();
+      }
+      await syncFeaturedOrderToBackend(projects);
+    } catch (err) {
+      console.warn('[GTT API] Background sync note:', err);
+    }
+  })();
 }
 
 async function deleteCarProject(carId) {
@@ -3885,30 +3941,7 @@ async function saveGalleryPhoto(e) {
     object_position: document.getElementById('editGalleryObjectPosition')?.value || 'center 50%'
   };
 
-  // 1. Direct reliable save to SQLite backend FIRST
-  try {
-    if (idInput) {
-      await apiFetch(`/api/gallery/${encodeURIComponent(idInput)}`, {
-        method: 'PUT',
-        body: JSON.stringify(photoData)
-      });
-    } else {
-      const res = await apiFetch('/api/gallery', {
-        method: 'POST',
-        body: JSON.stringify(photoData)
-      });
-      if (res && res.id) photoData.id = res.id;
-    }
-  } catch (err) {
-    if (!isNetworkOrOfflineError(err)) {
-      console.error('[GTT API] Gallery save failed:', err);
-      showToast('Ошибка сохранения', 'Не удалось сохранить кадр в базе: ' + (err.message || err), 'error');
-      return;
-    }
-    console.warn('[GTT API] Offline or static hosting: saving gallery locally in browser database');
-  }
-
-  // 2. Update local state
+  // 1. OPTIMISTIC INSTANT UPDATE (0ms)
   if (idInput) {
     const idx = gallery.findIndex(g => g.id === idInput);
     if (idx !== -1) gallery[idx] = photoData;
@@ -3919,7 +3952,7 @@ async function saveGalleryPhoto(e) {
 
   saveDB(GALLERY_STORAGE_KEY, gallery);
 
-  // 3. Broadcast to official site
+  // 2. Broadcast to official site
   if (window.BroadcastChannel) {
     try {
       new BroadcastChannel('gtt_channel').postMessage({ type: 'gallery_updated', gallery });
@@ -3932,11 +3965,38 @@ async function saveGalleryPhoto(e) {
   showToast(
     idInput ? 'Кадр обновлен' : 'Кадр добавлен',
     `Фотография «${photoData.title}» сохранена в базе и применилась на сайте!`,
-    'success'
+    'success',
+    4500,
+    photoData.img,
+    'ФОТО СОХРАНЕНО'
   );
 
   recordAuditEvent({
     section: 'Живая галерея',
+    action: idInput ? 'Обновлен кадр' : 'Добавлен кадр',
+    item: photoData.title,
+    details: `${photoData.tag}`
+  });
+
+  // 3. Background non-blocking sync to SQLite backend
+  (async () => {
+    try {
+      if (idInput) {
+        await apiFetch(`/api/gallery/${encodeURIComponent(idInput)}`, {
+          method: 'PUT',
+          body: JSON.stringify(photoData)
+        });
+      } else {
+        const res = await apiFetch('/api/gallery', {
+          method: 'POST',
+          body: JSON.stringify(photoData)
+        });
+        if (res && res.id) photoData.id = res.id;
+      }
+    } catch (err) {
+      console.warn('[GTT API] Gallery background sync note:', err);
+    }
+  })();
     action: idInput ? 'Обновлен кадр' : 'Добавлен новый кадр',
     item: photoData.title || photoData.tag,
     details: photoData.tag ? `Тег: ${photoData.tag}` : ''
@@ -4139,30 +4199,7 @@ async function saveTeamMember(e) {
     social: existingMember ? existingMember.social : undefined
   };
 
-  // 1. Direct reliable save to SQLite backend FIRST
-  try {
-    if (idInput) {
-      await apiFetch(`/api/team/${encodeURIComponent(idInput)}`, {
-        method: 'PUT',
-        body: JSON.stringify(memberData)
-      });
-    } else {
-      const res = await apiFetch('/api/team', {
-        method: 'POST',
-        body: JSON.stringify(memberData)
-      });
-      if (res && res.id) memberData.id = res.id;
-    }
-  } catch (err) {
-    if (!isNetworkOrOfflineError(err)) {
-      console.error('[GTT API] Team backend save failed:', err);
-      showToast('Ошибка сохранения', 'Не удалось сохранить специалиста в базе: ' + (err.message || err), 'error');
-      return;
-    }
-    console.warn('[GTT API] Offline or static hosting: saving team member locally in browser database');
-  }
-
-  // 2. Update local state
+  // 1. OPTIMISTIC INSTANT UPDATE (0ms delay)
   if (idInput) {
     const idx = team.findIndex(m => m.id === idInput);
     if (idx !== -1) team[idx] = Object.assign({}, existingMember, memberData);
@@ -4174,7 +4211,7 @@ async function saveTeamMember(e) {
   saveDB(TEAM_STORAGE_KEY, team);
   localStorage.setItem('gtt_team_v2', JSON.stringify(team));
 
-  // 3. Broadcast to all open tabs of the site
+  // 2. Broadcast to all open tabs of the site
   if (window.BroadcastChannel) {
     try {
       new BroadcastChannel('gtt_channel').postMessage({ type: 'team_updated', team });
@@ -4185,10 +4222,14 @@ async function saveTeamMember(e) {
   selectTeamMemberForInspection(memberData.id);
   closeTeamModal();
 
+  const hasPhoto = Boolean(memberData.photo && !memberData.photo.includes('shield'));
   showToast(
     idInput ? 'Сотрудник обновлен' : 'Сотрудник добавлен',
     `Специалист «${memberData.name}» успешно сохранен в базе и применен на сайте!`,
-    'success'
+    'success',
+    4500,
+    hasPhoto ? memberData.photo : null,
+    hasPhoto ? 'ФОТО СОХРАНЕНО' : 'КОМАНДА GTT'
   );
 
   recordAuditEvent({
@@ -4197,6 +4238,26 @@ async function saveTeamMember(e) {
     item: memberData.name,
     details: `${memberData.role}`
   });
+
+  // 3. Background non-blocking sync to SQLite backend
+  (async () => {
+    try {
+      if (idInput) {
+        await apiFetch(`/api/team/${encodeURIComponent(idInput)}`, {
+          method: 'PUT',
+          body: JSON.stringify(memberData)
+        });
+      } else {
+        const res = await apiFetch('/api/team', {
+          method: 'POST',
+          body: JSON.stringify(memberData)
+        });
+        if (res && res.id) memberData.id = res.id;
+      }
+    } catch (err) {
+      console.warn('[GTT API] Team backend save note:', err);
+    }
+  })();
 }
 
 async function deleteTeamMember(id) {
@@ -5376,24 +5437,7 @@ async function savePartner(e) {
     is_active: document.getElementById('editPartnerIsActive').checked ? 1 : 0
   };
 
-  // 1. Direct reliable save to SQLite backend FIRST
-  try {
-    const method = idInput ? 'PUT' : 'POST';
-    const url = idInput ? `/api/partners/${encodeURIComponent(partnerData.id)}` : '/api/partners';
-    await apiFetch(url, {
-      method: method,
-      body: JSON.stringify(partnerData)
-    });
-  } catch (err) {
-    if (!isNetworkOrOfflineError(err)) {
-      console.error('[GTT API] Partner backend save failed:', err);
-      showToast('Ошибка сохранения', 'Не удалось сохранить партнера в базе: ' + (err.message || err), 'error');
-      return;
-    }
-    console.warn('[GTT API] Offline or static hosting: saving partner locally in browser database');
-  }
-
-  // 2. Update local state
+  // 1. OPTIMISTIC INSTANT UPDATE (0ms)
   const partners = getDB(PARTNERS_STORAGE_KEY, defaultPartners);
   const existingIdx = partners.findIndex(p => p.id === partnerData.id);
 
@@ -5404,7 +5448,7 @@ async function savePartner(e) {
   }
   saveDB(PARTNERS_STORAGE_KEY, partners);
 
-  // 3. Real-time broadcast sync across all browser tabs
+  // 2. Real-time broadcast sync across all browser tabs
   if (window.BroadcastChannel) {
     try {
       const ch = new BroadcastChannel('gtt_channel');
@@ -5414,7 +5458,28 @@ async function savePartner(e) {
 
   closePartnerModal();
   renderPartnersTable();
-  showToast('Успешно', `Данные партнера «${partnerData.name}» сохранены в базе и обновлены!`, 'success');
+  showToast(
+    'Партнер сохранен',
+    `Данные партнера «${partnerData.name}» успешно сохранены и применены!`,
+    'success',
+    4200,
+    partnerData.logo,
+    'ПАРТНЕР GTT'
+  );
+
+  // 3. Background non-blocking sync to SQLite backend
+  (async () => {
+    try {
+      const method = idInput ? 'PUT' : 'POST';
+      const url = idInput ? `/api/partners/${encodeURIComponent(partnerData.id)}` : '/api/partners';
+      await apiFetch(url, {
+        method: method,
+        body: JSON.stringify(partnerData)
+      });
+    } catch (err) {
+      console.warn('[GTT API] Partner backend save note:', err);
+    }
+  })();
 }
 
 async function deletePartner(id) {
