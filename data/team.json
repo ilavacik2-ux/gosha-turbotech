@@ -6,7 +6,10 @@
     "status": "active",
     "sort_order": 1,
     "photo": "",
-    "social": "@goshaturbotech"
+    "social": "@goshaturbotech",
+    "name_en": "Gosha Pertskheliya",
+    "role_en": "Founder & Chief Constructor GTT",
+    "dept": "management"
   },
   {
     "id": "m_pertskheliya_givi",
@@ -15,7 +18,10 @@
     "status": "active",
     "sort_order": 2,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Givi Pertskheliya",
+    "role_en": "Managing Director",
+    "dept": "management"
   },
   {
     "id": "m_pertskheliya_mikhail",
@@ -24,7 +30,10 @@
     "status": "active",
     "sort_order": 3,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Mikhail Pertskheliya",
+    "role_en": "Executive Director",
+    "dept": "management"
   },
   {
     "id": "m_sarkisyan",
@@ -33,7 +42,10 @@
     "status": "active",
     "sort_order": 4,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Eduard Sarkisyan",
+    "role_en": "Technical Director",
+    "dept": "management"
   },
   {
     "id": "m_pertskheliya_zurab",
@@ -42,7 +54,10 @@
     "status": "active",
     "sort_order": 5,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Zurab Pertskheliya",
+    "role_en": "Executive Assistant",
+    "dept": "management"
   },
   {
     "id": "m_pashchenko",
@@ -51,7 +66,10 @@
     "status": "active",
     "sort_order": 6,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Daniil Pashchenko",
+    "role_en": "Head of Media Production",
+    "dept": "media"
   },
   {
     "id": "m_gurov",
@@ -60,7 +78,10 @@
     "status": "atelier",
     "sort_order": 7,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Dmitry Gurov",
+    "role_en": "CAD & Design Engineer",
+    "dept": "engineers"
   },
   {
     "id": "m_shevtsov",
@@ -69,7 +90,10 @@
     "status": "active",
     "sort_order": 8,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Georgy Shevtsov",
+    "role_en": "Lead Electrical Engineer",
+    "dept": "engineers"
   },
   {
     "id": "m_nikolaev",
@@ -78,7 +102,10 @@
     "status": "atelier",
     "sort_order": 9,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Artem Nikolaev",
+    "role_en": "Electrical Specialist",
+    "dept": "engineers"
   },
   {
     "id": "m_labkovich",
@@ -87,7 +114,10 @@
     "status": "active",
     "sort_order": 10,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Evgeny Labkovich",
+    "role_en": "Diagnostic & ECU Engineer",
+    "dept": "engineers"
   },
   {
     "id": "m_stotsky",
@@ -96,7 +126,10 @@
     "status": "active",
     "sort_order": 11,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Sergey Stotsky",
+    "role_en": "Powertrain & Engine Builder",
+    "dept": "mechanics"
   },
   {
     "id": "m_turdibaev",
@@ -105,7 +138,10 @@
     "status": "active",
     "sort_order": 12,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Rustam Turdibaev",
+    "role_en": "Powertrain & Engine Builder",
+    "dept": "mechanics"
   },
   {
     "id": "m_mazhnunov",
@@ -114,7 +150,10 @@
     "status": "atelier",
     "sort_order": 13,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Solekhdzhon Mazhnunov",
+    "role_en": "Assistant Engine Builder",
+    "dept": "mechanics"
   },
   {
     "id": "m_petrushin",
@@ -123,7 +162,10 @@
     "status": "atelier",
     "sort_order": 14,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Pavel Petrushin",
+    "role_en": "Assistant Engine Builder",
+    "dept": "mechanics"
   },
   {
     "id": "m_mamsurov",
@@ -132,7 +174,10 @@
     "status": "active",
     "sort_order": 15,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Ksanti Mamsurov",
+    "role_en": "TIG Welder & Fabricator",
+    "dept": "fab"
   },
   {
     "id": "m_fetkulin",
@@ -141,7 +186,10 @@
     "status": "active",
     "sort_order": 16,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Roman Fetkulin",
+    "role_en": "TIG Welder & Fabricator",
+    "dept": "fab"
   },
   {
     "id": "m_bagdasaryan",
@@ -150,7 +198,10 @@
     "status": "paddock",
     "sort_order": 17,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Mikael Bagdasaryan",
+    "role_en": "Race Mechanic",
+    "dept": "mechanics"
   },
   {
     "id": "m_burnashov",
@@ -159,7 +210,10 @@
     "status": "paddock",
     "sort_order": 18,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Erik Burnashov",
+    "role_en": "Race Mechanic",
+    "dept": "mechanics"
   },
   {
     "id": "m_ivanov",
@@ -168,7 +222,10 @@
     "status": "paddock",
     "sort_order": 19,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Nikita Ivanov",
+    "role_en": "Race Mechanic",
+    "dept": "mechanics"
   },
   {
     "id": "m_mazhorov",
@@ -177,7 +234,10 @@
     "status": "paddock",
     "sort_order": 20,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Ivan Mazhorov",
+    "role_en": "Race Mechanic",
+    "dept": "mechanics"
   },
   {
     "id": "m_malofeev",
@@ -186,7 +246,10 @@
     "status": "paddock",
     "sort_order": 21,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Aleksey Malofeev",
+    "role_en": "Race Mechanic",
+    "dept": "mechanics"
   },
   {
     "id": "m_marin",
@@ -195,7 +258,10 @@
     "status": "atelier",
     "sort_order": 22,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Vadim Marin",
+    "role_en": "Workshop Mechanic",
+    "dept": "mechanics"
   },
   {
     "id": "m_osipov",
@@ -204,7 +270,10 @@
     "status": "atelier",
     "sort_order": 23,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Artem Osipov",
+    "role_en": "Workshop Mechanic",
+    "dept": "mechanics"
   },
   {
     "id": "m_ponomarev",
@@ -213,7 +282,10 @@
     "status": "atelier",
     "sort_order": 24,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Nikolay Ponomarev",
+    "role_en": "Workshop Mechanic",
+    "dept": "mechanics"
   },
   {
     "id": "m_sergeev",
@@ -222,7 +294,10 @@
     "status": "atelier",
     "sort_order": 25,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Andrey Sergeev",
+    "role_en": "Workshop Mechanic",
+    "dept": "mechanics"
   },
   {
     "id": "m_shinkarenko",
@@ -231,7 +306,10 @@
     "status": "atelier",
     "sort_order": 26,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Stepan Shinkarenko",
+    "role_en": "Workshop Mechanic",
+    "dept": "mechanics"
   },
   {
     "id": "m_yakovlev",
@@ -240,7 +318,10 @@
     "status": "atelier",
     "sort_order": 27,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Aleksey Yakovlev",
+    "role_en": "Moto Specialist Mechanic",
+    "dept": "mechanics"
   },
   {
     "id": "m_barankin",
@@ -249,7 +330,10 @@
     "status": "atelier",
     "sort_order": 28,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Dmitry Barankin",
+    "role_en": "Procurement Manager",
+    "dept": "logistics"
   },
   {
     "id": "m_gazaryan",
@@ -258,7 +342,10 @@
     "status": "atelier",
     "sort_order": 29,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Pavel Gazaryan",
+    "role_en": "Procurement Manager",
+    "dept": "logistics"
   },
   {
     "id": "m_gusarov",
@@ -267,7 +354,10 @@
     "status": "atelier",
     "sort_order": 30,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Ilya Gusarov",
+    "role_en": "Warehouse & Parts Supervisor",
+    "dept": "logistics"
   },
   {
     "id": "m_zolotareva",
@@ -276,7 +366,10 @@
     "status": "atelier",
     "sort_order": 31,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Maria Zolotareva",
+    "role_en": "Office & Operations Coordinator",
+    "dept": "management"
   },
   {
     "id": "m_kopyl",
@@ -285,7 +378,10 @@
     "status": "atelier",
     "sort_order": 32,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Ulyana Kopyl",
+    "role_en": "Content Creator & Media",
+    "dept": "media"
   },
   {
     "id": "m_babyakin",
@@ -294,6 +390,9 @@
     "status": "atelier",
     "sort_order": 33,
     "photo": "",
-    "social": null
+    "social": "",
+    "name_en": "Nikita Babyakin",
+    "role_en": "Facilities & Operations Specialist",
+    "dept": "logistics"
   }
 ]

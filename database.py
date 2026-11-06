@@ -64,10 +64,13 @@ def init_db():
         status TEXT NOT NULL,
         photo TEXT,
         social TEXT,
-        sort_order INTEGER DEFAULT 0
+        sort_order INTEGER DEFAULT 0,
+        name_en TEXT DEFAULT '',
+        role_en TEXT DEFAULT '',
+        dept TEXT DEFAULT ''
     )
     """)
-    for col in ["photo", "social"]:
+    for col in ["photo", "social", "name_en", "role_en", "dept"]:
         try:
             cursor.execute(f"ALTER TABLE team ADD COLUMN {col} TEXT")
         except Exception:
@@ -1091,8 +1094,8 @@ def seed_initial_data(cursor):
             {"id": "m_babyakin", "name": "Никита Бабякин", "role": "Специалист по хозяйственному обеспечению", "status": "atelier", "photo": "", "social": None}
         ]
     for idx, member in enumerate(default_team):
-        cursor.execute("INSERT OR REPLACE INTO team (id, name, role, status, photo, social, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                       (member["id"], member["name"], member["role"], member["status"], member.get("photo", ""), member.get("social"), member.get("sort_order", idx + 1)))
+        cursor.execute("INSERT OR REPLACE INTO team (id, name, role, status, photo, social, sort_order, name_en, role_en, dept) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                       (member["id"], member["name"], member["role"], member["status"], member.get("photo", ""), member.get("social"), member.get("sort_order", idx + 1), member.get("name_en", ""), member.get("role_en", ""), member.get("dept", "")))
 
     default_records = [
         {"id": "rec_moses", "year": "2016 • Абсолютный рекорд GTT", "car": "NISSAN GT-R R35 GTT-1800 «MOSES»", "telemetry": "1/4 мили: 7.526 сек • 304.36 км/ч", "desc": "Легендарные тесты в ОАЭ и UNLIM 500+ Greece. 7.526 сек со скоростью 304.36 км/ч — быстрейший результат на 402 м за всю историю ателье GoshaTurboTech.", "img": "assets/archive_tilda/gtr_moses.png"},
@@ -1409,15 +1412,18 @@ def upsert_team_member(member: Dict[str, Any]) -> Dict[str, Any]:
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("""
-    INSERT INTO team (id, name, role, status, photo, social, sort_order)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO team (id, name, role, status, photo, social, sort_order, name_en, role_en, dept)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(id) DO UPDATE SET
         name=excluded.name,
         role=excluded.role,
         status=excluded.status,
         photo=excluded.photo,
         social=excluded.social,
-        sort_order=COALESCE(excluded.sort_order, team.sort_order)
+        sort_order=COALESCE(excluded.sort_order, team.sort_order),
+        name_en=COALESCE(excluded.name_en, team.name_en),
+        role_en=COALESCE(excluded.role_en, team.role_en),
+        dept=COALESCE(excluded.dept, team.dept)
     """, (
         member["id"], 
         member["name"], 
@@ -1425,7 +1431,10 @@ def upsert_team_member(member: Dict[str, Any]) -> Dict[str, Any]:
         member.get("status", "active"),
         member.get("photo", "") if member.get("photo") is not None else "",
         member.get("social", "") if member.get("social") is not None else "",
-        member.get("sort_order")
+        member.get("sort_order"),
+        member.get("name_en", ""),
+        member.get("role_en", ""),
+        member.get("dept", "")
     ))
     conn.commit()
     conn.close()
