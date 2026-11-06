@@ -21,19 +21,101 @@ import database
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+# ================= ENVIRONMENT & .ENV LOADER =================
+def load_env_file():
+    """Load .env file with python-dotenv or built-in zero-dependency parser"""
+    env_path = os.path.join(BASE_DIR, ".env")
+    if not os.path.exists(env_path):
+        return
+    try:
+        from dotenv import load_dotenv
+        load_dotenv(env_path, override=False)
+        return
+    except ImportError:
+        pass
+    
+    # Fallback zero-dependency .env reader
+    try:
+        with open(env_path, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith("#") or "=" not in line:
+                    continue
+                k, v = line.split("=", 1)
+                k = k.strip()
+                v = v.strip().strip("'\"")
+                if k and k not in os.environ:
+                    os.environ[k] = v
+    except Exception as e:
+        print("[GTT ENV] Fallback .env load error:", e)
+
+load_env_file()
+
+def get_local_ip() -> str:
+    import socket
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        ip = s.getsockname()[0]
+        s.close()
+        return ip
+    except Exception:
+        return "127.0.0.1"
+
+def get_allowed_cors_origins() -> List[str]:
+    """Parse narrowed CORS whitelist from environment, avoiding wildcards"""
+    raw = os.environ.get("GTT_CORS_ALLOWED_ORIGINS", "").strip()
+    origins = []
+    if raw:
+        for item in raw.split(","):
+            cleaned = item.strip().rstrip("/")
+            if cleaned and cleaned != "*":
+                origins.append(cleaned)
+    
+    is_prod = os.environ.get("GTT_ENV", "development").lower() == "production"
+    if not is_prod:
+        dev_defaults = [
+            "http://localhost:8000",
+            "http://127.0.0.1:8000",
+            "http://localhost:3000",
+            "http://127.0.0.1:3000"
+        ]
+        lip = get_local_ip()
+        if lip and lip != "127.0.0.1":
+            dev_defaults.append(f"http://{lip}:8000")
+        for o in dev_defaults:
+            if o not in origins:
+                origins.append(o)
+                
+    if not origins:
+        origins = ["http://localhost:8000", "http://127.0.0.1:8000", "https://goshaturbotech.ru"]
+    return origins
+
+ALLOWED_CORS_ORIGINS = get_allowed_cors_origins()
+
 app = FastAPI(
     title="GoshaTurboTech Atelier Hub API",
     description="Backend API and SQLite database engine for GoshaTurboTech website and admin panel.",
     version="4.0.0"
 )
 
-# Secure CORS policy
+# Strict, Narrowed CORS policy (No wildcards)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=False,
+    allow_origins=ALLOWED_CORS_ORIGINS,
+    allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allow_headers=["*"],
+    allow_headers=[
+        "Content-Type",
+        "Authorization",
+        "X-Gateway-Token",
+        "x-gateway-token",
+        "X-Requested-With",
+        "Accept",
+        "Origin",
+        "Cache-Control"
+    ],
+    max_age=600,
 )
 
 # High-Performance ASGI Security Headers & Sensitive Files Shield Middleware
@@ -255,12 +337,15 @@ def record_gate_probe(ip: str):
         time.sleep(3.0)
 
 def get_client_ip(request: Request) -> str:
-    """Extract real client IP even behind Cloudflare, Nginx, or Docker reverse proxies."""
+    """Extract real client IP behind Cloudflare, Nginx, Caddy, or Docker reverse proxies."""
     if not request:
         return "unknown"
     cf_ip = request.headers.get("cf-connecting-ip")
     if cf_ip:
         return cf_ip.strip()
+    x_real = request.headers.get("x-real-ip")
+    if x_real:
+        return x_real.strip()
     xff = request.headers.get("x-forwarded-for")
     if xff:
         return xff.split(",")[0].strip()
@@ -956,31 +1041,31 @@ async def serve_secret_admin(request: Request, token: Optional[str] = None):
 async def serve_favicon():
     return FileResponse(os.path.join(BASE_DIR, "favicon.ico"))
 
-def get_local_ip():
-    import socket
-    try:
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(("8.8.8.8", 80))
-        ip = s.getsockname()[0]
-        s.close()
-        return ip
-    except Exception:
-        return "192.168.0.102"
-
 if __name__ == "__main__":
     import uvicorn
     local_ip = get_local_ip()
+    host = os.environ.get("GTT_HOST", "0.0.0.0")
+    port = int(os.environ.get("GTT_PORT", "8000"))
+    is_prod = os.environ.get("GTT_ENV", "development").lower() == "production"
+    gateway_token = SERVER_CONFIG.get("GATEWAY_TOKEN", "gtt_atelier_2026_x71k")
+
     print("\n" + "="*60)
-    print("🚀 GOSHA TURBOTECH - FASTAPI & SQLITE SERVER STARTING")
-    print(f"👉 Main Site:          http://localhost:8000")
-    print(f"👉 Main Site (127):    http://127.0.0.1:8000")
-    print(f"👉 Phone / Local Net:  http://{local_ip}:8000")
-    print(f"👉 Admin Panel:        http://localhost:8000/admin?token=gtt_atelier_2026_x71k")
+    print(f"🚀 GOSHA TURBOTECH - FASTAPI & SQLITE SERVER ({'PRODUCTION' if is_prod else 'DEVELOPMENT'})")
+    print(f"👉 Host Binding:       {host}:{port}")
+    print(f"👉 Local Access:       http://localhost:{port}")
+    if host == "0.0.0.0":
+        print(f"👉 Phone / Local Net:  http://{local_ip}:{port}")
+    print(f"👉 Admin Gateway:      http://localhost:{port}/admin?token={gateway_token}")
+    print(f"👉 Whitelisted CORS:   {', '.join(ALLOWED_CORS_ORIGINS)}")
+    print("="*60 + "\n")
+
     uvicorn.run(
         "server:app",
-        host="0.0.0.0",
-        port=8000,
-        reload=True,
+        host=host,
+        port=port,
+        reload=not is_prod,
+        proxy_headers=True,
+        forwarded_allow_ips="*" if not is_prod else "127.0.0.1",
         reload_excludes=[
             "assets/*",
             "assets/cars/*",

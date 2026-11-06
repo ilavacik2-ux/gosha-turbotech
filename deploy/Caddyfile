@@ -1,0 +1,71 @@
+# ==============================================================================
+# GOSHATURBOTECH — PRODUCTION CADDY CONFIGURATION (Caddyfile)
+# ==============================================================================
+# Размещение: /etc/caddy/Caddyfile
+# Преимущество: Автоматический бесплатный HTTPS (Let's Encrypt), HTTP/3 из коробки,
+# автоматический редирект с www, встроенное сжатие zstd/gzip.
+#
+# Перезагрузка: caddy reload --config /etc/caddy/Caddyfile
+# ==============================================================================
+
+goshaturbotech.ru, www.goshaturbotech.ru {
+    # Путь к директории сайта на сервере
+    root * /var/www/goshaturbotech
+
+    # Автоматическое сжатие (Zstandard и Gzip)
+    encode zstd gzip
+
+    # Максимальный размер тела запроса (50 MB для видео и фото)
+    request_body {
+        max_size 50MB
+    }
+
+    # Защитные HTTP-заголовки
+    header {
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "SAMEORIGIN"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Permissions-Policy "camera=(), microphone=(), geolocation=()"
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        # Скрываем сигнатуру веб-сервера
+        -Server
+    }
+
+    # Блокировка доступа к чувствительным файлам (.env, .git, SQLite, .log, .bak)
+    @sensitive_files {
+        path */.* *.sqlite* *.db* *.env* *.log *.bak *.sh
+    }
+    respond @sensitive_files 404
+
+    # Статические файлы (CSS, JS, WebP, SVG, MP4) отдаются напрямую Caddy
+    @static {
+        path *.css *.js *.jpg *.jpeg *.png *.webp *.svg *.ico *.woff2 *.mp4 *.webm
+    }
+    header @static Cache-Control "public, max-age=2592000"
+    file_server @static
+
+    # API и скрытая админка проксируются в локальный Uvicorn (127.0.0.1:8000)
+    handle /api/* {
+        reverse_proxy 127.0.0.1:8000 {
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+        }
+    }
+
+    handle /admin {
+        reverse_proxy 127.0.0.1:8000 {
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+        }
+    }
+
+    # Главная страница: если статический файл существует — отдать, иначе на бэкенд
+    handle {
+        try_files {path} {path}/ /index.html
+        file_server
+    }
+}

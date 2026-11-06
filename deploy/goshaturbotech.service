@@ -1,0 +1,50 @@
+# ==============================================================================
+# GOSHATURBOTECH — SYSTEMD SERVICE UNIT (Linux / Ubuntu / Debian)
+# ==============================================================================
+# Установка на сервере:
+#   1. sudo cp deploy/goshaturbotech.service /etc/systemd/system/
+#   2. sudo systemctl daemon-reload
+#   3. sudo systemctl enable goshaturbotech.service
+#   4. sudo systemctl start goshaturbotech.service
+#   5. sudo systemctl status goshaturbotech.service
+# ==============================================================================
+
+[Unit]
+Description=GoshaTurboTech Atelier Hub Backend (FastAPI / Uvicorn)
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/goshaturbotech
+EnvironmentFile=/var/www/goshaturbotech/.env
+
+# Запуск Uvicorn:
+#   --host 127.0.0.1   -> слушает ТОЛЬКО локальный сокет (за Nginx/Caddy)
+#   --port 8000        -> внутренний порт
+#   --workers 4        -> масштабирование процессов по ядрам CPU
+#   --proxy-headers    -> доверие заголовкам от Nginx/Caddy
+#   --forwarded-allow-ips '127.0.0.1' -> доверяем только локальному реверс-прокси
+ExecStart=/var/www/goshaturbotech/venv/bin/uvicorn server:app \
+    --host 127.0.0.1 \
+    --port 8000 \
+    --workers 4 \
+    --proxy-headers \
+    --forwarded-allow-ips "127.0.0.1" \
+    --access-log
+
+# Автоматический перезапуск сервиса при любых сбоях
+Restart=always
+RestartSec=3
+
+# Системные лимиты дескрипторов файлов для высоких нагрузок
+LimitNOFILE=65535
+
+# Логирование через systemd journald (просмотр: journalctl -u goshaturbotech -f)
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=goshaturbotech
+
+[Install]
+WantedBy=multi-user.target
