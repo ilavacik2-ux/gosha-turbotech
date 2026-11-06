@@ -463,6 +463,20 @@ body.is-loading {
   box-shadow: 0 0 15px rgba(0, 119, 255, 0.4);
 }
 
+.nav-social-btn.tg-btn:hover {
+  background: rgba(36, 161, 222, 0.18);
+  border-color: #24A1DE;
+  color: #38bdf8;
+  box-shadow: 0 0 15px rgba(36, 161, 222, 0.4);
+}
+
+.nav-social-btn.wa-btn:hover {
+  background: rgba(37, 211, 102, 0.18);
+  border-color: #25D366;
+  color: #4ade80;
+  box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+}
+
 /* Language Switcher - Sleek Typography Without Square Backgrounds */
 .lang-switch-group {
   display: inline-flex;
