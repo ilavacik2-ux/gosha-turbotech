@@ -4045,27 +4045,25 @@ window.testHeroBackdrop = function(showPhoto = true) {
 };
 
 // GTT Atelier Navigation & Route Handlers
-window.copyGttCoords = function(btn) {
-  const coords = '55.708892, 37.382897';
+window.copyGttAddress = function(btn) {
+  const address = 'Московская область, р.п. Новоивановское, Можайское шоссе, 168 (GoshaTurboTech)';
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(coords).then(() => {
+    navigator.clipboard.writeText(address).then(() => {
       showCopyFeedback(btn);
-    }).catch(() => fallbackCopy(coords, btn));
+    }).catch(() => fallbackCopy(address, btn));
   } else {
-    fallbackCopy(coords, btn);
+    fallbackCopy(address, btn);
   }
 
   function showCopyFeedback(element) {
     if (!element) return;
     const span = element.querySelector('span');
     const originalText = span ? span.textContent : '';
-    if (span) span.textContent = 'Скопировано! ✓';
-    element.style.borderColor = 'var(--gtt-orange)';
-    element.style.color = 'var(--gtt-orange)';
+    if (span) span.textContent = 'Адрес скопирован ✓';
+    element.classList.add('copied');
     setTimeout(() => {
-      if (span) span.textContent = originalText || 'Копировать';
-      element.style.borderColor = '';
-      element.style.color = '';
+      if (span) span.textContent = originalText || 'Скопировать адрес';
+      element.classList.remove('copied');
     }, 2000);
   }
 
@@ -4083,6 +4081,7 @@ window.copyGttCoords = function(btn) {
     document.body.removeChild(textarea);
   }
 };
+window.copyGttCoords = window.copyGttAddress;
 
 window.openYandexNavi = function(event, link) {
   // If desktop browser, redirect directly to Yandex Maps web

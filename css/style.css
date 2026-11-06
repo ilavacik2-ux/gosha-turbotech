@@ -3719,374 +3719,508 @@ body.is-loading {
   background: #060709;
 }
 
-.contact-container {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 36px;
-  background: #0d1017;
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  border-radius: var(--radius-md);
-  padding: 32px 36px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+/* =====================================================================
+   GTT ATELIER HEADQUARTERS & MOTORSPORT CONCIERGE (BESPOKE INTERFACE)
+   Authentic engineering presence, real Yandex Map, zero AI cyber clichés
+   ===================================================================== */
+
+.contact-section {
+  position: relative;
+  padding: 90px 24px 110px;
+  background: radial-gradient(circle at 50% 0%, rgba(234, 91, 12, 0.04) 0%, transparent 60%), #07080b;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.contact-lab-badge {
+.atelier-hub-container {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+/* Header */
+.atelier-hub-header {
+  margin-bottom: 38px;
+  text-align: left;
+}
+
+.atelier-hub-tag {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 4px 12px;
-  background: rgba(255, 100, 37, 0.08);
-  border: 1px solid rgba(255, 100, 37, 0.28);
-  border-radius: var(--radius-xs);
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--gtt-orange);
-  margin-bottom: 16px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  color: var(--gtt-orange);
+  background: rgba(234, 91, 12, 0.08);
+  border: 1px solid rgba(234, 91, 12, 0.22);
+  padding: 5px 12px;
+  border-radius: 4px;
+  margin-bottom: 14px;
 }
 
-.pulse-indicator {
+.atelier-hub-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: var(--gtt-orange);
   box-shadow: 0 0 8px var(--gtt-orange);
-  animation: pulseGTT 2s infinite ease-in-out;
 }
 
-@keyframes pulseGTT {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.85); }
-}
-
-.contact-info-block .c-title {
+.atelier-hub-title {
   font-family: var(--font-display);
-  font-size: 32px;
+  font-size: 38px;
   font-weight: 800;
+  letter-spacing: -0.01em;
   text-transform: uppercase;
-  margin-bottom: 16px;
-  line-height: 1.2;
+  color: #ffffff;
+  line-height: 1.15;
+  margin-bottom: 12px;
 }
 
-.contact-info-block p {
-  color: var(--text-muted);
-  font-size: 15px;
-  line-height: 1.7;
-  margin-bottom: 26px;
+.atelier-hub-desc {
+  max-width: 720px;
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: #94a3b8;
+  font-weight: 400;
 }
 
-.contact-items {
+/* 2-Column Command Grid */
+.atelier-command-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 28px;
+  align-items: stretch;
+}
+
+/* Left: Concierge Card */
+.atelier-concierge-card {
+  background: #0d1017;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 14px;
+  padding: 30px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  justify-content: space-between;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
 }
 
-.c-item {
+.atelier-concierge-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gtt-orange), transparent 70%);
+}
+
+/* Phone Hero Block */
+.atelier-phone-hero {
+  padding-bottom: 22px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.phone-hero-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #64748b;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.phone-hero-number {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 800;
+  color: #ffffff;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s ease, transform 0.2s ease;
+  line-height: 1.1;
+}
+
+.phone-hero-number:hover {
+  color: var(--gtt-orange);
+  transform: translateX(2px);
+}
+
+.phone-hero-sub {
+  display: block;
+  font-size: 13px;
+  color: #94a3b8;
+  margin-top: 8px;
+  line-height: 1.45;
+}
+
+/* Channels Grid */
+.atelier-channels-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.atelier-channel-card {
   display: flex;
   align-items: center;
   gap: 14px;
   padding: 12px 16px;
-  background: #111520;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 10px;
-  color: #fff;
   text-decoration: none;
-  font-size: 15px;
-  transition: var(--transition-smooth);
+  transition: all 0.22s ease;
 }
 
-.c-item:hover {
-  background: #161b29;
-  border-color: rgba(234, 91, 12, 0.5);
+.atelier-channel-card:hover {
+  background: #141824;
+  border-color: rgba(234, 91, 12, 0.45);
   transform: translateX(4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 16px rgba(234, 91, 12, 0.15);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
-.c-item-icon {
-  width: 42px;
-  height: 42px;
-  border-radius: 8px;
-  background: rgba(234, 91, 12, 0.12);
-  border: 1px solid rgba(234, 91, 12, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--gtt-orange);
-  flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s ease;
-}
-
-.c-item:hover .c-item-icon {
-  transform: scale(1.05);
-  border-color: var(--gtt-orange);
-}
-
-.c-item-content {
-  display: flex;
-  flex-direction: column;
-}
-
-.c-item-label {
-  font-size: 10px;
-  color: var(--text-dim);
-  text-transform: uppercase;
-  font-family: var(--font-mono);
-  letter-spacing: 0.08em;
-  margin-bottom: 2px;
-  font-weight: 600;
-}
-
-.c-item-val {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 14.5px;
-  color: #f1f5f9;
-}
-
-.contact-actions-row {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-top: 32px;
-}
-
-.contact-actions-row .btn-primary,
-.contact-actions-row .btn-outline {
-  white-space: nowrap;
-  letter-spacing: 0.04em;
-}
-
-@media (min-width: 640px) {
-  .contact-actions-row {
-    flex-direction: row;
-    align-items: center;
-  }
-  .contact-actions-row .btn-primary,
-  .contact-actions-row .btn-outline {
-    flex: 1;
-    padding: 14px 18px;
-    font-size: 13px;
-  }
-}
-
-/* Bespoke GTT Atelier Route & Navigation Hub Card */
-.contact-hub-card {
-  display: flex;
-  flex-direction: column;
-  background: #111520;
-  border: 1px solid rgba(234, 91, 12, 0.32);
-  border-radius: 14px;
-  padding: 24px 22px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-}
-
-.hub-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-}
-
-.hub-brand-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.hub-badge-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #22c55e;
-  box-shadow: 0 0 10px #22c55e;
-  animation: pulseDot 2s infinite ease-in-out;
-}
-
-.hub-brand-title {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  color: #fff;
-  text-transform: uppercase;
-}
-
-.hub-status-tag {
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  font-weight: 700;
-  color: var(--gtt-orange);
-  background: rgba(255, 100, 37, 0.12);
-  border: 1px solid rgba(255, 100, 37, 0.3);
-  padding: 3px 8px;
-  border-radius: 4px;
-  letter-spacing: 0.06em;
-}
-
-.hub-address-box {
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 16px 18px;
-  margin-bottom: 20px;
-}
-
-.hub-addr-icon {
+.channel-card-icon {
   width: 40px;
   height: 40px;
-  border-radius: 10px;
-  background: rgba(255, 100, 37, 0.12);
-  border: 1px solid rgba(255, 100, 37, 0.35);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 
-.hub-addr-text {
+.atelier-channel-card:hover .channel-card-icon {
+  transform: scale(1.06);
+}
+
+.atelier-channel-card.tg-channel .channel-card-icon {
+  background: rgba(36, 161, 222, 0.12);
+  border-color: rgba(36, 161, 222, 0.35);
+  color: #38bdf8;
+}
+
+.atelier-channel-card.vk-channel .channel-card-icon {
+  background: rgba(0, 119, 255, 0.12);
+  border-color: rgba(0, 119, 255, 0.35);
+  color: #60a5fa;
+}
+
+.atelier-channel-card.mail-channel .channel-card-icon {
+  background: rgba(234, 91, 12, 0.12);
+  border-color: rgba(234, 91, 12, 0.35);
+  color: var(--gtt-orange);
+}
+
+.channel-card-info {
   flex: 1;
   min-width: 0;
 }
 
-.hub-addr-main {
+.channel-card-title {
+  font-family: var(--font-heading);
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.channel-card-handle {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #cbd5e1;
+  margin-top: 2px;
+}
+
+.channel-card-hint {
+  font-size: 11.5px;
+  color: #64748b;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Specs Bar */
+.atelier-specs-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.atelier-spec-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.spec-label {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.spec-value {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.spec-sub {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+/* Right: Route & Map Card */
+.atelier-route-card {
+  background: #0d1017;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 14px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+.atelier-route-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 30%, var(--gtt-orange));
+}
+
+/* Route Card Header */
+.route-card-header {
+  margin-bottom: 14px;
+}
+
+.route-header-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.route-pin-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.route-shield-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.route-complex-name {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  color: var(--gtt-orange);
+  text-transform: uppercase;
+}
+
+.route-complex-address {
   font-family: var(--font-display);
   font-size: 17px;
   font-weight: 800;
-  color: #fff;
-  letter-spacing: 0.02em;
-  line-height: 1.25;
+  color: #ffffff;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
 }
 
-.hub-addr-sub {
-  font-size: 12.5px;
-  color: #94a3b8;
-  margin-top: 4px;
-  line-height: 1.45;
-}
-
-.hub-coords-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.hub-coords-code {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
-  color: #f1f5f9;
-  background: rgba(0, 0, 0, 0.4);
-  padding: 4px 8px;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.hub-copy-btn {
+.route-copy-address-btn {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  color: #cbd5e1;
-  padding: 4px 10px;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 6px;
+  color: #cbd5e1;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.hub-copy-btn:hover {
-  background: rgba(255, 100, 37, 0.15);
+.route-copy-address-btn:hover {
+  background: rgba(234, 91, 12, 0.12);
   border-color: var(--gtt-orange);
-  color: var(--gtt-orange);
+  color: #ffffff;
 }
 
-.hub-navigator-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+.route-copy-address-btn.copied {
+  background: rgba(34, 197, 94, 0.15);
+  border-color: #22c55e;
+  color: #4ade80;
+}
+
+/* Map Viewport */
+.route-map-viewport {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: #06070a;
+}
+
+.route-map-iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: invert(90%) hue-rotate(180deg) contrast(105%) grayscale(25%);
+  transition: filter 0.3s ease;
+}
+
+.route-map-viewport:hover .route-map-iframe {
+  filter: invert(90%) hue-rotate(180deg) contrast(110%) grayscale(10%);
+}
+
+/* Navigation Actions */
+.route-actions-hub {
+  display: flex;
+  flex-direction: column;
   gap: 10px;
-  margin-bottom: 18px;
+  margin: 16px 0 12px;
 }
 
-.hub-nav-btn {
+.route-btn-navi {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 12px 14px;
-  border-radius: 10px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 700;
-  text-decoration: none;
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-  white-space: nowrap;
-}
-
-.hub-nav-btn.nav-btn-primary {
-  grid-column: span 2;
+  gap: 9px;
+  width: 100%;
+  padding: 13px 20px;
   background: var(--gtt-orange);
-  color: #fff;
-  border: 1px solid var(--gtt-orange);
-  box-shadow: 0 4px 18px var(--gtt-orange-glow);
+  color: #ffffff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-family: var(--font-mono);
   font-size: 13px;
-  padding: 14px 16px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: all 0.22s ease;
+  box-shadow: 0 4px 18px var(--gtt-orange-glow);
 }
 
-.hub-nav-btn.nav-btn-primary:hover {
+.route-btn-navi:hover {
   background: var(--gtt-orange-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(255, 100, 37, 0.45);
-}
-
-.hub-nav-btn.nav-btn-secondary {
-  background: rgba(255, 255, 255, 0.04);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.hub-nav-btn.nav-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: #fff;
   transform: translateY(-1px);
+  box-shadow: 0 6px 24px rgba(234, 91, 12, 0.55);
 }
 
-.hub-nav-btn.nav-btn-call {
-  background: rgba(34, 197, 94, 0.12);
-  color: #4ade80;
-  border: 1px solid rgba(34, 197, 94, 0.35);
+.route-secondary-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
-.hub-nav-btn.nav-btn-call:hover {
-  background: rgba(34, 197, 94, 0.22);
-  border-color: #22c55e;
-  transform: translateY(-1px);
-}
-
-.hub-footer-hint {
+.route-sub-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 8px;
+  color: #cbd5e1;
+  font-family: var(--font-mono);
   font-size: 11.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.route-sub-btn:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}
+
+/* Driver Guidance */
+.route-driver-guidance {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.5;
   color: #94a3b8;
-  line-height: 1.45;
-  padding-top: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  font-family: var(--font-body);
+}
+
+.guidance-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Responsive Adaptation */
+@media (max-width: 992px) {
+  .atelier-command-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .atelier-hub-title {
+    font-size: 28px;
+  }
+  .phone-hero-number {
+    font-size: 28px;
+  }
+  .route-map-viewport {
+    height: 220px;
+  }
+}
+
+@media (max-width: 640px) {
+  .contact-section {
+    padding: 60px 16px 80px;
+  }
+  .atelier-concierge-card,
+  .atelier-route-card {
+    padding: 20px 16px;
+  }
+  .atelier-specs-bar {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .phone-hero-number {
+    font-size: 24px;
+  }
+  .route-secondary-actions {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ==========================================================================
