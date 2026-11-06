@@ -56,14 +56,16 @@ class SecurityShieldMiddleware:
 
         async def send_wrapper(message):
             if message["type"] == "http.response.start":
-                headers = list(message.get("headers", []))
-                headers.extend([
+                extra_headers = [
                     (b"x-content-type-options", b"nosniff"),
                     (b"x-frame-options", b"SAMEORIGIN"),
                     (b"referrer-policy", b"strict-origin-when-cross-origin"),
                     (b"x-xss-protection", b"1; mode=block"),
                     (b"permissions-policy", b"camera=(), microphone=(), geolocation=()")
-                ])
+                ]
+                if raw_path.endswith((".css", ".js", ".html")) or raw_path in ("", "/"):
+                    extra_headers.append((b"cache-control", b"no-cache, must-revalidate"))
+                headers.extend(extra_headers)
                 message["headers"] = headers
             await send(message)
 
