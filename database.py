@@ -1926,6 +1926,46 @@ DEFAULT_PARTNERS = [
         "link": "https://goshaturbotech.ru",
         "sort_order": 28,
         "is_active": 1
+    },
+    {
+        "id": "ams_performance",
+        "name": "AMS Performance",
+        "category": "Турбосистемы & Alpha Packages",
+        "desc": "Легендарный мировой разработчик рекордных турбо-китов Alpha для Nissan GT-R R35, Audi R8 V10 и Lamborghini Huracan со статусом мировых рекордов 1/4 мили.",
+        "logo": "assets/partners/ams_performance.png",
+        "link": "https://www.amsperformance.com/",
+        "sort_order": 29,
+        "is_active": 1
+    },
+    {
+        "id": "real_street",
+        "name": "Real Street Performance",
+        "category": "Компоненты ДВС & Автоспорт",
+        "desc": "Американский инженерный центр и дистрибьютор топовых компонентов ЦПГ, кованых шатунов, коленвалов и клапанных механизмов для 1500+ л.с. моторов.",
+        "logo": "assets/partners/real_street.png",
+        "link": "https://www.realstreetperformance.com/",
+        "sort_order": 30,
+        "is_active": 1
+    },
+    {
+        "id": "high_horse",
+        "name": "High Horse Performance",
+        "category": "HEMI & Дрэг-Тюнинг",
+        "desc": "Мировой лидер в подготовке и постройке рекордных двигателей Dodge HEMI Gen III, компрессорных пакетов Hellcat/Demon и трансмиссий для дрэг-рейсинга.",
+        "logo": "assets/partners/high_horse.png",
+        "link": "https://highhorseperformance.com/",
+        "sort_order": 31,
+        "is_active": 1
+    },
+    {
+        "id": "platinum_racing",
+        "name": "Platinum Racing Products",
+        "category": "Billet-инженерия & Зажигание",
+        "desc": "Австралийский производитель прецизионных фрезерованных billet-компонентов из авиационного алюминия, триггерных комплектов R35 coil kit и масляных систем.",
+        "logo": "assets/partners/platinum_racing.png",
+        "link": "https://platinumracingproducts.com/",
+        "sort_order": 32,
+        "is_active": 1
     }
 ]
 

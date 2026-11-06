@@ -2005,7 +2005,11 @@ const defaultPartnersList = [
   { id: 'rdrc_racepark', name: 'RDRC Racepark', category: 'Дрэг-стрип RDRC', desc: 'Главный гоночный автодром Чемпионата России', logo: 'assets/partners/rdrc_racepark.png', link: 'https://rdrc.ru', sort_order: 25, is_active: 1 },
   { id: 'dsc_off', name: 'DSC OFF', category: 'Автоспортивное медиа', desc: 'Медиа-проект Гурама Инцкирвели о рекордах GTT', logo: 'assets/partners/dsc_off.png', link: 'https://youtube.com/@dscoff', sort_order: 26, is_active: 1 },
   { id: 'pride_jfc', name: 'Pride JFC', category: 'Партнерский клуб', desc: 'Официальный клуб и спортивная лига', logo: 'assets/partners/pride_jfc.png', link: 'https://goshaturbotech.ru', sort_order: 27, is_active: 1 },
-  { id: 'deikin_exhaust', name: 'Deikin Exhaust', category: 'Титановый выхлоп', desc: 'Кастомные титановые выхлопные системы', logo: 'assets/partners/deikin_exhaust.png', link: 'https://goshaturbotech.ru', sort_order: 28, is_active: 1 }
+  { id: 'deikin_exhaust', name: 'Deikin Exhaust', category: 'Титановый выхлоп', desc: 'Кастомные титановые выхлопные системы', logo: 'assets/partners/deikin_exhaust.png', link: 'https://goshaturbotech.ru', sort_order: 28, is_active: 1 },
+  { id: 'ams_performance', name: 'AMS Performance', category: 'Турбосистемы & Alpha Packages', desc: 'Рекордные турбо-киты Alpha для Nissan GT-R и Lamborghini Huracan', logo: 'assets/partners/ams_performance.png', link: 'https://www.amsperformance.com/', sort_order: 29, is_active: 1 },
+  { id: 'real_street', name: 'Real Street Performance', category: 'Компоненты ДВС & Автоспорт', desc: 'Топовые компоненты ЦПГ, шатуны и коленвалы для 1500+ л.с. моторов', logo: 'assets/partners/real_street.png', link: 'https://www.realstreetperformance.com/', sort_order: 30, is_active: 1 },
+  { id: 'high_horse', name: 'High Horse Performance', category: 'HEMI & Дрэг-Тюнинг', desc: 'Мировой лидер постройки рекордных моторов HEMI Gen III и Hellcat', logo: 'assets/partners/high_horse.png', link: 'https://highhorseperformance.com/', sort_order: 31, is_active: 1 },
+  { id: 'platinum_racing', name: 'Platinum Racing Products', category: 'Billet-инженерия & Зажигание', desc: 'Фрезерованные billet-узлы, комплекты зажигания R35 и масляные системы', logo: 'assets/partners/platinum_racing.png', link: 'https://platinumracingproducts.com/', sort_order: 32, is_active: 1 }
 ];
 
 let cachedPartnersData = null;
@@ -3838,16 +3842,30 @@ window.toggleTeamExpand = function() {
   updateTeamVisibility();
 };
 
+function getDeptLabel(dept) {
+  switch (dept) {
+    case 'management': return 'Руководство';
+    case 'engineers':
+    case 'engineering': return 'Инжиниринг';
+    case 'mechanics': return 'Сервис & Моторы';
+    case 'fab': return 'Сварка & Фабрикация';
+    case 'logistics': return 'Логистика & Склад';
+    case 'media': return 'Медиа & Дизайн';
+    default: return 'GTT Штаб';
+  }
+}
+
 function renderTeamGrid(teamList) {
   const grid = document.getElementById('teamGrid');
   if (!grid || !Array.isArray(teamList)) return;
-  grid.innerHTML = teamList.map(m => {
+  grid.innerHTML = teamList.map((m, idx) => {
     const rawPhoto = (m.photo && typeof m.photo === 'string') ? m.photo.trim() : '';
     const hasPhoto = Boolean(rawPhoto && !rawPhoto.includes('tildacdn.com'));
     const social = m.social ? String(m.social) : '';
     const rawId = m.id || '';
-    const num = rawId.replace(/\D/g, '');
+    const num = rawId.replace(/\D/g, '') || String(idx + 1).padStart(2, '0');
     const dept = getDeptByRole(m.role);
+    const deptLabel = getDeptLabel(dept);
     let displayRole = m.role || '';
     let displayName = m.name || '';
 
@@ -3860,22 +3878,27 @@ function renderTeamGrid(teamList) {
       }
     }
 
-    const photoContent = hasPhoto
-      ? `<img src="${rawPhoto}" alt="${displayName}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'team-card-photo-teaser\\'><div class=\\'team-placeholder-shield\\'><img src=\\'assets/photos/gtt_shield_logo.svg\\' alt=\\'GTT\\' class=\\'team-placeholder-shield-icon\\'></div><div class=\\'team-placeholder-badge\\'><span class=\\'team-placeholder-pill\\'>ШТАБ // GTT FLEET</span><span class=\\'team-placeholder-sub\\'>ФОТО СКОРО</span></div></div>';">`
-      : `<div class="team-card-photo-teaser">
-          <div class="team-placeholder-shield">
-            <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-shield-icon" loading="lazy">
+    if (hasPhoto) {
+      return `
+        <div class="team-card has-photo" data-team-dept="${dept}">
+          <div class="team-card-photo">
+            <img src="${rawPhoto}" alt="${displayName}" loading="lazy">
           </div>
-          <div class="team-placeholder-badge">
-            <span class="team-placeholder-pill">ШТАБ // GTT FLEET</span>
-            <span class="team-placeholder-sub">ФОТО СКОРО</span>
+          <div class="team-card-body">
+            <span class="team-role">${displayRole}</span>
+            <h3 class="team-name">${displayName}</h3>
+            ${social ? `<span class="team-social">${social}</span>` : ''}
           </div>
-        </div>`;
+        </div>
+      `;
+    }
 
+    // Prestigious specialist badge mode (eliminates bulky empty photo boxes)
     return `
-      <div class="team-card" data-team-dept="${dept}">
-        <div class="team-card-photo">
-          ${photoContent}
+      <div class="team-card team-card-badge-mode" data-team-dept="${dept}">
+        <div class="team-badge-header">
+          <span class="team-dept-pill">${deptLabel}</span>
+          <span class="team-badge-id">#${num}</span>
         </div>
         <div class="team-card-body">
           <span class="team-role">${displayRole}</span>
@@ -3902,10 +3925,13 @@ function setupHeroVideo() {
   heroVideo.setAttribute('playsinline', '');
   heroVideo.setAttribute('webkit-playsinline', '');
 
-  // Smooth cross-fade once frames are actually playing (eliminates any black frame flash)
+  // Smooth cross-fade once frames are actually playing (eliminates black frames & hides photo to prevent ghosting)
   function markVideoActive() {
     if (!heroVideo.classList.contains('is-playing')) {
       heroVideo.classList.add('is-playing');
+      if (hero && !hero.classList.contains('photo-only-mode')) {
+        hero.classList.add('video-playing-active');
+      }
     }
   }
 
@@ -3919,7 +3945,7 @@ function setupHeroVideo() {
     heroVideo.muted = true;
     const playPromise = heroVideo.play();
     if (playPromise !== undefined) {
-      playPromise.catch(() => {
+      playPromise.then(markVideoActive).catch(() => {
         attachInteractionFallback();
       });
     }
@@ -3961,50 +3987,60 @@ function setupHeroVideo() {
     }
   });
 
-  // Query parameter & localStorage preference check for testing photo backdrop
+  // Query parameter & localStorage preference check
   try {
     const params = new URLSearchParams(window.location.search);
     if (params.get('hero') === 'photo' || params.get('mode') === 'photo') {
-      window.toggleHeroMediaMode(true);
+      window.setHeroMediaMode('photo');
     } else if (localStorage.getItem('gtt_hero_mode') === 'photo') {
-      window.toggleHeroMediaMode(true);
+      window.setHeroMediaMode('photo');
+    } else {
+      window.setHeroMediaMode('video');
     }
   } catch (e) {}
 }
 
-window.toggleHeroMediaMode = function(forceMode) {
+window.setHeroMediaMode = function(mode) {
   const hero = document.getElementById('hero');
   const heroVideo = document.querySelector('.hero-video-bg');
-  const label = document.getElementById('heroStreamLabel');
+  const btnVideo = document.getElementById('btnModeVideo');
+  const btnPhoto = document.getElementById('btnModePhoto');
   if (!hero) return;
 
-  const shouldBePhoto = (typeof forceMode === 'boolean') 
-    ? forceMode 
-    : !hero.classList.contains('photo-only-mode');
+  const isPhoto = (mode === 'photo');
+  hero.classList.toggle('photo-only-mode', isPhoto);
 
-  hero.classList.toggle('photo-only-mode', shouldBePhoto);
+  if (btnVideo && btnPhoto) {
+    btnVideo.classList.toggle('active', !isPhoto);
+    btnPhoto.classList.toggle('active', isPhoto);
+  }
 
-  if (shouldBePhoto) {
+  if (isPhoto) {
+    hero.classList.remove('video-playing-active');
     if (heroVideo) {
       heroVideo.pause();
-      heroVideo.classList.remove('is-playing');
     }
-    if (label) label.textContent = 'ФОН: ФОТО АТЕЛЬЕ';
     try { localStorage.setItem('gtt_hero_mode', 'photo'); } catch (e) {}
   } else {
-    if (label) label.textContent = 'ФОН: ВИДЕО RDRC';
     try { localStorage.removeItem('gtt_hero_mode'); } catch (e) {}
     if (heroVideo) {
       heroVideo.muted = true;
       heroVideo.play().then(() => {
         heroVideo.classList.add('is-playing');
+        hero.classList.add('video-playing-active');
       }).catch(() => {});
     }
   }
 };
 
+window.toggleHeroMediaMode = function() {
+  const hero = document.getElementById('hero');
+  const isCurrentlyPhoto = hero && hero.classList.contains('photo-only-mode');
+  window.setHeroMediaMode(isCurrentlyPhoto ? 'video' : 'photo');
+};
+
 window.testHeroBackdrop = function(showPhoto = true) {
-  window.toggleHeroMediaMode(showPhoto);
+  window.setHeroMediaMode(showPhoto ? 'photo' : 'video');
   console.log(`[GTT Hero] Mode set to: ${showPhoto ? 'PHOTO BACKDROP (7R204229.jpg)' : 'VIDEO STREAM (hero_bg_optimized.mp4)'}`);
 };
 

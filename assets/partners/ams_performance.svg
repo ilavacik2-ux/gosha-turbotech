@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" fill="none">
+  <path d="M18 46 L34 14 L46 14 L62 46 L50 46 L45 35 L35 35 L30 46 Z" fill="#E60000"/>
+  <polygon points="40,24 37,30 43,30" fill="#0c0e14"/>
+  <text x="68" y="32" font-family="'Space Grotesk', 'Helvetica Neue', Arial, sans-serif" font-weight="900" font-size="22" fill="#FFFFFF" letter-spacing="1.5">AMS</text>
+  <text x="68" y="46" font-family="'Space Grotesk', 'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="11" fill="#EA5B0C" letter-spacing="3">PERFORMANCE</text>
+</svg>
