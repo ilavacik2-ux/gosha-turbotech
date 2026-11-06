@@ -1721,7 +1721,7 @@ window.setLanguage = function(lang) {
   if (cachedTeamData) {
     renderTeamGrid(cachedTeamData);
   } else {
-    updateTeamVisibility();
+    syncTeamFromAPI();
   }
   if (cachedRecordsData && typeof renderRecordsEditorial === 'function') {
     renderRecordsEditorial(cachedRecordsData);
@@ -3813,13 +3813,118 @@ let currentTeamDept = 'all';
 let isTeamExpanded = false;
 
 function getDeptByRole(role) {
-  if (!role) return 'reserve';
+  if (!role) return 'management';
   const r = role.toLowerCase();
-  if (r.includes('основатель') || r.includes('босс') || r.includes('директор') || r.includes('руководитель') || r.includes('помощник руководителя') || r.includes('администратор') || r.includes('делопроизводитель') || r.includes('заведующий') || r.includes('закупк') || r.includes('хозяйственн') || r.includes('контент') || r.includes('медиа')) return 'management';
-  if (r.includes('инженер') || r.includes('моторист') || r.includes('помощник моториста') || r.includes('диагност') || r.includes('электрик') || r.includes('калибровщик') || r.includes('телеметри')) return 'engineers';
-  if (r.includes('механик') || r.includes('мото-механик')) return 'mechanics';
-  if (r.includes('сварщик') || r.includes('фабрикатор')) return 'fab';
+  if (r.includes('контент') || r.includes('медиа') || r.includes('media') || r.includes('content') || r.includes('video')) return 'media';
+  if (r.includes('склад') || r.includes('закупк') || r.includes('хозяйственн') || r.includes('снабжен') || r.includes('logistics') || r.includes('procurement') || r.includes('warehouse') || r.includes('facilities') || r.includes('supply')) return 'logistics';
+  if (r.includes('сварщик') || r.includes('фабрикатор') || r.includes('аргон') || r.includes('welder') || r.includes('fabricat') || r.includes('tig')) return 'fab';
+  if (r.includes('инженер') || r.includes('электрик') || r.includes('диагност') || r.includes('калибровщик') || r.includes('телеметри') || r.includes('engineer') || r.includes('electrical') || r.includes('diagnostic') || r.includes('cad') || r.includes('ecu')) return 'engineers';
+  if (r.includes('механик') || r.includes('моторист') || r.includes('агрегатчик') || r.includes('помощник моториста') || r.includes('мото-механик') || r.includes('mechanic') || r.includes('engine') || r.includes('powertrain') || r.includes('builder')) return 'mechanics';
+  if (r.includes('основатель') || r.includes('босс') || r.includes('директор') || r.includes('руководитель') || r.includes('помощник руководителя') || r.includes('администратор') || r.includes('делопроизводитель') || r.includes('founder') || r.includes('director') || r.includes('boss') || r.includes('assistant') || r.includes('coordinator')) return 'management';
   return 'management';
+}
+
+function getDeptLabel(dept, lang = currentLang) {
+  if (lang === 'en') {
+    switch (dept) {
+      case 'management': return 'MANAGEMENT';
+      case 'engineers':
+      case 'engineering': return 'ENGINEERING';
+      case 'mechanics': return 'SERVICE & ENGINES';
+      case 'fab': return 'WELDING & FABRICATION';
+      case 'logistics': return 'LOGISTICS & SUPPLY';
+      case 'media': return 'MEDIA & DESIGN';
+      default: return 'GTT HQ';
+    }
+  }
+  switch (dept) {
+    case 'management': return 'РУКОВОДСТВО';
+    case 'engineers':
+    case 'engineering': return 'ИНЖИНИРИНГ';
+    case 'mechanics': return 'СЕРВИС & МОТОРЫ';
+    case 'fab': return 'СВАРКА & ФАБРИКАЦИЯ';
+    case 'logistics': return 'ЛОГИСТИКА & СКЛАД';
+    case 'media': return 'МЕДИА & ДИЗАЙН';
+    default: return 'GTT ШТАБ';
+  }
+}
+
+const teamMemberTranslations = {
+  m_gosha: { name: 'Gosha Pertskheliya', role: 'Founder & Chief Constructor GTT', dept: 'management' },
+  m_pertskheliya_givi: { name: 'Givi Pertskheliya', role: 'Managing Director', dept: 'management' },
+  m_pertskheliya_mikhail: { name: 'Mikhail Pertskheliya', role: 'Executive Director', dept: 'management' },
+  m_sarkisyan: { name: 'Eduard Sarkisyan', role: 'Technical Director', dept: 'management' },
+  m_pertskheliya_zurab: { name: 'Zurab Pertskheliya', role: 'Executive Assistant', dept: 'management' },
+  m_pashchenko: { name: 'Daniil Pashchenko', role: 'Head of Media Production', dept: 'media' },
+  m_gurov: { name: 'Dmitry Gurov', role: 'CAD & Design Engineer', dept: 'engineers' },
+  m_shevtsov: { name: 'Georgy Shevtsov', role: 'Lead Electrical Engineer', dept: 'engineers' },
+  m_nikolaev: { name: 'Artem Nikolaev', role: 'Electrical Specialist', dept: 'engineers' },
+  m_labkovich: { name: 'Evgeny Labkovich', role: 'Diagnostic & ECU Engineer', dept: 'engineers' },
+  m_stotsky: { name: 'Sergey Stotsky', role: 'Powertrain & Engine Builder', dept: 'mechanics' },
+  m_turdibaev: { name: 'Rustam Turdibaev', role: 'Powertrain & Engine Builder', dept: 'mechanics' },
+  m_mazhnunov: { name: 'Solekhdzhon Mazhnunov', role: 'Assistant Engine Builder', dept: 'mechanics' },
+  m_petrushin: { name: 'Pavel Petrushin', role: 'Assistant Engine Builder', dept: 'mechanics' },
+  m_mamsurov: { name: 'Ksanti Mamsurov', role: 'TIG Welder & Fabricator', dept: 'fab' },
+  m_fetkulin: { name: 'Roman Fetkulin', role: 'TIG Welder & Fabricator', dept: 'fab' },
+  m_bagdasaryan: { name: 'Mikael Bagdasaryan', role: 'Race Mechanic', dept: 'mechanics' },
+  m_burnashov: { name: 'Erik Burnashov', role: 'Race Mechanic', dept: 'mechanics' },
+  m_ivanov: { name: 'Nikita Ivanov', role: 'Race Mechanic', dept: 'mechanics' },
+  m_mazhorov: { name: 'Ivan Mazhorov', role: 'Race Mechanic', dept: 'mechanics' },
+  m_malofeev: { name: 'Aleksey Malofeev', role: 'Race Mechanic', dept: 'mechanics' },
+  m_marin: { name: 'Vadim Marin', role: 'Workshop Mechanic', dept: 'mechanics' },
+  m_osipov: { name: 'Artem Osipov', role: 'Workshop Mechanic', dept: 'mechanics' },
+  m_ponomarev: { name: 'Nikolay Ponomarev', role: 'Workshop Mechanic', dept: 'mechanics' },
+  m_sergeev: { name: 'Andrey Sergeev', role: 'Workshop Mechanic', dept: 'mechanics' },
+  m_shinkarenko: { name: 'Stepan Shinkarenko', role: 'Workshop Mechanic', dept: 'mechanics' },
+  m_yakovlev: { name: 'Aleksey Yakovlev', role: 'Moto Specialist Mechanic', dept: 'mechanics' },
+  m_barankin: { name: 'Dmitry Barankin', role: 'Procurement Manager', dept: 'logistics' },
+  m_gazaryan: { name: 'Pavel Gazaryan', role: 'Procurement Manager', dept: 'logistics' },
+  m_gusarov: { name: 'Ilya Gusarov', role: 'Warehouse & Parts Supervisor', dept: 'logistics' },
+  m_zolotareva: { name: 'Maria Zolotareva', role: 'Office & Operations Coordinator', dept: 'management' },
+  m_kopyl: { name: 'Ulyana Kopyl', role: 'Content Creator & Media', dept: 'media' },
+  m_babyakin: { name: 'Nikita Babyakin', role: 'Facilities & Operations Specialist', dept: 'logistics' }
+};
+
+const teamRoleDict = {
+  'Основатель & Главный конструктор GTT': 'Founder & Chief Constructor GTT',
+  'Основатель': 'Founder',
+  'Босс': 'Managing Director',
+  'Исполнительный директор': 'Executive Director',
+  'Технический директор': 'Technical Director',
+  'Помощник руководителя': 'Executive Assistant',
+  'Руководитель Медиа отдела': 'Head of Media Production',
+  'Инженер-проектировщик': 'CAD & Design Engineer',
+  'Ст. Электрик': 'Lead Electrical Engineer',
+  'Мл. Электрик': 'Electrical Specialist',
+  'Диагност': 'Diagnostic & ECU Engineer',
+  'Моторист-агрегатчик': 'Powertrain & Engine Builder',
+  'Моторист': 'Engine Builder',
+  'Помощник моториста': 'Assistant Engine Builder',
+  'Сварщик-фабрикатор': 'TIG Welder & Fabricator',
+  'Механик': 'Race Mechanic',
+  'Мото-механик': 'Moto Specialist Mechanic',
+  'Менеджер по закупкам': 'Procurement Manager',
+  'Заведующий складом': 'Warehouse & Parts Supervisor',
+  'Делопроизводитель': 'Office & Operations Coordinator',
+  'Контент-Мейкер': 'Content Creator & Media',
+  'Специалист по хозяйственному обеспечению': 'Facilities & Operations Specialist'
+};
+
+function transliterateRussian(text) {
+  if (!text) return '';
+  const ruMap = {
+    'А': 'A', 'Б': 'B', 'В': 'V', 'Г': 'G', 'Д': 'D', 'Е': 'E', 'Ё': 'Yo', 'Ж': 'Zh',
+    'З': 'Z', 'И': 'I', 'Й': 'Y', 'К': 'K', 'Л': 'L', 'М': 'M', 'Н': 'N', 'О': 'O',
+    'П': 'P', 'Р': 'R', 'С': 'S', 'Т': 'T', 'У': 'U', 'Ф': 'F', 'Х': 'Kh', 'Ц': 'Ts',
+    'Ч': 'Ch', 'Ш': 'Sh', 'Щ': 'Shch', 'Ъ': '', 'Ы': 'Y', 'Ь': '', 'Э': 'E', 'Ю': 'Yu',
+    'Я': 'Ya',
+    'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo', 'ж': 'zh',
+    'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o',
+    'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'kh', 'ц': 'ts',
+    'ч': 'ch', 'ш': 'sh', 'щ': 'shch', 'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu',
+    'я': 'ya'
+  };
+  return text.split('').map(ch => ruMap[ch] !== undefined ? ruMap[ch] : ch).join('');
 }
 
 function updateTeamVisibility() {
@@ -3888,19 +3993,6 @@ window.toggleTeamExpand = function() {
   updateTeamVisibility();
 };
 
-function getDeptLabel(dept) {
-  switch (dept) {
-    case 'management': return 'Руководство';
-    case 'engineers':
-    case 'engineering': return 'Инжиниринг';
-    case 'mechanics': return 'Сервис & Моторы';
-    case 'fab': return 'Сварка & Фабрикация';
-    case 'logistics': return 'Логистика & Склад';
-    case 'media': return 'Медиа & Дизайн';
-    default: return 'GTT Штаб';
-  }
-}
-
 function renderTeamGrid(teamList) {
   const grid = document.getElementById('teamGrid');
   if (!grid || !Array.isArray(teamList)) return;
@@ -3909,19 +4001,33 @@ function renderTeamGrid(teamList) {
     const hasPhoto = Boolean(rawPhoto && !rawPhoto.includes('tildacdn.com'));
     const social = m.social ? String(m.social) : '';
     const rawId = m.id || '';
-    const num = rawId.replace(/\D/g, '') || String(idx + 1).padStart(2, '0');
-    const dept = getDeptByRole(m.role);
-    const deptLabel = getDeptLabel(dept);
+    const num = String(m.sort_order || idx + 1).padStart(2, '0');
+    const dept = m.dept || getDeptByRole(m.role || m.role_en);
+    const deptLabel = getDeptLabel(dept, currentLang);
     let displayRole = m.role || '';
     let displayName = m.name || '';
 
     if (currentLang === 'en') {
-      if (num && i18n.en[`team_role_${num}`]) {
-        displayRole = i18n.en[`team_role_${num}`];
+      if (m.name_en && m.name_en.trim()) {
+        displayName = m.name_en.trim();
+      } else if (teamMemberTranslations[m.id]?.name) {
+        displayName = teamMemberTranslations[m.id].name;
+      } else if (teamRoleDict[m.name]) {
+        displayName = teamRoleDict[m.name];
+      } else {
+        displayName = transliterateRussian(displayName);
       }
-      if (num && i18n.en[`team_name_${num}`]) {
-        displayName = i18n.en[`team_name_${num}`];
+
+      if (m.role_en && m.role_en.trim()) {
+        displayRole = m.role_en.trim();
+      } else if (teamMemberTranslations[m.id]?.role) {
+        displayRole = teamMemberTranslations[m.id].role;
+      } else if (teamRoleDict[m.role]) {
+        displayRole = teamRoleDict[m.role];
       }
+    } else {
+      if (m.name) displayName = m.name;
+      if (m.role) displayRole = m.role;
     }
 
     if (hasPhoto) {

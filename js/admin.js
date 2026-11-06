@@ -4196,7 +4196,11 @@ async function saveTeamMember(e) {
     role: document.getElementById('editMemberRole').value.trim() || 'Инженер GTT Atelier',
     status: document.getElementById('editMemberStatus').value || 'active',
     photo: photoVal,
-    social: existingMember ? existingMember.social : undefined
+    social: existingMember ? existingMember.social : undefined,
+    sort_order: existingMember ? existingMember.sort_order : (team.length + 1),
+    name_en: existingMember ? existingMember.name_en : '',
+    role_en: existingMember ? existingMember.role_en : '',
+    dept: existingMember ? existingMember.dept : ''
   };
 
   // 1. OPTIMISTIC INSTANT UPDATE (0ms delay)
