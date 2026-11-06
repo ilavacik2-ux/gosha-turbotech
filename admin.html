@@ -74,7 +74,7 @@
           <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="topbar-shield">
           <div>
             <div class="topbar-brand">GOSHA <span>TURBOTECH</span></div>
-            <div class="topbar-status"><span class="status-dot"></span> LIVE ATELIER HUB</div>
+            <div class="topbar-status" id="atelierHubStatus"><span class="status-dot"></span> LIVE ATELIER HUB</div>
           </div>
         </div>
 
@@ -374,8 +374,8 @@
               <span>👤 Профиль справа</span>
               <span id="inspectorMemberBadge" class="tag-pill" style="font-size: 10px;">Crew</span>
             </div>
-            <div style="width: 100%; height: 240px; border-radius: 8px; overflow: hidden; background: #000; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 14px; position: relative;">
-              <img id="inspectorMemberImg" src="assets/photos/team_pilot_paddock.jpg" alt="Фото специалиста" style="width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block;" onerror="this.src='assets/photos/team_pilot_paddock.jpg'">
+            <div style="width: 100%; height: 240px; border-radius: 8px; overflow: hidden; background: radial-gradient(circle at center, rgba(230,0,0,0.08), rgba(0,0,0,0.85)); border: 1px solid rgba(255,255,255,0.1); margin-bottom: 14px; position: relative;">
+              <img id="inspectorMemberImg" src="assets/photos/gtt_shield_logo.svg" alt="Фото специалиста" style="width: 100%; height: 100%; object-fit: contain; padding: 30px; display: block;" onerror="this.src='assets/photos/gtt_shield_logo.svg'">
               <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 24px 12px 8px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);">
                 <div id="inspectorMemberStatus" style="font-size: 11px; color: #22c55e; font-weight: 600;">● В основном составе</div>
               </div>

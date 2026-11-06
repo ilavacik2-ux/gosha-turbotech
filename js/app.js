@@ -1769,13 +1769,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Dynamic SQLite & LocalStorage Synchronization for Cars
 async function syncProjectsFromAPI() {
-  // 1. Instant render from local cache (ONLY if valid and contains all 31 cars)
+  let hasValidLocal = false;
+  // 1. Instant render from local cache (ONLY if valid and contains projects)
   try {
     const local = localStorage.getItem('gtt_admin_cars_db') || localStorage.getItem('gtt_projects_v2');
     if (local) {
       const parsed = JSON.parse(local);
       if (Array.isArray(parsed) && parsed.length > 0) {
         applyCarsData(parsed);
+        hasValidLocal = true;
       }
     }
   } catch (e) {}
@@ -1783,9 +1785,13 @@ async function syncProjectsFromAPI() {
   // 2. Fetch live data from SQLite backend or static data fallback
   try {
     let serverCars = null;
+    let isLiveBackend = false;
     try {
       const res = await fetch('/api/cars');
-      if (res.ok) serverCars = await res.json();
+      if (res.ok) {
+        serverCars = await res.json();
+        isLiveBackend = true;
+      }
     } catch (e) {}
 
     if (!serverCars || !Array.isArray(serverCars) || serverCars.length === 0) {
@@ -1796,9 +1802,12 @@ async function syncProjectsFromAPI() {
     }
 
     if (Array.isArray(serverCars) && serverCars.length > 0) {
-      localStorage.setItem('gtt_admin_cars_db', JSON.stringify(serverCars));
-      localStorage.setItem('gtt_projects_v2', JSON.stringify(serverCars));
-      applyCarsData(serverCars);
+      // Live backend is authoritative; static file fallback only applies if local storage was empty
+      if (isLiveBackend || !hasValidLocal) {
+        localStorage.setItem('gtt_admin_cars_db', JSON.stringify(serverCars));
+        localStorage.setItem('gtt_projects_v2', JSON.stringify(serverCars));
+        applyCarsData(serverCars);
+      }
     }
   } catch (err) {
     // Offline or static fallback
@@ -1951,6 +1960,7 @@ const defaultTeamPhotos = {
 let cachedTeamData = null;
 
 async function syncTeamFromAPI() {
+  let hasValidLocal = false;
   // 1. Instant check from admin localStorage
   try {
     const local = localStorage.getItem('gtt_admin_team_db') || localStorage.getItem('gtt_team_v2');
@@ -1959,6 +1969,7 @@ async function syncTeamFromAPI() {
       if (Array.isArray(parsed) && parsed.length > 0) {
         cachedTeamData = parsed;
         renderTeamGrid(parsed);
+        hasValidLocal = true;
       }
     }
   } catch (e) {}
@@ -1966,9 +1977,13 @@ async function syncTeamFromAPI() {
   // 2. Fetch live data from SQLite backend or static data fallback
   try {
     let serverTeam = null;
+    let isLiveBackend = false;
     try {
       const res = await fetch('/api/team');
-      if (res.ok) serverTeam = await res.json();
+      if (res.ok) {
+        serverTeam = await res.json();
+        isLiveBackend = true;
+      }
     } catch (e) {}
 
     if (!serverTeam || !Array.isArray(serverTeam) || serverTeam.length === 0) {
@@ -1979,10 +1994,12 @@ async function syncTeamFromAPI() {
     }
 
     if (Array.isArray(serverTeam) && serverTeam.length > 0) {
-      cachedTeamData = serverTeam;
-      localStorage.setItem('gtt_admin_team_db', JSON.stringify(serverTeam));
-      localStorage.setItem('gtt_team_v2', JSON.stringify(serverTeam));
-      renderTeamGrid(serverTeam);
+      if (isLiveBackend || !hasValidLocal) {
+        cachedTeamData = serverTeam;
+        localStorage.setItem('gtt_admin_team_db', JSON.stringify(serverTeam));
+        localStorage.setItem('gtt_team_v2', JSON.stringify(serverTeam));
+        renderTeamGrid(serverTeam);
+      }
     }
   } catch (err) {
     // Offline / static fallback
@@ -1991,21 +2008,27 @@ async function syncTeamFromAPI() {
 
 // Dynamic Gallery Synchronization
 async function syncGalleryFromAPI() {
+  let hasValidLocal = false;
   try {
     const local = localStorage.getItem('gtt_admin_gallery_db');
     if (local) {
       const parsed = JSON.parse(local);
       if (Array.isArray(parsed) && parsed.length > 0) {
         renderGalleryTrack(parsed);
+        hasValidLocal = true;
       }
     }
   } catch (e) {}
 
   try {
     let serverGal = null;
+    let isLiveBackend = false;
     try {
       const res = await fetch('/api/gallery');
-      if (res.ok) serverGal = await res.json();
+      if (res.ok) {
+        serverGal = await res.json();
+        isLiveBackend = true;
+      }
     } catch (e) {}
 
     if (!serverGal || !Array.isArray(serverGal) || serverGal.length === 0) {
@@ -2016,8 +2039,10 @@ async function syncGalleryFromAPI() {
     }
 
     if (Array.isArray(serverGal) && serverGal.length > 0) {
-      localStorage.setItem('gtt_admin_gallery_db', JSON.stringify(serverGal));
-      renderGalleryTrack(serverGal);
+      if (isLiveBackend || !hasValidLocal) {
+        localStorage.setItem('gtt_admin_gallery_db', JSON.stringify(serverGal));
+        renderGalleryTrack(serverGal);
+      }
     }
   } catch (err) {}
 }
