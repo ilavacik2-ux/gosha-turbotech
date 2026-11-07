@@ -1298,6 +1298,8 @@ async function checkAuth() {
       }
     }
 
+    scrubLegacyTeamPlaceholders();
+    initDraggableAdminTabs();
     renderAllModules();
     updateAdminBellUI();
     syncAllModulesFromAPI();
@@ -1369,24 +1371,8 @@ function getStoredPin() {
 }
 
 function sendTelegramAlert(text) {
-  try {
-    const raw = localStorage.getItem(TG_CONFIG_KEY);
-    if (!raw) return;
-    const config = JSON.parse(raw);
-    if (!config.botToken || !config.chatId) return;
-
-    fetch(`https://api.telegram.org/bot${config.botToken}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: config.chatId,
-        text: text,
-        parse_mode: 'HTML'
-      })
-    }).catch(err => console.warn('TG Alert send error:', err));
-  } catch (e) {
-    console.warn('TG notification failed:', e);
-  }
+  // Telegram notifications disabled per user request
+  return;
 }
 
 async function handleAdminLogin(e) {
@@ -1593,6 +1579,128 @@ function switchAdminTab(tabName) {
     document.getElementById('tabSettings').style.display = 'block';
     populateSettingsInputs();
   }
+}
+
+const ADMIN_TABS_ORDER_KEY = 'gtt_admin_tabs_order';
+
+function scrubLegacyTeamPlaceholders() {
+  ['gtt_admin_team_db', 'gtt_team_v2'].forEach(key => {
+    try {
+      const saved = localStorage.getItem(key);
+      if (saved) {
+        let changed = false;
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          const clean = parsed.map(m => {
+            if (m && m.photo && typeof m.photo === 'string') {
+              if (m.photo.includes('team_pilot_paddock') || m.photo.includes('rdrc_team_huddle') || m.photo.includes('team_female_pilot')) {
+                m.photo = '';
+                changed = true;
+              }
+            }
+            return m;
+          });
+          if (changed) {
+            localStorage.setItem(key, JSON.stringify(clean));
+          }
+        }
+      }
+    } catch (e) {}
+  });
+}
+
+function initDraggableAdminTabs() {
+  const container = document.getElementById('adminNavTabs') || document.querySelector('.admin-nav-tabs');
+  if (!container) return;
+
+  // 1. Restore saved tab order from localStorage
+  try {
+    const rawSaved = localStorage.getItem(ADMIN_TABS_ORDER_KEY);
+    if (rawSaved) {
+      const savedOrder = JSON.parse(rawSaved);
+      if (Array.isArray(savedOrder) && savedOrder.length > 0) {
+        const tabMap = {};
+        Array.from(container.children).forEach(btn => {
+          const tabId = btn.getAttribute('data-tab');
+          if (tabId) tabMap[tabId] = btn;
+        });
+        savedOrder.forEach(tabId => {
+          if (tabMap[tabId]) {
+            container.appendChild(tabMap[tabId]);
+            delete tabMap[tabId];
+          }
+        });
+        // Append any remaining tabs not in savedOrder
+        Object.values(tabMap).forEach(btn => container.appendChild(btn));
+      }
+    }
+  } catch (e) {
+    console.warn('Error restoring tab order:', e);
+  }
+
+  // 2. Attach Drag and Drop handlers
+  let draggedTab = null;
+
+  function saveCurrentTabsOrder() {
+    const currentOrder = Array.from(container.querySelectorAll('.admin-tab-btn'))
+      .map(b => b.getAttribute('data-tab'))
+      .filter(Boolean);
+    try {
+      localStorage.setItem(ADMIN_TABS_ORDER_KEY, JSON.stringify(currentOrder));
+    } catch (e) {}
+  }
+
+  const buttons = container.querySelectorAll('.admin-tab-btn');
+  buttons.forEach(btn => {
+    btn.setAttribute('draggable', 'true');
+
+    btn.addEventListener('dragstart', (e) => {
+      draggedTab = btn;
+      btn.classList.add('is-dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', btn.getAttribute('data-tab') || '');
+    });
+
+    btn.addEventListener('dragend', () => {
+      if (draggedTab) {
+        draggedTab.classList.remove('is-dragging');
+      }
+      container.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('drag-over'));
+      draggedTab = null;
+      saveCurrentTabsOrder();
+    });
+
+    btn.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      if (!draggedTab || draggedTab === btn) return;
+
+      const rect = btn.getBoundingClientRect();
+      const midPoint = rect.left + rect.width / 2;
+      if (e.clientX < midPoint) {
+        container.insertBefore(draggedTab, btn);
+      } else {
+        container.insertBefore(draggedTab, btn.nextSibling);
+      }
+    });
+
+    btn.addEventListener('dragenter', (e) => {
+      e.preventDefault();
+      if (draggedTab && draggedTab !== btn) {
+        btn.classList.add('drag-over');
+      }
+    });
+
+    btn.addEventListener('dragleave', () => {
+      btn.classList.remove('drag-over');
+    });
+
+    btn.addEventListener('drop', (e) => {
+      e.preventDefault();
+      btn.classList.remove('drag-over');
+      saveCurrentTabsOrder();
+    });
+  });
 }
 
 
@@ -6015,6 +6123,8 @@ window.handleManualNameEnInput = handleManualNameEnInput;
 window.autoTranslateRuToEn = autoTranslateRuToEn;
 window.togglePasswordVisibility = togglePasswordVisibility;
 window.copySecretAdminUrl = copySecretAdminUrl;
+window.initDraggableAdminTabs = initDraggableAdminTabs;
+window.scrubLegacyTeamPlaceholders = scrubLegacyTeamPlaceholders;
 
 document.addEventListener('DOMContentLoaded', checkAuth);
 

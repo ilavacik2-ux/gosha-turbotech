@@ -2219,36 +2219,43 @@ body.is-loading {
 }
 
 .team-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 12px;
-  max-width: 1400px;
-  margin: 0 auto 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 18px 16px;
+  max-width: 1360px;
+  margin: 0 auto 28px;
 }
 
 .team-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 10px;
+  flex: 0 1 240px;
+  min-width: 215px;
+  max-width: 260px;
+  background: var(--bg-card, #10141e);
+  border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.08));
+  border-radius: 12px;
   overflow: hidden;
-  transition: var(--transition-smooth);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   backdrop-filter: blur(15px);
   display: flex;
   flex-direction: column;
+  position: relative;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
 .team-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-5px);
   border-color: var(--gtt-orange);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7), 0 0 20px var(--gtt-orange-glow);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.7), 0 0 24px var(--gtt-orange-glow);
 }
 
-/* Prestigious Specialist Badge Mode (Compact Engineering Credential Card) */
+/* Prestigious Specialist Badge Mode (Uniform with Photo Cards) */
 .team-card.team-card-badge-mode {
-  min-height: 120px;
+  min-height: 280px;
   background: linear-gradient(180deg, #131722 0%, #0a0d14 100%);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
+  border-radius: 12px;
   position: relative;
   overflow: hidden;
 }
@@ -2260,7 +2267,7 @@ body.is-loading {
   left: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(234, 91, 12, 0.6), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 85, 0, 0.7), transparent);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -2273,9 +2280,10 @@ body.is-loading {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 14px 8px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  background: rgba(255, 255, 255, 0.02);
+  padding: 0;
+  margin-bottom: 8px;
+  background: transparent;
+  border: none;
 }
 
 .team-dept-pill {
@@ -2285,10 +2293,10 @@ body.is-loading {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--gtt-orange);
-  background: rgba(234, 91, 12, 0.1);
-  border: 1px solid rgba(234, 91, 12, 0.25);
-  padding: 2px 7px;
-  border-radius: 3px;
+  background: rgba(255, 85, 0, 0.12);
+  border: 1px solid rgba(255, 85, 0, 0.28);
+  padding: 2.5px 8px;
+  border-radius: 4px;
 }
 
 .team-badge-id {
@@ -2299,57 +2307,31 @@ body.is-loading {
   color: var(--text-dim, #737170);
 }
 
-.team-card.team-card-badge-mode .team-card-body {
-  padding: 12px 14px 14px;
-  background: transparent;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.team-card.team-card-badge-mode .team-role {
-  font-size: 10.5px;
-  margin-bottom: 5px;
-  color: #ff8c42;
-}
-
-.team-card.team-card-badge-mode .team-name {
-  font-size: 16px;
-  color: #ffffff;
-  letter-spacing: 0.02em;
-  line-height: 1.25;
-}
-
-.team-card.team-card-badge-mode .team-social {
-  margin-top: 5px;
-  font-size: 11px;
-  color: #38bdf8;
-  font-family: var(--font-mono);
-}
-
 .team-card-photo {
-  height: 175px;
+  height: 220px;
   width: 100%;
   position: relative;
   overflow: hidden;
-  background: #11141c;
+  background: radial-gradient(circle at 50% 35%, rgba(255, 85, 0, 0.08), #090c13 80%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .team-card-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 25%;
+  object-position: center 20%;
   transition: transform 0.5s var(--ease-out-expo);
+  display: block;
 }
 
 .team-card:hover .team-card-photo img {
-  transform: scale(1.05);
+  transform: scale(1.06);
 }
 
 /* Team Photo Teaser & Placeholder Styling */
-.team-card-photo-teaser {
+.team-card-photo-teaser,
+.team-card-placeholder-photo {
   width: 100%;
   height: 100%;
   display: flex;
@@ -2357,47 +2339,52 @@ body.is-loading {
   align-items: center;
   justify-content: center;
   position: relative;
-  background: radial-gradient(circle at center, rgba(230, 0, 0, 0.12) 0%, rgba(13, 16, 24, 0.95) 75%);
+  background: radial-gradient(circle at 50% 38%, rgba(255, 85, 0, 0.12) 0%, rgba(10, 13, 20, 0.98) 75%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   padding: 16px 12px;
   box-sizing: border-box;
   user-select: none;
 }
 
-.team-card-photo-teaser::before {
+.team-card-photo-teaser::before,
+.team-card-placeholder-photo::before {
   content: "";
   position: absolute;
   inset: 0;
   background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
   background-size: 16px 16px;
   pointer-events: none;
-  opacity: 0.6;
+  opacity: 0.65;
 }
 
+.team-placeholder-crest,
 .team-placeholder-shield {
-  width: 58px;
-  height: 58px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(230, 0, 0, 0.35);
-  box-shadow: 0 0 20px rgba(230, 0, 0, 0.2);
+  border: 1px solid rgba(255, 85, 0, 0.35);
+  box-shadow: 0 0 22px rgba(255, 85, 0, 0.2);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   position: relative;
   z-index: 2;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
 }
 
+.team-card:hover .team-placeholder-crest,
 .team-card:hover .team-placeholder-shield {
   transform: scale(1.08);
-  box-shadow: 0 0 28px rgba(230, 0, 0, 0.45);
-  border-color: rgba(230, 0, 0, 0.6);
+  box-shadow: 0 0 30px rgba(255, 85, 0, 0.45);
+  border-color: rgba(255, 85, 0, 0.7);
 }
 
+.team-placeholder-crest-icon,
 .team-placeholder-shield-icon {
   width: 32px;
   height: 32px;
@@ -2405,38 +2392,28 @@ body.is-loading {
   filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
 }
 
-.team-placeholder-badge {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
+.team-placeholder-id {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--gtt-orange);
+  letter-spacing: 0.08em;
+  margin-top: 1px;
+}
+
+.team-placeholder-hint,
+.team-placeholder-sub {
+  font-family: var(--font-mono, monospace);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-dim, #737170);
   position: relative;
   z-index: 2;
 }
 
-.team-placeholder-pill {
-  font-family: var(--font-mono, monospace);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: #ff3333;
-  text-transform: uppercase;
-  background: rgba(230, 0, 0, 0.1);
-  border: 1px solid rgba(230, 0, 0, 0.25);
-  padding: 2px 8px;
-  border-radius: 4px;
-}
-
-.team-placeholder-sub {
-  font-family: var(--font-mono, monospace);
-  font-size: 8.5px;
-  letter-spacing: 0.08em;
-  color: var(--text-dim, #8b949e);
-  text-transform: uppercase;
-}
-
 .team-card-body {
-  padding: 10px 14px;
+  padding: 14px 16px 16px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -5731,8 +5708,12 @@ body.modal-open {
     grid-template-columns: 1fr;
   }
   .team-grid {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 16px;
+    gap: 16px 14px;
+    justify-content: center;
+  }
+  .team-card {
+    flex: 0 1 220px;
+    min-width: 200px;
   }
 }
 
@@ -6098,13 +6079,13 @@ body.modal-open {
     padding: 70px 4%;
   }
   .team-grid {
-    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
+    justify-content: center;
   }
   .team-card {
-    border: none !important;
-    outline: none !important;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
+    flex: 0 1 calc(50% - 8px);
+    min-width: 145px;
+    max-width: 200px;
     border-radius: 12px;
     overflow: hidden;
   }
@@ -6486,7 +6467,11 @@ body.modal-open {
 
 @media (max-width: 380px) {
   .team-grid {
-    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .team-card {
+    flex: 0 1 100%;
+    max-width: 280px;
   }
   .hero-title {
     font-size: 28px;

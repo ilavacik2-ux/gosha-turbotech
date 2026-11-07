@@ -358,13 +358,20 @@ body {
   font-weight: 600;
   padding: 7px 14px;
   border-radius: var(--radius-sm);
-  cursor: pointer;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
   letter-spacing: 0.02em;
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  touch-action: pan-y;
+}
+
+.admin-tab-btn:active {
+  cursor: grabbing;
 }
 
 .admin-tab-btn:hover {
@@ -379,6 +386,36 @@ body {
   font-weight: 700;
   box-shadow: 0 2px 14px var(--gtt-orange-glow);
   border-color: rgba(255, 255, 255, 0.25);
+}
+
+.admin-tab-btn.is-dragging {
+  opacity: 0.35 !important;
+  border: 1px dashed var(--gtt-orange) !important;
+  cursor: grabbing !important;
+  transform: scale(0.96);
+  background: rgba(255, 85, 0, 0.1) !important;
+}
+
+.admin-tab-btn.drag-over {
+  border-color: var(--gtt-orange) !important;
+  background: rgba(255, 85, 0, 0.2) !important;
+  box-shadow: 0 0 0 2px rgba(255, 85, 0, 0.4), 0 4px 16px rgba(255, 85, 0, 0.3) !important;
+  transform: translateY(-2px);
+}
+
+.admin-tab-drag-handle {
+  display: inline-flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 11px;
+  line-height: 1;
+  pointer-events: none;
+  transition: color 0.15s ease;
+  user-select: none;
+}
+
+.admin-tab-btn:hover .admin-tab-drag-handle {
+  color: var(--gtt-orange);
 }
 
 .admin-tab-content {

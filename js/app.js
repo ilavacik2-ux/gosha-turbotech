@@ -1959,6 +1959,14 @@ const defaultTeamPhotos = {
 
 let cachedTeamData = null;
 
+function sanitizeTeamMemberApp(m) {
+  if (!m || typeof m !== 'object') return m;
+  if (m.photo && typeof m.photo === 'string' && (m.photo.includes('team_pilot_paddock') || m.photo.includes('rdrc_team_huddle') || m.photo.includes('team_female_pilot'))) {
+    m.photo = '';
+  }
+  return m;
+}
+
 async function syncTeamFromAPI() {
   let hasValidLocal = false;
   // 1. Instant check from admin localStorage
@@ -1967,8 +1975,9 @@ async function syncTeamFromAPI() {
     if (local) {
       const parsed = JSON.parse(local);
       if (Array.isArray(parsed) && parsed.length > 0) {
-        cachedTeamData = parsed;
-        renderTeamGrid(parsed);
+        const clean = parsed.map(sanitizeTeamMemberApp);
+        cachedTeamData = clean;
+        renderTeamGrid(clean);
         hasValidLocal = true;
       }
     }
@@ -1994,11 +2003,12 @@ async function syncTeamFromAPI() {
     }
 
     if (Array.isArray(serverTeam) && serverTeam.length > 0) {
+      const cleanServerTeam = serverTeam.map(sanitizeTeamMemberApp);
       if (isLiveBackend || !hasValidLocal) {
-        cachedTeamData = serverTeam;
-        localStorage.setItem('gtt_admin_team_db', JSON.stringify(serverTeam));
-        localStorage.setItem('gtt_team_v2', JSON.stringify(serverTeam));
-        renderTeamGrid(serverTeam);
+        cachedTeamData = cleanServerTeam;
+        localStorage.setItem('gtt_admin_team_db', JSON.stringify(cleanServerTeam));
+        localStorage.setItem('gtt_team_v2', JSON.stringify(cleanServerTeam));
+        renderTeamGrid(cleanServerTeam);
       }
     }
   } catch (err) {
@@ -3976,7 +3986,7 @@ function updateTeamVisibility() {
     }
 
     totalMatching++;
-    if (currentTeamDept === 'all' && !isTeamExpanded && totalMatching > 8) {
+    if (currentTeamDept === 'all' && !isTeamExpanded && totalMatching > 10) {
       card.style.display = 'none';
     } else {
       card.style.display = 'flex';
@@ -3985,18 +3995,18 @@ function updateTeamVisibility() {
   });
 
   if (expandWrap) {
-    if (currentTeamDept === 'all' && cards.length > 8) {
+    if (currentTeamDept === 'all' && cards.length > 10) {
       expandWrap.style.display = 'flex';
       if (expandBtn) expandBtn.classList.toggle('is-expanded', isTeamExpanded);
       if (expandText) {
         if (currentLang === 'en') {
           expandText.textContent = isTeamExpanded 
             ? 'Collapse Crew Roster' 
-            : `Show Full Crew (another ${cards.length - 8} specialists)`;
+            : `Show Full Crew (another ${cards.length - 10} specialists)`;
         } else {
           expandText.textContent = isTeamExpanded 
             ? 'Свернуть состав команды' 
-            : `Показать всю команду (ещё ${cards.length - 8} специалистов)`;
+            : `Показать всю команду (ещё ${cards.length - 10} специалистов)`;
         }
       }
     } else {
@@ -4023,7 +4033,7 @@ function renderTeamGrid(teamList) {
   if (!grid || !Array.isArray(teamList)) return;
   grid.innerHTML = teamList.map((m, idx) => {
     const rawPhoto = (m.photo && typeof m.photo === 'string') ? m.photo.trim() : '';
-    const hasPhoto = Boolean(rawPhoto && !rawPhoto.includes('tildacdn.com'));
+    const hasPhoto = Boolean(rawPhoto && !rawPhoto.includes('tildacdn.com') && !rawPhoto.includes('team_pilot_paddock') && !rawPhoto.includes('rdrc_team_huddle') && !rawPhoto.includes('team_female_pilot'));
     const social = m.social ? String(m.social) : '';
     const rawId = m.id || '';
     const num = String(m.sort_order || idx + 1).padStart(2, '0');
@@ -4055,31 +4065,28 @@ function renderTeamGrid(teamList) {
       if (m.role) displayRole = m.role;
     }
 
-    if (hasPhoto) {
-      return `
-        <div class="team-card has-photo" data-team-dept="${dept}">
-          <div class="team-card-photo">
-            <img src="${rawPhoto}" alt="${displayName}" loading="lazy">
+    const photoMarkup = hasPhoto
+      ? `<img src="${rawPhoto}" alt="${displayName}" class="team-card-img" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'team-card-placeholder-photo\\'><div class=\\'team-placeholder-crest\\'><img src=\\'assets/photos/gtt_shield_logo.svg\\' alt=\\'GTT\\' class=\\'team-placeholder-crest-icon\\'><span class=\\'team-placeholder-id\\'>#${num}</span></div><span class=\\'team-placeholder-hint\\'>GTT Crew</span></div>'">`
+      : `<div class="team-card-placeholder-photo">
+          <div class="team-placeholder-crest">
+            <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+            <span class="team-placeholder-id">#${num}</span>
           </div>
-          <div class="team-card-body">
-            <span class="team-role">${displayRole}</span>
-            <h3 class="team-name">${displayName}</h3>
-            ${social ? `<span class="team-social">${social}</span>` : ''}
-          </div>
-        </div>
-      `;
-    }
+          <span class="team-placeholder-hint">GTT Atelier</span>
+        </div>`;
 
-    // Prestigious specialist badge mode (eliminates bulky empty photo boxes)
     return `
-      <div class="team-card team-card-badge-mode" data-team-dept="${dept}">
-        <div class="team-badge-header">
-          <span class="team-dept-pill">${deptLabel}</span>
-          <span class="team-badge-id">#${num}</span>
+      <div class="team-card ${hasPhoto ? 'has-photo' : 'has-placeholder'}" data-team-dept="${dept}">
+        <div class="team-card-photo">
+          ${photoMarkup}
         </div>
         <div class="team-card-body">
-          <span class="team-role">${displayRole}</span>
+          <div class="team-badge-header">
+            <span class="team-dept-pill">${deptLabel}</span>
+            <span class="team-badge-id">#${num}</span>
+          </div>
           <h3 class="team-name">${displayName}</h3>
+          <span class="team-role">${displayRole}</span>
           ${social ? `<span class="team-social">${social}</span>` : ''}
         </div>
       </div>

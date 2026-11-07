@@ -131,16 +131,16 @@
 
       <!-- Navigation Tabs Strip (Dedicated Second Level) -->
       <nav class="admin-subnav-strip">
-        <div class="admin-nav-tabs">
-          <button class="admin-tab-btn active" onclick="switchAdminTab('cars')">🏎️ Гараж проектов</button>
-          <button class="admin-tab-btn" onclick="switchAdminTab('traffic')">📊 Трафик</button>
-          <button class="admin-tab-btn" onclick="switchAdminTab('gallery')">📸 Галерея</button>
-          <button class="admin-tab-btn" onclick="switchAdminTab('team')">👥 Команда</button>
-          <button class="admin-tab-btn" onclick="switchAdminTab('partners')">🤝 Партнеры</button>
-          <button class="admin-tab-btn" onclick="switchAdminTab('moto')">🏍️ Мотоциклы</button>
-          <button class="admin-tab-btn" onclick="switchAdminTab('records')">⏱️ Рекорды</button>
-          <button class="admin-tab-btn" onclick="switchAdminTab('media')">🎥 Медиа</button>
-          <button class="admin-tab-btn" onclick="switchAdminTab('settings')">⚙️ Безопасность</button>
+        <div class="admin-nav-tabs" id="adminNavTabs">
+          <button class="admin-tab-btn active" data-tab="cars" draggable="true" onclick="switchAdminTab('cars')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>🏎️ Гараж проектов</button>
+          <button class="admin-tab-btn" data-tab="traffic" draggable="true" onclick="switchAdminTab('traffic')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>📊 Трафик</button>
+          <button class="admin-tab-btn" data-tab="gallery" draggable="true" onclick="switchAdminTab('gallery')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>📸 Галерея</button>
+          <button class="admin-tab-btn" data-tab="team" draggable="true" onclick="switchAdminTab('team')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>👥 Команда</button>
+          <button class="admin-tab-btn" data-tab="partners" draggable="true" onclick="switchAdminTab('partners')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>🤝 Партнеры</button>
+          <button class="admin-tab-btn" data-tab="moto" draggable="true" onclick="switchAdminTab('moto')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>🏍️ Мотоциклы</button>
+          <button class="admin-tab-btn" data-tab="records" draggable="true" onclick="switchAdminTab('records')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>⏱️ Рекорды</button>
+          <button class="admin-tab-btn" data-tab="media" draggable="true" onclick="switchAdminTab('media')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>🎥 Медиа</button>
+          <button class="admin-tab-btn" data-tab="settings" draggable="true" onclick="switchAdminTab('settings')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>⚙️ Безопасность</button>
         </div>
       </nav>
     </header>
@@ -672,32 +672,6 @@
           </div>
         </div>
 
-        <!-- Telegram Integration Card -->
-        <div style="max-width: 650px; margin-bottom: 24px;">
-          <div class="stat-card" style="display: block;">
-            <div style="font-family: var(--font-display); font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-              <span>✈️</span> Telegram Уведомления (Бот алертов)
-            </div>
-            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.4;">
-              Мгновенные оповещения в Telegram при попытках подбора пароля, входах в терминал и редактировании проектов.
-            </p>
-            <form onsubmit="handleSaveTelegramConfig(event)">
-              <div class="form-group" style="margin-bottom: 12px;">
-                <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 6px;">Telegram Bot Token</label>
-                <input type="text" id="tgBotTokenInput" placeholder="Например: 7123456789:AAHk...">
-              </div>
-              <div class="form-group" style="margin-bottom: 16px;">
-                <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 6px;">Chat ID / Telegram ID</label>
-                <input type="text" id="tgChatIdInput" placeholder="Например: 123456789">
-              </div>
-              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <button type="submit" class="btn-primary" style="flex: 1; min-width: 180px;">Сохранить Telegram</button>
-                <button type="button" class="topbar-btn outline-btn" onclick="testTelegramAlert()" style="padding: 10px 16px; cursor: pointer;">Тестовое сообщение ↗</button>
-              </div>
-              <div id="tgStatus" style="display: none; margin-top: 10px; font-size: 12px; padding: 8px 12px; border-radius: 6px;"></div>
-            </form>
-          </div>
-        </div>
 
         <!-- Secret URL Token Info Card -->
         <div class="stat-card" style="display: block; border-left: 3px solid var(--gtt-orange); max-width: 650px; margin-bottom: 30px;">
