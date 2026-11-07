@@ -2129,45 +2129,13 @@ function autoTranslateRuToEn(text) {
   return out.join('');
 }
 
-let isManualNameEn = false;
+let isManualNameEn = true;
 
 function updateNameEnModeUI() {
-  const badge = document.getElementById('nameEnAutoBadge');
-  const btnText = document.getElementById('btnEditNameEnText');
-  const btn = document.getElementById('btnToggleEditNameEn');
-
-  if (isManualNameEn) {
-    if (badge) {
-      badge.style.display = 'inline-flex';
-      badge.style.color = '#00ff88';
-      badge.innerHTML = '<span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #00ff88; box-shadow: 0 0 6px #00ff88;"></span> РУЧНОЙ ВВОД';
-    }
-    if (btnText) btnText.textContent = 'Авто';
-    if (btn) {
-      btn.title = 'Вернуть авто-перевод с русского';
-      btn.classList.add('is-manual-mode');
-    }
-  } else {
-    if (badge) {
-      badge.style.display = 'inline-flex';
-      badge.style.color = 'var(--gtt-orange)';
-      badge.innerHTML = '<span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--gtt-orange); box-shadow: 0 0 6px var(--gtt-orange);"></span> АВТО-ПЕРЕВОД С RU';
-    }
-    if (btnText) btnText.textContent = 'Изменить';
-    if (btn) {
-      btn.title = 'Изменить английское название вручную';
-      btn.classList.remove('is-manual-mode');
-    }
-  }
+  // Manual mode only - no badges needed
 }
 
 function handleNameRuInput(val) {
-  if (!isManualNameEn) {
-    const translated = autoTranslateRuToEn(val);
-    const enInput = document.getElementById('editNameEn');
-    if (enInput) enInput.value = translated;
-  }
-
   // Auto-detect brand if brand input is empty or defaults
   const brandInput = document.getElementById('editBrand');
   if (brandInput && (!brandInput.value || brandInput.value === 'GTT ATELIER')) {
@@ -2187,34 +2155,8 @@ function handleNameRuInput(val) {
   }
 }
 
-function toggleManualNameEn() {
-  if (!isManualNameEn) {
-    isManualNameEn = true;
-    updateNameEnModeUI();
-    const enInput = document.getElementById('editNameEn');
-    if (enInput) {
-      enInput.focus();
-      enInput.select();
-    }
-    showToast('Режим редактирования', 'Теперь вы можете свободно изменить название на английском', 'info');
-  } else {
-    isManualNameEn = false;
-    updateNameEnModeUI();
-    const ruVal = document.getElementById('editNameRu')?.value || '';
-    const enInput = document.getElementById('editNameEn');
-    if (enInput) {
-      enInput.value = autoTranslateRuToEn(ruVal);
-    }
-    showToast('Авто-перевод включен', 'Английское название снова генерируется автоматически из русского', 'success');
-  }
-}
-
-function handleManualNameEnInput(val) {
-  if (!isManualNameEn) {
-    isManualNameEn = true;
-    updateNameEnModeUI();
-  }
-}
+function toggleManualNameEn() {}
+function handleManualNameEnInput(val) {}
 
 function autoDetectBrand(name) {
   if (!name) return 'GTT ATELIER';
@@ -3798,9 +3740,6 @@ function openCarEditModal(carId, targetFeaturedSlot = null) {
 
     document.getElementById('editNameRu').value = nameRu;
     document.getElementById('editNameEn').value = nameEn;
-    const autoEn = autoTranslateRuToEn(nameRu);
-    isManualNameEn = Boolean(nameEn && nameEn !== autoEn && nameEn !== nameRu);
-    updateNameEnModeUI();
     document.getElementById('editHp').value = hp;
     document.getElementById('editQuarter').value = quarterMile;
     document.getElementById('editTopSpeed').value = topSpeed;
@@ -3837,8 +3776,6 @@ function openCarEditModal(carId, targetFeaturedSlot = null) {
     title.textContent = `Добавление нового проекта GTT${slotSuffix}`;
     if (form) form.reset();
     document.getElementById('editCarId').value = '';
-    isManualNameEn = false;
-    updateNameEnModeUI();
     handleCarPhotoPositionChange(50);
     const featCheckbox = document.getElementById('editIsFeatured');
     if (featCheckbox) featCheckbox.checked = (targetFeaturedSlot !== null);
@@ -3878,7 +3815,7 @@ async function saveCarProject(e) {
   const finalType = rawType && rawType !== 'other' ? rawType : autoDetectType(rawNameRu);
 
   const rawNameEn = document.getElementById('editNameEn').value.trim();
-  const finalNameEn = rawNameEn || autoTranslateRuToEn(rawNameRu) || rawNameRu;
+  const finalNameEn = rawNameEn || rawNameRu;
 
   const rawHp = document.getElementById('editHp').value.trim();
   const finalHp = rawHp ? (rawHp.includes('HP') || rawHp.includes('л.с.') ? rawHp : rawHp + ' HP') : '1,050+ HP';
