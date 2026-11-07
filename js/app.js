@@ -1798,14 +1798,15 @@ async function syncProjectsFromAPI() {
       }
     } catch (e) {}
 
-    if (!serverCars || !Array.isArray(serverCars) || serverCars.length === 0) {
+    // Only fallback to static data/cars.json if there is NO live backend AND NO existing local data in browser
+    if ((!serverCars || !Array.isArray(serverCars) || serverCars.length === 0) && !hasValidLocal) {
       try {
         const res = await fetch('data/cars.json?v=' + Date.now());
         if (res.ok) serverCars = await res.json();
       } catch (e) {}
     }
 
-    if (Array.isArray(serverCars) && serverCars.length > 0) {
+    if (Array.isArray(serverCars) && serverCars.length > 0 && (isLiveBackend || !hasValidLocal)) {
       localStorage.setItem('gtt_admin_cars_db', JSON.stringify(serverCars));
       localStorage.setItem('gtt_projects_v2', JSON.stringify(serverCars));
       applyCarsData(serverCars);
@@ -1997,13 +1998,15 @@ async function syncTeamFromAPI() {
     } catch (e) {}
 
     if (!serverTeam || !Array.isArray(serverTeam) || serverTeam.length === 0) {
-      try {
-        const res = await fetch('data/team.json?v=' + Date.now());
-        if (res.ok) serverTeam = await res.json();
-      } catch (e) {}
+      if (!hasValidLocal) {
+        try {
+          const res = await fetch('data/team.json?v=' + Date.now());
+          if (res.ok) serverTeam = await res.json();
+        } catch (e) {}
+      }
     }
 
-    if (Array.isArray(serverTeam) && serverTeam.length > 0) {
+    if (Array.isArray(serverTeam) && serverTeam.length > 0 && (isLiveBackend || !hasValidLocal)) {
       const cleanServerTeam = serverTeam.map(sanitizeTeamMemberApp);
       cachedTeamData = cleanServerTeam;
       localStorage.setItem('gtt_admin_team_db', JSON.stringify(cleanServerTeam));
@@ -2041,13 +2044,15 @@ async function syncGalleryFromAPI() {
     } catch (e) {}
 
     if (!serverGal || !Array.isArray(serverGal) || serverGal.length === 0) {
-      try {
-        const res = await fetch('data/gallery.json?v=' + Date.now());
-        if (res.ok) serverGal = await res.json();
-      } catch (e) {}
+      if (!hasValidLocal) {
+        try {
+          const res = await fetch('data/gallery.json?v=' + Date.now());
+          if (res.ok) serverGal = await res.json();
+        } catch (e) {}
+      }
     }
 
-    if (Array.isArray(serverGal) && serverGal.length > 0) {
+    if (Array.isArray(serverGal) && serverGal.length > 0 && (isLiveBackend || !hasValidLocal)) {
       localStorage.setItem('gtt_admin_gallery_db', JSON.stringify(serverGal));
       renderGalleryTrack(serverGal);
     }
@@ -2635,6 +2640,7 @@ function renderMotoGrid(motoList) {
 }
 
 async function syncMotoFromAPI() {
+  let hasValidLocal = false;
   // 1. Instant check from localStorage
   try {
     const local = localStorage.getItem('gtt_admin_moto_db');
@@ -2643,6 +2649,7 @@ async function syncMotoFromAPI() {
       if (Array.isArray(parsed) && parsed.length > 0) {
         cachedMotoData = parsed;
         renderMotoGrid(parsed);
+        hasValidLocal = true;
       }
     }
   } catch (e) {}
@@ -2650,19 +2657,23 @@ async function syncMotoFromAPI() {
   // 2. Fetch from backend API or static data fallback
   try {
     let serverMoto = null;
+    let isLiveBackend = false;
     try {
       const res = await fetch('/api/moto');
-      if (res.ok) serverMoto = await res.json();
+      if (res.ok) {
+        serverMoto = await res.json();
+        isLiveBackend = true;
+      }
     } catch (e) {}
 
-    if (!serverMoto || !Array.isArray(serverMoto) || serverMoto.length === 0) {
+    if ((!serverMoto || !Array.isArray(serverMoto) || serverMoto.length === 0) && !hasValidLocal) {
       try {
         const res = await fetch('data/moto.json');
         if (res.ok) serverMoto = await res.json();
       } catch (e) {}
     }
 
-    if (Array.isArray(serverMoto) && serverMoto.length > 0) {
+    if (Array.isArray(serverMoto) && serverMoto.length > 0 && (isLiveBackend || !hasValidLocal)) {
       cachedMotoData = serverMoto;
       localStorage.setItem('gtt_admin_moto_db', JSON.stringify(serverMoto));
       renderMotoGrid(serverMoto);
@@ -2701,28 +2712,34 @@ function applyMotoBanners(data) {
 }
 
 async function syncMotoBannersFromAPI() {
+  let hasValidLocal = false;
   try {
     const local = localStorage.getItem('gtt_moto_banners');
     if (local) {
       applyMotoBanners(JSON.parse(local));
+      hasValidLocal = true;
     }
   } catch (e) {}
 
   try {
     let data = null;
+    let isLiveBackend = false;
     try {
       const res = await fetch('/api/moto/banners');
-      if (res.ok) data = await res.json();
+      if (res.ok) {
+        data = await res.json();
+        isLiveBackend = true;
+      }
     } catch (e) {}
 
-    if (!data || (!data.banner1 && !data.banner2)) {
+    if ((!data || (!data.banner1 && !data.banner2)) && !hasValidLocal) {
       try {
         const res = await fetch('data/moto_banners.json');
         if (res.ok) data = await res.json();
       } catch (e) {}
     }
 
-    if (data && (data.banner1 || data.banner2)) {
+    if (data && (data.banner1 || data.banner2) && (isLiveBackend || !hasValidLocal)) {
       localStorage.setItem('gtt_moto_banners', JSON.stringify(data));
       applyMotoBanners(data);
     }
@@ -3762,19 +3779,24 @@ async function syncRecordsFromAPI() {
 
   try {
     let serverRecs = null;
+    let isLiveBackend = false;
     try {
       const res = await fetch('/api/records');
-      if (res.ok) serverRecs = await res.json();
+      if (res.ok) {
+        serverRecs = await res.json();
+        isLiveBackend = true;
+      }
     } catch (e) {}
 
-    if (!serverRecs || !Array.isArray(serverRecs) || serverRecs.length === 0) {
+    const hasCustomRecords = recordsToUse !== defaultRecords;
+    if ((!serverRecs || !Array.isArray(serverRecs) || serverRecs.length === 0) && !hasCustomRecords) {
       try {
         const res = await fetch('data/records.json');
         if (res.ok) serverRecs = await res.json();
       } catch (e) {}
     }
 
-    if (Array.isArray(serverRecs) && serverRecs.length > 0) {
+    if (Array.isArray(serverRecs) && serverRecs.length > 0 && (isLiveBackend || !hasCustomRecords)) {
       cachedRecordsData = serverRecs;
       localStorage.setItem('gtt_admin_records_db', JSON.stringify(serverRecs));
       localStorage.setItem('gtt_records_v2', JSON.stringify(serverRecs));
@@ -6077,19 +6099,24 @@ function initTelemetryCounters() {
   try {
     const fetchHero = async () => {
       let resData = null;
+      let isLiveBackend = false;
       try {
         const res = await fetch('/api/settings/hero_telemetry');
-        if (res.ok) resData = await res.json();
+        if (res.ok) {
+          resData = await res.json();
+          isLiveBackend = true;
+        }
       } catch (e) {}
 
-      if (!resData || !resData.value) {
+      const hasLocalHero = !!localStorage.getItem(HERO_TELEMETRY_KEY);
+      if ((!resData || !resData.value) && !hasLocalHero) {
         try {
           const res = await fetch('data/hero_telemetry.json');
           if (res.ok) resData = await res.json();
         } catch (e) {}
       }
 
-      if (resData && resData.value) {
+      if (resData && resData.value && (isLiveBackend || !hasLocalHero)) {
         localStorage.setItem(HERO_TELEMETRY_KEY, resData.value);
         applyCustomHeroTelemetry();
       }
