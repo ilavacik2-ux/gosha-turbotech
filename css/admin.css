@@ -2067,6 +2067,23 @@ tr.tr-draggable.is-row-dragging {
   background: rgba(234, 91, 12, 0.15) !important;
 }
 
+tr.tr-draggable.is-drop-above > td {
+  border-top: 3px solid var(--gtt-orange) !important;
+  background: rgba(255, 80, 20, 0.08) !important;
+}
+
+tr.tr-draggable.is-drop-below > td {
+  border-bottom: 3px solid var(--gtt-orange) !important;
+  background: rgba(255, 80, 20, 0.08) !important;
+}
+
+.row-order-btns {
+  display: inline-flex;
+  gap: 3px;
+  align-items: center;
+  margin-right: 4px;
+}
+
 .car-row-drag-handle {
   display: inline-flex;
   align-items: center;

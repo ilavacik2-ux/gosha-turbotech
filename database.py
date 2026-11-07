@@ -1399,6 +1399,27 @@ def reorder_featured_cars(featured_ids: List[str]) -> bool:
         print(f"[GTT DB Error] Reorder featured: {e}")
         return False
 
+def reorder_all_cars(car_ids: List[str]) -> bool:
+    if not car_ids or len(car_ids) < 1:
+        return False
+    conn = get_connection()
+    cursor = conn.cursor()
+    try:
+        for idx, car_id in enumerate(car_ids):
+            cursor.execute("UPDATE cars SET sort_order = ? WHERE id = ?", (idx + 1, car_id))
+        conn.commit()
+        conn.close()
+        try:
+            sync_all_json_caches()
+        except Exception:
+            pass
+        return True
+    except Exception as e:
+        conn.rollback()
+        conn.close()
+        print(f"[GTT DB Error] Reorder all cars: {e}")
+        return False
+
 # --- Team ---
 def get_all_team() -> List[Dict[str, Any]]:
     conn = get_connection()

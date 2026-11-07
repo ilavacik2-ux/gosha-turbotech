@@ -2295,9 +2295,101 @@ function handleCarRowDragEnd(e) {
   draggingCarRowId = null;
   window._draggingCarRowId = null;
   document.querySelectorAll('tr.is-row-dragging').forEach(tr => tr.classList.remove('is-row-dragging'));
-  document.querySelectorAll('.is-drop-active, .is-drop-target').forEach(el => {
-    el.classList.remove('is-drop-active', 'is-drop-target');
+  document.querySelectorAll('.is-drop-active, .is-drop-target, .is-drop-above, .is-drop-below').forEach(el => {
+    el.classList.remove('is-drop-active', 'is-drop-target', 'is-drop-above', 'is-drop-below');
   });
+}
+
+function handleCarRowDragOver(e, targetCarId) {
+  const sourceId = draggingCarRowId || window._draggingCarRowId;
+  if (!sourceId || sourceId === targetCarId) return;
+  e.preventDefault();
+  if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
+  const tr = e.currentTarget;
+  if (tr) {
+    const rect = tr.getBoundingClientRect();
+    const relY = e.clientY - rect.top;
+    if (relY < rect.height / 2) {
+      tr.classList.add('is-drop-above');
+      tr.classList.remove('is-drop-below');
+    } else {
+      tr.classList.add('is-drop-below');
+      tr.classList.remove('is-drop-above');
+    }
+  }
+}
+
+function handleCarRowDragLeave(e) {
+  const tr = e.currentTarget;
+  if (tr) {
+    tr.classList.remove('is-drop-above', 'is-drop-below');
+  }
+}
+
+function handleCarRowDrop(e, targetCarId) {
+  e.preventDefault();
+  e.stopPropagation();
+  const tr = e.currentTarget;
+  let placeAfter = false;
+  if (tr) {
+    placeAfter = tr.classList.contains('is-drop-below');
+    tr.classList.remove('is-drop-above', 'is-drop-below');
+  }
+
+  const sourceId = draggingCarRowId || window._draggingCarRowId;
+  if (!sourceId || sourceId === targetCarId) return;
+
+  reorderCarsInList(sourceId, targetCarId, placeAfter);
+}
+
+function reorderCarsInList(sourceId, targetCarId, placeAfter = false) {
+  const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects);
+  const sourceIdx = projects.findIndex(p => p.id === sourceId);
+  if (sourceIdx === -1) return;
+
+  const [draggedCar] = projects.splice(sourceIdx, 1);
+  let targetIdx = projects.findIndex(p => p.id === targetCarId);
+  if (targetIdx === -1) {
+    projects.push(draggedCar);
+  } else {
+    if (placeAfter) targetIdx++;
+    projects.splice(targetIdx, 0, draggedCar);
+  }
+
+  // Update sort_order
+  projects.forEach((p, idx) => {
+    p.sort_order = idx + 1;
+  });
+
+  saveDB(ADMIN_STORAGE_KEY, projects);
+  lastUpdatedCarId = sourceId;
+
+  // Background sync to backend API
+  const carIds = projects.map(p => p.id);
+  apiFetch('/api/cars/reorder', {
+    method: 'POST',
+    body: JSON.stringify({ car_ids: carIds })
+  }).catch(() => {});
+
+  renderCarsTable();
+
+  const sourceName = draggedCar.nameRu || (draggedCar.name && (draggedCar.name.ru || draggedCar.name.en)) || draggedCar.id;
+  const targetProject = projects.find(p => p.id === targetCarId);
+  const targetName = targetProject ? (targetProject.nameRu || (targetProject.name && (targetProject.name.ru || targetProject.name.en)) || targetProject.id) : '';
+  showToast('Порядок изменен', `«${sourceName}» перемещен ${placeAfter ? 'после' : 'перед'} «${targetName}»`, 'success');
+}
+
+function moveCarRowByOffset(carId, offset) {
+  const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects);
+  const currIdx = projects.findIndex(p => p.id === carId);
+  if (currIdx === -1) return;
+
+  const newIdx = currIdx + offset;
+  if (newIdx < 0 || newIdx >= projects.length) return;
+
+  const targetCar = projects[newIdx];
+  const placeAfter = (offset > 0);
+  reorderCarsInList(carId, targetCar.id, placeAfter);
 }
 
 function handleSlotsAreaDragOver(e) {
@@ -2921,6 +3013,9 @@ function renderCarsTable() {
         data-car-id="${carIdAttr}"
         draggable="true"
         ondragstart="handleCarRowDragStart(event, '${carIdAttr}')"
+        ondragover="handleCarRowDragOver(event, '${carIdAttr}')"
+        ondragleave="handleCarRowDragLeave(event)"
+        ondrop="handleCarRowDrop(event, '${carIdAttr}')"
         ondragend="handleCarRowDragEnd(event)">
       <td style="text-align: center;">
         <label class="car-table-check-label ${isFeatured ? 'is-top' : ''}" title="${isFeatured ? 'Снять с витрины топа' : 'Добавить в витрину топа'}">
@@ -2930,7 +3025,7 @@ function renderCarsTable() {
       </td>
       <td>
         <div class="car-cell-flex">
-          <span class="car-row-drag-handle" title="Зажмите и перетащите в блок Топ выше" data-drag-handle="true">
+          <span class="car-row-drag-handle" title="Зажмите и перетащите перед/после любого болида или в Топ" data-drag-handle="true">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
               <circle cx="8" cy="6" r="2.2"></circle><circle cx="16" cy="6" r="2.2"></circle>
               <circle cx="8" cy="12" r="2.2"></circle><circle cx="16" cy="12" r="2.2"></circle>
@@ -2958,6 +3053,10 @@ function renderCarsTable() {
       </td>
       <td>
         <div class="row-actions">
+          <div class="row-order-btns">
+            <button type="button" class="btn-slot-arrow" onclick="moveCarRowByOffset('${carIdAttr}', -1)" title="Поднять выше в списке" ${idx === 0 ? 'disabled style="opacity:0.25;cursor:not-allowed;"' : ''}>▲</button>
+            <button type="button" class="btn-slot-arrow" onclick="moveCarRowByOffset('${carIdAttr}', 1)" title="Опустить ниже в списке" ${idx === projects.length - 1 ? 'disabled style="opacity:0.25;cursor:not-allowed;"' : ''}>▼</button>
+          </div>
           <button class="table-btn" onclick="openCarEditModal('${carIdAttr}', ${isFeatured ? featuredIdx : 'null'})">Редактировать</button>
           <button class="table-btn delete" onclick="deleteCarProject('${carIdAttr}')">Удалить</button>
         </div>
@@ -5429,6 +5528,11 @@ window.toggleCarFeatured = toggleCarFeatured;
 window.insertCarIntoFeaturedSlot = insertCarIntoFeaturedSlot;
 window.handleCarRowDragStart = handleCarRowDragStart;
 window.handleCarRowDragEnd = handleCarRowDragEnd;
+window.handleCarRowDragOver = handleCarRowDragOver;
+window.handleCarRowDragLeave = handleCarRowDragLeave;
+window.handleCarRowDrop = handleCarRowDrop;
+window.reorderCarsInList = reorderCarsInList;
+window.moveCarRowByOffset = moveCarRowByOffset;
 window.handleSlotsAreaDragOver = handleSlotsAreaDragOver;
 window.handleSlotsAreaDragLeave = handleSlotsAreaDragLeave;
 window.handleDropIntoNewSlot = handleDropIntoNewSlot;

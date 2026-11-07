@@ -633,6 +633,16 @@ async def save_system_setting(key: str, request: Request, session: str = Depends
 class FeaturedSlotsRequest(BaseModel):
     featured_ids: List[str]
 
+class CarReorderRequest(BaseModel):
+    car_ids: List[str]
+
+@app.post("/api/cars/reorder")
+async def reorder_all_cars_endpoint(req: CarReorderRequest, session: str = Depends(verify_admin_session)):
+    success = database.reorder_all_cars(req.car_ids)
+    if not success:
+        raise HTTPException(status_code=400, detail="Ошибка переупорядочивания болидов")
+    return {"status": "ok", "count": len(req.car_ids)}
+
 @app.post("/api/cars/featured")
 async def set_featured_cars(req: FeaturedSlotsRequest, session: str = Depends(verify_admin_session)):
     success = database.reorder_featured_cars(req.featured_ids)
