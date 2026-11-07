@@ -182,22 +182,58 @@ body.is-loading {
 }
 
 .preloader-shield-img {
-  width: 76px;
-  height: 76px;
+  width: 82px;
+  height: 82px;
   object-fit: contain;
-  filter: drop-shadow(0 0 25px rgba(255, 100, 37, 0.5));
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  filter: drop-shadow(0 0 22px rgba(255, 85, 0, 0.55));
   animation: pulseLogoShield 2.2s infinite ease-in-out;
+  will-change: transform, opacity;
 }
 
 @keyframes pulseLogoShield {
   0%, 100% {
-    transform: scale(1);
-    filter: drop-shadow(0 0 20px rgba(255, 100, 37, 0.4));
+    transform: scale(1) translateZ(0);
+    opacity: 0.95;
   }
   50% {
-    transform: scale(1.05);
-    filter: drop-shadow(0 0 35px rgba(255, 100, 37, 0.75));
+    transform: scale(1.04) translateZ(0);
+    opacity: 1;
   }
+}
+
+.preloader-brand-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.1;
+  margin-top: 6px;
+  margin-bottom: 2px;
+  user-select: none;
+}
+
+.preloader-word-gosha {
+  font-family: var(--font-display), 'Chakra Petch', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: 0.22em;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
+}
+
+.preloader-word-turbo {
+  font-family: var(--font-display), 'Chakra Petch', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: 0.16em;
+  color: var(--gtt-orange);
+  text-transform: uppercase;
+  text-shadow: 0 0 16px rgba(255, 85, 0, 0.5);
 }
 
 .preloader-text-brand {
@@ -720,14 +756,21 @@ body.is-loading {
 
 @media (max-width: 768px) {
   .hero-media-switch {
-    bottom: 16px;
-    right: 16px;
-    padding: 3px;
+    position: absolute;
+    top: 76px;
+    bottom: auto;
+    right: 14px;
+    padding: 3px 5px;
+    z-index: 25;
+    background: rgba(10, 13, 18, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
   }
   .hero-switch-btn {
-    padding: 6px 11px;
+    padding: 6px 12px;
     font-size: 10px;
-    gap: 4px;
+    gap: 5px;
+    letter-spacing: 0.04em;
   }
 }
 

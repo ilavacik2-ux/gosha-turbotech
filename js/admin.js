@@ -179,7 +179,7 @@ const defaultProjects = [
     "quarterMile": "7.766 сек",
     "topSpeed": "300.00 км/ч",
     "img": "assets/cars/gtr_kurdalagon_white.jpg",
-    "videoSrc": "assets/videos/gtr_kurdalagon_action.mp4",
+    "videoSrc": "assets/videos/gtr_kurdalagon_776.mp4",
     "videoTitle": "GT-R R35 GTT «KURDALAGON»",
     "descRu": "Боевой болид Nissan GT-R R35 «Курдалагон» — имя древнего осетинского бога-кузнеца. 26 октября 2026 года на трек-дне в Быково установил новый личный рекорд команды: 7.766 сек на 402 метра со скоростью на выходе 300.00 км/ч.",
     "is_featured": 1,
@@ -562,15 +562,15 @@ const defaultProjects = [
     "hp": "—",
     "quarterMile": "—",
     "topSpeed": "—",
-    "img": "assets/cars/gtt_classified_car.svg",
+    "img": "assets/cars/porsche_992_puncher.jpg",
     "videoSrc": "",
     "descRu": "Культовый Porsche 992 Turbo S «Puncher» Сергея Никитина. Мировой рекорд в категории на UNLIM FEST 2021: 9.303 сек со скоростью 235.83 км/ч на 1/4 мили и 14.778 сек со скоростью 276.92 км/ч на 1/2 мили.",
     "is_featured": 0,
-    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "fallbackImg": "assets/cars/porsche_992_puncher.jpg",
     "objectPosition": "center center",
-    "is_photo": 0,
-    "isClassified": true,
-    "isTeaser": true
+    "is_photo": 1,
+    "isClassified": false,
+    "isTeaser": false
   },
   {
     "id": "mercedes_e63",
@@ -597,18 +597,18 @@ const defaultProjects = [
     "type": "other",
     "nameRu": "TESLA MODEL S PLAID GTT DYNAMICS SPEC",
     "nameEn": "TESLA MODEL S PLAID GTT DYNAMICS SPEC",
-    "hp": "—",
+    "hp": "1,050+ HP",
     "quarterMile": "—",
     "topSpeed": "—",
-    "img": "assets/cars/gtt_classified_car.svg",
+    "img": "assets/cars/tesla_model_s_plaid.jpg",
     "videoSrc": "",
     "descRu": "Трековый проект на базе трехмоторного седана Tesla Model S Plaid. Спортивная карбон-керамическая тормозная система GTT, оптимизация охлаждения инверторов и аэродинамический сплиттер.",
     "is_featured": 0,
-    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "fallbackImg": "assets/cars/tesla_model_s_plaid.jpg",
     "objectPosition": "center center",
-    "is_photo": 0,
-    "isClassified": true,
-    "isTeaser": true
+    "is_photo": 1,
+    "isClassified": false,
+    "isTeaser": false
   },
   {
     "id": "tonystark",
@@ -619,14 +619,14 @@ const defaultProjects = [
     "hp": "—",
     "quarterMile": "—",
     "topSpeed": "—",
-    "img": "assets/cars/gtt_classified_car.svg",
+    "img": "assets/cars/audi_r8_tonystark_rdrc.jpg",
     "videoSrc": "",
     "descRu": "Боевая Audi R8 V10 Twin Turbo под эгидой ЦМРБанк и GTT на треке RDRC. Официальное время 8.948 сек со скоростью 247.68 км/ч на Record Days 2023 и 287.19 км/ч на 1/2 мили.",
     "is_featured": 0,
-    "fallbackImg": "assets/cars/gtt_classified_car.svg",
-    "is_photo": 0,
-    "isClassified": true,
-    "isTeaser": true
+    "fallbackImg": "assets/cars/audi_r8_tonystark_rdrc.jpg",
+    "is_photo": 1,
+    "isClassified": false,
+    "isTeaser": false
   }
 ];
 

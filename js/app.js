@@ -1072,9 +1072,9 @@ let gttProjects = [
       "ru": "Puncher 992 GTT",
       "en": "Puncher 992 GTT"
     },
-    "img": "assets/cars/gtt_classified_car.svg",
-    "fallbackImg": "assets/cars/gtt_classified_car.svg",
-    "isPhoto": false,
+    "img": "assets/cars/porsche_992_puncher.jpg",
+    "fallbackImg": "assets/cars/porsche_992_puncher.jpg",
+    "isPhoto": true,
     "objectPosition": "center center",
     "desc": {
       "ru": "Культовый Porsche 992 Turbo S «Puncher» Сергея Никитина. Мировой рекорд в категории на UNLIM FEST 2021: 9.303 сек со скоростью 235.83 км/ч на 1/4 мили и 14.778 сек со скоростью 276.92 км/ч на 1/2 мили.",
@@ -1089,8 +1089,8 @@ let gttProjects = [
     "videoSrc": "",
     "is_featured": 0,
     "isFeatured": false,
-    "isClassified": true,
-    "isTeaser": true,
+    "isClassified": false,
+    "isTeaser": false,
     "sort_order": 28
   },
   {
@@ -1145,17 +1145,17 @@ let gttProjects = [
       "ru": "ЭЛЕКТРО-ГИПЕРКАР • 1020 HP • 9.230 СЕК",
       "en": "ELECTRIC HYPERCAR • 1020 HP • 9.230 SEC"
     },
-    "hp": "—",
+    "hp": "1,050+ HP",
     "quarterMile": "—",
     "topSpeed": "—",
     "badge": {
       "ru": "Tesla Plaid GTT",
       "en": "Tesla Plaid GTT"
     },
-    "img": "assets/cars/gtt_classified_car.svg",
-    "fallbackImg": "assets/cars/gtt_classified_car.svg",
-    "isPhoto": false,
-    "isClassified": true,
+    "img": "assets/cars/tesla_model_s_plaid.jpg",
+    "fallbackImg": "assets/cars/tesla_model_s_plaid.jpg",
+    "isPhoto": true,
+    "isClassified": false,
     "objectPosition": "center center",
     "desc": {
       "ru": "Трековый проект на базе трехмоторного седана Tesla Model S Plaid. Спортивная карбон-керамическая тормозная система GTT, оптимизация охлаждения инверторов и аэродинамический сплиттер.",
@@ -1170,7 +1170,7 @@ let gttProjects = [
     "videoSrc": "",
     "is_featured": 0,
     "isFeatured": false,
-    "isTeaser": true,
+    "isTeaser": false,
     "sort_order": 30
   },
   {
@@ -1192,9 +1192,9 @@ let gttProjects = [
       "ru": "Tony Stark 1400+ HP",
       "en": "Tony Stark 1400+ HP"
     },
-    "img": "assets/cars/gtt_classified_car.svg",
-    "fallbackImg": "assets/cars/gtt_classified_car.svg",
-    "isPhoto": false,
+    "img": "assets/cars/audi_r8_tonystark_rdrc.jpg",
+    "fallbackImg": "assets/cars/audi_r8_tonystark_rdrc.jpg",
+    "isPhoto": true,
     "objectPosition": "center 50%",
     "videoSrc": "",
     "videoTitle": "Audi R8 V10 Twin Turbo Tony Stark — боевой заезд",
@@ -1240,6 +1240,8 @@ const i18n = {
     telemetry_output: "Предельная отдача автомобиля",
     hero_btn_explore: "Исследовать проекты GTT",
     hero_btn_video: "<span>▶</span> Видео заезда HURACAN TWIN TURBO «ЗЕЛЕНКА» GTT",
+    hero_switch_video: "ВИДЕО RDRC",
+    hero_switch_photo: "ФОТО АТЕЛЬЕ",
     garage_tag: "// SHOWROOM & MOTORSPORT BUILDS",
     garage_title: "Легендарные проекты GTT",
     garage_subtitle: "Каждый автомобиль собран вручную в ателье GoshaTurboTech с персональной калибровкой блоков управления и двойного турбонаддува.",
@@ -1470,6 +1472,8 @@ const i18n = {
     telemetry_output: "Maximum Output (Supercar)",
     hero_btn_explore: "Explore GTT Projects",
     hero_btn_video: "<span>▶</span> Race Video: HURACAN TWIN TURBO «ZELENKA» GTT",
+    hero_switch_video: "VIDEO RDRC",
+    hero_switch_photo: "PHOTO ATELIER",
     garage_tag: "// SHOWROOM & MOTORSPORT BUILDS",
     garage_title: "Legendary GTT Projects",
     garage_subtitle: "Hand-built in the GoshaTurboTech atelier with bespoke ECU calibration and twin turbo engineering.",
@@ -1796,18 +1800,15 @@ async function syncProjectsFromAPI() {
 
     if (!serverCars || !Array.isArray(serverCars) || serverCars.length === 0) {
       try {
-        const res = await fetch('data/cars.json');
+        const res = await fetch('data/cars.json?v=' + Date.now());
         if (res.ok) serverCars = await res.json();
       } catch (e) {}
     }
 
     if (Array.isArray(serverCars) && serverCars.length > 0) {
-      // Live backend is authoritative; static file fallback only applies if local storage was empty
-      if (isLiveBackend || !hasValidLocal) {
-        localStorage.setItem('gtt_admin_cars_db', JSON.stringify(serverCars));
-        localStorage.setItem('gtt_projects_v2', JSON.stringify(serverCars));
-        applyCarsData(serverCars);
-      }
+      localStorage.setItem('gtt_admin_cars_db', JSON.stringify(serverCars));
+      localStorage.setItem('gtt_projects_v2', JSON.stringify(serverCars));
+      applyCarsData(serverCars);
     }
   } catch (err) {
     // Offline or static fallback
@@ -1997,19 +1998,17 @@ async function syncTeamFromAPI() {
 
     if (!serverTeam || !Array.isArray(serverTeam) || serverTeam.length === 0) {
       try {
-        const res = await fetch('data/team.json');
+        const res = await fetch('data/team.json?v=' + Date.now());
         if (res.ok) serverTeam = await res.json();
       } catch (e) {}
     }
 
     if (Array.isArray(serverTeam) && serverTeam.length > 0) {
       const cleanServerTeam = serverTeam.map(sanitizeTeamMemberApp);
-      if (isLiveBackend || !hasValidLocal) {
-        cachedTeamData = cleanServerTeam;
-        localStorage.setItem('gtt_admin_team_db', JSON.stringify(cleanServerTeam));
-        localStorage.setItem('gtt_team_v2', JSON.stringify(cleanServerTeam));
-        renderTeamGrid(cleanServerTeam);
-      }
+      cachedTeamData = cleanServerTeam;
+      localStorage.setItem('gtt_admin_team_db', JSON.stringify(cleanServerTeam));
+      localStorage.setItem('gtt_team_v2', JSON.stringify(cleanServerTeam));
+      renderTeamGrid(cleanServerTeam);
     }
   } catch (err) {
     // Offline / static fallback
@@ -2043,16 +2042,14 @@ async function syncGalleryFromAPI() {
 
     if (!serverGal || !Array.isArray(serverGal) || serverGal.length === 0) {
       try {
-        const res = await fetch('data/gallery.json');
+        const res = await fetch('data/gallery.json?v=' + Date.now());
         if (res.ok) serverGal = await res.json();
       } catch (e) {}
     }
 
     if (Array.isArray(serverGal) && serverGal.length > 0) {
-      if (isLiveBackend || !hasValidLocal) {
-        localStorage.setItem('gtt_admin_gallery_db', JSON.stringify(serverGal));
-        renderGalleryTrack(serverGal);
-      }
+      localStorage.setItem('gtt_admin_gallery_db', JSON.stringify(serverGal));
+      renderGalleryTrack(serverGal);
     }
   } catch (err) {}
 }
