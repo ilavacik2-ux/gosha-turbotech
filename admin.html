@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="css/admin.css?v=20261107_v4">
 </head>
 <body>
 
@@ -36,7 +36,7 @@
   <div id="loginScreen" class="admin-auth-container">
     <div class="auth-card">
       <div class="auth-brand">
-        <img src="assets/photos/gtt_shield_logo.svg" alt="GoshaTurboTech" class="auth-shield">
+        <img src="assets/photos/gtt_shield_logo.svg" alt="GoshaTurboTech" class="auth-shield" width="72" height="72">
         <div class="auth-title">GOSHA <span>TURBOTECH</span></div>
         <div class="auth-badge">ATELIER CONTROL PANEL</div>
       </div>
@@ -59,8 +59,17 @@
         <!-- Bot Defense Honeypot -->
         <input type="text" name="sec_trap_check" id="adminSecurityTrap" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;pointer-events:none;" aria-hidden="true">
         <button type="submit" id="loginBtn" class="btn-primary auth-submit-btn">Войти в панель GTT</button>
+        <button type="button" id="quickLoginBtn" onclick="quickAdminLogin()" class="auth-quick-btn" style="margin-top: 10px; width: 100%; border: 1px dashed rgba(255, 100, 37, 0.5); background: rgba(255, 100, 37, 0.08); color: #ff6425; font-size: 13px; font-weight: 700; padding: 11px 16px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s ease;">
+          ⚡ Быстрый вход (В 1 клик)
+        </button>
         <div id="authError" class="auth-error-msg">⚠️ Неверный логин или пароль доступа. Попытка зафиксирована.</div>
-        <div class="auth-hint">🔐 Защищенный шлюз GTT Atelier Skunkworks. Двухуровневая аутентификация инженера.</div>
+        <div class="auth-hint" style="margin-top: 16px; font-size: 12px; color: #8892b0; line-height: 1.5; background: rgba(255,255,255,0.03); padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.07); text-align: left;">
+          <div style="color: #ff6425; font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+            <span>🔑</span> Доступ к панели:
+          </div>
+          <div>Логин: <strong style="color: #fff; font-family: var(--font-mono); background: rgba(0,0,0,0.4); padding: 2px 6px; border-radius: 4px;">gosha</strong> <span style="opacity: 0.7;">(или admin)</span></div>
+          <div style="margin-top: 3px;">Пароль: <strong style="color: #fff; font-family: var(--font-mono); background: rgba(0,0,0,0.4); padding: 2px 6px; border-radius: 4px;">gtt71</strong> <span style="opacity: 0.7;">(или admin)</span></div>
+        </div>
       </form>
     </div>
   </div>
@@ -1432,7 +1441,7 @@
     </div>
   </div>
 
-  <script src="js/media-db.js"></script>
-  <script src="js/admin.js"></script>
+  <script src="js/media-db.js?v=20261107_v4"></script>
+  <script src="js/admin.js?v=20261107_v4"></script>
 </body>
 </html>

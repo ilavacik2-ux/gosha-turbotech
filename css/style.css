@@ -179,26 +179,53 @@ body.is-loading {
   flex-direction: column;
   align-items: center;
   gap: 16px;
+  position: relative;
+}
+
+/* Luxury ambient backlight behind shield without blurring the SVG itself */
+.preloader-logo-wrap::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, rgba(255, 80, 20, 0.32) 0%, rgba(255, 80, 20, 0.1) 48%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: pulseLogoBacklight 2.4s infinite ease-in-out;
+}
+
+@keyframes pulseLogoBacklight {
+  0%, 100% {
+    opacity: 0.7;
+    transform: translateX(-50%) scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.12);
+  }
 }
 
 .preloader-shield-img {
-  width: 82px;
-  height: 82px;
+  width: 110px;
+  height: 110px;
   object-fit: contain;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  filter: drop-shadow(0 0 22px rgba(255, 85, 0, 0.55));
-  animation: pulseLogoShield 2.2s infinite ease-in-out;
-  will-change: transform, opacity;
+  position: relative;
+  z-index: 1;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.85));
+  animation: pulseLogoShield 2.4s infinite ease-in-out;
 }
 
 @keyframes pulseLogoShield {
   0%, 100% {
-    transform: scale(1) translateZ(0);
-    opacity: 0.95;
+    opacity: 0.94;
   }
   50% {
-    transform: scale(1.04) translateZ(0);
     opacity: 1;
   }
 }
@@ -352,17 +379,18 @@ body.is-loading {
 }
 
 .brand-shield-img {
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   object-fit: contain;
-  filter: drop-shadow(0 0 12px var(--gtt-orange-glow));
-  transition: transform 0.3s ease, filter 0.3s ease;
-  will-change: transform;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.65));
+  transition: transform 0.25s ease, filter 0.25s ease;
 }
 
 .brand-logo:hover .brand-shield-img {
-  transform: scale(1.06);
-  filter: drop-shadow(0 0 18px rgba(234, 91, 12, 0.8));
+  transform: translateY(-1px);
+  filter: drop-shadow(0 0 10px rgba(255, 80, 20, 0.6)) drop-shadow(0 2px 5px rgba(0, 0, 0, 0.7));
 }
 
 .brand-text-img {

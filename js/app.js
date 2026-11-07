@@ -4283,7 +4283,7 @@ window.openYandexNavi = function(event, link) {
   }, 1200);
 };
 
-// Clean Premium Motorsport Preloader (Fast, Seamless & Silky Smooth)
+// Clean Premium Motorsport Preloader (Cinematic, Seamless & Silky Smooth)
 function initPreloader() {
   const preloader = document.getElementById('preloader');
   const fill = document.getElementById('preloaderFill');
@@ -4292,8 +4292,11 @@ function initPreloader() {
   try { setupHeroVideo(); } catch (e) {}
 
   let finished = false;
+  let pageLoaded = (document.readyState === 'complete');
   const startTime = performance.now();
-  const minDuration = 550; // Ultra-fast and energetic
+  const minDuration = 1800; // 1.8s minimum duration for prestigious, smooth feel
+
+  window.addEventListener('load', () => { pageLoaded = true; });
 
   function dismiss() {
     if (finished) return;
@@ -4312,29 +4315,32 @@ function initPreloader() {
       window.scrollTo(0, 0);
       setTimeout(() => {
         preloader.style.display = 'none';
-      }, 400);
+      }, 500);
     }
   }
 
   function frame(now) {
     if (finished) return;
     const elapsed = now - startTime;
-    const progress = Math.min(elapsed / minDuration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
-    const percent = Math.min(Math.round(eased * 100), 100);
+    const timeRatio = Math.min(elapsed / minDuration, 1);
+    
+    // Smooth cinematic curve: sin easing
+    const eased = Math.sin((timeRatio * Math.PI) / 2);
+    const targetPercent = Math.min(Math.round(eased * (pageLoaded ? 100 : 94)), 100);
 
-    if (fill) fill.style.width = `${percent}%`;
+    if (fill) fill.style.width = `${targetPercent}%`;
 
-    if (progress >= 1) {
-      dismiss();
+    if (timeRatio >= 1 && (pageLoaded || elapsed >= 2600)) {
+      if (fill) fill.style.width = '100%';
+      setTimeout(dismiss, 140);
     } else {
       requestAnimationFrame(frame);
     }
   }
 
   requestAnimationFrame(frame);
-  // Hard fallback: never stay visible longer than 750ms under any condition
-  setTimeout(dismiss, 750);
+  // Hard fallback: never stay visible longer than 4.5s under slow network
+  setTimeout(dismiss, 4500);
 }
 
 // Master division switcher (Cars & Moto)

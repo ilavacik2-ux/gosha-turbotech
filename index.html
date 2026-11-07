@@ -18,13 +18,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=20261107_v3">
+  <link rel="stylesheet" href="css/style.css?v=20261107_v4">
   <style>
     html, body { background-color: #050608 !important; color: #fff; margin: 0; }
-    #preloader { position: fixed; inset: 0; z-index: 999999; background: #050608; display: flex; align-items: center; justify-content: center; transition: opacity 0.35s ease, visibility 0.35s ease; }
+    #preloader { position: fixed; inset: 0; z-index: 999999; background: #050608; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s ease; }
     #preloader.fade-out { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
-    .preloader-shield-img { width: 88px; height: 88px; object-fit: contain; -webkit-transform: translateZ(0); transform: translateZ(0); }
-    .brand-shield-img { width: 44px; height: 44px; object-fit: contain; }
+    .preloader-shield-img { width: 110px; height: 110px; object-fit: contain; image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; }
+    .brand-shield-img { width: 44px; height: 44px; object-fit: contain; image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; }
   </style>
 </head>
 <body class="is-loading">
@@ -33,7 +33,7 @@
   <div id="preloader">
     <div class="preloader-inner">
       <div class="preloader-logo-wrap">
-        <img src="assets/photos/gtt_shield_logo.svg" alt="GoshaTurboTech Shield Logo" class="preloader-shield-img" width="88" height="88">
+        <img src="assets/photos/gtt_shield_logo.svg" alt="GoshaTurboTech Shield Logo" class="preloader-shield-img" width="110" height="110">
         <div class="preloader-brand-title">
           <span class="preloader-word-gosha">GOSHA</span>
           <span class="preloader-word-turbo">TURBOTECH</span>
@@ -2795,22 +2795,20 @@
     </span>
   </button>
 
-  <script src="js/media-db.js?v=20261107_v3"></script>
-  <script src="js/app.js?v=20261107_v3"></script>
+  <script src="js/media-db.js?v=20261107_v4"></script>
+  <script src="js/app.js?v=20261107_v4"></script>
   <script>
-    // Guaranteed Preloader Dismissal (Max 750ms)
-    function forceDismissPreloader() {
+    // Safeguard fallback: ensure preloader never hangs if external scripts fail
+    setTimeout(function() {
       var p = document.getElementById('preloader');
       var fill = document.getElementById('preloaderFill');
       if (fill) fill.style.width = '100%';
       if (p && !p.classList.contains('fade-out')) {
         p.classList.add('fade-out');
         document.body.classList.remove('is-loading');
-        setTimeout(function() { p.style.display = 'none'; }, 350);
+        setTimeout(function() { p.style.display = 'none'; }, 500);
       }
-    }
-    setTimeout(forceDismissPreloader, 750);
-    window.addEventListener('load', function() { setTimeout(forceDismissPreloader, 300); });
+    }, 4500);
   </script>
 </body>
 </html>

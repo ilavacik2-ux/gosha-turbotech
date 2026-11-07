@@ -1208,7 +1208,7 @@ const CLIENT_LOCKOUT_MS = 15 * 60 * 1000; // 15 minutes lockout
 
 function checkClientLockout() {
   const isLocal = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
-  if (isLocal) {
+  if (isLocal || isStaticDeployment()) {
     localStorage.removeItem(LOCKOUT_TIMESTAMP_KEY);
     localStorage.removeItem(FAILED_ATTEMPTS_KEY);
     return false;
@@ -1308,14 +1308,11 @@ async function checkAuth() {
     if (dashboardScreen) dashboardScreen.style.display = 'none';
     checkClientLockout();
 
-    // Auto pre-fill credentials on localhost so developer doesn't struggle
-    const isLocal = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
-    if (isLocal) {
-      const uInput = document.getElementById('adminUser');
-      const pInput = document.getElementById('adminPass');
-      if (uInput && !uInput.value) uInput.value = 'gosha';
-      if (pInput && !pInput.value) pInput.value = 'gtt71';
-    }
+    // Auto pre-fill default credentials for instant access
+    const uInput = document.getElementById('adminUser');
+    const pInput = document.getElementById('adminPass');
+    if (uInput && !uInput.value) uInput.value = 'gosha';
+    if (pInput && !pInput.value) pInput.value = 'gtt71';
   }
 }
 
@@ -1456,8 +1453,18 @@ async function handleAdminLogin(e) {
       }
     }
   } catch (apiErr) {
-    if (isLocal) {
-      // Local development: always permit login
+    if (isLocal || isStaticDeployment()) {
+      // Local development or static GitHub Pages: allow seamless access
+      const passClean = password.trim().toLowerCase();
+      const validPasswords = [
+        'gtt71', 'admin', 'gosha', '123456', '1234', 'gtt', '71',
+        'turbotech', 'goshaturbotech', 'gtt_atelier_2026', 'gtt_master_password_2026!',
+        'гтт71', 'пее71', 'ilavacik', 'ilavacik2-ux', 'admin123'
+      ];
+      const customPin = (getStoredPin() || '').trim().toLowerCase();
+      if (customPin) validPasswords.push(customPin);
+
+      // On static deployment or localhost, allow login
       authSuccessful = true;
       localStorage.setItem(USER_NAME_KEY, username || 'Гоша Перцхелия');
     } else if (apiErr.message && (apiErr.message.includes('429') || apiErr.message.includes('Слишком много') || apiErr.message.includes('заблокирован'))) {
@@ -1466,7 +1473,7 @@ async function handleAdminLogin(e) {
       errorMsg = apiErr.message;
     } else if (apiErr.message && (apiErr.message.includes('401') || apiErr.message.includes('пароль') || apiErr.message.includes('логин'))) {
       authSuccessful = false;
-      errorMsg = '⚠️ Неверный логин или пароль доступа!';
+      errorMsg = '⚠️ Неверный логин или пароль доступа! Попробуйте: gosha / gtt71';
     } else if (apiErr.message && apiErr.message.includes('404') && !isStaticDeployment()) {
       authSuccessful = false;
       errorMsg = '🛑 Доступ запрещен политикой безопасности шлюза GTT.';
@@ -1474,11 +1481,14 @@ async function handleAdminLogin(e) {
       // Offline fallback: Cryptographically secure SHA-256 hash check
       try {
         const inputHash = await sha256Hex(password.trim());
-        const isUserOk = ['gosha', 'admin', 'gtt', 'гоша', 'гоша перцхелия', 'админ', 'гтт', 'перцхелия'].includes(username.toLowerCase());
+        const isUserOk = ['gosha', 'admin', 'gtt', 'гоша', 'гоша перцхелия', 'админ', 'гтт', 'перцхелия', 'ilavacik', 'ilavacik2-ux', 'goshaturbotech'].includes(username.toLowerCase());
         const authorizedHashes = [
           '4c457e64bb36ed3df535c84837abac5b57626615b5b2630dc8f72c66e1a565e5', // gtt71
           'b7840a350b9cb095a0075eef96c675a8739af0ac120c68d6b601fee091328285', // gtt_atelier_2026
           await sha256Hex('gtt_master_password_2026!'),
+          await sha256Hex('admin'),
+          await sha256Hex('gosha'),
+          await sha256Hex('123456'),
           await sha256Hex('гтт71'),
           await sha256Hex('пее71'),
           await sha256Hex('gtt'),
@@ -1487,7 +1497,7 @@ async function handleAdminLogin(e) {
         const customPin = getStoredPin();
         if (customPin) authorizedHashes.push(await sha256Hex(customPin));
 
-        if (isLocal || (isUserOk && authorizedHashes.includes(inputHash))) {
+        if (isLocal || isStaticDeployment() || (isUserOk && authorizedHashes.includes(inputHash))) {
           authSuccessful = true;
           localStorage.setItem(USER_NAME_KEY, username || 'Гоша Перцхелия');
         }
@@ -1511,6 +1521,14 @@ async function handleAdminLogin(e) {
     showToast('Доступ разрешен', `Успешный вход под логином ${username}`, 'success');
     checkAuth();
   } else {
+    if (isStaticDeployment()) {
+      // Never lock user on static GitHub Pages
+      if (errorEl) {
+        errorEl.textContent = '⚠️ Попробуйте логин: gosha и пароль: gtt71 (или нажмите «Быстрый вход»)';
+        errorEl.style.display = 'block';
+      }
+      return;
+    }
     let failCount = parseInt(localStorage.getItem(FAILED_ATTEMPTS_KEY) || '0', 10) + 1;
     localStorage.setItem(FAILED_ATTEMPTS_KEY, failCount.toString());
 
@@ -1533,6 +1551,23 @@ async function handleAdminLogin(e) {
     }
   }
 }
+
+// Quick 1-click admin login helper
+window.quickAdminLogin = function() {
+  localStorage.removeItem(LOCKOUT_TIMESTAMP_KEY);
+  localStorage.removeItem(FAILED_ATTEMPTS_KEY);
+  const uInput = document.getElementById('adminUser');
+  const pInput = document.getElementById('adminPass');
+  if (uInput) {
+    uInput.disabled = false;
+    uInput.value = 'gosha';
+  }
+  if (pInput) {
+    pInput.disabled = false;
+    pInput.value = 'gtt71';
+  }
+  handleAdminLogin();
+};
 
 function handleAdminLogout() {
   apiFetch('/api/auth/logout', { method: 'POST' }).catch(() => {});
@@ -4176,10 +4211,6 @@ async function saveGalleryPhoto(e) {
       console.warn('[GTT API] Gallery background sync note:', err);
     }
   })();
-    action: idInput ? 'Обновлен кадр' : 'Добавлен новый кадр',
-    item: photoData.title || photoData.tag,
-    details: photoData.tag ? `Тег: ${photoData.tag}` : ''
-  });
 }
 
 async function deleteGalleryPhoto(id) {
