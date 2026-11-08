@@ -7,7 +7,9 @@
     "bullets": "212 л.с. // 14 500 об/мин\nКарбоновые винглеты M-Winglets\nСухой вес 170 кг",
     "img": "",
     "sort_order": 1,
-    "is_active": 1
+    "is_active": 1,
+    "object_position": "center 50%",
+    "objectPosition": "center 50%"
   },
   {
     "id": "moto_ducati_v4s",
@@ -17,7 +19,9 @@
     "bullets": "215.5 л.с. // 13 000 об/мин\nПодвеска Öhlins Smart EC 2.0\nСухое гоночное сцепление",
     "img": "",
     "sort_order": 2,
-    "is_active": 1
+    "is_active": 1,
+    "object_position": "center 50%",
+    "objectPosition": "center 50%"
   },
   {
     "id": "moto_mv_superveloce_800",
@@ -27,7 +31,9 @@
     "bullets": "147 л.с. // 13 000 об/мин\n3-цилиндровый мотор с обратным вращением коленвала\nКастомный выпуск SC-Project",
     "img": "",
     "sort_order": 3,
-    "is_active": 1
+    "is_active": 1,
+    "object_position": "center 50%",
+    "objectPosition": "center 50%"
   },
   {
     "id": "moto_mv_superveloce_1000",
@@ -37,7 +43,9 @@
     "bullets": "208 л.с. // 13 200 об/мин\n4-ствольный титановый выхлоп Arrow\nОграниченный тираж Serie Oro",
     "img": "",
     "sort_order": 4,
-    "is_active": 1
+    "is_active": 1,
+    "object_position": "center 50%",
+    "objectPosition": "center 50%"
   },
   {
     "id": "moto_kawasaki_zx10r",
@@ -47,7 +55,9 @@
     "bullets": "203 л.с. (213 л.с. с Ram-Air)\nИнтегрированные винглеты\nГоночная вилка Showa BFF",
     "img": "",
     "sort_order": 5,
-    "is_active": 1
+    "is_active": 1,
+    "object_position": "center 50%",
+    "objectPosition": "center 50%"
   },
   {
     "id": "moto_honda_cbr1000rrr",
@@ -57,7 +67,9 @@
     "bullets": "217 л.с. // 14 500 об/мин\nДНК формульного болида RC213V-S\nЭлектронная подвеска Öhlins Smart-EC",
     "img": "",
     "sort_order": 6,
-    "is_active": 1
+    "is_active": 1,
+    "object_position": "center 50%",
+    "objectPosition": "center 50%"
   },
   {
     "id": "moto_yamaha_r1m",
@@ -67,7 +79,9 @@
     "bullets": "200 л.с. // 13 500 об/мин\nКрестообразный коленвал Crossplane CP4\nКузов из сухого карбона",
     "img": "",
     "sort_order": 7,
-    "is_active": 1
+    "is_active": 1,
+    "object_position": "center 50%",
+    "objectPosition": "center 50%"
   },
   {
     "id": "moto_suzuki_gsxr1000r",
@@ -77,6 +91,8 @@
     "bullets": "202 л.с. // 13 200 об/мин\nСистема изменения фаз SR-VVT MotoGP\nТормозные моноблоки Brembo",
     "img": "",
     "sort_order": 8,
-    "is_active": 1
+    "is_active": 1,
+    "object_position": "center 50%",
+    "objectPosition": "center 50%"
   }
 ]

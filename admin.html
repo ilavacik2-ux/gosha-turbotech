@@ -902,6 +902,33 @@
                 <input type="file" id="teamPhotoFileInput" class="visually-hidden-file-input" accept="image/*" onchange="handleTeamPhotoSelected(event)">
               </div>
             </div>
+
+            <!-- Vertical Photo Align / Height Adjustment Control for Team Member -->
+            <div class="photo-position-control-box" id="teamPhotoPosControlBox">
+              <div class="photo-pos-top-row">
+                <label class="photo-pos-label">
+                  <span class="photo-pos-icon">📐</span>
+                  <span>Регулировка фото по высоте:</span>
+                </label>
+                <div class="photo-pos-actions">
+                  <span id="teamPosValueDisplay" class="photo-pos-badge">20%</span>
+                  <div class="photo-pos-presets">
+                    <button type="button" class="btn-slot-arrow" onclick="setTeamPhotoPreset('top')" title="Прижать к верху (портрет / лицо)">⬆ Верх (15%)</button>
+                    <button type="button" class="btn-slot-arrow" onclick="setTeamPhotoPreset('center')" title="По центру">🎯 Центр (50%)</button>
+                    <button type="button" class="btn-slot-arrow" onclick="setTeamPhotoPreset('bottom')" title="Прижать к низу">⬇ Низ (80%)</button>
+                  </div>
+                </div>
+              </div>
+              <div class="photo-pos-slider-row">
+                <span class="photo-pos-edge-label">0% (Верх)</span>
+                <input type="range" id="editMemberPositionY" min="0" max="100" value="20" step="1" oninput="handleTeamPhotoPositionChange(this.value)">
+                <span class="photo-pos-edge-label">100% (Низ)</span>
+              </div>
+              <input type="hidden" id="editMemberObjectPosition" value="center 20%">
+              <p class="photo-pos-hint">
+                Необязательно. Сдвигайте кадр по высоте, чтобы лицо специалиста или болид на карточке не срезались. Результат сразу виден в предпросмотре справа.
+              </p>
+            </div>
           </div>
 
           <!-- Right side Live Photo Card Preview -->
@@ -1404,16 +1431,46 @@
               </label>
               <input type="file" id="motoPhotoFileInput" class="visually-hidden-file-input" accept="image/*" onchange="handleMotoPhotoSelected(event)">
             </div>
-            <!-- Live Preview Box -->
-            <div id="motoPhotoPreviewBox" style="display: flex; align-items: center; gap: 12px; margin-top: 10px; padding: 10px 14px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px;">
-              <div style="width: 72px; height: 50px; border-radius: 6px; background: #000; border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0;">
-                <img id="motoPhotoPreviewImg" src="" alt="Превью мотоцикла" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+            <!-- Live Image Preview Box & Height Adjustment Control -->
+            <div id="motoPhotoPreviewBox" style="margin-top: 12px; padding: 12px; background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 10px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-size: 11px; text-transform: uppercase; color: var(--gtt-orange); font-family: var(--font-mono); font-weight: 700;">Предпросмотр фото мотоцикла:</span>
+                <button type="button" class="btn-clear-preview" onclick="clearMotoPhotoPreview()" style="font-size: 11px;">&times; Очистить фото</button>
               </div>
-              <div style="flex: 1; min-width: 0;">
-                <div style="font-size: 11px; text-transform: uppercase; color: var(--gtt-cyan); font-family: var(--font-mono); font-weight: 700;">Предпросмотр фото мотоцикла</div>
-                <div id="motoPhotoPreviewText" style="font-size: 11.5px; color: var(--text-muted); margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Файл не выбран</div>
+              <div style="width: 100%; height: 210px; border-radius: 8px; overflow: hidden; background: #07090e; border: 1px solid rgba(255, 85, 0, 0.35); position: relative; display: flex; align-items: center; justify-content: center;">
+                <img id="motoPhotoPreviewImg" src="" alt="Превью мотоцикла" style="width: 100%; height: 100%; object-fit: cover; object-position: center 50%; display: none;">
+                <div id="motoPhotoPlaceholderText" style="font-size: 12px; color: var(--text-dim); font-family: var(--font-mono); text-align: center; padding: 20px;">
+                  🏍️ Фото не выбрано<br><span style="font-size: 11px; color: var(--text-muted); margin-top: 4px; display: inline-block;">Выберите файл через кнопку «Папка» или вставьте ссылку</span>
+                </div>
               </div>
-              <button type="button" class="btn-clear-preview" onclick="document.getElementById('editMotoImg').value=''; updateMotoPhotoPreview('');" style="padding: 4px 8px; font-size: 11px; background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.25); border-radius: 4px; cursor: pointer;">&times; Очистить</button>
+              <div id="motoPhotoPreviewText" style="font-size: 11px; color: var(--text-dim); margin-top: 6px; font-family: var(--font-mono); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Файл не выбран</div>
+
+              <!-- Vertical Photo Align / Height Adjustment Control for Moto -->
+              <div class="photo-position-control-box" id="motoPhotoPosControlBox" style="margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+                <div class="photo-pos-top-row">
+                  <label class="photo-pos-label">
+                    <span class="photo-pos-icon">📐</span>
+                    <span>Регулировка фото по высоте:</span>
+                  </label>
+                  <div class="photo-pos-actions">
+                    <span id="motoPosValueDisplay" class="photo-pos-badge">50%</span>
+                    <div class="photo-pos-presets">
+                      <button type="button" class="btn-slot-arrow" onclick="setMotoPhotoPreset('top')" title="Прижать к верху">⬆ Верх (15%)</button>
+                      <button type="button" class="btn-slot-arrow" onclick="setMotoPhotoPreset('center')" title="По центру">🎯 Центр (50%)</button>
+                      <button type="button" class="btn-slot-arrow" onclick="setMotoPhotoPreset('bottom')" title="Прижать к низу">⬇ Низ (80%)</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="photo-pos-slider-row">
+                  <span class="photo-pos-edge-label">0% (Верх)</span>
+                  <input type="range" id="editMotoPositionY" min="0" max="100" value="50" step="1" oninput="handleMotoPhotoPositionChange(this.value)">
+                  <span class="photo-pos-edge-label">100% (Низ)</span>
+                </div>
+                <input type="hidden" id="editMotoObjectPosition" value="center 50%">
+                <p class="photo-pos-hint" style="margin-top: 6px; font-size: 11px; color: var(--text-dim); line-height: 1.4;">
+                  Регулируйте вертикальное положение (кадрирование), чтобы колеса, руль или выхлоп мотоцикла не срезались на карточке сайта.
+                </p>
+              </div>
             </div>
           </div>
           <div class="form-group full-width" style="display: flex; align-items: center; gap: 10px; margin-top: 6px;">

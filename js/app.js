@@ -2554,7 +2554,7 @@ function renderMotoGrid(motoList) {
   if (!container) return;
 
   const rawList = Array.isArray(motoList) && motoList.length > 0 ? motoList : defaultMotoList;
-  const list = rawList.map(m => ({ ...m, img: '' }));
+  const list = rawList;
   const activeMoto = list
     .filter(m => m.is_active === 1 || m.is_active === true || m.is_active === '1' || m.is_active === undefined)
     .sort((a, b) => (parseInt(a.sort_order || 0) - parseInt(b.sort_order || 0)));
@@ -2606,9 +2606,11 @@ function renderMotoGrid(motoList) {
       </div>
     `).join('');
 
-    const photoHtml = m.img ? `
-        <div class="moto-card-photo-media" style="width: 100%; height: 180px; overflow: hidden; border-radius: 8px; margin-bottom: 14px;">
-          <img src="${escapeHtml(m.img)}" alt="${escapeHtml(title)}" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+    const objPos = m.object_position || m.objectPosition || 'center 50%';
+    const hasPhoto = Boolean(m.img && String(m.img).trim());
+    const photoHtml = hasPhoto ? `
+        <div class="moto-card-photo-media">
+          <img src="${escapeHtml(String(m.img).trim())}" alt="${escapeHtml(title)}" style="object-position: ${objPos} !important;" loading="lazy">
         </div>
       ` : `
         <!-- Teaser Media Placeholder (Photos coming soon) -->
@@ -4084,8 +4086,9 @@ function renderTeamGrid(teamList) {
       if (m.role) displayRole = m.role;
     }
 
+    const objPos = m.object_position || m.objectPosition || 'center 20%';
     const photoMarkup = hasPhoto
-      ? `<img src="${rawPhoto}" alt="${displayName}" class="team-card-img" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'team-card-placeholder-photo\\'><div class=\\'team-placeholder-crest\\'><img src=\\'assets/photos/gtt_shield_logo.svg\\' alt=\\'GTT\\' class=\\'team-placeholder-crest-icon\\'><span class=\\'team-placeholder-id\\'>#${num}</span></div><span class=\\'team-placeholder-hint\\'>GTT Crew</span></div>'">`
+      ? `<img src="${rawPhoto}" alt="${displayName}" class="team-card-img" style="object-position: ${objPos} !important;" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'team-card-placeholder-photo\\'><div class=\\'team-placeholder-crest\\'><img src=\\'assets/photos/gtt_shield_logo.svg\\' alt=\\'GTT\\' class=\\'team-placeholder-crest-icon\\'><span class=\\'team-placeholder-id\\'>#${num}</span></div><span class=\\'team-placeholder-hint\\'>GTT Crew</span></div>'">`
       : `<div class="team-card-placeholder-photo">
           <div class="team-placeholder-crest">
             <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">

@@ -67,10 +67,11 @@ def init_db():
         sort_order INTEGER DEFAULT 0,
         name_en TEXT DEFAULT '',
         role_en TEXT DEFAULT '',
-        dept TEXT DEFAULT ''
+        dept TEXT DEFAULT '',
+        object_position TEXT DEFAULT 'center 20%'
     )
     """)
-    for col in ["photo", "social", "name_en", "role_en", "dept"]:
+    for col in ["photo", "social", "name_en", "role_en", "dept", "object_position"]:
         try:
             cursor.execute(f"ALTER TABLE team ADD COLUMN {col} TEXT")
         except Exception:
@@ -177,9 +178,15 @@ def init_db():
         bullets TEXT,
         img TEXT,
         sort_order INTEGER DEFAULT 0,
-        is_active INTEGER DEFAULT 1
+        is_active INTEGER DEFAULT 1,
+        object_position TEXT DEFAULT 'center 50%'
     )
     """)
+    for col in ["object_position"]:
+        try:
+            cursor.execute(f"ALTER TABLE moto ADD COLUMN {col} TEXT")
+        except Exception:
+            pass
 
     conn.commit()
 
@@ -1094,8 +1101,8 @@ def seed_initial_data(cursor):
             {"id": "m_babyakin", "name": "Никита Бабякин", "role": "Специалист по хозяйственному обеспечению", "status": "atelier", "photo": "", "social": None}
         ]
     for idx, member in enumerate(default_team):
-        cursor.execute("INSERT OR REPLACE INTO team (id, name, role, status, photo, social, sort_order, name_en, role_en, dept) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                       (member["id"], member["name"], member["role"], member["status"], member.get("photo", ""), member.get("social"), member.get("sort_order", idx + 1), member.get("name_en", ""), member.get("role_en", ""), member.get("dept", "")))
+        cursor.execute("INSERT OR REPLACE INTO team (id, name, role, status, photo, social, sort_order, name_en, role_en, dept, object_position) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                       (member["id"], member["name"], member["role"], member["status"], member.get("photo", ""), member.get("social"), member.get("sort_order", idx + 1), member.get("name_en", ""), member.get("role_en", ""), member.get("dept", ""), member.get("object_position", "center 20%")))
 
     default_records = [
         {"id": "rec_moses", "year": "2016 • Абсолютный рекорд GTT", "car": "NISSAN GT-R R35 GTT-1800 «MOSES»", "telemetry": "1/4 мили: 7.526 сек • 304.36 км/ч", "desc": "Легендарные тесты в ОАЭ и UNLIM 500+ Greece. 7.526 сек со скоростью 304.36 км/ч — быстрейший результат на 402 м за всю историю ателье GoshaTurboTech.", "img": "assets/archive_tilda/gtr_moses.png"},
@@ -1425,16 +1432,23 @@ def get_all_team() -> List[Dict[str, Any]]:
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM team ORDER BY sort_order ASC, rowid ASC")
-    rows = [dict(r) for r in cursor.fetchall()]
+    rows = []
+    for r in cursor.fetchall():
+        d = dict(r)
+        if not d.get("object_position"):
+            d["object_position"] = "center 20%"
+        d["objectPosition"] = d["object_position"]
+        rows.append(d)
     conn.close()
     return rows
 
 def upsert_team_member(member: Dict[str, Any]) -> Dict[str, Any]:
     conn = get_connection()
     cursor = conn.cursor()
+    obj_pos = member.get("object_position") or member.get("objectPosition") or "center 20%"
     cursor.execute("""
-    INSERT INTO team (id, name, role, status, photo, social, sort_order, name_en, role_en, dept)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO team (id, name, role, status, photo, social, sort_order, name_en, role_en, dept, object_position)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(id) DO UPDATE SET
         name=excluded.name,
         role=excluded.role,
@@ -1444,7 +1458,8 @@ def upsert_team_member(member: Dict[str, Any]) -> Dict[str, Any]:
         sort_order=COALESCE(excluded.sort_order, team.sort_order),
         name_en=COALESCE(excluded.name_en, team.name_en),
         role_en=COALESCE(excluded.role_en, team.role_en),
-        dept=COALESCE(excluded.dept, team.dept)
+        dept=COALESCE(excluded.dept, team.dept),
+        object_position=COALESCE(excluded.object_position, team.object_position)
     """, (
         member["id"], 
         member["name"], 
@@ -1455,10 +1470,13 @@ def upsert_team_member(member: Dict[str, Any]) -> Dict[str, Any]:
         member.get("sort_order"),
         member.get("name_en", ""),
         member.get("role_en", ""),
-        member.get("dept", "")
+        member.get("dept", ""),
+        obj_pos
     ))
     conn.commit()
     conn.close()
+    member["object_position"] = obj_pos
+    member["objectPosition"] = obj_pos
     try:
         sync_all_json_caches()
     except Exception:
@@ -2171,8 +2189,8 @@ def seed_default_moto(cursor):
     ]
     for m in default_moto:
         cursor.execute("""
-        INSERT OR REPLACE INTO moto (id, title, code, desc, bullets, img, sort_order, is_active)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT OR REPLACE INTO moto (id, title, code, desc, bullets, img, sort_order, is_active, object_position)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
             m["id"],
             m["title"],
@@ -2181,14 +2199,21 @@ def seed_default_moto(cursor):
             m["bullets"],
             m["img"],
             m["sort_order"],
-            m["is_active"]
+            m["is_active"],
+            m.get("object_position", "center 50%")
         ))
 
 def get_all_moto() -> List[Dict[str, Any]]:
     conn = get_connection()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM moto ORDER BY sort_order ASC, rowid ASC")
-    rows = [dict(r) for r in cursor.fetchall()]
+    rows = []
+    for r in cursor.fetchall():
+        d = dict(r)
+        if not d.get("object_position"):
+            d["object_position"] = "center 50%"
+        d["objectPosition"] = d["object_position"]
+        rows.append(d)
     conn.close()
     return rows
 
@@ -2198,14 +2223,21 @@ def get_moto(moto_id: str) -> Optional[Dict[str, Any]]:
     cursor.execute("SELECT * FROM moto WHERE id = ?", (moto_id,))
     row = cursor.fetchone()
     conn.close()
-    return dict(row) if row else None
+    if row:
+        d = dict(row)
+        if not d.get("object_position"):
+            d["object_position"] = "center 50%"
+        d["objectPosition"] = d["object_position"]
+        return d
+    return None
 
 def upsert_moto(item: Dict[str, Any]) -> Dict[str, Any]:
     conn = get_connection()
     cursor = conn.cursor()
+    obj_pos = item.get("object_position") or item.get("objectPosition") or "center 50%"
     cursor.execute("""
-    INSERT INTO moto (id, title, code, desc, bullets, img, sort_order, is_active)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO moto (id, title, code, desc, bullets, img, sort_order, is_active, object_position)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(id) DO UPDATE SET
         title=excluded.title,
         code=excluded.code,
@@ -2213,7 +2245,8 @@ def upsert_moto(item: Dict[str, Any]) -> Dict[str, Any]:
         bullets=excluded.bullets,
         img=excluded.img,
         sort_order=excluded.sort_order,
-        is_active=excluded.is_active
+        is_active=excluded.is_active,
+        object_position=COALESCE(excluded.object_position, moto.object_position)
     """, (
         item["id"],
         item["title"],
@@ -2222,10 +2255,13 @@ def upsert_moto(item: Dict[str, Any]) -> Dict[str, Any]:
         item.get("bullets", ""),
         item.get("img", ""),
         int(item.get("sort_order", 0)),
-        int(item.get("is_active", 1))
+        int(item.get("is_active", 1)),
+        obj_pos
     ))
     conn.commit()
     conn.close()
+    item["object_position"] = obj_pos
+    item["objectPosition"] = obj_pos
     try:
         sync_all_json_caches()
     except Exception:

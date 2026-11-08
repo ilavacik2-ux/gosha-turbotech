@@ -9,7 +9,9 @@
     "social": "@goshaturbotech",
     "name_en": "Gosha Pertskheliya",
     "role_en": "Founder & Chief Constructor GTT",
-    "dept": "management"
+    "dept": "management",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_pertskheliya_givi",
@@ -21,7 +23,9 @@
     "social": "",
     "name_en": "Givi Pertskheliya",
     "role_en": "Managing Director",
-    "dept": "management"
+    "dept": "management",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_pertskheliya_mikhail",
@@ -33,7 +37,9 @@
     "social": "",
     "name_en": "Mikhail Pertskheliya",
     "role_en": "Executive Director",
-    "dept": "management"
+    "dept": "management",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_sarkisyan",
@@ -45,7 +51,9 @@
     "social": "",
     "name_en": "Eduard Sarkisyan",
     "role_en": "Technical Director",
-    "dept": "management"
+    "dept": "management",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_pertskheliya_zurab",
@@ -57,7 +65,9 @@
     "social": "",
     "name_en": "Zurab Pertskheliya",
     "role_en": "Executive Assistant",
-    "dept": "management"
+    "dept": "management",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_pashchenko",
@@ -69,7 +79,9 @@
     "social": "",
     "name_en": "Daniil Pashchenko",
     "role_en": "Head of Media Production",
-    "dept": "media"
+    "dept": "media",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_gurov",
@@ -81,7 +93,9 @@
     "social": "",
     "name_en": "Dmitry Gurov",
     "role_en": "CAD & Design Engineer",
-    "dept": "engineers"
+    "dept": "engineers",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_shevtsov",
@@ -93,7 +107,9 @@
     "social": "",
     "name_en": "Georgy Shevtsov",
     "role_en": "Lead Electrical Engineer",
-    "dept": "engineers"
+    "dept": "engineers",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_nikolaev",
@@ -105,7 +121,9 @@
     "social": "",
     "name_en": "Artem Nikolaev",
     "role_en": "Electrical Specialist",
-    "dept": "engineers"
+    "dept": "engineers",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_labkovich",
@@ -117,7 +135,9 @@
     "social": "",
     "name_en": "Evgeny Labkovich",
     "role_en": "Diagnostic & ECU Engineer",
-    "dept": "engineers"
+    "dept": "engineers",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_stotsky",
@@ -129,7 +149,9 @@
     "social": "",
     "name_en": "Sergey Stotsky",
     "role_en": "Powertrain & Engine Builder",
-    "dept": "mechanics"
+    "dept": "mechanics",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_turdibaev",
@@ -141,7 +163,9 @@
     "social": "",
     "name_en": "Rustam Turdibaev",
     "role_en": "Powertrain & Engine Builder",
-    "dept": "mechanics"
+    "dept": "mechanics",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_mazhnunov",
@@ -153,7 +177,9 @@
     "social": "",
     "name_en": "Solekhdzhon Mazhnunov",
     "role_en": "Assistant Engine Builder",
-    "dept": "mechanics"
+    "dept": "mechanics",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_petrushin",
@@ -165,7 +191,9 @@
     "social": "",
     "name_en": "Pavel Petrushin",
     "role_en": "Assistant Engine Builder",
-    "dept": "mechanics"
+    "dept": "mechanics",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_mamsurov",
@@ -177,7 +205,9 @@
     "social": "",
     "name_en": "Ksanti Mamsurov",
     "role_en": "TIG Welder & Fabricator",
-    "dept": "fab"
+    "dept": "fab",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_fetkulin",
@@ -189,7 +219,9 @@
     "social": "",
     "name_en": "Roman Fetkulin",
     "role_en": "TIG Welder & Fabricator",
-    "dept": "fab"
+    "dept": "fab",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_bagdasaryan",
@@ -201,7 +233,9 @@
     "social": "",
     "name_en": "Mikael Bagdasaryan",
     "role_en": "Race Mechanic",
-    "dept": "mechanics"
+    "dept": "mechanics",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_burnashov",
@@ -213,7 +247,9 @@
     "social": "",
     "name_en": "Erik Burnashov",
     "role_en": "Race Mechanic",
-    "dept": "mechanics"
+    "dept": "mechanics",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_ivanov",
@@ -225,7 +261,9 @@
     "social": "",
     "name_en": "Nikita Ivanov",
     "role_en": "Race Mechanic",
-    "dept": "mechanics"
+    "dept": "mechanics",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_mazhorov",
@@ -237,7 +275,9 @@
     "social": "",
     "name_en": "Ivan Mazhorov",
     "role_en": "Race Mechanic",
-    "dept": "mechanics"
+    "dept": "mechanics",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_malofeev",
@@ -249,7 +289,9 @@
     "social": "",
     "name_en": "Aleksey Malofeev",
     "role_en": "Race Mechanic",
-    "dept": "mechanics"
+    "dept": "mechanics",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_marin",
@@ -261,7 +303,9 @@
     "social": "",
     "name_en": "Vadim Marin",
     "role_en": "Workshop Mechanic",
-    "dept": "mechanics"
+    "dept": "mechanics",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_osipov",
@@ -273,7 +317,9 @@
     "social": "",
     "name_en": "Artem Osipov",
     "role_en": "Workshop Mechanic",
-    "dept": "mechanics"
+    "dept": "mechanics",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_ponomarev",
@@ -285,7 +331,9 @@
     "social": "",
     "name_en": "Nikolay Ponomarev",
     "role_en": "Workshop Mechanic",
-    "dept": "mechanics"
+    "dept": "mechanics",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_sergeev",
@@ -297,7 +345,9 @@
     "social": "",
     "name_en": "Andrey Sergeev",
     "role_en": "Workshop Mechanic",
-    "dept": "mechanics"
+    "dept": "mechanics",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_shinkarenko",
@@ -309,7 +359,9 @@
     "social": "",
     "name_en": "Stepan Shinkarenko",
     "role_en": "Workshop Mechanic",
-    "dept": "mechanics"
+    "dept": "mechanics",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_yakovlev",
@@ -321,7 +373,9 @@
     "social": "",
     "name_en": "Aleksey Yakovlev",
     "role_en": "Moto Specialist Mechanic",
-    "dept": "mechanics"
+    "dept": "mechanics",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_barankin",
@@ -333,7 +387,9 @@
     "social": "",
     "name_en": "Dmitry Barankin",
     "role_en": "Procurement Manager",
-    "dept": "logistics"
+    "dept": "logistics",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_gazaryan",
@@ -345,7 +401,9 @@
     "social": "",
     "name_en": "Pavel Gazaryan",
     "role_en": "Procurement Manager",
-    "dept": "logistics"
+    "dept": "logistics",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_gusarov",
@@ -357,7 +415,9 @@
     "social": "",
     "name_en": "Ilya Gusarov",
     "role_en": "Warehouse & Parts Supervisor",
-    "dept": "logistics"
+    "dept": "logistics",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_zolotareva",
@@ -369,7 +429,9 @@
     "social": "",
     "name_en": "Maria Zolotareva",
     "role_en": "Office & Operations Coordinator",
-    "dept": "management"
+    "dept": "management",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_kopyl",
@@ -381,7 +443,9 @@
     "social": "",
     "name_en": "Ulyana Kopyl",
     "role_en": "Content Creator & Media",
-    "dept": "media"
+    "dept": "media",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   },
   {
     "id": "m_babyakin",
@@ -393,6 +457,8 @@
     "social": "",
     "name_en": "Nikita Babyakin",
     "role_en": "Facilities & Operations Specialist",
-    "dept": "logistics"
+    "dept": "logistics",
+    "object_position": "center 20%",
+    "objectPosition": "center 20%"
   }
 ]

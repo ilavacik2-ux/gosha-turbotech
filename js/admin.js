@@ -3363,19 +3363,65 @@ function clearCarPhotoPreview() {
 }
 
 // 2. Team Member Photo Handlers
+function handleTeamPhotoPositionChange(val) {
+  const num = Math.max(0, Math.min(100, parseInt(val, 10) || 20));
+  const posStr = `center ${num}%`;
+
+  const hiddenInput = document.getElementById('editMemberObjectPosition');
+  if (hiddenInput) hiddenInput.value = posStr;
+
+  const slider = document.getElementById('editMemberPositionY');
+  if (slider && String(slider.value) !== String(num)) slider.value = num;
+
+  const display = document.getElementById('teamPosValueDisplay');
+  if (display) display.textContent = `${num}%`;
+
+  const previewImg = document.getElementById('teamImgPreview');
+  if (previewImg) {
+    previewImg.style.objectPosition = posStr;
+  }
+
+  const currentMemberId = document.getElementById('editMemberId')?.value;
+  if (currentMemberId && currentMemberId === selectedInspectorMemberId) {
+    const inspectorImg = document.getElementById('inspectorMemberImg');
+    if (inspectorImg) inspectorImg.style.objectPosition = posStr;
+  }
+}
+
+function setTeamPhotoPreset(preset) {
+  let val = 20;
+  if (preset === 'top') val = 15;
+  else if (preset === 'center') val = 50;
+  else if (preset === 'bottom') val = 80;
+
+  handleTeamPhotoPositionChange(val);
+}
+
 function handleTeamPhotoSelected(e) {
   const file = e.target.files && e.target.files[0];
   if (file) {
     handleGenericUpload(file, {
       inputId: 'editMemberPhoto',
-      previewWrapId: 'teamImgPreviewWrap',
+      previewWrapId: null,
       previewImgId: 'teamImgPreview',
-      previewNameId: 'teamImgMetaName',
-      previewInfoId: 'teamImgMetaInfo',
+      previewNameId: null,
+      previewInfoId: null,
       folder: 'photos',
       isVideo: false,
       successMsg: `Фото специалиста «${file.name}» загружено`
     });
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const img = document.getElementById('teamImgPreview');
+      if (img) {
+        img.src = ev.target.result;
+        img.style.objectFit = 'cover';
+        img.style.padding = '0';
+        const pos = document.getElementById('editMemberObjectPosition')?.value || 'center 20%';
+        img.style.objectPosition = pos;
+      }
+    };
+    reader.readAsDataURL(file);
   }
 }
 
@@ -3413,12 +3459,15 @@ function updateTeamLiveCardPreview() {
   if (imgPrev && photoInput) {
     const p = photoInput.value.trim();
     imgPrev.src = p || 'assets/photos/gtt_shield_logo.svg';
+    const pos = document.getElementById('editMemberObjectPosition')?.value || 'center 20%';
     if (!p) {
       imgPrev.style.objectFit = 'contain';
       imgPrev.style.padding = '12px';
+      imgPrev.style.objectPosition = 'center center';
     } else {
       imgPrev.style.objectFit = 'cover';
       imgPrev.style.padding = '0';
+      imgPrev.style.objectPosition = pos;
     }
   }
 }
@@ -3435,8 +3484,10 @@ function clearTeamPhotoPreview() {
     img.src = fallback;
     img.style.objectFit = 'contain';
     img.style.padding = '12px';
+    img.style.objectPosition = 'center center';
     img.onerror = () => { img.src = 'assets/photos/gtt_shield_logo.svg'; };
   }
+  handleTeamPhotoPositionChange(20);
   updateTeamLiveCardPreview();
 }
 
@@ -4305,16 +4356,19 @@ function selectTeamMemberForInspection(id) {
 
   const hasPhoto = Boolean(m.photo && m.photo.trim());
   const photo = hasPhoto ? m.photo : 'assets/photos/gtt_shield_logo.svg';
+  const objPos = m.object_position || m.objectPosition || 'center 20%';
   if (img) {
     img.src = photo;
     if (!hasPhoto) {
       img.style.objectFit = 'contain';
       img.style.padding = '30px';
       img.style.background = 'radial-gradient(circle at center, rgba(230,0,0,0.08), rgba(0,0,0,0.85))';
+      img.style.objectPosition = 'center center';
     } else {
       img.style.objectFit = 'cover';
       img.style.padding = '0';
       img.style.background = 'none';
+      img.style.objectPosition = objPos;
     }
   }
   if (nameEl) nameEl.textContent = m.name;
@@ -4358,8 +4412,9 @@ function renderTeamTable() {
     const role = escapeHTML(m.role);
     const id = escapeJS(m.id);
     const statusHtml = statusMap[m.status] || escapeHTML(m.status);
+    const objPos = escapeHTML(m.object_position || m.objectPosition || 'center 20%');
     const thumbStyle = hasPhoto 
-      ? 'width: 44px; height: 44px; border-radius: 6px; object-fit: cover; border: 1px solid rgba(255,255,255,0.15); display: block;' 
+      ? `width: 44px; height: 44px; border-radius: 6px; object-fit: cover; object-position: ${objPos}; border: 1px solid rgba(255,255,255,0.15); display: block;` 
       : 'width: 44px; height: 44px; border-radius: 6px; object-fit: contain; padding: 6px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); display: block; opacity: 0.75;';
     return `
     <tr data-team-id="${id}" onclick="selectTeamMemberForInspection('${id}')" style="cursor: pointer;" title="Кликните для просмотра профиля сотрудника">
@@ -4406,11 +4461,20 @@ function openTeamMemberModal(id) {
       document.getElementById('editMemberPhoto').value = photo;
       handleTeamPhotoInput(photo);
     }
+    const rawPos = m.object_position || m.objectPosition || 'center 20%';
+    let currentY = 20;
+    const match = rawPos.match(/(\d+)%/);
+    if (match) currentY = parseInt(match[1], 10);
+    else if (rawPos.includes('top')) currentY = 15;
+    else if (rawPos.includes('bottom')) currentY = 80;
+    else if (rawPos.includes('center')) currentY = 50;
+    handleTeamPhotoPositionChange(currentY);
   } else {
     title.textContent = 'Добавить специалиста в команду';
     if (form) form.reset();
     document.getElementById('editMemberId').value = '';
     clearTeamPhotoPreview();
+    handleTeamPhotoPositionChange(20);
   }
   updateTeamLiveCardPreview();
 }
@@ -4435,6 +4499,7 @@ async function saveTeamMember(e) {
 
   const existingMember = idInput ? team.find(m => m.id === idInput) : null;
   const photoVal = document.getElementById('editMemberPhoto')?.value.trim() || '';
+  const objPos = document.getElementById('editMemberObjectPosition')?.value || 'center 20%';
 
   const memberData = {
     id: idInput || ('team_' + Date.now()),
@@ -4442,6 +4507,8 @@ async function saveTeamMember(e) {
     role: document.getElementById('editMemberRole').value.trim() || 'Инженер GTT Atelier',
     status: document.getElementById('editMemberStatus').value || 'active',
     photo: photoVal,
+    object_position: objPos,
+    objectPosition: objPos,
     social: existingMember ? existingMember.social : undefined,
     sort_order: existingMember ? existingMember.sort_order : (team.length + 1),
     name_en: existingMember ? existingMember.name_en : '',
@@ -5487,6 +5554,8 @@ window.deleteTeamMember = deleteTeamMember;
 window.handleTeamPhotoSelected = handleTeamPhotoSelected;
 window.handleTeamPhotoInput = handleTeamPhotoInput;
 window.clearTeamPhotoPreview = clearTeamPhotoPreview;
+window.handleTeamPhotoPositionChange = handleTeamPhotoPositionChange;
+window.setTeamPhotoPreset = setTeamPhotoPreset;
 window.updateTeamLiveCardPreview = updateTeamLiveCardPreview;
 window.selectTeamMemberForInspection = selectTeamMemberForInspection;
 
@@ -5965,7 +6034,7 @@ function renderMotoTable() {
         <div style="display: flex; align-items: center; gap: 10px;">
           ${m.img ? `
             <div style="width: 50px; height: 36px; border-radius: 4px; overflow: hidden; background: #000; border: 1px solid rgba(255,255,255,0.12); flex-shrink: 0;">
-              <img src="${escapeHTML(m.img)}" alt="${title}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'">
+              <img src="${escapeHTML(m.img)}" alt="${title}" style="width: 100%; height: 100%; object-fit: cover; object-position: ${escapeHTML(m.object_position || m.objectPosition || 'center 50%')};" onerror="this.style.display='none'">
             </div>
           ` : ''}
           <div>
@@ -5995,17 +6064,59 @@ function renderMotoTable() {
 function updateMotoPhotoPreview(url) {
   const imgEl = document.getElementById('motoPhotoPreviewImg');
   const textEl = document.getElementById('motoPhotoPreviewText');
+  const placeholderEl = document.getElementById('motoPhotoPlaceholderText');
   if (!imgEl || !textEl) return;
   const clean = (url || '').trim();
+  const objPos = document.getElementById('editMotoObjectPosition')?.value || 'center 50%';
   if (clean) {
     imgEl.src = clean;
     imgEl.style.display = 'block';
+    imgEl.style.objectPosition = objPos;
+    if (placeholderEl) placeholderEl.style.display = 'none';
     textEl.textContent = clean.startsWith('data:') ? 'Файл загружен (Base64)' : clean;
   } else {
     imgEl.src = '';
     imgEl.style.display = 'none';
+    if (placeholderEl) placeholderEl.style.display = 'block';
     textEl.textContent = 'Файл не выбран';
   }
+}
+
+function handleMotoPhotoPositionChange(val) {
+  const num = Math.max(0, Math.min(100, parseInt(val, 10) || 50));
+  const posStr = `center ${num}%`;
+
+  const hiddenInput = document.getElementById('editMotoObjectPosition');
+  if (hiddenInput) hiddenInput.value = posStr;
+
+  const slider = document.getElementById('editMotoPositionY');
+  if (slider && String(slider.value) !== String(num)) slider.value = num;
+
+  const display = document.getElementById('motoPosValueDisplay');
+  if (display) display.textContent = `${num}%`;
+
+  const previewImg = document.getElementById('motoPhotoPreviewImg');
+  if (previewImg) {
+    previewImg.style.objectPosition = posStr;
+  }
+}
+
+function setMotoPhotoPreset(preset) {
+  let val = 50;
+  if (preset === 'top') val = 15;
+  else if (preset === 'center') val = 50;
+  else if (preset === 'bottom') val = 80;
+
+  handleMotoPhotoPositionChange(val);
+}
+
+function clearMotoPhotoPreview() {
+  const input = document.getElementById('editMotoImg');
+  const fileInput = document.getElementById('motoPhotoFileInput');
+  if (input) input.value = '';
+  if (fileInput) fileInput.value = '';
+  handleMotoPhotoPositionChange(50);
+  updateMotoPhotoPreview('');
 }
 
 function handleMotoPhotoSelected(event) {
@@ -6016,7 +6127,7 @@ function handleMotoPhotoSelected(event) {
   reader.onload = async (e) => {
     let base64 = e.target.result;
     try {
-      base64 = await compressImageClientSide(base64, 1200, 800, 0.88);
+      base64 = await compressImageClientSide(base64, 1400, 900, 0.88);
     } catch (err) {}
     if (input) input.value = base64;
     updateMotoPhotoPreview(base64);
@@ -6044,15 +6155,26 @@ function openMotoModal(id) {
     document.getElementById('editMotoDesc').value = m.desc || '';
     document.getElementById('editMotoBullets').value = m.bullets || '';
     document.getElementById('editMotoImg').value = m.img || '';
+
+    const rawPos = m.object_position || m.objectPosition || 'center 50%';
+    let currentY = 50;
+    const match = rawPos.match(/(\d+)%/);
+    if (match) currentY = parseInt(match[1], 10);
+    else if (rawPos.includes('top')) currentY = 15;
+    else if (rawPos.includes('bottom')) currentY = 80;
+    else if (rawPos.includes('center')) currentY = 50;
+    handleMotoPhotoPositionChange(currentY);
     updateMotoPhotoPreview(m.img || '');
+
     document.getElementById('editMotoIsActive').checked = (m.is_active === 1 || m.is_active === true || m.is_active === '1');
   } else {
     title.textContent = 'Добавить новый мотопроект';
     if (form) form.reset();
     document.getElementById('editMotoId').value = '';
     document.getElementById('editMotoSortOrder').value = 0;
-    document.getElementById('editMotoImg').value = 'assets/moto/bmw_m1000rr_gtt.jpg';
-    updateMotoPhotoPreview('assets/moto/bmw_m1000rr_gtt.jpg');
+    document.getElementById('editMotoImg').value = '';
+    handleMotoPhotoPositionChange(50);
+    updateMotoPhotoPreview('');
     document.getElementById('editMotoIsActive').checked = true;
   }
 }
@@ -6071,6 +6193,7 @@ async function saveMoto(e) {
   const desc = document.getElementById('editMotoDesc').value.trim();
   const bullets = document.getElementById('editMotoBullets').value.trim();
   const img = document.getElementById('editMotoImg').value.trim();
+  const objPos = document.getElementById('editMotoObjectPosition')?.value || 'center 50%';
   const isActive = document.getElementById('editMotoIsActive').checked ? 1 : 0;
 
   if (!title || !code) {
@@ -6090,6 +6213,8 @@ async function saveMoto(e) {
       desc,
       bullets,
       img,
+      object_position: objPos,
+      objectPosition: objPos,
       sort_order: sortOrder,
       is_active: isActive
     };
@@ -6107,6 +6232,8 @@ async function saveMoto(e) {
       desc,
       bullets,
       img,
+      object_position: objPos,
+      objectPosition: objPos,
       sort_order: sortOrder || motoList.length + 1,
       is_active: isActive
     };
@@ -6175,6 +6302,9 @@ window.saveMoto = saveMoto;
 window.deleteMoto = deleteMoto;
 window.handleMotoPhotoSelected = handleMotoPhotoSelected;
 window.updateMotoPhotoPreview = updateMotoPhotoPreview;
+window.handleMotoPhotoPositionChange = handleMotoPhotoPositionChange;
+window.setMotoPhotoPreset = setMotoPhotoPreset;
+window.clearMotoPhotoPreview = clearMotoPhotoPreview;
 window.loadMotoBanners = loadMotoBanners;
 window.saveMotoBanners = saveMotoBanners;
 window.handleMotoBannerPosChange = handleMotoBannerPosChange;
