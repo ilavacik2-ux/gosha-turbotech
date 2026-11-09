@@ -937,11 +937,11 @@ def seed_initial_data(cursor):
                 'desc_ru': 'Культовый Porsche 992 Turbo S «Puncher» Сергея Никитина. Мировой рекорд в категории на '
                            'UNLIM FEST 2021: 9.303 сек со скоростью 235.83 км/ч на 1/4 мили и 14.778 сек со скоростью '
                            '276.92 км/ч на 1/2 мили.',
-                'fallback_img': 'assets/cars/gtt_classified_car.svg',
+                'fallback_img': 'assets/cars/porsche_992_puncher.jpg',
                 'hp': '—',
                 'id': 'porsche_992_puncher',
-                'img': 'assets/cars/gtt_classified_car.svg',
-                'is_photo': 0,
+                'img': 'assets/cars/porsche_992_puncher.jpg',
+                'is_photo': 1,
                 'name_en': 'PORSCHE 911 TURBO S (992) GTT «PUNCHER»',
                 'name_ru': 'PORSCHE 911 TURBO S (992) GTT «PUNCHER»',
                 'object_position': 'center 50%',
@@ -992,11 +992,11 @@ def seed_initial_data(cursor):
                 'desc_ru': 'Трековый проект на базе трехмоторного седана Tesla Model S Plaid. Спортивная '
                            'карбон-керамическая тормозная система GTT, оптимизация охлаждения инверторов и '
                            'аэродинамический сплиттер.',
-                'fallback_img': 'assets/cars/gtt_classified_car.svg',
-                'hp': '—',
+                'fallback_img': 'assets/cars/tesla_model_s_plaid.jpg',
+                'hp': '1,050+ HP',
                 'id': 'tesla_plaid',
-                'img': 'assets/cars/gtt_classified_car.svg',
-                'is_photo': 0,
+                'img': 'assets/cars/tesla_model_s_plaid.jpg',
+                'is_photo': 1,
                 'name_en': 'TESLA MODEL S PLAID GTT DYNAMICS SPEC',
                 'name_ru': 'TESLA MODEL S PLAID GTT DYNAMICS SPEC',
                 'object_position': 'center center',

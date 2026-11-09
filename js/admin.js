@@ -846,17 +846,24 @@ const defaultMedia = [
 
 // 5. Initial Gallery (Живые кадры) Seed
 const defaultGallery = [
-  { id: 'gal_1', tag: 'RDRC CHAMPION', title: 'Huracan TT «Зеленка» GTT', img: 'assets/photos/huracan_zelenka_gtt.jpg' },
-  { id: 'gal_2', tag: 'BURNOUT SMOKE', title: 'Dodge Demon', img: 'assets/cars/dodge_burnout_sunset.jpg' },
-  { id: 'gal_3', tag: '3000+ HP PRO-MOD', title: 'Nissan GT-R R35 Draco Dragster', img: 'assets/cars/gtr_draco_promod_front.jpg' },
-  { id: 'gal_4', tag: '1400+ HP V10 TT', title: 'Audi R8 V10 Plus TT «Rokot»', img: 'assets/cars/audi_r8_tsmr_launch.jpg' },
-  { id: 'gal_5', tag: 'CHAMPIONSHIP WINNER', title: 'Nissan GT-R R35 Lucifer', img: 'assets/cars/gtr_lucifer_solo.jpg' },
-  { id: 'gal_6', tag: 'AERODYNAMICS', title: 'Red Chrome Nissan GT-R R35', img: 'assets/cars/gtr_red_front_rdrc.jpg' },
-  { id: 'gal_7', tag: 'MIDNIGHT BLUE', title: 'Nissan GT-R R35 #888 Sunset Pass', img: 'assets/photos/gtr_blue_888_rdrc.jpg' },
-  { id: 'gal_8', tag: 'CHIEF MOTORSPORT ENGINEER', title: 'Гоша Перцхелия на стрипе RDRC', img: 'assets/photos/gosha_on_track.jpg' },
-  { id: 'gal_9', tag: 'ATELIER GARAGE', title: 'Бокс GTT: Паддок команды & Nissan GT-R', img: 'assets/cars/bmw_m5_paddock_front.jpg' },
-  { id: 'gal_10', tag: 'TWIN TURBO V8', title: 'BMW M5 G90 Stage 2 GTT', img: 'assets/cars/bmw_m5_rdrc_race.jpg' },
-  { id: 'gal_11', tag: 'TWIN TURBO V10', title: 'Huracan Twin Turbo «Зеленка» GTT', img: 'assets/cars/huracan_green_bezzubik_track.jpg' }
+  { id: 'gal_1', tag: 'RDRC CHAMPION', title: 'Huracan TT «Зеленка» GTT', img: 'assets/photos/huracan_zelenka_gtt.jpg', object_position: 'center 50%' },
+  { id: 'gal_2', tag: 'BURNOUT SMOKE', title: 'Dodge Demon', img: 'assets/cars/dodge_burnout_sunset.jpg', object_position: 'center 50%' },
+  { id: 'gal_3', tag: '3000+ HP PRO-MOD', title: 'Nissan GT-R R35 Draco Dragster', img: 'assets/cars/gtr_draco_promod_front.jpg', object_position: 'center 50%' },
+  { id: 'gal_4', tag: '1400+ HP V10 TT', title: 'Audi R8 V10 Plus TT «Rokot»', img: 'assets/cars/audi_r8_tsmr_launch.jpg', object_position: 'center 50%' },
+  { id: 'gal_5', tag: 'CHAMPIONSHIP WINNER', title: 'Nissan GT-R R35 Lucifer', img: 'assets/cars/gtr_lucifer_solo.jpg', object_position: 'center 50%' },
+  { id: 'gal_6', tag: 'AERODYNAMICS', title: 'Red Chrome Nissan GT-R R35', img: 'assets/cars/gtr_red_front_rdrc.jpg', object_position: 'center 50%' },
+  { id: 'gal_7', tag: 'MIDNIGHT BLUE', title: 'Nissan GT-R R35 #888 Sunset Pass', img: 'assets/photos/gtr_blue_888_rdrc.jpg', object_position: 'center 50%' },
+  { id: 'gal_8', tag: 'CHIEF MOTORSPORT ENGINEER', title: 'Гоша Перцхелия на стрипе RDRC', img: 'assets/photos/gosha_on_track.jpg', object_position: 'center 50%' },
+  { id: 'gal_9', tag: 'ATELIER GARAGE', title: 'Бокс GTT: Паддок команды & Nissan GT-R', img: 'assets/cars/bmw_m5_paddock_front.jpg', object_position: 'center 50%' },
+  { id: 'gal_10', tag: 'TWIN TURBO V8', title: 'BMW M5 G90 GTT', img: 'assets/cars/bmw_m5_rdrc_race.jpg', object_position: 'center 50%' },
+  { id: 'gal_11', tag: 'TWIN TURBO V10', title: 'Huracan Twin Turbo «Зеленка» GTT', img: 'assets/cars/huracan_green_bezzubik_track.jpg', object_position: 'center 50%' },
+  { id: 'gal_12', tag: 'BILLET MOTORSPORT', title: 'VR38 Billet & Дрэг-подвеска', img: 'assets/cars/gtr_draco_connections.jpg', object_position: 'center 50%' },
+  { id: 'gal_13', tag: 'PARC FERMÉ', title: 'Пилот Саркисян & Draco GTT', img: 'assets/photos/pilot_draco_sarkisyan.jpg', object_position: 'center 50%' },
+  { id: 'gal_15', tag: 'RDRC BURNOUT', title: 'Challenger SRT // Облако дыма', img: 'assets/gallery/rdrc_challenger_burnout.jpg', object_position: 'center 50%' },
+  { id: 'gal_16', tag: '1500+ HP V10 TT', title: 'Huracan TT на стартовом створе', img: 'assets/gallery/rdrc_lamborghini_green_front.jpg', object_position: 'center 50%' },
+  { id: 'gal_17', tag: 'TITANIUM CRAFT', title: 'GT-R R35 // GTT Titanium Exhaust', img: 'assets/gallery/rdrc_gtr_rear_exhaust.jpg', object_position: 'center 50%' },
+  { id: 'gal_18', tag: 'GTT MOTORSPORT BOX', title: 'Паддок GTT: BMW M5 G90 & GT-R', img: 'assets/gallery/rdrc_paddock_bmw_m5_gtr.jpg', object_position: 'center 50%' },
+  { id: 'gal_19', tag: 'TWIN V10 ARSENAL', title: 'Пара Lamborghini Huracan TT GTT', img: 'assets/gallery/rdrc_lamborghinis_pair_paddock.jpg', object_position: 'center 50%' }
 ];
 
 // 6. Initial Partners Seed (28 Authentic GTT Motorsport & Technical Partners)
@@ -1124,7 +1131,12 @@ function sanitizeTeamMember(m) {
 }
 
 // Helpers for LocalStorage & In-memory Cache
+const inMemoryCache = {};
+
 function getDB(key, defaultVal) {
+  if (inMemoryCache[key] && Array.isArray(inMemoryCache[key])) {
+    return inMemoryCache[key];
+  }
   const saved = localStorage.getItem(key);
   if (saved) {
     try {
@@ -1134,17 +1146,24 @@ function getDB(key, defaultVal) {
           let cleanDefault = defaultVal;
           if (key === ADMIN_STORAGE_KEY) cleanDefault = defaultVal.map(sanitizeCarRecord);
           if (key === TEAM_STORAGE_KEY) cleanDefault = defaultVal.map(sanitizeTeamMember);
+          inMemoryCache[key] = cleanDefault;
           try { localStorage.setItem(key, JSON.stringify(cleanDefault)); } catch (e) {}
           return cleanDefault;
         }
         if (key === ADMIN_STORAGE_KEY) {
-          return parsed.map(sanitizeCarRecord);
+          const res = parsed.map(sanitizeCarRecord);
+          inMemoryCache[key] = res;
+          return res;
         }
         if (key === TEAM_STORAGE_KEY) {
-          return parsed.map(sanitizeTeamMember);
+          const res = parsed.map(sanitizeTeamMember);
+          inMemoryCache[key] = res;
+          return res;
         }
+        inMemoryCache[key] = parsed;
         return parsed;
       }
+      inMemoryCache[key] = parsed;
       return parsed;
     } catch (e) {
       console.error('Error loading ' + key, e);
@@ -1153,6 +1172,7 @@ function getDB(key, defaultVal) {
   let cleanDefault = defaultVal;
   if (key === ADMIN_STORAGE_KEY && Array.isArray(defaultVal)) cleanDefault = defaultVal.map(sanitizeCarRecord);
   if (key === TEAM_STORAGE_KEY && Array.isArray(defaultVal)) cleanDefault = defaultVal.map(sanitizeTeamMember);
+  inMemoryCache[key] = cleanDefault;
   try {
     localStorage.setItem(key, JSON.stringify(cleanDefault));
   } catch (e) {}
@@ -1171,10 +1191,18 @@ function restoreFactoryDatabase() {
     localStorage.setItem(RECORDS_STORAGE_KEY, JSON.stringify(defaultRecords));
   } catch (e) {}
 
+  inMemoryCache[ADMIN_STORAGE_KEY] = defaultProjects.map(sanitizeCarRecord);
+  inMemoryCache[GALLERY_STORAGE_KEY] = defaultGallery;
+  inMemoryCache[TEAM_STORAGE_KEY] = defaultTeam.map(sanitizeTeamMember);
+  inMemoryCache[PARTNERS_STORAGE_KEY] = defaultPartners;
+  inMemoryCache[MOTO_STORAGE_KEY] = defaultMoto;
+  inMemoryCache[RECORDS_STORAGE_KEY] = defaultRecords;
+
   if (window.BroadcastChannel) {
     try {
       const ch = new BroadcastChannel('gtt_channel');
       ch.postMessage({ type: 'projects_updated', projects: defaultProjects });
+      ch.postMessage({ type: 'gallery_updated', gallery: defaultGallery });
       ch.postMessage({ type: 'partners_updated', partners: defaultPartners });
       ch.postMessage({ type: 'records_updated', records: defaultRecords });
     } catch (e) {}
@@ -1186,15 +1214,25 @@ function restoreFactoryDatabase() {
 window.restoreFactoryDatabase = restoreFactoryDatabase;
 
 function saveDB(key, data) {
+  let cleanData = data;
+  if (key === ADMIN_STORAGE_KEY && Array.isArray(data)) cleanData = data.map(sanitizeCarRecord);
+  if (key === TEAM_STORAGE_KEY && Array.isArray(data)) cleanData = data.map(sanitizeTeamMember);
+  
+  // Guarantee instant memory update
+  inMemoryCache[key] = cleanData;
+
   try {
-    let cleanData = data;
-    if (key === ADMIN_STORAGE_KEY && Array.isArray(data)) cleanData = data.map(sanitizeCarRecord);
-    if (key === TEAM_STORAGE_KEY && Array.isArray(data)) cleanData = data.map(sanitizeTeamMember);
     localStorage.setItem(key, JSON.stringify(cleanData));
   } catch (err) {
-    console.error('LocalStorage save error:', err);
+    console.warn('LocalStorage save error (using memory cache):', err);
     if (err && err.name === 'QuotaExceededError') {
-      showToast('Память браузера', 'Память LocalStorage заполнена. Очистите кэш или уменьшите размер файлов.', 'error');
+      try {
+        localStorage.removeItem('gtt_traffic_stats');
+        localStorage.removeItem('gtt_audit_logs');
+        localStorage.setItem(key, JSON.stringify(cleanData));
+        return;
+      } catch (retryErr) {}
+      showToast('Память браузера', 'Память LocalStorage заполнена. Кадр сохранен в активной сессии.', 'warning');
     }
   }
 }
@@ -1287,17 +1325,6 @@ async function checkAuth() {
       welcomeTextEl.innerHTML = `Добро пожаловать // <strong>${storedUser}</strong>`;
     }
 
-    const hubStatusEl = document.getElementById('atelierHubStatus');
-    if (hubStatusEl) {
-      if (isStaticDeployment()) {
-        hubStatusEl.innerHTML = '<span class="status-dot" style="background: #f59e0b; box-shadow: 0 0 8px #f59e0b;"></span> GITHUB PAGES (ЛОКАЛЬНЫЙ РЕЖИМ)';
-        hubStatusEl.title = 'Вы работаете на статическом GitHub Pages. Для публикации на официальный сайт запустите локальный сервер http://localhost:8000 и сделайте git push.';
-      } else {
-        hubStatusEl.innerHTML = '<span class="status-dot" style="background: #22c55e; box-shadow: 0 0 8px #22c55e;"></span> LIVE ATELIER HUB (SQLITE)';
-        hubStatusEl.title = 'Подключено к реальному серверу FastAPI & базе данных SQLite.';
-      }
-    }
-
     scrubLegacyTeamPlaceholders();
     initDraggableAdminTabs();
     renderAllModules();
@@ -1317,6 +1344,7 @@ async function checkAuth() {
 }
 
 async function syncAllModulesFromAPI() {
+  let isLive = false;
   try {
     const [cars, gallery, team, records, media, partners, moto] = await Promise.allSettled([
       apiFetch('/api/cars'),
@@ -1330,29 +1358,47 @@ async function syncAllModulesFromAPI() {
 
     if (cars.status === 'fulfilled' && Array.isArray(cars.value) && cars.value.length > 0) {
       saveDB(ADMIN_STORAGE_KEY, cars.value);
+      isLive = true;
     }
     if (gallery.status === 'fulfilled' && Array.isArray(gallery.value) && gallery.value.length > 0) {
       saveDB(GALLERY_STORAGE_KEY, gallery.value);
+      isLive = true;
     }
     if (team.status === 'fulfilled' && Array.isArray(team.value) && team.value.length > 0) {
       saveDB(TEAM_STORAGE_KEY, team.value);
+      isLive = true;
     }
     if (records.status === 'fulfilled' && Array.isArray(records.value) && records.value.length > 0) {
       saveDB(RECORDS_STORAGE_KEY, records.value);
+      isLive = true;
     }
     if (media.status === 'fulfilled' && Array.isArray(media.value) && media.value.length > 0) {
       saveDB(MEDIA_STORAGE_KEY, media.value);
+      isLive = true;
     }
     if (partners.status === 'fulfilled' && Array.isArray(partners.value) && partners.value.length > 0) {
       saveDB(PARTNERS_STORAGE_KEY, partners.value);
+      isLive = true;
     }
     if (moto.status === 'fulfilled' && Array.isArray(moto.value) && moto.value.length > 0) {
       saveDB(MOTO_STORAGE_KEY, moto.value);
+      isLive = true;
     }
-    renderAllModules();
   } catch (e) {
     console.warn('[GTT API] Standalone sync note:', e);
   }
+
+  // If on GitHub Pages or live server is not connected, populate gallery from defaultGallery if cache has fewer items
+  if (!isLive) {
+    try {
+      const currentGallery = getDB(GALLERY_STORAGE_KEY, []);
+      if (!Array.isArray(currentGallery) || currentGallery.length < defaultGallery.length) {
+        saveDB(GALLERY_STORAGE_KEY, defaultGallery);
+      }
+    } catch (e) {}
+  }
+
+  renderAllModules();
 }
 
 async function sha256Hex(str) {
@@ -3092,9 +3138,14 @@ async function handleGenericUpload(file, { inputId, previewWrapId, previewImgId,
 
     if (!isVideo) {
       try {
-        base64Data = await compressImageClientSide(base64Data, 1280, 850, 0.82);
+        const maxW = (folder === 'gallery') ? 1000 : 1280;
+        const maxH = (folder === 'gallery') ? 700 : 850;
+        const q = (folder === 'gallery') ? 0.75 : 0.80;
+        base64Data = await compressImageClientSide(base64Data, maxW, maxH, q);
       } catch (cErr) {}
     }
+
+    const compressedKb = Math.round(base64Data.length * 0.75 / 1024);
 
     if (!isVideo && previewWrapId) {
       const wrap = document.getElementById(previewWrapId);
@@ -3104,7 +3155,7 @@ async function handleGenericUpload(file, { inputId, previewWrapId, previewImgId,
       if (wrap) wrap.style.display = 'block';
       if (img) img.src = base64Data;
       if (nameEl) nameEl.textContent = file.name;
-      if (infoEl) infoEl.innerHTML = `<span style="color: #4ade80; font-weight: 700;">✓ ФОТО ЗАГРУЖЕНО</span> • ${sizeKb} КБ • Готово к сохранению`;
+      if (infoEl) infoEl.innerHTML = `<span style="color: #4ade80; font-weight: 700;">✓ ФОТО ЗАГРУЖЕНО</span> • ${compressedKb} КБ • Готово к сохранению`;
     }
 
     const input = document.getElementById(inputId);
@@ -3637,15 +3688,21 @@ function triggerGalleryPhotoPicker() {
 function handleGalleryPhotoSelected(e) {
   const file = e.target.files && e.target.files[0];
   if (file) {
+    // Auto-populate title if empty so user is never blocked
+    const titleInput = document.getElementById('editGalleryTitle');
+    if (titleInput && !titleInput.value.trim()) {
+      const cleanName = file.name.replace(/\.[^/.]+$/, '').replace(/[_\-]+/g, ' ').trim();
+      titleInput.value = cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
+    }
     handleGenericUpload(file, {
       inputId: 'editGalleryImg',
       previewWrapId: 'galleryImgPreviewWrap',
       previewImgId: 'galleryImgPreview',
       previewNameId: 'galleryImgMetaName',
       previewInfoId: 'galleryImgMetaInfo',
-      folder: 'photos',
+      folder: 'gallery',
       isVideo: false,
-      successMsg: `Кадр «${file.name}» сохранен в галерее`
+      successMsg: `Кадр «${file.name}» выбран и готов к сохранению`
     });
   }
 }
@@ -4156,21 +4213,21 @@ async function resetTrafficAnalytics() {
 }
 
 // ================= MODULE 2: GALLERY (ЖИВЫЕ КАДРЫ) =================
-function renderGalleryTable() {
-  const gallery = getDB(GALLERY_STORAGE_KEY, defaultGallery);
+function renderGalleryTable(directList) {
+  const gallery = (Array.isArray(directList) && directList.length > 0) ? directList : getDB(GALLERY_STORAGE_KEY, defaultGallery);
   const tbody = document.getElementById('galleryTableBody');
   if (!tbody) return;
 
   tbody.innerHTML = gallery.map(item => {
     const id = escapeJS(item.id);
-    const title = escapeHTML(item.title);
-    const tag = escapeHTML(item.tag);
-    const img = escapeHTML(item.img);
+    const title = escapeHTML(item.title || 'Кадр RDRC');
+    const tag = escapeHTML(item.tag || 'RDRC');
+    const img = escapeHTML(item.img || 'assets/photos/huracan_zelenka_gtt.jpg');
     const objPos = escapeHTML(item.object_position || item.objectPosition || 'center 50%');
     return `
     <tr>
       <td>
-        <img src="${img}" alt="${title}" class="car-thumb" style="width: 54px; height: 38px; object-fit: cover; object-position: ${objPos}; border-radius: 4px; border: 1px solid rgba(255,255,255,0.12);" onerror="this.src='assets/photos/huracan_zelenka_gtt.jpg'">
+        <img src="${img}" alt="${title}" class="car-thumb" style="width: 54px; height: 38px; object-fit: cover; object-position: ${objPos}; border-radius: 4px; border: 1px solid rgba(255,255,255,0.12);" onerror="this.onerror=null; this.src='assets/photos/huracan_zelenka_gtt.jpg'">
       </td>
       <td><span class="tag-pill" style="color: var(--gtt-orange);">${tag}</span></td>
       <td style="font-weight: 600; color: #fff;">${title}</td>
@@ -4225,20 +4282,36 @@ function closeGalleryPhotoModal() {
 async function saveGalleryPhoto(e) {
   if (e && e.preventDefault) e.preventDefault();
   const idInput = document.getElementById('editGalleryId').value;
-  const gallery = getDB(GALLERY_STORAGE_KEY, defaultGallery);
+  const gallery = [...getDB(GALLERY_STORAGE_KEY, defaultGallery)];
 
-  const rawTitle = document.getElementById('editGalleryTitle').value.trim();
+  let rawTitle = document.getElementById('editGalleryTitle').value.trim();
   if (!rawTitle) {
-    showToast('Укажите название', 'Введите заголовок или описание кадра', 'warning');
-    document.getElementById('editGalleryTitle')?.focus();
-    return;
+    const metaEl = document.getElementById('galleryImgMetaName');
+    const metaTxt = metaEl ? metaEl.textContent.trim() : '';
+    if (metaTxt && !metaTxt.includes('не выбран')) {
+      rawTitle = metaTxt.replace(/\.[^/.]+$/, '').replace(/[_\-]+/g, ' ').trim();
+      rawTitle = rawTitle.charAt(0).toUpperCase() + rawTitle.slice(1);
+    } else {
+      rawTitle = 'Кадр ателье GTT ' + new Date().toLocaleDateString('ru-RU');
+    }
+  }
+
+  let imgVal = document.getElementById('editGalleryImg').value.trim();
+  if (!imgVal) {
+    const previewEl = document.getElementById('galleryImgPreview');
+    if (previewEl && previewEl.src && !previewEl.src.endsWith('.svg') && !previewEl.src.includes('error')) {
+      imgVal = previewEl.src;
+    }
+  }
+  if (!imgVal) {
+    imgVal = 'assets/photos/huracan_zelenka_gtt.jpg';
   }
 
   const photoData = {
     id: idInput || ('gal_' + Date.now()),
     title: rawTitle,
     tag: document.getElementById('editGalleryTag').value.trim() || 'RDRC',
-    img: document.getElementById('editGalleryImg').value.trim() || 'assets/photos/huracan_zelenka_gtt.jpg',
+    img: imgVal,
     object_position: document.getElementById('editGalleryObjectPosition')?.value || 'center 50%'
   };
 
@@ -4260,7 +4333,7 @@ async function saveGalleryPhoto(e) {
     } catch (e) {}
   }
 
-  renderGalleryTable();
+  renderGalleryTable(gallery);
   closeGalleryPhotoModal();
 
   showToast(
@@ -4326,7 +4399,7 @@ async function deleteGalleryPhoto(id) {
     } catch (e) {}
   }
 
-  renderGalleryTable();
+  renderGalleryTable(gallery);
   showToast('Кадр удален', 'Фотография удалена из живой галереи и базы данных', 'info');
 
   recordAuditEvent({

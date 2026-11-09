@@ -1769,6 +1769,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileStickyBar();
   initBackToTopButton();
   initTelemetryCounters();
+  initFastYandexMap();
 });
 
 // Dynamic SQLite & LocalStorage Synchronization for Cars
@@ -4307,6 +4308,73 @@ window.openYandexNavi = function(event, link) {
     }
   }, 1200);
 };
+
+// Fast Yandex Maps Preloader & Background Warmup
+function initFastYandexMap() {
+  const iframe = document.querySelector('.route-map-iframe');
+  const viewport = document.getElementById('routeMapViewport') || document.querySelector('.route-map-viewport');
+  if (!iframe) return;
+
+  let isTriggered = false;
+
+  function triggerMapLoad() {
+    if (isTriggered) return;
+    isTriggered = true;
+
+    // Unbind one-time interaction listeners
+    interactionEvents.forEach(evt => {
+      window.removeEventListener(evt, triggerMapLoad, { passive: true });
+    });
+
+    const targetSrc = iframe.getAttribute('data-src') || iframe.src;
+    if (!targetSrc) return;
+
+    iframe.onload = () => {
+      if (viewport) viewport.classList.add('is-loaded');
+    };
+
+    // Failsafe in case onload event is delayed or sandboxed by external widget
+    setTimeout(() => {
+      if (viewport && !viewport.classList.contains('is-loaded')) {
+        viewport.classList.add('is-loaded');
+      }
+    }, 4500);
+
+    if (iframe.getAttribute('data-src')) {
+      iframe.src = targetSrc;
+      iframe.removeAttribute('data-src');
+    }
+  }
+
+  // 1. Trigger immediately on user interaction anywhere on the page (first scroll, wheel, touch, click)
+  const interactionEvents = ['scroll', 'wheel', 'touchstart', 'pointerdown', 'keydown'];
+  interactionEvents.forEach(evt => {
+    window.addEventListener(evt, triggerMapLoad, { once: true, passive: true });
+  });
+
+  // 2. Trigger on background idle (loads silently after 1.8s while user is viewing hero section)
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(() => setTimeout(triggerMapLoad, 1800), { timeout: 3500 });
+  } else {
+    setTimeout(triggerMapLoad, 2000);
+  }
+
+  // 3. Trigger early via IntersectionObserver with massive margin (2500px ahead of time)
+  if ('IntersectionObserver' in window && viewport) {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some(e => e.isIntersecting)) {
+        triggerMapLoad();
+        observer.disconnect();
+      }
+    }, { rootMargin: '2500px 0px' });
+    observer.observe(viewport);
+  }
+
+  // 4. Trigger immediately if user clicks any link to #contacts or navigation
+  document.querySelectorAll('a[href*="#contacts"], a[href*="#contact"]').forEach(link => {
+    link.addEventListener('click', triggerMapLoad, { passive: true });
+  });
+}
 
 // Clean Premium Motorsport Preloader (Cinematic, Seamless & Silky Smooth)
 function initPreloader() {

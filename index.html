@@ -18,6 +18,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="dns-prefetch" href="https://yandex.ru">
+  <link rel="dns-prefetch" href="https://api-maps.yandex.ru">
+  <link rel="preconnect" href="https://yandex.ru">
+  <link rel="preconnect" href="https://api-maps.yandex.ru" crossorigin>
   <link rel="stylesheet" href="css/style.css?v=20261107_v4">
   <style>
     html, body { background-color: #050608 !important; color: #fff; margin: 0; }
@@ -2496,10 +2500,6 @@
       
       <!-- Section Header -->
       <div class="atelier-hub-header">
-        <div class="atelier-hub-tag">
-          <span class="atelier-hub-dot"></span>
-          <span data-i18n="contact_hq_tag">ШТАБ-КВАРТИРА &amp; ИНЖИНИРИНГ GTT</span>
-        </div>
         <h2 class="atelier-hub-title" data-i18n="contact_hq_title">ПОСЕТИТЕ АТЕЛЬЕ GOSHATURBOTECH</h2>
         <p class="atelier-hub-desc" data-i18n="contact_hq_desc">
           Москва, Можайское шоссе, 168. Постройка рекордных драг-проектов, комплексный тюнинг суперкаров и супербайков.
@@ -2607,13 +2607,21 @@
             </div>
           </div>
 
-          <!-- Embedded Interactive Dark Yandex Map Frame -->
-          <div class="route-map-viewport">
+          <!-- Embedded Interactive Dark Yandex Map Frame with Fast Background Preloading -->
+          <div class="route-map-viewport" id="routeMapViewport">
+            <div class="route-map-skeleton" id="routeMapSkeleton">
+              <div class="route-map-skeleton-icon">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ea5b0c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+              </div>
+              <div class="route-map-skeleton-text" data-i18n="contact_map_loading">Загрузка интерактивной карты GoshaTurboTech...</div>
+            </div>
             <iframe 
-              src="https://yandex.ru/map-widget/v1/?ll=37.382897%2C55.708892&z=16&pt=37.382897,55.708892,pm2orgm" 
+              data-src="https://yandex.ru/map-widget/v1/?ll=37.382897%2C55.708892&z=16&pt=37.382897,55.708892,pm2orgm" 
               class="route-map-iframe" 
               title="Расположение ателье GoshaTurboTech на карте" 
-              loading="lazy" 
               allowfullscreen="true">
             </iframe>
           </div>

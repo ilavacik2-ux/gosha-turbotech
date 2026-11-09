@@ -4220,7 +4220,7 @@ body.is-loading {
   color: #4ade80;
 }
 
-/* Map Viewport */
+/* Map Viewport & Preloader Skeleton */
 .route-map-viewport {
   position: relative;
   width: 100%;
@@ -4228,7 +4228,7 @@ body.is-loading {
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.09);
-  background: #11141c;
+  background: #0d1017;
 }
 
 .route-map-iframe {
@@ -4236,6 +4236,59 @@ body.is-loading {
   height: 100%;
   border: 0;
   display: block;
+  opacity: 0;
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.route-map-viewport.is-loaded .route-map-iframe {
+  opacity: 1;
+}
+
+.route-map-skeleton {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: radial-gradient(circle at center, #161b26 0%, #0b0d13 100%);
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.45s ease-out, visibility 0.45s ease-out;
+}
+
+.route-map-viewport.is-loaded .route-map-skeleton {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.route-map-skeleton-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(234, 91, 12, 0.12);
+  border: 1px solid rgba(234, 91, 12, 0.35);
+  box-shadow: 0 0 24px rgba(234, 91, 12, 0.25);
+  animation: routeMapPulse 1.8s infinite ease-in-out;
+}
+
+.route-map-skeleton-text {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.55);
+  text-align: center;
+  padding: 0 16px;
+}
+
+@keyframes routeMapPulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.08); opacity: 1; box-shadow: 0 0 32px rgba(234, 91, 12, 0.45); }
 }
 
 /* Navigation Actions */
