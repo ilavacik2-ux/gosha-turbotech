@@ -391,7 +391,9 @@ const defaultProjects = [
     "hp": "1,650+ HP",
     "quarterMile": "7.950 сек",
     "topSpeed": "350+ км/ч",
-    "img": "assets/cars/gtr_red_front_rdrc.jpg",
+    "img": "assets/cars/gtr_red_front_card.jpg",
+    "fallbackImg": "assets/cars/gtr_red_front_rdrc.jpg",
+    "objectPosition": "center 50%",
     "videoSrc": "",
     "descRu": "Один из самых ярких Nissan GT-R в российском дрэг-рейсинге под управлением Гоши Перцхелия. Кастомный хром-дизайн, усиленная подвеска и боевая трансмиссия GTT.",
     "is_featured": 0
@@ -405,12 +407,12 @@ const defaultProjects = [
     "hp": "1,500+ HP",
     "quarterMile": "8.350 сек",
     "topSpeed": "345+ км/ч",
-    "img": "assets/cars/gtr_rocket_grey.jpg",
+    "img": "assets/cars/gtr_rocket_card.jpg",
     "videoSrc": "",
     "descRu": "Экстремальный проект Nissan GT-R R35 «Rocket» лаборатории GoshaTurboTech. Двухтурбинный наддув, титановый прямой выхлоп и облегченная гоночная конфигурация кузова.",
     "is_featured": 0,
     "fallbackImg": "assets/cars/gtr_rocket_grey.jpg",
-    "objectPosition": "center center",
+    "objectPosition": "center 50%",
     "is_photo": 1
   },
   {
@@ -1490,8 +1492,22 @@ async function syncAllModulesFromAPI() {
     console.warn('[GTT API] Standalone sync note:', e);
   }
 
-  // If on GitHub Pages or live server is not connected, populate gallery from defaultGallery if cache has fewer items
+  // If on GitHub Pages or live server is not connected, hydrate from static JSON caches if localStorage is empty
   if (!isLive) {
+    try {
+      const hasLocalCars = Boolean(localStorage.getItem(ADMIN_STORAGE_KEY) || localStorage.getItem('gtt_projects_v2'));
+      if (!hasLocalCars && typeof fetch === 'function') {
+        const res = await fetch('data/cars.json?v=' + Date.now());
+        if (res && res.ok) {
+          const staticCars = await res.json();
+          if (Array.isArray(staticCars) && staticCars.length > 0) {
+            saveDB(ADMIN_STORAGE_KEY, staticCars);
+            try { localStorage.setItem('gtt_projects_v2', JSON.stringify(staticCars)); } catch (e) {}
+          }
+        }
+      }
+    } catch (e) {}
+
     try {
       const currentGallery = getDB(GALLERY_STORAGE_KEY, []);
       if (!Array.isArray(currentGallery) || currentGallery.length < defaultGallery.length) {
@@ -3106,10 +3122,10 @@ function applyAdminCarFraming(imgEl, configuredPos, fallbackBoxRatio = 1.35) {
   const coveredHeightRatio = natRatio < boxRatio ? (boxRatio / natRatio) : 1;
 
   const dev = Math.abs(effectiveY - 50) / 50;
-  const targetHeightRatio = 1 + 0.26 * dev;
+  const targetHeightRatio = 1 + 0.56 * dev;
   if (dev > 0 && coveredHeightRatio < targetHeightRatio) {
     const extraScale = targetHeightRatio / coveredHeightRatio;
-    const dirSign = (50 - effectiveY) / 50;
+    const dirSign = effectiveY < 50 ? 1 : -1;
     const tyPct = dirSign * ((extraScale - 1) / 2) * 100;
     imgEl.style.setProperty('--gtt-scale', extraScale.toFixed(4));
     imgEl.style.setProperty('--gtt-ty', `${tyPct.toFixed(3)}%`);
@@ -3128,6 +3144,34 @@ function refreshAdminGridFraming(selector, fallbackBoxRatio) {
   });
 }
 
+function inspectLoadedCarPreview(imgEl) {
+  if (!imgEl || !imgEl.naturalWidth || !imgEl.naturalHeight || typeof document === 'undefined') {
+    return { hasBorders: false, isPortrait: false, isTooWide: false };
+  }
+  const srcLower = (imgEl.getAttribute('src') || imgEl.src || '').toLowerCase();
+  const isPortrait = imgEl.naturalHeight > imgEl.naturalWidth * 1.12;
+  const isTooWide = imgEl.naturalWidth > imgEl.naturalHeight * 2.15;
+  if (srcLower.includes('.svg') || srcLower.includes('gtr_moses.png') || srcLower.includes('-min.png')) {
+    return { hasBorders: false, isPortrait, isTooWide };
+  }
+  try {
+    const sampleW = Math.min(480, imgEl.naturalWidth);
+    const scale = sampleW / imgEl.naturalWidth;
+    const sampleH = Math.max(40, Math.round(imgEl.naturalHeight * scale));
+    const canvas = document.createElement('canvas');
+    canvas.width = sampleW;
+    canvas.height = sampleH;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return { hasBorders: false, isPortrait, isTooWide };
+    ctx.drawImage(imgEl, 0, 0, sampleW, sampleH);
+    const imageData = ctx.getImageData(0, 0, sampleW, sampleH);
+    const check = detectSolidBordersFromImageData(imageData);
+    return { hasBorders: check.hasBorders, insets: check.insets, kind: check.kind, isPortrait, isTooWide };
+  } catch (e) {
+    return { hasBorders: false, isPortrait, isTooWide };
+  }
+}
+
 function syncCarPreviewFraming() {
   const previewImg = document.getElementById('carImgPreview');
   if (!previewImg || !previewImg.naturalWidth || !previewImg.naturalHeight) return;
@@ -3144,8 +3188,16 @@ function syncCarPreviewFraming() {
   const curPos = document.getElementById('editObjectPosition')?.value || 'center 50%';
   const framed = applyAdminCarFraming(previewImg, curPos, 4 / 3);
   const infoEl = document.getElementById('carImgMetaInfo');
-  if (infoEl && !infoEl.innerHTML.includes('⚠️')) {
-    infoEl.textContent = `${infoEl.dataset.baseInfo ? infoEl.dataset.baseInfo + ' • ' : ''}${previewImg.naturalWidth}×${previewImg.naturalHeight} • Позиция: ${framed.effectiveY}%`;
+  if (infoEl && !infoEl.textContent.includes('Нажмите кнопку «Папка»')) {
+    const basePart = infoEl.dataset.baseInfo ? infoEl.dataset.baseInfo + ' • ' : '';
+    const diag = inspectLoadedCarPreview(previewImg);
+    if (diag.hasBorders) {
+      infoEl.innerHTML = `${escapeHTML(basePart)}${previewImg.naturalWidth}×${previewImg.naturalHeight} • Позиция: ${framed.effectiveY}% • <span style="color:#f59e0b;font-weight:700;">⚠️ По краям рамки — нажмите «✂️ Убрать рамки»</span>`;
+    } else if (diag.isPortrait) {
+      infoEl.textContent = `${basePart}${previewImg.naturalWidth}×${previewImg.naturalHeight} • Вертикальное фото • Позиция: ${framed.effectiveY}%`;
+    } else {
+      infoEl.textContent = `${basePart}${previewImg.naturalWidth}×${previewImg.naturalHeight} • Позиция: ${framed.effectiveY}%`;
+    }
   }
 }
 
@@ -3173,7 +3225,7 @@ function renderFeaturedSlots() {
     const name = esc(rawName);
     const hp = esc(car.hp || '—');
     const quarter = esc(car.quarterMile || car.quarter_mile || '—');
-    const img = esc(convertGoogleDriveUrl(car.img) || 'assets/cars/bmw_m5_rdrc_race.jpg');
+    const img = esc(withLocalAssetVersion(convertGoogleDriveUrl(car.img) || 'assets/cars/bmw_m5_rdrc_race.jpg'));
     const objPos = escapeHTML(car.object_position || car.objectPosition || 'center 50%');
     const hasVideo = !!(car.videoSrc || car.video_src);
     const carId = esc(car.id);
@@ -3517,7 +3569,7 @@ function renderCarsTable() {
     const hp = escapeHTML(isClass ? (rawHp || '—') : ((!rawHp || rawHp === '-' || rawHp === '- HP' || rawHp === '—') ? '1,050+ HP' : rawHp));
     const rawQ = (car.quarterMile || car.quarter_mile || '').trim();
     const quarter = escapeHTML(isClass ? (rawQ || '—') : ((!rawQ || rawQ === '-' || rawQ === '- сек' || rawQ === '—') ? '9.420 сек' : rawQ));
-    const img = escapeHTML(convertGoogleDriveUrl(car.img) || 'assets/cars/bmw_m5_rdrc_race.jpg');
+    const img = escapeHTML(withLocalAssetVersion(convertGoogleDriveUrl(car.img) || 'assets/cars/bmw_m5_rdrc_race.jpg'));
     const objPos = escapeHTML(car.object_position || car.objectPosition || 'center 50%');
     const carId = escapeHTML(car.id);
     const carIdAttr = escapeJS(car.id);
@@ -3605,36 +3657,196 @@ function renderCarsTable() {
 // ==========================================================================
 // UNIVERSAL FILE UPLOAD & CROSS-PLATFORM OS FILE PICKER ENGINE (MAC & WIN)
 // ==========================================================================
-function compressImageClientSide(base64Data, maxWidth = 1280, maxHeight = 850, quality = 0.82) {
+function detectSolidBordersFromImageData(imageData) {
+  const emptyResult = { hasBorders: false, insets: { left: 0, top: 0, right: 0, bottom: 0 }, kind: null };
+  if (!imageData || !imageData.data || !imageData.width || !imageData.height) return emptyResult;
+  const w = imageData.width;
+  const h = imageData.height;
+  const data = imageData.data;
+  if (w < 40 || h < 40) return emptyResult;
+
+  const classifyLine = (isRow, idx) => {
+    const n = isRow ? w : h;
+    let dark = 0;
+    let white = 0;
+    let trans = 0;
+    for (let i = 0; i < n; i++) {
+      const p = isRow ? ((idx * w + i) * 4) : ((i * w + idx) * 4);
+      const a = data[p + 3];
+      if (a < 245) {
+        trans++;
+        continue;
+      }
+      const r = data[p];
+      const g = data[p + 1];
+      const b = data[p + 2];
+      const mx = Math.max(r, g, b);
+      const mn = Math.min(r, g, b);
+      if (mx - mn <= 10) {
+        if (mx <= 14) dark++;
+        else if (mn >= 242) white++;
+      }
+    }
+    if (trans / n > 0.15) return 'transparent';
+    if (dark / n >= 0.985) return 'dark';
+    if (white / n >= 0.985) return 'white';
+    return null;
+  };
+
+  const scanSide = (isRow, start, step, maxLimit) => {
+    const firstKind = classifyLine(isRow, start);
+    if (firstKind !== 'dark' && firstKind !== 'white') return { count: 0, kind: null };
+    let count = 0;
+    let idx = start;
+    while (count < maxLimit) {
+      if (classifyLine(isRow, idx) === firstKind) {
+        count++;
+        idx += step;
+      } else {
+        break;
+      }
+    }
+    return { count, kind: firstKind };
+  };
+
+  const minBarW = Math.max(6, Math.round(w * 0.015));
+  const minBarH = Math.max(6, Math.round(h * 0.015));
+  const maxCutW = Math.floor(w * 0.34);
+  const maxCutH = Math.floor(h * 0.34);
+
+  const leftScan = scanSide(false, 0, 1, maxCutW);
+  const rightScan = scanSide(false, w - 1, -1, maxCutW);
+  const topScan = scanSide(true, 0, 1, maxCutH);
+  const bottomScan = scanSide(true, h - 1, -1, maxCutH);
+
+  const left = leftScan.count >= minBarW ? leftScan.count : 0;
+  const right = rightScan.count >= minBarW ? rightScan.count : 0;
+  const top = topScan.count >= minBarH ? topScan.count : 0;
+  const bottom = bottomScan.count >= minBarH ? bottomScan.count : 0;
+
+  if (!left && !right && !top && !bottom) return emptyResult;
+
+  const newW = w - left - right;
+  const newH = h - top - bottom;
+  if (newW < Math.max(80, Math.round(w * 0.45)) || newH < Math.max(80, Math.round(h * 0.45))) {
+    return emptyResult;
+  }
+
+  const kind = (left ? leftScan.kind : null) || (right ? rightScan.kind : null) || (top ? topScan.kind : null) || (bottom ? bottomScan.kind : null);
+  return { hasBorders: true, insets: { left, top, right, bottom }, kind };
+}
+
+function trimSolidImageBordersFromCanvas(sourceCanvas) {
+  if (!sourceCanvas || !sourceCanvas.width || !sourceCanvas.height || typeof document === 'undefined') {
+    return { canvas: sourceCanvas, trimmed: false, insets: { left: 0, top: 0, right: 0, bottom: 0 }, kind: null };
+  }
+  try {
+    const ctx = sourceCanvas.getContext('2d');
+    if (!ctx) return { canvas: sourceCanvas, trimmed: false, insets: { left: 0, top: 0, right: 0, bottom: 0 }, kind: null };
+    const imageData = ctx.getImageData(0, 0, sourceCanvas.width, sourceCanvas.height);
+    const detected = detectSolidBordersFromImageData(imageData);
+    if (!detected.hasBorders) {
+      return { canvas: sourceCanvas, trimmed: false, insets: detected.insets, kind: null };
+    }
+    const { left, top, right, bottom } = detected.insets;
+    const newW = sourceCanvas.width - left - right;
+    const newH = sourceCanvas.height - top - bottom;
+    const outCanvas = document.createElement('canvas');
+    outCanvas.width = newW;
+    outCanvas.height = newH;
+    const outCtx = outCanvas.getContext('2d');
+    outCtx.drawImage(sourceCanvas, left, top, newW, newH, 0, 0, newW, newH);
+    return { canvas: outCanvas, trimmed: true, insets: detected.insets, kind: detected.kind };
+  } catch (e) {
+    return { canvas: sourceCanvas, trimmed: false, insets: { left: 0, top: 0, right: 0, bottom: 0 }, kind: null };
+  }
+}
+
+function fitCanvasToMaxDimensions(sourceCanvas, maxWidth = 1280, maxHeight = 850) {
+  let width = sourceCanvas.width;
+  let height = sourceCanvas.height;
+  if (width <= maxWidth && height <= maxHeight) return sourceCanvas;
+  if (width / height > maxWidth / maxHeight) {
+    height = Math.round((height * maxWidth) / width);
+    width = maxWidth;
+  } else {
+    width = Math.round((width * maxHeight) / height);
+    height = maxHeight;
+  }
+  const scaled = document.createElement('canvas');
+  scaled.width = width;
+  scaled.height = height;
+  const ctx = scaled.getContext('2d');
+  ctx.drawImage(sourceCanvas, 0, 0, width, height);
+  return scaled;
+}
+
+function trimAndCompressImageClientSide(base64Data, maxWidth = 1280, maxHeight = 850, quality = 0.82) {
   return new Promise((resolve) => {
-    if (typeof Image === 'undefined') return resolve(base64Data);
+    if (typeof Image === 'undefined') return resolve({ dataUrl: base64Data, trimmed: false, insets: null, width: 0, height: 0 });
     const img = new Image();
     img.onload = () => {
-      let width = img.width;
-      let height = img.height;
-      if (width > maxWidth || height > maxHeight) {
-        if (width / height > maxWidth / maxHeight) {
-          height = Math.round((height * maxWidth) / width);
-          width = maxWidth;
-        } else {
-          width = Math.round((width * maxHeight) / height);
-          height = maxHeight;
-        }
-      }
       try {
-        const canvas = document.createElement('canvas');
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, width, height);
-        resolve(canvas.toDataURL('image/jpeg', quality));
+        let workW = img.width;
+        let workH = img.height;
+        const maxWork = 2048;
+        if (workW > maxWork || workH > maxWork) {
+          if (workW >= workH) {
+            workH = Math.round((workH * maxWork) / workW);
+            workW = maxWork;
+          } else {
+            workW = Math.round((workW * maxWork) / workH);
+            workH = maxWork;
+          }
+        }
+        const workCanvas = document.createElement('canvas');
+        workCanvas.width = workW;
+        workCanvas.height = workH;
+        const workCtx = workCanvas.getContext('2d');
+        workCtx.drawImage(img, 0, 0, workW, workH);
+
+        const trimResult = trimSolidImageBordersFromCanvas(workCanvas);
+        const finalCanvas = fitCanvasToMaxDimensions(trimResult.canvas, maxWidth, maxHeight);
+        resolve({
+          dataUrl: finalCanvas.toDataURL('image/jpeg', quality),
+          trimmed: trimResult.trimmed,
+          insets: trimResult.insets,
+          width: finalCanvas.width,
+          height: finalCanvas.height
+        });
       } catch (err) {
-        resolve(base64Data);
+        resolve({ dataUrl: base64Data, trimmed: false, insets: null, width: img.width || 0, height: img.height || 0 });
       }
     };
-    img.onerror = () => resolve(base64Data);
+    img.onerror = () => resolve({ dataUrl: base64Data, trimmed: false, insets: null, width: 0, height: 0 });
     img.src = base64Data;
   });
+}
+
+function compressImageClientSide(base64Data, maxWidth = 1280, maxHeight = 850, quality = 0.82) {
+  return trimAndCompressImageClientSide(base64Data, maxWidth, maxHeight, quality).then(res => res.dataUrl);
+}
+
+const GTT_ASSET_VERSION = '20261110_v3';
+function withLocalAssetVersion(url) {
+  if (!url || typeof url !== 'string') return url || '';
+  const trimmed = url.trim();
+  if (
+    !trimmed ||
+    trimmed.startsWith('data:') ||
+    trimmed.startsWith('blob:') ||
+    trimmed.startsWith('http://') ||
+    trimmed.startsWith('https://') ||
+    trimmed.startsWith('//') ||
+    trimmed.includes('?') ||
+    trimmed.includes('#')
+  ) {
+    return trimmed;
+  }
+  if (trimmed.startsWith('assets/') || trimmed.startsWith('/assets/')) {
+    return `${trimmed}?v=${GTT_ASSET_VERSION}`;
+  }
+  return trimmed;
 }
 
 function convertGoogleDriveUrl(url) {
@@ -3671,14 +3883,16 @@ async function handleGenericUpload(file, { inputId, previewWrapId, previewImgId,
   const reader = new FileReader();
   reader.onload = async (event) => {
     let base64Data = event.target.result;
-    const sizeKb = (file.size / 1024).toFixed(1);
+    let wasAutoTrimmed = false;
 
     if (!isVideo) {
       try {
         const maxW = (folder === 'gallery') ? 1000 : 1280;
         const maxH = (folder === 'gallery') ? 700 : 850;
         const q = (folder === 'gallery') ? 0.75 : 0.80;
-        base64Data = await compressImageClientSide(base64Data, maxW, maxH, q);
+        const processed = await trimAndCompressImageClientSide(base64Data, maxW, maxH, q);
+        base64Data = processed.dataUrl;
+        wasAutoTrimmed = Boolean(processed.trimmed);
       } catch (cErr) {}
     }
 
@@ -3696,8 +3910,8 @@ async function handleGenericUpload(file, { inputId, previewWrapId, previewImgId,
       if (img) img.src = base64Data;
       if (nameEl) nameEl.textContent = file.name;
       if (infoEl) {
-        infoEl.dataset.baseInfo = `${compressedKb} КБ`;
-        infoEl.innerHTML = `<span style="color: #4ade80; font-weight: 700;">✓ ФОТО ЗАГРУЖЕНО</span> • ${compressedKb} КБ • Готово к сохранению`;
+        infoEl.dataset.baseInfo = `${compressedKb} КБ${wasAutoTrimmed ? ' • ✂️ рамки обрезаны' : ''}`;
+        infoEl.innerHTML = `<span style="color: #4ade80; font-weight: 700;">✓ ФОТО ЗАГРУЖЕНО</span> • ${compressedKb} КБ${wasAutoTrimmed ? ' • ✂️ рамки автоматически обрезаны' : ' • Готово к сохранению'}`;
       }
     }
 
@@ -3717,8 +3931,10 @@ async function handleGenericUpload(file, { inputId, previewWrapId, previewImgId,
       ? (document.getElementById('editObjectPosition')?.value || 'center 50%')
       : 'center 50%';
     showToast(
-      isVideo ? 'Видео выбрано' : 'Фото загружено',
-      `Файл «${file.name}» готов к сохранению в проект`,
+      isVideo ? 'Видео выбрано' : (wasAutoTrimmed ? 'Фото загружено и очищено' : 'Фото загружено'),
+      wasAutoTrimmed
+        ? `Файл «${file.name}» очищен от рамок по краям и готов к сохранению`
+        : `Файл «${file.name}» готов к сохранению в проект`,
       'success',
       3500,
       !isVideo ? base64Data : null,
@@ -3911,7 +4127,7 @@ function updateCarPhotoPreviewUI(imgSrc, name = '', meta = '') {
   if (wrap) wrap.style.display = 'block';
   if (imgEl) {
     imgEl.onerror = () => handleCarImgPreviewError(imgEl);
-    imgEl.src = cleanSrc;
+    imgEl.src = withLocalAssetVersion(cleanSrc);
     const pos = document.getElementById('editObjectPosition')?.value || 'center 50%';
     applyAdminCarFraming(imgEl, pos, 4 / 3);
     if (imgEl.complete && imgEl.naturalWidth > 0) {
@@ -3939,7 +4155,7 @@ function handleCarPhotoPositionChange(val, isUserAction = true) {
   if (previewImg) {
     applyAdminCarFraming(previewImg, posStr, 4 / 3);
     const infoEl = document.getElementById('carImgMetaInfo');
-    if (infoEl && previewImg.naturalWidth && previewImg.naturalHeight && !infoEl.innerHTML.includes('⚠️')) {
+    if (infoEl && previewImg.naturalWidth && previewImg.naturalHeight && !infoEl.textContent.includes('Нажмите кнопку «Папка»') && !infoEl.innerHTML.includes('⚠️')) {
       infoEl.textContent = `${infoEl.dataset.baseInfo ? infoEl.dataset.baseInfo + ' • ' : ''}${previewImg.naturalWidth}×${previewImg.naturalHeight} • Позиция: ${num}%`;
     }
   }
@@ -3952,6 +4168,74 @@ function setCarPhotoPreset(preset) {
   else if (preset === 'bottom') val = 82;
 
   handleCarPhotoPositionChange(val, true);
+}
+
+async function autoTrimCurrentCarPhoto() {
+  const previewImg = document.getElementById('carImgPreview');
+  const editImgInput = document.getElementById('editImg');
+  if (!previewImg || !previewImg.naturalWidth || !previewImg.naturalHeight) {
+    showToast('Нет фото', 'Сначала выберите или загрузите фотографию автомобиля', 'warning');
+    return;
+  }
+
+  const curSrc = (editImgInput?.value || previewImg.getAttribute('src') || previewImg.src || '').toLowerCase();
+  if (curSrc.includes('.svg') || curSrc.includes('-min.png') || curSrc.includes('gtr_moses.png')) {
+    showToast('Обрезка не требуется', 'Векторные чертежи и прозрачные вырезы уже откалиброваны', 'info');
+    return;
+  }
+
+  try {
+    let workW = previewImg.naturalWidth;
+    let workH = previewImg.naturalHeight;
+    const maxWork = 1600;
+    if (workW > maxWork || workH > maxWork) {
+      if (workW >= workH) {
+        workH = Math.round((workH * maxWork) / workW);
+        workW = maxWork;
+      } else {
+        workW = Math.round((workW * maxWork) / workH);
+        workH = maxWork;
+      }
+    }
+
+    const canvas = document.createElement('canvas');
+    canvas.width = workW;
+    canvas.height = workH;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(previewImg, 0, 0, workW, workH);
+
+    const trimRes = trimSolidImageBordersFromCanvas(canvas);
+    if (!trimRes.trimmed) {
+      showToast('Края чистые', 'Чёрных или белых рамок по краям этого фото не обнаружено.', 'info');
+      return;
+    }
+
+    const finalCanvas = fitCanvasToMaxDimensions(trimRes.canvas, 1280, 850);
+    const trimmedDataUrl = finalCanvas.toDataURL('image/jpeg', 0.88);
+    if (editImgInput) editImgInput.value = trimmedDataUrl;
+
+    const rawId = (document.getElementById('editCarId')?.value || 'car').replace(/[^a-zA-Z0-9_-]/g, '_');
+    const filename = `${rawId}_trimmed.jpg`;
+    updateCarPhotoPreviewUI(trimmedDataUrl, filename, '✂️ Рамки обрезаны');
+    showToast('Рамки убраны', `Лишние поля по краям обрезаны (${finalCanvas.width}×${finalCanvas.height}). Нажмите «Сохранить изменения».`, 'success');
+
+    try {
+      const uploadResult = await apiFetch('/api/upload', {
+        method: 'POST',
+        body: JSON.stringify({
+          filename,
+          data: trimmedDataUrl,
+          folder: 'cars'
+        })
+      });
+      if (uploadResult && uploadResult.url && editImgInput) {
+        editImgInput.value = uploadResult.url;
+      }
+    } catch (e) {}
+  } catch (err) {
+    console.warn('[GTT Admin] Manual border trim CORS/canvas note:', err);
+    showToast('Недоступно для внешней ссылки', 'Эта внешняя ссылка защищена CORS. Скачайте фото и загрузите его через кнопку «Папка» — рамки срежутся автоматически.', 'warning', 5200);
+  }
 }
 
 function handleCarPhotoPathInput(val) {
@@ -6198,6 +6482,11 @@ window.clearCarVideoPreview = clearCarVideoPreview;
 window.updateCarVideoPreviewUI = updateCarVideoPreviewUI;
 window.handleCarPhotoPathInput = handleCarPhotoPathInput;
 window.clearCarPhotoPreview = clearCarPhotoPreview;
+window.autoTrimCurrentCarPhoto = autoTrimCurrentCarPhoto;
+window.applyAdminCarFraming = applyAdminCarFraming;
+window.detectSolidBordersFromImageData = detectSolidBordersFromImageData;
+window.trimSolidImageBordersFromCanvas = trimSolidImageBordersFromCanvas;
+window.withLocalAssetVersion = withLocalAssetVersion;
 
 // Top-N Featured slots & row dragging exports
 window.renderFeaturedSlots = renderFeaturedSlots;

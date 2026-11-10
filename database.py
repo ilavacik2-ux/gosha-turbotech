@@ -696,7 +696,7 @@ def seed_initial_data(cursor):
                            'transmission.',
                 'desc_ru': 'Один из самых ярких Nissan GT-R в российском дрэг-рейсинге под управлением Гоши Перцхелия. '
                            'Кастомный хром-дизайн, усиленная подвеска и боевая трансмиссия GTT.',
-                'fallback_img': 'assets/cars/gtr_red_chrome_rdrc.jpg',
+                'fallback_img': 'assets/cars/gtr_red_front_rdrc.jpg',
                 'hp': '1,650+ HP',
                 'id': 'gtr_red',
                 'img': 'assets/cars/gtr_red_front_card.jpg',
@@ -722,7 +722,7 @@ def seed_initial_data(cursor):
                            'titanium straight pipes and ultra-lightweight race setup.',
                 'desc_ru': 'Экстремальный проект Nissan GT-R R35 «Rocket» лаборатории GoshaTurboTech. Двухтурбинный '
                            'наддув, титановый прямой выхлоп и облегченная гоночная конфигурация кузова.',
-                'fallback_img': 'assets/cars/gtr_draco_promod_front.jpg',
+                'fallback_img': 'assets/cars/gtr_rocket_grey.jpg',
                 'hp': '1,500+ HP',
                 'id': 'gtr_rocket',
                 'img': 'assets/cars/gtr_rocket_card.jpg',

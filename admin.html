@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/admin.css?v=20261110_v2">
+  <link rel="stylesheet" href="css/admin.css?v=20261110_v3">
 </head>
 <body>
 
@@ -799,20 +799,21 @@
                   <div class="photo-pos-actions">
                     <span id="carPosValueDisplay" class="photo-pos-badge">50%</span>
                     <div class="photo-pos-presets">
-                      <button type="button" class="btn-slot-arrow" onclick="setCarPhotoPreset('top')" title="Прижать к верху">⬆ Верх (15%)</button>
+                      <button type="button" class="btn-slot-arrow" onclick="setCarPhotoPreset('top')" title="Показать верх кадра — машина опустится ниже">⬆ Верх / ниже (15%)</button>
                       <button type="button" class="btn-slot-arrow" onclick="setCarPhotoPreset('center')" title="По центру">🎯 Центр (50%)</button>
-                      <button type="button" class="btn-slot-arrow" onclick="setCarPhotoPreset('bottom')" title="Прижать к низу для портретных фото (BMW, Kurdalagon, Porsche)">⬇ Низ (82%)</button>
+                      <button type="button" class="btn-slot-arrow" onclick="setCarPhotoPreset('bottom')" title="Показать низ / колёса — машина выше в кадре">⬇ Низ / выше (82%)</button>
+                      <button type="button" class="btn-slot-arrow" onclick="autoTrimCurrentCarPhoto()" title="Автоматически обрезать чёрные или белые рамки по краям фото">✂️ Убрать рамки</button>
                     </div>
                   </div>
                 </div>
                 <div class="photo-pos-slider-row">
-                  <span class="photo-pos-edge-label">0% (Верх)</span>
-                  <input type="range" id="editObjectPositionY" min="0" max="100" value="50" step="1" oninput="handleCarPhotoPositionChange(this.value)">
-                  <span class="photo-pos-edge-label">100% (Низ)</span>
+                  <span class="photo-pos-edge-label">0% (Ниже)</span>
+                  <input type="range" id="editObjectPositionY" min="0" max="100" value="50" step="1" oninput="handleCarPhotoPositionChange(this.value)" onchange="handleCarPhotoPositionChange(this.value)">
+                  <span class="photo-pos-edge-label">100% (Выше)</span>
                 </div>
                 <input type="hidden" id="editObjectPosition" value="center 50%">
                 <p class="photo-pos-hint">
-                  Регулируйте вертикальное положение изображения, чтобы колеса или крыша не срезались на карточке болида. Результат сразу виден в предпросмотре.
+                  0% показывает больше неба/фона сверху (машина ниже в кадре), 100% — нижнюю часть (удобно для вертикальных фото). При загрузке новые фото автоматически очищаются от чёрных и белых рамок.
                 </p>
               </div>
             </div>
@@ -1483,6 +1484,6 @@
   </div>
 
   <script src="js/media-db.js?v=20261107_v5"></script>
-  <script src="js/admin.js?v=20261110_v2"></script>
+  <script src="js/admin.js?v=20261110_v3"></script>
 </body>
 </html>

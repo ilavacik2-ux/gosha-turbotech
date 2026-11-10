@@ -726,8 +726,8 @@ let gttProjects = [
       "ru": "Красный Хром RDRC",
       "en": "Red Chrome RDRC"
     },
-    "img": "assets/cars/gtr_red_front_rdrc.jpg",
-    "fallbackImg": "assets/cars/gtr_red_chrome_rdrc.jpg",
+    "img": "assets/cars/gtr_red_front_card.jpg",
+    "fallbackImg": "assets/cars/gtr_red_front_rdrc.jpg",
     "isPhoto": true,
     "objectPosition": "center 50%",
     "videoSrc": "",
@@ -765,10 +765,10 @@ let gttProjects = [
       "ru": "GTT Rocket Spec",
       "en": "GTT Rocket Spec"
     },
-    "img": "assets/cars/gtr_rocket_grey.jpg",
+    "img": "assets/cars/gtr_rocket_card.jpg",
     "fallbackImg": "assets/cars/gtr_rocket_grey.jpg",
     "isPhoto": true,
-    "objectPosition": "center center",
+    "objectPosition": "center 50%",
     "desc": {
       "ru": "Экстремальный проект Nissan GT-R R35 «Rocket» ателье GoshaTurboTech. Двухтурбинный наддув, титановый прямой выхлоп и облегченная гоночная конфигурация кузова.",
       "en": "Extreme project Nissan GT-R R35 Rocket by GoshaTurboTech. Twin turbo package, titanium straight pipes and ultra-lightweight race setup."
@@ -4515,6 +4515,29 @@ function convertGoogleDriveUrl(url) {
   return trimmed;
 }
 
+const GTT_ASSET_VERSION = '20261110_v3';
+function withLocalAssetVersion(url) {
+  if (!url || typeof url !== 'string') return url || '';
+  const trimmed = url.trim();
+  if (
+    !trimmed ||
+    trimmed.startsWith('data:') ||
+    trimmed.startsWith('blob:') ||
+    trimmed.startsWith('http://') ||
+    trimmed.startsWith('https://') ||
+    trimmed.startsWith('//') ||
+    trimmed.includes('?') ||
+    trimmed.includes('#')
+  ) {
+    return trimmed;
+  }
+  if (trimmed.startsWith('assets/') || trimmed.startsWith('/assets/')) {
+    return `${trimmed}?v=${GTT_ASSET_VERSION}`;
+  }
+  return trimmed;
+}
+window.withLocalAssetVersion = withLocalAssetVersion;
+
 function formatSpecVal(val, lang, type) {
   let str = (typeof val === 'object' && val !== null) ? (val[lang] || val.ru || val.en || '') : String(val || '').trim();
   if (str === '—' || str === '-') {
@@ -4648,15 +4671,15 @@ window.handleCarCardImgLoad = function(imgEl, configuredPos) {
 
   const boxEl = imgEl.parentElement || imgEl;
   const rect = boxEl.getBoundingClientRect();
-  const boxRatio = (rect.width > 10 && rect.height > 10) ? (rect.width / rect.height) : 1.35;
+  const boxRatio = (rect.width > 10 && rect.height > 10) ? (rect.width / rect.height) : 1.50;
   const natRatio = imgEl.naturalWidth / imgEl.naturalHeight;
   const coveredHeightRatio = natRatio < boxRatio ? (boxRatio / natRatio) : 1;
 
   const dev = Math.abs(effectiveY - 50) / 50;
-  const targetHeightRatio = 1 + 0.26 * dev;
+  const targetHeightRatio = 1 + 0.56 * dev;
   if (dev > 0 && coveredHeightRatio < targetHeightRatio) {
     const extraScale = targetHeightRatio / coveredHeightRatio;
-    const dirSign = (50 - effectiveY) / 50;
+    const dirSign = effectiveY < 50 ? 1 : -1;
     const tyPct = dirSign * ((extraScale - 1) / 2) * 100;
     imgEl.style.setProperty('--gtt-scale', extraScale.toFixed(4));
     imgEl.style.setProperty('--gtt-ty', `${tyPct.toFixed(3)}%`);
@@ -4673,6 +4696,7 @@ function refreshAllCarCardFraming() {
     }
   });
 }
+window.refreshAllCarCardFraming = refreshAllCarCardFraming;
 
 if (!window._gttCarFramingResizeBound) {
   window._gttCarFramingResizeBound = true;
@@ -4681,6 +4705,11 @@ if (!window._gttCarFramingResizeBound) {
     clearTimeout(framingResizeTimer);
     framingResizeTimer = setTimeout(refreshAllCarCardFraming, 120);
   }, { passive: true });
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) {
+      setTimeout(refreshAllCarCardFraming, 60);
+    }
+  });
 }
 
 // Render Garage Grid with smooth animation & bilingual support
@@ -4768,12 +4797,12 @@ function renderGarageGrid(filterType) {
               </div>
             ` : ''}
             <img class="car-card-img ${car.isPhoto ? 'photo-fit' : ''}" 
-                 src="${convertGoogleDriveUrl(car.img)}" 
+                 src="${withLocalAssetVersion(convertGoogleDriveUrl(car.img))}" 
                  alt="${name}" 
                  data-configured-pos="${escapeHtml(car.objectPosition || '')}"
                  style="${car.objectPosition ? `object-position: ${escapeHtml(car.objectPosition)} !important;` : ''}"
                  onload="handleCarCardImgLoad(this, '${escapeJS(car.objectPosition || '')}')"
-                 onerror="this.onerror=null; this.src='${car.fallbackImg || 'assets/cars/gtt_classified_car.svg'}';">
+                 onerror="this.onerror=null; this.src='${escapeJS(withLocalAssetVersion(convertGoogleDriveUrl(car.fallbackImg || 'assets/cars/gtt_classified_car.svg')))}';">
           </div>
           <div class="car-card-info">
             <div class="car-brand">${tag || car.brand}</div>
@@ -5107,7 +5136,7 @@ window.openCarModal = function(carId) {
     <!-- Hero Media Stage (Widescreen + Atmosphere Glow) -->
     <div class="carmodal-hero-stage">
       <div class="carmodal-glow"></div>
-      <img src="${convertGoogleDriveUrl(car.img)}" alt="${name}" class="carmodal-hero-img" onerror="this.onerror=null; this.src='${car.fallbackImg || 'assets/cars/gtt_classified_car.svg'}';">
+      <img src="${withLocalAssetVersion(convertGoogleDriveUrl(car.img))}" alt="${name}" class="carmodal-hero-img" onerror="this.onerror=null; this.src='${escapeJS(withLocalAssetVersion(convertGoogleDriveUrl(car.fallbackImg || 'assets/cars/gtt_classified_car.svg')))}';">
     </div>
 
     <!-- Big 3 Telemetry Metrics Grid -->
