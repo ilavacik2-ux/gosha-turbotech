@@ -163,7 +163,7 @@ const defaultProjects = [
     "quarterMile": "7.877 сек",
     "topSpeed": "350+ км/ч",
     "img": "assets/cars/audi_r8_tsmr_launch.jpg",
-    "videoSrc": "assets/videos/gtr_launch_pass.mp4",
+    "videoSrc": "assets/videos/r8_rokot_action.mp4",
     "videoTitle": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT",
     "descRu": "Боевая Audi R8 «ROKOT» от GoshaTurboTech под управлением Эдуарда Саркисяна и Руслана Арефьева. Абсолютный национальный рекорд России для марки Audi на 1/4 мили (7.877 сек). Первый и единственный автомобиль марки Audi в стране, выехавший из 8 секунд!",
     "is_featured": 1,
@@ -968,7 +968,9 @@ async function apiFetch(endpoint, options = {}) {
 
     if (!res.ok) {
       const errData = await res.json().catch(() => ({ detail: res.statusText }));
-      throw new Error(errData.detail || 'HTTP error ' + res.status);
+      const httpErr = new Error(errData.detail || 'HTTP error ' + res.status);
+      httpErr.status = res.status;
+      throw httpErr;
     }
     return await res.json();
   } catch (err) {
@@ -1002,7 +1004,7 @@ function escapeJS(str) {
 // ==========================================================================
 // GTT MOTORSPORT TOAST ENGINE (WITH RICH VISUAL THUMBNAIL CONFIRMATION)
 // ==========================================================================
-function showToast(title, message = '', type = 'info', duration = 4000, previewImg = null, metaBadge = null) {
+function showToast(title, message = '', type = 'info', duration = 4000, previewImg = null, metaBadge = null, previewObjPos = 'center 50%') {
   let container = document.getElementById('adminToastContainer');
   if (!container) {
     container = document.createElement('div');
@@ -1024,7 +1026,7 @@ function showToast(title, message = '', type = 'info', duration = 4000, previewI
 
   const iconOrThumbHtml = hasMedia ? `
     <div class="gtt-toast-thumb-wrap">
-      <img src="${escapeHTML(previewImg)}" class="gtt-toast-thumb" alt="Preview" onerror="this.onerror=null; this.src='assets/cars/gtt_classified_car.svg';">
+      <img src="${escapeHTML(previewImg)}" class="gtt-toast-thumb" style="object-position: ${escapeHTML(previewObjPos || 'center 50%')};" alt="Preview" onerror="this.onerror=null; this.src='assets/cars/gtt_classified_car.svg';">
     </div>
   ` : `
     <div class="gtt-toast-icon">${icons[type] || '⚡'}</div>
@@ -1296,12 +1298,105 @@ function checkClientLockout() {
   return false;
 }
 
+async function verifyAdminSessionOnLoad() {
+  if (typeof isStaticDeployment === 'function' && isStaticDeployment()) return true;
+  const loginScreen = document.getElementById('loginScreen');
+  const dashboardScreen = document.getElementById('dashboardScreen');
+  const welcomeTextEl = document.getElementById('userWelcomeText');
+
+  try {
+    const verification = await apiFetch('/api/auth/verify');
+    if (verification && verification.username) {
+      localStorage.setItem(USER_NAME_KEY, verification.username);
+      if (welcomeTextEl) {
+        welcomeTextEl.innerHTML = `Добро пожаловать // <strong>${escapeHTML(verification.username)}</strong>`;
+      }
+    }
+    return true;
+  } catch (err) {
+    if (err && err.status === 401) {
+      sessionStorage.removeItem(AUTH_KEY);
+      localStorage.removeItem(AUTH_KEY);
+      sessionStorage.removeItem('gtt_session_token');
+      localStorage.removeItem('gtt_session_token');
+      if (dashboardScreen) dashboardScreen.style.display = 'none';
+      if (loginScreen) loginScreen.style.display = 'flex';
+      checkClientLockout();
+      const uInput = document.getElementById('adminUser');
+      const pInput = document.getElementById('adminPass');
+      if (uInput && !uInput.value) uInput.value = 'gosha';
+      if (pInput && !pInput.value) pInput.value = 'gtt71';
+      showToast('Сессия истекла', 'Войдите заново, чтобы изменения сохранялись на сервере', 'warning', 6000);
+      return false;
+    }
+    if (!isNetworkOrOfflineError(err)) {
+      console.warn('[GTT Auth] Verify note:', err);
+    }
+    return true;
+  }
+}
+
+const ADMIN_R8_ROKOT_VIDEO_TARGET = 'assets/videos/r8_rokot_action.mp4';
+const ADMIN_R8_ROKOT_VIDEO_LEGACY = 'assets/videos/gtr_launch_pass.mp4';
+const ADMIN_R8_ROKOT_VIDEO_MIGRATION_KEY = 'gtt_r8_rokot_video_v20261110';
+
+function migrateLegacyR8RokotVideoStorage() {
+  let alreadyMigrated = false;
+  try {
+    alreadyMigrated = localStorage.getItem(ADMIN_R8_ROKOT_VIDEO_MIGRATION_KEY) === '1';
+  } catch (e) {}
+  if (alreadyMigrated) return false;
+
+  let anyModified = false;
+  ['gtt_admin_cars_db', 'gtt_projects_v2'].forEach((key) => {
+    try {
+      const raw = localStorage.getItem(key);
+      if (!raw) return;
+      const parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed) || parsed.length === 0) return;
+
+      let keyModified = false;
+      const updated = parsed.map((car) => {
+        if (!car || car.id !== 'r8_rokot') return car;
+        const curVideo = String(car.videoSrc || car.video_src || '').trim();
+        if (!curVideo || curVideo === ADMIN_R8_ROKOT_VIDEO_LEGACY) {
+          keyModified = true;
+          return {
+            ...car,
+            videoSrc: ADMIN_R8_ROKOT_VIDEO_TARGET,
+            video_src: ADMIN_R8_ROKOT_VIDEO_TARGET
+          };
+        }
+        return car;
+      });
+
+      if (keyModified) {
+        localStorage.setItem(key, JSON.stringify(updated));
+        anyModified = true;
+      }
+    } catch (e) {}
+  });
+
+  if (anyModified) {
+    delete inMemoryCache[ADMIN_STORAGE_KEY];
+  }
+
+  try {
+    localStorage.setItem(ADMIN_R8_ROKOT_VIDEO_MIGRATION_KEY, '1');
+  } catch (e) {}
+  return anyModified;
+}
+
 // Authentication & Module Initialization
 async function checkAuth() {
   const gateBlock = document.getElementById('gateBlockScreen');
   const loginScreen = document.getElementById('loginScreen');
   const dashboardScreen = document.getElementById('dashboardScreen');
   const welcomeTextEl = document.getElementById('userWelcomeText');
+
+  if (typeof initAdminModalContainment === 'function') {
+    initAdminModalContainment();
+  }
 
   // Level 1 Security: Gatekeeper check
   if (!isGateAccessGranted()) {
@@ -1322,14 +1417,18 @@ async function checkAuth() {
 
     if (welcomeTextEl) {
       const storedUser = localStorage.getItem(USER_NAME_KEY) || 'Гоша Перцхелия';
-      welcomeTextEl.innerHTML = `Добро пожаловать // <strong>${storedUser}</strong>`;
+      welcomeTextEl.innerHTML = `Добро пожаловать // <strong>${escapeHTML(storedUser)}</strong>`;
     }
 
+    migrateLegacyR8RokotVideoStorage();
     scrubLegacyTeamPlaceholders();
     initDraggableAdminTabs();
     renderAllModules();
     updateAdminBellUI();
-    syncAllModulesFromAPI();
+    const sessionOk = await verifyAdminSessionOnLoad();
+    if (sessionOk) {
+      syncAllModulesFromAPI();
+    }
   } else {
     if (loginScreen) loginScreen.style.display = 'flex';
     if (dashboardScreen) dashboardScreen.style.display = 'none';
@@ -1358,6 +1457,9 @@ async function syncAllModulesFromAPI() {
 
     if (cars.status === 'fulfilled' && Array.isArray(cars.value) && cars.value.length > 0) {
       saveDB(ADMIN_STORAGE_KEY, cars.value);
+      try {
+        localStorage.setItem('gtt_projects_v2', JSON.stringify(cars.value));
+      } catch (e) {}
       isLive = true;
     }
     if (gallery.status === 'fulfilled' && Array.isArray(gallery.value) && gallery.value.length > 0) {
@@ -1619,46 +1721,79 @@ function handleAdminLogout() {
   apiFetch('/api/auth/logout', { method: 'POST' }).catch(() => {});
   sessionStorage.removeItem(AUTH_KEY);
   localStorage.removeItem(AUTH_KEY);
+  sessionStorage.removeItem('gtt_session_token');
+  localStorage.removeItem('gtt_session_token');
   localStorage.removeItem(USER_NAME_KEY);
   showToast('Выход из системы', 'Сессия инженера GTT Atelier завершена', 'info');
   checkAuth();
 }
 
 // Tabs Switcher
+function updateTabStripScrollFade(container) {
+  if (!container) return;
+  const strip = container.closest('.admin-subnav-strip');
+  if (!strip) return;
+  const maxScroll = Math.max(0, (container.scrollWidth || 0) - (container.clientWidth || 0));
+  const isAtEnd = maxScroll <= 2 || (container.scrollLeft || 0) >= maxScroll - 2;
+  strip.classList.toggle('scrolled-end', isAtEnd);
+}
+
 function switchAdminTab(tabName) {
-  document.querySelectorAll('.admin-tab-btn').forEach(btn => btn.classList.remove('active'));
-  document.querySelectorAll('.admin-tab-content').forEach(c => c.style.display = 'none');
+  document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+    btn.setAttribute('aria-selected', 'false');
+  });
+  document.querySelectorAll('.admin-tab-content').forEach(c => {
+    c.style.display = 'none';
+    c.classList.remove('active');
+  });
 
-  const btn = Array.from(document.querySelectorAll('.admin-tab-btn')).find(b => b.getAttribute('onclick')?.includes(`'${tabName}'`));
-  if (btn) btn.classList.add('active');
+  const btn = Array.from(document.querySelectorAll('.admin-tab-btn')).find(
+    b => b.getAttribute('data-tab') === tabName || b.getAttribute('onclick')?.includes(`'${tabName}'`)
+  );
+  if (btn) {
+    btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
+    const navContainer = document.getElementById('adminNavTabs') || btn.closest('.admin-nav-tabs');
+    if (navContainer && typeof navContainer.scrollTo === 'function') {
+      const targetLeft = Math.max(
+        0,
+        (btn.offsetLeft || 0) - Math.max(0, ((navContainer.clientWidth || 0) - (btn.offsetWidth || 0)) / 2)
+      );
+      try {
+        navContainer.scrollTo({ left: targetLeft, behavior: 'smooth' });
+      } catch (e) {
+        navContainer.scrollLeft = targetLeft;
+      }
+      if (typeof requestAnimationFrame === 'function') {
+        requestAnimationFrame(() => updateTabStripScrollFade(navContainer));
+      } else {
+        updateTabStripScrollFade(navContainer);
+      }
+    }
+  }
 
-  if (tabName === 'cars') {
-    document.getElementById('tabCars').style.display = 'block';
-    renderCarsTable();
-  } else if (tabName === 'traffic') {
-    document.getElementById('tabTraffic').style.display = 'block';
-    renderTrafficModule();
-  } else if (tabName === 'gallery') {
-    document.getElementById('tabGallery').style.display = 'block';
-    renderGalleryTable();
-  } else if (tabName === 'team') {
-    document.getElementById('tabTeam').style.display = 'block';
-    renderTeamTable();
-  } else if (tabName === 'partners') {
-    document.getElementById('tabPartners').style.display = 'block';
-    renderPartnersTable();
-  } else if (tabName === 'moto') {
-    document.getElementById('tabMoto').style.display = 'block';
-    renderMotoTable();
-  } else if (tabName === 'records') {
-    document.getElementById('tabRecords').style.display = 'block';
-    renderRecordsTable();
-  } else if (tabName === 'media') {
-    document.getElementById('tabMedia').style.display = 'block';
-    renderMediaTable();
-  } else if (tabName === 'settings') {
-    document.getElementById('tabSettings').style.display = 'block';
-    populateSettingsInputs();
+  const tabMap = {
+    cars: ['tabCars', renderCarsTable],
+    traffic: ['tabTraffic', renderTrafficModule],
+    gallery: ['tabGallery', renderGalleryTable],
+    team: ['tabTeam', renderTeamTable],
+    partners: ['tabPartners', renderPartnersTable],
+    moto: ['tabMoto', renderMotoTable],
+    records: ['tabRecords', renderRecordsTable],
+    media: ['tabMedia', renderMediaTable],
+    settings: ['tabSettings', populateSettingsInputs]
+  };
+
+  const entry = tabMap[tabName];
+  if (entry) {
+    const [tabId, renderFn] = entry;
+    const section = document.getElementById(tabId);
+    if (section) {
+      section.style.display = 'block';
+      section.classList.add('active');
+    }
+    if (typeof renderFn === 'function') renderFn();
   }
 }
 
@@ -1694,32 +1829,51 @@ function initDraggableAdminTabs() {
   const container = document.getElementById('adminNavTabs') || document.querySelector('.admin-nav-tabs');
   if (!container) return;
 
-  // 1. Restore saved tab order from localStorage
-  try {
-    const rawSaved = localStorage.getItem(ADMIN_TABS_ORDER_KEY);
-    if (rawSaved) {
-      const savedOrder = JSON.parse(rawSaved);
-      if (Array.isArray(savedOrder) && savedOrder.length > 0) {
-        const tabMap = {};
-        Array.from(container.children).forEach(btn => {
-          const tabId = btn.getAttribute('data-tab');
-          if (tabId) tabMap[tabId] = btn;
-        });
-        savedOrder.forEach(tabId => {
-          if (tabMap[tabId]) {
-            container.appendChild(tabMap[tabId]);
-            delete tabMap[tabId];
-          }
-        });
-        // Append any remaining tabs not in savedOrder
-        Object.values(tabMap).forEach(btn => container.appendChild(btn));
+  // 1. Restore saved tab order from localStorage once
+  if (!container._tabOrderRestored) {
+    container._tabOrderRestored = true;
+    try {
+      const rawSaved = localStorage.getItem(ADMIN_TABS_ORDER_KEY);
+      if (rawSaved) {
+        const savedOrder = JSON.parse(rawSaved);
+        if (Array.isArray(savedOrder) && savedOrder.length > 0) {
+          const tabMap = {};
+          Array.from(container.children).forEach(btn => {
+            const tabId = btn.getAttribute('data-tab');
+            if (tabId) tabMap[tabId] = btn;
+          });
+          savedOrder.forEach(tabId => {
+            if (tabMap[tabId]) {
+              container.appendChild(tabMap[tabId]);
+              delete tabMap[tabId];
+            }
+          });
+          // Append any remaining tabs not in savedOrder
+          Object.values(tabMap).forEach(btn => container.appendChild(btn));
+        }
       }
+    } catch (e) {
+      console.warn('Error restoring tab order:', e);
     }
-  } catch (e) {
-    console.warn('Error restoring tab order:', e);
   }
 
-  // 2. Attach Drag and Drop handlers
+  // Bind scroll-fade indicator listener once
+  if (!container._fadeListenersBound) {
+    container._fadeListenersBound = true;
+    const syncFade = () => updateTabStripScrollFade(container);
+    container.addEventListener('scroll', syncFade, { passive: true });
+    if (typeof window !== 'undefined' && typeof window.addEventListener === 'function') {
+      window.addEventListener('resize', syncFade, { passive: true });
+    }
+  }
+  updateTabStripScrollFade(container);
+
+  const isCoarsePointer =
+    typeof window !== 'undefined' &&
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(pointer: coarse)').matches;
+
+  // 2. Attach Drag and Drop handlers (desktop fine pointer only; touch stays pure horizontal scroll)
   let draggedTab = null;
 
   function saveCurrentTabsOrder() {
@@ -1733,13 +1887,22 @@ function initDraggableAdminTabs() {
 
   const buttons = container.querySelectorAll('.admin-tab-btn');
   buttons.forEach(btn => {
+    if (isCoarsePointer) {
+      btn.removeAttribute('draggable');
+      return;
+    }
+
     btn.setAttribute('draggable', 'true');
+    if (btn.dataset && btn.dataset.dragBound === '1') return;
+    if (btn.dataset) btn.dataset.dragBound = '1';
 
     btn.addEventListener('dragstart', (e) => {
       draggedTab = btn;
       btn.classList.add('is-dragging');
-      e.dataTransfer.effectAllowed = 'move';
-      e.dataTransfer.setData('text/plain', btn.getAttribute('data-tab') || '');
+      if (e.dataTransfer) {
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', btn.getAttribute('data-tab') || '');
+      }
     });
 
     btn.addEventListener('dragend', () => {
@@ -1753,7 +1916,7 @@ function initDraggableAdminTabs() {
 
     btn.addEventListener('dragover', (e) => {
       e.preventDefault();
-      e.dataTransfer.dropEffect = 'move';
+      if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
       if (!draggedTab || draggedTab === btn) return;
 
       const rect = btn.getBoundingClientRect();
@@ -1782,6 +1945,224 @@ function initDraggableAdminTabs() {
       saveCurrentTabsOrder();
     });
   });
+}
+
+function isAdminModalOverlayOpen(ov) {
+  if (!ov) return false;
+  if (ov.style && ov.style.display === 'none') return false;
+  if (ov.style && (ov.style.display === 'flex' || ov.style.display === 'block' || ov.style.display === 'grid')) {
+    return true;
+  }
+  if (ov.classList && (ov.classList.contains('active') || ov.classList.contains('open'))) {
+    return true;
+  }
+  if (typeof window !== 'undefined' && typeof window.getComputedStyle === 'function') {
+    try {
+      const cs = window.getComputedStyle(ov);
+      return Boolean(cs && cs.display && cs.display !== 'none');
+    } catch (e) {}
+  }
+  return false;
+}
+
+function isModalElementVerticallyScrollable(el, card) {
+  if (!el || (el.scrollHeight || 0) <= (el.clientHeight || 0) + 1) return false;
+  if (el === card) return true;
+  if (typeof window !== 'undefined' && typeof window.getComputedStyle === 'function') {
+    try {
+      const ovY = (window.getComputedStyle(el).overflowY || '').toLowerCase();
+      return ovY === 'auto' || ovY === 'scroll';
+    } catch (e) {}
+  }
+  return el.tagName === 'TEXTAREA';
+}
+
+function findScrollableParentInsideModal(target, card) {
+  if (!card) return null;
+  let el = target;
+  while (el) {
+    if (isModalElementVerticallyScrollable(el, card)) {
+      return el;
+    }
+    if (el === card) break;
+    el = el.parentElement;
+  }
+  return null;
+}
+
+function canModalDescendantScrollInDirection(target, card, scrollingUp) {
+  let el = target;
+  while (el) {
+    if (isModalElementVerticallyScrollable(el, card)) {
+      const top = el.scrollTop || 0;
+      const clientH = el.clientHeight || 0;
+      const scrollH = el.scrollHeight || 0;
+      if (scrollingUp && top > 0) return true;
+      if (!scrollingUp && top + clientH < scrollH - 1) return true;
+    }
+    if (el === card) break;
+    el = el.parentElement;
+  }
+  return false;
+}
+
+function hasHorizontalScrollerInModal(target, card) {
+  let el = target;
+  while (el) {
+    if ((el.scrollWidth || 0) > (el.clientWidth || 0) + 1) {
+      if (el === card) return false;
+      if (typeof window !== 'undefined' && typeof window.getComputedStyle === 'function') {
+        try {
+          const ovX = (window.getComputedStyle(el).overflowX || '').toLowerCase();
+          if (ovX === 'auto' || ovX === 'scroll') return true;
+        } catch (e) {}
+      }
+    }
+    if (el === card) break;
+    el = el.parentElement;
+  }
+  return false;
+}
+
+function syncAdminModalOpenState() {
+  const overlays = Array.from(document.querySelectorAll('.admin-modal-overlay'));
+  const openOverlays = [];
+
+  overlays.forEach((ov) => {
+    const isOpen = isAdminModalOverlayOpen(ov);
+    const wasOpen = ov.dataset && ov.dataset.wasOpen === '1';
+    if (isOpen) {
+      openOverlays.push(ov);
+      if (!wasOpen) {
+        const card = ov.querySelector('.admin-modal-card');
+        if (card) card.scrollTop = 0;
+      }
+      if (ov.dataset) ov.dataset.wasOpen = '1';
+    } else if (ov.dataset) {
+      ov.dataset.wasOpen = '0';
+    }
+  });
+
+  const anyOpen = openOverlays.length > 0;
+  ['dashboardScreen', 'loginScreen'].forEach((screenId) => {
+    const screenEl = document.getElementById(screenId);
+    if (!screenEl) return;
+    if (anyOpen) {
+      screenEl.setAttribute('inert', '');
+      screenEl.setAttribute('aria-hidden', 'true');
+      if ('inert' in screenEl) screenEl.inert = true;
+    } else {
+      screenEl.removeAttribute('inert');
+      screenEl.removeAttribute('aria-hidden');
+      if ('inert' in screenEl) screenEl.inert = false;
+    }
+  });
+
+  return openOverlays;
+}
+
+function initAdminModalContainment() {
+  const overlays = Array.from(document.querySelectorAll('.admin-modal-overlay'));
+  if (!overlays.length) return;
+
+  overlays.forEach((overlay) => {
+    if (overlay._containmentBound) return;
+    overlay._containmentBound = true;
+
+    let lastTouchX = 0;
+    let lastTouchY = 0;
+
+    overlay.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches.length === 1) {
+        lastTouchX = e.touches[0].clientX;
+        lastTouchY = e.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    overlay.addEventListener('touchmove', (e) => {
+      if (!e.touches || e.touches.length !== 1) return;
+      const touch = e.touches[0];
+      const dx = touch.clientX - lastTouchX;
+      const dy = touch.clientY - lastTouchY;
+      lastTouchX = touch.clientX;
+      lastTouchY = touch.clientY;
+
+      const target = e.target;
+      if (target && typeof target.closest === 'function' && target.closest('input[type="range"]')) {
+        return;
+      }
+
+      const card = overlay.querySelector('.admin-modal-card');
+      if (!card || !card.contains(target)) {
+        if (e.cancelable) e.preventDefault();
+        return;
+      }
+
+      if (Math.abs(dx) > Math.abs(dy) && hasHorizontalScrollerInModal(target, card)) {
+        return;
+      }
+
+      const scroller = findScrollableParentInsideModal(target, card);
+      if (!scroller) {
+        if (e.cancelable) e.preventDefault();
+        return;
+      }
+
+      if (dy === 0) return;
+      const scrollingUp = dy > 0;
+      if (!canModalDescendantScrollInDirection(target, card, scrollingUp)) {
+        if (e.cancelable) e.preventDefault();
+      }
+    }, { passive: false });
+
+    overlay.addEventListener('wheel', (e) => {
+      const target = e.target;
+      const card = overlay.querySelector('.admin-modal-card');
+      if (!card || !card.contains(target)) {
+        if (e.cancelable) e.preventDefault();
+        return;
+      }
+
+      const scroller = findScrollableParentInsideModal(target, card);
+      if (!scroller) {
+        if (e.cancelable) e.preventDefault();
+        return;
+      }
+
+      if (!e.deltaY) return;
+      const scrollingUp = e.deltaY < 0;
+      if (!canModalDescendantScrollInDirection(target, card, scrollingUp)) {
+        if (e.cancelable) e.preventDefault();
+      }
+    }, { passive: false });
+
+    if (typeof MutationObserver !== 'undefined' && !overlay._modalObserver) {
+      const obs = new MutationObserver(() => {
+        syncAdminModalOpenState();
+      });
+      obs.observe(overlay, { attributes: true, attributeFilter: ['style', 'class'] });
+      overlay._modalObserver = obs;
+    }
+  });
+
+  if (typeof document !== 'undefined' && !document._adminModalEscBound) {
+    document._adminModalEscBound = true;
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      const openOverlays = syncAdminModalOpenState();
+      if (!openOverlays.length) return;
+      const topOverlay = openOverlays[openOverlays.length - 1];
+      const closeBtn = topOverlay.querySelector('.modal-close-btn');
+      if (closeBtn && typeof closeBtn.click === 'function') {
+        closeBtn.click();
+      } else {
+        topOverlay.style.display = 'none';
+        syncAdminModalOpenState();
+      }
+    });
+  }
+
+  syncAdminModalOpenState();
 }
 
 
@@ -2330,54 +2711,92 @@ function handleCarRowDrop(e, targetCarId) {
   reorderCarsInList(sourceId, targetCarId, placeAfter);
 }
 
-function reorderCarsInList(sourceId, targetCarId, placeAfter = false) {
+async function reorderCarsInList(sourceId, targetCarId, placeAfter = false) {
   const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects);
-  const sourceIdx = projects.findIndex(p => p.id === sourceId);
-  if (sourceIdx === -1) return;
+  const prevProjects = JSON.parse(JSON.stringify(projects));
+  const nextProjects = JSON.parse(JSON.stringify(projects));
+  const sourceIdx = nextProjects.findIndex(p => p.id === sourceId);
+  if (sourceIdx === -1) return false;
 
-  const [draggedCar] = projects.splice(sourceIdx, 1);
-  let targetIdx = projects.findIndex(p => p.id === targetCarId);
+  const [draggedCar] = nextProjects.splice(sourceIdx, 1);
+  let targetIdx = nextProjects.findIndex(p => p.id === targetCarId);
   if (targetIdx === -1) {
-    projects.push(draggedCar);
+    nextProjects.push(draggedCar);
   } else {
     if (placeAfter) targetIdx++;
-    projects.splice(targetIdx, 0, draggedCar);
+    nextProjects.splice(targetIdx, 0, draggedCar);
   }
 
   // Update sort_order
-  projects.forEach((p, idx) => {
+  nextProjects.forEach((p, idx) => {
     p.sort_order = idx + 1;
   });
 
-  saveDB(ADMIN_STORAGE_KEY, projects);
+  saveDB(ADMIN_STORAGE_KEY, nextProjects);
+  try {
+    localStorage.setItem('gtt_projects_v2', JSON.stringify(nextProjects));
+  } catch (e) {}
+
+  if (window.BroadcastChannel) {
+    try {
+      new BroadcastChannel('gtt_channel').postMessage({ type: 'projects_updated', projects: nextProjects });
+    } catch (e) {}
+  }
+
   lastUpdatedCarId = sourceId;
-
-  // Background sync to backend API
-  const carIds = projects.map(p => p.id);
-  apiFetch('/api/cars/reorder', {
-    method: 'POST',
-    body: JSON.stringify({ car_ids: carIds })
-  }).catch(() => {});
-
   renderCarsTable();
 
   const sourceName = draggedCar.nameRu || (draggedCar.name && (draggedCar.name.ru || draggedCar.name.en)) || draggedCar.id;
-  const targetProject = projects.find(p => p.id === targetCarId);
+  const targetProject = nextProjects.find(p => p.id === targetCarId);
   const targetName = targetProject ? (targetProject.nameRu || (targetProject.name && (targetProject.name.ru || targetProject.name.en)) || targetProject.id) : '';
-  showToast('Порядок изменен', `«${sourceName}» перемещен ${placeAfter ? 'после' : 'перед'} «${targetName}»`, 'success');
+
+  const carIds = nextProjects.map(p => p.id);
+  try {
+    await apiFetch('/api/cars/reorder', {
+      method: 'POST',
+      body: JSON.stringify({ car_ids: carIds })
+    });
+    showToast('Порядок изменен', `«${sourceName}» перемещен ${placeAfter ? 'после' : 'перед'} «${targetName}»`, 'success');
+    return true;
+  } catch (err) {
+    if (isNetworkOrOfflineError(err)) {
+      showToast('Порядок изменен', `«${sourceName}» перемещен ${placeAfter ? 'после' : 'перед'} «${targetName}»`, 'success');
+      return true;
+    }
+
+    // Rollback failed server reorder so UI matches SQLite truth
+    saveDB(ADMIN_STORAGE_KEY, prevProjects);
+    try {
+      localStorage.setItem('gtt_projects_v2', JSON.stringify(prevProjects));
+    } catch (e) {}
+    if (window.BroadcastChannel) {
+      try {
+        new BroadcastChannel('gtt_channel').postMessage({ type: 'projects_updated', projects: prevProjects });
+      } catch (e) {}
+    }
+    lastUpdatedCarId = null;
+    renderCarsTable();
+
+    if (err && err.status === 401) {
+      showToast('Сессия истекла', 'Войдите заново в админку, чтобы сохранить порядок в базе', 'error');
+    } else {
+      showToast('Ошибка изменения порядка', err.message || 'Не удалось сохранить порядок на сервере', 'error');
+    }
+    return false;
+  }
 }
 
 function moveCarRowByOffset(carId, offset) {
   const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects);
   const currIdx = projects.findIndex(p => p.id === carId);
-  if (currIdx === -1) return;
+  if (currIdx === -1) return Promise.resolve(false);
 
   const newIdx = currIdx + offset;
-  if (newIdx < 0 || newIdx >= projects.length) return;
+  if (newIdx < 0 || newIdx >= projects.length) return Promise.resolve(false);
 
   const targetCar = projects[newIdx];
   const placeAfter = (offset > 0);
-  reorderCarsInList(carId, targetCar.id, placeAfter);
+  return reorderCarsInList(carId, targetCar.id, placeAfter);
 }
 
 function handleSlotsAreaDragOver(e) {
@@ -2515,12 +2934,18 @@ function initFeaturedPointerEvents() {
     const fromSlot = parseInt(card.dataset.slot, 10);
     if (isNaN(fromSlot)) return;
 
+    const pointerType = e.pointerType || 'mouse';
+    const fromHandle = Boolean(e.target.closest('.featured-slot-drag-handle'));
+    const holdDelayMs = pointerType === 'touch' && !fromHandle ? 260 : 180;
+
     featuredPointerState = {
       card,
       fromSlot,
       startX: e.clientX,
       startY: e.clientY,
       pointerId: e.pointerId,
+      pointerType,
+      fromHandle,
       isDragging: false,
       isHolding: false,
       avatar: null,
@@ -2532,7 +2957,7 @@ function initFeaturedPointerEvents() {
             try { navigator.vibrate(30); } catch (err) {}
           }
         }
-      }, 180)
+      }, holdDelayMs)
     };
   });
 
@@ -2546,7 +2971,16 @@ function initFeaturedPointerEvents() {
     const dist = Math.hypot(dx, dy);
 
     if (!state.isDragging) {
-      if (dist > 7 || state.isHolding) {
+      // If user moves their finger before hold threshold on mobile card body, yield immediately to native vertical scroll
+      if (state.pointerType === 'touch' && !state.fromHandle && !state.isHolding && dist > 6) {
+        if (state.timer) clearTimeout(state.timer);
+        state.card.classList.remove('is-holding');
+        featuredPointerState = null;
+        return;
+      }
+
+      const canStartMouseOrHandleDrag = (state.pointerType !== 'touch' || state.fromHandle) && dist > 7;
+      if (canStartMouseOrHandleDrag || state.isHolding) {
         if (state.timer) clearTimeout(state.timer);
         state.isDragging = true;
         state.card.classList.remove('is-holding');
@@ -2626,6 +3060,95 @@ function initFeaturedPointerEvents() {
   window.addEventListener('pointercancel', endPointerDrag);
 }
 
+let carPhotoPosAutoDefault = false;
+
+function parseAdminCarObjectPositionY(configuredPos) {
+  const raw = (configuredPos || '').trim().toLowerCase();
+  if (!raw || raw === 'center center' || raw === 'center') return null;
+  const match = raw.match(/(\d+(?:\.\d+)?)%/);
+  if (match) {
+    const parsed = Math.round(parseFloat(match[1]));
+    if (!Number.isNaN(parsed)) return Math.max(0, Math.min(100, parsed));
+  }
+  if (raw.includes('top')) return 15;
+  if (raw.includes('bottom')) return 80;
+  return null;
+}
+
+function applyAdminCarFraming(imgEl, configuredPos, fallbackBoxRatio = 1.35) {
+  if (!imgEl) return { effectiveY: 50, isPortrait: false };
+  const posInput = configuredPos !== undefined ? configuredPos : (imgEl.dataset.objPos || '');
+  const parsedY = parseAdminCarObjectPositionY(posInput);
+  const srcLower = (imgEl.getAttribute('src') || imgEl.src || '').toLowerCase();
+  const isSvgOrCutout =
+    srcLower.includes('.svg') ||
+    srcLower.includes('gtr_moses.png') ||
+    (srcLower.includes('-min.png') && !imgEl.classList.contains('photo-fit'));
+
+  const hasDim = Boolean(imgEl.naturalWidth && imgEl.naturalHeight);
+  const isPortrait = hasDim ? (imgEl.naturalHeight > imgEl.naturalWidth * 1.12) : false;
+  const effectiveY = parsedY !== null ? parsedY : (isPortrait ? 80 : 50);
+
+  if (!srcLower.includes('.svg')) {
+    imgEl.style.objectPosition = `center ${effectiveY}%`;
+  }
+
+  if (isSvgOrCutout || !hasDim) {
+    imgEl.style.setProperty('--gtt-scale', '1');
+    imgEl.style.setProperty('--gtt-ty', '0%');
+    return { effectiveY, isPortrait };
+  }
+
+  const boxEl = imgEl.parentElement || imgEl;
+  const rect = typeof boxEl.getBoundingClientRect === 'function' ? boxEl.getBoundingClientRect() : { width: 0, height: 0 };
+  const boxRatio = (rect.width > 10 && rect.height > 10) ? (rect.width / rect.height) : fallbackBoxRatio;
+  const natRatio = imgEl.naturalWidth / imgEl.naturalHeight;
+  const coveredHeightRatio = natRatio < boxRatio ? (boxRatio / natRatio) : 1;
+
+  const dev = Math.abs(effectiveY - 50) / 50;
+  const targetHeightRatio = 1 + 0.26 * dev;
+  if (dev > 0 && coveredHeightRatio < targetHeightRatio) {
+    const extraScale = targetHeightRatio / coveredHeightRatio;
+    const dirSign = (50 - effectiveY) / 50;
+    const tyPct = dirSign * ((extraScale - 1) / 2) * 100;
+    imgEl.style.setProperty('--gtt-scale', extraScale.toFixed(4));
+    imgEl.style.setProperty('--gtt-ty', `${tyPct.toFixed(3)}%`);
+  } else {
+    imgEl.style.setProperty('--gtt-scale', '1');
+    imgEl.style.setProperty('--gtt-ty', '0%');
+  }
+  return { effectiveY, isPortrait };
+}
+
+function refreshAdminGridFraming(selector, fallbackBoxRatio) {
+  document.querySelectorAll(selector).forEach(imgEl => {
+    if (imgEl.complete && imgEl.naturalWidth) {
+      applyAdminCarFraming(imgEl, imgEl.dataset.objPos || '', fallbackBoxRatio);
+    }
+  });
+}
+
+function syncCarPreviewFraming() {
+  const previewImg = document.getElementById('carImgPreview');
+  if (!previewImg || !previewImg.naturalWidth || !previewImg.naturalHeight) return;
+
+  const isPortrait = previewImg.naturalHeight > previewImg.naturalWidth * 1.12;
+  if (carPhotoPosAutoDefault) {
+    carPhotoPosAutoDefault = false;
+    if (isPortrait) {
+      handleCarPhotoPositionChange(80, false);
+      return;
+    }
+  }
+
+  const curPos = document.getElementById('editObjectPosition')?.value || 'center 50%';
+  const framed = applyAdminCarFraming(previewImg, curPos, 4 / 3);
+  const infoEl = document.getElementById('carImgMetaInfo');
+  if (infoEl && !infoEl.innerHTML.includes('⚠️')) {
+    infoEl.textContent = `${infoEl.dataset.baseInfo ? infoEl.dataset.baseInfo + ' • ' : ''}${previewImg.naturalWidth}×${previewImg.naturalHeight} • Позиция: ${framed.effectiveY}%`;
+  }
+}
+
 function renderFeaturedSlots() {
   const container = document.getElementById('featuredSlotsGrid');
   if (!container) return;
@@ -2651,6 +3174,7 @@ function renderFeaturedSlots() {
     const hp = esc(car.hp || '—');
     const quarter = esc(car.quarterMile || car.quarter_mile || '—');
     const img = esc(convertGoogleDriveUrl(car.img) || 'assets/cars/bmw_m5_rdrc_race.jpg');
+    const objPos = escapeHTML(car.object_position || car.objectPosition || 'center 50%');
     const hasVideo = !!(car.videoSrc || car.video_src);
     const carId = esc(car.id);
     const carIdAttr = escapeJS(car.id);
@@ -2694,7 +3218,7 @@ function renderFeaturedSlots() {
         </div>
 
         <div class="featured-slot-img-wrap">
-          <img src="${img}" alt="${name}" class="featured-slot-img" onerror="this.onerror=null; this.src='assets/cars/gtt_classified_car.svg';">
+          <img src="${img}" alt="${name}" class="featured-slot-img" style="object-position: ${objPos};" data-obj-pos="${objPos}" onload="applyAdminCarFraming(this, this.dataset.objPos, 1.6)" onerror="this.onerror=null; this.src='assets/cars/gtt_classified_car.svg';">
           <div class="featured-slot-video-tag ${hasVideo ? 'active' : ''}">
             ${hasVideo ? '● Видео активно' : '○ Без видео'}
           </div>
@@ -2742,6 +3266,10 @@ function renderFeaturedSlots() {
 
   container.innerHTML = html;
   initFeaturedPointerEvents();
+  refreshAdminGridFraming('#featuredSlotsGrid .featured-slot-img', 1.6);
+  if (typeof requestAnimationFrame === 'function') {
+    requestAnimationFrame(() => refreshAdminGridFraming('#featuredSlotsGrid .featured-slot-img', 1.6));
+  }
 }
 
 function handleFeaturedSlotSelectChange(slotIdx, newCarId) {
@@ -2948,7 +3476,7 @@ function insertCarIntoFeaturedSlot(carId, targetSlotIdx) {
   syncFeaturedOrderToBackend(newProjects);
 }
 
-async function syncFeaturedOrderToBackend(projects) {
+async function syncFeaturedOrderToBackend(projects, throwOnHttpError = false) {
   const list = projects || getDB(ADMIN_STORAGE_KEY, defaultProjects);
   const featured = getFeaturedCarsList(list);
   const featuredIds = featured.map(c => c.id);
@@ -2960,6 +3488,9 @@ async function syncFeaturedOrderToBackend(projects) {
     });
   } catch (err) {
     console.warn('[GTT API] syncFeaturedOrderToBackend note:', err);
+    if (throwOnHttpError && !isNetworkOrOfflineError(err)) {
+      throw err;
+    }
   }
 }
 
@@ -2987,6 +3518,7 @@ function renderCarsTable() {
     const rawQ = (car.quarterMile || car.quarter_mile || '').trim();
     const quarter = escapeHTML(isClass ? (rawQ || '—') : ((!rawQ || rawQ === '-' || rawQ === '- сек' || rawQ === '—') ? '9.420 сек' : rawQ));
     const img = escapeHTML(convertGoogleDriveUrl(car.img) || 'assets/cars/bmw_m5_rdrc_race.jpg');
+    const objPos = escapeHTML(car.object_position || car.objectPosition || 'center 50%');
     const carId = escapeHTML(car.id);
     const carIdAttr = escapeJS(car.id);
     const hasVideo = !!(car.videoSrc || car.video_src);
@@ -3021,7 +3553,7 @@ function renderCarsTable() {
             </svg>
           </span>
           <div class="car-thumb-wrap ${isJustUpdated ? 'car-thumb-just-updated' : ''}">
-            <img src="${img}" alt="${name}" class="car-thumb" onerror="this.onerror=null; this.src='assets/cars/gtt_classified_car.svg';">
+            <img src="${img}" alt="${name}" class="car-thumb" style="object-position: ${objPos};" data-obj-pos="${objPos}" onload="applyAdminCarFraming(this, this.dataset.objPos, 1.53)" onerror="this.onerror=null; this.src='assets/cars/gtt_classified_car.svg';">
           </div>
           <div>
             <div class="car-title-text">${name}</div>
@@ -3052,6 +3584,11 @@ function renderCarsTable() {
     </tr>
     `;
   }).join('');
+
+  refreshAdminGridFraming('#projectsTableBody .car-thumb', 1.53);
+  if (typeof requestAnimationFrame === 'function') {
+    requestAnimationFrame(() => refreshAdminGridFraming('#projectsTableBody .car-thumb', 1.53));
+  }
 
   if (lastUpdatedCarId) {
     const updatedId = lastUpdatedCarId;
@@ -3152,10 +3689,16 @@ async function handleGenericUpload(file, { inputId, previewWrapId, previewImgId,
       const img = document.getElementById(previewImgId);
       const nameEl = document.getElementById(previewNameId);
       const infoEl = document.getElementById(previewInfoId);
+      if (previewImgId === 'carImgPreview') {
+        carPhotoPosAutoDefault = false;
+      }
       if (wrap) wrap.style.display = 'block';
       if (img) img.src = base64Data;
       if (nameEl) nameEl.textContent = file.name;
-      if (infoEl) infoEl.innerHTML = `<span style="color: #4ade80; font-weight: 700;">✓ ФОТО ЗАГРУЖЕНО</span> • ${compressedKb} КБ • Готово к сохранению`;
+      if (infoEl) {
+        infoEl.dataset.baseInfo = `${compressedKb} КБ`;
+        infoEl.innerHTML = `<span style="color: #4ade80; font-weight: 700;">✓ ФОТО ЗАГРУЖЕНО</span> • ${compressedKb} КБ • Готово к сохранению`;
+      }
     }
 
     const input = document.getElementById(inputId);
@@ -3170,13 +3713,17 @@ async function handleGenericUpload(file, { inputId, previewWrapId, previewImgId,
       input.value = fallbackPath;
     }
 
+    const activeObjPos = (previewImgId === 'carImgPreview')
+      ? (document.getElementById('editObjectPosition')?.value || 'center 50%')
+      : 'center 50%';
     showToast(
       isVideo ? 'Видео выбрано' : 'Фото загружено',
       `Файл «${file.name}» готов к сохранению в проект`,
       'success',
       3500,
       !isVideo ? base64Data : null,
-      'В ПРЕДПРОСМОТРЕ'
+      'В ПРЕДПРОСМОТРЕ',
+      activeObjPos
     );
 
     // Background upload via API if backend is running (fire-and-forget, zero UI stall)
@@ -3332,10 +3879,15 @@ function handleCarImgPreviewError(imgEl) {
   if (!imgEl) return;
   imgEl.onerror = null;
   imgEl.src = 'assets/cars/gtt_classified_car.svg';
+  imgEl.style.setProperty('--gtt-scale', '1');
+  imgEl.style.setProperty('--gtt-ty', '0%');
   const nameEl = document.getElementById('carImgMetaName');
   const infoEl = document.getElementById('carImgMetaInfo');
   if (nameEl) nameEl.innerHTML = '<span style="color:#ef4444; font-weight:700;">⚠️ Файл не найден или ссылка недоступна</span>';
-  if (infoEl) infoEl.innerHTML = '<span style="color:#f59e0b;">Нажмите кнопку «Папка» чтобы загрузить фото с компьютера</span>';
+  if (infoEl) {
+    infoEl.dataset.baseInfo = '';
+    infoEl.innerHTML = '<span style="color:#f59e0b;">Нажмите кнопку «Папка» чтобы загрузить фото с компьютера</span>';
+  }
 }
 
 function updateCarPhotoPreviewUI(imgSrc, name = '', meta = '') {
@@ -3346,23 +3898,32 @@ function updateCarPhotoPreviewUI(imgSrc, name = '', meta = '') {
 
   if (!imgSrc) {
     if (wrap) wrap.style.display = 'none';
+    if (infoEl) infoEl.dataset.baseInfo = '';
     return;
   }
 
   const cleanSrc = convertGoogleDriveUrl(imgSrc);
+  if (nameEl) nameEl.textContent = name || (cleanSrc.startsWith('data:') ? 'Локальное изображение (сжато в памяти)' : cleanSrc.split('/').pop());
+  if (infoEl) {
+    infoEl.dataset.baseInfo = meta || 'Предпросмотр активен';
+    infoEl.textContent = infoEl.dataset.baseInfo;
+  }
+  if (wrap) wrap.style.display = 'block';
   if (imgEl) {
     imgEl.onerror = () => handleCarImgPreviewError(imgEl);
     imgEl.src = cleanSrc;
     const pos = document.getElementById('editObjectPosition')?.value || 'center 50%';
-    imgEl.style.objectPosition = pos;
+    applyAdminCarFraming(imgEl, pos, 4 / 3);
+    if (imgEl.complete && imgEl.naturalWidth > 0) {
+      syncCarPreviewFraming();
+    }
   }
-  if (nameEl) nameEl.textContent = name || (cleanSrc.startsWith('data:') ? 'Локальное изображение (сжато в памяти)' : cleanSrc.split('/').pop());
-  if (infoEl) infoEl.textContent = meta || 'Предпросмотр активен';
-  if (wrap) wrap.style.display = 'block';
 }
 
-function handleCarPhotoPositionChange(val) {
-  const num = Math.max(0, Math.min(100, parseInt(val, 10) || 50));
+function handleCarPhotoPositionChange(val, isUserAction = true) {
+  const parsed = parseInt(val, 10);
+  const num = Number.isNaN(parsed) ? 50 : Math.max(0, Math.min(100, parsed));
+  if (isUserAction) carPhotoPosAutoDefault = false;
   const posStr = `center ${num}%`;
 
   const hiddenInput = document.getElementById('editObjectPosition');
@@ -3376,7 +3937,11 @@ function handleCarPhotoPositionChange(val) {
 
   const previewImg = document.getElementById('carImgPreview');
   if (previewImg) {
-    previewImg.style.objectPosition = posStr;
+    applyAdminCarFraming(previewImg, posStr, 4 / 3);
+    const infoEl = document.getElementById('carImgMetaInfo');
+    if (infoEl && previewImg.naturalWidth && previewImg.naturalHeight && !infoEl.innerHTML.includes('⚠️')) {
+      infoEl.textContent = `${infoEl.dataset.baseInfo ? infoEl.dataset.baseInfo + ' • ' : ''}${previewImg.naturalWidth}×${previewImg.naturalHeight} • Позиция: ${num}%`;
+    }
   }
 }
 
@@ -3386,7 +3951,7 @@ function setCarPhotoPreset(preset) {
   else if (preset === 'center') val = 50;
   else if (preset === 'bottom') val = 82;
 
-  handleCarPhotoPositionChange(val);
+  handleCarPhotoPositionChange(val, true);
 }
 
 function handleCarPhotoPathInput(val) {
@@ -3398,6 +3963,7 @@ function handleCarPhotoPathInput(val) {
     if (input) input.value = converted;
     showToast('Google Диск', 'Ссылка с Google Диска автоматически преобразована для прямого показа фото', 'success');
   }
+  carPhotoPosAutoDefault = false;
   if (trimmed) {
     updateCarPhotoPreviewUI(trimmed, trimmed.split('/').pop(), 'Путь к фото');
   } else {
@@ -3406,6 +3972,7 @@ function handleCarPhotoPathInput(val) {
 }
 
 function clearCarPhotoPreview() {
+  carPhotoPosAutoDefault = false;
   const editImgInput = document.getElementById('editImg');
   const fileInput = document.getElementById('carPhotoFileInput');
   if (editImgInput) editImgInput.value = '';
@@ -3415,7 +3982,8 @@ function clearCarPhotoPreview() {
 
 // 2. Team Member Photo Handlers
 function handleTeamPhotoPositionChange(val) {
-  const num = Math.max(0, Math.min(100, parseInt(val, 10) || 20));
+  const parsed = parseInt(val, 10);
+  const num = Number.isNaN(parsed) ? 20 : Math.max(0, Math.min(100, parsed));
   const posStr = `center ${num}%`;
 
   const hiddenInput = document.getElementById('editMemberObjectPosition');
@@ -3731,7 +4299,8 @@ function clearGalleryPhotoPreview() {
 }
 
 function handleGalleryPhotoPositionChange(val) {
-  const num = parseInt(val, 10);
+  const parsed = parseInt(val, 10);
+  const num = Number.isNaN(parsed) ? 50 : Math.max(0, Math.min(100, parsed));
   const display = document.getElementById('galleryPosValueDisplay');
   const hiddenInput = document.getElementById('editGalleryObjectPosition');
   const slider = document.getElementById('editGalleryPositionY');
@@ -3855,22 +4424,24 @@ function openCarEditModal(carId, targetFeaturedSlot = null) {
     document.getElementById('editVideoSrc').value = videoSrc;
     document.getElementById('editDescRu').value = descRu;
 
+    const rawPos = car.object_position || car.objectPosition || '';
+    const trimmedRawPos = rawPos.trim().toLowerCase();
+    carPhotoPosAutoDefault = !trimmedRawPos || trimmedRawPos === 'center center' || trimmedRawPos === 'center';
     let currentY = 50;
-    const rawPos = car.object_position || car.objectPosition || 'center center';
-    const match = rawPos.match(/(\d+)%/);
+    const match = rawPos.match(/(\d+(?:\.\d+)?)%/);
     if (match) {
-      currentY = parseInt(match[1], 10);
-    } else if (rawPos.includes('top')) {
+      currentY = Math.round(parseFloat(match[1]));
+    } else if (trimmedRawPos.includes('top')) {
       currentY = 15;
-    } else if (rawPos.includes('bottom')) {
+    } else if (trimmedRawPos.includes('bottom')) {
       currentY = 80;
     } else {
       currentY = 50;
     }
-    handleCarPhotoPositionChange(currentY);
+    handleCarPhotoPositionChange(currentY, false);
 
     if (img) {
-      updateCarPhotoPreviewUI(img, img.split('/').pop(), 'Текущее фото автомобиля');
+      updateCarPhotoPreviewUI(img, img.split('/').pop(), 'Текущее фото');
     } else {
       updateCarPhotoPreviewUI('');
     }
@@ -3884,7 +4455,8 @@ function openCarEditModal(carId, targetFeaturedSlot = null) {
     title.textContent = `Добавление нового проекта GTT${slotSuffix}`;
     if (form) form.reset();
     document.getElementById('editCarId').value = '';
-    handleCarPhotoPositionChange(50);
+    carPhotoPosAutoDefault = false;
+    handleCarPhotoPositionChange(50, false);
     const featCheckbox = document.getElementById('editIsFeatured');
     if (featCheckbox) featCheckbox.checked = (targetFeaturedSlot !== null);
     updateCarPhotoPreviewUI('');
@@ -3894,6 +4466,7 @@ function openCarEditModal(carId, targetFeaturedSlot = null) {
 
 function closeCarEditModal() {
   currentTargetFeaturedSlot = null;
+  carPhotoPosAutoDefault = false;
   const modal = document.getElementById('carEditModal');
   if (modal) modal.style.display = 'none';
   clearCarPhotoPreview();
@@ -3913,7 +4486,7 @@ async function saveCarProject(e) {
       inputRu.focus();
       inputRu.style.borderColor = 'var(--gtt-orange)';
     }
-    return;
+    return false;
   }
 
   const rawBrand = document.getElementById('editBrand').value.trim();
@@ -3986,52 +4559,102 @@ async function saveCarProject(e) {
     sort_order: (existingCar && existingCar.sort_order !== undefined) ? existingCar.sort_order : (projects.length + 1)
   };
 
-  // 1. OPTIMISTIC INSTANT UPDATE (0ms delay - UI responds immediately!)
-  const submitBtn = document.querySelector('#carEditForm button[type="submit"]');
-  if (submitBtn) {
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<span>⏳ Применяем...</span>';
-  }
-
-  // 2. Update local state in memory and localStorage immediately
+  const nextProjects = JSON.parse(JSON.stringify(projects));
   if (idInput) {
-    const idx = projects.findIndex(c => c.id === idInput);
+    const idx = nextProjects.findIndex(c => c.id === idInput);
     if (idx !== -1) {
-      projects[idx] = { ...projects[idx], ...carData };
-      if (currentTargetFeaturedSlot !== null && currentTargetFeaturedSlot >= 0 && currentTargetFeaturedSlot < projects.length && idx !== currentTargetFeaturedSlot) {
-        const temp = projects[currentTargetFeaturedSlot];
-        projects[currentTargetFeaturedSlot] = projects[idx];
-        projects[idx] = temp;
+      nextProjects[idx] = { ...nextProjects[idx], ...carData };
+      if (currentTargetFeaturedSlot !== null && currentTargetFeaturedSlot >= 0 && currentTargetFeaturedSlot < nextProjects.length && idx !== currentTargetFeaturedSlot) {
+        const temp = nextProjects[currentTargetFeaturedSlot];
+        nextProjects[currentTargetFeaturedSlot] = nextProjects[idx];
+        nextProjects[idx] = temp;
       }
     } else {
-      if (currentTargetFeaturedSlot !== null && currentTargetFeaturedSlot >= 0 && currentTargetFeaturedSlot <= projects.length) {
-        projects.splice(currentTargetFeaturedSlot, 0, carData);
+      if (currentTargetFeaturedSlot !== null && currentTargetFeaturedSlot >= 0 && currentTargetFeaturedSlot <= nextProjects.length) {
+        nextProjects.splice(currentTargetFeaturedSlot, 0, carData);
       } else {
-        projects.push(carData);
+        nextProjects.push(carData);
       }
     }
   } else {
-    if (currentTargetFeaturedSlot !== null && currentTargetFeaturedSlot >= 0 && currentTargetFeaturedSlot <= projects.length) {
-      projects.splice(currentTargetFeaturedSlot, 0, carData);
+    if (currentTargetFeaturedSlot !== null && currentTargetFeaturedSlot >= 0 && currentTargetFeaturedSlot <= nextProjects.length) {
+      nextProjects.splice(currentTargetFeaturedSlot, 0, carData);
     } else {
-      projects.push(carData);
+      nextProjects.push(carData);
     }
   }
 
-  saveDB(ADMIN_STORAGE_KEY, projects);
+  const submitBtn = document.querySelector('#carEditForm button[type="submit"]');
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span>⏳ Сохраняем...</span>';
+  }
+
+  const wasTargetSlot = (currentTargetFeaturedSlot !== null);
+  let offlineSaved = false;
+
   try {
-    localStorage.setItem('gtt_projects_v2', JSON.stringify(projects));
+    // 1. Persist to SQLite backend FIRST so errors are never hidden by fake success
+    let savedCar = null;
+    if (idInput) {
+      savedCar = await apiFetch(`/api/cars/${encodeURIComponent(idInput)}`, {
+        method: 'PUT',
+        body: JSON.stringify(carData)
+      });
+    } else {
+      savedCar = await apiFetch('/api/cars', {
+        method: 'POST',
+        body: JSON.stringify(carData)
+      });
+    }
+
+    if (savedCar && savedCar.id) {
+      const targetIdx = nextProjects.findIndex(c => c.id === carData.id);
+      carData.id = savedCar.id;
+      if (targetIdx !== -1) {
+        nextProjects[targetIdx] = {
+          ...nextProjects[targetIdx],
+          ...savedCar,
+          object_position: savedCar.object_position || finalObjPos,
+          objectPosition: savedCar.object_position || finalObjPos
+        };
+      }
+    }
+
+    await syncFeaturedOrderToBackend(nextProjects, true);
+  } catch (err) {
+    if (!isNetworkOrOfflineError(err)) {
+      console.error('[GTT API] Car save failed:', err);
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Сохранить изменения';
+      }
+      if (err && err.status === 401) {
+        showToast('Сессия истекла', 'Войдите заново в админ-панель, чтобы изменения сохранялись в базе данных!', 'error', 6500);
+      } else {
+        showToast('Ошибка сохранения', 'Не удалось сохранить изменения на сервере: ' + (err.message || err), 'error', 6500);
+      }
+      return false;
+    }
+    offlineSaved = true;
+    console.warn('[GTT API] Offline or static hosting mode: saving car locally');
+  }
+
+  // 2. Commit confirmed state to localStorage & cross-tab channel
+  saveDB(ADMIN_STORAGE_KEY, nextProjects);
+  try {
+    localStorage.setItem('gtt_projects_v2', JSON.stringify(nextProjects));
   } catch (e) {
     console.warn('[GTT Admin] Secondary localStorage quota note:', e);
   }
 
   if (window.BroadcastChannel) {
     try {
-      new BroadcastChannel('gtt_channel').postMessage({ type: 'projects_updated', projects });
+      new BroadcastChannel('gtt_channel').postMessage({ type: 'projects_updated', projects: nextProjects });
     } catch (e) {}
   }
 
-  // 3. Mark row as just updated, re-render table with visual highlight, close modal
+  // 3. Re-render admin table & featured slots, close modal
   lastUpdatedCarId = carData.id;
   renderCarsTable();
   closeCarEditModal();
@@ -4041,49 +4664,28 @@ async function saveCarProject(e) {
     submitBtn.innerHTML = 'Сохранить изменения';
   }
 
-  // 4. SHOW RICH CONFIRMATION TOAST WITH THE EXACT UPLOADED PHOTO
+  // 4. Rich confirmation toast using exact saved objectPosition
   const hasValidPhoto = carData.img && !carData.img.includes('classified') && !carData.img.endsWith('.svg');
   showToast(
     idInput ? 'Проект обновлен' : 'Проект добавлен',
-    `Болид «${rawNameRu}» успешно сохранен! Фото применено в каталоге.`,
-    'success',
+    offlineSaved
+      ? `Болид «${rawNameRu}» сохранен локально в браузере.`
+      : `Болид «${rawNameRu}» сохранен в базе и применен на сайте!`,
+    offlineSaved ? 'warning' : 'success',
     4800,
     hasValidPhoto ? carData.img : null,
-    hasValidPhoto ? 'ФОТО ЗАГРУЖЕНО' : 'СОХРАНЕНО'
+    hasValidPhoto ? (offlineSaved ? 'ЛОКАЛЬНО' : 'СОХРАНЕНО') : 'ОК',
+    hasValidPhoto ? finalObjPos : 'center 50%'
   );
 
   recordAuditEvent({
-    section: currentTargetFeaturedSlot !== null ? 'Флагманы ТОП-4' : 'Гараж проектов',
+    section: wasTargetSlot ? 'Флагманы ТОП-4' : 'Гараж проектов',
     action: idInput ? 'Обновлен болид' : 'Добавлен новый болид',
     item: rawNameRu,
-    details: `${finalHp} • ${finalQuarter} • ${finalTopSpeed}`
+    details: `${finalHp} • ${finalQuarter} • Позиция: ${finalObjPos}`
   });
 
-  // 5. Background non-blocking sync to SQLite backend (fire-and-forget, zero UI stall)
-  (async () => {
-    try {
-      let savedCar = null;
-      if (idInput) {
-        savedCar = await apiFetch(`/api/cars/${encodeURIComponent(idInput)}`, {
-          method: 'PUT',
-          body: JSON.stringify(carData)
-        });
-      } else {
-        savedCar = await apiFetch('/api/cars', {
-          method: 'POST',
-          body: JSON.stringify(carData)
-        });
-      }
-      if (savedCar && savedCar.id && savedCar.id !== carData.id) {
-        carData.id = savedCar.id;
-        saveDB(ADMIN_STORAGE_KEY, projects);
-        renderCarsTable();
-      }
-      await syncFeaturedOrderToBackend(projects);
-    } catch (err) {
-      console.warn('[GTT API] Background sync note:', err);
-    }
-  })();
+  return true;
 }
 
 async function deleteCarProject(carId) {
@@ -4724,7 +5326,8 @@ function renderRecordsTable() {
 }
 
 function handleRecordPhotoPositionChange(val) {
-  const num = parseInt(val, 10);
+  const parsed = parseInt(val, 10);
+  const num = Number.isNaN(parsed) ? 50 : Math.max(0, Math.min(100, parsed));
   const display = document.getElementById('recordPosValueDisplay');
   const hiddenInput = document.getElementById('editRecordObjectPosition');
   const slider = document.getElementById('editRecordPositionY');
@@ -5986,7 +6589,8 @@ async function loadMotoBanners() {
 }
 
 function handleMotoBannerPosChange(idx, val) {
-  const num = parseInt(val, 10);
+  const parsed = parseInt(val, 10);
+  const num = Number.isNaN(parsed) ? 50 : Math.max(0, Math.min(100, parsed));
   const badge = document.getElementById(`motoBanner${idx}PosBadge`);
   const slider = document.getElementById(`adminMotoBanner${idx}Slider`);
   const hidden = document.getElementById(`adminMotoBanner${idx}Pos`);
@@ -6156,7 +6760,8 @@ function updateMotoPhotoPreview(url) {
 }
 
 function handleMotoPhotoPositionChange(val) {
-  const num = Math.max(0, Math.min(100, parseInt(val, 10) || 50));
+  const parsed = parseInt(val, 10);
+  const num = Number.isNaN(parsed) ? 50 : Math.max(0, Math.min(100, parsed));
   const posStr = `center ${num}%`;
 
   const hiddenInput = document.getElementById('editMotoObjectPosition');
@@ -6391,6 +6996,15 @@ window.clearGalleryPhotoPreview = clearGalleryPhotoPreview;
 window.handleGalleryPhotoPositionChange = handleGalleryPhotoPositionChange;
 window.setGalleryPhotoPreset = setGalleryPhotoPreset;
 
+// Car Framing & Preview Exports
+window.parseAdminCarObjectPositionY = parseAdminCarObjectPositionY;
+window.applyAdminCarFraming = applyAdminCarFraming;
+window.syncCarPreviewFraming = syncCarPreviewFraming;
+window.handleCarPhotoPositionChange = handleCarPhotoPositionChange;
+window.setCarPhotoPreset = setCarPhotoPreset;
+window.handleCarImgPreviewError = handleCarImgPreviewError;
+window.renderCarsTable = renderCarsTable;
+
 // Project Name Auto-Translate & Edit Exports
 window.handleNameRuInput = handleNameRuInput;
 window.toggleManualNameEn = toggleManualNameEn;
@@ -6398,8 +7012,27 @@ window.handleManualNameEnInput = handleManualNameEnInput;
 window.autoTranslateRuToEn = autoTranslateRuToEn;
 window.togglePasswordVisibility = togglePasswordVisibility;
 window.copySecretAdminUrl = copySecretAdminUrl;
+window.switchAdminTab = switchAdminTab;
+window.updateTabStripScrollFade = updateTabStripScrollFade;
 window.initDraggableAdminTabs = initDraggableAdminTabs;
+window.initFeaturedPointerEvents = initFeaturedPointerEvents;
+window.initAdminModalContainment = initAdminModalContainment;
+window.syncAdminModalOpenState = syncAdminModalOpenState;
+window.findScrollableParentInsideModal = findScrollableParentInsideModal;
+window.migrateLegacyR8RokotVideoStorage = migrateLegacyR8RokotVideoStorage;
 window.scrubLegacyTeamPlaceholders = scrubLegacyTeamPlaceholders;
+window.checkAuth = checkAuth;
+
+let adminResizeFramingTimer = null;
+window.addEventListener('resize', () => {
+  if (adminResizeFramingTimer) clearTimeout(adminResizeFramingTimer);
+  adminResizeFramingTimer = setTimeout(() => {
+    if (typeof refreshAdminGridFraming === 'function') {
+      const ratio = window.innerWidth <= 650 ? (4 / 3) : 1.6;
+      refreshAdminGridFraming('#featuredSlotsGrid .featured-slot-img', ratio);
+    }
+  }, 120);
+}, { passive: true });
 
 document.addEventListener('DOMContentLoaded', checkAuth);
 

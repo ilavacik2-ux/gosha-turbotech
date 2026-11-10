@@ -272,7 +272,7 @@ def seed_initial_data(cursor):
                 'tag_ru': 'РЕКОРД РОССИИ ДЛЯ AUDI • 7.877 СЕК',
                 'top_speed': '350+ км/ч',
                 'type': 'audi',
-                'video_src': 'assets/videos/gtr_launch_pass.mp4',
+                'video_src': 'assets/videos/r8_rokot_action.mp4',
                 'video_title': 'AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT'},
         {       'badge_en': 'Race 1000 Europe Record',
                 'badge_ru': 'Рекорд Европы 353 км/ч',

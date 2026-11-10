@@ -64,7 +64,7 @@ let gttProjects = [
     "fallbackImg": "assets/archive_tilda/audi_r8_tonystark.png",
     "isPhoto": true,
     "objectPosition": "center 55%",
-    "videoSrc": "assets/videos/gtr_launch_pass.mp4",
+    "videoSrc": "assets/videos/r8_rokot_action.mp4",
     "videoTitle": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT",
     "desc": {
       "ru": "Боевая Audi R8 «ROKOT» от GoshaTurboTech под управлением Эдуарда Саркисяна и Руслана Арефьева. Абсолютный национальный рекорд России для марки Audi на 1/4 мили (7.877 сек). Первый и единственный автомобиль марки Audi в стране, выехавший из 8 секунд!",
@@ -1773,6 +1773,49 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Dynamic SQLite & LocalStorage Synchronization for Cars
+const GTT_R8_ROKOT_VIDEO_TARGET = 'assets/videos/r8_rokot_action.mp4';
+const GTT_R8_ROKOT_VIDEO_LEGACY = 'assets/videos/gtr_launch_pass.mp4';
+const GTT_R8_ROKOT_VIDEO_MIGRATION_KEY = 'gtt_r8_rokot_video_v20261110';
+
+function migrateLegacyR8RokotVideo(carList) {
+  if (!Array.isArray(carList) || carList.length === 0) return carList;
+  let alreadyMigrated = false;
+  try {
+    alreadyMigrated = localStorage.getItem(GTT_R8_ROKOT_VIDEO_MIGRATION_KEY) === '1';
+  } catch (e) {}
+  if (alreadyMigrated) return carList;
+
+  let modified = false;
+  const migrated = carList.map(car => {
+    if (!car || car.id !== 'r8_rokot') return car;
+    const currentVideo = String(car.videoSrc || car.video_src || '').trim();
+    if (!currentVideo || currentVideo === GTT_R8_ROKOT_VIDEO_LEGACY) {
+      modified = true;
+      return {
+        ...car,
+        videoSrc: GTT_R8_ROKOT_VIDEO_TARGET,
+        video_src: GTT_R8_ROKOT_VIDEO_TARGET
+      };
+    }
+    return car;
+  });
+
+  try {
+    if (modified) {
+      if (localStorage.getItem('gtt_admin_cars_db')) {
+        localStorage.setItem('gtt_admin_cars_db', JSON.stringify(migrated));
+      }
+      if (localStorage.getItem('gtt_projects_v2')) {
+        localStorage.setItem('gtt_projects_v2', JSON.stringify(migrated));
+      }
+    }
+    localStorage.setItem(GTT_R8_ROKOT_VIDEO_MIGRATION_KEY, '1');
+  } catch (e) {}
+
+  return migrated;
+}
+window.migrateLegacyR8RokotVideo = migrateLegacyR8RokotVideo;
+
 async function syncProjectsFromAPI() {
   let hasValidLocal = false;
   // 1. Instant render from local cache (ONLY if valid and contains projects)
@@ -1781,7 +1824,7 @@ async function syncProjectsFromAPI() {
     if (local) {
       const parsed = JSON.parse(local);
       if (Array.isArray(parsed) && parsed.length > 0) {
-        applyCarsData(parsed);
+        applyCarsData(migrateLegacyR8RokotVideo(parsed));
         hasValidLocal = true;
       }
     }
@@ -4560,19 +4603,85 @@ window.toggleGarageExpand = function() {
   }
 };
 
+function parseCarObjectPositionY(configuredPos) {
+  const raw = (configuredPos || '').trim().toLowerCase();
+  if (!raw || raw === 'center center' || raw === 'center') return null;
+  const match = raw.match(/(\d+(?:\.\d+)?)%/);
+  if (match) {
+    const parsed = Math.round(parseFloat(match[1]));
+    if (!Number.isNaN(parsed)) return Math.max(0, Math.min(100, parsed));
+  }
+  if (raw.includes('top')) return 15;
+  if (raw.includes('bottom')) return 80;
+  return null;
+}
+
 window.handleCarCardImgLoad = function(imgEl, configuredPos) {
   if (!imgEl || !imgEl.naturalWidth || !imgEl.naturalHeight) return;
+  const srcLower = (imgEl.getAttribute('src') || imgEl.src || '').toLowerCase();
+  const isSvgOrCutout =
+    srcLower.includes('.svg') ||
+    srcLower.includes('gtr_moses.png') ||
+    (srcLower.includes('-min.png') && !imgEl.classList.contains('photo-fit'));
+
   // Systematic detection: if the photo is portrait / vertical (height > width * 1.12)
   const isPortrait = imgEl.naturalHeight > imgEl.naturalWidth * 1.12;
   if (isPortrait) {
     imgEl.classList.add('is-portrait-car-photo');
-    // If no custom offset was specifically configured or it's default center center / center 50%,
-    // automatically pin to center 80% so wheels, bumper and grill are always in full view!
-    if (!configuredPos || configuredPos === 'center center' || configuredPos === 'center 50%') {
-      imgEl.style.setProperty('object-position', 'center 80%', 'important');
-    }
+  }
+
+  const posInput = configuredPos !== undefined ? configuredPos : (imgEl.dataset.configuredPos || '');
+  const parsedY = parseCarObjectPositionY(posInput);
+  // Only auto-pin portrait images that still use default/unset positioning ('center center' or empty).
+  // Explicit values like 'center 0%' or 'center 50%' must always be preserved verbatim.
+  const effectiveY = parsedY !== null ? parsedY : (isPortrait ? 80 : 50);
+
+  if (!srcLower.includes('.svg')) {
+    imgEl.style.setProperty('object-position', `center ${effectiveY}%`, 'important');
+  }
+
+  if (isSvgOrCutout) {
+    imgEl.style.setProperty('--gtt-scale', '1');
+    imgEl.style.setProperty('--gtt-ty', '0%');
+    return;
+  }
+
+  const boxEl = imgEl.parentElement || imgEl;
+  const rect = boxEl.getBoundingClientRect();
+  const boxRatio = (rect.width > 10 && rect.height > 10) ? (rect.width / rect.height) : 1.35;
+  const natRatio = imgEl.naturalWidth / imgEl.naturalHeight;
+  const coveredHeightRatio = natRatio < boxRatio ? (boxRatio / natRatio) : 1;
+
+  const dev = Math.abs(effectiveY - 50) / 50;
+  const targetHeightRatio = 1 + 0.26 * dev;
+  if (dev > 0 && coveredHeightRatio < targetHeightRatio) {
+    const extraScale = targetHeightRatio / coveredHeightRatio;
+    const dirSign = (50 - effectiveY) / 50;
+    const tyPct = dirSign * ((extraScale - 1) / 2) * 100;
+    imgEl.style.setProperty('--gtt-scale', extraScale.toFixed(4));
+    imgEl.style.setProperty('--gtt-ty', `${tyPct.toFixed(3)}%`);
+  } else {
+    imgEl.style.setProperty('--gtt-scale', '1');
+    imgEl.style.setProperty('--gtt-ty', '0%');
   }
 };
+
+function refreshAllCarCardFraming() {
+  document.querySelectorAll('#garageGrid .car-card-img').forEach(imgEl => {
+    if (imgEl.complete && imgEl.naturalWidth) {
+      window.handleCarCardImgLoad(imgEl, imgEl.dataset.configuredPos || '');
+    }
+  });
+}
+
+if (!window._gttCarFramingResizeBound) {
+  window._gttCarFramingResizeBound = true;
+  let framingResizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(framingResizeTimer);
+    framingResizeTimer = setTimeout(refreshAllCarCardFraming, 120);
+  }, { passive: true });
+}
 
 // Render Garage Grid with smooth animation & bilingual support
 function renderGarageGrid(filterType) {
@@ -4661,7 +4770,8 @@ function renderGarageGrid(filterType) {
             <img class="car-card-img ${car.isPhoto ? 'photo-fit' : ''}" 
                  src="${convertGoogleDriveUrl(car.img)}" 
                  alt="${name}" 
-                 style="${car.objectPosition ? `object-position: ${car.objectPosition} !important;` : ''}"
+                 data-configured-pos="${escapeHtml(car.objectPosition || '')}"
+                 style="${car.objectPosition ? `object-position: ${escapeHtml(car.objectPosition)} !important;` : ''}"
                  onload="handleCarCardImgLoad(this, '${escapeJS(car.objectPosition || '')}')"
                  onerror="this.onerror=null; this.src='${car.fallbackImg || 'assets/cars/gtt_classified_car.svg'}';">
           </div>
@@ -4695,6 +4805,7 @@ function renderGarageGrid(filterType) {
         </div>
         `;
       }).join('');
+      requestAnimationFrame(refreshAllCarCardFraming);
     } catch (err) {
       console.error('Error in renderGarageGrid:', err);
     } finally {

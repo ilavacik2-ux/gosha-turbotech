@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/admin.css?v=20261107_v5">
+  <link rel="stylesheet" href="css/admin.css?v=20261110_v2">
 </head>
 <body>
 
@@ -132,23 +132,23 @@
             </div>
           </div>
 
-          <a href="index.html" class="topbar-btn outline-btn" target="_blank" title="Открыть сайт"><span class="topbar-open-text">Открыть </span>сайт ↗</a>
-          <button class="topbar-btn danger-btn" onclick="handleAdminLogout()">Выйти</button>
+          <a href="index.html" class="topbar-btn outline-btn" target="_blank" title="Открыть сайт"><span class="topbar-open-text">Открыть </span>Сайт ↗</a>
+          <button type="button" class="topbar-btn danger-btn" onclick="handleAdminLogout()">Выйти</button>
         </div>
       </div>
 
       <!-- Navigation Tabs Strip (Dedicated Second Level) -->
-      <nav class="admin-subnav-strip">
-        <div class="admin-nav-tabs" id="adminNavTabs">
-          <button class="admin-tab-btn active" data-tab="cars" draggable="true" onclick="switchAdminTab('cars')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>🏎️ Гараж проектов</button>
-          <button class="admin-tab-btn" data-tab="traffic" draggable="true" onclick="switchAdminTab('traffic')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>📊 Трафик</button>
-          <button class="admin-tab-btn" data-tab="gallery" draggable="true" onclick="switchAdminTab('gallery')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>📸 Галерея</button>
-          <button class="admin-tab-btn" data-tab="team" draggable="true" onclick="switchAdminTab('team')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>👥 Команда</button>
-          <button class="admin-tab-btn" data-tab="partners" draggable="true" onclick="switchAdminTab('partners')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>🤝 Партнеры</button>
-          <button class="admin-tab-btn" data-tab="moto" draggable="true" onclick="switchAdminTab('moto')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>🏍️ Мотоциклы</button>
-          <button class="admin-tab-btn" data-tab="records" draggable="true" onclick="switchAdminTab('records')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>⏱️ Рекорды</button>
-          <button class="admin-tab-btn" data-tab="media" draggable="true" onclick="switchAdminTab('media')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>🎥 Медиа</button>
-          <button class="admin-tab-btn" data-tab="settings" draggable="true" onclick="switchAdminTab('settings')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>⚙️ Безопасность</button>
+      <nav class="admin-subnav-strip" aria-label="Разделы панели управления">
+        <div class="admin-nav-tabs" id="adminNavTabs" role="tablist" aria-label="Разделы панели">
+          <button type="button" role="tab" aria-selected="true" class="admin-tab-btn active" data-tab="cars" draggable="true" onclick="switchAdminTab('cars')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>🏎️ Гараж проектов</button>
+          <button type="button" role="tab" aria-selected="false" class="admin-tab-btn" data-tab="traffic" draggable="true" onclick="switchAdminTab('traffic')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>📊 Трафик</button>
+          <button type="button" role="tab" aria-selected="false" class="admin-tab-btn" data-tab="gallery" draggable="true" onclick="switchAdminTab('gallery')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>📸 Галерея</button>
+          <button type="button" role="tab" aria-selected="false" class="admin-tab-btn" data-tab="team" draggable="true" onclick="switchAdminTab('team')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>👥 Команда</button>
+          <button type="button" role="tab" aria-selected="false" class="admin-tab-btn" data-tab="partners" draggable="true" onclick="switchAdminTab('partners')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>🤝 Партнеры</button>
+          <button type="button" role="tab" aria-selected="false" class="admin-tab-btn" data-tab="moto" draggable="true" onclick="switchAdminTab('moto')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>🏍️ Мотоциклы</button>
+          <button type="button" role="tab" aria-selected="false" class="admin-tab-btn" data-tab="records" draggable="true" onclick="switchAdminTab('records')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>⏱️ Рекорды</button>
+          <button type="button" role="tab" aria-selected="false" class="admin-tab-btn" data-tab="media" draggable="true" onclick="switchAdminTab('media')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>🎥 Медиа</button>
+          <button type="button" role="tab" aria-selected="false" class="admin-tab-btn" data-tab="settings" draggable="true" onclick="switchAdminTab('settings')" title="Зажмите и перетащите вкладку для изменения порядка"><span class="admin-tab-drag-handle">⠿</span>⚙️ Безопасность</button>
         </div>
       </nav>
     </header>
@@ -453,7 +453,7 @@
             </button>
           </div>
 
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); gap: 20px;">
             <!-- Banner 1: Flagship M1000RR -->
             <div style="background: rgba(14, 18, 26, 0.7); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 16px;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
@@ -776,11 +776,13 @@
             <!-- Live Image Preview Box -->
             <div class="admin-img-preview-wrap" id="carImgPreviewWrap" style="display: none;">
               <div class="preview-header">
-                <span class="preview-label">Предпросмотр фото:</span>
+                <span class="preview-label">Предпросмотр на карточке (4:3):</span>
                 <button type="button" class="btn-clear-preview" onclick="clearCarPhotoPreview()">&times; Убрать фото</button>
               </div>
-              <div class="preview-img-container" style="max-height: 220px; overflow: hidden; border-radius: 8px; background: #000; border: 1px solid rgba(255,255,255,0.12);">
-                <img id="carImgPreview" src="" alt="Предпросмотр фото" onerror="handleCarImgPreviewError(this)" style="width: 100%; height: 200px; object-fit: cover; object-position: center 50%; display: block;">
+              <div class="car-preview-container">
+                <div class="car-preview-frame" id="carImgPreviewFrame">
+                  <img id="carImgPreview" src="" alt="Предпросмотр фото" onload="syncCarPreviewFraming()" onerror="handleCarImgPreviewError(this)">
+                </div>
                 <div class="preview-meta" id="carImgMeta">
                   <span class="meta-name" id="carImgMetaName">Файл не выбран</span>
                   <span class="meta-info" id="carImgMetaInfo">Разрешение и размер</span>
@@ -864,9 +866,9 @@
       </div>
       <form id="teamEditForm" novalidate onsubmit="saveTeamMember(event)">
         <input type="hidden" id="editMemberId">
-        <div style="display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap;">
+        <div class="team-modal-split" style="display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap;">
           <!-- Left side inputs -->
-          <div style="flex: 1; min-width: 280px;">
+          <div class="team-modal-form-col" style="flex: 1; min-width: 280px;">
             <div class="form-group" style="margin-bottom: 14px;">
               <label>Имя специалиста *</label>
               <input type="text" id="editMemberName" placeholder="Эдик, Рустам, Роман..." oninput="updateTeamLiveCardPreview()">
@@ -926,7 +928,7 @@
           </div>
 
           <!-- Right side Live Photo Card Preview -->
-          <div style="width: 240px; flex-shrink: 0; background: rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 14px; text-align: center;">
+          <div class="team-modal-preview-card" style="width: 240px; flex-shrink: 0; background: rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 14px; text-align: center;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
               <span style="font-size: 10.5px; text-transform: uppercase; font-family: var(--font-mono); color: var(--gtt-orange); font-weight: 700;">Фото справа:</span>
               <button type="button" class="btn-clear-preview" onclick="clearTeamPhotoPreview()" style="font-size: 11px;">&times; Сброс</button>
@@ -1158,9 +1160,9 @@
                 <span class="preview-label">Предпросмотр кадра галереи:</span>
                 <button type="button" class="btn-clear-preview" onclick="clearGalleryPhotoPreview()">&times; Очистить</button>
               </div>
-              <div class="preview-img-container" style="max-height: 220px; overflow: hidden; border-radius: 8px; background: #000; border: 1px solid rgba(255,255,255,0.12);">
+              <div class="preview-img-container" style="flex-direction: column; align-items: stretch; gap: 6px; max-height: none; overflow: hidden; border-radius: 8px; background: #000; border: 1px solid rgba(255,255,255,0.12); padding: 8px;">
                 <img id="galleryImgPreview" src="" alt="Предпросмотр фото" style="width: 100%; height: 200px; object-fit: cover; object-position: center 50%; display: block;" onerror="this.onerror=null; this.src='assets/photos/huracan_zelenka_gtt.jpg';">
-                <div class="preview-meta" id="galleryImgMeta" style="margin-top: 6px; display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">
+                <div class="preview-meta" id="galleryImgMeta" style="margin-top: 2px; display: flex; flex-direction: row; justify-content: space-between; font-size: 11px; color: var(--text-muted); font-family: var(--font-mono);">
                   <span class="meta-name" id="galleryImgMetaName">Файл не выбран</span>
                   <span class="meta-info" id="galleryImgMetaInfo" style="color: #22c55e;">● Готово</span>
                 </div>
@@ -1481,6 +1483,6 @@
   </div>
 
   <script src="js/media-db.js?v=20261107_v5"></script>
-  <script src="js/admin.js?v=20261108_v1"></script>
+  <script src="js/admin.js?v=20261110_v2"></script>
 </body>
 </html>

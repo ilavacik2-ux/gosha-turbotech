@@ -1223,6 +1223,10 @@ body.is-loading {
   height: 100%;
   object-fit: cover;
   object-position: center 54%;
+  --gtt-ty: 0%;
+  --gtt-scale: 1;
+  --gtt-hover-scale: 1;
+  transform: translateY(var(--gtt-ty, 0%)) scale(calc(var(--gtt-scale, 1) * var(--gtt-hover-scale, 1)));
   transition: transform 0.6s var(--ease-out-expo), filter 0.6s ease;
   filter: contrast(1.06) brightness(0.96);
 }
@@ -1261,11 +1265,13 @@ body.is-loading {
   height: 100% !important;
   object-fit: cover !important;
   object-position: center center !important;
+  --gtt-ty: 0% !important;
+  --gtt-scale: 1 !important;
   filter: contrast(1.05) brightness(1.02);
 }
 
 .car-card:hover .car-card-img {
-  transform: scale(1.04);
+  --gtt-hover-scale: 1.04;
   filter: contrast(1.1) brightness(1.02);
 }
 
@@ -6070,7 +6076,8 @@ body.modal-open {
   .car-card-img {
     object-fit: cover;
   }
-  .car-card-img[src*=".png"] {
+  .car-card-img[src*="-min.png"]:not(.photo-fit),
+  .car-card-img[src*="gtr_moses.png"] {
     object-fit: contain !important;
     padding: 6px;
   }

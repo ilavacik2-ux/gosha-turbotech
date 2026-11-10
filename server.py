@@ -499,9 +499,14 @@ async def logout(request: Request):
     elif "x-admin-token" in request.headers:
         token = request.headers["x-admin-token"].strip()
     
-    if token and token in ACTIVE_SESSIONS:
+    if token:
         ACTIVE_SESSIONS.pop(token, None)
+        database.delete_session(token)
     return {"status": "ok", "message": "Сессия успешно завершена"}
+
+@app.get("/api/auth/verify")
+async def verify_session_endpoint(session: str = Depends(verify_admin_session)):
+    return {"status": "ok", "valid": True}
 
 @app.post("/api/auth/change-password")
 async def change_password(req: ChangePasswordRequest, session: str = Depends(verify_admin_session)):
