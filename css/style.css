@@ -1080,17 +1080,23 @@ body.is-loading {
 }
 
 .car-card-fade-in {
-  animation: cardFadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: cardFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity, filter;
 }
 
 @keyframes cardFadeUp {
   0% {
     opacity: 0;
-    transform: translateY(20px) scale(0.97);
+    transform: translateY(36px) scale(0.96);
+    filter: blur(6px);
+  }
+  60% {
+    filter: blur(0px);
   }
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
+    filter: blur(0px);
   }
 }
 
@@ -1099,7 +1105,7 @@ body.is-loading {
   border: 1px solid var(--border-subtle);
   border-radius: 18px;
   overflow: hidden;
-  transition: transform 0.4s var(--ease-out-expo), border-color 0.4s ease, box-shadow 0.4s ease;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.55s cubic-bezier(0.16, 1, 0.3, 1);
   backdrop-filter: blur(15px);
   position: relative;
   display: flex;
@@ -1125,9 +1131,9 @@ body.is-loading {
 }
 
 .car-card:hover {
-  transform: translateY(-10px);
-  border-color: var(--border-glow);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.75), 0 0 35px rgba(255, 100, 37, 0.16);
+  transform: translateY(-8px) scale(1.012);
+  border-color: rgba(255, 100, 37, 0.45);
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.75), 0 0 35px rgba(255, 100, 37, 0.22);
 }
 
 .car-card-badge {
@@ -2313,7 +2319,7 @@ body.is-loading {
   border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.08));
   border-radius: 12px;
   overflow: hidden;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.55s cubic-bezier(0.16, 1, 0.3, 1);
   backdrop-filter: blur(15px);
   display: flex;
   flex-direction: column;
@@ -2321,10 +2327,15 @@ body.is-loading {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
+.team-card-fade-in {
+  animation: cardFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity, filter;
+}
+
 .team-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--gtt-orange);
-  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.7), 0 0 24px var(--gtt-orange-glow);
+  transform: translateY(-8px) scale(1.018);
+  border-color: rgba(255, 100, 37, 0.55);
+  box-shadow: 0 20px 42px rgba(0, 0, 0, 0.75), 0 0 28px rgba(255, 100, 37, 0.25);
 }
 
 /* Prestigious Specialist Badge Mode (Uniform with Photo Cards) */
@@ -6740,17 +6751,21 @@ body.modal-open {
   z-index: 4;
 }
 
-/* 5. Cinematic Reveal on Scroll */
+/* 5. Cinematic Reveal on Scroll (Apple & Invoxy Style Fluid Physics) */
 .reveal-init {
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
+  transform: translateY(38px) scale(0.97);
+  filter: blur(8px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
 }
 
 .reveal-init.revealed {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+  filter: blur(0px);
 }
 
 /* ==========================================================================

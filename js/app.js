@@ -4142,7 +4142,7 @@ function renderTeamGrid(teamList) {
         </div>`;
 
     return `
-      <div class="team-card ${hasPhoto ? 'has-photo' : 'has-placeholder'}" data-team-dept="${dept}">
+      <div class="team-card team-card-fade-in ${hasPhoto ? 'has-photo' : 'has-placeholder'}" data-team-dept="${dept}" style="animation-delay: ${(idx % 10) * 0.06}s">
         <div class="team-card-photo">
           ${photoMarkup}
         </div>
@@ -4785,7 +4785,7 @@ function renderGarageGrid(filterType) {
         const showVideoBtn = Boolean(car.videoSrc || car.video_src || car.youtubeId);
 
         return `
-        <div class="car-card car-card-fade-in ${isClass ? 'is-classified' : ''} ${isNewCar ? 'is-new-car-pending' : ''}" data-id="${car.id}" onclick="openCarModal('${car.id}')" style="cursor: pointer; animation-delay: ${idx * 0.04}s">
+        <div class="car-card car-card-fade-in ${isClass ? 'is-classified' : ''} ${isNewCar ? 'is-new-car-pending' : ''}" data-id="${car.id}" onclick="openCarModal('${car.id}')" style="cursor: pointer; animation-delay: ${(idx % 8) * 0.07}s">
           ${isNewCar 
             ? `<span class="car-card-badge is-new-badge">${currentLang === 'ru' ? 'НОВЫЙ ПРОЕКТ // ВЫБОР ФОТО' : 'NEW BUILD // PENDING PHOTO'}</span>` 
             : ''
