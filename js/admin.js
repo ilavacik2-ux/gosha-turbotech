@@ -3617,7 +3617,16 @@ function renderCarsTable() {
           </div>
         </div>
       </td>
-      <td><span class="tag-pill">${brand}</span></td>
+      <td>
+        <button type="button" class="tag-pill" onclick="toggleCarCategoryQuick('${carIdAttr}', event)" title="Нажмите, чтобы переключить: Гоночный RDRC <-> Гражданский тюнинг" style="cursor: pointer; border-radius: 4px; padding: 4px 8px; ${(car.category || 'race') === 'street' ? 'background:rgba(56, 189, 248, 0.18); border-color:rgba(56, 189, 248, 0.5); color:#38bdf8;' : 'background:rgba(234, 91, 12, 0.16); border-color:rgba(234, 91, 12, 0.45); color:var(--gtt-orange);'} font-weight:700; transition: all 0.2s ease;">
+          ${(car.category || 'race') === 'street' ? '🏙️ Гражданский (Стрит)' : '🏁 Гоночный (RDRC)'} ⇄
+        </button>
+      </td>
+      <td>
+        ${(car.is_published !== 0 && car.is_published !== false && car.isPublished !== false) 
+          ? '<span style="color: #4ade80; font-size: 11.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">🟢 На сайте</span>' 
+          : `<span style="color: #fbbf24; font-size: 11px; font-weight: 700; background: rgba(251, 191, 36, 0.12); border: 1px solid rgba(251, 191, 36, 0.35); padding: 2px 7px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px;">📝 Черновик (${car.completeness || 40}%)</span>`}
+      </td>
       <td style="color: var(--gtt-orange); font-weight: 700;">${hp}</td>
       <td style="font-family: var(--font-mono);">${quarter}</td>
       <td>
@@ -3649,9 +3658,33 @@ function renderCarsTable() {
       if (targetRow) {
         targetRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
-    }, 40);
+}
+
+async function toggleCarCategoryQuick(carId, event) {
+  if (event && event.stopPropagation) event.stopPropagation();
+  const projects = getDB(ADMIN_STORAGE_KEY, defaultProjects);
+  const car = projects.find(c => c.id === carId);
+  if (!car) return;
+
+  const oldCat = (car.category || 'race').toLowerCase();
+  const newCat = (oldCat === 'street') ? 'race' : 'street';
+  car.category = newCat;
+  setDB(ADMIN_STORAGE_KEY, projects);
+  renderCarsTable();
+
+  try {
+    await apiFetch(`/api/cars/${encodeURIComponent(carId)}`, {
+      method: 'PUT',
+      body: JSON.stringify({ ...car, category: newCat })
+    });
+    const label = (newCat === 'street') ? '🏙️ Гражданский тюнинг' : '🏁 Гоночные болиды RDRC';
+    showToast('Категория изменена', `«${car.name_ru || car.nameRu || car.id}» перенесен в: ${label}`, 'success', 3500);
+    addAuditNotification('updated', `Смена категории [${car.id}]: ${oldCat} -> ${newCat}`);
+  } catch (err) {
+    showToast('Сохранено локально', 'Изменение категории сохранено в браузере', 'info', 3000);
   }
 }
+window.toggleCarCategoryQuick = toggleCarCategoryQuick;
 
 
 // ==========================================================================
@@ -3872,10 +3905,23 @@ async function handleGenericUpload(file, { inputId, previewWrapId, previewImgId,
       showToast('Неверный формат', 'Пожалуйста, выберите видеофайл (MP4, WebM, MOV)', 'warning');
       return;
     }
-  } else {
-    const validImg = file.type.startsWith('image/') || /\.(jpg|jpeg|png|webp|avif|gif)$/i.test(file.name);
-    if (!validImg) {
-      showToast('Неверный формат', 'Пожалуйста, выберите изображение (JPG, PNG, WebP, AVIF, GIF)', 'warning');
+    const fileNameLower = (file.name || '').toLowerCase();
+    const unsupportedExts = /\.(psd|ai|eps|pdf|tiff|tif|raw|cr2|nef|dng)$/i;
+    if (unsupportedExts.test(fileNameLower)) {
+      const extMatch = fileNameLower.match(/\.([a-z0-9]+)$/);
+      const ext = extMatch ? extMatch[1].toUpperCase() : 'файла';
+      showToast(
+        `Формат ${ext} не поддерживается`,
+        `Браузеры не умеют отображать файлы ${ext}. Пожалуйста, сохраните/экспортируйте фото как JPG, PNG или WebP.`,
+        'warning',
+        7000
+      );
+      return;
+    }
+    const isKnownWebImg = /\.(jpg|jpeg|png|webp|avif|gif|svg)$/i.test(fileNameLower);
+    const isImageMime = file.type && file.type.startsWith('image/') && !file.type.includes('photoshop') && !file.type.includes('psd');
+    if (!isKnownWebImg && !isImageMime) {
+      showToast('Неверный формат', 'Пожалуйста, выберите изображение (JPG, PNG, WebP или AVIF)', 'warning');
       return;
     }
   }
@@ -4708,6 +4754,23 @@ function openCarEditModal(carId, targetFeaturedSlot = null) {
     document.getElementById('editVideoSrc').value = videoSrc;
     document.getElementById('editDescRu').value = descRu;
 
+    const category = (car.category || 'race').toLowerCase();
+    const isPublished = (car.is_published !== 0 && car.is_published !== false && car.isPublished !== false);
+    const completeness = parseInt(car.completeness !== undefined ? car.completeness : 100, 10);
+
+    const catSelect = document.getElementById('editCategory');
+    if (catSelect) catSelect.value = category;
+
+    const pubCheckbox = document.getElementById('editIsPublished');
+    if (pubCheckbox) pubCheckbox.checked = isPublished;
+
+    const compBadge = document.getElementById('editCompletenessBadge');
+    if (compBadge) {
+      compBadge.textContent = `Заполнено: ${completeness}%`;
+      compBadge.style.color = completeness >= 80 ? '#4ade80' : (completeness >= 50 ? '#fbbf24' : '#f87171');
+      compBadge.style.borderColor = completeness >= 80 ? 'rgba(74, 222, 128, 0.4)' : (completeness >= 50 ? 'rgba(251, 191, 36, 0.4)' : 'rgba(248, 113, 113, 0.4)');
+    }
+
     const rawPos = car.object_position || car.objectPosition || '';
     const trimmedRawPos = rawPos.trim().toLowerCase();
     carPhotoPosAutoDefault = !trimmedRawPos || trimmedRawPos === 'center center' || trimmedRawPos === 'center';
@@ -4739,6 +4802,15 @@ function openCarEditModal(carId, targetFeaturedSlot = null) {
     title.textContent = `Добавление нового проекта GTT${slotSuffix}`;
     if (form) form.reset();
     document.getElementById('editCarId').value = '';
+    const catSelect = document.getElementById('editCategory');
+    if (catSelect) catSelect.value = 'race';
+    const pubCheckbox = document.getElementById('editIsPublished');
+    if (pubCheckbox) pubCheckbox.checked = true;
+    const compBadge = document.getElementById('editCompletenessBadge');
+    if (compBadge) {
+      compBadge.textContent = 'Новый черновик';
+      compBadge.style.color = '#fbbf24';
+    }
     carPhotoPosAutoDefault = false;
     handleCarPhotoPositionChange(50, false);
     const featCheckbox = document.getElementById('editIsFeatured');
@@ -4811,11 +4883,20 @@ async function saveCarProject(e) {
     isFeaturedVal = (existingCar.is_featured === 1 || existingCar.is_featured === true || existingCar.is_featured === '1' || existingCar.isFeatured === true) ? 1 : 0;
   }
 
+  const catSelect = document.getElementById('editCategory');
+  const finalCategory = catSelect ? catSelect.value : (existingCar?.category || 'race');
+
+  const pubCheckbox = document.getElementById('editIsPublished');
+  const finalIsPublished = pubCheckbox ? (pubCheckbox.checked ? 1 : 0) : (existingCar?.is_published !== undefined ? existingCar.is_published : 1);
+
   const carData = {
     ...(existingCar || {}),
     id: idInput || ('gtt_car_' + Date.now()),
     brand: finalBrand,
     type: finalType,
+    category: finalCategory,
+    is_published: finalIsPublished,
+    isPublished: finalIsPublished === 1,
     name_ru: rawNameRu,
     nameRu: rawNameRu,
     name_en: finalNameEn,
@@ -4834,10 +4915,10 @@ async function saveCarProject(e) {
     videoSrc: finalVideoSrc,
     desc_ru: finalDescRu,
     descRu: finalDescRu,
-    tag_ru: existingCar?.tag_ru || 'RDRC БОЛИД',
-    tag_en: existingCar?.tag_en || 'RDRC CAR',
-    badge_ru: existingCar?.badge_ru || 'GTT Spec',
-    badge_en: existingCar?.badge_en || 'GTT Spec',
+    tag_ru: existingCar?.tag_ru || (finalCategory === 'street' ? 'ГРАЖДАНСКИЙ ТЮНИНГ' : 'RDRC БОЛИД'),
+    tag_en: existingCar?.tag_en || (finalCategory === 'street' ? 'STREET DIVISION' : 'RDRC CAR'),
+    badge_ru: existingCar?.badge_ru || (finalCategory === 'street' ? 'City Spec GTT' : 'GTT Spec'),
+    badge_en: existingCar?.badge_en || (finalCategory === 'street' ? 'City Spec GTT' : 'GTT Spec'),
     is_featured: isFeaturedVal,
     isFeatured: isFeaturedVal === 1,
     sort_order: (existingCar && existingCar.sort_order !== undefined) ? existingCar.sort_order : (projects.length + 1)
@@ -7034,6 +7115,15 @@ function updateMotoPhotoPreview(url) {
   if (!imgEl || !textEl) return;
   const clean = (url || '').trim();
   const objPos = document.getElementById('editMotoObjectPosition')?.value || 'center 50%';
+
+  imgEl.onerror = () => {
+    imgEl.style.display = 'none';
+    if (placeholderEl) {
+      placeholderEl.style.display = 'block';
+      placeholderEl.innerHTML = '<span style="color: #ef4444; font-weight: 600;">⚠️ Файл не может быть отображен в браузере. Поддерживаются только JPG, PNG, WebP и AVIF (исходные файлы Photoshop .PSD требуют экспорта в JPG).</span>';
+    }
+  };
+
   if (clean) {
     imgEl.src = clean;
     imgEl.style.display = 'block';
@@ -7043,7 +7133,10 @@ function updateMotoPhotoPreview(url) {
   } else {
     imgEl.src = '';
     imgEl.style.display = 'none';
-    if (placeholderEl) placeholderEl.style.display = 'block';
+    if (placeholderEl) {
+      placeholderEl.style.display = 'block';
+      placeholderEl.innerHTML = 'Предпросмотр фото мотоцикла отобразится здесь (рекомендуются форматы: JPG, PNG, WebP)';
+    }
     textEl.textContent = 'Файл не выбран';
   }
 }
@@ -7089,6 +7182,30 @@ function clearMotoPhotoPreview() {
 function handleMotoPhotoSelected(event) {
   const file = event.target.files && event.target.files[0];
   if (!file) return;
+
+  const fileNameLower = (file.name || '').toLowerCase();
+  const unsupportedExts = /\.(psd|ai|eps|pdf|tiff|tif|raw|cr2|nef|dng)$/i;
+  if (unsupportedExts.test(fileNameLower)) {
+    const extMatch = fileNameLower.match(/\.([a-z0-9]+)$/);
+    const ext = extMatch ? extMatch[1].toUpperCase() : 'файла';
+    showToast(
+      `Формат ${ext} не поддерживается`,
+      `Браузеры не умеют отображать файлы Photoshop (${ext}). В Photoshop нажмите «Файл → Экспортировать как... → JPG» и загрузите полученный JPG.`,
+      'warning',
+      8000
+    );
+    if (event.target) event.target.value = '';
+    return;
+  }
+
+  const isKnownWebImg = /\.(jpg|jpeg|png|webp|avif|gif|svg)$/i.test(fileNameLower);
+  const isImageMime = file.type && file.type.startsWith('image/') && !file.type.includes('photoshop') && !file.type.includes('psd');
+  if (!isKnownWebImg && !isImageMime) {
+    showToast('Неверный формат', 'Пожалуйста, выберите изображение в формате JPG, PNG или WebP', 'warning', 6000);
+    if (event.target) event.target.value = '';
+    return;
+  }
+
   const input = document.getElementById('editMotoImg');
   const reader = new FileReader();
   reader.onload = async (e) => {

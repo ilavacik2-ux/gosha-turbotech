@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-  <meta name="theme-color" content="#07080a">
+  <meta name="theme-color" content="#070709">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="referrer" content="no-referrer">
@@ -17,15 +17,18 @@
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Oswald:wght@500;600;700&family=Unbounded:wght@700;800;900&display=swap" rel="stylesheet">
   <link rel="dns-prefetch" href="https://yandex.ru">
   <link rel="dns-prefetch" href="https://api-maps.yandex.ru">
   <link rel="preconnect" href="https://yandex.ru">
   <link rel="preconnect" href="https://api-maps.yandex.ru" crossorigin>
-  <link rel="stylesheet" href="css/style.css?v=20261110_v3">
+  <link rel="preload" href="assets/fonts/S-Core%20-%20CoreSansD75Black-Italic.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="assets/fonts/S-Core%20-%20CoreSansD55Bold.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="assets/fonts/DAGGERSQUARE%20OBLIQUE.otf" as="font" type="font/otf" crossorigin>
+  <link rel="stylesheet" href="css/style.css?v=20261114_brandfont">
   <style>
-    html, body { background-color: #050608 !important; color: #fff; margin: 0; }
-    #preloader { position: fixed; inset: 0; z-index: 999999; background: #050608; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s ease; }
+    html, body { background-color: #070709 !important; color: #fff; margin: 0; }
+    #preloader { position: fixed; inset: 0; z-index: 999999; background: #070709; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s ease; }
     #preloader.fade-out { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
     .preloader-shield-img { width: 110px; height: 110px; object-fit: contain; image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; }
     .brand-shield-img { width: 44px; height: 44px; object-fit: contain; image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; }
@@ -155,7 +158,7 @@
   <section class="hero" id="hero">
     <div class="hero-bg-container">
       <div class="hero-backdrop-img" id="heroBackdropImg"></div>
-      <video class="hero-video-bg" id="heroVideoBg" autoplay loop muted playsinline webkit-playsinline preload="auto" poster="assets/photos/hero_atelier_backdrop_web.jpg">
+      <video class="hero-video-bg" id="heroVideoBg" autoplay loop muted playsinline webkit-playsinline preload="none" poster="assets/photos/hero_atelier_backdrop_web.jpg">
         <source src="assets/videos/hero_bg_optimized.mp4" type="video/mp4">
         <source src="assets/videos/hero_burnout_action.mp4" type="video/mp4">
       </video>
@@ -218,15 +221,29 @@
       <p class="section-subtitle" data-i18n="garage_subtitle">Кастомные биллетовые двигатели, двойной турбонаддув, блоки управления MoTeC и Syvecs, подготовка к Чемпионату России RDRC и рекордным заездам.</p>
     </div>
 
+    <!-- High-End Category Switch Tabs: Race Builds vs Street / City Division -->
+    <div class="project-category-tabs" id="projectCategoryTabs">
+      <button type="button" class="category-tab-btn active" data-category="race" onclick="setProjectCategory('race')">
+        <span class="cat-icon">🏁</span>
+        <span class="cat-title" data-i18n="cat_race">Гоночные болиды RDRC</span>
+        <span class="cat-count" id="countRaceProjects">31</span>
+      </button>
+      <button type="button" class="category-tab-btn" data-category="street" onclick="setProjectCategory('street')">
+        <span class="cat-icon">🏙️</span>
+        <span class="cat-title" data-i18n="cat_street">Гражданский тюнинг</span>
+        <span class="cat-count" id="countStreetProjects">3</span>
+      </button>
+    </div>
+
     <!-- Filter Pills for Cars (Hidden by default; revealed when expanded) -->
     <div class="filter-pills" id="carsFilterPills" style="display: none;">
-      <button class="filter-pill active" data-filter="all" data-i18n="filter_all">Все проекты (31)</button>
-      <button class="filter-pill" data-filter="gtr">Nissan GT-R (11)</button>
-      <button class="filter-pill" data-filter="porsche">Porsche GTT (5)</button>
-      <button class="filter-pill" data-filter="lambo">Lamborghini TT (4)</button>
-      <button class="filter-pill" data-filter="audi">Audi R8 TT (3)</button>
-      <button class="filter-pill" data-filter="bmw">BMW M-Power (2)</button>
-      <button class="filter-pill" data-filter="other" data-i18n="filter_other">Эксклюзив &amp; Маслкары (6)</button>
+      <button class="filter-pill active" data-filter="all" data-i18n="filter_all">Все проекты</button>
+      <button class="filter-pill" data-filter="gtr">Nissan GT-R</button>
+      <button class="filter-pill" data-filter="porsche">Porsche GTT</button>
+      <button class="filter-pill" data-filter="lambo">Lamborghini TT</button>
+      <button class="filter-pill" data-filter="audi">Audi R8 TT</button>
+      <button class="filter-pill" data-filter="bmw">BMW M-Power</button>
+      <button class="filter-pill" data-filter="other" data-i18n="filter_other">Эксклюзив &amp; Другое</button>
     </div>
 
     <!-- Dynamic Cars Grid -->
@@ -248,7 +265,7 @@
     <div class="founder-container">
       <div class="founder-visual">
         <div class="founder-img-wrapper" id="founderGalleryWrapper">
-          <img src="assets/photos/gosha_strip_selfie.jpg" alt="Гоша Перцхелия GoshaTurboTech" id="founderImg" class="founder-active-img">
+          <img decoding="async" loading="lazy" src="assets/photos/gosha_strip_selfie.jpg" alt="Гоша Перцхелия GoshaTurboTech" id="founderImg" class="founder-active-img">
           
           <!-- Interactive Photo Switcher Controls -->
           <button class="founder-gallery-btn prev-btn" onclick="switchFounderPhoto(-1)" aria-label="Предыдущее фото">
@@ -343,7 +360,6 @@
     <div class="records-bg-backdrop"></div>
 
     <div class="section-header" style="position: relative; z-index: 5;">
-
       <h2 class="section-title" data-i18n="records_title">Мировые рекорды и победы RDRC</h2>
       <p class="section-subtitle" data-i18n="records_subtitle">Более 15 лет непрерывных побед на дистанциях 402 м, 804 м, 1000 м и ледовых трассах.</p>
     </div>
@@ -358,7 +374,7 @@
         <div class="records-carousel-track" id="recordsCarouselTrack">
           <div class="record-item" data-id="rec_moses">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/gtr_moses.png" alt="NISSAN GT-R R35 «MOSES»" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/archive_tilda/gtr_moses.png" alt="NISSAN GT-R R35 «MOSES»" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">UNLIM 500+ • 2016</span>
@@ -376,10 +392,10 @@
           </div>
           <div class="record-item" data-id="rec_draco">
             <div class="record-photo-wrapper">
-              <img src="assets/cars/gtr_draco_promod_front.jpg" alt="NISSAN GT-R DRACO PRO-MOD #300" class="record-photo-img" style="object-position: center 65%;" decoding="async" onload="handleRecordImgLoad(this)">
+              <img loading="lazy" src="assets/cars/gtr_draco_promod_front.jpg" alt="NISSAN GT-R R35 «DRACO» #300" class="record-photo-img" style="object-position: center 65%;" decoding="async" onload="handleRecordImgLoad(this)">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
-                <span class="record-event-pill">RDRC PRO-MOD • 2024</span>
+                <span class="record-event-pill">RDRC • 2024</span>
                 <span class="record-num-pill">#02</span>
               </div>
             </div>
@@ -388,13 +404,13 @@
                 <span class="record-hero-time">7.694 <span class="record-hero-unit">СЕК</span></span>
                 <span class="record-hero-speed">304.44 КМ/Ч • 1/4 МИЛИ</span>
               </div>
-              <h3 class="record-car-title">NISSAN GT-R DRACO PRO-MOD #300</h3>
+              <h3 class="record-car-title">NISSAN GT-R R35 «DRACO» #300</h3>
               <p class="record-car-desc">Флагман дрэг-рейсинга России. Выход из 1/2 мили 323.88 км/ч.</p>
             </div>
           </div>
           <div class="record-item" data-id="rec_kurdalagon">
             <div class="record-photo-wrapper">
-              <img src="assets/cars/gtr_korzhik_712.jpg" alt="NISSAN GT-R R35 «КУРДАЛАГОН»" class="record-photo-img" decoding="async" onload="handleRecordImgLoad(this)">
+              <img loading="lazy" src="assets/cars/gtr_korzhik_712.jpg" alt="NISSAN GT-R R35 «КУРДАЛАГОН»" class="record-photo-img" decoding="async" onload="handleRecordImgLoad(this)">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">RDRC БЫКОВО • 2026</span>
@@ -412,7 +428,7 @@
           </div>
           <div class="record-item" data-id="rec_rokot">
             <div class="record-photo-wrapper">
-              <img src="assets/cars/audi_r8_tsmr_launch.jpg" alt="AUDI R8 V10 PLUS TT «ROKOT»" class="record-photo-img" style="object-position: center 68%;" decoding="async" onload="handleRecordImgLoad(this)">
+              <img loading="lazy" src="assets/cars/audi_r8_tsmr_launch.jpg" alt="AUDI R8 V10 PLUS TT «ROKOT»" class="record-photo-img" style="object-position: center 68%;" decoding="async" onload="handleRecordImgLoad(this)">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">РЕКОРД РОССИИ • 2026</span>
@@ -430,7 +446,7 @@
           </div>
           <div class="record-item" data-id="rec_bezzubik">
             <div class="record-photo-wrapper">
-              <img src="assets/photos/huracan_rdrc_stage_line.jpg" alt="HURACAN TT «BEZZUBIK»" class="record-photo-img" decoding="async" onload="handleRecordImgLoad(this)">
+              <img loading="lazy" src="assets/photos/huracan_rdrc_stage_line.jpg" alt="HURACAN TT «BEZZUBIK»" class="record-photo-img" decoding="async" onload="handleRecordImgLoad(this)">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">RACE 1000 • ГЕРМАНИЯ</span>
@@ -448,7 +464,7 @@
           </div>
           <div class="record-item" data-id="rec_zelenka">
             <div class="record-photo-wrapper">
-              <img src="assets/photos/huracan_zelenka_gtt.jpg" alt="HURACAN TT «ЗЕЛЕНКА»" class="record-photo-img" style="object-position: 32% 60%;" decoding="async" onload="handleRecordImgLoad(this)">
+              <img loading="lazy" src="assets/photos/huracan_zelenka_gtt.jpg" alt="HURACAN TT «ЗЕЛЕНКА»" class="record-photo-img" style="object-position: 32% 60%;" decoding="async" onload="handleRecordImgLoad(this)">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">ROLLING 50 1000</span>
@@ -466,7 +482,7 @@
           </div>
           <div class="record-item" data-id="rec_lucifer">
             <div class="record-photo-wrapper">
-              <img src="assets/cars/gtr_lucifer_solo.jpg" alt="NISSAN GT-R R35 «LUCIFER» #71" class="record-photo-img" style="object-position: 55% 65%;" decoding="async" onload="handleRecordImgLoad(this)">
+              <img loading="lazy" src="assets/cars/gtr_lucifer_solo.jpg" alt="NISSAN GT-R R35 «LUCIFER» #71" class="record-photo-img" style="object-position: 55% 65%;" decoding="async" onload="handleRecordImgLoad(this)">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">RDRC 2026 • ЧЕМПИОН</span>
@@ -484,7 +500,7 @@
           </div>
           <div class="record-item" data-id="rec_korzhik">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/gtr_korzhik.png" alt="NISSAN GT-R R35 «KORZHIK» #712" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/archive_tilda/gtr_korzhik.png" alt="NISSAN GT-R R35 «KORZHIK» #712" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">МОСКОВСКАЯ МИЛЯ</span>
@@ -502,7 +518,7 @@
           </div>
           <div class="record-item" data-id="rec_hulk">
             <div class="record-photo-wrapper">
-              <img src="assets/cars/huracan_green_grey_rdrc.jpg" alt="HURACAN LP610-4 «HULK»" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/cars/huracan_green_grey_rdrc.jpg" alt="HURACAN LP610-4 «HULK»" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">СУПЕРКУБОК RDRC</span>
@@ -520,7 +536,7 @@
           </div>
           <div class="record-item" data-id="rec_tonystark">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/audi_r8_tonystark.png" alt="AUDI R8 V10 PLUS «TONY STARK»" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/archive_tilda/audi_r8_tonystark.png" alt="AUDI R8 V10 PLUS «TONY STARK»" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">RECORD DAYS</span>
@@ -538,7 +554,7 @@
           </div>
           <div class="record-item" data-id="rec_gtt1200">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/porsche_991_gtt1200.jpg" alt="PORSCHE 911 TURBO GTT-1200" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/archive_tilda/porsche_991_gtt1200.jpg" alt="PORSCHE 911 TURBO GTT-1200" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">РЕКОРД ЕВРОПЫ 991</span>
@@ -556,7 +572,7 @@
           </div>
           <div class="record-item" data-id="rec_su7">
             <div class="record-photo-wrapper">
-              <img src="assets/cars/bmw_m5_rdrc_race.jpg" alt="XIAOMI SU7 ULTRA GTT SPEC" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/cars/bmw_m5_rdrc_race.jpg" alt="XIAOMI SU7 ULTRA GTT SPEC" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">СУПЕРКУБОК 2026</span>
@@ -574,7 +590,7 @@
           </div>
           <div class="record-item" data-id="rec_imba">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/porsche_992_imba.jpg" alt="PORSCHE 911 TURBO S IMBA" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/archive_tilda/porsche_992_imba.jpg" alt="PORSCHE 911 TURBO S IMBA" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">МИРОВОЙ ОРИЕНТИР 992</span>
@@ -592,7 +608,7 @@
           </div>
           <div class="record-item" data-id="rec_puncher">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/porsche_992_puncher.jpg" alt="PORSCHE 911 TURBO S PUNCHER" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/archive_tilda/porsche_992_puncher.jpg" alt="PORSCHE 911 TURBO S PUNCHER" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">UNLIM FEST</span>
@@ -610,7 +626,7 @@
           </div>
           <div class="record-item" data-id="rec_gyurza">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/audi_r8_gyurza_ice.jpg" alt="AUDI R8 V10 PLUS «GYURZA»" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/archive_tilda/audi_r8_gyurza_ice.jpg" alt="AUDI R8 V10 PLUS «GYURZA»" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">РЕКОРД ЛЬДА БАЙКАЛА</span>
@@ -628,7 +644,7 @@
           </div>
           <div class="record-item" data-id="rec_gallardo">
             <div class="record-photo-wrapper">
-              <img src="assets/photos/huracan_zelenka_gtt.jpg" alt="LAMBORGHINI GALLARDO NERA TT" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/photos/huracan_zelenka_gtt.jpg" alt="LAMBORGHINI GALLARDO NERA TT" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">МИРОВОЙ РЕКОРД 1 МИЛЯ</span>
@@ -646,7 +662,7 @@
           </div>
           <div class="record-item" data-id="rec_moses_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/gtr_moses.png" alt="NISSAN GT-R R35 «MOSES»" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/archive_tilda/gtr_moses.png" alt="NISSAN GT-R R35 «MOSES»" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">UNLIM 500+ • 2016</span>
@@ -664,10 +680,10 @@
           </div>
           <div class="record-item" data-id="rec_draco_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/cars/gtr_draco_promod_front.jpg" alt="NISSAN GT-R DRACO PRO-MOD #300" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/cars/gtr_draco_promod_front.jpg" alt="NISSAN GT-R R35 «DRACO» #300" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
-                <span class="record-event-pill">RDRC PRO-MOD • 2024</span>
+                <span class="record-event-pill">RDRC • 2024</span>
                 <span class="record-num-pill">#02</span>
               </div>
             </div>
@@ -676,13 +692,13 @@
                 <span class="record-hero-time">7.694 <span class="record-hero-unit">СЕК</span></span>
                 <span class="record-hero-speed">304.44 КМ/Ч • 1/4 МИЛИ</span>
               </div>
-              <h3 class="record-car-title">NISSAN GT-R DRACO PRO-MOD #300</h3>
+              <h3 class="record-car-title">NISSAN GT-R R35 «DRACO» #300</h3>
               <p class="record-car-desc">Флагман дрэг-рейсинга России. Выход из 1/2 мили 323.88 км/ч.</p>
             </div>
           </div>
           <div class="record-item" data-id="rec_kurdalagon_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/gtr_kurdalagon.png" alt="NISSAN GT-R R35 «КУРДАЛАГОН»" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/archive_tilda/gtr_kurdalagon.png" alt="NISSAN GT-R R35 «КУРДАЛАГОН»" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">RDRC БЫКОВО • 2026</span>
@@ -700,7 +716,7 @@
           </div>
           <div class="record-item" data-id="rec_rokot_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/cars/audi_r8_tsmr_launch.jpg" alt="AUDI R8 V10 PLUS TT «ROKOT»" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/cars/audi_r8_tsmr_launch.jpg" alt="AUDI R8 V10 PLUS TT «ROKOT»" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">РЕКОРД РОССИИ • 2026</span>
@@ -718,7 +734,7 @@
           </div>
           <div class="record-item" data-id="rec_bezzubik_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/photos/huracan_rdrc_stage_line.jpg" alt="HURACAN TT «BEZZUBIK»" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/photos/huracan_rdrc_stage_line.jpg" alt="HURACAN TT «BEZZUBIK»" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">RACE 1000 • ГЕРМАНИЯ</span>
@@ -736,7 +752,7 @@
           </div>
           <div class="record-item" data-id="rec_zelenka_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/photos/huracan_zelenka_gtt.jpg" alt="HURACAN TT «ЗЕЛЕНКА»" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/photos/huracan_zelenka_gtt.jpg" alt="HURACAN TT «ЗЕЛЕНКА»" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">ROLLING 50 1000</span>
@@ -754,7 +770,7 @@
           </div>
           <div class="record-item" data-id="rec_lucifer_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/cars/gtr_lucifer_solo.jpg" alt="NISSAN GT-R R35 «LUCIFER» #71" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/cars/gtr_lucifer_solo.jpg" alt="NISSAN GT-R R35 «LUCIFER» #71" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">RDRC 2026 • ЧЕМПИОН</span>
@@ -772,7 +788,7 @@
           </div>
           <div class="record-item" data-id="rec_korzhik_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/gtr_korzhik.png" alt="NISSAN GT-R R35 «KORZHIK» #712" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/archive_tilda/gtr_korzhik.png" alt="NISSAN GT-R R35 «KORZHIK» #712" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">МОСКОВСКАЯ МИЛЯ</span>
@@ -790,7 +806,7 @@
           </div>
           <div class="record-item" data-id="rec_hulk_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/cars/huracan_green_grey_rdrc.jpg" alt="HURACAN LP610-4 «HULK»" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/cars/huracan_green_grey_rdrc.jpg" alt="HURACAN LP610-4 «HULK»" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">СУПЕРКУБОК RDRC</span>
@@ -808,7 +824,7 @@
           </div>
           <div class="record-item" data-id="rec_tonystark_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/audi_r8_tonystark.png" alt="AUDI R8 V10 PLUS «TONY STARK»" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/archive_tilda/audi_r8_tonystark.png" alt="AUDI R8 V10 PLUS «TONY STARK»" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">RECORD DAYS</span>
@@ -826,7 +842,7 @@
           </div>
           <div class="record-item" data-id="rec_gtt1200_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/porsche_991_gtt1200.jpg" alt="PORSCHE 911 TURBO GTT-1200" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/archive_tilda/porsche_991_gtt1200.jpg" alt="PORSCHE 911 TURBO GTT-1200" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">РЕКОРД ЕВРОПЫ 991</span>
@@ -844,7 +860,7 @@
           </div>
           <div class="record-item" data-id="rec_su7_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/cars/bmw_m5_rdrc_race.jpg" alt="XIAOMI SU7 ULTRA GTT SPEC" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/cars/bmw_m5_rdrc_race.jpg" alt="XIAOMI SU7 ULTRA GTT SPEC" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">СУПЕРКУБОК 2026</span>
@@ -862,7 +878,7 @@
           </div>
           <div class="record-item" data-id="rec_imba_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/porsche_992_imba.jpg" alt="PORSCHE 911 TURBO S IMBA" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/archive_tilda/porsche_992_imba.jpg" alt="PORSCHE 911 TURBO S IMBA" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">МИРОВОЙ ОРИЕНТИР 992</span>
@@ -880,7 +896,7 @@
           </div>
           <div class="record-item" data-id="rec_puncher_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/porsche_992_puncher.jpg" alt="PORSCHE 911 TURBO S PUNCHER" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/archive_tilda/porsche_992_puncher.jpg" alt="PORSCHE 911 TURBO S PUNCHER" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">UNLIM FEST</span>
@@ -898,7 +914,7 @@
           </div>
           <div class="record-item" data-id="rec_gyurza_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/archive_tilda/audi_r8_gyurza_ice.jpg" alt="AUDI R8 V10 PLUS «GYURZA»" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/archive_tilda/audi_r8_gyurza_ice.jpg" alt="AUDI R8 V10 PLUS «GYURZA»" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">РЕКОРД ЛЬДА БАЙКАЛА</span>
@@ -916,7 +932,7 @@
           </div>
           <div class="record-item" data-id="rec_gallardo_dup">
             <div class="record-photo-wrapper">
-              <img src="assets/photos/huracan_zelenka_gtt.jpg" alt="LAMBORGHINI GALLARDO NERA TT" class="record-photo-img" decoding="async">
+              <img loading="lazy" src="assets/photos/huracan_zelenka_gtt.jpg" alt="LAMBORGHINI GALLARDO NERA TT" class="record-photo-img" decoding="async">
               <div class="record-photo-overlay"></div>
               <div class="record-photo-badges">
                 <span class="record-event-pill">МИРОВОЙ РЕКОРД 1 МИЛЯ</span>
@@ -955,7 +971,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#01</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -977,7 +993,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#02</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -998,7 +1014,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#03</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1019,7 +1035,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#04</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1040,7 +1056,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#05</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1061,7 +1077,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#06</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1082,7 +1098,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#07</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1103,7 +1119,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#08</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1124,7 +1140,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#09</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1145,7 +1161,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#10</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1166,7 +1182,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#11</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1187,7 +1203,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#12</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1208,7 +1224,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#13</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1229,7 +1245,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#14</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1250,7 +1266,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#15</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1271,7 +1287,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#16</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1292,7 +1308,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#17</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1313,7 +1329,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#18</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1334,7 +1350,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#19</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1355,7 +1371,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#20</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1376,7 +1392,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#21</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1397,7 +1413,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#22</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1418,7 +1434,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#23</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1439,7 +1455,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#24</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1460,7 +1476,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#25</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1481,7 +1497,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#26</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1502,7 +1518,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#27</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1523,7 +1539,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#28</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1544,7 +1560,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#29</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1565,7 +1581,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#30</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1586,7 +1602,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#31</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1607,7 +1623,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#32</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1628,7 +1644,7 @@
         <div class="team-card-photo">
           <div class="team-card-placeholder-photo">
             <div class="team-placeholder-crest">
-              <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
               <span class="team-placeholder-id">#33</span>
             </div>
             <span class="team-placeholder-hint">GTT Atelier</span>
@@ -1676,11 +1692,11 @@
     <div class="moto-hero-banner">
       <div class="moto-hero-media">
         <div class="moto-hero-photo-wrap">
-          <img src="assets/moto/bmw_m1000rr_cafe.jpg" alt="Личный супербайк Гоши BMW M1000RR M-Performance" class="moto-hero-img" id="motoHeroImg1">
+          <img decoding="async" loading="lazy" src="assets/moto/bmw_m1000rr_cafe.jpg" alt="Личный супербайк Гоши BMW M1000RR M-Performance" class="moto-hero-img" id="motoHeroImg1">
           <div class="moto-hero-badge" id="motoHeroBadge1">FLAGSHIP // BMW M1000RR GOSHATURBOTECH</div>
         </div>
         <div class="moto-hero-photo-wrap">
-          <img src="assets/moto/gtt_superbikes_trio_night.jpg" alt="Yamaha R1M & Ducati Panigale & BMW GTT Moto Fleet" class="moto-hero-img" id="motoHeroImg2">
+          <img decoding="async" loading="lazy" src="assets/moto/gtt_superbikes_trio_night.jpg" alt="Yamaha R1M & Ducati Panigale & BMW GTT Moto Fleet" class="moto-hero-img" id="motoHeroImg2">
           <div class="moto-hero-badge" id="motoHeroBadge2">GTT MOTORSPORT FLEET</div>
         </div>
       </div>
@@ -1914,7 +1930,7 @@
       <div class="marquee-track" id="marqueeTrackMain">
 <!-- 1. Huracan Zelenka -->
         <div class="marquee-card" data-raw-title="Huracan TT «Зеленка» GTT" data-raw-tag="RDRC CHAMPION" onclick="openGalleryLightbox('assets/photos/huracan_zelenka_gtt.jpg', 'Легендарная Lamborghini Huracan TT «Зеленка» RDRC')">
-          <img src="assets/photos/huracan_zelenka_gtt.jpg" alt="Huracan Зеленка" decoding="async">
+          <img loading="lazy" src="assets/photos/huracan_zelenka_gtt.jpg" alt="Huracan Зеленка" decoding="async">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">RDRC CHAMPION</span>
             <div class="marquee-card-title">Huracan TT «Зеленка» GTT</div>
@@ -1923,7 +1939,7 @@
 
         <!-- 2. Dodge Demon Burnout -->
         <div class="marquee-card" data-raw-title="Dodge Demon" data-raw-tag="BURNOUT SMOKE" onclick="openGalleryLightbox('assets/cars/dodge_burnout_sunset.jpg', 'Dodge Demon: дымный прогрев сликов на закате RDRC')">
-          <img src="assets/cars/dodge_burnout_sunset.jpg" alt="Dodge Demon Burnout" decoding="async">
+          <img loading="lazy" src="assets/cars/dodge_burnout_sunset.jpg" alt="Dodge Demon Burnout" decoding="async">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">BURNOUT SMOKE</span>
             <div class="marquee-card-title">Dodge Demon</div>
@@ -1932,7 +1948,7 @@
 
         <!-- 3. GT-R Draco Pro-Mod -->
         <div class="marquee-card" data-raw-title="Nissan GT-R R35 Draco Dragster" data-raw-tag="3000+ HP PRO-MOD" onclick="openGalleryLightbox('assets/cars/gtr_draco_promod_front.jpg', '3000+ HP Nissan GT-R R35 Draco Pro-Mod на сликах RDRC')">
-          <img src="assets/cars/gtr_draco_promod_front.jpg" alt="GT-R Draco Pro-Mod" decoding="async">
+          <img loading="lazy" src="assets/cars/gtr_draco_promod_front.jpg" alt="GT-R Draco Pro-Mod" decoding="async">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">3000+ HP PRO-MOD</span>
             <div class="marquee-card-title">Nissan GT-R R35 Draco Dragster</div>
@@ -1941,7 +1957,7 @@
 
         <!-- 4. Audi R8 Rokot Launch -->
         <div class="marquee-card" data-raw-title="Audi R8 V10 Plus TT «Rokot»" data-raw-tag="1400+ HP V10 TT" onclick="openGalleryLightbox('assets/cars/audi_r8_tsmr_launch.jpg', 'Audi R8 V10 Plus TT «Rokot» на стартовой черте RDRC')">
-          <img src="assets/cars/audi_r8_tsmr_launch.jpg" alt="Audi R8 Rokot Launch" decoding="async">
+          <img loading="lazy" src="assets/cars/audi_r8_tsmr_launch.jpg" alt="Audi R8 Rokot Launch" decoding="async">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">1400+ HP V10 TT</span>
             <div class="marquee-card-title">Audi R8 V10 Plus TT «Rokot»</div>
@@ -1950,7 +1966,7 @@
 
         <!-- 5. GT-R Lucifer Solo -->
         <div class="marquee-card" data-raw-title="Nissan GT-R R35 Lucifer" data-raw-tag="CHAMPIONSHIP WINNER" onclick="openGalleryLightbox('assets/cars/gtr_lucifer_solo.jpg', 'Nissan GT-R R35 Lucifer: чемпионский победный болид RDRC')">
-          <img src="assets/cars/gtr_lucifer_solo.jpg" alt="Nissan GT-R R35 Lucifer" decoding="async">
+          <img loading="lazy" src="assets/cars/gtr_lucifer_solo.jpg" alt="Nissan GT-R R35 Lucifer" decoding="async">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">CHAMPIONSHIP WINNER</span>
             <div class="marquee-card-title">Nissan GT-R R35 Lucifer</div>
@@ -1959,7 +1975,7 @@
 
         <!-- 6. GT-R Red Chrome -->
         <div class="marquee-card" data-raw-title="Red Chrome Nissan GT-R R35" data-raw-tag="AERODYNAMICS" onclick="openGalleryLightbox('assets/cars/gtr_red_front_rdrc.jpg', 'Красный хромированный Nissan GT-R R35 GTT')">
-          <img src="assets/cars/gtr_red_front_rdrc.jpg" alt="Красный хром GT-R" decoding="async">
+          <img loading="lazy" src="assets/cars/gtr_red_front_rdrc.jpg" alt="Красный хром GT-R" decoding="async">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">AERODYNAMICS</span>
             <div class="marquee-card-title">Red Chrome Nissan GT-R R35</div>
@@ -1968,7 +1984,7 @@
 
         <!-- 7. GT-R Blue 888 -->
         <div class="marquee-card" data-raw-title="Nissan GT-R R35 #888 Sunset Pass" data-raw-tag="MIDNIGHT BLUE" onclick="openGalleryLightbox('assets/photos/gtr_blue_888_rdrc.jpg', 'Боевой синий Nissan GT-R R35 #888 на закате RDRC')">
-          <img src="assets/photos/gtr_blue_888_rdrc.jpg" alt="GT-R Blue #888" decoding="async">
+          <img loading="lazy" src="assets/photos/gtr_blue_888_rdrc.jpg" alt="GT-R Blue #888" decoding="async">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">MIDNIGHT BLUE</span>
             <div class="marquee-card-title">Nissan GT-R R35 #888 Sunset Pass</div>
@@ -1977,7 +1993,7 @@
 
         <!-- 8. Gosha on Track -->
         <div class="marquee-card" data-raw-title="Гоша Перцхелия на стрипе RDRC" data-raw-tag="CHIEF MOTORSPORT ENGINEER" onclick="openGalleryLightbox('assets/photos/gosha_on_track.jpg', 'Гоша Перцхелия контролирует подготовку трассы RDRC')">
-          <img src="assets/photos/gosha_on_track.jpg" alt="Гоша на треке RDRC" decoding="async">
+          <img loading="lazy" src="assets/photos/gosha_on_track.jpg" alt="Гоша на треке RDRC" decoding="async">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">CHIEF MOTORSPORT ENGINEER</span>
             <div class="marquee-card-title">Гоша Перцхелия на стрипе RDRC</div>
@@ -1986,7 +2002,7 @@
 
         <!-- 9. Paddock Team Box -->
         <div class="marquee-card" data-raw-title="Бокс GTT: Паддок команды & GT-R" data-raw-tag="ATELIER GARAGE" onclick="openGalleryLightbox('assets/cars/bmw_m5_paddock_front.jpg', 'Бокс GTT: Паддок команды и Nissan GT-R')">
-          <img src="assets/cars/bmw_m5_paddock_front.jpg" alt="Бокс GTT паддок" decoding="async">
+          <img loading="lazy" src="assets/cars/bmw_m5_paddock_front.jpg" alt="Бокс GTT паддок" decoding="async">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">ATELIER GARAGE</span>
             <div class="marquee-card-title">Бокс GTT: Паддок команды &amp; GT-R</div>
@@ -1995,7 +2011,7 @@
 
         <!-- 10. BMW M5 RDRC Race -->
         <div class="marquee-card" data-raw-title="BMW M5 G90 GTT" data-raw-tag="TWIN TURBO V8" onclick="openGalleryLightbox('assets/cars/bmw_m5_rdrc_race.jpg', 'BMW M5 G90 GTT на боевом заезде RDRC')">
-          <img src="assets/cars/bmw_m5_rdrc_race.jpg" alt="BMW M5 RDRC" decoding="async">
+          <img loading="lazy" src="assets/cars/bmw_m5_rdrc_race.jpg" alt="BMW M5 RDRC" decoding="async">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">TWIN TURBO V8</span>
             <div class="marquee-card-title">BMW M5 G90 GTT</div>
@@ -2004,7 +2020,7 @@
 
         <!-- 11. Huracan Zelenka Track -->
         <div class="marquee-card" data-raw-title="Huracan Twin Turbo «Зеленка» GTT" data-raw-tag="TWIN TURBO V10" onclick="openGalleryLightbox('assets/cars/huracan_green_bezzubik_track.jpg', 'Lamborghini Huracan «Зеленка» Twin Turbo на треке RDRC')">
-          <img src="assets/cars/huracan_green_bezzubik_track.jpg" alt="Huracan Зеленка" decoding="async">
+          <img loading="lazy" src="assets/cars/huracan_green_bezzubik_track.jpg" alt="Huracan Зеленка" decoding="async">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">TWIN TURBO V10</span>
             <div class="marquee-card-title">Huracan Twin Turbo «Зеленка» GTT</div>
@@ -2013,7 +2029,7 @@
 
         <!-- 12. Draco Wrap & Wheel Detail -->
         <div class="marquee-card" data-raw-title="VR38 Billet & Drag Suspension" data-raw-tag="BILLET MOTORSPORT" onclick="openGalleryLightbox('assets/cars/gtr_draco_connections.jpg', 'Детали подвески и VR38 Billet дрэгстера Draco')">
-          <img src="assets/cars/gtr_draco_connections.jpg" alt="Draco Details" decoding="async">
+          <img loading="lazy" src="assets/cars/gtr_draco_connections.jpg" alt="Draco Details" decoding="async">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">BILLET MOTORSPORT</span>
             <div class="marquee-card-title">VR38 Billet & Drag Suspension</div>
@@ -2022,7 +2038,7 @@
 
         <!-- 13. Sarkisyan Pilot Draco -->
         <div class="marquee-card" data-raw-title="Пилот Саркисян & Draco GTT" data-raw-tag="PARC FERMÉ" onclick="openGalleryLightbox('assets/photos/pilot_draco_sarkisyan.jpg', 'Пилот Саркисян и дрэгстер Draco в закрытом парке')">
-          <img src="assets/photos/pilot_draco_sarkisyan.jpg" alt="Draco Sarkisyan" decoding="async">
+          <img loading="lazy" src="assets/photos/pilot_draco_sarkisyan.jpg" alt="Draco Sarkisyan" decoding="async">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">PARC FERMÉ</span>
             <div class="marquee-card-title">Пилот Саркисян & Draco GTT</div>
@@ -2033,7 +2049,7 @@
 
         <!-- 15. RDRC Challenger Smoke Burnout -->
         <div class="marquee-card" data-raw-title="Challenger SRT // Cloud of Smoke" data-raw-tag="RDRC BURNOUT" onclick="openGalleryLightbox('assets/gallery/rdrc_challenger_burnout.jpg', 'Dodge Challenger SRT: экстремальный прогрев сликов в облаке дыма RDRC')">
-          <img src="assets/gallery/rdrc_challenger_burnout.jpg" alt="Dodge Challenger Burnout Smoke" decoding="async">
+          <img loading="lazy" src="assets/gallery/rdrc_challenger_burnout.jpg" alt="Dodge Challenger Burnout Smoke" decoding="async">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">RDRC BURNOUT</span>
             <div class="marquee-card-title">Challenger SRT // Cloud of Smoke</div>
@@ -2042,7 +2058,7 @@
 
         <!-- 16. Green Lamborghini Huracan TT Staging -->
         <div class="marquee-card" data-raw-title="Huracan TT на стартовом створе" data-raw-tag="1500+ HP V10 TT" onclick="openGalleryLightbox('assets/gallery/rdrc_lamborghini_green_front.jpg', 'Lamborghini Huracan Twin Turbo на стартовой решетке RDRC')">
-          <img src="assets/gallery/rdrc_lamborghini_green_front.jpg" alt="Lamborghini Huracan TT Staging" decoding="async">
+          <img loading="lazy" src="assets/gallery/rdrc_lamborghini_green_front.jpg" alt="Lamborghini Huracan TT Staging" decoding="async">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">1500+ HP V10 TT</span>
             <div class="marquee-card-title">Huracan TT на стартовом створе</div>
@@ -2051,7 +2067,7 @@
 
         <!-- 17. Nissan GT-R Titanium Exhaust & RDRC Plate -->
         <div class="marquee-card" data-raw-title="GT-R R35 // GTT Titanium Exhaust" data-raw-tag="TITANIUM CRAFT" onclick="openGalleryLightbox('assets/gallery/rdrc_gtr_rear_exhaust.jpg', 'Красный Nissan GT-R: титановый выпуск GTT и официальная рамка RDRC')">
-          <img src="assets/gallery/rdrc_gtr_rear_exhaust.jpg" alt="Nissan GT-R GTT Titanium Exhaust" decoding="async">
+          <img loading="lazy" src="assets/gallery/rdrc_gtr_rear_exhaust.jpg" alt="Nissan GT-R GTT Titanium Exhaust" decoding="async">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">TITANIUM CRAFT</span>
             <div class="marquee-card-title">GT-R R35 // GTT Titanium Exhaust</div>
@@ -2060,7 +2076,7 @@
 
         <!-- 18. GTT Paddock BMW M5 & GT-R -->
         <div class="marquee-card" data-raw-title="Паддок GTT: BMW M5 G90 & GT-R" data-raw-tag="GTT MOTORSPORT BOX" onclick="openGalleryLightbox('assets/gallery/rdrc_paddock_bmw_m5_gtr.jpg', 'Паддок GoshaTurboTech: матовая BMW M5 G90 и боевой GT-R у боксов')">
-          <img src="assets/gallery/rdrc_paddock_bmw_m5_gtr.jpg" alt="GTT Paddock BMW M5 & GT-R" decoding="async">
+          <img loading="lazy" src="assets/gallery/rdrc_paddock_bmw_m5_gtr.jpg" alt="GTT Paddock BMW M5 & GT-R" decoding="async">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">GTT MOTORSPORT BOX</span>
             <div class="marquee-card-title">Паддок GTT: BMW M5 G90 & GT-R</div>
@@ -2069,7 +2085,7 @@
 
         <!-- 19. Twin Lamborghini Huracans Paddock -->
         <div class="marquee-card" data-raw-title="Пара Lamborghini Huracan TT GTT" data-raw-tag="TWIN V10 ARSENAL" onclick="openGalleryLightbox('assets/gallery/rdrc_lamborghinis_pair_paddock.jpg', 'Двойной удар V10 Twin Turbo: пара боевых Huracan команды GTT')">
-          <img src="assets/gallery/rdrc_lamborghinis_pair_paddock.jpg" alt="Lamborghini Huracan Duo GTT" decoding="async">
+          <img loading="lazy" src="assets/gallery/rdrc_lamborghinis_pair_paddock.jpg" alt="Lamborghini Huracan Duo GTT" decoding="async">
           <div class="marquee-card-meta">
             <span class="marquee-card-tag">TWIN V10 ARSENAL</span>
             <div class="marquee-card-title">Пара Lamborghini Huracan TT GTT</div>
@@ -2101,7 +2117,7 @@
       <div class="partners-grid" id="partnersGrid" data-cols="4">
         <div class="partner-card" data-partner-id="rog">
           <div class="partner-logo-box">
-            <img src="assets/partners/rog.png" alt="Republic of Gamers" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/rog.png" alt="Republic of Gamers" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">RO</span>
           </div>
           <div class="partner-card-meta">
@@ -2111,7 +2127,7 @@
         </div>
         <div class="partner-card" data-partner-id="toys_detailing">
           <div class="partner-logo-box">
-            <img src="assets/partners/toys_detailing.png" alt="Toys Detailing" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/toys_detailing.png" alt="Toys Detailing" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">TD</span>
           </div>
           <div class="partner-card-meta">
@@ -2121,7 +2137,7 @@
         </div>
         <div class="partner-card" data-partner-id="felix_ferro">
           <div class="partner-logo-box">
-            <img src="assets/partners/felix_ferro.png" alt="Felix Ferro" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/felix_ferro.png" alt="Felix Ferro" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">FF</span>
           </div>
           <div class="partner-card-meta">
@@ -2131,7 +2147,7 @@
         </div>
         <div class="partner-card" data-partner-id="vp_racing">
           <div class="partner-logo-box">
-            <img src="assets/partners/vp_racing.png" alt="VP Racing Fuels" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/vp_racing.png" alt="VP Racing Fuels" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">VR</span>
           </div>
           <div class="partner-card-meta">
@@ -2141,7 +2157,7 @@
         </div>
         <div class="partner-card" data-partner-id="je_pistons">
           <div class="partner-logo-box">
-            <img src="assets/partners/je_pistons.png" alt="JE Pistons" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/je_pistons.png" alt="JE Pistons" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">JP</span>
           </div>
           <div class="partner-card-meta">
@@ -2151,7 +2167,7 @@
         </div>
         <div class="partner-card" data-partner-id="link_ecu">
           <div class="partner-logo-box">
-            <img src="assets/partners/link_ecu.png" alt="Link Engine Management" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/link_ecu.png" alt="Link Engine Management" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">LE</span>
           </div>
           <div class="partner-card-meta">
@@ -2161,7 +2177,7 @@
         </div>
         <div class="partner-card" data-partner-id="mainline_dyno">
           <div class="partner-logo-box">
-            <img src="assets/partners/mainline_dyno.png" alt="Mainline DynoLog" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/mainline_dyno.png" alt="Mainline DynoLog" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">MD</span>
           </div>
           <div class="partner-card-meta">
@@ -2171,7 +2187,7 @@
         </div>
         <div class="partner-card" data-partner-id="redline_oil">
           <div class="partner-logo-box">
-            <img src="assets/partners/redline_oil.png" alt="Red Line Synthetic Oil" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/redline_oil.png" alt="Red Line Synthetic Oil" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">RL</span>
           </div>
           <div class="partner-card-meta">
@@ -2181,7 +2197,7 @@
         </div>
         <div class="partner-card" data-partner-id="syvecs">
           <div class="partner-logo-box">
-            <img src="assets/partners/syvecs.png" alt="Syvecs Powertrain Control" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/syvecs.png" alt="Syvecs Powertrain Control" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">SP</span>
           </div>
           <div class="partner-card-meta">
@@ -2191,7 +2207,7 @@
         </div>
         <div class="partner-card" data-partner-id="plazmaman">
           <div class="partner-logo-box">
-            <img src="assets/partners/plazmaman.png" alt="Plazmaman Pro Billet" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/plazmaman.png" alt="Plazmaman Pro Billet" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">PP</span>
           </div>
           <div class="partner-card-meta">
@@ -2201,7 +2217,7 @@
         </div>
         <div class="partner-card" data-partner-id="ppg_gearboxes">
           <div class="partner-logo-box">
-            <img src="assets/partners/ppg_gearboxes.png" alt="PPG (Pfitzner Gearboxes)" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/ppg_gearboxes.png" alt="PPG (Pfitzner Gearboxes)" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">P(</span>
           </div>
           <div class="partner-card-meta">
@@ -2211,7 +2227,7 @@
         </div>
         <div class="partner-card" data-partner-id="ticon_titanium">
           <div class="partner-logo-box">
-            <img src="assets/partners/ticon_titanium.png" alt="Ticon Titanium" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/ticon_titanium.png" alt="Ticon Titanium" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">TT</span>
           </div>
           <div class="partner-card-meta">
@@ -2221,7 +2237,7 @@
         </div>
         <div class="partner-card" data-partner-id="cobb_tuning">
           <div class="partner-logo-box">
-            <img src="assets/partners/cobb_tuning.png" alt="COBB Tuning" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/cobb_tuning.png" alt="COBB Tuning" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">CT</span>
           </div>
           <div class="partner-card-meta">
@@ -2231,7 +2247,7 @@
         </div>
         <div class="partner-card" data-partner-id="bell_intercoolers">
           <div class="partner-logo-box">
-            <img src="assets/partners/bell_intercoolers.png" alt="Bell Intercoolers" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/bell_intercoolers.png" alt="Bell Intercoolers" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">BI</span>
           </div>
           <div class="partner-card-meta">
@@ -2241,7 +2257,7 @@
         </div>
         <div class="partner-card" data-partner-id="armytrix">
           <div class="partner-logo-box">
-            <img src="assets/partners/armytrix.png" alt="Armytrix" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/armytrix.png" alt="Armytrix" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">A</span>
           </div>
           <div class="partner-card-meta">
@@ -2251,7 +2267,7 @@
         </div>
         <div class="partner-card" data-partner-id="ecutek">
           <div class="partner-logo-box">
-            <img src="assets/partners/ecutek.png" alt="Ecutek Technology" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/ecutek.png" alt="Ecutek Technology" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">ET</span>
           </div>
           <div class="partner-card-meta">
@@ -2261,7 +2277,7 @@
         </div>
         <div class="partner-card" data-partner-id="precision_turbo">
           <div class="partner-logo-box">
-            <img src="assets/partners/precision_turbo.png" alt="Precision Turbo & Engine" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/precision_turbo.png" alt="Precision Turbo & Engine" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">PT</span>
           </div>
           <div class="partner-card-meta">
@@ -2271,7 +2287,7 @@
         </div>
         <div class="partner-card" data-partner-id="motec">
           <div class="partner-logo-box">
-            <img src="assets/partners/motec.png" alt="MoTeC Systems" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/motec.png" alt="MoTeC Systems" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">MS</span>
           </div>
           <div class="partner-card-meta">
@@ -2281,7 +2297,7 @@
         </div>
         <div class="partner-card" data-partner-id="motul">
           <div class="partner-logo-box">
-            <img src="assets/partners/motul.png" alt="Motul Motorsport" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/motul.png" alt="Motul Motorsport" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">MM</span>
           </div>
           <div class="partner-card-meta">
@@ -2291,7 +2307,7 @@
         </div>
         <div class="partner-card" data-partner-id="injector_dynamics">
           <div class="partner-logo-box">
-            <img src="assets/partners/injector_dynamics.png" alt="Injector Dynamics" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/injector_dynamics.png" alt="Injector Dynamics" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">ID</span>
           </div>
           <div class="partner-card-meta">
@@ -2301,7 +2317,7 @@
         </div>
         <div class="partner-card" data-partner-id="dodson_motorsport">
           <div class="partner-logo-box">
-            <img src="assets/partners/dodson_motorsport.png" alt="Dodson Motorsport" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/dodson_motorsport.png" alt="Dodson Motorsport" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">DM</span>
           </div>
           <div class="partner-card-meta">
@@ -2311,7 +2327,7 @@
         </div>
         <div class="partner-card" data-partner-id="t1_race">
           <div class="partner-logo-box">
-            <img src="assets/partners/t1_race.png" alt="T1 Race Development" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/t1_race.png" alt="T1 Race Development" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">TR</span>
           </div>
           <div class="partner-card-meta">
@@ -2321,7 +2337,7 @@
         </div>
         <div class="partner-card" data-partner-id="csf_radiators">
           <div class="partner-logo-box">
-            <img src="assets/partners/csf_radiators.png" alt="CSF Radiators" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/csf_radiators.png" alt="CSF Radiators" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">CR</span>
           </div>
           <div class="partner-card-meta">
@@ -2331,7 +2347,7 @@
         </div>
         <div class="partner-card" data-partner-id="dragtimes">
           <div class="partner-logo-box">
-            <img src="assets/partners/dragtimes.png" alt="Dragtimes" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/dragtimes.png" alt="Dragtimes" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">D</span>
           </div>
           <div class="partner-card-meta">
@@ -2341,7 +2357,7 @@
         </div>
         <div class="partner-card" data-partner-id="rdrc_racepark">
           <div class="partner-logo-box">
-            <img src="assets/partners/rdrc_racepark.png" alt="RDRC Racepark" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/rdrc_racepark.png" alt="RDRC Racepark" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">RR</span>
           </div>
           <div class="partner-card-meta">
@@ -2351,7 +2367,7 @@
         </div>
         <div class="partner-card" data-partner-id="dsc_off">
           <div class="partner-logo-box">
-            <img src="assets/partners/dsc_off.png" alt="DSC OFF" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/dsc_off.png" alt="DSC OFF" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">DO</span>
           </div>
           <div class="partner-card-meta">
@@ -2361,7 +2377,7 @@
         </div>
         <div class="partner-card" data-partner-id="pride_jfc">
           <div class="partner-logo-box">
-            <img src="assets/partners/pride_jfc.png" alt="Pride JFC" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/pride_jfc.png" alt="Pride JFC" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">PJ</span>
           </div>
           <div class="partner-card-meta">
@@ -2371,7 +2387,7 @@
         </div>
         <div class="partner-card" data-partner-id="deikin_exhaust">
           <div class="partner-logo-box">
-            <img src="assets/partners/deikin_exhaust.png" alt="Deikin Exhaust" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/deikin_exhaust.png" alt="Deikin Exhaust" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">DE</span>
           </div>
           <div class="partner-card-meta">
@@ -2381,7 +2397,7 @@
         </div>
         <div class="partner-card" data-partner-id="ams_performance">
           <div class="partner-logo-box">
-            <img src="assets/partners/ams_performance.png" alt="AMS Performance" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/ams_performance.png" alt="AMS Performance" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">AMS</span>
           </div>
           <div class="partner-card-meta">
@@ -2391,7 +2407,7 @@
         </div>
         <div class="partner-card" data-partner-id="real_street">
           <div class="partner-logo-box">
-            <img src="assets/partners/real_street.png" alt="Real Street Performance" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/real_street.png" alt="Real Street Performance" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">RS</span>
           </div>
           <div class="partner-card-meta">
@@ -2401,7 +2417,7 @@
         </div>
         <div class="partner-card" data-partner-id="high_horse">
           <div class="partner-logo-box">
-            <img src="assets/partners/high_horse.png" alt="High Horse Performance" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/high_horse.png" alt="High Horse Performance" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">HHP</span>
           </div>
           <div class="partner-card-meta">
@@ -2411,7 +2427,7 @@
         </div>
         <div class="partner-card" data-partner-id="platinum_racing">
           <div class="partner-logo-box">
-            <img src="assets/partners/platinum_racing.png" alt="Platinum Racing Products" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
+            <img decoding="async" src="assets/partners/platinum_racing.png" alt="Platinum Racing Products" class="partner-card-logo-img" loading="lazy" onerror="this.onerror=null; this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';">
             <span class="partner-monogram-badge" style="display:none;">PRP</span>
           </div>
           <div class="partner-card-meta">
@@ -2432,62 +2448,62 @@
       <!-- Live Speed Alliance Marquee Ribbon (Seamless Brand Stream) -->
       <div class="partners-marquee-wrap" style="margin-top: 36px; margin-bottom: 0;">
         <div class="partners-marquee-track" id="partnersMarqueeTrack">
-          <a href="https://rog.asus.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/rog.png" alt="Republic of Gamers" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">REPUBLIC OF GAMERS</span></a>
-          <a href="https://toysdetailing.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/toys_detailing.png" alt="Toys Detailing" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">TOYS DETAILING</span></a>
-          <a href="https://felixferro.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/felix_ferro.png" alt="Felix Ferro" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">FELIX FERRO</span></a>
-          <a href="https://vpracingfuels.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/vp_racing.png" alt="VP Racing Fuels" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">VP RACING FUELS</span></a>
-          <a href="https://jepistons.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/je_pistons.png" alt="JE Pistons" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">JE PISTONS</span></a>
-          <a href="https://linkecu.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/link_ecu.png" alt="Link Engine Management" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">LINK ENGINE MANAGEMENT</span></a>
-          <a href="https://mainlinedyno.com.au" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/mainline_dyno.png" alt="Mainline DynoLog" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">MAINLINE DYNOLOG</span></a>
-          <a href="https://redlineoil.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/redline_oil.png" alt="Red Line Synthetic Oil" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">RED LINE SYNTHETIC OIL</span></a>
-          <a href="https://syvecs.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/syvecs.png" alt="Syvecs Powertrain Control" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">SYVECS POWERTRAIN CONTROL</span></a>
-          <a href="https://plazmaman.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/plazmaman.png" alt="Plazmaman Pro Billet" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">PLAZMAMAN PRO BILLET</span></a>
-          <a href="https://ppgearbox.com.au" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/ppg_gearboxes.png" alt="PPG (Pfitzner Gearboxes)" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">PPG (PFITZNER GEARBOXES)</span></a>
-          <a href="https://ticontitanium.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/ticon_titanium.png" alt="Ticon Titanium" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">TICON TITANIUM</span></a>
-          <a href="https://cobbtuning.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/cobb_tuning.png" alt="COBB Tuning" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">COBB TUNING</span></a>
-          <a href="https://bellintercoolers.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/bell_intercoolers.png" alt="Bell Intercoolers" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">BELL INTERCOOLERS</span></a>
-          <a href="https://armytrix.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/armytrix.png" alt="Armytrix" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">ARMYTRIX</span></a>
-          <a href="https://ecutek.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/ecutek.png" alt="Ecutek Technology" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">ECUTEK TECHNOLOGY</span></a>
-          <a href="https://precisionturbo.net" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/precision_turbo.png" alt="Precision Turbo & Engine" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">PRECISION TURBO & ENGINE</span></a>
-          <a href="https://motec.com.au" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/motec.png" alt="MoTeC Systems" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">MOTEC SYSTEMS</span></a>
-          <a href="https://motul.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/motul.png" alt="Motul Motorsport" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">MOTUL MOTORSPORT</span></a>
-          <a href="https://injectordynamics.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/injector_dynamics.png" alt="Injector Dynamics" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">INJECTOR DYNAMICS</span></a>
-          <a href="https://dodsonmotorsport.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/dodson_motorsport.png" alt="Dodson Motorsport" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">DODSON MOTORSPORT</span></a>
-          <a href="https://t1racedevelopment.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/t1_race.png" alt="T1 Race Development" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">T1 RACE DEVELOPMENT</span></a>
-          <a href="https://csfradiators.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/csf_radiators.png" alt="CSF Radiators" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">CSF RADIATORS</span></a>
-          <a href="https://dragtimes.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/dragtimes.png" alt="Dragtimes" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">DRAGTIMES</span></a>
-          <a href="https://rdrc.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/rdrc_racepark.png" alt="RDRC Racepark" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">RDRC RACEPARK</span></a>
-          <a href="https://youtube.com/@dscoff" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/dsc_off.png" alt="DSC OFF" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">DSC OFF</span></a>
-          <a href="https://goshaturbotech.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/pride_jfc.png" alt="Pride JFC" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">PRIDE JFC</span></a>
-          <a href="https://goshaturbotech.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/deikin_exhaust.png" alt="Deikin Exhaust" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">DEIKIN EXHAUST</span></a>
-          <a href="https://rog.asus.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/rog.png" alt="Republic of Gamers" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">REPUBLIC OF GAMERS</span></a>
-          <a href="https://toysdetailing.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/toys_detailing.png" alt="Toys Detailing" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">TOYS DETAILING</span></a>
-          <a href="https://felixferro.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/felix_ferro.png" alt="Felix Ferro" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">FELIX FERRO</span></a>
-          <a href="https://vpracingfuels.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/vp_racing.png" alt="VP Racing Fuels" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">VP RACING FUELS</span></a>
-          <a href="https://jepistons.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/je_pistons.png" alt="JE Pistons" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">JE PISTONS</span></a>
-          <a href="https://linkecu.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/link_ecu.png" alt="Link Engine Management" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">LINK ENGINE MANAGEMENT</span></a>
-          <a href="https://mainlinedyno.com.au" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/mainline_dyno.png" alt="Mainline DynoLog" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">MAINLINE DYNOLOG</span></a>
-          <a href="https://redlineoil.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/redline_oil.png" alt="Red Line Synthetic Oil" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">RED LINE SYNTHETIC OIL</span></a>
-          <a href="https://syvecs.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/syvecs.png" alt="Syvecs Powertrain Control" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">SYVECS POWERTRAIN CONTROL</span></a>
-          <a href="https://plazmaman.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/plazmaman.png" alt="Plazmaman Pro Billet" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">PLAZMAMAN PRO BILLET</span></a>
-          <a href="https://ppgearbox.com.au" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/ppg_gearboxes.png" alt="PPG (Pfitzner Gearboxes)" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">PPG (PFITZNER GEARBOXES)</span></a>
-          <a href="https://ticontitanium.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/ticon_titanium.png" alt="Ticon Titanium" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">TICON TITANIUM</span></a>
-          <a href="https://cobbtuning.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/cobb_tuning.png" alt="COBB Tuning" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">COBB TUNING</span></a>
-          <a href="https://bellintercoolers.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/bell_intercoolers.png" alt="Bell Intercoolers" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">BELL INTERCOOLERS</span></a>
-          <a href="https://armytrix.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/armytrix.png" alt="Armytrix" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">ARMYTRIX</span></a>
-          <a href="https://ecutek.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/ecutek.png" alt="Ecutek Technology" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">ECUTEK TECHNOLOGY</span></a>
-          <a href="https://precisionturbo.net" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/precision_turbo.png" alt="Precision Turbo & Engine" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">PRECISION TURBO & ENGINE</span></a>
-          <a href="https://motec.com.au" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/motec.png" alt="MoTeC Systems" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">MOTEC SYSTEMS</span></a>
-          <a href="https://motul.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/motul.png" alt="Motul Motorsport" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">MOTUL MOTORSPORT</span></a>
-          <a href="https://injectordynamics.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/injector_dynamics.png" alt="Injector Dynamics" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">INJECTOR DYNAMICS</span></a>
-          <a href="https://dodsonmotorsport.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/dodson_motorsport.png" alt="Dodson Motorsport" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">DODSON MOTORSPORT</span></a>
-          <a href="https://t1racedevelopment.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/t1_race.png" alt="T1 Race Development" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">T1 RACE DEVELOPMENT</span></a>
-          <a href="https://csfradiators.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/csf_radiators.png" alt="CSF Radiators" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">CSF RADIATORS</span></a>
-          <a href="https://dragtimes.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/dragtimes.png" alt="Dragtimes" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">DRAGTIMES</span></a>
-          <a href="https://rdrc.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/rdrc_racepark.png" alt="RDRC Racepark" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">RDRC RACEPARK</span></a>
-          <a href="https://youtube.com/@dscoff" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/dsc_off.png" alt="DSC OFF" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">DSC OFF</span></a>
-          <a href="https://goshaturbotech.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/pride_jfc.png" alt="Pride JFC" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">PRIDE JFC</span></a>
-          <a href="https://goshaturbotech.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img src="assets/partners/deikin_exhaust.png" alt="Deikin Exhaust" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">DEIKIN EXHAUST</span></a>
+          <a href="https://rog.asus.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/rog.png" alt="Republic of Gamers" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">REPUBLIC OF GAMERS</span></a>
+          <a href="https://toysdetailing.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/toys_detailing.png" alt="Toys Detailing" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">TOYS DETAILING</span></a>
+          <a href="https://felixferro.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/felix_ferro.png" alt="Felix Ferro" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">FELIX FERRO</span></a>
+          <a href="https://vpracingfuels.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/vp_racing.png" alt="VP Racing Fuels" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">VP RACING FUELS</span></a>
+          <a href="https://jepistons.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/je_pistons.png" alt="JE Pistons" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">JE PISTONS</span></a>
+          <a href="https://linkecu.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/link_ecu.png" alt="Link Engine Management" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">LINK ENGINE MANAGEMENT</span></a>
+          <a href="https://mainlinedyno.com.au" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/mainline_dyno.png" alt="Mainline DynoLog" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">MAINLINE DYNOLOG</span></a>
+          <a href="https://redlineoil.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/redline_oil.png" alt="Red Line Synthetic Oil" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">RED LINE SYNTHETIC OIL</span></a>
+          <a href="https://syvecs.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/syvecs.png" alt="Syvecs Powertrain Control" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">SYVECS POWERTRAIN CONTROL</span></a>
+          <a href="https://plazmaman.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/plazmaman.png" alt="Plazmaman Pro Billet" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">PLAZMAMAN PRO BILLET</span></a>
+          <a href="https://ppgearbox.com.au" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/ppg_gearboxes.png" alt="PPG (Pfitzner Gearboxes)" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">PPG (PFITZNER GEARBOXES)</span></a>
+          <a href="https://ticontitanium.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/ticon_titanium.png" alt="Ticon Titanium" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">TICON TITANIUM</span></a>
+          <a href="https://cobbtuning.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/cobb_tuning.png" alt="COBB Tuning" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">COBB TUNING</span></a>
+          <a href="https://bellintercoolers.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/bell_intercoolers.png" alt="Bell Intercoolers" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">BELL INTERCOOLERS</span></a>
+          <a href="https://armytrix.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/armytrix.png" alt="Armytrix" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">ARMYTRIX</span></a>
+          <a href="https://ecutek.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/ecutek.png" alt="Ecutek Technology" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">ECUTEK TECHNOLOGY</span></a>
+          <a href="https://precisionturbo.net" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/precision_turbo.png" alt="Precision Turbo & Engine" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">PRECISION TURBO & ENGINE</span></a>
+          <a href="https://motec.com.au" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/motec.png" alt="MoTeC Systems" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">MOTEC SYSTEMS</span></a>
+          <a href="https://motul.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/motul.png" alt="Motul Motorsport" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">MOTUL MOTORSPORT</span></a>
+          <a href="https://injectordynamics.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/injector_dynamics.png" alt="Injector Dynamics" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">INJECTOR DYNAMICS</span></a>
+          <a href="https://dodsonmotorsport.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/dodson_motorsport.png" alt="Dodson Motorsport" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">DODSON MOTORSPORT</span></a>
+          <a href="https://t1racedevelopment.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/t1_race.png" alt="T1 Race Development" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">T1 RACE DEVELOPMENT</span></a>
+          <a href="https://csfradiators.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/csf_radiators.png" alt="CSF Radiators" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">CSF RADIATORS</span></a>
+          <a href="https://dragtimes.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/dragtimes.png" alt="Dragtimes" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">DRAGTIMES</span></a>
+          <a href="https://rdrc.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/rdrc_racepark.png" alt="RDRC Racepark" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">RDRC RACEPARK</span></a>
+          <a href="https://youtube.com/@dscoff" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/dsc_off.png" alt="DSC OFF" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">DSC OFF</span></a>
+          <a href="https://goshaturbotech.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/pride_jfc.png" alt="Pride JFC" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">PRIDE JFC</span></a>
+          <a href="https://goshaturbotech.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/deikin_exhaust.png" alt="Deikin Exhaust" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">DEIKIN EXHAUST</span></a>
+          <a href="https://rog.asus.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/rog.png" alt="Republic of Gamers" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">REPUBLIC OF GAMERS</span></a>
+          <a href="https://toysdetailing.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/toys_detailing.png" alt="Toys Detailing" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">TOYS DETAILING</span></a>
+          <a href="https://felixferro.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/felix_ferro.png" alt="Felix Ferro" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">FELIX FERRO</span></a>
+          <a href="https://vpracingfuels.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/vp_racing.png" alt="VP Racing Fuels" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">VP RACING FUELS</span></a>
+          <a href="https://jepistons.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/je_pistons.png" alt="JE Pistons" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">JE PISTONS</span></a>
+          <a href="https://linkecu.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/link_ecu.png" alt="Link Engine Management" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">LINK ENGINE MANAGEMENT</span></a>
+          <a href="https://mainlinedyno.com.au" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/mainline_dyno.png" alt="Mainline DynoLog" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">MAINLINE DYNOLOG</span></a>
+          <a href="https://redlineoil.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/redline_oil.png" alt="Red Line Synthetic Oil" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">RED LINE SYNTHETIC OIL</span></a>
+          <a href="https://syvecs.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/syvecs.png" alt="Syvecs Powertrain Control" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">SYVECS POWERTRAIN CONTROL</span></a>
+          <a href="https://plazmaman.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/plazmaman.png" alt="Plazmaman Pro Billet" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">PLAZMAMAN PRO BILLET</span></a>
+          <a href="https://ppgearbox.com.au" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/ppg_gearboxes.png" alt="PPG (Pfitzner Gearboxes)" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">PPG (PFITZNER GEARBOXES)</span></a>
+          <a href="https://ticontitanium.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/ticon_titanium.png" alt="Ticon Titanium" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">TICON TITANIUM</span></a>
+          <a href="https://cobbtuning.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/cobb_tuning.png" alt="COBB Tuning" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">COBB TUNING</span></a>
+          <a href="https://bellintercoolers.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/bell_intercoolers.png" alt="Bell Intercoolers" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">BELL INTERCOOLERS</span></a>
+          <a href="https://armytrix.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/armytrix.png" alt="Armytrix" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">ARMYTRIX</span></a>
+          <a href="https://ecutek.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/ecutek.png" alt="Ecutek Technology" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">ECUTEK TECHNOLOGY</span></a>
+          <a href="https://precisionturbo.net" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/precision_turbo.png" alt="Precision Turbo & Engine" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">PRECISION TURBO & ENGINE</span></a>
+          <a href="https://motec.com.au" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/motec.png" alt="MoTeC Systems" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">MOTEC SYSTEMS</span></a>
+          <a href="https://motul.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/motul.png" alt="Motul Motorsport" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">MOTUL MOTORSPORT</span></a>
+          <a href="https://injectordynamics.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/injector_dynamics.png" alt="Injector Dynamics" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">INJECTOR DYNAMICS</span></a>
+          <a href="https://dodsonmotorsport.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/dodson_motorsport.png" alt="Dodson Motorsport" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">DODSON MOTORSPORT</span></a>
+          <a href="https://t1racedevelopment.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/t1_race.png" alt="T1 Race Development" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">T1 RACE DEVELOPMENT</span></a>
+          <a href="https://csfradiators.com" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/csf_radiators.png" alt="CSF Radiators" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">CSF RADIATORS</span></a>
+          <a href="https://dragtimes.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/dragtimes.png" alt="Dragtimes" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">DRAGTIMES</span></a>
+          <a href="https://rdrc.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/rdrc_racepark.png" alt="RDRC Racepark" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">RDRC RACEPARK</span></a>
+          <a href="https://youtube.com/@dscoff" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/dsc_off.png" alt="DSC OFF" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">DSC OFF</span></a>
+          <a href="https://goshaturbotech.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/pride_jfc.png" alt="Pride JFC" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">PRIDE JFC</span></a>
+          <a href="https://goshaturbotech.ru" target="_blank" rel="noopener noreferrer" class="partners-marquee-item"><img decoding="async" src="assets/partners/deikin_exhaust.png" alt="Deikin Exhaust" class="partners-marquee-logo" loading="lazy"><span class="partners-marquee-text">DEIKIN EXHAUST</span></a>
         </div>
       </div>
     </div>
@@ -2591,7 +2607,7 @@
           <div class="route-card-header">
             <div class="route-header-main">
               <div class="route-pin-badge">
-                <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="route-shield-img">
+                <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="route-shield-img">
                 <div>
                   <span class="route-complex-name" data-i18n="contact_center_name">ИНЖИНИРИНГОВЫЙ ЦЕНТР GTT</span>
                   <div class="route-complex-address" data-i18n="contact_center_addr">Можайское шоссе, 168</div>
@@ -2720,7 +2736,7 @@
   <footer class="official-footer">
     <div class="footer-inner-container">
       <div class="footer-center-content">
-        <img src="assets/photos/gtt_shield_logo.svg" 
+        <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" 
              alt="GoshaTurboTech" 
              class="footer-mini-shield">
         <span class="footer-copy-text" id="footerCopyStaffTrigger" data-i18n="footer_copy">© GOSHATURBOTECH. TRY TO CATCH UP.</span>
@@ -2804,7 +2820,7 @@
   </button>
 
   <script src="js/media-db.js?v=20261107_v4"></script>
-  <script src="js/app.js?v=20261110_v3"></script>
+  <script src="js/app.js?v=20261114_anim"></script>
   <script>
     // Safeguard fallback: ensure preloader never hangs if external scripts fail
     setTimeout(function() {

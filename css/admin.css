@@ -1,5 +1,90 @@
 /* GOSHA TURBOTECH - Admin Dashboard Styles */
 
+/* ==========================================================================
+   OFFICIAL GOSHATURBOTECH BRANDBOOK FONTS
+   Main: Core Sans D (75 Black Italic, 55 Bold, 35 Regular, 25 Light)
+   Accent: Dagger Square (Regular & Oblique / Italic)
+   ========================================================================== */
+@font-face {
+  font-family: 'Dagger Square';
+  src: url('../assets/fonts/DAGGERSQUARE.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Dagger Square';
+  src: url('../assets/fonts/DAGGERSQUARE%20OBLIQUE.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Core Sans D';
+  src: url('../assets/fonts/S-Core%20-%20CoreSansD25Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Core Sans D';
+  src: url('../assets/fonts/S-Core%20-%20CoreSansD25Light-Italic.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Core Sans D';
+  src: url('../assets/fonts/S-Core%20-%20CoreSansD35Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Core Sans D';
+  src: url('../assets/fonts/S-Core%20-%20CoreSansD35Regular-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Core Sans D';
+  src: url('../assets/fonts/S-Core%20-%20CoreSansD55Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Core Sans D';
+  src: url('../assets/fonts/S-Core%20-%20CoreSansD55Bold-Italic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Core Sans D';
+  src: url('../assets/fonts/S-Core%20-%20CoreSansD75Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Core Sans D';
+  src: url('../assets/fonts/S-Core%20-%20CoreSansD75Black-Italic.otf') format('opentype');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
   --gtt-orange: #EA5B0C;
   --gtt-orange-hover: #ff6d24;
@@ -19,10 +104,11 @@
   --text-muted: #94a3b8;
   --text-dim: #64748b;
   
-  --font-display: 'Chakra Petch', sans-serif;
-  --font-heading: 'Space Grotesk', sans-serif;
-  --font-body: 'Inter', -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-display: 'Core Sans D', 'Oswald', sans-serif;
+  --font-racing: 'Dagger Square', 'Core Sans D', sans-serif;
+  --font-heading: 'Core Sans D', 'Unbounded', sans-serif;
+  --font-body: 'Core Sans D', 'Inter', -apple-system, sans-serif;
+  --font-mono: 'Dagger Square', 'JetBrains Mono', monospace;
 }
 
 *, *::before, *::after {

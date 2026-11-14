@@ -85,9 +85,12 @@ let gttProjects = [
     "id": "draco_promod",
     "brand": "NISSAN & DRACO",
     "type": "gtr",
+    "category": "race",
+    "is_published": 1,
+    "isPublished": true,
     "name": {
-      "ru": "GT-R R35 DRACO PRO-MOD GTT #300",
-      "en": "GT-R R35 DRACO PRO-MOD GTT #300"
+      "ru": "GT-R R35 «DRACO» GTT #300",
+      "en": "GT-R R35 «DRACO» GTT #300"
     },
     "tag": {
       "ru": "РЕКОРД RDRC 7.694 СЕК • ПИЛОТ Р. АРЕФЬЕВ #300",
@@ -105,14 +108,14 @@ let gttProjects = [
     "isPhoto": true,
     "objectPosition": "center 65%",
     "videoSrc": "assets/videos/draco_gtr_action.mp4",
-    "videoTitle": "Nissan GT-R Draco Pro-Mod 3000+ HP — боевой рекордный заезд RDRC",
+    "videoTitle": "Nissan GT-R Draco 3000+ HP — боевой рекордный заезд RDRC",
     "desc": {
-      "ru": "Легендарный белый флагман дрэг-стрипа RDRC под управлением Руслана Арефьева (борт №300). Официальное время 7.694 сек со скоростью 304.44 км/ч на 1/4 мили (RDRC этап 5, заезд №537) и 323.88 км/ч на 1/2 мили. Специально построенное трубчатое шасси и свыше 3000 л.с.",
+      "ru": "Легендарный белый флагман дрэг-стрипа RDRC под управлением Руслана Арефьева (борт №300). Официальное время 7.694 сек со скоростью 304.44 км/ч на 1/4 мили (RDRC этап 5, заезд №537) и 323.88 км/ч на 1/2 мили. Специально построенное шасси на биллетовом блоке VR38 и свыше 3000 л.с.",
       "en": "Legendary white flagship of the RDRC drag strip piloted by Ruslan Arefyev (race car #300). Official verified time 7.694 sec at 304.44 km/h on the 1/4 mile (RDRC Stage 5, pass #537) and 323.88 km/h on the 1/2 mile."
     },
     "specs": {
       "engine": "4.3L Billet VR38 Race Block GTT / Draco Spec",
-      "turbos": "Dual Precision 88mm Pro-Mod Turbochargers",
+      "turbos": "Dual Precision 88mm Gen2 Billet Race Turbos",
       "fuel": "Methanol M1 Injected + Dual Billet Fuel Rails",
       "ecu": "Motec M150 Standalone Pro Drag System",
       "chassis": "Full Chrome-Moly Tube Chassis & Carbon Body"
@@ -1213,6 +1216,124 @@ let gttProjects = [
     "isClassified": true,
     "isTeaser": true,
     "sort_order": 31
+  },
+  {
+    "id": "street_bmw_m3_g80",
+    "brand": "BMW & GTT",
+    "type": "bmw",
+    "name": {
+      "ru": "BMW M3 G80 (Личный болид Гоши)",
+      "en": "BMW M3 G80 (Gosha Personal Build)"
+    },
+    "tag": {
+      "ru": "ГРАЖДАНСКИЙ ТЮНИНГ GTT",
+      "en": "GTT STREET DIVISION"
+    },
+    "hp": "750+ HP",
+    "quarterMile": "10.2 сек",
+    "topSpeed": "320+ км/ч",
+    "badge": {
+      "ru": "Гошина М3",
+      "en": "Gosha Personal Car"
+    },
+    "img": "assets/cars/gtt_classified_car.svg",
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "isPhoto": false,
+    "isClassified": true,
+    "objectPosition": "center center",
+    "videoSrc": "",
+    "desc": {
+      "ru": "Личный гражданский проект Гоши Перцхелия. Комплексный тюнинг двигателя S58, титановый выхлоп GTT, индивидуальная калибровка блока управления и спортивная подвеска.",
+      "en": "Personal street project of Gosha Pertskheliya. S58 twin-turbo tuning, custom titanium exhaust and ECU calibration."
+    },
+    "specs": {
+      "engine": "3.0L Twin-Turbo S58 GTT Stage 2",
+      "exhaust": "GTT Custom Titanium Exhaust",
+      "ecu": "Custom ECU Calibration"
+    },
+    "sort_order": 101,
+    "category": "street",
+    "is_published": 1,
+    "isPublished": true,
+    "completeness": 45
+  },
+  {
+    "id": "street_bentley_continental_gt",
+    "brand": "BENTLEY & GTT",
+    "type": "other",
+    "name": {
+      "ru": "BENTLEY CONTINENTAL GT GTT",
+      "en": "BENTLEY CONTINENTAL GT GTT"
+    },
+    "tag": {
+      "ru": "ГРАЖДАНСКИЙ ТЮНИНГ GTT",
+      "en": "GTT STREET DIVISION"
+    },
+    "hp": "800+ HP",
+    "quarterMile": "10.5 сек",
+    "topSpeed": "335+ км/ч",
+    "badge": {
+      "ru": "Bentley GT",
+      "en": "Luxury Grand Tourer"
+    },
+    "img": "assets/cars/gtt_classified_car.svg",
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "isPhoto": false,
+    "isClassified": true,
+    "objectPosition": "center center",
+    "videoSrc": "",
+    "desc": {
+      "ru": "Премиальный гран-туризмо Continental GT. Индивидуальная настройка W12 / V8 Twin-Turbo, доработка охлаждения и выхлопной системы под заказ-наряд клиента.",
+      "en": "Premium Grand Tourer Continental GT tuned by GTT skunkworks."
+    },
+    "specs": {
+      "engine": "Twin-Turbo W12 / V8 GTT Spec",
+      "tuning": "Stage 2 Performance Kit"
+    },
+    "sort_order": 102,
+    "category": "street",
+    "is_published": 1,
+    "isPublished": true,
+    "completeness": 40
+  },
+  {
+    "id": "street_porsche_gt3rs_mcqueen",
+    "brand": "PORSCHE & GTT",
+    "type": "porsche",
+    "name": {
+      "ru": "PORSCHE 911 GT3 RS «МАККУИН»",
+      "en": "PORSCHE 911 GT3 RS «MCQUEEN»"
+    },
+    "tag": {
+      "ru": "ГРАЖДАНСКИЙ ТЮНИНГ GTT",
+      "en": "GTT STREET DIVISION"
+    },
+    "hp": "525+ HP",
+    "quarterMile": "10.8 сек",
+    "topSpeed": "300+ км/ч",
+    "badge": {
+      "ru": "GT3 RS «Маккуин»",
+      "en": "Track-Day Spec McQueen"
+    },
+    "img": "assets/cars/gtt_classified_car.svg",
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "isPhoto": false,
+    "isClassified": true,
+    "objectPosition": "center center",
+    "videoSrc": "",
+    "desc": {
+      "ru": "Атмосферный трековый шедевр Porsche 911 GT3 RS в эксклюзивной стилистике «Молния Маккуин». Высокоточные настройки шасси, выхлопная трасса Inconel и трековая телеметрия.",
+      "en": "Naturally aspirated track weapon 911 GT3 RS in iconic McQueen livery."
+    },
+    "specs": {
+      "engine": "4.0L Flat-6 Naturally Aspirated",
+      "exhaust": "Inconel Race System"
+    },
+    "sort_order": 103,
+    "category": "street",
+    "is_published": 1,
+    "isPublished": true,
+    "completeness": 45
   }
 ];
 
@@ -1242,7 +1363,7 @@ const i18n = {
     hero_btn_video: "<span>▶</span> Видео заезда HURACAN TWIN TURBO «ЗЕЛЕНКА» GTT",
     hero_switch_video: "ВИДЕО RDRC",
     hero_switch_photo: "ФОТО АТЕЛЬЕ",
-    garage_tag: "// SHOWROOM & MOTORSPORT BUILDS",
+    garage_tag: "01 // ШОУРУМ И ПРОЕКТЫ GTT",
     garage_title: "Легендарные проекты GTT",
     garage_subtitle: "Каждый автомобиль собран вручную в ателье GoshaTurboTech с персональной калибровкой блоков управления и двойного турбонаддува.",
     filter_all: "Все проекты (35)",
@@ -1250,7 +1371,7 @@ const i18n = {
     spec_power: "Мощность",
     spec_402: "1/4 мили",
     spec_speed: "Скорость",
-    btn_passport: "Инженерный паспорт GTT",
+    btn_passport: "Паспорт GTT",
     gallery_drag_hint: "Листайте тачпадом, мышью или стрелками",
     discuss_tg: "Обсудить проект в Telegram GTT",
     partners_show_all: "Все партнеры (28)",
@@ -1260,7 +1381,7 @@ const i18n = {
     mobile_bar_tg: "Telegram GTT",
     mobile_bar_navi: "Навигатор",
     mobile_bar_call: "Позвонить",
-    contact_tag: "// HEADQUARTERS & ATELIER",
+    contact_tag: "08 // ШТАБ-КВАРТИРА АТЕЛЬЕ",
     contact_hq_title: "ПОСЕТИТЕ АТЕЛЬЕ GOSHATURBOTECH",
     contact_hq_desc: "Москва, Можайское шоссе, 168. Постройка рекордных драг-проектов, комплексный тюнинг суперкаров и супербайков.",
     contact_hq_tag: "ШТАБ-КВАРТИРА &amp; ИНЖИНИРИНГ GTT",
@@ -1293,11 +1414,11 @@ const i18n = {
     contact_loc_val: "Можайское ш., 168 (Новоивановское)",
     contact_btn_call: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> <span>Позвонить в GTT</span>',
     contact_btn_navi: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg> <span>Яндекс Навигатор</span>',
-    partners_tag: "// GTT TECHNICAL & MOTORSPORT PARTNERS",
+    partners_tag: "07 // ТЕХНИЧЕСКИЕ ПАРТНЕРЫ",
     partners_title: "Партнеры",
     partners_subtitle: "Ведущие мировые бренды автоспорта, компонентов трансмиссии, турбонаддува и смазочных материалов, с которыми побеждает GoshaTurboTech.",
     // Records
-    records_tag: "// HALL OF FAME",
+    records_tag: "03 // ЗАЛ СЛАВЫ И РЕКОРДЫ",
     records_title: "Мировые рекорды и победы RDRC",
     records_subtitle: "Более 15 лет непрерывных побед на дистанциях 402 м, 804 м, 1000 м и ледовых трассах.",
     records_stream_label: "GTT RECORD STREAM",
@@ -1332,7 +1453,7 @@ const i18n = {
     founder_caption_1: "Гоша Перцхелия — Основатель GTT",
     founder_caption_2: "Контроль боевого выезда на клей",
     founder_tagline: "Основатель & Главный идеолог GTT",
-    founder_manifesto: "// THE FOUNDER & PHILOSOPHY",
+    founder_manifesto: "02 // ОСНОВАТЕЛЬ И ФИЛОСОФИЯ",
     founder_name: "Гоша Перцхелия",
     founder_quote: "«Настоящий тюнинг — это не просто прикрутить турбину большего размера. Это искусство собрать сложнейший механизм так, чтобы он разгонялся до 350 км/ч на треке, а затем с абсолютным комфортом вез вас домой по вечернему городу».",
     founder_bio: "За 15+ лет увлечения предельной скоростью Гоша Перцхелия прошел путь от первых кастомных турбо-проектов до постройки сложнейших гиперкаров и дрэгстеров, признанных мировым сообществом энтузиастов. Он лично курирует инженерные разработки, калибрует электронные блоки управления и тестирует болиды на главных треках и дрэг-стрипах RDRC.",
@@ -1353,7 +1474,7 @@ const i18n = {
     achieve4_desc: "Авторские киты с титановым выхлопом для Lambo Huracan, R8, BMW M и 911",
     // Team (15 Members)
     team_badge: "ATELIER CREW // 35+ СПЕЦИАЛИСТОВ",
-    team_tag: "// RACING CREW & PILOTS",
+    team_tag: "04 // КОМАНДА И ПИЛОТЫ",
     team_title: "Команда инженеров GoshaTurboTech",
     team_subtitle: "Люди, которые куют рекорды на дрэг-стрипе RDRC и в стенах ателье: 35+ мотористов, телеметристов, диагностов, мастеров шасси и пилотов.",
     team_pill_all: "Все специалисты (35+)",
@@ -1394,6 +1515,7 @@ const i18n = {
     team_role_15: "Диагност",
     team_name_15: "Евгений",
     // Moto
+    moto_tag: "05 // МОТО ПОДРАЗДЕЛЕНИЕ",
     moto_badge: "NEW DIVISION 2025",
     moto_title: "GTT Moto Division",
     moto_subtitle: "Сверхмощный инжиниринг теперь на двух колесах: личные супербайки Гоши, трековые болиды и титановые выхлопные системы.",
@@ -1428,7 +1550,7 @@ const i18n = {
     moto_card3_b2: "Тормозные системы Brembo Racing / GP4",
     moto_card3_b3: "Индивидуальный дизайн и покраска",
     // Gallery captions
-    gallery_tag: "// RDRC CHAMPIONSHIP & PADDOCK LIFE",
+    gallery_tag: "06 // ХРОНИКА RDRC И АТЕЛЬЕ",
     gallery_title: "Хроника гонок & Мастерская GTT",
     gallery_subtitle: "Живые кадры с трассы Чемпионата России RDRC и из ателье GoshaTurboTech.",
     gallery_cap_zelenka: "Легендарная Lamborghini Huracan TT «Зеленка» RDRC",
@@ -1474,7 +1596,7 @@ const i18n = {
     hero_btn_video: "<span>▶</span> Race Video: HURACAN TWIN TURBO «ZELENKA» GTT",
     hero_switch_video: "VIDEO RDRC",
     hero_switch_photo: "PHOTO ATELIER",
-    garage_tag: "// SHOWROOM & MOTORSPORT BUILDS",
+    garage_tag: "01 // SHOWROOM & MOTORSPORT BUILDS",
     garage_title: "Legendary GTT Projects",
     garage_subtitle: "Hand-built in the GoshaTurboTech atelier with bespoke ECU calibration and twin turbo engineering.",
     filter_all: "All Projects (35)",
@@ -1482,7 +1604,7 @@ const i18n = {
     spec_power: "Output",
     spec_402: "1/4 Mile",
     spec_speed: "Top Speed",
-    btn_passport: "GTT Engineering Passport",
+    btn_passport: "GTT Passport",
     gallery_drag_hint: "Swipe with trackpad or drag with mouse",
     discuss_tg: "Discuss Project on Telegram GTT",
     partners_show_all: "All Partners (28)",
@@ -1492,7 +1614,7 @@ const i18n = {
     mobile_bar_tg: "Telegram GTT",
     mobile_bar_navi: "Navigator",
     mobile_bar_call: "Call Atelier",
-    contact_tag: "// HEADQUARTERS & ATELIER",
+    contact_tag: "08 // HEADQUARTERS & ATELIER",
     contact_hq_title: "VISIT GOSHATURBOTECH ATELIER",
     contact_hq_desc: "168 Mozhayskoye Hwy, Moscow. Bespoke drag builds, turnkey supercar &amp; superbike engineering.",
     contact_hq_tag: "HQ &amp; MOTORSPORT ENGINEERING GTT",
@@ -1525,11 +1647,11 @@ const i18n = {
     contact_loc_val: "168 Mozhayskoye Hwy (Novoivanovskoye)",
     contact_btn_call: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> <span>Call GTT Workshop</span>',
     contact_btn_navi: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg> <span>Yandex Navigator</span>',
-    partners_tag: "// GTT TECHNICAL & MOTORSPORT PARTNERS",
+    partners_tag: "07 // TECHNICAL & MOTORSPORT PARTNERS",
     partners_title: "Partners",
     partners_subtitle: "World-leading motorsport brands, transmission components, turbochargers and racing lubricants powering GoshaTurboTech victories.",
     // Records
-    records_tag: "// HALL OF FAME",
+    records_tag: "03 // HALL OF FAME",
     records_title: "World Records & RDRC Victories",
     records_subtitle: "Over 15 years of uninterrupted victories across 1/4 mile, 1/2 mile, 1000m and ice tracks.",
     records_stream_label: "GTT RECORD STREAM",
@@ -1564,7 +1686,7 @@ const i18n = {
     founder_caption_1: "Gosha Pertskheliya — GTT Founder",
     founder_caption_2: "Track VHT Glue Launch Prep",
     founder_tagline: "Founder & Chief Visionary of GTT",
-    founder_manifesto: "// THE FOUNDER & PHILOSOPHY",
+    founder_manifesto: "02 // THE FOUNDER & PHILOSOPHY",
     founder_name: "Gosha Pertskheliya",
     founder_quote: "“True tuning is never just about bolting on a larger turbocharger. It is the fine art of crafting a sophisticated machine that accelerates to 350 km/h on the track, yet drives you home in total comfort through city streets.”",
     founder_bio: "Over 15+ years of chasing ultimate velocity, Gosha Pertskheliya evolved from custom turbo prototypes to building bespoke world-record hypercars recognized globally. He personally oversees powertrain engineering, calibrates ECUs and tests builds on leading dragstrips and RDRC championships.",
@@ -1585,7 +1707,7 @@ const i18n = {
     achieve4_desc: "In-house titanium exhaust & TT packages for Huracan, R8, BMW M & 911",
     // Team (15 Members)
     team_badge: "ATELIER CREW // 35+ SPECIALISTS",
-    team_tag: "// RACING CREW & PILOTS",
+    team_tag: "04 // RACING CREW & PILOTS",
     team_title: "GoshaTurboTech Engineering Crew",
     team_subtitle: "The specialists forging records on the RDRC drag strip and inside the skunkworks: 35+ engine builders, telemetrists, mechanics and pilots.",
     team_pill_all: "All Specialists (35+)",
@@ -1626,6 +1748,7 @@ const i18n = {
     team_role_15: "Diagnostics Engineer",
     team_name_15: "Evgeniy",
     // Moto
+    moto_tag: "05 // MOTO DIVISION",
     moto_badge: "NEW DIVISION 2025",
     moto_title: "GTT Moto Division",
     moto_subtitle: "Extreme engineering now unleashed on two wheels: Gosha's personal superbikes, track weapons, and bespoke titanium exhaust systems.",
@@ -1660,7 +1783,7 @@ const i18n = {
     moto_card3_b2: "Brembo Racing / GP4 brake systems",
     moto_card3_b3: "Individual aerodynamic design and livery",
     // Gallery captions
-    gallery_tag: "// RDRC CHAMPIONSHIP & PADDOCK LIFE",
+    gallery_tag: "06 // RDRC & PADDOCK LIFE",
     gallery_title: "Motorsport Chronicle & GTT Workshop",
     gallery_subtitle: "Raw action footage from the Russian Drag Racing Championship and inside the GoshaTurboTech skunkworks.",
     gallery_cap_zelenka: "Legendary Lamborghini Huracan TT «Zelenka» RDRC",
@@ -1957,7 +2080,11 @@ function applyCarsData(carList) {
       },
       specs: (typeof c.specs === 'object' && c.specs !== null) ? c.specs : {},
       isTeaser: c.isTeaser || c.is_teaser || c.hp === '?' || !c.img,
-      isNew: false
+      isNew: false,
+      category: (c.category || 'race').toLowerCase(),
+      is_published: (c.is_published !== undefined) ? c.is_published : (c.isPublished !== undefined ? (c.isPublished ? 1 : 0) : 1),
+      isPublished: (c.is_published !== 0 && c.is_published !== false && c.isPublished !== false),
+      completeness: c.completeness || 100
     };
   });
 
@@ -3036,7 +3163,7 @@ function renderGalleryTrack(items) {
     const objPos = g.object_position || g.objectPosition || 'center 50%';
     return `
     <div class="marquee-card" data-raw-title="${rawTitle.replace(/"/g, '&quot;')}" data-raw-tag="${rawTag.replace(/"/g, '&quot;')}" onclick="openGalleryLightbox('${g.img}', '${rawTitle.replace(/'/g, "\\'")}')">
-      <img src="${g.img}" alt="${bilingual.title || 'GTT'}" style="object-position: ${objPos} !important;" decoding="async" onerror="this.onerror=null; this.src='assets/photos/gtt_shield_logo.svg';">
+      <img src="${g.img}" alt="${bilingual.title || 'GTT'}" style="object-position: ${objPos} !important;" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='assets/photos/gtt_shield_logo.svg';">
       <div class="marquee-card-meta">
         <span class="marquee-card-tag">${bilingual.tag}</span>
         <div class="marquee-card-title">${bilingual.title}</div>
@@ -3390,7 +3517,10 @@ function startRecordsContinuousMotion() {
 }
 
 window.handleRecordImgLoad = function(img) {
-  if (!img || !img.naturalWidth || !img.naturalHeight) return;
+  if (!img) return;
+  const wrapper = img.closest ? img.closest('.record-photo-wrapper') : img.parentElement;
+  if (wrapper) wrapper.classList.add('is-img-loaded');
+  if (!img.naturalWidth || !img.naturalHeight) return;
   updateRecordsHalfWidth();
   if (!img.getAttribute('data-custom-pos')) {
     const src = (img.currentSrc || img.src || '').toLowerCase();
@@ -3566,6 +3696,7 @@ function renderRecordsEditorial(recordsList) {
           <img src="${photo}" 
                alt="${carName}" 
                class="record-photo-img"${posAttr}
+               loading="lazy"
                decoding="async"
                onload="handleRecordImgLoad(this)"
                onerror="this.src='assets/photos/huracan_rdrc_stage_line.jpg'">
@@ -3589,6 +3720,16 @@ function renderRecordsEditorial(recordsList) {
   const primaryCards = recordsList.map((r, i) => renderSingle(r, i, false)).join('');
   const duplicateCards = recordsList.map((r, i) => renderSingle(r, i, true)).join('');
   track.innerHTML = primaryCards + duplicateCards;
+
+  // Synchronously reveal any cached record images
+  track.querySelectorAll('.record-photo-img').forEach(img => {
+    if (img.complete && img.naturalWidth > 0) {
+      window.handleRecordImgLoad(img);
+    }
+  });
+  setTimeout(() => {
+    track.querySelectorAll('.record-photo-wrapper:not(.is-img-loaded)').forEach(w => w.classList.add('is-img-loaded'));
+  }, 2000);
 
   initRecordsCarousel();
 }
@@ -4162,10 +4303,24 @@ function renderTeamGrid(teamList) {
 }
 
 // Reliable Multi-Platform Hero Video Engine with Instant Backdrop Fallback
+function isSlowOrSaveDataConnection() {
+  try {
+    const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if (!conn) return false;
+    if (conn.saveData) return true;
+    return conn.effectiveType === 'slow-2g' || conn.effectiveType === '2g';
+  } catch (e) {
+    return false;
+  }
+}
+
 function setupHeroVideo() {
   const heroVideo = document.querySelector('.hero-video-bg');
   const hero = document.getElementById('hero');
   if (!heroVideo) return;
+
+  // Clear legacy sticky localStorage photo mode so fresh visits always default to Video RDRC
+  try { localStorage.removeItem('gtt_hero_mode'); } catch (e) {}
 
   // Strict mobile autoplay compliance
   heroVideo.muted = true;
@@ -4192,6 +4347,9 @@ function setupHeroVideo() {
 
   function attemptPlay() {
     if (hero && hero.classList.contains('photo-only-mode')) return;
+    if (heroVideo.preload === 'none') {
+      heroVideo.preload = 'metadata';
+    }
     heroVideo.muted = true;
     const playPromise = heroVideo.play();
     if (playPromise !== undefined) {
@@ -4205,6 +4363,9 @@ function setupHeroVideo() {
     const events = ['touchstart', 'pointerdown', 'mousedown', 'scroll', 'click', 'keydown'];
     const onAction = () => {
       if (hero && hero.classList.contains('photo-only-mode')) return;
+      if (heroVideo.preload === 'none') {
+        heroVideo.preload = 'metadata';
+      }
       heroVideo.muted = true;
       heroVideo.play().then(markVideoActive).catch(() => {});
       events.forEach(evt => window.removeEventListener(evt, onAction));
@@ -4227,7 +4388,6 @@ function setupHeroVideo() {
     source.addEventListener('error', handleVideoError);
   });
 
-  attemptPlay();
   heroVideo.addEventListener('loadedmetadata', attemptPlay, { once: true });
   heroVideo.addEventListener('canplay', attemptPlay, { once: true });
 
@@ -4237,26 +4397,50 @@ function setupHeroVideo() {
     }
   });
 
-  // Query parameter & localStorage preference check
+  // Query parameter, session preference, & slow-connection check
   try {
     const params = new URLSearchParams(window.location.search);
     if (params.get('hero') === 'photo' || params.get('mode') === 'photo') {
-      window.setHeroMediaMode('photo');
-    } else if (localStorage.getItem('gtt_hero_mode') === 'photo') {
-      window.setHeroMediaMode('photo');
-    } else {
-      window.setHeroMediaMode('video');
+      window.setHeroMediaMode('photo', { persist: false });
+      return;
+    }
+    if (sessionStorage.getItem('gtt_hero_mode') === 'photo') {
+      window.setHeroMediaMode('photo', { persist: false });
+      return;
+    }
+    if (isSlowOrSaveDataConnection()) {
+      // On 2G / Save-Data: keep fast photo backdrop without choking bandwidth on heavy video
+      window.setHeroMediaMode('photo', { persist: false });
+      return;
     }
   } catch (e) {}
+
+  // Prioritize visible project photos first so video streaming doesn't starve <img> requests
+  let videoStarted = false;
+  function startHeroVideoStream() {
+    if (videoStarted) return;
+    videoStarted = true;
+    window.setHeroMediaMode('video', { persist: false });
+    attemptPlay();
+  }
+
+  if (document.readyState === 'complete') {
+    setTimeout(startHeroVideoStream, 250);
+  } else {
+    window.addEventListener('load', () => setTimeout(startHeroVideoStream, 150), { once: true });
+    // Safety fallback if slow external scripts delay window.load
+    setTimeout(startHeroVideoStream, 1200);
+  }
 }
 
-window.setHeroMediaMode = function(mode) {
+window.setHeroMediaMode = function(mode, options) {
   const hero = document.getElementById('hero');
   const heroVideo = document.querySelector('.hero-video-bg');
   const btnVideo = document.getElementById('btnModeVideo');
   const btnPhoto = document.getElementById('btnModePhoto');
   if (!hero) return;
 
+  const persist = !options || options.persist !== false;
   const isPhoto = (mode === 'photo');
   hero.classList.toggle('photo-only-mode', isPhoto);
 
@@ -4270,10 +4454,17 @@ window.setHeroMediaMode = function(mode) {
     if (heroVideo) {
       heroVideo.pause();
     }
-    try { localStorage.setItem('gtt_hero_mode', 'photo'); } catch (e) {}
+    if (persist) {
+      try { sessionStorage.setItem('gtt_hero_mode', 'photo'); } catch (e) {}
+    }
   } else {
-    try { localStorage.removeItem('gtt_hero_mode'); } catch (e) {}
+    if (persist) {
+      try { sessionStorage.removeItem('gtt_hero_mode'); } catch (e) {}
+    }
     if (heroVideo) {
+      if (heroVideo.preload === 'none') {
+        heroVideo.preload = 'metadata';
+      }
       heroVideo.muted = true;
       heroVideo.play().then(() => {
         heroVideo.classList.add('is-playing');
@@ -4291,7 +4482,7 @@ window.toggleHeroMediaMode = function() {
 
 window.testHeroBackdrop = function(showPhoto = true) {
   window.setHeroMediaMode(showPhoto ? 'photo' : 'video');
-  console.log(`[GTT Hero] Mode set to: ${showPhoto ? 'PHOTO BACKDROP (7R204229.jpg)' : 'VIDEO STREAM (hero_bg_optimized.mp4)'}`);
+  console.log(`[GTT Hero] Mode set to: ${showPhoto ? 'PHOTO BACKDROP (hero_atelier_backdrop_web.jpg)' : 'VIDEO STREAM (hero_bg_optimized.mp4)'}`);
 };
 
 // GTT Atelier Navigation & Route Handlers
@@ -4439,8 +4630,10 @@ function initPreloader() {
     finished = true;
     if (fill) fill.style.width = '100%';
     try {
+      const hero = document.getElementById('hero');
       const heroVideo = document.querySelector('.hero-video-bg');
-      if (heroVideo && heroVideo.paused) {
+      if (heroVideo && heroVideo.paused && (!hero || !hero.classList.contains('photo-only-mode'))) {
+        if (heroVideo.preload === 'none') heroVideo.preload = 'metadata';
         heroVideo.muted = true;
         heroVideo.play().catch(() => {});
       }
@@ -4515,7 +4708,7 @@ function convertGoogleDriveUrl(url) {
   return trimmed;
 }
 
-const GTT_ASSET_VERSION = '20261110_v3';
+const GTT_ASSET_VERSION = '20261113_v1';
 function withLocalAssetVersion(url) {
   if (!url || typeof url !== 'string') return url || '';
   const trimmed = url.trim();
@@ -4640,7 +4833,10 @@ function parseCarObjectPositionY(configuredPos) {
 }
 
 window.handleCarCardImgLoad = function(imgEl, configuredPos) {
-  if (!imgEl || !imgEl.naturalWidth || !imgEl.naturalHeight) return;
+  if (!imgEl) return;
+  const mediaBox = imgEl.closest ? imgEl.closest('.car-card-media') : imgEl.parentElement;
+  if (mediaBox) mediaBox.classList.add('is-img-loaded');
+  if (!imgEl.naturalWidth || !imgEl.naturalHeight) return;
   const srcLower = (imgEl.getAttribute('src') || imgEl.src || '').toLowerCase();
   const isSvgOrCutout =
     srcLower.includes('.svg') ||
@@ -4712,6 +4908,27 @@ if (!window._gttCarFramingResizeBound) {
   });
 }
 
+let currentProjectCategory = 'race'; // 'race' or 'street'
+
+window.setProjectCategory = function(cat) {
+  if (currentProjectCategory === cat) return;
+  currentProjectCategory = cat;
+  
+  // Update category tab buttons
+  document.querySelectorAll('#projectCategoryTabs .category-tab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-category') === cat);
+  });
+
+  // Reset filter pill to 'all'
+  const pills = document.querySelectorAll('#carsFilterPills .filter-pill');
+  pills.forEach(p => p.classList.remove('active'));
+  const pillAll = document.querySelector('#carsFilterPills .filter-pill[data-filter="all"]');
+  if (pillAll) pillAll.classList.add('active');
+
+  isGarageExpanded = false;
+  renderGarageGrid('all');
+};
+
 // Render Garage Grid with smooth animation & bilingual support
 function renderGarageGrid(filterType) {
   const container = document.getElementById('garageGrid');
@@ -4719,23 +4936,39 @@ function renderGarageGrid(filterType) {
 
   container.classList.add('filtering');
 
+  // Update Category Counts
+  const raceCars = gttProjects.filter(c => (c.category || 'race') === 'race' && (c.is_published !== 0 && c.is_published !== false && c.isPublished !== false));
+  const streetCars = gttProjects.filter(c => (c.category || 'race') === 'street' && (c.is_published !== 0 && c.is_published !== false && c.isPublished !== false));
+  
+  const countRaceEl = document.getElementById('countRaceProjects');
+  if (countRaceEl) countRaceEl.textContent = raceCars.length;
+  const countStreetEl = document.getElementById('countStreetProjects');
+  if (countStreetEl) countStreetEl.textContent = streetCars.length;
+
   const countEl = document.getElementById('divCarsCount');
-  if (countEl) countEl.textContent = gttProjects.length;
+  if (countEl) countEl.textContent = raceCars.length + streetCars.length;
 
   setTimeout(() => {
     try {
-      // 1. Filter items
-      let filtered = (filterType === 'all')
-        ? [...gttProjects]
-        : gttProjects.filter(c => c.type === filterType);
+      // 1. Filter by Category ('race' vs 'street') AND must be published
+      let categoryPool = gttProjects.filter(c => {
+        const cat = (c.category || 'race').toLowerCase();
+        const isPub = (c.is_published !== 0 && c.is_published !== false && c.isPublished !== false);
+        return cat === currentProjectCategory && isPub;
+      });
 
-      // 2. Pagination for 'all' filter (flagship featured builds shown first, rest expandable)
+      // 2. Filter by car brand/type
+      let filtered = (filterType === 'all')
+        ? categoryPool
+        : categoryPool.filter(c => c.type === filterType);
+
+      // 3. Pagination for 'all' filter (flagship featured builds shown first, rest expandable)
       const expandWrap = document.getElementById('garageExpandWrap');
       const expandBtn = document.getElementById('btnGarageExpand');
       const expandText = document.getElementById('garageExpandText');
       const filterPills = document.getElementById('carsFilterPills');
 
-      const featuredCount = gttProjects.filter(c => c.isFeatured || c.is_featured === 1 || c.is_featured === true).length || 4;
+      const featuredCount = categoryPool.filter(c => c.isFeatured || c.is_featured === 1 || c.is_featured === true).length || 4;
 
       let displayList = filtered;
       if (filterType === 'all') {
@@ -4752,10 +4985,10 @@ function renderGarageGrid(filterType) {
         } else {
           container.classList.remove('is-collapsed-4');
           if (filterPills) {
-            filterPills.style.display = 'flex';
-            filterPills.classList.add('is-revealed');
+            filterPills.style.display = (categoryPool.length > 4) ? 'flex' : 'none';
+            if (categoryPool.length > 4) filterPills.classList.add('is-revealed');
           }
-          if (expandWrap) expandWrap.style.display = 'flex';
+          if (expandWrap) expandWrap.style.display = (categoryPool.length > featuredCount) ? 'flex' : 'none';
           if (expandBtn) expandBtn.classList.add('is-expanded');
           if (expandText) expandText.textContent = formatGarageExpandText(0, true, currentLang);
         }
@@ -4799,10 +5032,12 @@ function renderGarageGrid(filterType) {
             <img class="car-card-img ${car.isPhoto ? 'photo-fit' : ''}" 
                  src="${withLocalAssetVersion(convertGoogleDriveUrl(car.img))}" 
                  alt="${name}" 
+                 ${idx < 4 ? 'fetchpriority="high"' : 'loading="lazy"'}
+                 decoding="async"
                  data-configured-pos="${escapeHtml(car.objectPosition || '')}"
                  style="${car.objectPosition ? `object-position: ${escapeHtml(car.objectPosition)} !important;` : ''}"
                  onload="handleCarCardImgLoad(this, '${escapeJS(car.objectPosition || '')}')"
-                 onerror="this.onerror=null; this.src='${escapeJS(withLocalAssetVersion(convertGoogleDriveUrl(car.fallbackImg || 'assets/cars/gtt_classified_car.svg')))}';">
+                 onerror="this.onerror=null; this.src='${escapeJS(withLocalAssetVersion(convertGoogleDriveUrl(car.fallbackImg || 'assets/cars/gtt_classified_car.svg')))}'; if(this.parentElement) this.parentElement.classList.add('is-img-loaded');">
           </div>
           <div class="car-card-info">
             <div class="car-brand">${tag || car.brand}</div>
@@ -4823,18 +5058,28 @@ function renderGarageGrid(filterType) {
               </div>
             </div>
             <div class="car-card-footer">
+              <button class="btn-card-details btn-card-passport" onclick="event.stopPropagation(); openCarModal('${car.id}')">${i18n[currentLang].btn_passport}</button>
               ${showVideoBtn ? `
                 <button class="btn-card-details btn-card-video" onclick="event.stopPropagation(); openCarVideo('${car.id}')">
                   <span>▶</span> ${currentLang === 'ru' ? 'Видео заезда' : 'Race Video'}
                 </button>
               ` : ''}
-              <button class="btn-card-details" onclick="event.stopPropagation(); openCarModal('${car.id}')">${i18n[currentLang].btn_passport}</button>
             </div>
           </div>
         </div>
         `;
       }).join('');
       requestAnimationFrame(refreshAllCarCardFraming);
+      // Synchronously reveal any images already cached by browser
+      container.querySelectorAll('.car-card-img').forEach(img => {
+        if (img.complete && img.naturalWidth > 0) {
+          window.handleCarCardImgLoad(img, img.dataset.configuredPos || '');
+        }
+      });
+      // Watchdog fallback: ensure no image stays hidden if network hangs
+      setTimeout(() => {
+        container.querySelectorAll('.car-card-media:not(.is-img-loaded)').forEach(m => m.classList.add('is-img-loaded'));
+      }, 2000);
     } catch (err) {
       console.error('Error in renderGarageGrid:', err);
     } finally {
@@ -5589,8 +5834,9 @@ function initAmbientCursorGlow() {
 // 1. 3D Tilt Effect on Cards with Dynamic Specular Glare
 window.apply3DTiltCards = function() {
   if (window.matchMedia('(pointer: coarse)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  const targets = document.querySelectorAll('.car-card, .team-card, .moto-card, .record-item');
+  const targets = document.querySelectorAll('.team-card, .moto-card, .record-item');
 
   targets.forEach(card => {
     if (card.dataset.tiltApplied) return;
@@ -5611,26 +5857,26 @@ window.apply3DTiltCards = function() {
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
 
-      // Max rotation: 7 degrees for silky premium feel
-      const rotateX = ((y - centerY) / centerY) * -7;
-      const rotateY = ((x - centerX) / centerX) * 7;
+      // Subtle, crisp 3.5deg motorsport tilt with 4px precision lift
+      const rotateX = ((y - centerY) / centerY) * -3.5;
+      const rotateY = ((x - centerX) / centerX) * 3.5;
 
-      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-6px) scale3d(1.015, 1.015, 1.015)`;
+      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
 
       const glareX = (x / rect.width) * 100;
       const glareY = (y / rect.height) * 100;
-      glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.18) 0%, rgba(255,100,37,0.08) 35%, transparent 70%)`;
+      glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.12) 0%, rgba(234,91,12,0.06) 35%, transparent 70%)`;
       glare.style.opacity = '1';
     });
 
     card.addEventListener('mouseleave', () => {
-      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0) scale3d(1, 1, 1)';
+      card.style.transform = '';
       glare.style.opacity = '0';
-      card.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease';
+      card.style.transition = 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.45s ease';
     });
 
     card.addEventListener('mouseenter', () => {
-      card.style.transition = 'none';
+      card.style.transition = 'border-color 0.25s ease, box-shadow 0.25s ease';
     });
   });
 };

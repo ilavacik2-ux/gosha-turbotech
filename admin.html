@@ -13,8 +13,10 @@
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/admin.css?v=20261110_v3">
+  <link rel="preload" href="assets/fonts/S-Core%20-%20CoreSansD75Black-Italic.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="assets/fonts/S-Core%20-%20CoreSansD55Bold.otf" as="font" type="font/otf" crossorigin>
+  <link rel="preload" href="assets/fonts/DAGGERSQUARE%20OBLIQUE.otf" as="font" type="font/otf" crossorigin>
+  <link rel="stylesheet" href="css/admin.css?v=20261114_brandfont">
 </head>
 <body>
 
@@ -247,7 +249,8 @@
               <tr>
                 <th style="width: 70px; text-align: center;">Топ</th>
                 <th>Автомобиль</th>
-                <th>Марка</th>
+                <th>Направление</th>
+                <th>Статус</th>
                 <th>Мощность</th>
                 <th>1/4 мили</th>
                 <th>Видео</th>
@@ -474,7 +477,7 @@
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
                     <span>Папка</span>
                   </label>
-                  <input type="file" id="adminMotoBanner1File" class="visually-hidden-file-input" accept="image/*" onchange="handleMotoBannerFileSelected(1, event)">
+                  <input type="file" id="adminMotoBanner1File" class="visually-hidden-file-input" accept="image/jpeg,image/png,image/webp,image/avif" onchange="handleMotoBannerFileSelected(1, event)">
                 </div>
               </div>
               <div class="form-group full-width" style="margin-bottom: 10px;">
@@ -520,7 +523,7 @@
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
                     <span>Папка</span>
                   </label>
-                  <input type="file" id="adminMotoBanner2File" class="visually-hidden-file-input" accept="image/*" onchange="handleMotoBannerFileSelected(2, event)">
+                  <input type="file" id="adminMotoBanner2File" class="visually-hidden-file-input" accept="image/jpeg,image/png,image/webp,image/avif" onchange="handleMotoBannerFileSelected(2, event)">
                 </div>
               </div>
               <div class="form-group full-width" style="margin-bottom: 10px;">
@@ -723,7 +726,32 @@
               <option value="other">Dodge / Другое</option>
             </select>
           </div>
-          <div class="form-group full-width" style="margin: 4px 0 10px; padding: 10px 14px; background: rgba(255, 85, 0, 0.07); border: 1px solid rgba(255, 85, 0, 0.28); border-radius: 8px;">
+          <div class="form-group">
+            <label>Категория направления *</label>
+            <select id="editCategory" style="font-weight: 700; color: #fff; background: #14161a;">
+              <option value="race">🏁 Гоночные болиды RDRC / Трек</option>
+              <option value="street">🏙️ Гражданский тюнинг / Стрит</option>
+            </select>
+          </div>
+          <div class="form-group full-width" style="margin: 4px 0 6px; padding: 12px 14px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-subtle); border-radius: 8px; display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+              <label class="custom-checkbox-label" style="display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; margin: 0;">
+                <input type="checkbox" id="editIsPublished" style="width: 20px; height: 20px; accent-color: #22c55e; cursor: pointer;">
+                <div>
+                  <span style="font-weight: 700; color: #22c55e; font-size: 13.5px; display: flex; align-items: center; gap: 6px;">
+                    <span>🟢</span> Опубликован на сайте (Виден посетителям)
+                  </span>
+                  <span style="font-size: 11.5px; color: var(--text-dim); display: block; margin-top: 2px;">
+                    Если галочка снята — проект сохраняется как <b>черновик</b> только в админке. Посетители сайта его не увидят.
+                  </span>
+                </div>
+              </label>
+              <div id="editCompletenessBadge" style="padding: 4px 10px; border-radius: 4px; font-family: var(--font-mono); font-size: 11px; font-weight: 700; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: #fff;">
+                Заполнено: 100%
+              </div>
+            </div>
+          </div>
+          <div class="form-group full-width" style="margin: 0 0 10px; padding: 10px 14px; background: rgba(255, 85, 0, 0.07); border: 1px solid rgba(255, 85, 0, 0.28); border-radius: 8px;">
             <label class="custom-checkbox-label" style="display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; margin: 0;">
               <input type="checkbox" id="editIsFeatured" style="width: 18px; height: 18px; accent-color: var(--gtt-orange); cursor: pointer;">
               <div>
@@ -896,7 +924,7 @@
                   </svg>
                   <span>Папка</span>
                 </label>
-                <input type="file" id="teamPhotoFileInput" class="visually-hidden-file-input" accept="image/*" onchange="handleTeamPhotoSelected(event)">
+                <input type="file" id="teamPhotoFileInput" class="visually-hidden-file-input" accept="image/jpeg,image/png,image/webp,image/avif" onchange="handleTeamPhotoSelected(event)">
               </div>
             </div>
 
@@ -984,7 +1012,7 @@
                 </svg>
                 <span>Папка</span>
               </label>
-              <input type="file" id="recordPhotoFileInput" class="visually-hidden-file-input" accept="image/*" onchange="handleRecordPhotoSelected(event)">
+              <input type="file" id="recordPhotoFileInput" class="visually-hidden-file-input" accept="image/jpeg,image/png,image/webp,image/avif" onchange="handleRecordPhotoSelected(event)">
             </div>
             <!-- Live Preview for Record Photo -->
             <div class="admin-img-preview-wrap" id="recordImgPreviewWrap" style="display: none;">
@@ -1359,7 +1387,7 @@
                 </svg>
                 <span>Папка</span>
               </label>
-              <input type="file" id="partnerLogoFileInput" class="visually-hidden-file-input" accept="image/*" onchange="handlePartnerLogoSelected(event)">
+              <input type="file" id="partnerLogoFileInput" class="visually-hidden-file-input" accept="image/jpeg,image/png,image/webp,image/avif,image/svg+xml" onchange="handlePartnerLogoSelected(event)">
             </div>
             <!-- Live Small Picture / Logo Preview Box -->
             <div id="partnerLogoPreviewBox" style="display: flex; align-items: center; gap: 12px; margin-top: 10px; padding: 10px 14px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px;">
@@ -1388,56 +1416,70 @@
 
   <!-- Moto Project Modal -->
   <div id="motoModal" class="admin-modal-overlay" style="display: none;">
-    <div class="admin-modal-card" style="max-width: 620px;">
-      <div class="admin-modal-header">
-        <h3 id="motoModalTitle">Добавить мотопроект GTT</h3>
+    <div class="admin-modal-card admin-modal-card-wide" style="max-width: 1200px; width: 96%; max-height: 94vh; min-height: 78vh; padding: 36px 38px;">
+      <div class="admin-modal-header" style="margin-bottom: 28px;">
+        <h3 id="motoModalTitle" style="font-size: 22px;">Добавить мотопроект GTT</h3>
         <button class="modal-close-btn" onclick="closeMotoModal()">&times;</button>
       </div>
       <form id="motoForm" novalidate onsubmit="saveMoto(event)">
         <input type="hidden" id="editMotoId">
-        <div class="form-grid">
-          <div class="form-group full-width">
-            <label>Название проекта / Программы *</label>
-            <input type="text" id="editMotoTitle" placeholder="Например: Superbike Stage 1 / 2, Ducati Panigale V4..." required>
-          </div>
-          <div class="form-group">
-            <label>Код / Бейдж *</label>
-            <input type="text" id="editMotoCode" placeholder="Например: SUPERBIKE // STAGE 2, BESPOKE // CNC..." required>
-          </div>
-          <div class="form-group">
-            <label>Порядок сортировки (sort_order)</label>
-            <input type="number" id="editMotoSortOrder" value="0" min="0">
-          </div>
-          <div class="form-group full-width">
-            <label>Описание проекта</label>
-            <textarea id="editMotoDesc" rows="3" placeholder="Краткое техническое описание доработок мототехники..."></textarea>
-          </div>
-          <div class="form-group full-width">
-            <label>Ключевые особенности / характеристики (по одной на строку)</label>
-            <textarea id="editMotoBullets" rows="3" placeholder="Индивидуальная калибровка на диностенде&#10;Оптимизация Wheelie & Launch Control&#10;Снятие экологических и скоростных лимитеров"></textarea>
-          </div>
-          <div class="form-group full-width">
-            <label for="editMotoImg">Изображение / Фото мотоцикла</label>
-            <div class="file-picker-input-group">
-              <input type="text" id="editMotoImg" placeholder="assets/moto/... или вставьте ссылку / выберите файл" oninput="updateMotoPhotoPreview(this.value)">
-              <label for="motoPhotoFileInput" class="btn-folder-browse" title="Выбрать файл через Проводник">
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-                </svg>
-                <span>Папка</span>
-              </label>
-              <input type="file" id="motoPhotoFileInput" class="visually-hidden-file-input" accept="image/*" onchange="handleMotoPhotoSelected(event)">
+        <div class="moto-modal-split" style="display: flex; gap: 34px; align-items: flex-start; flex-wrap: wrap;">
+          <!-- Left side: Text Inputs -->
+          <div class="moto-modal-form-col" style="flex: 1.15; min-width: 360px;">
+            <div class="form-group full-width" style="margin-bottom: 16px;">
+              <label style="font-size: 13px; font-weight: 700;">Название проекта / Программы *</label>
+              <input type="text" id="editMotoTitle" placeholder="Например: Superbike Stage 1 / 2, Ducati Panigale V4..." style="font-size: 14px; padding: 12px 14px;" required>
             </div>
+            <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 14px; margin-bottom: 16px;">
+              <div class="form-group">
+                <label style="font-size: 12px; font-weight: 700;">Код / Бейдж *</label>
+                <input type="text" id="editMotoCode" placeholder="SUPERBIKE // STAGE 2..." style="font-size: 13px; padding: 11px 14px;" required>
+              </div>
+              <div class="form-group">
+                <label style="font-size: 12px; font-weight: 700;">Порядок (sort_order)</label>
+                <input type="number" id="editMotoSortOrder" value="0" min="0" style="font-size: 13px; padding: 11px 14px;">
+              </div>
+            </div>
+            <div class="form-group full-width" style="margin-bottom: 16px;">
+              <label style="font-size: 12.5px; font-weight: 700;">Описание проекта</label>
+              <textarea id="editMotoDesc" rows="5" placeholder="Краткое техническое описание доработок мототехники..." style="font-size: 13.5px; line-height: 1.5; padding: 12px 14px; resize: vertical;"></textarea>
+            </div>
+            <div class="form-group full-width" style="margin-bottom: 16px;">
+              <label style="font-size: 12.5px; font-weight: 700;">Ключевые особенности / характеристики (по одной на строку)</label>
+              <textarea id="editMotoBullets" rows="4" placeholder="Индивидуальная калибровка на диностенде&#10;Оптимизация Wheelie & Launch Control&#10;Снятие экологических и скоростных лимитеров" style="font-size: 13px; line-height: 1.5; padding: 12px 14px; resize: vertical;"></textarea>
+            </div>
+            <div class="form-group full-width" style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+              <input type="checkbox" id="editMotoIsActive" checked style="width: 20px; height: 20px; accent-color: var(--gtt-cyan); cursor: pointer;">
+              <label for="editMotoIsActive" style="margin: 0; cursor: pointer; color: #fff; font-size: 13.5px; font-weight: 600;">Активен (отображается на сайте)</label>
+            </div>
+          </div>
+
+          <!-- Right side: Image Selector & Live Preview Card -->
+          <div class="moto-modal-preview-col" style="flex: 1; min-width: 340px;">
+            <div class="form-group full-width" style="margin-bottom: 12px;">
+              <label for="editMotoImg">Изображение / Фото мотоцикла</label>
+              <div class="file-picker-input-group">
+                <input type="text" id="editMotoImg" placeholder="assets/moto/... или вставьте ссылку / выберите файл" oninput="updateMotoPhotoPreview(this.value)">
+                <label for="motoPhotoFileInput" class="btn-folder-browse" title="Выбрать файл через Проводник">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                  <span>Папка</span>
+                </label>
+                <input type="file" id="motoPhotoFileInput" class="visually-hidden-file-input" accept="image/jpeg,image/png,image/webp,image/avif" onchange="handleMotoPhotoSelected(event)">
+              </div>
+            </div>
+
             <!-- Live Image Preview Box & Height Adjustment Control -->
-            <div id="motoPhotoPreviewBox" style="margin-top: 12px; padding: 12px; background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 10px;">
+            <div id="motoPhotoPreviewBox" style="padding: 14px; background: rgba(0, 0, 0, 0.45); border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 10px;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                 <span style="font-size: 11px; text-transform: uppercase; color: var(--gtt-orange); font-family: var(--font-mono); font-weight: 700;">Предпросмотр фото мотоцикла:</span>
                 <button type="button" class="btn-clear-preview" onclick="clearMotoPhotoPreview()" style="font-size: 11px;">&times; Очистить фото</button>
               </div>
-              <div style="width: 100%; height: 210px; border-radius: 8px; overflow: hidden; background: #07090e; border: 1px solid rgba(255, 85, 0, 0.35); position: relative; display: flex; align-items: center; justify-content: center;">
+              <div style="width: 100%; height: 280px; border-radius: 8px; overflow: hidden; background: #07090e; border: 1px solid rgba(255, 85, 0, 0.35); position: relative; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
                 <img id="motoPhotoPreviewImg" src="" alt="Превью мотоцикла" style="width: 100%; height: 100%; object-fit: cover; object-position: center 50%; display: none;">
-                <div id="motoPhotoPlaceholderText" style="font-size: 12px; color: var(--text-dim); font-family: var(--font-mono); text-align: center; padding: 20px;">
-                  🏍️ Фото не выбрано<br><span style="font-size: 11px; color: var(--text-muted); margin-top: 4px; display: inline-block;">Выберите файл через кнопку «Папка» или вставьте ссылку</span>
+                <div id="motoPhotoPlaceholderText" style="font-size: 13px; color: var(--text-dim); font-family: var(--font-mono); text-align: center; padding: 24px;">
+                  🏍️ Фото не выбрано<br><span style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px; display: inline-block;">Выберите файл через кнопку «Папка» или вставьте ссылку</span>
                 </div>
               </div>
               <div id="motoPhotoPreviewText" style="font-size: 11px; color: var(--text-dim); margin-top: 6px; font-family: var(--font-mono); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Файл не выбран</div>
@@ -1465,17 +1507,13 @@
                 </div>
                 <input type="hidden" id="editMotoObjectPosition" value="center 50%">
                 <p class="photo-pos-hint" style="margin-top: 6px; font-size: 11px; color: var(--text-dim); line-height: 1.4;">
-                  Регулируйте вертикальное положение (кадрирование), чтобы колеса, руль или выхлоп мотоцикла не срезались на карточке сайта.
+                  Регулируйте вертикальное положение, чтобы колеса, руль или выхлоп мотоцикла не срезались на карточке сайта.
                 </p>
               </div>
             </div>
           </div>
-          <div class="form-group full-width" style="display: flex; align-items: center; gap: 10px; margin-top: 6px;">
-            <input type="checkbox" id="editMotoIsActive" checked style="width: 18px; height: 18px; accent-color: var(--gtt-cyan); cursor: pointer;">
-            <label for="editMotoIsActive" style="margin: 0; cursor: pointer; color: #fff; font-size: 13px;">Активен (отображается на сайте)</label>
-          </div>
         </div>
-        <div class="admin-modal-actions">
+        <div class="admin-modal-actions" style="margin-top: 20px;">
           <button type="button" class="topbar-btn outline-btn" onclick="closeMotoModal()">Отмена</button>
           <button type="submit" class="btn-primary">Сохранить мотопроект</button>
         </div>
@@ -1484,6 +1522,6 @@
   </div>
 
   <script src="js/media-db.js?v=20261107_v5"></script>
-  <script src="js/admin.js?v=20261110_v3"></script>
+  <script src="js/admin.js?v=20261114_cyr"></script>
 </body>
 </html>

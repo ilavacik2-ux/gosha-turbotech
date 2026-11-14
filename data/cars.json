@@ -23,6 +23,9 @@
     "specs_json": "{\"engine\": \"5.2L FSI V10 Twin Turbo Mid-Engine GTT Stage 3\", \"turbos\": \"Mirror Twin Turbo Kit with Air-to-Water Intercooling\", \"cooling\": \"CSF Triple Billet Heat Exchangers\", \"ecu\": \"Syvecs S12 Standalone Motorsport Setup\", \"clutch\": \"GTT Upgraded Billet 9-Plate Dual Clutch\"}",
     "sort_order": 1,
     "is_featured": 1,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {
       "engine": "5.2L FSI V10 Twin Turbo Mid-Engine GTT Stage 3",
       "turbos": "Mirror Twin Turbo Kit with Air-to-Water Intercooling",
@@ -41,14 +44,15 @@
     "fallbackImg": "https://static.tildacdn.com/tild3162-3462-4064-b931-313636663133/audi_r8-min.png",
     "isPhoto": true,
     "objectPosition": "center 55%",
-    "isFeatured": true
+    "isFeatured": true,
+    "isPublished": true
   },
   {
     "id": "draco_promod",
     "brand": "NISSAN & DRACO",
     "type": "gtr",
-    "name_ru": "GT-R R35 DRACO PRO-MOD GTT #300",
-    "name_en": "GT-R R35 DRACO PRO-MOD GTT #300",
+    "name_ru": "GT-R R35 «DRACO» GTT #300",
+    "name_en": "GT-R R35 «DRACO» GTT #300",
     "tag_ru": "RDRC БОЛИД",
     "tag_en": "RDRC CAR",
     "hp": "3,000+ HP",
@@ -67,9 +71,12 @@
     "specs_json": "{}",
     "sort_order": 2,
     "is_featured": 1,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {},
-    "nameRu": "GT-R R35 DRACO PRO-MOD GTT #300",
-    "nameEn": "GT-R R35 DRACO PRO-MOD GTT #300",
+    "nameRu": "GT-R R35 «DRACO» GTT #300",
+    "nameEn": "GT-R R35 «DRACO» GTT #300",
     "quarterMile": "7.694 сек",
     "topSpeed": "323.88 км/ч",
     "videoSrc": "assets/videos/draco_gtr_action.mp4",
@@ -79,7 +86,8 @@
     "fallbackImg": "assets/cars/gtr_draco_promod_front.jpg",
     "isPhoto": true,
     "objectPosition": "center 65%",
-    "isFeatured": true
+    "isFeatured": true,
+    "isPublished": true
   },
   {
     "id": "gtr_lucifer",
@@ -105,6 +113,9 @@
     "specs_json": "{}",
     "sort_order": 3,
     "is_featured": 1,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {},
     "nameRu": "GT-R R35 «LUCIFER» GTT #71 CHAMPION",
     "nameEn": "GT-R R35 «LUCIFER» GTT #71 CHAMPION",
@@ -117,7 +128,8 @@
     "fallbackImg": "assets/cars/gtr_lucifer_solo.jpg",
     "isPhoto": true,
     "objectPosition": "center 61%",
-    "isFeatured": true
+    "isFeatured": true,
+    "isPublished": true
   },
   {
     "id": "gtr_kurdalagon",
@@ -143,6 +155,9 @@
     "specs_json": "{}",
     "sort_order": 4,
     "is_featured": 1,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {},
     "nameRu": "GT-R R35 GTT «KURDALAGON»",
     "nameEn": "GT-R R35 GTT «KURDALAGON»",
@@ -155,7 +170,8 @@
     "fallbackImg": "assets/cars/gtr_kurdalagon_white.jpg",
     "isPhoto": true,
     "objectPosition": "center 65%",
-    "isFeatured": true
+    "isFeatured": true,
+    "isPublished": true
   },
   {
     "id": "bezzubik",
@@ -181,6 +197,9 @@
     "specs_json": "{\"engine\": \"5.2L V10 FSI Twin Turbo GTT Stage 3\", \"turbos\": \"Precision Dual Mirror V-Band Turbos\", \"exhaust\": \"GTT Inconel Custom Straight System\", \"ecu\": \"Syvecs Dual-CAN Motorsport Management\", \"fuel\": \"100 RON Daily / Ethanol E85 Race Map\"}",
     "sort_order": 5,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {
       "engine": "5.2L V10 FSI Twin Turbo GTT Stage 3",
       "turbos": "Precision Dual Mirror V-Band Turbos",
@@ -199,7 +218,8 @@
     "fallbackImg": "assets/cars/huracan_green_grey_rdrc.jpg",
     "isPhoto": true,
     "objectPosition": "center 50%",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "porsche_911_imba",
@@ -225,6 +245,9 @@
     "specs_json": "{}",
     "sort_order": 6,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {},
     "nameRu": "PORSCHE 911 TURBO S (992) GTT-IMBA",
     "nameEn": "PORSCHE 911 TURBO S (992) GTT-IMBA",
@@ -237,7 +260,8 @@
     "fallbackImg": "assets/cars/porsche_992_imba_silver.jpg",
     "isPhoto": true,
     "objectPosition": "center 81%",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "bmw_m5",
@@ -263,6 +287,9 @@
     "specs_json": "{}",
     "sort_order": 7,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {},
     "nameRu": "BMW M5 G90 COMPETITION GTT-STAGE 3",
     "nameEn": "BMW M5 G90 COMPETITION GTT-STAGE 3",
@@ -275,7 +302,8 @@
     "fallbackImg": "assets/cars/bmw_m5_rdrc_race.jpg",
     "isPhoto": true,
     "objectPosition": "center 54%",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "dodge_demon",
@@ -301,6 +329,9 @@
     "specs_json": "{}",
     "sort_order": 8,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {},
     "nameRu": "DODGE CHALLENGER SRT DEMON GTT",
     "nameEn": "DODGE CHALLENGER SRT DEMON GTT",
@@ -313,7 +344,8 @@
     "fallbackImg": "assets/cars/dodge_burnout_sunset.jpg",
     "isPhoto": true,
     "objectPosition": "center 58%",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "dodge_demon_170",
@@ -339,6 +371,9 @@
     "specs_json": "{\"engine\": \"6.2L Supercharged D170 HEMI Crate Engine\", \"blower\": \"3.0L High-Helix Whipple Supercharger\", \"fuel\": \"Ethanol E85 Flex Fuel Auto-Calibration\", \"chassis\": \"Transbrake Pro Drag Launch System\"}",
     "sort_order": 9,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {
       "engine": "6.2L Supercharged D170 HEMI Crate Engine",
       "blower": "3.0L High-Helix Whipple Supercharger",
@@ -356,7 +391,8 @@
     "fallbackImg": "assets/cars/dodge_srt_front.jpg",
     "isPhoto": true,
     "objectPosition": "center center",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "audi_zlayazaya",
@@ -382,6 +418,9 @@
     "specs_json": "{}",
     "sort_order": 10,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {},
     "nameRu": "AUDI R8 V10 PLUS TWIN TURBO «ZLAYAZAYA»",
     "nameEn": "AUDI R8 V10 PLUS TWIN TURBO «ZLAYAZAYA»",
@@ -394,7 +433,8 @@
     "fallbackImg": "assets/cars/audi_r8_zlayazaya_launch.jpg",
     "isPhoto": true,
     "objectPosition": "center 50%",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "zelenka",
@@ -420,6 +460,9 @@
     "specs_json": "{}",
     "sort_order": 11,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {},
     "nameRu": "HURACAN TWIN TURBO «ЗЕЛЕНКА» GTT",
     "nameEn": "HURACAN TWIN TURBO «ZELENKA» GTT",
@@ -432,7 +475,8 @@
     "fallbackImg": "assets/photos/huracan_zelenka_gtt.jpg",
     "isPhoto": true,
     "objectPosition": "center 47%",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "lambo_maxpain",
@@ -458,6 +502,9 @@
     "specs_json": "{\"engine\": \"5.2L V10 FSI GTT Billet Rods & Pistons\", \"turbos\": \"Mirror Twin Billet Precision Turbos Gen2\", \"clutch\": \"GTT Dual-Clutch Billet 10-Plate Basket\", \"ecu\": \"Syvecs S12 Standalone Motorsport Management\"}",
     "sort_order": 12,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {
       "engine": "5.2L V10 FSI GTT Billet Rods & Pistons",
       "turbos": "Mirror Twin Billet Precision Turbos Gen2",
@@ -475,7 +522,8 @@
     "fallbackImg": "assets/cars/huracan_maxpain_purple.jpg",
     "isPhoto": true,
     "objectPosition": "center center",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "lambo_spyder_800",
@@ -501,6 +549,9 @@
     "specs_json": "{\"engine\": \"5.2L V10 Naturally Aspirated GTT Tune\", \"exhaust\": \"Inconel Valvetronic Full System Handcrafted\", \"intake\": \"Carbon Ram-Air Box\", \"ecu\": \"GTT Dual ECU Custom Calibration\"}",
     "sort_order": 13,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {
       "engine": "5.2L V10 Naturally Aspirated GTT Tune",
       "exhaust": "Inconel Valvetronic Full System Handcrafted",
@@ -518,7 +569,8 @@
     "fallbackImg": "assets/cars/huracan_spyder_orange.jpg",
     "isPhoto": true,
     "objectPosition": "center 50%",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "moses",
@@ -544,6 +596,9 @@
     "specs_json": "{\"engine\": \"4.1L Billet Stroker VR38DETT GTT Spec\", \"turbos\": \"Dual Precision Ball-Bearing Race Turbos\", \"fuel\": \"VP Racing C16 / 100 RON Dual Fuel Map\", \"ecu\": \"Motec M1 + Custom GTT Drag AWD Logic\", \"trans\": \"GTT Billet PPG Sequential Dog-Box\"}",
     "sort_order": 14,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {
       "engine": "4.1L Billet Stroker VR38DETT GTT Spec",
       "turbos": "Dual Precision Ball-Bearing Race Turbos",
@@ -562,7 +617,8 @@
     "fallbackImg": "assets/cars/gtr_moses.png",
     "isPhoto": true,
     "objectPosition": "center center",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "gtr_korzhik",
@@ -588,6 +644,9 @@
     "specs_json": "{\"engine\": \"4.0L Forged VR38 GTT Spec\", \"turbos\": \"Precision Gen2 Billet Race Turbos\", \"fuel\": \"VP Racing Ethanol Map\", \"transmission\": \"Dodson Promax Heavy Duty Clutch\"}",
     "sort_order": 15,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {
       "engine": "4.0L Forged VR38 GTT Spec",
       "turbos": "Precision Gen2 Billet Race Turbos",
@@ -605,7 +664,8 @@
     "fallbackImg": "assets/cars/gtr_korzhik_712.jpg",
     "isPhoto": true,
     "objectPosition": "center 58%",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "gtr_baloo",
@@ -631,6 +691,9 @@
     "specs_json": "{\"engine\": \"3.8L VR38 Reinforced GTT Block\", \"turbos\": \"Garrett G30 Billet Turbos\", \"cooling\": \"GTT Dual Radiator Pack\", \"fuel\": \"Dual In-Tank Fuel Rail\"}",
     "sort_order": 16,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {
       "engine": "3.8L VR38 Reinforced GTT Block",
       "turbos": "Garrett G30 Billet Turbos",
@@ -648,7 +711,8 @@
     "fallbackImg": "assets/cars/gtr_draco_connections.jpg",
     "isPhoto": true,
     "objectPosition": "center 50%",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "gtr_blue_888",
@@ -674,6 +738,9 @@
     "specs_json": "{}",
     "sort_order": 17,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {},
     "nameRu": "GT-R R35 MIDNIGHT BLUE GTT #888",
     "nameEn": "GT-R R35 MIDNIGHT BLUE GTT #888",
@@ -686,7 +753,8 @@
     "fallbackImg": "assets/photos/gtr_blue_888_rdrc.jpg",
     "isPhoto": true,
     "objectPosition": "center 52%",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "gtr_red",
@@ -712,6 +780,9 @@
     "specs_json": "{}",
     "sort_order": 18,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {},
     "nameRu": "GT-R R35 RED CHROME GTT PRO-MOD",
     "nameEn": "GT-R R35 RED CHROME GTT PRO-MOD",
@@ -724,7 +795,8 @@
     "fallbackImg": "assets/cars/gtr_red_front_rdrc.jpg",
     "isPhoto": true,
     "objectPosition": "center 50%",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "gtr_rocket",
@@ -750,6 +822,9 @@
     "specs_json": "{\"engine\": \"3.8L VR38DETT Built by GTT\", \"turbos\": \"Dual Precision High-Boost Turbos\", \"ecu\": \"Motec M1 Drag Calibration\", \"fuel\": \"100 RON + Ethanol Map\"}",
     "sort_order": 19,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {
       "engine": "3.8L VR38DETT Built by GTT",
       "turbos": "Dual Precision High-Boost Turbos",
@@ -767,7 +842,8 @@
     "fallbackImg": "assets/cars/gtr_rocket_grey.jpg",
     "isPhoto": true,
     "objectPosition": "center 50%",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "gtr_alpha12x",
@@ -793,6 +869,9 @@
     "specs_json": "{\"engine\": \"4.0L Stroker VR38 GTT Spec\", \"turbos\": \"AMS Alpha 12X Turbo Kit\", \"transmission\": \"ShepTrans Stage 4 GR6\", \"ecu\": \"Syvecs S8 Dual ECU\"}",
     "sort_order": 20,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {
       "engine": "4.0L Stroker VR38 GTT Spec",
       "turbos": "AMS Alpha 12X Turbo Kit",
@@ -810,7 +889,8 @@
     "fallbackImg": "assets/cars/gtr_alpha12x_launch.jpg",
     "isPhoto": true,
     "objectPosition": "center 60%",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "porsche_991_1200",
@@ -836,6 +916,9 @@
     "specs_json": "{\"engine\": \"3.8L Twin-Turbo Boxer-6 Built Internals\", \"turbos\": \"GTT Dual Billet High-Flow Turbos\", \"transmission\": \"Reinforced PDK Dual-Clutch Pack\", \"fuel\": \"Methanol Direct Port Injection\"}",
     "sort_order": 21,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {
       "engine": "3.8L Twin-Turbo Boxer-6 Built Internals",
       "turbos": "GTT Dual Billet High-Flow Turbos",
@@ -853,7 +936,8 @@
     "fallbackImg": "assets/cars/porsche_991_1200_white.jpg",
     "isPhoto": true,
     "objectPosition": "center center",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "porsche_991_felix",
@@ -879,6 +963,9 @@
     "specs_json": "{\"engine\": \"3.8L Twin-Turbo Boxer-6 GTT RS Spec\", \"turbos\": \"Billet Hybrid Turbos Gen2\", \"exhaust\": \"Titanium Valved System Handcrafted\", \"ecu\": \"Syvecs S7 Standalone Engine Management\"}",
     "sort_order": 22,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {
       "engine": "3.8L Twin-Turbo Boxer-6 GTT RS Spec",
       "turbos": "Billet Hybrid Turbos Gen2",
@@ -896,7 +983,8 @@
     "fallbackImg": "assets/cars/porsche_991_felix_grey.jpg",
     "isPhoto": true,
     "objectPosition": "center center",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "bmw_m7_gtt",
@@ -922,6 +1010,9 @@
     "specs_json": "{\"engine\": \"4.4L V8 TwinPower Turbo GTT Stage 2\", \"turbos\": \"Billet Hybrid Turbochargers\", \"exhaust\": \"Bespoke Stainless Valvetronic System\", \"transmission\": \"ZF 8HP Reinforced Calibration\"}",
     "sort_order": 23,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {
       "engine": "4.4L V8 TwinPower Turbo GTT Stage 2",
       "turbos": "Billet Hybrid Turbochargers",
@@ -939,7 +1030,8 @@
     "fallbackImg": "assets/cars/bmw_m7_gtt_blue.jpg",
     "isPhoto": true,
     "objectPosition": "center 71%",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "volga_kgb",
@@ -965,6 +1057,9 @@
     "specs_json": "{\"engine\": \"V8 Twin Turbo Restomod Powertrain\", \"chassis\": \"Bespoke Independent Suspension & Wilwood Brakes\", \"transmission\": \"Reinforced 6-Speed Manual\", \"interior\": \"Restored Factory Soviet Cockpit\"}",
     "sort_order": 24,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {
       "engine": "V8 Twin Turbo Restomod Powertrain",
       "chassis": "Bespoke Independent Suspension & Wilwood Brakes",
@@ -982,7 +1077,8 @@
     "fallbackImg": "assets/cars/volga_kgb_v8_workshop.jpg",
     "isPhoto": true,
     "objectPosition": "center center",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "ferrari_512tr",
@@ -1008,6 +1104,9 @@
     "specs_json": "{\"engine\": \"4.9L Flat-12 Naturally Aspirated Maranello\", \"exhaust\": \"Handmade Titanium Valved Exhaust\", \"clutch\": \"GTT Heavy Duty Multi-Plate Clutch\", \"brakes\": \"Brembo Racing High-Friction Setup\"}",
     "sort_order": 25,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {
       "engine": "4.9L Flat-12 Naturally Aspirated Maranello",
       "exhaust": "Handmade Titanium Valved Exhaust",
@@ -1025,7 +1124,8 @@
     "fallbackImg": "assets/cars/ferrari_512tr_dyno_red.jpg",
     "isPhoto": true,
     "objectPosition": "center center",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "porsche_991_900",
@@ -1051,6 +1151,9 @@
     "specs_json": "{\"engine\": \"3.8L Boxer-6 Twin-Turbo GTT Stage 2\", \"turbos\": \"Upgraded High-Efficiency Turbos\", \"intercoolers\": \"CSF High-Capacity Charge Coolers\", \"ecu\": \"Custom GTT ECU & TCU Map\"}",
     "sort_order": 27,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {
       "engine": "3.8L Boxer-6 Twin-Turbo GTT Stage 2",
       "turbos": "Upgraded High-Efficiency Turbos",
@@ -1068,7 +1171,8 @@
     "fallbackImg": "assets/cars/gtt_classified_car.svg",
     "isPhoto": false,
     "objectPosition": "center center",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "porsche_992_puncher",
@@ -1094,6 +1198,9 @@
     "specs_json": "{\"engine\": \"3.8L Boxer-6 992 GTT Spec\", \"turbos\": \"Billet Precision Mirror Turbos\", \"intercooling\": \"High-Flow Core Package\", \"fuel\": \"Methanol Multi-Port System\"}",
     "sort_order": 28,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {
       "engine": "3.8L Boxer-6 992 GTT Spec",
       "turbos": "Billet Precision Mirror Turbos",
@@ -1111,7 +1218,8 @@
     "fallbackImg": "assets/cars/porsche_992_puncher.jpg",
     "isPhoto": true,
     "objectPosition": "center center",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "mercedes_e63",
@@ -1137,6 +1245,9 @@
     "specs_json": "{\"engine\": \"4.0L V8 Biturbo M177 Built by GTT\", \"turbos\": \"Billet Upgraded Stage 3 Turbos\", \"downpipes\": \"Inconel Catless Thermal-Wrapped Pipes\", \"transmission\": \"AMG SPEEDSHIFT MCT 9G Flashed\"}",
     "sort_order": 29,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {
       "engine": "4.0L V8 Biturbo M177 Built by GTT",
       "turbos": "Billet Upgraded Stage 3 Turbos",
@@ -1154,7 +1265,8 @@
     "fallbackImg": "assets/cars/gtt_classified_car.svg",
     "isPhoto": false,
     "objectPosition": "center center",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "tesla_plaid",
@@ -1180,6 +1292,9 @@
     "specs_json": "{\"engine\": \"Tri-Motor Carbon-Sleeved Electric Powertrain\", \"power\": \"1,020 HP / 1,420 Nm Instant Torque\", \"brakes\": \"GTT Carbon Ceramic 410mm Track Rotors\", \"suspension\": \"Lowered Active Air Suspension Calibration\"}",
     "sort_order": 30,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {
       "engine": "Tri-Motor Carbon-Sleeved Electric Powertrain",
       "power": "1,020 HP / 1,420 Nm Instant Torque",
@@ -1197,7 +1312,8 @@
     "fallbackImg": "assets/cars/tesla_model_s_plaid.jpg",
     "isPhoto": true,
     "objectPosition": "center center",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
   },
   {
     "id": "tonystark",
@@ -1223,6 +1339,9 @@
     "specs_json": "{}",
     "sort_order": 31,
     "is_featured": 0,
+    "category": "race",
+    "is_published": 1,
+    "completeness": 100,
     "specs": {},
     "nameRu": "R8 V10 PLUS TWIN TURBO TONY STARK / RDRC",
     "nameEn": "R8 V10 PLUS TWIN TURBO TONY STARK / RDRC",
@@ -1235,6 +1354,143 @@
     "fallbackImg": "assets/cars/audi_r8_tonystark_rdrc.jpg",
     "isPhoto": true,
     "objectPosition": "center 50%",
-    "isFeatured": false
+    "isFeatured": false,
+    "isPublished": true
+  },
+  {
+    "id": "street_bmw_m3_g80",
+    "brand": "BMW & GTT",
+    "type": "bmw",
+    "name_ru": "BMW M3 G80 (Личный болид Гоши)",
+    "name_en": "BMW M3 G80 (Gosha Personal Build)",
+    "tag_ru": "ГРАЖДАНСКИЙ ТЮНИНГ GTT",
+    "tag_en": "GTT STREET DIVISION",
+    "hp": "750+ HP",
+    "quarter_mile": "10.2 сек",
+    "top_speed": "320+ км/ч",
+    "badge_ru": "Личный автомобиль Гоши",
+    "badge_en": "Gosha Personal Car",
+    "img": "assets/cars/gtt_classified_car.svg",
+    "fallback_img": "assets/cars/gtt_classified_car.svg",
+    "is_photo": 0,
+    "object_position": "center center",
+    "video_src": "",
+    "video_title": "",
+    "desc_ru": "Личный гражданский проект Гоши Перцхелия. Комплексный тюнинг двигателя S58, титановый выхлоп GTT, индивидуальная калибровка блока управления и спортивная подвеска.",
+    "desc_en": "Personal street project of Gosha Pertskheliya. S58 twin-turbo tuning, custom titanium exhaust and ECU calibration.",
+    "specs_json": "{\"engine\": \"3.0L Twin-Turbo S58 GTT Stage 2\", \"exhaust\": \"GTT Custom Titanium Exhaust\", \"ecu\": \"Custom ECU Calibration\"}",
+    "sort_order": 101,
+    "is_featured": 0,
+    "category": "street",
+    "is_published": 1,
+    "completeness": 45,
+    "specs": {
+      "engine": "3.0L Twin-Turbo S58 GTT Stage 2",
+      "exhaust": "GTT Custom Titanium Exhaust",
+      "ecu": "Custom ECU Calibration"
+    },
+    "nameRu": "BMW M3 G80 (Личный болид Гоши)",
+    "nameEn": "BMW M3 G80 (Gosha Personal Build)",
+    "quarterMile": "10.2 сек",
+    "topSpeed": "320+ км/ч",
+    "videoSrc": "",
+    "videoTitle": "",
+    "descRu": "Личный гражданский проект Гоши Перцхелия. Комплексный тюнинг двигателя S58, титановый выхлоп GTT, индивидуальная калибровка блока управления и спортивная подвеска.",
+    "descEn": "Personal street project of Gosha Pertskheliya. S58 twin-turbo tuning, custom titanium exhaust and ECU calibration.",
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "isPhoto": false,
+    "objectPosition": "center center",
+    "isFeatured": false,
+    "isPublished": true
+  },
+  {
+    "id": "street_bentley_continental_gt",
+    "brand": "BENTLEY & GTT",
+    "type": "other",
+    "name_ru": "BENTLEY CONTINENTAL GT GTT",
+    "name_en": "BENTLEY CONTINENTAL GT GTT",
+    "tag_ru": "ГРАЖДАНСКИЙ ТЮНИНГ GTT",
+    "tag_en": "GTT STREET DIVISION",
+    "hp": "800+ HP",
+    "quarter_mile": "10.5 сек",
+    "top_speed": "335+ км/ч",
+    "badge_ru": "Luxury Grand Tourer",
+    "badge_en": "Luxury Grand Tourer",
+    "img": "assets/cars/gtt_classified_car.svg",
+    "fallback_img": "assets/cars/gtt_classified_car.svg",
+    "is_photo": 0,
+    "object_position": "center center",
+    "video_src": "",
+    "video_title": "",
+    "desc_ru": "Премиальный гран-туризмо Continental GT. Индивидуальная настройка W12 / V8 Twin-Turbo, доработка охлаждения и выхлопной системы под заказ-наряд клиента.",
+    "desc_en": "Premium Grand Tourer Continental GT tuned by GTT skunkworks.",
+    "specs_json": "{\"engine\": \"Twin-Turbo W12 / V8 GTT Spec\", \"tuning\": \"Stage 2 Performance Kit\"}",
+    "sort_order": 102,
+    "is_featured": 0,
+    "category": "street",
+    "is_published": 1,
+    "completeness": 40,
+    "specs": {
+      "engine": "Twin-Turbo W12 / V8 GTT Spec",
+      "tuning": "Stage 2 Performance Kit"
+    },
+    "nameRu": "BENTLEY CONTINENTAL GT GTT",
+    "nameEn": "BENTLEY CONTINENTAL GT GTT",
+    "quarterMile": "10.5 сек",
+    "topSpeed": "335+ км/ч",
+    "videoSrc": "",
+    "videoTitle": "",
+    "descRu": "Премиальный гран-туризмо Continental GT. Индивидуальная настройка W12 / V8 Twin-Turbo, доработка охлаждения и выхлопной системы под заказ-наряд клиента.",
+    "descEn": "Premium Grand Tourer Continental GT tuned by GTT skunkworks.",
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "isPhoto": false,
+    "objectPosition": "center center",
+    "isFeatured": false,
+    "isPublished": true
+  },
+  {
+    "id": "street_porsche_gt3rs_mcqueen",
+    "brand": "PORSCHE & GTT",
+    "type": "porsche",
+    "name_ru": "PORSCHE 911 GT3 RS «МАККУИН»",
+    "name_en": "PORSCHE 911 GT3 RS «MCQUEEN»",
+    "tag_ru": "ГРАЖДАНСКИЙ ТЮНИНГ GTT",
+    "tag_en": "GTT STREET DIVISION",
+    "hp": "525+ HP",
+    "quarter_mile": "10.8 сек",
+    "top_speed": "300+ км/ч",
+    "badge_ru": "Track-Day Spec «Маккуин»",
+    "badge_en": "Track-Day Spec McQueen",
+    "img": "assets/cars/gtt_classified_car.svg",
+    "fallback_img": "assets/cars/gtt_classified_car.svg",
+    "is_photo": 0,
+    "object_position": "center center",
+    "video_src": "",
+    "video_title": "",
+    "desc_ru": "Атмосферный трековый шедевр Porsche 911 GT3 RS в эксклюзивной стилистике «Молния Маккуин». Высокоточные настройки шасси, выхлопная трасса Inconel и трековая телеметрия.",
+    "desc_en": "Naturally aspirated track weapon 911 GT3 RS in iconic McQueen livery.",
+    "specs_json": "{\"engine\": \"4.0L Flat-6 Naturally Aspirated\", \"exhaust\": \"Inconel Race System\"}",
+    "sort_order": 103,
+    "is_featured": 0,
+    "category": "street",
+    "is_published": 1,
+    "completeness": 45,
+    "specs": {
+      "engine": "4.0L Flat-6 Naturally Aspirated",
+      "exhaust": "Inconel Race System"
+    },
+    "nameRu": "PORSCHE 911 GT3 RS «МАККУИН»",
+    "nameEn": "PORSCHE 911 GT3 RS «MCQUEEN»",
+    "quarterMile": "10.8 сек",
+    "topSpeed": "300+ км/ч",
+    "videoSrc": "",
+    "videoTitle": "",
+    "descRu": "Атмосферный трековый шедевр Porsche 911 GT3 RS в эксклюзивной стилистике «Молния Маккуин». Высокоточные настройки шасси, выхлопная трасса Inconel и трековая телеметрия.",
+    "descEn": "Naturally aspirated track weapon 911 GT3 RS in iconic McQueen livery.",
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "isPhoto": false,
+    "objectPosition": "center center",
+    "isFeatured": false,
+    "isPublished": true
   }
 ]

@@ -51,9 +51,23 @@ def init_db():
         desc_ru TEXT,
         desc_en TEXT,
         specs_json TEXT,
-        sort_order INTEGER DEFAULT 0
+        sort_order INTEGER DEFAULT 0,
+        is_featured INTEGER DEFAULT 0,
+        category TEXT DEFAULT 'race',
+        is_published INTEGER DEFAULT 1,
+        completeness INTEGER DEFAULT 100
     )
     """)
+    for col, col_def in [
+        ("is_featured", "INTEGER DEFAULT 0"),
+        ("category", "TEXT DEFAULT 'race'"),
+        ("is_published", "INTEGER DEFAULT 1"),
+        ("completeness", "INTEGER DEFAULT 100")
+    ]:
+        try:
+            cursor.execute(f"ALTER TABLE cars ADD COLUMN {col} {col_def}")
+        except Exception:
+            pass
 
     # 2. Team Table
     cursor.execute("""
@@ -1038,20 +1052,93 @@ def seed_initial_data(cursor):
                 'top_speed': '—',
                 'type': 'audi',
                 'video_src': 'assets/videos/dodge_srt_pass.mp4',
-                'video_title': 'Audi R8 V10 Twin Turbo Tony Stark — боевой заезд'}]
+                'video_title': 'Audi R8 V10 Twin Turbo Tony Stark — боевой заезд'},
+        {
+            'id': 'street_bmw_m3_g80',
+            'brand': 'BMW & GTT',
+            'type': 'bmw',
+            'name_ru': 'BMW M3 G80 (Личный болид Гоши)',
+            'name_en': 'BMW M3 G80 (Gosha Personal Build)',
+            'tag_ru': 'ГРАЖДАНСКИЙ ТЮНИНГ GTT',
+            'tag_en': 'GTT STREET DIVISION',
+            'hp': '750+ HP',
+            'quarter_mile': '10.2 сек',
+            'top_speed': '320+ км/ч',
+            'badge_ru': 'Гошина М3',
+            'badge_en': 'Gosha Personal Car',
+            'img': 'assets/cars/gtt_classified_car.svg',
+            'fallback_img': 'assets/cars/gtt_classified_car.svg',
+            'desc_ru': 'Личный гражданский проект Гоши Перцхелия. Комплексный тюнинг двигателя S58, титановый выхлоп GTT, индивидуальная калибровка блока управления и спортивная подвеска.',
+            'desc_en': 'Personal street project of Gosha Pertskheliya. S58 twin-turbo tuning, custom titanium exhaust and ECU calibration.',
+            'specs': {'engine': '3.0L Twin-Turbo S58 GTT Stage 2', 'exhaust': 'GTT Custom Titanium Exhaust', 'ecu': 'Custom ECU Calibration'},
+            'sort_order': 101,
+            'category': 'street',
+            'is_published': 1,
+            'video_src': '',
+            'video_title': ''
+        },
+        {
+            'id': 'street_bentley_continental_gt',
+            'brand': 'BENTLEY & GTT',
+            'type': 'other',
+            'name_ru': 'BENTLEY CONTINENTAL GT GTT',
+            'name_en': 'BENTLEY CONTINENTAL GT GTT',
+            'tag_ru': 'ГРАЖДАНСКИЙ ТЮНИНГ GTT',
+            'tag_en': 'GTT STREET DIVISION',
+            'hp': '800+ HP',
+            'quarter_mile': '10.5 сек',
+            'top_speed': '335+ км/ч',
+            'badge_ru': 'Bentley GT',
+            'badge_en': 'Luxury Grand Tourer',
+            'img': 'assets/cars/gtt_classified_car.svg',
+            'fallback_img': 'assets/cars/gtt_classified_car.svg',
+            'desc_ru': 'Премиальный гран-туризмо Continental GT. Индивидуальная настройка W12 / V8 Twin-Turbo, доработка охлаждения и выхлопной системы под заказ-наряд клиента.',
+            'desc_en': 'Premium Grand Tourer Continental GT tuned by GTT skunkworks.',
+            'specs': {'engine': 'Twin-Turbo W12 / V8 GTT Spec', 'tuning': 'Stage 2 Performance Kit'},
+            'sort_order': 102,
+            'category': 'street',
+            'is_published': 1,
+            'video_src': '',
+            'video_title': ''
+        },
+        {
+            'id': 'street_porsche_gt3rs_mcqueen',
+            'brand': 'PORSCHE & GTT',
+            'type': 'porsche',
+            'name_ru': 'PORSCHE 911 GT3 RS «МАККУИН»',
+            'name_en': 'PORSCHE 911 GT3 RS «MCQUEEN»',
+            'tag_ru': 'ГРАЖДАНСКИЙ ТЮНИНГ GTT',
+            'tag_en': 'GTT STREET DIVISION',
+            'hp': '525+ HP',
+            'quarter_mile': '10.8 сек',
+            'top_speed': '300+ км/ч',
+            'badge_ru': 'GT3 RS «Маккуин»',
+            'badge_en': 'Track-Day Spec McQueen',
+            'img': 'assets/cars/gtt_classified_car.svg',
+            'fallback_img': 'assets/cars/gtt_classified_car.svg',
+            'desc_ru': 'Атмосферный трековый шедевр Porsche 911 GT3 RS в эксклюзивной стилистике «Молния Маккуин». Высокоточные настройки шасси, выхлопная трасса Inconel и трековая телеметрия.',
+            'desc_en': 'Naturally aspirated track weapon 911 GT3 RS in iconic McQueen livery.',
+            'specs': {'engine': '4.0L Flat-6 Naturally Aspirated', 'exhaust': 'Inconel Race System'},
+            'sort_order': 103,
+            'category': 'street',
+            'is_published': 1,
+            'video_src': '',
+            'video_title': ''
+        }
+    ]
 
     for idx, car in enumerate(default_projects):
         cursor.execute("""
         INSERT OR REPLACE INTO cars (
             id, brand, type, name_ru, name_en, tag_ru, tag_en, hp, quarter_mile, top_speed,
-            badge_ru, badge_en, img, fallback_img, video_src, video_title, desc_ru, desc_en, specs_json, sort_order
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            badge_ru, badge_en, img, fallback_img, video_src, video_title, desc_ru, desc_en, specs_json, sort_order, category, is_published
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """, (
             car["id"], car["brand"], car["type"], car["name_ru"], car.get("name_en", car["name_ru"]),
             car.get("tag_ru", ""), car.get("tag_en", ""), car["hp"], car.get("quarter_mile", ""), car.get("top_speed", ""),
             car.get("badge_ru", ""), car.get("badge_en", ""), car["img"], car.get("fallback_img", car["img"]),
             car.get("video_src", ""), car.get("video_title", ""), car.get("desc_ru", ""), car.get("desc_en", ""),
-            json.dumps(car.get("specs", {})), idx + 1
+            json.dumps(car.get("specs", {})), idx + 1, car.get("category", "race"), car.get("is_published", 1)
         ))
 
     team_json_path = os.path.join(os.path.dirname(__file__), "data", "team.json")
@@ -1193,6 +1280,10 @@ def get_all_cars() -> List[Dict[str, Any]]:
         car["objectPosition"] = car.get("object_position", "center center")
         car["isFeatured"] = bool(car.get("is_featured", 0))
         car["is_featured"] = int(car.get("is_featured", 0))
+        car["category"] = car.get("category", "race") or "race"
+        car["isPublished"] = bool(car.get("is_published", 1))
+        car["is_published"] = int(car.get("is_published", 1))
+        car["completeness"] = int(car.get("completeness", 100) or 100)
         cars.append(car)
     conn.close()
     return cars
@@ -1223,11 +1314,54 @@ def get_car_by_id(car_id: str) -> Optional[Dict[str, Any]]:
     car["objectPosition"] = car.get("object_position", "center center")
     car["isFeatured"] = bool(car.get("is_featured", 0))
     car["is_featured"] = int(car.get("is_featured", 0))
+    car["category"] = car.get("category", "race") or "race"
+    car["isPublished"] = bool(car.get("is_published", 1))
+    car["is_published"] = int(car.get("is_published", 1))
+    car["completeness"] = int(car.get("completeness", 100) or 100)
     return car
+
+def calculate_car_completeness(car_data: Dict[str, Any]) -> int:
+    score = 0
+    # Name (20%)
+    name = (car_data.get("name_ru") or car_data.get("nameRu") or "").strip()
+    if name: score += 20
+    # Brand (10%)
+    brand = (car_data.get("brand") or "").strip()
+    if brand: score += 10
+    # Image (30%) - must not be placeholder or empty
+    img = (car_data.get("img") or "").strip()
+    if img and not "classified" in img and not img.endswith(".svg"):
+        score += 30
+    elif img:
+        score += 10
+    # Specs: hp (15%)
+    hp = (car_data.get("hp") or "").strip()
+    if hp and hp != "?": score += 15
+    # Technical specs object / items (15%)
+    specs = car_data.get("specs") or {}
+    if isinstance(specs, str):
+        try: specs = json.loads(specs)
+        except: specs = {}
+    if specs and len(specs) >= 2: score += 15
+    elif specs and len(specs) >= 1: score += 8
+    # Description (10%)
+    desc = (car_data.get("desc_ru") or car_data.get("descRu") or "").strip()
+    if desc: score += 10
+    return min(100, score)
 
 def upsert_car(car_data: Dict[str, Any]) -> Dict[str, Any]:
     conn = get_connection()
     cursor = conn.cursor()
+
+    # If updating an existing car, merge with existing fields to prevent overwriting with blanks
+    cursor.execute("SELECT * FROM cars WHERE id = ?", (car_data.get("id", ""),))
+    existing_row = cursor.fetchone()
+    if existing_row:
+        existing = dict(existing_row)
+        for k, v in existing.items():
+            if k not in car_data:
+                car_data[k] = v
+
     specs = car_data.get("specs", {})
     if isinstance(specs, str):
         specs_json = specs
@@ -1297,6 +1431,19 @@ def upsert_car(car_data: Dict[str, Any]) -> Dict[str, Any]:
         feat_raw = car_data.get("is_featured", car_data.get("isFeatured", 0))
         feat_val = 1 if (feat_raw == 1 or feat_raw is True or feat_raw == '1') else 0
         cursor.execute("UPDATE cars SET is_featured = ? WHERE id = ?", (feat_val, car_data["id"]))
+    if "category" in car_data:
+        cat_val = str(car_data["category"]).strip().lower()
+        if cat_val not in ("race", "street"): cat_val = "race"
+        cursor.execute("UPDATE cars SET category = ? WHERE id = ?", (cat_val, car_data["id"]))
+    if "is_published" in car_data or "isPublished" in car_data:
+        pub_raw = car_data.get("is_published", car_data.get("isPublished", 1))
+        pub_val = 1 if (pub_raw == 1 or pub_raw is True or pub_raw == '1' or pub_raw == 'true') else 0
+        cursor.execute("UPDATE cars SET is_published = ? WHERE id = ?", (pub_val, car_data["id"]))
+    
+    # Calculate and store completeness score
+    score = calculate_car_completeness(car_data)
+    cursor.execute("UPDATE cars SET completeness = ? WHERE id = ?", (score, car_data["id"]))
+
     if "sort_order" in car_data or "sortOrder" in car_data:
         try:
             so_val = int(car_data.get("sort_order", car_data.get("sortOrder", 0)) or 0)
