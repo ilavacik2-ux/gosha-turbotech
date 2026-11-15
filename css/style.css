@@ -9,7 +9,9 @@
    ========================================================================== */
 @font-face {
   font-family: 'Dagger Square';
-  src: url('../assets/fonts/DAGGERSQUARE.otf') format('opentype');
+  src: url('../assets/fonts/DAGGERSQUARE.woff2') format('woff2'),
+       url('../assets/fonts/DAGGERSQUARE.woff') format('woff'),
+       url('../assets/fonts/DAGGERSQUARE.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -17,72 +19,100 @@
 
 @font-face {
   font-family: 'Dagger Square';
-  src: url('../assets/fonts/DAGGERSQUARE%20OBLIQUE.otf') format('opentype');
-  font-weight: 700;
+  src: url('../assets/fonts/DAGGERSQUARE%20OBLIQUE.woff2') format('woff2'),
+       url('../assets/fonts/DAGGERSQUARE%20OBLIQUE.woff') format('woff'),
+       url('../assets/fonts/DAGGERSQUARE%20OBLIQUE.otf') format('opentype');
+  font-weight: 400 900;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Core Sans D';
-  src: url('../assets/fonts/S-Core%20-%20CoreSansD25Light.otf') format('opentype');
-  font-weight: 300;
+  font-family: 'Dagger Square';
+  src: url('../assets/fonts/DAGGERSQUARE%20OBLIQUE.woff2') format('woff2'),
+       url('../assets/fonts/DAGGERSQUARE%20OBLIQUE.woff') format('woff'),
+       url('../assets/fonts/DAGGERSQUARE%20OBLIQUE.otf') format('opentype');
+  font-weight: 700 900;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Core Sans D';
-  src: url('../assets/fonts/S-Core%20-%20CoreSansD25Light-Italic.otf') format('opentype');
-  font-weight: 300;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Core Sans D';
-  src: url('../assets/fonts/S-Core%20-%20CoreSansD35Regular.otf') format('opentype');
-  font-weight: 400;
+  src: url('../assets/fonts/S-Core%20-%20CoreSansD25Light.woff2') format('woff2'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD25Light.woff') format('woff'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD25Light.otf') format('opentype');
+  font-weight: 200 350;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Core Sans D';
-  src: url('../assets/fonts/S-Core%20-%20CoreSansD35Regular-Italic.otf') format('opentype');
-  font-weight: 400;
+  src: url('../assets/fonts/S-Core%20-%20CoreSansD25Light-Italic.woff2') format('woff2'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD25Light-Italic.woff') format('woff'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD25Light-Italic.otf') format('opentype');
+  font-weight: 200 350;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Core Sans D';
-  src: url('../assets/fonts/S-Core%20-%20CoreSansD55Bold.otf') format('opentype');
-  font-weight: 700;
+  src: url('../assets/fonts/S-Core%20-%20CoreSansD35Regular.woff2') format('woff2'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD35Regular.woff') format('woff'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD35Regular.otf') format('opentype');
+  font-weight: 400 550;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Core Sans D';
-  src: url('../assets/fonts/S-Core%20-%20CoreSansD55Bold-Italic.otf') format('opentype');
-  font-weight: 700;
+  src: url('../assets/fonts/S-Core%20-%20CoreSansD35Regular-Italic.woff2') format('woff2'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD35Regular-Italic.woff') format('woff'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD35Regular-Italic.otf') format('opentype');
+  font-weight: 400 550;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Core Sans D';
-  src: url('../assets/fonts/S-Core%20-%20CoreSansD75Black.otf') format('opentype');
-  font-weight: 900;
+  src: url('../assets/fonts/S-Core%20-%20CoreSansD55Bold.woff2') format('woff2'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD55Bold.woff') format('woff'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD55Bold.otf') format('opentype');
+  font-weight: 600 750;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Core Sans D';
-  src: url('../assets/fonts/S-Core%20-%20CoreSansD75Black-Italic.otf') format('opentype');
-  font-weight: 900;
+  src: url('../assets/fonts/S-Core%20-%20CoreSansD55Bold-Italic.woff2') format('woff2'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD55Bold-Italic.woff') format('woff'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD55Bold-Italic.otf') format('opentype');
+  font-weight: 600 750;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Core Sans D';
+  src: url('../assets/fonts/S-Core%20-%20CoreSansD75Black.woff2') format('woff2'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD75Black.woff') format('woff'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD75Black.otf') format('opentype');
+  font-weight: 800 950;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Core Sans D';
+  src: url('../assets/fonts/S-Core%20-%20CoreSansD75Black-Italic.woff2') format('woff2'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD75Black-Italic.woff') format('woff'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD75Black-Italic.otf') format('opentype');
+  font-weight: 800 950;
   font-style: italic;
   font-display: swap;
 }
@@ -112,12 +142,12 @@
   --text-dim: #807E7C;
 
   /* Official Brandbook Typography (Core Sans D + Dagger Square + Arial) */
-  --font-display: 'Core Sans D', 'Oswald', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-  --font-racing: 'Dagger Square', 'Core Sans D', 'Oswald', sans-serif;
-  --font-heading: 'Core Sans D', 'Unbounded', -apple-system, Arial, sans-serif;
-  --font-body: 'Core Sans D', 'Inter', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-  --font-accent: 'Dagger Square', sans-serif;
-  --font-mono: 'Dagger Square', 'JetBrains Mono', monospace;
+  --font-display: 'Core Sans D', Arial, sans-serif;
+  --font-racing: 'Dagger Square', 'Core Sans D', Arial, sans-serif;
+  --font-heading: 'Core Sans D', Arial, sans-serif;
+  --font-body: 'Core Sans D', Arial, sans-serif;
+  --font-accent: 'Dagger Square', 'Core Sans D', sans-serif;
+  --font-mono: 'Dagger Square', monospace;
 
   /* Unified Technical Motorsport Radii (4px–8px Sharp Cuts) */
   --radius-xs: 2px;
@@ -531,11 +561,11 @@ body.is-loading {
 .nav-link {
   text-decoration: none;
   color: #A3A19F;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Core Sans D', Arial, sans-serif;
   font-size: 12.5px;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   white-space: nowrap;
   transition: color 0.22s ease, opacity 0.22s ease;
   position: relative;
@@ -673,9 +703,10 @@ body.is-loading {
   color: #fff;
   font-family: var(--font-display);
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 800;
+  font-style: italic;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   padding: 12px 24px;
   border-radius: var(--radius-md);
   text-decoration: none;
@@ -947,6 +978,7 @@ body.is-loading {
   font-family: var(--font-display);
   font-size: clamp(32px, 5vw, 56px);
   font-weight: 900;
+  font-style: italic;
   text-transform: uppercase;
   line-height: 1.05;
   letter-spacing: 0.02em;
@@ -1095,7 +1127,8 @@ body.is-loading {
 .section-title {
   font-family: var(--font-display);
   font-size: clamp(24px, 3.2vw, 36px);
-  font-weight: 800;
+  font-weight: 900;
+  font-style: italic;
   text-transform: uppercase;
   letter-spacing: 0.02em;
   margin-bottom: 10px;
@@ -1138,10 +1171,11 @@ body.is-loading {
   border: 1px solid transparent;
   color: var(--text-muted);
   font-family: var(--font-display);
-  font-size: 12.5px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 800;
+  font-style: italic;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
@@ -1165,8 +1199,10 @@ body.is-loading {
 }
 
 .category-tab-btn .cat-count {
-  font-family: var(--font-mono);
+  font-family: 'Dagger Square', var(--font-mono);
   font-size: 11px;
+  font-weight: 700;
+  font-style: italic;
   padding: 2px 7px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid var(--border-subtle);
@@ -1602,7 +1638,8 @@ body.is-loading {
 .car-model-title {
   font-family: var(--font-display);
   font-size: 14.5px;
-  font-weight: 800;
+  font-weight: 900;
+  font-style: italic;
   text-transform: uppercase;
   margin-bottom: 12px;
   color: #fff;
@@ -1651,9 +1688,10 @@ body.is-loading {
 }
 
 .spec-val {
-  font-family: var(--font-display);
-  font-size: clamp(11.5px, 1.15vw, 15px);
+  font-family: 'Dagger Square', var(--font-display);
+  font-size: clamp(12px, 1.2vw, 15px);
   font-weight: 700;
+  font-style: italic;
   color: #fff;
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
@@ -1691,7 +1729,8 @@ body.is-loading {
   color: #fff;
   font-family: var(--font-display);
   font-size: clamp(10px, 0.85vw, 12px);
-  font-weight: 600;
+  font-weight: 800;
+  font-style: italic;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   padding: 6px 10px;
@@ -7486,7 +7525,8 @@ body.modal-open {
   color: #fff;
   font-family: var(--font-display, inherit);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 800;
+  font-style: italic;
   letter-spacing: 0.8px;
   text-transform: uppercase;
   cursor: pointer;

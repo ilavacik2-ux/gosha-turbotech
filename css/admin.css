@@ -7,7 +7,9 @@
    ========================================================================== */
 @font-face {
   font-family: 'Dagger Square';
-  src: url('../assets/fonts/DAGGERSQUARE.otf') format('opentype');
+  src: url('../assets/fonts/DAGGERSQUARE.woff2') format('woff2'),
+       url('../assets/fonts/DAGGERSQUARE.woff') format('woff'),
+       url('../assets/fonts/DAGGERSQUARE.otf') format('opentype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -15,49 +17,101 @@
 
 @font-face {
   font-family: 'Dagger Square';
-  src: url('../assets/fonts/DAGGERSQUARE%20OBLIQUE.otf') format('opentype');
-  font-weight: 700;
+  src: url('../assets/fonts/DAGGERSQUARE%20OBLIQUE.woff2') format('woff2'),
+       url('../assets/fonts/DAGGERSQUARE%20OBLIQUE.woff') format('woff'),
+       url('../assets/fonts/DAGGERSQUARE%20OBLIQUE.otf') format('opentype');
+  font-weight: 400 900;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Core Sans D';
-  src: url('../assets/fonts/S-Core%20-%20CoreSansD25Light.otf') format('opentype');
-  font-weight: 300;
+  font-family: 'Dagger Square';
+  src: url('../assets/fonts/DAGGERSQUARE%20OBLIQUE.woff2') format('woff2'),
+       url('../assets/fonts/DAGGERSQUARE%20OBLIQUE.woff') format('woff'),
+       url('../assets/fonts/DAGGERSQUARE%20OBLIQUE.otf') format('opentype');
+  font-weight: 700 900;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Core Sans D';
-  src: url('../assets/fonts/S-Core%20-%20CoreSansD25Light-Italic.otf') format('opentype');
-  font-weight: 300;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Core Sans D';
-  src: url('../assets/fonts/S-Core%20-%20CoreSansD35Regular.otf') format('opentype');
-  font-weight: 400;
+  src: url('../assets/fonts/S-Core%20-%20CoreSansD25Light.woff2') format('woff2'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD25Light.woff') format('woff'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD25Light.otf') format('opentype');
+  font-weight: 200 350;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Core Sans D';
-  src: url('../assets/fonts/S-Core%20-%20CoreSansD35Regular-Italic.otf') format('opentype');
-  font-weight: 400;
+  src: url('../assets/fonts/S-Core%20-%20CoreSansD25Light-Italic.woff2') format('woff2'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD25Light-Italic.woff') format('woff'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD25Light-Italic.otf') format('opentype');
+  font-weight: 200 350;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Core Sans D';
-  src: url('../assets/fonts/S-Core%20-%20CoreSansD55Bold.otf') format('opentype');
-  font-weight: 700;
+  src: url('../assets/fonts/S-Core%20-%20CoreSansD35Regular.woff2') format('woff2'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD35Regular.woff') format('woff'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD35Regular.otf') format('opentype');
+  font-weight: 400 550;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Core Sans D';
+  src: url('../assets/fonts/S-Core%20-%20CoreSansD35Regular-Italic.woff2') format('woff2'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD35Regular-Italic.woff') format('woff'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD35Regular-Italic.otf') format('opentype');
+  font-weight: 400 550;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Core Sans D';
+  src: url('../assets/fonts/S-Core%20-%20CoreSansD55Bold.woff2') format('woff2'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD55Bold.woff') format('woff'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD55Bold.otf') format('opentype');
+  font-weight: 600 750;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Core Sans D';
+  src: url('../assets/fonts/S-Core%20-%20CoreSansD55Bold-Italic.woff2') format('woff2'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD55Bold-Italic.woff') format('woff'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD55Bold-Italic.otf') format('opentype');
+  font-weight: 600 750;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Core Sans D';
+  src: url('../assets/fonts/S-Core%20-%20CoreSansD75Black.woff2') format('woff2'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD75Black.woff') format('woff'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD75Black.otf') format('opentype');
+  font-weight: 800 950;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Core Sans D';
+  src: url('../assets/fonts/S-Core%20-%20CoreSansD75Black-Italic.woff2') format('woff2'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD75Black-Italic.woff') format('woff'),
+       url('../assets/fonts/S-Core%20-%20CoreSansD75Black-Italic.otf') format('opentype');
+  font-weight: 800 950;
+  font-style: italic;
   font-display: swap;
 }
 
