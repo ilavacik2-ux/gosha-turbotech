@@ -2,163 +2,51 @@
  * Authentic Brand Identity, RDRC Motorsport Engineering, Team & Founder Showcase
  */
 
-/* ==========================================================================
-   OFFICIAL GOSHATURBOTECH BRANDBOOK FONTS
-   Main: Core Sans D (75 Black Italic, 55 Bold, 35 Regular, 25 Light)
-   Accent: Dagger Square (Regular & Oblique / Italic)
-   ========================================================================== */
-@font-face {
-  font-family: 'Dagger Square';
-  src: url('../assets/fonts/DAGGERSQUARE.woff2') format('woff2'),
-       url('../assets/fonts/DAGGERSQUARE.woff') format('woff'),
-       url('../assets/fonts/DAGGERSQUARE.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Dagger Square';
-  src: url('../assets/fonts/DAGGERSQUARE%20OBLIQUE.woff2') format('woff2'),
-       url('../assets/fonts/DAGGERSQUARE%20OBLIQUE.woff') format('woff'),
-       url('../assets/fonts/DAGGERSQUARE%20OBLIQUE.otf') format('opentype');
-  font-weight: 400 900;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Dagger Square';
-  src: url('../assets/fonts/DAGGERSQUARE%20OBLIQUE.woff2') format('woff2'),
-       url('../assets/fonts/DAGGERSQUARE%20OBLIQUE.woff') format('woff'),
-       url('../assets/fonts/DAGGERSQUARE%20OBLIQUE.otf') format('opentype');
-  font-weight: 700 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Core Sans D';
-  src: url('../assets/fonts/S-Core%20-%20CoreSansD25Light.woff2') format('woff2'),
-       url('../assets/fonts/S-Core%20-%20CoreSansD25Light.woff') format('woff'),
-       url('../assets/fonts/S-Core%20-%20CoreSansD25Light.otf') format('opentype');
-  font-weight: 200 350;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Core Sans D';
-  src: url('../assets/fonts/S-Core%20-%20CoreSansD25Light-Italic.woff2') format('woff2'),
-       url('../assets/fonts/S-Core%20-%20CoreSansD25Light-Italic.woff') format('woff'),
-       url('../assets/fonts/S-Core%20-%20CoreSansD25Light-Italic.otf') format('opentype');
-  font-weight: 200 350;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Core Sans D';
-  src: url('../assets/fonts/S-Core%20-%20CoreSansD35Regular.woff2') format('woff2'),
-       url('../assets/fonts/S-Core%20-%20CoreSansD35Regular.woff') format('woff'),
-       url('../assets/fonts/S-Core%20-%20CoreSansD35Regular.otf') format('opentype');
-  font-weight: 400 550;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Core Sans D';
-  src: url('../assets/fonts/S-Core%20-%20CoreSansD35Regular-Italic.woff2') format('woff2'),
-       url('../assets/fonts/S-Core%20-%20CoreSansD35Regular-Italic.woff') format('woff'),
-       url('../assets/fonts/S-Core%20-%20CoreSansD35Regular-Italic.otf') format('opentype');
-  font-weight: 400 550;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Core Sans D';
-  src: url('../assets/fonts/S-Core%20-%20CoreSansD55Bold.woff2') format('woff2'),
-       url('../assets/fonts/S-Core%20-%20CoreSansD55Bold.woff') format('woff'),
-       url('../assets/fonts/S-Core%20-%20CoreSansD55Bold.otf') format('opentype');
-  font-weight: 600 750;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Core Sans D';
-  src: url('../assets/fonts/S-Core%20-%20CoreSansD55Bold-Italic.woff2') format('woff2'),
-       url('../assets/fonts/S-Core%20-%20CoreSansD55Bold-Italic.woff') format('woff'),
-       url('../assets/fonts/S-Core%20-%20CoreSansD55Bold-Italic.otf') format('opentype');
-  font-weight: 600 750;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Core Sans D';
-  src: url('../assets/fonts/S-Core%20-%20CoreSansD75Black.woff2') format('woff2'),
-       url('../assets/fonts/S-Core%20-%20CoreSansD75Black.woff') format('woff'),
-       url('../assets/fonts/S-Core%20-%20CoreSansD75Black.otf') format('opentype');
-  font-weight: 800 950;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Core Sans D';
-  src: url('../assets/fonts/S-Core%20-%20CoreSansD75Black-Italic.woff2') format('woff2'),
-       url('../assets/fonts/S-Core%20-%20CoreSansD75Black-Italic.woff') format('woff'),
-       url('../assets/fonts/S-Core%20-%20CoreSansD75Black-Italic.otf') format('opentype');
-  font-weight: 800 950;
-  font-style: italic;
-  font-display: swap;
-}
-
 :root {
-  /* Official Brandbook Colors (Pantone 166 C, Pure White, Carbon Graphite & Titanium) */
+  /* Official Brandbook Colors (Pantone 166 C, Pure White, Deep Black) */
   --gtt-orange: #EA5B0C;
-  --gtt-orange-hover: #FF6F26;
-  --gtt-orange-glow: rgba(234, 91, 12, 0.35);
+  --gtt-orange-hover: #ff6f26;
+  --gtt-orange-glow: rgba(234, 91, 12, 0.45);
   --gtt-orange-subtle: rgba(234, 91, 12, 0.12);
   --brand-telegram: #24A1DE;
 
-  --bg-deep: #070709;
-  --bg-surface: #0E0F12;
-  --bg-card: #14161A;
+  --gtt-cyan: #38bdf8;
+  --gtt-cyan-glow: rgba(56, 189, 248, 0.25);
+
+  --bg-deep: #08090C;
+  --bg-surface: #0e1117;
+  --bg-card: rgba(16, 20, 28, 0.85);
   --bg-card-glass: rgba(20, 22, 26, 0.90);
-  --bg-card-hover: #1A1D22;
+  --bg-card-hover: rgba(24, 30, 44, 0.95);
 
   --border-subtle: rgba(255, 255, 255, 0.08);
   --border-hairline: rgba(255, 255, 255, 0.11);
-  --border-glow: rgba(234, 91, 12, 0.42);
+  --border-glow: rgba(234, 91, 12, 0.45);
   --border-color: rgba(182, 180, 179, 0.18);
   --specular-top: inset 0 1px 0 rgba(255, 255, 255, 0.07);
 
   --text-main: #FFFFFF;
   --text-muted: #B6B4B3;
-  --text-dim: #807E7C;
+  --text-dim: #737170;
 
-  /* Official Brandbook Typography (Core Sans D + Dagger Square + Arial) */
-  --font-display: 'Core Sans D', Arial, sans-serif;
-  --font-racing: 'Dagger Square', 'Core Sans D', Arial, sans-serif;
-  --font-heading: 'Core Sans D', Arial, sans-serif;
-  --font-body: 'Core Sans D', Arial, sans-serif;
-  --font-accent: 'Dagger Square', 'Core Sans D', sans-serif;
-  --font-mono: 'Dagger Square', monospace;
+  /* Classic Motorsport Typography (Chakra Petch, Space Grotesk, Inter, JetBrains Mono) */
+  --font-display: 'Chakra Petch', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-racing: 'Chakra Petch', sans-serif;
+  --font-heading: 'Space Grotesk', -apple-system, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-accent: 'Chakra Petch', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 
-  /* Unified Technical Motorsport Radii (4px–8px Sharp Cuts) */
+  /* Motorsport Radii */
   --radius-xs: 2px;
   --radius-sm: 4px;
   --radius-md: 6px;
   --radius-lg: 8px;
-  --radius-xl: 8px;
+  --radius-xl: 10px;
   --radius-pill: 4px;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-smooth: all 0.28s var(--ease-out-expo);
+  --transition-smooth: all 0.35s var(--ease-out-expo);
 }
 
 *, *::before, *::after {
@@ -359,10 +247,9 @@ body.is-loading {
 }
 
 .preloader-word-gosha {
-  font-family: 'Dagger Square', sans-serif;
+  font-family: var(--font-display), 'Chakra Petch', sans-serif;
   font-size: 26px;
   font-weight: 700;
-  font-style: italic;
   letter-spacing: 0.08em;
   color: #FFFFFF;
   text-transform: uppercase;
@@ -370,10 +257,9 @@ body.is-loading {
 }
 
 .preloader-word-turbo {
-  font-family: 'Dagger Square', sans-serif;
+  font-family: var(--font-display), 'Chakra Petch', sans-serif;
   font-size: 22px;
   font-weight: 700;
-  font-style: italic;
   letter-spacing: 0.08em;
   color: var(--gtt-orange);
   text-transform: uppercase;
@@ -532,20 +418,18 @@ body.is-loading {
 }
 
 .brand-word-gosha {
-  font-family: 'Dagger Square', sans-serif;
+  font-family: var(--font-display);
   font-size: 16px;
   font-weight: 700;
-  font-style: italic;
   letter-spacing: 0.06em;
   color: #FFFFFF;
   text-transform: uppercase;
 }
 
 .brand-word-turbo {
-  font-family: 'Dagger Square', sans-serif;
+  font-family: var(--font-display);
   font-size: 14px;
   font-weight: 700;
-  font-style: italic;
   letter-spacing: 0.06em;
   color: var(--gtt-orange);
   text-transform: uppercase;
@@ -561,11 +445,11 @@ body.is-loading {
 .nav-link {
   text-decoration: none;
   color: #A3A19F;
-  font-family: 'Core Sans D', Arial, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 12.5px;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   white-space: nowrap;
   transition: color 0.22s ease, opacity 0.22s ease;
   position: relative;
@@ -703,10 +587,9 @@ body.is-loading {
   color: #fff;
   font-family: var(--font-display);
   font-size: 12px;
-  font-weight: 800;
-  font-style: italic;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   padding: 12px 24px;
   border-radius: var(--radius-md);
   text-decoration: none;
@@ -977,13 +860,12 @@ body.is-loading {
 .hero-title {
   font-family: var(--font-display);
   font-size: clamp(32px, 5vw, 56px);
-  font-weight: 900;
-  font-style: italic;
+  font-weight: 800;
   text-transform: uppercase;
   line-height: 1.05;
   letter-spacing: 0.02em;
   margin-bottom: 16px;
-  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.78);
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
 }
 
 .gradient-text {
@@ -1127,8 +1009,7 @@ body.is-loading {
 .section-title {
   font-family: var(--font-display);
   font-size: clamp(24px, 3.2vw, 36px);
-  font-weight: 900;
-  font-style: italic;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.02em;
   margin-bottom: 10px;
@@ -1171,11 +1052,10 @@ body.is-loading {
   border: 1px solid transparent;
   color: var(--text-muted);
   font-family: var(--font-display);
-  font-size: 13px;
-  font-weight: 800;
-  font-style: italic;
+  font-size: 12.5px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
@@ -1199,10 +1079,8 @@ body.is-loading {
 }
 
 .category-tab-btn .cat-count {
-  font-family: 'Dagger Square', var(--font-mono);
+  font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 700;
-  font-style: italic;
   padding: 2px 7px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid var(--border-subtle);
@@ -1638,8 +1516,7 @@ body.is-loading {
 .car-model-title {
   font-family: var(--font-display);
   font-size: 14.5px;
-  font-weight: 900;
-  font-style: italic;
+  font-weight: 800;
   text-transform: uppercase;
   margin-bottom: 12px;
   color: #fff;
@@ -1688,10 +1565,9 @@ body.is-loading {
 }
 
 .spec-val {
-  font-family: 'Dagger Square', var(--font-display);
-  font-size: clamp(12px, 1.2vw, 15px);
+  font-family: var(--font-display);
+  font-size: clamp(11.5px, 1.15vw, 15px);
   font-weight: 700;
-  font-style: italic;
   color: #fff;
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
@@ -1729,8 +1605,7 @@ body.is-loading {
   color: #fff;
   font-family: var(--font-display);
   font-size: clamp(10px, 0.85vw, 12px);
-  font-weight: 800;
-  font-style: italic;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   padding: 6px 10px;
@@ -7525,8 +7400,7 @@ body.modal-open {
   color: #fff;
   font-family: var(--font-display, inherit);
   font-size: 13px;
-  font-weight: 800;
-  font-style: italic;
+  font-weight: 700;
   letter-spacing: 0.8px;
   text-transform: uppercase;
   cursor: pointer;
