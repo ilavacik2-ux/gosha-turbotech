@@ -4831,7 +4831,7 @@ function withLocalAssetVersion(url) {
 }
 window.withLocalAssetVersion = withLocalAssetVersion;
 
-function formatSpecVal(val, lang, type) {
+function formatSpecVal(val, lang, type, asHtml = false) {
   let str = (typeof val === 'object' && val !== null) ? (val[lang] || val.ru || val.en || '') : String(val || '').trim();
   if (str === '—' || str === '-') {
     return '—';
@@ -4846,23 +4846,33 @@ function formatSpecVal(val, lang, type) {
   }
   if (lang === 'en') {
     if (type === 'quarterMile') {
-      return str.replace(/сек\.?/gi, 'sec').replace(/\bс\b/gi, 'sec');
+      str = str.replace(/сек\.?/gi, 'sec').replace(/\bс\b/gi, 'sec');
     }
     if (type === 'topSpeed') {
-      return str.replace(/км\/ч/gi, 'km/h');
+      str = str.replace(/км\/ч/gi, 'km/h');
     }
     if (type === 'hp') {
-      return str.replace(/л\.?с\.?/gi, 'HP');
+      str = str.replace(/л\.?с\.?/gi, 'HP');
     }
   } else {
     if (type === 'quarterMile') {
-      return str.replace(/sec\.?/gi, 'сек').replace(/\bs\b/gi, 'сек');
+      str = str.replace(/sec\.?/gi, 'сек').replace(/\bs\b/gi, 'сек');
     }
     if (type === 'topSpeed') {
-      return str.replace(/km\/h/gi, 'км/ч');
+      str = str.replace(/km\/h/gi, 'км/ч');
     }
   }
-  return str;
+  if (!asHtml) return str;
+  const match = str.match(/^([\d,\.\+\?]+)\s*(.*)$/);
+  if (match) {
+    const num = match[1].trim();
+    const unit = match[2].trim();
+    if (unit) {
+      return `<span class="spec-num">${num}</span><span class="spec-unit">${unit}</span>`;
+    }
+    return `<span class="spec-num">${num}</span>`;
+  }
+  return `<span class="spec-num">${str}</span>`;
 }
 
 function formatGarageExpandText(remaining, isExpanded, lang) {
@@ -5145,15 +5155,15 @@ function renderGarageGrid(filterType) {
             <p class="car-card-desc">${desc}</p>
             <div class="car-specs-row">
               <div class="spec-cell">
-                <div class="spec-val">${formatSpecVal(car.hp, currentLang, 'hp')}</div>
+                <div class="spec-val">${formatSpecVal(car.hp, currentLang, 'hp', true)}</div>
                 <div class="spec-lbl">${i18n[currentLang].spec_power}</div>
               </div>
               <div class="spec-cell">
-                <div class="spec-val">${formatSpecVal(car.quarterMile, currentLang, 'quarterMile')}</div>
+                <div class="spec-val">${formatSpecVal(car.quarterMile, currentLang, 'quarterMile', true)}</div>
                 <div class="spec-lbl">${i18n[currentLang].spec_402}</div>
               </div>
               <div class="spec-cell">
-                <div class="spec-val">${formatSpecVal(car.topSpeed, currentLang, 'topSpeed')}</div>
+                <div class="spec-val">${formatSpecVal(car.topSpeed, currentLang, 'topSpeed', true)}</div>
                 <div class="spec-lbl">${i18n[currentLang].spec_speed}</div>
               </div>
             </div>
@@ -5490,21 +5500,21 @@ window.openCarModal = function(carId) {
         <div class="carmodal-metric-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
         </div>
-        <div class="carmodal-metric-val">${formatSpecVal(car.hp, currentLang, 'hp')}</div>
+        <div class="carmodal-metric-val">${formatSpecVal(car.hp, currentLang, 'hp', true)}</div>
         <div class="carmodal-metric-lbl">${i18n[currentLang].spec_power}</div>
       </div>
       <div class="carmodal-metric-card">
         <div class="carmodal-metric-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="9" y1="2" x2="15" y2="2"/></svg>
         </div>
-        <div class="carmodal-metric-val">${formatSpecVal(car.quarterMile, currentLang, 'quarterMile')}</div>
+        <div class="carmodal-metric-val">${formatSpecVal(car.quarterMile, currentLang, 'quarterMile', true)}</div>
         <div class="carmodal-metric-lbl">${i18n[currentLang].spec_402}</div>
       </div>
       <div class="carmodal-metric-card">
         <div class="carmodal-metric-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m16.2 7.8-4.2 4.2"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.9 4.9 1.4 1.4"/><path d="m17.7 17.7 1.4 1.4"/><path d="M2 12h2"/><path d="M20 12h2"/></svg>
         </div>
-        <div class="carmodal-metric-val">${formatSpecVal(car.topSpeed, currentLang, 'topSpeed')}</div>
+        <div class="carmodal-metric-val">${formatSpecVal(car.topSpeed, currentLang, 'topSpeed', true)}</div>
         <div class="carmodal-metric-lbl">${i18n[currentLang].spec_speed}</div>
       </div>
     </div>
