@@ -629,6 +629,96 @@ const defaultProjects = [
     "is_photo": 1,
     "isClassified": false,
     "isTeaser": false
+  },
+  {
+    "id": "street_bmw_m3_g80",
+    "brand": "BMW & GTT",
+    "type": "bmw",
+    "nameRu": "BMW M3 G80 (Личный болид Гоши)",
+    "nameEn": "BMW M3 G80 (Gosha Personal Build)",
+    "tag_ru": "ГРАЖДАНСКИЙ ТЮНИНГ GTT",
+    "tag_en": "GTT STREET DIVISION",
+    "hp": "750+ HP",
+    "quarterMile": "10.2 сек",
+    "topSpeed": "320+ км/ч",
+    "badge_ru": "Личный автомобиль Гоши",
+    "badge_en": "Gosha Personal Car",
+    "img": "assets/cars/gtt_classified_car.svg",
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "is_photo": 0,
+    "isPhoto": false,
+    "isClassified": true,
+    "objectPosition": "center center",
+    "videoSrc": "",
+    "descRu": "Личный гражданский проект Гоши Перцхелия. Комплексный тюнинг двигателя S58, титановый выхлоп GTT, индивидуальная калибровка блока управления и спортивная подвеска.",
+    "descEn": "Personal street project of Gosha Pertskheliya. S58 twin-turbo tuning, custom titanium exhaust and ECU calibration.",
+    "sort_order": 101,
+    "is_featured": 0,
+    "isFeatured": false,
+    "category": "street",
+    "is_published": 1,
+    "isPublished": true,
+    "completeness": 45
+  },
+  {
+    "id": "street_bentley_continental_gt",
+    "brand": "BENTLEY & GTT",
+    "type": "other",
+    "nameRu": "BENTLEY CONTINENTAL GT GTT",
+    "nameEn": "BENTLEY CONTINENTAL GT GTT",
+    "tag_ru": "ГРАЖДАНСКИЙ ТЮНИНГ GTT",
+    "tag_en": "GTT STREET DIVISION",
+    "hp": "800+ HP",
+    "quarterMile": "10.5 сек",
+    "topSpeed": "335+ км/ч",
+    "badge_ru": "Luxury Grand Tourer",
+    "badge_en": "Luxury Grand Tourer",
+    "img": "assets/cars/gtt_classified_car.svg",
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "is_photo": 0,
+    "isPhoto": false,
+    "isClassified": true,
+    "objectPosition": "center center",
+    "videoSrc": "",
+    "descRu": "Премиальный гран-туризмо Continental GT. Индивидуальная настройка W12 / V8 Twin-Turbo, доработка охлаждения и выхлопной системы под заказ-наряд клиента.",
+    "descEn": "Premium Grand Tourer Continental GT tuned by GTT skunkworks.",
+    "sort_order": 102,
+    "is_featured": 0,
+    "isFeatured": false,
+    "category": "street",
+    "is_published": 1,
+    "isPublished": true,
+    "completeness": 40
+  },
+  {
+    "id": "street_porsche_gt3rs_mcqueen",
+    "brand": "PORSCHE & GTT",
+    "type": "porsche",
+    "nameRu": "PORSCHE 911 GT3 RS «МАККУИН»",
+    "nameEn": "PORSCHE 911 GT3 RS «MCQUEEN»",
+    "tag_ru": "ГРАЖДАНСКИЙ ТЮНИНГ GTT",
+    "tag_en": "GTT STREET DIVISION",
+    "hp": "525+ HP",
+    "quarterMile": "10.8 сек",
+    "topSpeed": "300+ км/ч",
+    "badge_ru": "Track-Day Spec «Маккуин»",
+    "badge_en": "Track-Day Spec McQueen",
+    "img": "assets/cars/gtt_classified_car.svg",
+    "fallbackImg": "assets/cars/gtt_classified_car.svg",
+    "is_photo": 0,
+    "isPhoto": false,
+    "isClassified": true,
+    "objectPosition": "center center",
+    "videoSrc": "",
+    "descRu": "Атмосферный трековый шедевр Porsche 911 GT3 RS в эксклюзивной стилистике «Молния Маккуин». Высокоточные настройки шасси, выхлопная трасса Inconel и трековая телеметрия.",
+    "descEn": "Naturally aspirated track weapon 911 GT3 RS in iconic McQueen livery.",
+    "sort_order": 103,
+    "is_featured": 0,
+    "isFeatured": false,
+    "category": "street",
+    "is_published": 1,
+    "isPublished": true,
+    "completeness": 45
   }
 ];
 
@@ -3658,6 +3748,8 @@ function renderCarsTable() {
       if (targetRow) {
         targetRow.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       }
+    }, 150);
+  }
 }
 
 async function toggleCarCategoryQuick(carId, event) {
@@ -3669,19 +3761,43 @@ async function toggleCarCategoryQuick(carId, event) {
   const oldCat = (car.category || 'race').toLowerCase();
   const newCat = (oldCat === 'street') ? 'race' : 'street';
   car.category = newCat;
-  setDB(ADMIN_STORAGE_KEY, projects);
+
+  if (newCat === 'street') {
+    if (!car.tag_ru || car.tag_ru === 'RDRC БОЛИД') car.tag_ru = 'ГРАЖДАНСКИЙ ТЮНИНГ';
+    if (!car.tag_en || car.tag_en === 'RDRC CAR') car.tag_en = 'STREET DIVISION';
+    if (!car.badge_ru || car.badge_ru === 'GTT Spec') car.badge_ru = 'City Spec GTT';
+    if (!car.badge_en || car.badge_en === 'GTT Spec') car.badge_en = 'City Spec GTT';
+  } else {
+    if (!car.tag_ru || car.tag_ru === 'ГРАЖДАНСКИЙ ТЮНИНГ') car.tag_ru = 'RDRC БОЛИД';
+    if (!car.tag_en || car.tag_en === 'STREET DIVISION') car.tag_en = 'RDRC CAR';
+    if (!car.badge_ru || car.badge_ru === 'City Spec GTT') car.badge_ru = 'GTT Spec';
+    if (!car.badge_en || car.badge_en === 'City Spec GTT') car.badge_en = 'GTT Spec';
+  }
+
+  saveDB(ADMIN_STORAGE_KEY, projects);
+  try {
+    localStorage.setItem('gtt_projects_v2', JSON.stringify(projects));
+  } catch (e) {}
+
+  if (window.BroadcastChannel) {
+    try {
+      new BroadcastChannel('gtt_channel').postMessage({ type: 'projects_updated', projects });
+    } catch (e) {}
+  }
   renderCarsTable();
+
+  const label = (newCat === 'street') ? '🏙️ Гражданский тюнинг' : '🏁 Гоночные болиды RDRC';
+  const carTitle = car.name_ru || car.nameRu || car.id;
 
   try {
     await apiFetch(`/api/cars/${encodeURIComponent(carId)}`, {
       method: 'PUT',
       body: JSON.stringify({ ...car, category: newCat })
     });
-    const label = (newCat === 'street') ? '🏙️ Гражданский тюнинг' : '🏁 Гоночные болиды RDRC';
-    showToast('Категория изменена', `«${car.name_ru || car.nameRu || car.id}» перенесен в: ${label}`, 'success', 3500);
+    showToast('Категория изменена', `«${carTitle}» перенесен в: ${label}`, 'success', 3500);
     addAuditNotification('updated', `Смена категории [${car.id}]: ${oldCat} -> ${newCat}`);
   } catch (err) {
-    showToast('Сохранено локально', 'Изменение категории сохранено в браузере', 'info', 3000);
+    showToast('Категория сохранена', `«${carTitle}» перенесен в: ${label}`, 'success', 3500);
   }
 }
 window.toggleCarCategoryQuick = toggleCarCategoryQuick;

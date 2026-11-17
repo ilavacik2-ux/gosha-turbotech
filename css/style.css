@@ -59,6 +59,11 @@ html {
   scroll-behavior: smooth;
   color-scheme: dark;
   background-color: var(--bg-deep);
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  touch-action: pan-y;
+  -webkit-text-size-adjust: 100%;
 }
 
 section[id],
@@ -93,9 +98,12 @@ body {
   font-family: var(--font-body);
   background: var(--bg-deep);
   color: var(--text-main);
+  width: 100%;
+  max-width: 100vw;
   overflow-x: hidden;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  touch-action: pan-y;
 }
 
 body::before {
@@ -1031,20 +1039,22 @@ body.is-loading {
 .project-category-tabs {
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 12px;
+  align-items: stretch;
+  gap: 8px;
   margin: 0 auto 26px;
-  padding: 4px;
+  padding: 5px;
   background: rgba(14, 15, 18, 0.95);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   max-width: fit-content;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.6), var(--specular-top);
+  box-sizing: border-box;
 }
 
 .category-tab-btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   padding: 10px 22px;
   border-radius: var(--radius-sm);
@@ -1060,6 +1070,9 @@ body.is-loading {
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   user-select: none;
+  box-sizing: border-box;
+  text-align: center;
+  min-height: 48px;
 }
 
 .category-tab-btn:hover {
@@ -1075,7 +1088,17 @@ body.is-loading {
 }
 
 .category-tab-btn .cat-icon {
-  font-size: 14px;
+  font-size: 15px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.category-tab-btn .cat-title {
+  display: inline-block;
+  line-height: 1.25;
 }
 
 .category-tab-btn .cat-count {
@@ -1086,6 +1109,8 @@ body.is-loading {
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xs);
   color: var(--text-dim);
+  flex-shrink: 0;
+  line-height: 1.3;
 }
 
 .category-tab-btn.active .cat-count {
@@ -1103,6 +1128,46 @@ body.is-loading {
   border: 1px solid rgba(234, 91, 12, 0.45);
   color: var(--gtt-orange);
   letter-spacing: 0.06em;
+}
+
+@media (max-width: 640px) {
+  .project-category-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: calc(100% - 24px);
+    max-width: 440px;
+    gap: 6px;
+    padding: 4px;
+    margin: 0 auto 20px;
+  }
+
+  .category-tab-btn {
+    padding: 8px 6px;
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
+    min-height: 52px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .category-tab-btn .cat-icon {
+    font-size: 13px;
+  }
+
+  .category-tab-btn .cat-title {
+    flex: 1;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  .category-tab-btn .cat-count {
+    font-size: 10px;
+    padding: 2px 5px;
+  }
 }
 
 .filter-pills {

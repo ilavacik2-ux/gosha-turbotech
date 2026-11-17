@@ -1366,6 +1366,8 @@ const i18n = {
     garage_tag: "01 // ШОУРУМ И ПРОЕКТЫ GTT",
     garage_title: "Легендарные проекты GTT",
     garage_subtitle: "Каждый автомобиль собран вручную в ателье GoshaTurboTech с персональной калибровкой блоков управления и двойного турбонаддува.",
+    cat_race: "Гоночные болиды RDRC",
+    cat_street: "Гражданский тюнинг",
     filter_all: "Все проекты (35)",
     filter_other: "Эксклюзив &amp; Маслкары (8)",
     spec_power: "Мощность",
@@ -1599,6 +1601,8 @@ const i18n = {
     garage_tag: "01 // SHOWROOM & MOTORSPORT BUILDS",
     garage_title: "Legendary GTT Projects",
     garage_subtitle: "Hand-built in the GoshaTurboTech atelier with bespoke ECU calibration and twin turbo engineering.",
+    cat_race: "Race Builds RDRC",
+    cat_street: "Street Division",
     filter_all: "All Projects (35)",
     filter_other: "Exclusive &amp; Muscle (8)",
     spec_power: "Output",
@@ -1867,6 +1871,16 @@ if ('scrollRestoration' in history) {
 }
 window.scrollTo(0, 0);
 
+// Prevent mobile Safari viewport pinch-to-zoom / shrink-viewport gestures
+document.addEventListener('gesturestart', function(e) { e.preventDefault(); }, { passive: false });
+document.addEventListener('gesturechange', function(e) { e.preventDefault(); }, { passive: false });
+document.addEventListener('gestureend', function(e) { e.preventDefault(); }, { passive: false });
+window.addEventListener('touchmove', function(e) {
+  if (e.touches && e.touches.length > 1) {
+    e.preventDefault();
+  }
+}, { passive: false });
+
 // Document Ready Initialization
 document.addEventListener('DOMContentLoaded', () => {
   window.scrollTo(0, 0);
@@ -1965,15 +1979,20 @@ async function syncProjectsFromAPI() {
       }
     } catch (e) {}
 
-    // Only fallback to static data/cars.json if there is NO live backend AND NO existing local data in browser
-    if ((!serverCars || !Array.isArray(serverCars) || serverCars.length === 0) && !hasValidLocal) {
+    // Fallback to static data/cars.json if there is NO live backend (e.g. GitHub Pages)
+    if (!serverCars || !Array.isArray(serverCars) || serverCars.length === 0) {
       try {
         const res = await fetch('data/cars.json?v=' + Date.now());
-        if (res.ok) serverCars = await res.json();
+        if (res.ok) {
+          const staticCars = await res.json();
+          if (Array.isArray(staticCars) && staticCars.length > 0) {
+            serverCars = staticCars;
+          }
+        }
       } catch (e) {}
     }
 
-    if (Array.isArray(serverCars) && serverCars.length > 0 && (isLiveBackend || !hasValidLocal)) {
+    if (Array.isArray(serverCars) && serverCars.length > 0) {
       localStorage.setItem('gtt_admin_cars_db', JSON.stringify(serverCars));
       localStorage.setItem('gtt_projects_v2', JSON.stringify(serverCars));
       applyCarsData(serverCars);
@@ -2021,7 +2040,88 @@ function sanitizeCarRecord(c) {
 
 function applyCarsData(carList) {
   const cleanList = Array.isArray(carList) ? carList.filter(c => c && c.id) : [];
-  const listToUse = (cleanList.length > 0 ? cleanList : carList).map(sanitizeCarRecord);
+  let listToUse = (cleanList.length > 0 ? cleanList : carList).map(sanitizeCarRecord);
+
+  // Guarantee street projects are included in listToUse so street category is never 0
+  const existingIds = new Set(listToUse.map(c => c.id));
+  const fallbackStreetProjects = [
+    {
+      id: "street_bmw_m3_g80",
+      brand: "BMW & GTT",
+      type: "bmw",
+      name_ru: "BMW M3 G80 (Личный болид Гоши)",
+      name_en: "BMW M3 G80 (Gosha Personal Build)",
+      tag_ru: "ГРАЖДАНСКИЙ ТЮНИНГ GTT",
+      tag_en: "GTT STREET DIVISION",
+      hp: "750+ HP",
+      quarter_mile: "10.2 сек",
+      top_speed: "320+ км/ч",
+      badge_ru: "Личный автомобиль Гоши",
+      badge_en: "Gosha Personal Car",
+      img: "assets/cars/gtt_classified_car.svg",
+      fallback_img: "assets/cars/gtt_classified_car.svg",
+      is_photo: 0,
+      object_position: "center center",
+      category: "street",
+      is_published: 1,
+      sort_order: 101
+    },
+    {
+      id: "street_bentley_continental_gt",
+      brand: "BENTLEY & GTT",
+      type: "other",
+      name_ru: "BENTLEY CONTINENTAL GT GTT",
+      name_en: "BENTLEY CONTINENTAL GT GTT",
+      tag_ru: "ГРАЖДАНСКИЙ ТЮНИНГ GTT",
+      tag_en: "GTT STREET DIVISION",
+      hp: "800+ HP",
+      quarter_mile: "10.5 сек",
+      top_speed: "335+ км/ч",
+      badge_ru: "Luxury Grand Tourer",
+      badge_en: "Luxury Grand Tourer",
+      img: "assets/cars/gtt_classified_car.svg",
+      fallback_img: "assets/cars/gtt_classified_car.svg",
+      is_photo: 0,
+      object_position: "center center",
+      category: "street",
+      is_published: 1,
+      sort_order: 102
+    },
+    {
+      id: "street_porsche_gt3rs_mcqueen",
+      brand: "PORSCHE & GTT",
+      type: "porsche",
+      name_ru: "PORSCHE 911 GT3 RS «МАККУИН»",
+      name_en: "PORSCHE 911 GT3 RS «MCQUEEN»",
+      tag_ru: "ГРАЖДАНСКИЙ ТЮНИНГ GTT",
+      tag_en: "GTT STREET DIVISION",
+      hp: "525+ HP",
+      quarter_mile: "10.8 сек",
+      top_speed: "300+ км/ч",
+      badge_ru: "Track-Day Spec «Маккуин»",
+      badge_en: "Track-Day Spec McQueen",
+      img: "assets/cars/gtt_classified_car.svg",
+      fallback_img: "assets/cars/gtt_classified_car.svg",
+      is_photo: 0,
+      object_position: "center center",
+      category: "street",
+      is_published: 1,
+      sort_order: 103
+    }
+  ];
+
+  fallbackStreetProjects.forEach(fp => {
+    if (!existingIds.has(fp.id)) {
+      listToUse.push(fp);
+      existingIds.add(fp.id);
+    }
+  });
+
+  listToUse.forEach(c => {
+    if (c.id && c.id.startsWith('street_') && (!c.category || c.category !== 'street')) {
+      c.category = 'street';
+    }
+  });
 
   // Sort so featured cars come first if sort_order isn't doing so
   listToUse.sort((a, b) => {
