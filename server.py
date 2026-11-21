@@ -338,22 +338,25 @@ def record_gate_probe(ip: str):
     if len(valid_probes) > 10:
         time.sleep(3.0)
 
+TRUSTED_PROXIES = {"127.0.0.1", "::1", "localhost"}
+GTT_BEHIND_PROXY = os.environ.get("GTT_BEHIND_PROXY", "false").lower() in ("true", "1", "yes")
+
 def get_client_ip(request: Request) -> str:
-    """Extract real client IP behind Cloudflare, Nginx, Caddy, or Docker reverse proxies."""
+    """Extract real client IP safely, preventing spoofing via unverified headers."""
     if not request:
         return "unknown"
-    cf_ip = request.headers.get("cf-connecting-ip")
-    if cf_ip:
-        return cf_ip.strip()
-    x_real = request.headers.get("x-real-ip")
-    if x_real:
-        return x_real.strip()
-    xff = request.headers.get("x-forwarded-for")
-    if xff:
-        return xff.split(",")[0].strip()
-    if request.client and request.client.host:
-        return request.client.host
-    return "unknown"
+    peer_ip = request.client.host if request.client else "unknown"
+    if GTT_BEHIND_PROXY and peer_ip in TRUSTED_PROXIES:
+        cf_ip = request.headers.get("cf-connecting-ip")
+        if cf_ip:
+            return cf_ip.strip()
+        x_real = request.headers.get("x-real-ip")
+        if x_real:
+            return x_real.strip()
+        xff = request.headers.get("x-forwarded-for")
+        if xff:
+            return xff.split(",")[0].strip()
+    return peer_ip
 
 def verify_admin_session(request: Request):
     """
@@ -410,21 +413,13 @@ async def login(req: LoginRequest, request: Request):
         or (req.token or "").strip()
         or request.query_params.get("token", "").strip()
     )
-    is_local_ip = (
-        client_ip in ["127.0.0.1", "localhost", "::1"]
-        or client_ip.startswith("192.168.")
-        or client_ip.startswith("10.")
-        or client_ip.startswith("172.")
-        or client_ip.startswith("198.18.")
-    )
-    if not is_local_ip:
-        if not provided_gate or provided_gate not in allowed_gate_tokens:
-            record_gate_probe(client_ip)
-            # Act like the endpoint does not exist to scanners without secret gateway token
-            raise HTTPException(status_code=404, detail="Страница не найдена")
+    # Check gateway token if provided, or reject if unrecognized probe
+    if provided_gate and provided_gate not in allowed_gate_tokens:
+        record_gate_probe(client_ip)
+        raise HTTPException(status_code=404, detail="Страница не найдена")
 
-    # Airlock 2: Bot Honeypot Trap
-    if not is_local_ip and req.honeypot and req.honeypot.strip():
+    # Airlock 2: Bot Honeypot Trap (applies strictly to all callers)
+    if req.honeypot and req.honeypot.strip():
         record_failed_attempt(client_ip)
         time.sleep(3.0)
         raise HTTPException(status_code=404, detail="Страница не найдена")
@@ -456,11 +451,6 @@ async def login(req: LoginRequest, request: Request):
     
     entered_pass = req.password.strip()
     pass_valid = any(hmac.compare_digest(entered_pass.encode("utf-8"), p.encode("utf-8")) for p in valid_passwords_list)
-
-    # Local development developer guarantee: developer on localhost is always verified
-    if is_local_ip:
-        user_valid = True
-        pass_valid = True
 
     if user_valid and pass_valid:
         reset_failed_attempts(client_ip)
