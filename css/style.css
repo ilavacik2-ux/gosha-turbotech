@@ -61,7 +61,7 @@ html {
   background-color: var(--bg-deep);
   width: 100%;
   max-width: 100vw;
-  overflow-x: hidden;
+  overflow-x: clip;
   touch-action: pan-y;
   -webkit-text-size-adjust: 100%;
 }
@@ -100,7 +100,7 @@ body {
   color: var(--text-main);
   width: 100%;
   max-width: 100vw;
-  overflow-x: hidden;
+  overflow-x: clip;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   touch-action: pan-y;
@@ -379,7 +379,7 @@ body.is-loading {
 .brand-logo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 22px;
   text-decoration: none;
   color: #fff;
   transition: transform 0.25s ease;
@@ -681,6 +681,10 @@ body.is-loading {
   width: 100%;
   height: 100%;
   background-image: url('../assets/photos/hero_atelier_backdrop_web.jpg');
+  background-image: image-set(
+    url('../assets/photos/hero_atelier_backdrop_web.jpg') 1x,
+    url('../assets/photos/hero_atelier_backdrop.jpg') 2x
+  );
   background-size: cover;
   background-position: center 36%;
   background-repeat: no-repeat;
@@ -699,8 +703,6 @@ body.is-loading {
   height: 100%;
   object-fit: cover;
   object-position: center 48%;
-  transform: scale(1.1);
-  transform-origin: center center;
   opacity: 0;
   filter: contrast(1.1) brightness(0.98);
   z-index: 2;
@@ -1495,7 +1497,7 @@ body.is-loading {
   --gtt-scale: 1;
   --gtt-hover-scale: 1;
   opacity: 0;
-  filter: blur(8px) contrast(0.9) brightness(0.7);
+  filter: contrast(1.05) brightness(0.97);
   transform: translateY(var(--gtt-ty, 0%)) scale(calc(var(--gtt-scale, 1) * var(--gtt-hover-scale, 1) * 1.055));
   transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
@@ -1505,7 +1507,7 @@ body.is-loading {
 
 .car-card-media.is-img-loaded .car-card-img {
   opacity: 1;
-  filter: blur(0px) contrast(1.05) brightness(0.97);
+  filter: contrast(1.05) brightness(0.97);
   transform: translateY(var(--gtt-ty, 0%)) scale(calc(var(--gtt-scale, 1) * var(--gtt-hover-scale, 1)));
 }
 
@@ -1617,7 +1619,7 @@ body.is-loading {
 
 .car-specs-row {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
   background: rgba(7, 7, 9, 0.55);
   border: 1px solid var(--border-subtle);
@@ -1902,7 +1904,7 @@ body.is-loading {
   object-position: center center;
   display: block;
   opacity: 0;
-  filter: blur(8px) contrast(0.9) brightness(0.7);
+  filter: contrast(1.05) brightness(0.97);
   transform: scale(1.05);
   transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
               transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
@@ -1910,9 +1912,17 @@ body.is-loading {
   will-change: opacity, transform, filter;
 }
 
+.record-photo-img.record-photo-placeholder {
+  box-sizing: border-box;
+  object-fit: contain;
+  object-position: center;
+  padding: 17%;
+  cursor: default;
+}
+
 .record-photo-wrapper.is-img-loaded .record-photo-img {
   opacity: 1;
-  filter: blur(0px) contrast(1.05) brightness(0.97);
+  filter: contrast(1.05) brightness(0.97);
   transform: scale(1);
 }
 
@@ -6085,13 +6095,13 @@ body.modal-open {
   }
 }
 
-@media (min-width: 1101px) {
+@media (min-width: 1301px) {
   .mobile-burger-btn {
     display: none !important;
   }
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1300px) {
   .nav-links {
     display: none;
   }
@@ -6348,8 +6358,6 @@ body.modal-open {
   }
   .hero-video-bg {
     opacity: 0.96;
-    transform: scale(1.22);
-    transform-origin: center 60%;
     object-position: center 65%;
   }
   .hero-video-overlay {
@@ -6537,7 +6545,7 @@ body.modal-open {
   }
   .car-specs-row {
     display: grid !important;
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     gap: 4px !important;
     padding: 5px 3px !important;
     margin-bottom: 8px !important;
@@ -7880,3 +7888,50 @@ body.modal-open {
 }
 
 
+
+/* Brand spacing and full size project photos */
+.navbar { column-gap: clamp(22px, 2.4vw, 42px); }
+.navbar .brand-logo, .navbar .nav-actions { flex-shrink: 0; }
+.navbar .nav-links { gap: clamp(9px, 1.15vw, 22px); }
+.navbar .nav-link { white-space: nowrap; }
+.navbar .brand-text-img { margin-left: 4px; }
+.preloader-logo-wrap .brand-text-img { margin-left: 10px; }
+.record-photo-img { cursor: zoom-in; }
+
+.carmodal-photo-button {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  color: white;
+  cursor: zoom-in;
+}
+.carmodal-photo-label {
+  position: absolute;
+  z-index: 3;
+  right: 12px;
+  bottom: 12px;
+  padding: 6px 10px;
+  background: rgba(0, 0, 0, .8);
+  border-radius: 4px;
+}
+#galleryLightbox { z-index: 2600; }
+#galleryLightbox.single-photo { background: #070709; padding: 0; }
+#galleryLightbox.single-photo .lightbox-modal-content {
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+}
+#galleryLightbox.single-photo .lightbox-main-img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  border: 0;
+  border-radius: 0;
+}
+#galleryLightbox.single-photo .lightbox-caption,
+#galleryLightbox.single-photo .lightbox-nav-btn { display: none; }

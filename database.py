@@ -1,6 +1,7 @@
 """
 GoshaTurboTech (GTT) - SQLite Database Engine
-Direct SQLite3 persistence for Cars, Team, Records, Gallery, Media and Settings.
+Direct SQLite3 persistence for Cars, Team, Records, Gallery, Media, Settings,
+PBKDF2 Auth, Gateway Tokens, Rate Limiting and Sessions.
 Zero third-party vendor lock-in. 100% autonomous.
 """
 
@@ -8,226 +9,317 @@ import sqlite3
 import json
 import os
 import time
-from typing import List, Dict, Any, Optional
+import hmac
+import hashlib
+import secrets
+from contextlib import contextmanager
+from typing import List, Dict, Any, Optional, Tuple
 
 DB_PATH = os.path.join(os.path.dirname(__file__), "gtt_database.db")
 
+
 def get_connection():
-    conn = sqlite3.connect(DB_PATH, check_same_thread=False)
+    conn = sqlite3.connect(DB_PATH, check_same_thread=False, timeout=15.0)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA journal_mode=WAL;")
     conn.execute("PRAGMA synchronous=NORMAL;")
     conn.execute("PRAGMA temp_store=MEMORY;")
-    conn.execute("PRAGMA cache_size=-64000;")  # 64MB cache
+    conn.execute("PRAGMA cache_size=-64000;") # 64MB cache
     return conn
 
-def init_db():
+
+@contextmanager
+def get_db():
     conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("PRAGMA journal_mode=WAL;")
-    cursor.execute("PRAGMA synchronous=NORMAL;")
-
-    # 1. Cars Table
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS cars (
-        id TEXT PRIMARY KEY,
-        brand TEXT NOT NULL,
-        type TEXT NOT NULL,
-        name_ru TEXT NOT NULL,
-        name_en TEXT,
-        tag_ru TEXT,
-        tag_en TEXT,
-        hp TEXT NOT NULL,
-        quarter_mile TEXT,
-        top_speed TEXT,
-        badge_ru TEXT,
-        badge_en TEXT,
-        img TEXT NOT NULL,
-        fallback_img TEXT,
-        is_photo INTEGER DEFAULT 1,
-        object_position TEXT DEFAULT 'center center',
-        video_src TEXT,
-        video_title TEXT,
-        desc_ru TEXT,
-        desc_en TEXT,
-        specs_json TEXT,
-        sort_order INTEGER DEFAULT 0,
-        is_featured INTEGER DEFAULT 0,
-        category TEXT DEFAULT 'race',
-        is_published INTEGER DEFAULT 1,
-        completeness INTEGER DEFAULT 100
-    )
-    """)
-    for col, col_def in [
-        ("is_featured", "INTEGER DEFAULT 0"),
-        ("category", "TEXT DEFAULT 'race'"),
-        ("is_published", "INTEGER DEFAULT 1"),
-        ("completeness", "INTEGER DEFAULT 100")
-    ]:
-        try:
-            cursor.execute(f"ALTER TABLE cars ADD COLUMN {col} {col_def}")
-        except Exception:
-            pass
-
-    # 2. Team Table
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS team (
-        id TEXT PRIMARY KEY,
-        name TEXT NOT NULL,
-        role TEXT NOT NULL,
-        status TEXT NOT NULL,
-        photo TEXT,
-        social TEXT,
-        sort_order INTEGER DEFAULT 0,
-        name_en TEXT DEFAULT '',
-        role_en TEXT DEFAULT '',
-        dept TEXT DEFAULT '',
-        object_position TEXT DEFAULT 'center 20%'
-    )
-    """)
-    for col in ["photo", "social", "name_en", "role_en", "dept", "object_position"]:
-        try:
-            cursor.execute(f"ALTER TABLE team ADD COLUMN {col} TEXT")
-        except Exception:
-            pass
-
-    # 3. Records Table
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS records (
-        id TEXT PRIMARY KEY,
-        year TEXT NOT NULL,
-        car TEXT NOT NULL,
-        telemetry TEXT NOT NULL,
-        desc TEXT NOT NULL,
-        img TEXT,
-        sort_order INTEGER DEFAULT 0
-    )
-    """)
-    for col in ["img", "object_position"]:
-        try:
-            cursor.execute(f"ALTER TABLE records ADD COLUMN {col} TEXT")
-        except Exception:
-            pass
+    try:
+        yield conn
+    finally:
+        conn.close()
 
 
-    # 4. Gallery Table
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS gallery (
-        id TEXT PRIMARY KEY,
-        tag TEXT NOT NULL,
-        title TEXT NOT NULL,
-        img TEXT NOT NULL,
-        sort_order INTEGER DEFAULT 0
-    )
-    """)
-    for col in ["object_position"]:
-        try:
-            cursor.execute(f"ALTER TABLE gallery ADD COLUMN {col} TEXT")
-        except Exception:
-            pass
+# ==============================================================================
+# CRYPTO & PASSWORD HASHING UTILITIES (PBKDF2-HMAC-SHA256)
+# ==============================================================================
 
-    # 5. Media Table
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS media (
-        id TEXT PRIMARY KEY,
-        title TEXT NOT NULL,
-        type TEXT NOT NULL,
-        url TEXT NOT NULL,
-        car TEXT NOT NULL,
-        sort_order INTEGER DEFAULT 0
-    )
-    """)
+def hash_password(password: str, iterations: int = 310000) -> str:
+    salt = secrets.token_bytes(16)
+    dk = hashlib.pbkdf2_hmac("sha256", password.encode("utf-8"), salt, iterations)
+    return f"pbkdf2_sha256${iterations}${salt.hex()}${dk.hex()}"
 
-    # 6. Settings Table
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS settings (
-        key TEXT PRIMARY KEY,
-        value TEXT NOT NULL
-    )
-    """)
 
-    # 7. Traffic Analytics Log
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS traffic_logs (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        device TEXT,
-        source TEXT,
-        page TEXT,
-        is_new_session INTEGER DEFAULT 1,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )
-    """)
+def verify_password(password: str, stored_hash: str) -> bool:
+    try:
+        parts = stored_hash.split("$")
+        if len(parts) != 4 or parts[0] != "pbkdf2_sha256":
+            return False
+        iterations = int(parts[1])
+        salt = bytes.fromhex(parts[2])
+        expected_dk = bytes.fromhex(parts[3])
+        actual_dk = hashlib.pbkdf2_hmac("sha256", password.encode("utf-8"), salt, iterations)
+        return hmac.compare_digest(actual_dk, expected_dk)
+    except Exception:
+        return False
 
-    # 8. Persistent Admin Sessions
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS admin_sessions (
-        token TEXT PRIMARY KEY,
-        username TEXT NOT NULL,
-        expires_at REAL NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )
-    """)
 
-    # 9. Partners Table
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS partners (
-        id TEXT PRIMARY KEY,
-        name TEXT NOT NULL,
-        category TEXT NOT NULL,
-        desc TEXT,
-        logo TEXT,
-        link TEXT,
-        sort_order INTEGER DEFAULT 0,
-        is_active INTEGER DEFAULT 1
-    )
-    """)
+def hash_token(raw_token: str) -> str:
+    return hashlib.sha256(raw_token.encode("utf-8")).hexdigest()
 
-    # 10. Moto Division Table (Superbikes)
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS moto (
-        id TEXT PRIMARY KEY,
-        title TEXT NOT NULL,
-        code TEXT NOT NULL,
-        desc TEXT,
-        bullets TEXT,
-        img TEXT,
-        sort_order INTEGER DEFAULT 0,
-        is_active INTEGER DEFAULT 1,
-        object_position TEXT DEFAULT 'center 50%'
-    )
-    """)
-    for col in ["object_position"]:
-        try:
-            cursor.execute(f"ALTER TABLE moto ADD COLUMN {col} TEXT")
-        except Exception:
-            pass
 
-    conn.commit()
+def init_db():
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("PRAGMA journal_mode=WAL;")
+        cursor.execute("PRAGMA synchronous=NORMAL;")
 
-    # Seed default data if cars table is empty
-    cursor.execute("SELECT COUNT(*) FROM cars")
-    if cursor.fetchone()[0] == 0:
-        seed_initial_data(cursor)
+ # 1. Cars Table
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS cars (
+            id TEXT PRIMARY KEY,
+            brand TEXT NOT NULL,
+            type TEXT NOT NULL,
+            name_ru TEXT NOT NULL,
+            name_en TEXT,
+            tag_ru TEXT,
+            tag_en TEXT,
+            hp TEXT NOT NULL,
+            quarter_mile TEXT,
+            top_speed TEXT,
+            badge_ru TEXT,
+            badge_en TEXT,
+            img TEXT NOT NULL,
+            fallback_img TEXT,
+            is_photo INTEGER DEFAULT 1,
+            object_position TEXT DEFAULT 'center center',
+            video_src TEXT,
+            video_title TEXT,
+            desc_ru TEXT,
+            desc_en TEXT,
+            specs_json TEXT,
+            sort_order INTEGER DEFAULT 0,
+            is_featured INTEGER DEFAULT 0,
+            category TEXT DEFAULT 'race',
+            is_published INTEGER DEFAULT 1,
+            completeness INTEGER DEFAULT 100
+        )
+        """)
+        for col, col_def in [
+            ("is_featured", "INTEGER DEFAULT 0"),
+            ("category", "TEXT DEFAULT 'race'"),
+            ("is_published", "INTEGER DEFAULT 1"),
+            ("completeness", "INTEGER DEFAULT 100")
+        ]:
+            try:
+                cursor.execute(f"ALTER TABLE cars ADD COLUMN {col} {col_def}")
+            except Exception:
+                pass
+
+ # 2. Team Table
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS team (
+            id TEXT PRIMARY KEY,
+            name TEXT NOT NULL,
+            role TEXT NOT NULL,
+            status TEXT NOT NULL,
+            photo TEXT,
+            social TEXT,
+            sort_order INTEGER DEFAULT 0,
+            name_en TEXT DEFAULT '',
+            role_en TEXT DEFAULT '',
+            dept TEXT DEFAULT '',
+            object_position TEXT DEFAULT 'center 20%'
+        )
+        """)
+        for col in ["photo", "social", "name_en", "role_en", "dept", "object_position"]:
+            try:
+                cursor.execute(f"ALTER TABLE team ADD COLUMN {col} TEXT")
+            except Exception:
+                pass
+
+ # 3. Records Table
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS records (
+            id TEXT PRIMARY KEY,
+            year TEXT NOT NULL,
+            car TEXT NOT NULL,
+            telemetry TEXT NOT NULL,
+            desc TEXT NOT NULL,
+            img TEXT,
+            sort_order INTEGER DEFAULT 0
+        )
+        """)
+        for col in ["img", "object_position"]:
+            try:
+                cursor.execute(f"ALTER TABLE records ADD COLUMN {col} TEXT")
+            except Exception:
+                pass
+
+ # 4. Gallery Table
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS gallery (
+            id TEXT PRIMARY KEY,
+            tag TEXT NOT NULL,
+            title TEXT NOT NULL,
+            img TEXT NOT NULL,
+            sort_order INTEGER DEFAULT 0
+        )
+        """)
+        for col in ["object_position"]:
+            try:
+                cursor.execute(f"ALTER TABLE gallery ADD COLUMN {col} TEXT")
+            except Exception:
+                pass
+
+ # 5. Media Table
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS media (
+            id TEXT PRIMARY KEY,
+            title TEXT NOT NULL,
+            type TEXT NOT NULL,
+            url TEXT NOT NULL,
+            car TEXT NOT NULL,
+            sort_order INTEGER DEFAULT 0
+        )
+        """)
+
+ # 6. Settings Table
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS settings (
+            key TEXT PRIMARY KEY,
+            value TEXT NOT NULL
+        )
+        """)
+
+ # 7. Traffic Analytics Log
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS traffic_logs (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            device TEXT,
+            source TEXT,
+            page TEXT,
+            is_new_session INTEGER DEFAULT 1,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+        """)
+
+ # 8. Persistent Admin Sessions (stores token SHA-256 hash)
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS admin_sessions (
+            token TEXT PRIMARY KEY,
+            username TEXT NOT NULL,
+            expires_at REAL NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+        """)
+
+ # 9. Rate Limits (persistent multi-worker anti-bruteforce)
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS rate_limits (
+            key TEXT PRIMARY KEY,
+            fails INTEGER DEFAULT 0,
+            lockout_until REAL DEFAULT 0,
+            updated_at REAL DEFAULT 0
+        )
+        """)
+
+ # 10. Partners Table
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS partners (
+            id TEXT PRIMARY KEY,
+            name TEXT NOT NULL,
+            category TEXT NOT NULL,
+            desc TEXT,
+            logo TEXT,
+            link TEXT,
+            sort_order INTEGER DEFAULT 0,
+            is_active INTEGER DEFAULT 1
+        )
+        """)
+
+ # 11. Moto Division Table (Superbikes)
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS moto (
+            id TEXT PRIMARY KEY,
+            title TEXT NOT NULL,
+            code TEXT NOT NULL,
+            desc TEXT,
+            bullets TEXT,
+            img TEXT,
+            sort_order INTEGER DEFAULT 0,
+            is_active INTEGER DEFAULT 1,
+            object_position TEXT DEFAULT 'center 50%'
+        )
+        """)
+        for col in ["object_position"]:
+            try:
+                cursor.execute(f"ALTER TABLE moto ADD COLUMN {col} TEXT")
+            except Exception:
+                pass
+
         conn.commit()
 
-    # Seed or update default partners
-    seed_default_partners(cursor)
-    conn.commit()
+ # Seed default data if cars table is empty
+        cursor.execute("SELECT COUNT(*) FROM cars")
+        if cursor.fetchone()[0] == 0:
+            seed_initial_data(cursor)
+            conn.commit()
 
-    # Seed default moto if table is empty
-    cursor.execute("SELECT COUNT(*) FROM moto")
-    if cursor.fetchone()[0] == 0:
-        seed_default_moto(cursor)
+ # Seed default partners ONLY if table is empty (preserve admin edits across restarts)
+        cursor.execute("SELECT COUNT(*) FROM partners")
+        if cursor.fetchone()[0] == 0:
+            seed_default_partners(cursor)
+            conn.commit()
+
+ # Seed default moto if table is empty
+        cursor.execute("SELECT COUNT(*) FROM moto")
+        if cursor.fetchone()[0] == 0:
+            seed_default_moto(cursor)
+            conn.commit()
+
+ # Security migration: remove legacy weak plaintext admin_password / secret_url_token
+        legacy_weak = {"gtt71", "gtt", "71", "admin", "gtt_atelier_2026", "gtt_master_password_2026!", ""}
+        cursor.execute("SELECT value FROM settings WHERE key = 'admin_password_hash'")
+        has_hash = cursor.fetchone()
+        if not has_hash:
+            env_pass = os.environ.get("GTT_ADMIN_PASSWORD", "").strip()
+            cursor.execute("SELECT value FROM settings WHERE key = 'admin_password'")
+            legacy_row = cursor.fetchone()
+            legacy_pass = (legacy_row[0] or "").strip() if legacy_row else ""
+            if env_pass and not env_pass.startswith("CHANGE_ME") and env_pass not in legacy_weak:
+                chosen_pass = env_pass
+            elif legacy_pass and legacy_pass not in legacy_weak and len(legacy_pass) >= 8:
+                chosen_pass = legacy_pass
+            else:
+                chosen_pass = "GTT!" + secrets.token_urlsafe(12)
+            cursor.execute(
+                "INSERT OR IGNORE INTO settings (key, value) VALUES ('admin_password_hash', ?)",
+                (hash_password(chosen_pass),),
+            )
+        cursor.execute("DELETE FROM settings WHERE key IN ('admin_password', 'secret_url_token')")
+        cursor.execute("DELETE FROM settings WHERE key IN ('telegram_config', 'telegram')")
+
+ # Seed gateway token if missing
+        env_gate = os.environ.get("GTT_GATEWAY_TOKEN", "").strip()
+        legacy_gates = {"", "gtt_atelier_2026", "gtt_atelier_2026_x71k", "gtt_secret_atelier_2026_unlim"}
+        configured_gate = len(env_gate) >= 12 and not env_gate.startswith("CHANGE_ME") and env_gate not in legacy_gates
+        cursor.execute("SELECT value FROM settings WHERE key = 'gateway_token_db_v2'")
+        if not cursor.fetchone():
+            if configured_gate:
+                cursor.execute("INSERT OR REPLACE INTO settings (key, value) VALUES ('gateway_token', ?)", (env_gate,))
+            cursor.execute("INSERT INTO settings (key, value) VALUES ('gateway_token_db_v2', '1')")
+        cursor.execute(
+            "INSERT OR IGNORE INTO settings (key, value) VALUES ('gateway_token', ?)",
+            ("gtt_" + secrets.token_urlsafe(24),),
+        )
+
+ # Purge legacy unhashed sessions (64-char hex raw tokens from before hashing migration)
+ # Keep only hashed sessions or clean stale ones on first upgrade
+        cursor.execute("SELECT value FROM settings WHERE key = 'sessions_hashed_v1'")
+        if not cursor.fetchone():
+            cursor.execute("DELETE FROM admin_sessions")
+            cursor.execute("INSERT OR IGNORE INTO settings (key, value) VALUES ('sessions_hashed_v1', '1')")
+
         conn.commit()
 
-    # Seed default admin password if not exists
-    cursor.execute("SELECT value FROM settings WHERE key = 'admin_password'")
-    if not cursor.fetchone():
-        cursor.execute("INSERT INTO settings (key, value) VALUES ('admin_password', 'gtt71')")
-        cursor.execute("INSERT INTO settings (key, value) VALUES ('secret_url_token', 'gtt_atelier_2026')")
-        conn.commit()
-
-    conn.close()
 
 def seed_initial_data(cursor):
     default_projects = [       {       'badge_en': 'White Record GT-R #300',
@@ -243,8 +335,8 @@ def seed_initial_data(cursor):
                 'hp': '3,000+ HP',
                 'id': 'draco_promod',
                 'img': 'assets/cars/gtr_draco_promod_front.jpg',
-                'name_en': 'GT-R R35 DRACO PRO-MOD GTT #300',
-                'name_ru': 'GT-R R35 DRACO PRO-MOD GTT #300',
+                'name_en': 'GT-R R35 DRACO GTT #300',
+                'name_ru': 'GT-R R35 DRACO GTT #300',
                 'object_position': 'center 64%',
                 'quarter_mile': '7.694 сек',
                 'sort_order': 1,
@@ -255,10 +347,10 @@ def seed_initial_data(cursor):
                                  'turbos': 'Dual Precision 88mm Pro-Mod Turbochargers'},
                 'tag_en': 'RDRC RECORD 7.694 SEC • PILOT R. AREFYEV #300',
                 'tag_ru': 'РЕКОРД RDRC 7.694 СЕК • ПИЛОТ Р. АРЕФЬЕВ #300',
-                'top_speed': '323.88 км/ч',
+                'top_speed': '304.44 км/ч',
                 'type': 'gtr',
                 'video_src': 'assets/videos/draco_gtr_action.mp4',
-                'video_title': 'Nissan GT-R Draco Pro-Mod 3000+ HP — боевой рекордный заезд RDRC'},
+                'video_title': 'Nissan GT-R Draco 3000+ HP — боевой рекордный заезд RDRC'},
         {       'badge_en': 'Russia Audi Record 7.877s',
                 'badge_ru': 'Рекорд России для Audi 7.877s',
                 'brand': 'AUDI & GTT',
@@ -284,7 +376,7 @@ def seed_initial_data(cursor):
                                  'turbos': 'Mirror Twin Turbo Kit with Air-to-Water Intercooling'},
                 'tag_en': 'RUSSIAN RECORD FOR AUDI • 7.877 SEC',
                 'tag_ru': 'РЕКОРД РОССИИ ДЛЯ AUDI • 7.877 СЕК',
-                'top_speed': '350+ км/ч',
+                'top_speed': '288.35 км/ч',
                 'type': 'audi',
                 'video_src': 'assets/videos/r8_rokot_action.mp4',
                 'video_title': 'AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT'},
@@ -297,10 +389,10 @@ def seed_initial_data(cursor):
                 'desc_ru': 'Культовый европейский триумфатор Race 1000 в Германии и звезда RDRC. Официальный рекорд '
                            'Европы со скоростью 353.02 км/ч на дистанции 804 метра и лучший квотер 8.054 сек. Построен '
                            'и настроен в ателье GoshaTurboTech.',
-                'fallback_img': 'assets/cars/huracan_green_grey_rdrc.jpg',
+                'fallback_img': 'assets/archive_tilda/huracan_bezzubik.webp',
                 'hp': '1,500+ HP',
                 'id': 'bezzubik',
-                'img': 'assets/photos/huracan_rdrc_stage_line.jpg',
+                'img': 'assets/archive_tilda/huracan_bezzubik.webp',
                 'name_en': 'HURACAN TWIN TURBO GTT-BEZZUBIK',
                 'name_ru': 'HURACAN TWIN TURBO GTT-BEZZUBIK',
                 'object_position': 'center 65%',
@@ -313,7 +405,7 @@ def seed_initial_data(cursor):
                                  'turbos': 'Precision Dual Mirror V-Band Turbos'},
                 'tag_en': 'EUROPE RECORD 353 KM/H • RACE 1000',
                 'tag_ru': 'РЕКОРД ЕВРОПЫ 353 КМ/Ч • RACE 1000',
-                'top_speed': '353.02 км/ч',
+                'top_speed': '283.46 км/ч',
                 'type': 'lambo',
                 'video_src': '',
                 'video_title': ''},
@@ -322,7 +414,7 @@ def seed_initial_data(cursor):
                 'brand': 'NISSAN & GTT',
                 'desc_en': 'Mythical Kurdalagon GT-R named after the ancient blacksmith deity. Set a brand new '
                            'personal best of 7.766 sec at 300.00 km/h on October 26, 2026 at Bykovo Drag Track.',
-                'desc_ru': 'Боевой болид Nissan GT-R R35 «Курдалагон» — имя древнего осетинского бога-кузнеца. 26 '
+                'desc_ru': 'Боевой болид Nissan GT-R R35 «Kurdalagon» — имя древнего осетинского бога-кузнеца. 26 '
                            'октября 2026 года на трек-дне в Быково установил новый личный рекорд команды: 7.766 сек на '
                            '402 метра со скоростью на выходе 300.00 км/ч.',
                 'fallback_img': 'assets/cars/gtr_red_front_rdrc.jpg',
@@ -349,7 +441,7 @@ def seed_initial_data(cursor):
                 'badge_ru': 'Рекорд RDRC 992 • 9.167s',
                 'brand': 'PORSCHE & GTT',
                 'desc_en': 'Official RDRC record holder among Porsche 992 generation piloted by Maria Kutychkina. '
-                           'Verified time 9.167 sec at 236.92 km/h on 1/4 mile (RDRC 2025, pass 528). Custom GTT '
+                           'Verified time 9.167 sec at 236.92 km/h on 1/4 mile (RDRC 2025, pass 528). Custom GTT'
                            'intercoolers and direct port methanol injection.',
                 'desc_ru': 'Официальный рекордсмен RDRC среди Porsche поколения 992 под управлением Марии Кутычкиной. '
                            'Подтвержденное время 9.167 сек со скоростью 236.92 км/ч на 1/4 мили (RDRC 2025, заезд '
@@ -369,7 +461,7 @@ def seed_initial_data(cursor):
                                  'turbos': 'GTT Billet High-Flow Turbos'},
                 'tag_en': 'RDRC 992 RECORD • 9.167 SEC • M. KUTYCHKINA',
                 'tag_ru': 'РЕКОРД RDRC 992 • 9.167 СЕК • М. КУТЫЧКИНА',
-                'top_speed': '345+ км/ч',
+                'top_speed': '236.92 км/ч',
                 'type': 'porsche',
                 'video_src': 'assets/videos/dodge_srt_pass.mp4',
                 'video_title': 'Porsche 911 Turbo S IMBA — заезд RDRC 9.167 сек'},
@@ -386,8 +478,8 @@ def seed_initial_data(cursor):
                 'hp': '1,850+ HP',
                 'id': 'gtr_lucifer',
                 'img': 'assets/cars/gtr_lucifer_solo.jpg',
-                'name_en': 'GT-R R35 «LUCIFER» GTT #71 CHAMPION',
-                'name_ru': 'GT-R R35 «LUCIFER» GTT #71 CHAMPION',
+                'name_en': 'GT-R R35 «LUCIFER» GTT #71',
+                'name_ru': 'GT-R R35 «LUCIFER» GTT #71',
                 'object_position': 'center 46%',
                 'quarter_mile': '8.400 сек',
                 'sort_order': 6,
@@ -398,7 +490,7 @@ def seed_initial_data(cursor):
                                  'turbos': 'Dual Precision 7675 Gen2 Pro Mod Billet Turbos'},
                 'tag_en': 'RDRC CHAMPION • PILOT GOSHA PERTSKHELIYA #71',
                 'tag_ru': 'ЧЕМПИОН RDRC • ПИЛОТ ГОША ПЕРЦХЕЛИЯ #71',
-                'top_speed': '343.67 км/ч',
+                'top_speed': '262.00 км/ч',
                 'type': 'gtr',
                 'video_src': 'assets/videos/gosha_na_svoem_lucifer_web.mp4',
                 'video_title': 'Гоша на своей // GT-R Lucifer RDRC'},
@@ -417,7 +509,7 @@ def seed_initial_data(cursor):
                 'name_en': 'BMW M5 G90 COMPETITION GTT-STAGE 3',
                 'name_ru': 'BMW M5 G90 COMPETITION GTT-STAGE 3',
                 'object_position': 'center 54%',
-                'quarter_mile': '9.420 сек',
+                'quarter_mile': '10.212 сек',
                 'sort_order': 7,
                 'specs': {       'ecu': 'GTT Custom Dual ECU & 8HP Transmission Flash',
                                  'engine': '4.4L V8 TwinPower Turbo Hybrid Powertrain GTT Spec',
@@ -426,7 +518,7 @@ def seed_initial_data(cursor):
                                  'turbos': 'GTT Custom Billet Hybrid Turbos'},
                 'tag_en': 'RDRC DRAG WEAPON • GTT G90 BULLET',
                 'tag_ru': 'RDRC ДРЭГ-КИЛЛЕР • БОЛИД GTT G90',
-                'top_speed': '340+ км/ч',
+                'top_speed': '224.37 км/ч',
                 'type': 'bmw',
                 'video_src': 'assets/videos/r8_acceleration.mp4',
                 'video_title': 'BMW M5 G90 Competition GTT — боевой разгон'},
@@ -445,7 +537,7 @@ def seed_initial_data(cursor):
                 'name_en': 'DODGE CHALLENGER SRT DEMON GTT',
                 'name_ru': 'DODGE CHALLENGER SRT DEMON GTT',
                 'object_position': 'center 70%',
-                'quarter_mile': '9.748 сек',
+                'quarter_mile': '9.533 сек',
                 'sort_order': 8,
                 'specs': {       'blower': 'Whipple 3.8L Gen 5 Supercharger Kit',
                                  'driveshaft': 'QA1 Carbon Fiber Driveshaft + GTT 9-inch Rear End',
@@ -454,7 +546,7 @@ def seed_initial_data(cursor):
                                  'tires': 'Mickey Thompson ET Street R Drag Radials'},
                 'tag_en': 'RDRC BURNOUT KING • 9.748 SEC',
                 'tag_ru': 'RDRC БЕРНАУТ КИНГ • 9.748 СЕК',
-                'top_speed': '330+ км/ч',
+                'top_speed': '257.23 км/ч',
                 'type': 'other',
                 'video_src': 'assets/videos/dodge_challenger_action.mp4',
                 'video_title': 'Dodge Challenger SRT Demon GTT — дымный бернаут RDRC'},
@@ -498,7 +590,7 @@ def seed_initial_data(cursor):
                 'name_en': 'AUDI R8 V10 PLUS TWIN TURBO «ZLAYAZAYA»',
                 'name_ru': 'AUDI R8 V10 PLUS TWIN TURBO «ZLAYAZAYA»',
                 'object_position': 'center 70%',
-                'quarter_mile': '10.060 сек',
+                'quarter_mile': '9.048 сек',
                 'sort_order': 10,
                 'specs': {       'ecu': 'Syvecs Powertrain Management',
                                  'engine': '5.2L V10 FSI Reinforced Internals GTT',
@@ -506,7 +598,7 @@ def seed_initial_data(cursor):
                                  'turbos': 'Dual Mirror Precision Turbos'},
                 'tag_en': 'RDRC WEAPON • PILOT R. AREFYEV',
                 'tag_ru': 'RDRC БОЕВОЙ БОЛИД • ПИЛОТ Р. АРЕФЬЕВ',
-                'top_speed': '340+ км/ч',
+                'top_speed': '237.39 км/ч',
                 'type': 'audi',
                 'video_src': 'assets/videos/r8_launch_action.mp4',
                 'video_title': 'Audi R8 «Злая Зая» — боевой выезд RDRC'},
@@ -535,14 +627,14 @@ def seed_initial_data(cursor):
                                  'wheels': 'Weld Racing Rear Beadlocks with Mickey Thompson ET'},
                 'tag_en': 'CULT 1500+ HP RDRC CHAMPIONSHIP BULLET',
                 'tag_ru': 'КУЛЬТОВЫЙ 1500+ СИЛЬНЫЙ БОЛИД RDRC',
-                'top_speed': '355+ км/ч',
+                'top_speed': '275.26 км/ч',
                 'type': 'lambo',
                 'video_src': 'assets/videos/r8_launch_action.mp4',
                 'video_title': 'Lamborghini Huracan Twin Turbo «Зеленка» GTT — боевой заезд RDRC'},
         {       'badge_en': 'GTT-MAXPAIN Performante',
                 'badge_ru': 'GTT-MAXPAIN Performante',
                 'brand': 'LAMBORGHINI & GTT',
-                'desc_en': 'Forged Composites masterpiece Lamborghini Huracan Performante empowered by bespoke GTT '
+                'desc_en': 'Forged Composites masterpiece Lamborghini Huracan Performante empowered by bespoke GTT'
                            '1600+ HP twin turbo system and calibrated ALA active aero.',
                 'desc_ru': 'Безупречный Huracan Performante в заводском кованом карбоне Forged Composites с '
                            'установленным биллетовым твин-турбо китом GTT. Чудовищная отдача 1600+ л.с. и активная '
@@ -571,7 +663,7 @@ def seed_initial_data(cursor):
                 'brand': 'LAMBORGHINI & GTT',
                 'desc_en': 'Atmospheric open-top roadster tuned with Inconel race exhaust and GTT Stage 2 package. PFO '
                            'Championship podium with 9.988 sec quarter mile pass.',
-                'desc_ru': 'Открытый родстер Huracan Spyder с доработанной выхлопной трассой Inconel и пакетом GTT '
+                'desc_ru': 'Открытый родстер Huracan Spyder с доработанной выхлопной трассой Inconel и пакетом GTT'
                            'Stage 2. Официальное 2-е место на Чемпионате ПФО с результатом 9.988 сек на 402 метра.',
                 'fallback_img': 'assets/cars/huracan_green_bezzubik_side.jpg',
                 'hp': '850+ HP',
@@ -588,7 +680,7 @@ def seed_initial_data(cursor):
                                  'intake': 'Carbon Ram-Air Box'},
                 'tag_en': 'PFO CHAMPIONSHIP PODIUM • 9.988 SEC',
                 'tag_ru': 'ЧЕМПИОНАТ ПФО 2 МЕСТО • 9.988 СЕК',
-                'top_speed': '335+ км/ч',
+                'top_speed': '222.35 км/ч',
                 'type': 'lambo',
                 'video_src': '',
                 'video_title': ''},
@@ -616,7 +708,7 @@ def seed_initial_data(cursor):
                                  'turbos': 'Dual Precision Ball-Bearing Race Turbos'},
                 'tag_en': 'UNLIM 500+ CRETE EUROPE RECORD • 7.810 SEC',
                 'tag_ru': 'РЕКОРД ЕВРОПЫ UNLIM 500+ КРИТ • 7.810 СЕК',
-                'top_speed': '360+ км/ч',
+                'top_speed': '304.36 км/ч',
                 'type': 'gtr',
                 'video_src': '',
                 'video_title': ''},
@@ -643,7 +735,7 @@ def seed_initial_data(cursor):
                                  'turbos': 'Precision Gen2 Billet Race Turbos'},
                 'tag_en': 'RUSSIAN RECORD 334 KM/H • N. KORZHOV',
                 'tag_ru': 'РЕКОРД РОССИИ 334 КМ/Ч • Н. КОРЖОВ',
-                'top_speed': '334.41 км/ч',
+                'top_speed': '275.43 км/ч',
                 'type': 'gtr',
                 'video_src': '',
                 'video_title': ''},
@@ -671,7 +763,7 @@ def seed_initial_data(cursor):
                                  'turbos': 'Garrett G30 Billet Turbos'},
                 'tag_en': 'MOSCOW MILE • 8.875 SEC • 322 KM/H',
                 'tag_ru': 'МОСКОВСКАЯ МИЛЯ • 8.875 СЕК • 322 КМ/Ч',
-                'top_speed': '322.00 км/ч',
+                'top_speed': '262.39 км/ч',
                 'type': 'gtr',
                 'video_src': '',
                 'video_title': ''},
@@ -714,8 +806,8 @@ def seed_initial_data(cursor):
                 'hp': '1,650+ HP',
                 'id': 'gtr_red',
                 'img': 'assets/cars/gtr_red_front_card.jpg',
-                'name_en': 'GT-R R35 RED CHROME GTT PRO-MOD',
-                'name_ru': 'GT-R R35 RED CHROME GTT PRO-MOD',
+                'name_en': 'GT-R R35 RED CHROME GTT',
+                'name_ru': 'GT-R R35 RED CHROME GTT',
                 'object_position': 'center 50%',
                 'quarter_mile': '7.950 сек',
                 'sort_order': 18,
@@ -766,8 +858,8 @@ def seed_initial_data(cursor):
                 'hp': '1,500+ HP',
                 'id': 'gtr_alpha12x',
                 'img': 'assets/cars/gtr_alpha12x_launch.jpg',
-                'name_en': 'GT-R R35 GTT ALPHA12X SPEC',
-                'name_ru': 'GT-R R35 GTT ALPHA12X SPEC',
+                'name_en': 'GT-R R35 GTT ALPHA12X',
+                'name_ru': 'GT-R R35 GTT ALPHA12X',
                 'object_position': 'center center',
                 'quarter_mile': '8.250 сек',
                 'sort_order': 20,
@@ -804,7 +896,7 @@ def seed_initial_data(cursor):
                                  'turbos': 'GTT Dual Billet High-Flow Turbos'},
                 'tag_en': 'RUSSIA/EUROPE RECORD • A. SAGAL',
                 'tag_ru': 'РЕКОРД РОССИИ/ЕВРОПЫ • А. САГАЛ',
-                'top_speed': '312.77 км/ч',
+                'top_speed': '259.64 км/ч',
                 'type': 'porsche',
                 'video_src': '',
                 'video_title': ''},
@@ -846,10 +938,10 @@ def seed_initial_data(cursor):
                 'hp': '900+ HP',
                 'id': 'bmw_m7_gtt',
                 'img': 'assets/cars/bmw_m7_gtt_blue.jpg',
-                'name_en': 'BMW M7 GTT EXECUTIVE TWIN TURBO',
-                'name_ru': 'BMW M7 GTT EXECUTIVE TWIN TURBO',
+                'name_en': 'BMW M7 GTT',
+                'name_ru': 'BMW M7 GTT',
                 'object_position': 'center 82%',
-                'quarter_mile': '10.200 сек',
+                'quarter_mile': '11.945 сек',
                 'sort_order': 23,
                 'specs': {       'engine': '4.4L V8 TwinPower Turbo GTT Stage 2',
                                  'exhaust': 'Bespoke Stainless Valvetronic System',
@@ -857,7 +949,7 @@ def seed_initial_data(cursor):
                                  'turbos': 'Billet Hybrid Turbochargers'},
                 'tag_en': 'EXECUTIVE FLAGSHIP • 900 HP V12',
                 'tag_ru': 'EXECUTIVE FLAGSHIP • 900 HP V12',
-                'top_speed': '330+ км/ч',
+                'top_speed': '190.47 км/ч',
                 'type': 'bmw',
                 'video_src': '',
                 'video_title': ''},
@@ -873,8 +965,8 @@ def seed_initial_data(cursor):
                 'id': 'volga_kgb',
                 'img': 'assets/cars/volga_kgb_v8_workshop.jpg',
                 'is_photo': 1,
-                'name_en': 'VOLGA GAZ-24 KGB V8 GTT SLEEPER',
-                'name_ru': 'ВОЛГА ГАЗ-24 КГБ V8 GTT SLEEPER',
+                'name_en': 'VOLGA GAZ-24 KGB V8 GTT',
+                'name_ru': 'ВОЛГА ГАЗ-24 КГБ V8 GTT',
                 'object_position': 'center center',
                 'quarter_mile': '9.420 сек',
                 'sort_order': 24,
@@ -900,8 +992,8 @@ def seed_initial_data(cursor):
                 'id': 'ferrari_512tr',
                 'img': 'assets/cars/ferrari_512tr_dyno_red.jpg',
                 'is_photo': 1,
-                'name_en': 'FERRARI 512 TR GTT HERITAGE CLASSIC',
-                'name_ru': 'FERRARI 512 TR GTT HERITAGE CLASSIC',
+                'name_en': 'FERRARI 512 TR GTT',
+                'name_ru': 'FERRARI 512 TR GTT',
                 'object_position': 'center center',
                 'quarter_mile': '10.800 сек',
                 'sort_order': 25,
@@ -959,7 +1051,7 @@ def seed_initial_data(cursor):
                 'name_en': 'PORSCHE 911 TURBO S (992) GTT «PUNCHER»',
                 'name_ru': 'PORSCHE 911 TURBO S (992) GTT «PUNCHER»',
                 'object_position': 'center 50%',
-                'quarter_mile': '—',
+                'quarter_mile': '9.303 сек',
                 'sort_order': 28,
                 'specs': {       'engine': '3.8L Boxer-6 992 GTT Spec',
                                  'fuel': 'Methanol Multi-Port System',
@@ -967,7 +1059,7 @@ def seed_initial_data(cursor):
                                  'turbos': 'Billet Precision Mirror Turbos'},
                 'tag_en': 'WORLD CATEGORY RECORD • 9.303 SEC',
                 'tag_ru': 'МИРОВОЙ РЕКОРД В КАТЕГОРИИ • 9.303 СЕК',
-                'top_speed': '—',
+                'top_speed': '235.83 км/ч',
                 'type': 'porsche',
                 'video_src': '',
                 'video_title': ''},
@@ -1011,8 +1103,8 @@ def seed_initial_data(cursor):
                 'id': 'tesla_plaid',
                 'img': 'assets/cars/tesla_model_s_plaid.jpg',
                 'is_photo': 1,
-                'name_en': 'TESLA MODEL S PLAID GTT DYNAMICS SPEC',
-                'name_ru': 'TESLA MODEL S PLAID GTT DYNAMICS SPEC',
+                'name_en': 'TESLA MODEL S PLAID GTT',
+                'name_ru': 'TESLA MODEL S PLAID GTT',
                 'object_position': 'center center',
                 'quarter_mile': '—',
                 'sort_order': 30,
@@ -1033,15 +1125,15 @@ def seed_initial_data(cursor):
                            '8.948 sec pass at 247.68 km/h.',
                 'desc_ru': 'Боевая Audi R8 V10 Twin Turbo под эгидой ЦМРБанк и GTT на треке RDRC. Официальное время '
                            '8.948 сек со скоростью 247.68 км/ч на Record Days 2023 и 287.19 км/ч на 1/2 мили.',
-                'fallback_img': 'assets/cars/gtt_classified_car.svg',
+                'fallback_img': 'assets/cars/audi_r8_tonystark_rdrc.jpg',
                 'hp': '—',
                 'id': 'tonystark',
-                'img': 'assets/cars/gtt_classified_car.svg',
+                'img': 'assets/cars/audi_r8_tonystark_rdrc.jpg',
                 'is_photo': 0,
                 'name_en': 'R8 V10 PLUS TWIN TURBO TONY STARK / RDRC',
                 'name_ru': 'R8 V10 PLUS TWIN TURBO TONY STARK / RDRC',
                 'object_position': 'center center',
-                'quarter_mile': '—',
+                'quarter_mile': '8.948 сек',
                 'sort_order': 31,
                 'specs': {       'cooling': 'CSF Triple Billet Heat Exchangers',
                                  'ecu': 'Syvecs S12 Standalone Motorsport Setup',
@@ -1049,7 +1141,7 @@ def seed_initial_data(cursor):
                                  'turbos': 'Mirror Twin Turbo Kit with Air-to-Water Intercooling'},
                 'tag_en': 'BAIKAL ICE & RDRC FIGHTER • 8.948 SEC',
                 'tag_ru': 'ПОКОРИТЕЛЬ БАЙКАЛА & RDRC • 8.948 СЕК',
-                'top_speed': '—',
+                'top_speed': '247.68 км/ч',
                 'type': 'audi',
                 'video_src': 'assets/videos/dodge_srt_pass.mp4',
                 'video_title': 'Audi R8 V10 Twin Turbo Tony Stark — боевой заезд'},
@@ -1057,8 +1149,8 @@ def seed_initial_data(cursor):
             'id': 'street_bmw_m3_g80',
             'brand': 'BMW & GTT',
             'type': 'bmw',
-            'name_ru': 'BMW M3 G80 (Личный болид Гоши)',
-            'name_en': 'BMW M3 G80 (Gosha Personal Build)',
+            'name_ru': 'BMW M3 G80',
+            'name_en': 'BMW M3 G80',
             'tag_ru': 'ГРАЖДАНСКИЙ ТЮНИНГ GTT',
             'tag_en': 'GTT STREET DIVISION',
             'hp': '750+ HP',
@@ -1192,31 +1284,63 @@ def seed_initial_data(cursor):
                        (member["id"], member["name"], member["role"], member["status"], member.get("photo", ""), member.get("social"), member.get("sort_order", idx + 1), member.get("name_en", ""), member.get("role_en", ""), member.get("dept", ""), member.get("object_position", "center 20%")))
 
     default_records = [
-        {"id": "rec_moses", "year": "2016 • Абсолютный рекорд GTT", "car": "NISSAN GT-R R35 GTT-1800 «MOSES»", "telemetry": "1/4 мили: 7.526 сек • 304.36 км/ч", "desc": "Легендарные тесты в ОАЭ и UNLIM 500+ Greece. 7.526 сек со скоростью 304.36 км/ч — быстрейший результат на 402 м за всю историю ателье GoshaTurboTech.", "img": "assets/archive_tilda/gtr_moses.png"},
-        {"id": "rec_draco", "year": "2024 • Рекорд RDRC Pro-Mod", "car": "NISSAN GT-R R35 DRACO PRO-MOD #300", "telemetry": "1/4 мили: 7.694 сек • 304.44 км/ч", "desc": "Пилот Руслан Арефьев на этапе RDRC 2024 (заезд №537). Подтвержденный протокол DragDB. Скорость на выходе 1/2 мили превысила 323.88 км/ч.", "img": "assets/cars/gtr_draco_promod_front.jpg"},
-        {"id": "rec_kurdalagon", "year": "26.10.2026 • Рекорд Быково", "car": "NISSAN GT-R R35 «КУРДАЛАГОН»", "telemetry": "1/4 мили: 7.766 сек • 300.00 км/ч", "desc": "Свежайший подтвержденный рекорд команды GoshaTurboTech, зафиксированный на трек-дне в Быково в конце октября 2026 года.", "img": "assets/cars/gtr_korzhik_712.jpg"},
-        {"id": "rec_rokot", "year": "2026 • Рекорд России для Audi", "car": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT»", "telemetry": "1/4 мили: 7.877 сек • Суперкубок RDRC", "desc": "Эдуард Саркисян и Руслан Арефьев на болиде ателье GoshaTurboTech впервые в истории России вывели Audi из рубежа 8 секунд.", "img": "assets/cars/audi_r8_tsmr_launch.jpg"},
-        {"id": "rec_bezzubik", "year": "Рекорд Европы • Race 1000", "car": "LAMBORGHINI HURACAN TT BEZZUBIK", "telemetry": "1/2 мили: 353.02 км/ч • 1/4 мили: 8.054 сек", "desc": "Официальный рекорд Европы на дистанции 804 м среди полноприводных суперкаров в Германии (353.02 км/ч) и 8.054 сек на 402 м. Легенда GTT.", "img": "assets/photos/huracan_rdrc_stage_line.jpg"},
-        {"id": "rec_zelenka", "year": "ОАЭ & Германия • 344.60 км/ч", "car": "LAMBORGHINI HURACAN TWIN TURBO «ЗЕЛЕНКА»", "telemetry": "1/4 мили: 8.373 сек • 1000 м: 344.60 км/ч", "desc": "8.373 сек со скоростью 275.26 км/ч на 1/4 мили в ОАЭ и 344.60 км/ч на 1000 м в Германии (Rolling 50 1000). Культовый проект GoshaTurboTech.", "img": "assets/photos/huracan_zelenka_gtt.jpg"},
-        {"id": "rec_lucifer", "year": "RDRC 2026 • 1-е место в классе", "car": "NISSAN GT-R R35 «LUCIFER» GTT #71", "telemetry": "1/4 мили: 8.400 сек • 1/2 мили: 343.67 км/ч", "desc": "Флагманский болид Гоши Перцхелии. 8.400 сек в ОАЭ, победный заезд 8.551 сек на RDRC 2026 и 343.67 км/ч на Unlim 500+.", "img": "assets/cars/gtr_lucifer_solo.jpg"},
-        {"id": "rec_korzhik", "year": "Рекорд России • Московская миля", "car": "NISSAN GT-R R35 GTT «KORZHIK» #712", "telemetry": "1/2 мили: 13.435 сек • 334.41 км/ч", "desc": "Пилот Николай Коржов. 8.602 сек на 402 м и официальный рекорд России на 1/2 мили — 13.435 сек со скоростью 334.41 км/ч.", "img": "assets/cars/gtr_korzhik_712.jpg"},
-        {"id": "rec_hulk", "year": "Суперкубок RDRC 2026", "car": "LAMBORGHINI HURACAN LP610-4 «HULK»", "telemetry": "1/4 мили: 8.951 сек • 3/8 мили: 291.14 км/ч", "desc": "Пилот Эдуард Саркисян в зачете GoshaTurboTech. 8.951 сек со скоростью 257.14 км/ч на 1/4 мили (3/8 мили: 11.561 с / 291.14 км/ч).", "img": "assets/cars/huracan_green_grey_rdrc.jpg"},
-        {"id": "rec_tonystark", "year": "Record Days 2023", "car": "AUDI R8 V10 PLUS TT «TONY STARK»", "telemetry": "1/4 мили: 8.948 сек • 247.68 км/ч", "desc": "Стабильный выезд из 9 секунд на трек-днях Record Days (8.948 сек) и 15.403 сек со скоростью 287.19 км/ч на 1/2 мили.", "img": "assets/archive_tilda/audi_r8_tonystark.png"},
-        {"id": "rec_gtt1200", "year": "Рекорд России/Европы • RDRC RacePark", "car": "PORSCHE 911 TURBO (991.1) GTT-1200", "telemetry": "1/4 мили: 9.086 сек • 259.64 км/ч", "desc": "Пилот Алексей Сагал. Рекорд России и Европы для кузова 991.1 (9.086 с), скорость на 1/2 мили — 312.77 км/ч.", "img": "assets/cars/porsche_991_1200_white.jpg"},
-        {"id": "rec_su7", "year": "2026 • Суперкубок RDRC", "car": "XIAOMI SU7 ULTRA GTT RACE SPEC", "telemetry": "1/4 мили: 9.130 сек • 3/8 мили: 287.31 км/ч", "desc": "Пилот В. Щед в зачете GoshaTurboTech на Суперкубке RDRC 2026 показал сенсационные 9.130 сек со скоростью 249.31 км/ч.", "img": "assets/cars/bmw_m5_rdrc_race.jpg"},
-        {"id": "rec_imba", "year": "2022–2025 • Мировой рекорд RDRC", "car": "PORSCHE 911 TURBO S (992) GTT-IMBA", "telemetry": "1/4 мили: 9.167 сек • RDRC 2025", "desc": "Пилот Мария Кутычкина. Мировой рекорд 9.252 сек со скоростью 231.80 км/ч на заводских турбинах, улучшенный на RDRC 2025 до 9.167 сек.", "img": "assets/cars/porsche_992_imba_silver.jpg"},
-        {"id": "rec_puncher", "year": "2021 • Мировой ориентир UNLIM FEST", "car": "PORSCHE 911 TURBO S (992) PUNCHER", "telemetry": "1/4 мили: 9.303 сек • 235.83 км/ч", "desc": "Мировой ориентир для дорожных Porsche 992 на Unlim Fest (9.303 сек) и 1/2 мили за 14.778 сек со скоростью 276.92 км/ч.", "img": "assets/archive_tilda/porsche_992_puncher.jpg"},
-        {"id": "rec_gyurza", "year": "2022 • Абсолютный рекорд льда", "car": "AUDI R8 V10 PLUS TT «GYURZA»", "telemetry": "1 км с места на льду: 124.00 км/ч", "desc": "Дни скорости на льду озера Байкал совместно с Kiwamaru. Абсолютный триумфатор ледовых заездов с места в истории России.", "img": "assets/archive_tilda/audi_r8_gyurza_ice.jpg"},
-        {"id": "rec_gallardo", "year": "Мировой рекорд • 1 миля (1609 м)", "car": "LAMBORGHINI GALLARDO NERA TWIN TURBO", "telemetry": "1 миля: 409.55 км/ч • 20.845 сек", "desc": "Аэродром Крит, Греция. Легендарная Черная Галлардо Гоши Перцхелии — первый болид из России, покоривший планку 400+ км/ч на 1 милю.", "img": "assets/photos/huracan_zelenka_gtt.jpg"}
+        {'id': 'rec_moses', 'year': '2016 • Абсолютный рекорд GTT', 'car': 'NISSAN GT-R R35 GTT-1800 «MOSES»', 'telemetry': '7.526 сек • 304.36 км/ч', 'desc': '', 'img': 'assets/archive_tilda/gtr_moses.png', 'object_position': 'center 50%', 'sort_order': 1},
+        {'id': 'rec_draco', 'year': '2024 • Рекорд RDRC', 'car': 'NISSAN GT-R R35 «DRACO» #300', 'telemetry': '7.694 сек • 304.44 км/ч', 'desc': '', 'img': 'assets/cars/gtr_draco_promod_front.jpg', 'object_position': None, 'sort_order': 2},
+        {'id': 'rec_kurdalagon', 'year': '26.10.2026 • Рекорд Быково', 'car': 'NISSAN GT-R R35 «KURDALAGON»', 'telemetry': '7.766 сек • 300.00 км/ч', 'desc': '', 'img': 'assets/cars/gtr_kurdalagon_white.jpg', 'object_position': 'center 65%', 'sort_order': 3},
+        {'id': 'rec_rokot', 'year': '2026 • Рекорд России для Audi', 'car': 'AUDI R8 V10 PLUS TWIN TURBO «ROKOT»', 'telemetry': '7.877 сек • 288.35 км/ч', 'desc': '', 'img': 'assets/cars/audi_r8_tsmr_launch.jpg', 'object_position': None, 'sort_order': 4},
+        {'id': 'rec_bezzubik', 'year': 'Рекорд Европы • Race 1000', 'car': 'LAMBORGHINI HURACAN TT BEZZUBIK', 'telemetry': '8.054 сек • 283.46 км/ч', 'desc': '', 'img': 'assets/archive_tilda/huracan_bezzubik.webp', 'object_position': None, 'sort_order': 5},
+        {'id': 'rec_zelenka', 'year': 'ОАЭ & Германия • 344.60 км/ч', 'car': 'LAMBORGHINI HURACAN TWIN TURBO «ЗЕЛЕНКА»', 'telemetry': '8.373 сек • 275.26 км/ч', 'desc': '', 'img': 'assets/photos/huracan_zelenka_gtt.jpg', 'object_position': None, 'sort_order': 6},
+        {'id': 'rec_lucifer', 'year': 'RDRC 2026 • 1-е место в классе', 'car': 'NISSAN GT-R R35 «LUCIFER» GTT #71', 'telemetry': '8.400 сек • 262.00 км/ч', 'desc': '', 'img': 'assets/cars/gtr_lucifer_solo.jpg', 'object_position': None, 'sort_order': 7},
+        {'id': 'rec_korzhik', 'year': 'Рекорд России • Московская миля', 'car': 'NISSAN GT-R R35 GTT «KORZHIK» #712', 'telemetry': '8.602 сек • 275.43 км/ч', 'desc': '', 'img': 'assets/cars/gtr_korzhik_712.jpg', 'object_position': None, 'sort_order': 8},
+        {'id': 'rec_projects_05', 'year': '', 'car': 'Nissan GT-R R35 «BALOO»', 'telemetry': '8.875 сек • 262.39 км/ч', 'desc': '', 'img': 'assets/cars/gtr_baloo_card.jpg', 'object_position': None, 'sort_order': 9},
+        {'id': 'rec_gyurza', 'year': '2022 • Абсолютный рекорд льда', 'car': 'AUDI R8 V10 PLUS TT «GYURZA»', 'telemetry': '8.948 сек • 247.68 км/ч', 'desc': '', 'img': 'assets/archive_tilda/audi_r8_gyurza_ice.jpg', 'object_position': None, 'sort_order': 11},
+        {'id': 'rec_tonystark', 'year': 'Record Days 2023', 'car': 'AUDI R8 V10 PLUS TT «TONY STARK»', 'telemetry': '8.948 сек • 247.68 км/ч', 'desc': '', 'img': 'assets/cars/audi_r8_tonystark_rdrc.jpg', 'object_position': None, 'sort_order': 12},
+        {'id': 'rec_projects_51', 'year': '', 'car': 'Audi R8 V10 Plus «Злая Зая / ZlaяZaя»', 'telemetry': '9.048 сек • 237.39 км/ч', 'desc': '', 'img': 'assets/cars/audi_r8_zlayazaya_launch.jpg', 'object_position': None, 'sort_order': 13},
+        {'id': 'rec_gtt1200', 'year': 'Рекорд России/Европы • RDRC RacePark', 'car': 'PORSCHE 911 TURBO (991.1) GTT-1200', 'telemetry': '9.086 сек • 259.64 км/ч', 'desc': '', 'img': 'assets/cars/porsche_991_1200_white.jpg', 'object_position': None, 'sort_order': 14},
+        {'id': 'rec_projects_41', 'year': '', 'car': 'Porsche 911 Turbo Перцхелия', 'telemetry': '9.086 сек • 259.64 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 15},
+        {'id': 'rec_su7', 'year': '2026 • Суперкубок RDRC', 'car': 'XIAOMI SU7 ULTRA', 'telemetry': '9.130 сек • 249.31 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 16},
+        {'id': 'rec_imba', 'year': '2022–2025 • Мировой рекорд RDRC', 'car': 'PORSCHE 911 TURBO S (992) GTT-IMBA', 'telemetry': '9.167 сек • 236.92 км/ч', 'desc': '', 'img': 'assets/cars/porsche_992_imba_silver.jpg', 'object_position': None, 'sort_order': 17},
+        {'id': 'rec_projects_18', 'year': '', 'car': 'Nissan GT-R R35 / RPE-3000', 'telemetry': '9.199 сек • 241.37 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 18},
+        {'id': 'rec_puncher', 'year': '2021 • Мировой ориентир UNLIM FEST', 'car': 'PORSCHE 911 TURBO S (992) PUNCHER', 'telemetry': '9.303 сек • 235.83 км/ч', 'desc': '', 'img': 'assets/archive_tilda/porsche_992_puncher.jpg', 'object_position': None, 'sort_order': 19},
+        {'id': 'rec_projects_03', 'year': '', 'car': 'Porsche 911 Turbo S (992) Инцкирвели', 'telemetry': '9.355 сек • 231.73 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 20},
+        {'id': 'rec_projects_23', 'year': '', 'car': 'Porsche 911 Turbo S (992) «GTT-STAGE 2»', 'telemetry': '9.431 сек • 231.88 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 21},
+        {'id': 'rec_projects_09', 'year': '', 'car': 'Dodge Challenger SRT Demon', 'telemetry': '9.533 сек • 257.23 км/ч', 'desc': '', 'img': 'assets/cars/dodge_burnout_sunset.jpg', 'object_position': None, 'sort_order': 22},
+        {'id': 'rec_projects_28', 'year': '', 'car': 'Lamborghini Huracán Performante Кардан', 'telemetry': '9.555 сек • 235.14 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 23},
+        {'id': 'rec_projects_15', 'year': '', 'car': 'Porsche 911 RS «FELIX FERRO EDITION»', 'telemetry': '9.601 сек • 232.40 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 24},
+        {'id': 'rec_projects_20', 'year': '', 'car': 'Nissan GT-R Тарэтов', 'telemetry': '9.712 сек • 229.45 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 25},
+        {'id': 'rec_projects_14', 'year': '', 'car': 'Mercedes-Benz E63 S', 'telemetry': '9.785 сек • 237.81 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 26},
+        {'id': 'rec_projects_12', 'year': '', 'car': 'Dodge Challenger SRT Demon «Demon Мегон»', 'telemetry': '9.891 сек • 231.36 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 27},
+        {'id': 'rec_projects_40', 'year': '', 'car': 'Audi R8 V10 Plus «OCTO GTT800»', 'telemetry': '9.952 сек • 220.25 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 28},
+        {'id': 'rec_projects_22', 'year': '', 'car': 'Lamborghini Huracan Spyder «GTT-800 SPYDER»', 'telemetry': '9.988 сек • 222.35 км/ч', 'desc': '', 'img': 'assets/cars/huracan_spyder_orange.jpg', 'object_position': None, 'sort_order': 29},
+        {'id': 'rec_projects_35', 'year': '', 'car': 'BMW M5 G90', 'telemetry': '10.212 сек • 224.37 км/ч', 'desc': '', 'img': 'assets/cars/bmw_m5_rdrc_race.jpg', 'object_position': None, 'sort_order': 30},
+        {'id': 'rec_projects_34', 'year': '', 'car': 'BMW M5 CS', 'telemetry': '10.291 сек • 214.80 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 31},
+        {'id': 'rec_projects_07', 'year': '', 'car': 'BMW M3 Никитин', 'telemetry': '10.410 сек • 214.54 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 32},
+        {'id': 'rec_projects_33', 'year': '', 'car': 'BMW M5', 'telemetry': '10.518 сек • 217.59 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 33},
+        {'id': 'rec_projects_02', 'year': '', 'car': 'Zeekr 007 Performance ZEVS', 'telemetry': '10.521 сек • 205.07 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 34},
+        {'id': 'rec_projects_04', 'year': '', 'car': 'Zeekr 9X Hyper', 'telemetry': '10.610 сек • 211.52 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 35},
+        {'id': 'rec_projects_10', 'year': '', 'car': 'Audi RS Q8 «DAMBIOUS GTT700»', 'telemetry': '10.899 сек • 201.34 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 36},
+        {'id': 'rec_projects_24', 'year': '', 'car': 'Nissan GT-R R35 «GTT600»', 'telemetry': '11.112 сек • 199.50 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 37},
+        {'id': 'rec_projects_19', 'year': '', 'car': 'Nissan GT-R Авдейко', 'telemetry': '11.372 сек • 205.13 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 38},
+        {'id': 'rec_projects_08', 'year': '', 'car': 'BMW M4 Саркисян', 'telemetry': '11.438 сек • 195.28 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 39},
+        {'id': 'rec_projects_16', 'year': '', 'car': 'Mercedes-Benz G63 AMG', 'telemetry': '11.648 сек • 186.58 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 40},
+        {'id': 'rec_projects_17', 'year': '', 'car': 'Mercedes-Benz GLA45 AMG Перцхелия', 'telemetry': '11.768 сек • 186.48 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 41},
+        {'id': 'rec_projects_47', 'year': '', 'car': 'Lamborghini Urus', 'telemetry': '11.856 сек • 191.74 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 42},
+        {'id': 'rec_projects_48', 'year': '', 'car': 'Zeekr X', 'telemetry': '11.886 сек • 181.22 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 43},
+        {'id': 'rec_projects_36', 'year': '', 'car': 'BMW M7', 'telemetry': '11.945 сек • 190.47 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 44},
+        {'id': 'rec_projects_50', 'year': '', 'car': 'Волга КГБ', 'telemetry': '13.318 сек • 189.02 км/ч', 'desc': '', 'img': '', 'object_position': None, 'sort_order': 45},
+        {'id': 'rec_gallardo', 'year': 'Мировой рекорд • 1 миля (1609 м)', 'car': 'LAMBORGHINI GALLARDO NERA TWIN TURBO', 'telemetry': '20.845 сек • 409.55 км/ч', 'desc': '', 'img': 'assets/archive_tilda/lamborghini_gallardo_nera.webp', 'object_position': None, 'sort_order': 46},
     ]
-    for idx, rec in enumerate(default_records):
-        cursor.execute("INSERT OR REPLACE INTO records (id, year, car, telemetry, desc, img, sort_order) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                       (rec["id"], rec["year"], rec["car"], rec["telemetry"], rec["desc"], rec.get("img", ""), idx + 1))
+    for rec in default_records:
+        cursor.execute(
+            "INSERT OR REPLACE INTO records (id, year, car, telemetry, desc, img, sort_order, object_position) "
+            "VALUES (:id, :year, :car, :telemetry, :desc, :img, :sort_order, :object_position)",
+            rec,
+        )
 
     default_gallery = [
         {"id": "gal_1", "tag": "RDRC CHAMPION", "title": "Huracan TT «Зеленка» GTT", "img": "assets/photos/huracan_zelenka_gtt.jpg"},
         {"id": "gal_2", "tag": "BURNOUT SMOKE", "title": "Dodge Demon", "img": "assets/cars/dodge_burnout_sunset.jpg"},
-        {"id": "gal_3", "tag": "3000+ HP PRO-MOD", "title": "Nissan GT-R R35 Draco Dragster", "img": "assets/cars/gtr_draco_promod_front.jpg"},
+        {"id": "gal_3", "tag": "3000+ HP", "title": "Nissan GT-R R35 «Draco»", "img": "assets/cars/gtr_draco_promod_front.jpg"},
         {"id": "gal_4", "tag": "1400+ HP V10 TT", "title": "Audi R8 V10 Plus TT «Rokot»", "img": "assets/cars/audi_r8_tsmr_launch.jpg"},
         {"id": "gal_5", "tag": "CHAMPIONSHIP WINNER", "title": "Nissan GT-R R35 Lucifer", "img": "assets/cars/gtr_lucifer_solo.jpg"},
         {"id": "gal_6", "tag": "AERODYNAMICS", "title": "Red Chrome Nissan GT-R R35", "img": "assets/cars/gtr_red_front_rdrc.jpg"},
@@ -1240,7 +1364,7 @@ def seed_initial_data(cursor):
     default_media = [
         {"id": "med_1", "title": "Гоша на своем боевом GT-R Lucifer RDRC", "type": "mp4", "url": "assets/videos/gosha_na_svoem_lucifer_web.mp4", "car": "GT-R Lucifer"},
         {"id": "med_2", "title": "Боевой синий GT-R #888 заезд RDRC", "type": "mp4", "url": "assets/videos/gtr_blue_888_pass_web.mp4", "car": "GT-R Blue 888"},
-        {"id": "med_3", "title": "Красный хромированный GT-R Pro-Mod", "type": "mp4", "url": "assets/videos/gtr_red_g35_action_web.mp4", "car": "GT-R Red Chrome"},
+        {"id": "med_3", "title": "Красный хромированный GT-R ", "type": "mp4", "url": "assets/videos/gtr_red_g35_action_web.mp4", "car": "GT-R Red Chrome"},
         {"id": "med_4", "title": "Дымный бернаут Dodge Hellcat RDRC", "type": "mp4", "url": "assets/videos/dodge_challenger_action.mp4", "car": "Dodge Challenger SRT"},
         {"id": "med_5", "title": "Huracan «Зеленка» Twin Turbo прогрев", "type": "mp4", "url": "assets/videos/r8_launch_action.mp4", "car": "Huracan Зеленка"}
     ]
@@ -1252,48 +1376,46 @@ def seed_initial_data(cursor):
 
 # --- Cars ---
 def get_all_cars() -> List[Dict[str, Any]]:
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM cars ORDER BY (CASE WHEN hp = '?' OR img IS NULL OR img = '' THEN 1 ELSE 0 END) ASC, sort_order ASC, rowid ASC")
-    rows = cursor.fetchall()
-    cars = []
-    for r in rows:
-        car = dict(r)
-        if car.get("specs_json"):
-            try:
-                car["specs"] = json.loads(car["specs_json"])
-            except:
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM cars ORDER BY (CASE WHEN hp = '?' OR img IS NULL OR img = '' THEN 1 ELSE 0 END) ASC, sort_order ASC, rowid ASC")
+        rows = cursor.fetchall()
+        cars = []
+        for r in rows:
+            car = dict(r)
+            if car.get("specs_json"):
+                try:
+                    car["specs"] = json.loads(car["specs_json"])
+                except:
+                    car["specs"] = {}
+            else:
                 car["specs"] = {}
-        else:
-            car["specs"] = {}
-        # Provide camelCase aliases for JS frontend compatibility
-        car["nameRu"] = car.get("name_ru")
-        car["nameEn"] = car.get("name_en")
-        car["quarterMile"] = car.get("quarter_mile")
-        car["topSpeed"] = car.get("top_speed")
-        car["videoSrc"] = car.get("video_src")
-        car["videoTitle"] = car.get("video_title")
-        car["descRu"] = car.get("desc_ru")
-        car["descEn"] = car.get("desc_en")
-        car["fallbackImg"] = car.get("fallback_img")
-        car["isPhoto"] = bool(car.get("is_photo", 1))
-        car["objectPosition"] = car.get("object_position", "center center")
-        car["isFeatured"] = bool(car.get("is_featured", 0))
-        car["is_featured"] = int(car.get("is_featured", 0))
-        car["category"] = car.get("category", "race") or "race"
-        car["isPublished"] = bool(car.get("is_published", 1))
-        car["is_published"] = int(car.get("is_published", 1))
-        car["completeness"] = int(car.get("completeness", 100) or 100)
-        cars.append(car)
-    conn.close()
+ # Provide camelCase aliases for JS frontend compatibility
+            car["nameRu"] = car.get("name_ru")
+            car["nameEn"] = car.get("name_en")
+            car["quarterMile"] = car.get("quarter_mile")
+            car["topSpeed"] = car.get("top_speed")
+            car["videoSrc"] = car.get("video_src")
+            car["videoTitle"] = car.get("video_title")
+            car["descRu"] = car.get("desc_ru")
+            car["descEn"] = car.get("desc_en")
+            car["fallbackImg"] = car.get("fallback_img")
+            car["isPhoto"] = bool(car.get("is_photo", 1))
+            car["objectPosition"] = car.get("object_position", "center center")
+            car["isFeatured"] = bool(car.get("is_featured", 0))
+            car["is_featured"] = int(car.get("is_featured", 0))
+            car["category"] = car.get("category", "race") or "race"
+            car["isPublished"] = bool(car.get("is_published", 1))
+            car["is_published"] = int(car.get("is_published", 1))
+            car["completeness"] = int(car.get("completeness", 100) or 100)
+            cars.append(car)
     return cars
 
 def get_car_by_id(car_id: str) -> Optional[Dict[str, Any]]:
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM cars WHERE id = ?", (car_id,))
-    row = cursor.fetchone()
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM cars WHERE id = ?", (car_id,))
+        row = cursor.fetchone()
     if not row:
         return None
     car = dict(row)
@@ -1322,204 +1444,216 @@ def get_car_by_id(car_id: str) -> Optional[Dict[str, Any]]:
 
 def calculate_car_completeness(car_data: Dict[str, Any]) -> int:
     score = 0
-    # Name (20%)
+ # Name (20%)
     name = (car_data.get("name_ru") or car_data.get("nameRu") or "").strip()
     if name: score += 20
-    # Brand (10%)
+ # Brand (10%)
     brand = (car_data.get("brand") or "").strip()
     if brand: score += 10
-    # Image (30%) - must not be placeholder or empty
+ # Image (30%) - must not be placeholder or empty
     img = (car_data.get("img") or "").strip()
     if img and not "classified" in img and not img.endswith(".svg"):
         score += 30
     elif img:
         score += 10
-    # Specs: hp (15%)
+ # Specs: hp (15%)
     hp = (car_data.get("hp") or "").strip()
     if hp and hp != "?": score += 15
-    # Technical specs object / items (15%)
+ # Technical specs object / items (15%)
     specs = car_data.get("specs") or {}
     if isinstance(specs, str):
         try: specs = json.loads(specs)
         except: specs = {}
     if specs and len(specs) >= 2: score += 15
     elif specs and len(specs) >= 1: score += 8
-    # Description (10%)
+ # Description (10%)
     desc = (car_data.get("desc_ru") or car_data.get("descRu") or "").strip()
     if desc: score += 10
     return min(100, score)
 
 def upsert_car(car_data: Dict[str, Any]) -> Dict[str, Any]:
-    conn = get_connection()
-    cursor = conn.cursor()
+    with get_db() as conn:
+        cursor = conn.cursor()
 
-    # If updating an existing car, merge with existing fields to prevent overwriting with blanks
-    cursor.execute("SELECT * FROM cars WHERE id = ?", (car_data.get("id", ""),))
-    existing_row = cursor.fetchone()
-    if existing_row:
-        existing = dict(existing_row)
-        for k, v in existing.items():
-            if k not in car_data:
-                car_data[k] = v
+ # If updating an existing car, merge with existing fields to prevent overwriting with blanks
+        cursor.execute("SELECT * FROM cars WHERE id = ?", (car_data.get("id", ""),))
+        existing_row = cursor.fetchone()
+        if existing_row:
+            existing = dict(existing_row)
+            for k, v in existing.items():
+                if k not in car_data:
+                    car_data[k] = v
 
-    specs = car_data.get("specs", {})
-    if isinstance(specs, str):
-        specs_json = specs
-    else:
-        specs_json = json.dumps(specs)
+        specs = car_data.get("specs", {})
+        if isinstance(specs, str):
+            specs_json = specs
+        else:
+            specs_json = json.dumps(specs)
     
-    is_photo_val = 1
-    if "is_photo" in car_data:
-        is_photo_val = 1 if car_data["is_photo"] else 0
-    elif "isPhoto" in car_data:
-        is_photo_val = 1 if car_data["isPhoto"] else 0
+        is_photo_val = 1
+        if "is_photo" in car_data:
+            is_photo_val = 1 if car_data["is_photo"] else 0
+        elif "isPhoto" in car_data:
+            is_photo_val = 1 if car_data["isPhoto"] else 0
 
-    obj_pos = car_data.get("object_position", car_data.get("objectPosition", "center center"))
-    if not obj_pos:
-        obj_pos = "center center"
+        obj_pos = car_data.get("object_position", car_data.get("objectPosition", "center center"))
+        if not obj_pos:
+            obj_pos = "center center"
 
-    cursor.execute("""
-    INSERT INTO cars (
-        id, brand, type, name_ru, name_en, tag_ru, tag_en, hp, quarter_mile, top_speed,
-        badge_ru, badge_en, img, fallback_img, is_photo, object_position, video_src, video_title, desc_ru, desc_en, specs_json
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ON CONFLICT(id) DO UPDATE SET
-        brand=excluded.brand,
-        type=excluded.type,
-        name_ru=excluded.name_ru,
-        name_en=excluded.name_en,
-        tag_ru=excluded.tag_ru,
-        tag_en=excluded.tag_en,
-        hp=excluded.hp,
-        quarter_mile=excluded.quarter_mile,
-        top_speed=excluded.top_speed,
-        badge_ru=excluded.badge_ru,
-        badge_en=excluded.badge_en,
-        img=excluded.img,
-        fallback_img=excluded.fallback_img,
-        is_photo=excluded.is_photo,
-        object_position=excluded.object_position,
-        video_src=excluded.video_src,
-        video_title=excluded.video_title,
-        desc_ru=excluded.desc_ru,
-        desc_en=excluded.desc_en,
-        specs_json=excluded.specs_json
-    """, (
-        car_data["id"],
-        car_data.get("brand", ""),
-        car_data.get("type", "other"),
-        car_data.get("name_ru", car_data.get("nameRu", "")),
-        car_data.get("name_en", car_data.get("nameEn", car_data.get("name_ru", ""))),
-        car_data.get("tag_ru", "RDRC БОЛИД"),
-        car_data.get("tag_en", "RDRC CAR"),
-        car_data.get("hp", ""),
-        car_data.get("quarter_mile", car_data.get("quarterMile", "")),
-        car_data.get("top_speed", car_data.get("topSpeed", "")),
-        car_data.get("badge_ru", "GTT Spec"),
-        car_data.get("badge_en", "GTT Spec"),
-        car_data.get("img", ""),
-        car_data.get("fallback_img", car_data.get("fallbackImg", car_data.get("img", ""))),
-        is_photo_val,
-        obj_pos,
-        car_data.get("video_src", car_data.get("videoSrc", "")),
-        car_data.get("video_title", car_data.get("videoTitle", "")),
-        car_data.get("desc_ru", car_data.get("descRu", "")),
-        car_data.get("desc_en", car_data.get("descEn", "")),
-        specs_json
-    ))
-    if "is_featured" in car_data or "isFeatured" in car_data:
-        feat_raw = car_data.get("is_featured", car_data.get("isFeatured", 0))
-        feat_val = 1 if (feat_raw == 1 or feat_raw is True or feat_raw == '1') else 0
-        cursor.execute("UPDATE cars SET is_featured = ? WHERE id = ?", (feat_val, car_data["id"]))
-    if "category" in car_data:
-        cat_val = str(car_data["category"]).strip().lower()
-        if cat_val not in ("race", "street"): cat_val = "race"
-        cursor.execute("UPDATE cars SET category = ? WHERE id = ?", (cat_val, car_data["id"]))
-    if "is_published" in car_data or "isPublished" in car_data:
-        pub_raw = car_data.get("is_published", car_data.get("isPublished", 1))
-        pub_val = 1 if (pub_raw == 1 or pub_raw is True or pub_raw == '1' or pub_raw == 'true') else 0
-        cursor.execute("UPDATE cars SET is_published = ? WHERE id = ?", (pub_val, car_data["id"]))
+        cursor.execute("""
+        INSERT INTO cars (
+            id, brand, type, name_ru, name_en, tag_ru, tag_en, hp, quarter_mile, top_speed,
+            badge_ru, badge_en, img, fallback_img, is_photo, object_position, video_src, video_title, desc_ru, desc_en, specs_json
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(id) DO UPDATE SET
+            brand=excluded.brand,
+            type=excluded.type,
+            name_ru=excluded.name_ru,
+            name_en=excluded.name_en,
+            tag_ru=excluded.tag_ru,
+            tag_en=excluded.tag_en,
+            hp=excluded.hp,
+            quarter_mile=excluded.quarter_mile,
+            top_speed=excluded.top_speed,
+            badge_ru=excluded.badge_ru,
+            badge_en=excluded.badge_en,
+            img=excluded.img,
+            fallback_img=excluded.fallback_img,
+            is_photo=excluded.is_photo,
+            object_position=excluded.object_position,
+            video_src=excluded.video_src,
+            video_title=excluded.video_title,
+            desc_ru=excluded.desc_ru,
+            desc_en=excluded.desc_en,
+            specs_json=excluded.specs_json
+        """, (
+            car_data["id"],
+            car_data.get("brand", ""),
+            car_data.get("type", "other"),
+            car_data.get("name_ru", car_data.get("nameRu", "")),
+            car_data.get("name_en", car_data.get("nameEn", car_data.get("name_ru", ""))),
+            car_data.get("tag_ru", "RDRC БОЛИД"),
+            car_data.get("tag_en", "RDRC CAR"),
+            car_data.get("hp", ""),
+            car_data.get("quarter_mile", car_data.get("quarterMile", "")),
+            car_data.get("top_speed", car_data.get("topSpeed", "")),
+            car_data.get("badge_ru", "GTT Spec"),
+            car_data.get("badge_en", "GTT Spec"),
+            car_data.get("img", ""),
+            car_data.get("fallback_img", car_data.get("fallbackImg", car_data.get("img", ""))),
+            is_photo_val,
+            obj_pos,
+            car_data.get("video_src", car_data.get("videoSrc", "")),
+            car_data.get("video_title", car_data.get("videoTitle", "")),
+            car_data.get("desc_ru", car_data.get("descRu", "")),
+            car_data.get("desc_en", car_data.get("descEn", "")),
+            specs_json
+        ))
+        if "is_featured" in car_data or "isFeatured" in car_data:
+            feat_raw = car_data.get("is_featured", car_data.get("isFeatured", 0))
+            feat_val = 1 if (feat_raw == 1 or feat_raw is True or feat_raw == '1') else 0
+            cursor.execute("UPDATE cars SET is_featured = ? WHERE id = ?", (feat_val, car_data["id"]))
+        if "category" in car_data:
+            cat_val = str(car_data["category"]).strip().lower()
+            if cat_val not in ("race", "street"): cat_val = "race"
+            cursor.execute("UPDATE cars SET category = ? WHERE id = ?", (cat_val, car_data["id"]))
+        if "is_published" in car_data or "isPublished" in car_data:
+            pub_raw = car_data.get("is_published", car_data.get("isPublished", 1))
+            pub_val = 1 if (pub_raw == 1 or pub_raw is True or pub_raw == '1' or pub_raw == 'true') else 0
+            cursor.execute("UPDATE cars SET is_published = ? WHERE id = ?", (pub_val, car_data["id"]))
     
-    # Calculate and store completeness score
-    score = calculate_car_completeness(car_data)
-    cursor.execute("UPDATE cars SET completeness = ? WHERE id = ?", (score, car_data["id"]))
+ # Calculate and store completeness score
+        score = calculate_car_completeness(car_data)
+        cursor.execute("UPDATE cars SET completeness = ? WHERE id = ?", (score, car_data["id"]))
 
-    if "sort_order" in car_data or "sortOrder" in car_data:
-        try:
-            so_val = int(car_data.get("sort_order", car_data.get("sortOrder", 0)) or 0)
-            cursor.execute("UPDATE cars SET sort_order = ? WHERE id = ?", (so_val, car_data["id"]))
-        except Exception:
-            pass
-    conn.commit()
-    conn.close()
+        if "sort_order" in car_data or "sortOrder" in car_data:
+            try:
+                so_val = int(car_data.get("sort_order", car_data.get("sortOrder", 0)) or 0)
+                cursor.execute("UPDATE cars SET sort_order = ? WHERE id = ?", (so_val, car_data["id"]))
+            except Exception:
+                pass
+        conn.commit()
     try:
         sync_all_json_caches()
     except Exception:
         pass
     return get_car_by_id(car_data["id"])
 
-# ================= PERSISTENT SESSIONS =================
-def create_session(token: str, username: str, lifetime_seconds: float = 7 * 86400) -> str:
+# ================= PERSISTENT SESSIONS (HASHED) =================
+def create_session(token: str, username: str, lifetime_seconds: float = 12 * 3600) -> str:
     now = time.time()
     expires_at = now + lifetime_seconds
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("""
-    INSERT INTO admin_sessions (token, username, expires_at)
-    VALUES (?, ?, ?)
-    ON CONFLICT(token) DO UPDATE SET expires_at=excluded.expires_at
-    """, (token, username, expires_at))
-    conn.commit()
-    conn.close()
+    thash = hash_token(token)
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM admin_sessions WHERE expires_at < ?", (now,))
+        cursor.execute("""
+        INSERT INTO admin_sessions (token, username, expires_at)
+        VALUES (?, ?, ?)
+        ON CONFLICT(token) DO UPDATE SET expires_at=excluded.expires_at
+        """, (thash, username, expires_at))
+        conn.commit()
     return token
 
+
 def get_session(token: str) -> Optional[Dict[str, Any]]:
-    if not token:
+    if not token or len(token) < 20:
         return None
     now = time.time()
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT token, username, expires_at FROM admin_sessions WHERE token = ?", (token,))
-    row = cursor.fetchone()
-    conn.close()
-    if row:
-        if row[2] > now:
-            return {"token": row[0], "username": row[1], "expires_at": row[2]}
-        else:
-            delete_session(token)
+    thash = hash_token(token)
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT token, username, expires_at FROM admin_sessions WHERE token = ?", (thash,))
+        row = cursor.fetchone()
+        if row:
+            if row[2] > now:
+                return {"token_hash": row[0], "username": row[1], "expires_at": row[2]}
+            cursor.execute("DELETE FROM admin_sessions WHERE token = ?", (thash,))
+            conn.commit()
     return None
 
-def touch_session(token: str, lifetime_seconds: float = 7 * 86400):
+
+def touch_session(token: str, lifetime_seconds: float = 12 * 3600):
+    if not token:
+        return
     now = time.time()
     expires_at = now + lifetime_seconds
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("UPDATE admin_sessions SET expires_at = ? WHERE token = ?", (expires_at, token))
-    conn.commit()
-    conn.close()
+    thash = hash_token(token)
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("UPDATE admin_sessions SET expires_at = ? WHERE token = ?", (expires_at, thash))
+        conn.commit()
+
 
 def delete_session(token: str):
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM admin_sessions WHERE token = ?", (token,))
-    conn.commit()
-    conn.close()
+    if not token:
+        return
+    thash = hash_token(token)
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM admin_sessions WHERE token = ?", (thash,))
+        conn.commit()
+
 
 def clean_expired_db_sessions():
     now = time.time()
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM admin_sessions WHERE expires_at < ?", (now,))
-    conn.commit()
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM admin_sessions WHERE expires_at < ?", (now,))
+        conn.commit()
+
+
+def revoke_all_sessions():
+    with get_db() as conn:
+        conn.execute("DELETE FROM admin_sessions")
+        conn.commit()
 
 def delete_car(car_id: str) -> bool:
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM cars WHERE id = ?", (car_id,))
-    deleted = cursor.rowcount > 0
-    conn.commit()
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM cars WHERE id = ?", (car_id,))
+        deleted = cursor.rowcount > 0
+        conn.commit()
     try:
         sync_all_json_caches()
     except Exception:
@@ -1529,99 +1663,92 @@ def delete_car(car_id: str) -> bool:
 def reorder_featured_cars(featured_ids: List[str]) -> bool:
     if not featured_ids or len(featured_ids) < 1:
         return False
-    conn = get_connection()
-    cursor = conn.cursor()
     try:
-        cursor.execute("UPDATE cars SET is_featured = 0")
-        for idx, car_id in enumerate(featured_ids):
-            cursor.execute("UPDATE cars SET sort_order = ?, is_featured = 1 WHERE id = ?", (idx + 1, car_id))
-        placeholders = ','.join('?' for _ in featured_ids)
-        cursor.execute(f"SELECT id FROM cars WHERE id NOT IN ({placeholders}) ORDER BY sort_order ASC, rowid ASC", featured_ids)
-        remaining = cursor.fetchall()
-        for idx, r in enumerate(remaining):
-            cursor.execute("UPDATE cars SET sort_order = ?, is_featured = 0 WHERE id = ?", (len(featured_ids) + 1 + idx, r[0]))
-        conn.commit()
-        conn.close()
-        try:
-            sync_all_json_caches()
-        except Exception:
-            pass
-        return True
+        with get_db() as conn:
+            cursor = conn.cursor()
+            cursor.execute("UPDATE cars SET is_featured = 0")
+            for idx, car_id in enumerate(featured_ids):
+                cursor.execute("UPDATE cars SET sort_order = ?, is_featured = 1 WHERE id = ?", (idx + 1, car_id))
+            placeholders = ','.join('?' for _ in featured_ids)
+            cursor.execute(f"SELECT id FROM cars WHERE id NOT IN ({placeholders}) ORDER BY sort_order ASC, rowid ASC", featured_ids)
+            remaining = cursor.fetchall()
+            for idx, r in enumerate(remaining):
+                cursor.execute("UPDATE cars SET sort_order = ?, is_featured = 0 WHERE id = ?", (len(featured_ids) + 1 + idx, r[0]))
+            conn.commit()
     except Exception as e:
-        conn.rollback()
-        conn.close()
         print(f"[GTT DB Error] Reorder featured: {e}")
         return False
+    try:
+        sync_all_json_caches()
+    except Exception:
+        pass
+    return True
+
 
 def reorder_all_cars(car_ids: List[str]) -> bool:
     if not car_ids or len(car_ids) < 1:
         return False
-    conn = get_connection()
-    cursor = conn.cursor()
     try:
-        for idx, car_id in enumerate(car_ids):
-            cursor.execute("UPDATE cars SET sort_order = ? WHERE id = ?", (idx + 1, car_id))
-        conn.commit()
-        conn.close()
-        try:
-            sync_all_json_caches()
-        except Exception:
-            pass
-        return True
+        with get_db() as conn:
+            cursor = conn.cursor()
+            for idx, car_id in enumerate(car_ids):
+                cursor.execute("UPDATE cars SET sort_order = ? WHERE id = ?", (idx + 1, car_id))
+            conn.commit()
     except Exception as e:
-        conn.rollback()
-        conn.close()
         print(f"[GTT DB Error] Reorder all cars: {e}")
         return False
+    try:
+        sync_all_json_caches()
+    except Exception:
+        pass
+    return True
 
 # --- Team ---
 def get_all_team() -> List[Dict[str, Any]]:
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM team ORDER BY sort_order ASC, rowid ASC")
-    rows = []
-    for r in cursor.fetchall():
-        d = dict(r)
-        if not d.get("object_position"):
-            d["object_position"] = "center 20%"
-        d["objectPosition"] = d["object_position"]
-        rows.append(d)
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM team ORDER BY sort_order ASC, rowid ASC")
+        rows = []
+        for r in cursor.fetchall():
+            d = dict(r)
+            if not d.get("object_position"):
+                d["object_position"] = "center 20%"
+            d["objectPosition"] = d["object_position"]
+            rows.append(d)
     return rows
 
 def upsert_team_member(member: Dict[str, Any]) -> Dict[str, Any]:
-    conn = get_connection()
-    cursor = conn.cursor()
-    obj_pos = member.get("object_position") or member.get("objectPosition") or "center 20%"
-    cursor.execute("""
-    INSERT INTO team (id, name, role, status, photo, social, sort_order, name_en, role_en, dept, object_position)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ON CONFLICT(id) DO UPDATE SET
-        name=excluded.name,
-        role=excluded.role,
-        status=excluded.status,
-        photo=excluded.photo,
-        social=excluded.social,
-        sort_order=COALESCE(excluded.sort_order, team.sort_order),
-        name_en=COALESCE(excluded.name_en, team.name_en),
-        role_en=COALESCE(excluded.role_en, team.role_en),
-        dept=COALESCE(excluded.dept, team.dept),
-        object_position=COALESCE(excluded.object_position, team.object_position)
-    """, (
-        member["id"], 
-        member["name"], 
-        member["role"], 
-        member.get("status", "active"),
-        member.get("photo", "") if member.get("photo") is not None else "",
-        member.get("social", "") if member.get("social") is not None else "",
-        member.get("sort_order"),
-        member.get("name_en", ""),
-        member.get("role_en", ""),
-        member.get("dept", ""),
-        obj_pos
-    ))
-    conn.commit()
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        obj_pos = member.get("object_position") or member.get("objectPosition") or "center 20%"
+        cursor.execute("""
+        INSERT INTO team (id, name, role, status, photo, social, sort_order, name_en, role_en, dept, object_position)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(id) DO UPDATE SET
+            name=excluded.name,
+            role=excluded.role,
+            status=excluded.status,
+            photo=excluded.photo,
+            social=excluded.social,
+            sort_order=COALESCE(excluded.sort_order, team.sort_order),
+            name_en=COALESCE(excluded.name_en, team.name_en),
+            role_en=COALESCE(excluded.role_en, team.role_en),
+            dept=COALESCE(excluded.dept, team.dept),
+            object_position=COALESCE(excluded.object_position, team.object_position)
+        """, (
+            member["id"],
+            member["name"],
+            member["role"],
+            member.get("status", "active"),
+            member.get("photo", "") if member.get("photo") is not None else "",
+            member.get("social", "") if member.get("social") is not None else "",
+            member.get("sort_order"),
+            member.get("name_en", ""),
+            member.get("role_en", ""),
+            member.get("dept", ""),
+            obj_pos
+        ))
+        conn.commit()
     member["object_position"] = obj_pos
     member["objectPosition"] = obj_pos
     try:
@@ -1631,12 +1758,11 @@ def upsert_team_member(member: Dict[str, Any]) -> Dict[str, Any]:
     return member
 
 def delete_team_member(member_id: str) -> bool:
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM team WHERE id = ?", (member_id,))
-    deleted = cursor.rowcount > 0
-    conn.commit()
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM team WHERE id = ?", (member_id,))
+        deleted = cursor.rowcount > 0
+        conn.commit()
     try:
         sync_all_json_caches()
     except Exception:
@@ -1645,30 +1771,28 @@ def delete_team_member(member_id: str) -> bool:
 
 # --- Records ---
 def get_all_records() -> List[Dict[str, Any]]:
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM records ORDER BY sort_order ASC, rowid ASC")
-    rows = [dict(r) for r in cursor.fetchall()]
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM records ORDER BY sort_order ASC, rowid ASC")
+        rows = [dict(r) for r in cursor.fetchall()]
     return rows
 
 def upsert_record(record: Dict[str, Any]) -> Dict[str, Any]:
-    conn = get_connection()
-    cursor = conn.cursor()
-    obj_pos = record.get("object_position", record.get("objectPosition", "center center"))
-    cursor.execute("""
-    INSERT INTO records (id, year, car, telemetry, desc, img, object_position)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
-    ON CONFLICT(id) DO UPDATE SET
-        year=excluded.year,
-        car=excluded.car,
-        telemetry=excluded.telemetry,
-        desc=excluded.desc,
-        img=excluded.img,
-        object_position=excluded.object_position
-    """, (record["id"], record["year"], record["car"], record["telemetry"], record.get("desc", ""), record.get("img", ""), obj_pos))
-    conn.commit()
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        obj_pos = record.get("object_position", record.get("objectPosition", "center center"))
+        cursor.execute("""
+        INSERT INTO records (id, year, car, telemetry, desc, img, object_position)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(id) DO UPDATE SET
+            year=excluded.year,
+            car=excluded.car,
+            telemetry=excluded.telemetry,
+            desc=excluded.desc,
+            img=excluded.img,
+            object_position=excluded.object_position
+        """, (record["id"], record["year"], record["car"], record["telemetry"], record.get("desc", ""), record.get("img", ""), obj_pos))
+        conn.commit()
     try:
         sync_all_json_caches()
     except Exception:
@@ -1676,12 +1800,11 @@ def upsert_record(record: Dict[str, Any]) -> Dict[str, Any]:
     return record
 
 def delete_record(record_id: str) -> bool:
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM records WHERE id = ?", (record_id,))
-    deleted = cursor.rowcount > 0
-    conn.commit()
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM records WHERE id = ?", (record_id,))
+        deleted = cursor.rowcount > 0
+        conn.commit()
     try:
         sync_all_json_caches()
     except Exception:
@@ -1690,28 +1813,26 @@ def delete_record(record_id: str) -> bool:
 
 # --- Gallery ---
 def get_all_gallery() -> List[Dict[str, Any]]:
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM gallery ORDER BY sort_order ASC, rowid ASC")
-    rows = [dict(r) for r in cursor.fetchall()]
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM gallery ORDER BY sort_order ASC, rowid ASC")
+        rows = [dict(r) for r in cursor.fetchall()]
     return rows
 
 def upsert_gallery(item: Dict[str, Any]) -> Dict[str, Any]:
-    conn = get_connection()
-    cursor = conn.cursor()
-    obj_pos = item.get("object_position") or item.get("objectPosition") or "center 50%"
-    cursor.execute("""
-    INSERT INTO gallery (id, tag, title, img, object_position)
-    VALUES (?, ?, ?, ?, ?)
-    ON CONFLICT(id) DO UPDATE SET
-        tag=excluded.tag,
-        title=excluded.title,
-        img=excluded.img,
-        object_position=excluded.object_position
-    """, (item["id"], item["tag"], item["title"], item["img"], obj_pos))
-    conn.commit()
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        obj_pos = item.get("object_position") or item.get("objectPosition") or "center 50%"
+        cursor.execute("""
+        INSERT INTO gallery (id, tag, title, img, object_position)
+        VALUES (?, ?, ?, ?, ?)
+        ON CONFLICT(id) DO UPDATE SET
+            tag=excluded.tag,
+            title=excluded.title,
+            img=excluded.img,
+            object_position=excluded.object_position
+        """, (item["id"], item["tag"], item["title"], item["img"], obj_pos))
+        conn.commit()
     try:
         sync_all_json_caches()
     except Exception:
@@ -1720,12 +1841,11 @@ def upsert_gallery(item: Dict[str, Any]) -> Dict[str, Any]:
     return item
 
 def delete_gallery(item_id: str) -> bool:
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM gallery WHERE id = ?", (item_id,))
-    deleted = cursor.rowcount > 0
-    conn.commit()
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM gallery WHERE id = ?", (item_id,))
+        deleted = cursor.rowcount > 0
+        conn.commit()
     try:
         sync_all_json_caches()
     except Exception:
@@ -1734,27 +1854,25 @@ def delete_gallery(item_id: str) -> bool:
 
 # --- Media ---
 def get_all_media() -> List[Dict[str, Any]]:
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM media ORDER BY sort_order ASC, rowid ASC")
-    rows = [dict(r) for r in cursor.fetchall()]
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM media ORDER BY sort_order ASC, rowid ASC")
+        rows = [dict(r) for r in cursor.fetchall()]
     return rows
 
 def upsert_media(item: Dict[str, Any]) -> Dict[str, Any]:
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("""
-    INSERT INTO media (id, title, type, url, car)
-    VALUES (?, ?, ?, ?, ?)
-    ON CONFLICT(id) DO UPDATE SET
-        title=excluded.title,
-        type=excluded.type,
-        url=excluded.url,
-        car=excluded.car
-    """, (item["id"], item["title"], item["type"], item["url"], item["car"]))
-    conn.commit()
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+        INSERT INTO media (id, title, type, url, car)
+        VALUES (?, ?, ?, ?, ?)
+        ON CONFLICT(id) DO UPDATE SET
+            title=excluded.title,
+            type=excluded.type,
+            url=excluded.url,
+            car=excluded.car
+        """, (item["id"], item["title"], item["type"], item["url"], item["car"]))
+        conn.commit()
     try:
         sync_all_json_caches()
     except Exception:
@@ -1762,12 +1880,11 @@ def upsert_media(item: Dict[str, Any]) -> Dict[str, Any]:
     return item
 
 def delete_media(item_id: str) -> bool:
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM media WHERE id = ?", (item_id,))
-    deleted = cursor.rowcount > 0
-    conn.commit()
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM media WHERE id = ?", (item_id,))
+        deleted = cursor.rowcount > 0
+        conn.commit()
     try:
         sync_all_json_caches()
     except Exception:
@@ -1776,19 +1893,17 @@ def delete_media(item_id: str) -> bool:
 
 # --- Settings ---
 def get_setting(key: str, default: str = "") -> str:
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT value FROM settings WHERE key = ?", (key,))
-    row = cursor.fetchone()
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT value FROM settings WHERE key = ?", (key,))
+        row = cursor.fetchone()
     return row[0] if row else default
 
 def set_setting(key: str, value: str):
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value", (key, value))
-    conn.commit()
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO settings (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value", (key, value))
+        conn.commit()
     try:
         sync_all_json_caches()
     except Exception:
@@ -1796,35 +1911,33 @@ def set_setting(key: str, value: str):
 
 # --- Traffic Analytics ---
 def record_traffic(device: str, source: str, page: str, is_new: bool = True):
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("""
-    INSERT INTO traffic_logs (device, source, page, is_new_session)
-    VALUES (?, ?, ?, ?)
-    """, (device, source, page, 1 if is_new else 0))
-    conn.commit()
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+        INSERT INTO traffic_logs (device, source, page, is_new_session)
+        VALUES (?, ?, ?, ?)
+        """, (device, source, page, 1 if is_new else 0))
+        conn.commit()
 
 def get_traffic_summary() -> Dict[str, Any]:
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT COUNT(*) FROM traffic_logs")
-    total_views = cursor.fetchone()[0]
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT COUNT(*) FROM traffic_logs")
+        total_views = cursor.fetchone()[0]
 
-    cursor.execute("SELECT COUNT(*) FROM traffic_logs WHERE is_new_session = 1")
-    unique_visitors = cursor.fetchone()[0]
+        cursor.execute("SELECT COUNT(*) FROM traffic_logs WHERE is_new_session = 1")
+        unique_visitors = cursor.fetchone()[0]
 
-    cursor.execute("SELECT COUNT(*) FROM traffic_logs WHERE date(created_at) = date('now')")
-    today_views = cursor.fetchone()[0]
+        cursor.execute("SELECT COUNT(*) FROM traffic_logs WHERE date(created_at) = date('now')")
+        today_views = cursor.fetchone()[0]
 
-    cursor.execute("""
-    SELECT id, strftime('%H:%M:%S', created_at) as time,
-           strftime('%d.%m.%Y', created_at) as date,
-           device, source, page, is_new_session
-    FROM traffic_logs ORDER BY id DESC LIMIT 25
-    """)
-    logs = [dict(r) for r in cursor.fetchall()]
-    conn.close()
+        cursor.execute("""
+        SELECT id, strftime('%H:%M:%S', created_at) as time,
+               strftime('%d.%m.%Y', created_at) as date,
+               device, source, page, is_new_session
+        FROM traffic_logs ORDER BY id DESC LIMIT 25
+        """)
+        logs = [dict(r) for r in cursor.fetchall()]
 
     return {
         "totalViews": total_views,
@@ -1834,11 +1947,10 @@ def get_traffic_summary() -> Dict[str, Any]:
     }
 
 def reset_traffic():
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM traffic_logs")
-    conn.commit()
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM traffic_logs")
+        conn.commit()
 
 # --- Technical & Motorsport Partners ---
 DEFAULT_PARTNERS = [
@@ -2189,47 +2301,44 @@ def seed_default_partners(cursor):
         ))
 
 def get_all_partners() -> List[Dict[str, Any]]:
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM partners ORDER BY sort_order ASC, rowid ASC")
-    rows = [dict(r) for r in cursor.fetchall()]
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM partners ORDER BY sort_order ASC, rowid ASC")
+        rows = [dict(r) for r in cursor.fetchall()]
     return rows
 
 def get_partner(partner_id: str) -> Optional[Dict[str, Any]]:
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM partners WHERE id = ?", (partner_id,))
-    row = cursor.fetchone()
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM partners WHERE id = ?", (partner_id,))
+        row = cursor.fetchone()
     return dict(row) if row else None
 
 def upsert_partner(item: Dict[str, Any]) -> Dict[str, Any]:
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("""
-    INSERT INTO partners (id, name, category, desc, logo, link, sort_order, is_active)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    ON CONFLICT(id) DO UPDATE SET
-        name=excluded.name,
-        category=excluded.category,
-        desc=excluded.desc,
-        logo=excluded.logo,
-        link=excluded.link,
-        sort_order=excluded.sort_order,
-        is_active=excluded.is_active
-    """, (
-        item["id"],
-        item["name"],
-        item.get("category", "Технические партнеры"),
-        item.get("desc", ""),
-        item.get("logo", ""),
-        item.get("link", "#"),
-        int(item.get("sort_order", 0)),
-        int(item.get("is_active", 1))
-    ))
-    conn.commit()
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("""
+        INSERT INTO partners (id, name, category, desc, logo, link, sort_order, is_active)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(id) DO UPDATE SET
+            name=excluded.name,
+            category=excluded.category,
+            desc=excluded.desc,
+            logo=excluded.logo,
+            link=excluded.link,
+            sort_order=excluded.sort_order,
+            is_active=excluded.is_active
+        """, (
+            item["id"],
+            item["name"],
+            item.get("category", "Технические партнеры"),
+            item.get("desc", ""),
+            item.get("logo", ""),
+            item.get("link", "#"),
+            int(item.get("sort_order", 0)),
+            int(item.get("is_active", 1))
+        ))
+        conn.commit()
     try:
         sync_all_json_caches()
     except Exception:
@@ -2237,12 +2346,11 @@ def upsert_partner(item: Dict[str, Any]) -> Dict[str, Any]:
     return item
 
 def delete_partner(partner_id: str) -> bool:
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM partners WHERE id = ?", (partner_id,))
-    deleted = cursor.rowcount > 0
-    conn.commit()
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM partners WHERE id = ?", (partner_id,))
+        deleted = cursor.rowcount > 0
+        conn.commit()
     try:
         sync_all_json_caches()
     except Exception:
@@ -2351,25 +2459,23 @@ def seed_default_moto(cursor):
         ))
 
 def get_all_moto() -> List[Dict[str, Any]]:
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM moto ORDER BY sort_order ASC, rowid ASC")
-    rows = []
-    for r in cursor.fetchall():
-        d = dict(r)
-        if not d.get("object_position"):
-            d["object_position"] = "center 50%"
-        d["objectPosition"] = d["object_position"]
-        rows.append(d)
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM moto ORDER BY sort_order ASC, rowid ASC")
+        rows = []
+        for r in cursor.fetchall():
+            d = dict(r)
+            if not d.get("object_position"):
+                d["object_position"] = "center 50%"
+            d["objectPosition"] = d["object_position"]
+            rows.append(d)
     return rows
 
 def get_moto(moto_id: str) -> Optional[Dict[str, Any]]:
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM moto WHERE id = ?", (moto_id,))
-    row = cursor.fetchone()
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM moto WHERE id = ?", (moto_id,))
+        row = cursor.fetchone()
     if row:
         d = dict(row)
         if not d.get("object_position"):
@@ -2379,34 +2485,33 @@ def get_moto(moto_id: str) -> Optional[Dict[str, Any]]:
     return None
 
 def upsert_moto(item: Dict[str, Any]) -> Dict[str, Any]:
-    conn = get_connection()
-    cursor = conn.cursor()
-    obj_pos = item.get("object_position") or item.get("objectPosition") or "center 50%"
-    cursor.execute("""
-    INSERT INTO moto (id, title, code, desc, bullets, img, sort_order, is_active, object_position)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ON CONFLICT(id) DO UPDATE SET
-        title=excluded.title,
-        code=excluded.code,
-        desc=excluded.desc,
-        bullets=excluded.bullets,
-        img=excluded.img,
-        sort_order=excluded.sort_order,
-        is_active=excluded.is_active,
-        object_position=COALESCE(excluded.object_position, moto.object_position)
-    """, (
-        item["id"],
-        item["title"],
-        item.get("code", "GTT MOTO"),
-        item.get("desc", ""),
-        item.get("bullets", ""),
-        item.get("img", ""),
-        int(item.get("sort_order", 0)),
-        int(item.get("is_active", 1)),
-        obj_pos
-    ))
-    conn.commit()
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        obj_pos = item.get("object_position") or item.get("objectPosition") or "center 50%"
+        cursor.execute("""
+        INSERT INTO moto (id, title, code, desc, bullets, img, sort_order, is_active, object_position)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(id) DO UPDATE SET
+            title=excluded.title,
+            code=excluded.code,
+            desc=excluded.desc,
+            bullets=excluded.bullets,
+            img=excluded.img,
+            sort_order=excluded.sort_order,
+            is_active=excluded.is_active,
+            object_position=COALESCE(excluded.object_position, moto.object_position)
+        """, (
+            item["id"],
+            item["title"],
+            item.get("code", "GTT MOTO"),
+            item.get("desc", ""),
+            item.get("bullets", ""),
+            item.get("img", ""),
+            int(item.get("sort_order", 0)),
+            int(item.get("is_active", 1)),
+            obj_pos
+        ))
+        conn.commit()
     item["object_position"] = obj_pos
     item["objectPosition"] = obj_pos
     try:
@@ -2416,12 +2521,11 @@ def upsert_moto(item: Dict[str, Any]) -> Dict[str, Any]:
     return item
 
 def delete_moto(moto_id: str) -> bool:
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM moto WHERE id = ?", (moto_id,))
-    deleted = cursor.rowcount > 0
-    conn.commit()
-    conn.close()
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM moto WHERE id = ?", (moto_id,))
+        deleted = cursor.rowcount > 0
+        conn.commit()
     try:
         sync_all_json_caches()
     except Exception:
@@ -2438,31 +2542,31 @@ def sync_all_json_caches():
     Guarantees seamless parity between local SQLite database and static GitHub Pages hosting."""
     try:
         os.makedirs(DATA_DIR, exist_ok=True)
-        # 1. Cars
+ # 1. Cars
         cars = get_all_cars()
         with open(os.path.join(DATA_DIR, "cars.json"), "w", encoding="utf-8") as f:
             json.dump(cars, f, ensure_ascii=False, indent=2)
-        # 2. Team
+ # 2. Team
         team = get_all_team()
         with open(os.path.join(DATA_DIR, "team.json"), "w", encoding="utf-8") as f:
             json.dump(team, f, ensure_ascii=False, indent=2)
-        # 3. Records
+ # 3. Records
         records = get_all_records()
         with open(os.path.join(DATA_DIR, "records.json"), "w", encoding="utf-8") as f:
             json.dump(records, f, ensure_ascii=False, indent=2)
-        # 4. Gallery
+ # 4. Gallery
         gallery = get_all_gallery()
         with open(os.path.join(DATA_DIR, "gallery.json"), "w", encoding="utf-8") as f:
             json.dump(gallery, f, ensure_ascii=False, indent=2)
-        # 5. Moto
+ # 5. Moto
         moto = get_all_moto()
         with open(os.path.join(DATA_DIR, "moto.json"), "w", encoding="utf-8") as f:
             json.dump(moto, f, ensure_ascii=False, indent=2)
-        # 6. Partners
+ # 6. Partners
         partners = get_all_partners()
         with open(os.path.join(DATA_DIR, "partners.json"), "w", encoding="utf-8") as f:
             json.dump(partners, f, ensure_ascii=False, indent=2)
-        # 7. Moto banners
+ # 7. Moto banners
         mb = get_setting("moto_banners", "[]")
         try:
             mb_parsed = json.loads(mb)
@@ -2470,7 +2574,7 @@ def sync_all_json_caches():
             mb_parsed = []
         with open(os.path.join(DATA_DIR, "moto_banners.json"), "w", encoding="utf-8") as f:
             json.dump(mb_parsed, f, ensure_ascii=False, indent=2)
-        # 8. Hero Telemetry
+ # 8. Hero Telemetry
         ht = get_setting("hero_telemetry", "{}")
         try:
             ht_parsed = json.loads(ht)
@@ -2482,4 +2586,110 @@ def sync_all_json_caches():
         print(f"[GTT DB Sync] Warning during JSON cache sync: {e}")
 
 
+# ==============================================================================
+# AUTHENTICATION, GATEWAY TOKENS & PERSISTENT RATE LIMITING
+# ==============================================================================
+
+def get_gateway_token() -> str:
+    return get_setting("gateway_token", "")
+
+
+def verify_gateway_token(candidate: str) -> bool:
+    if not candidate or len(candidate) < 12:
+        return False
+    expected = get_gateway_token()
+    if not expected:
+        return False
+    return hmac.compare_digest(candidate.strip().encode("utf-8"), expected.encode("utf-8"))
+
+
+def rotate_gateway_token() -> str:
+    new_tok = "gtt_" + secrets.token_urlsafe(24)
+    with get_db() as conn:
+        conn.execute("UPDATE settings SET value = ? WHERE key = 'gateway_token'", (new_tok,))
+        conn.execute("DELETE FROM admin_sessions")
+        conn.commit()
+    return new_tok
+
+
+def verify_admin_password(password: str) -> bool:
+    if not password:
+        return False
+    stored = get_setting("admin_password_hash", "")
+    if stored:
+        return verify_password(password, stored)
+    return False
+
+
+def update_admin_password(new_password: str):
+    set_setting("admin_password_hash", hash_password(new_password))
+
+
+def check_rate_limit(key: str) -> Tuple[bool, int]:
+    now = time.time()
+    with get_db() as conn:
+        row = conn.execute(
+            "SELECT fails, lockout_until FROM rate_limits WHERE key = ?",
+            (key,),
+        ).fetchone()
+        if not row:
+            return (False, 0)
+        lock_until = float(row["lockout_until"] or 0)
+        if lock_until > now:
+            return (True, int(lock_until - now))
+    return (False, 0)
+
+
+def record_rate_limit_fail(key: str, max_fails: int, lockout_minutes: int) -> Tuple[int, int]:
+    now = time.time()
+    with get_db() as conn:
+        conn.execute("BEGIN IMMEDIATE")
+        row = conn.execute(
+            "SELECT fails, lockout_until, updated_at FROM rate_limits WHERE key = ?",
+            (key,),
+        ).fetchone()
+        fails = 0
+        if row:
+            prev_lock = float(row["lockout_until"] or 0)
+            if prev_lock > now:
+                return (int(row["fails"]), max(1, int(prev_lock - now)))
+            updated_at = float(row["updated_at"] or 0)
+            if not prev_lock and (now - updated_at) < (lockout_minutes * 60):
+                fails = int(row["fails"])
+        fails += 1
+        lock_until = 0.0
+        lock_sec = 0
+        if fails >= max_fails:
+            lock_sec = lockout_minutes * 60
+            lock_until = now + lock_sec
+        conn.execute(
+            """
+            INSERT INTO rate_limits (key, fails, lockout_until, updated_at)
+            VALUES (?, ?, ?, ?)
+            ON CONFLICT(key) DO UPDATE SET
+                fails=excluded.fails,
+                lockout_until=excluded.lockout_until,
+                updated_at=excluded.updated_at
+            """,
+            (key, fails, lock_until, now),
+        )
+        conn.commit()
+    return (fails, lock_sec)
+
+
+def clear_rate_limit(key: str):
+    with get_db() as conn:
+        conn.execute("DELETE FROM rate_limits WHERE key = ?", (key,))
+        conn.commit()
+
+
+def restore_factory_defaults():
+    """Restore default cars, team, records, gallery, media, partners, and moto in SQLite."""
+    with get_db() as conn:
+        cursor = conn.cursor()
+        seed_initial_data(cursor)
+        seed_default_partners(cursor)
+        seed_default_moto(cursor)
+        conn.commit()
+    sync_all_json_caches()
 

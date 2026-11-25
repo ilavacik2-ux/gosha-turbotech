@@ -2,49 +2,48 @@
 # GOSHATURBOTECH — PRODUCTION CADDY CONFIGURATION (Caddyfile)
 # ==============================================================================
 # Размещение: /etc/caddy/Caddyfile
-# Преимущество: Автоматический бесплатный HTTPS (Let's Encrypt), HTTP/3 из коробки,
-# автоматический редирект с www, встроенное сжатие zstd/gzip.
-#
 # Перезагрузка: caddy reload --config /etc/caddy/Caddyfile
 # ==============================================================================
 
 goshaturbotech.ru, www.goshaturbotech.ru {
-    # Путь к директории сайта на сервере
     root * /var/www/goshaturbotech
-
-    # Автоматическое сжатие (Zstandard и Gzip)
     encode zstd gzip
 
-    # Максимальный размер тела запроса (50 MB для видео и фото)
     request_body {
-        max_size 50MB
+        max_size 100MB
     }
 
-    # Защитные HTTP-заголовки
     header {
         X-Content-Type-Options "nosniff"
         X-Frame-Options "SAMEORIGIN"
         Referrer-Policy "strict-origin-when-cross-origin"
         Permissions-Policy "camera=(), microphone=(), geolocation=()"
         Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-        # Скрываем сигнатуру веб-сервера
         -Server
     }
 
-    # Блокировка доступа к чувствительным файлам (.env, .git, SQLite, .log, .bak)
+    # Жёсткий 404 Cloaking для конфигов, исходников, БД и старых путей админки
     @sensitive_files {
-        path */.* *.sqlite* *.db* *.env* *.log *.bak *.sh
+        path */.* /private_admin* /deploy* /venv* /gtt_config* /admin.html* /admine* /gtt71* /gtt-hub* /staff-gate* /requirements.txt
+        path *.sqlite* *.db* *.env* *.py* *.pyc *.log *.bak *.sh *.md *.example *.yml *.yaml
     }
-    respond @sensitive_files 404
+    respond @sensitive_files "404 Not Found" 404
 
-    # Статические файлы (CSS, JS, WebP, SVG, MP4) отдаются напрямую Caddy
-    @static {
-        path *.css *.js *.jpg *.jpeg *.png *.webp *.svg *.ico *.woff2 *.mp4 *.webm
+    @blocked_json {
+        path *.json
+        not path /data/cars.json /data/team.json /data/records.json /data/gallery.json /data/moto.json /data/moto_banners.json /data/partners.json /data/hero_telemetry.json
     }
-    header @static Cache-Control "public, max-age=2592000"
-    file_server @static
+    respond @blocked_json "404 Not Found" 404
 
-    # API и скрытая админка проксируются в локальный Uvicorn (127.0.0.1:8000)
+    handle /_gtt_assets/* {
+        reverse_proxy 127.0.0.1:8000 {
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+        }
+    }
+
     handle /api/* {
         reverse_proxy 127.0.0.1:8000 {
             header_up Host {host}
@@ -54,7 +53,7 @@ goshaturbotech.ru, www.goshaturbotech.ru {
         }
     }
 
-    handle /admin {
+    handle /admin* {
         reverse_proxy 127.0.0.1:8000 {
             header_up Host {host}
             header_up X-Real-IP {remote_host}
@@ -63,9 +62,19 @@ goshaturbotech.ru, www.goshaturbotech.ru {
         }
     }
 
-    # Главная страница: если статический файл существует — отдать, иначе на бэкенд
-    handle {
-        try_files {path} {path}/ /index.html
+    @static {
+        path /css/* /js/* /assets/* /data/* /favicon.ico
+    }
+    handle @static {
+        header Cache-Control "public, max-age=2592000"
         file_server
+    }
+
+    handle {
+        reverse_proxy 127.0.0.1:8000 {
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Proto {scheme}
+        }
     }
 }

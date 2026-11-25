@@ -9,12 +9,29 @@ const MEDIA_STORAGE_KEY = 'gtt_admin_media_db';
 const PARTNERS_STORAGE_KEY = 'gtt_admin_partners_db';
 const TRAFFIC_STORAGE_KEY = 'gtt_traffic_telemetry';
 const AUTH_KEY = 'gtt_admin_authenticated';
-const PASS_HASH_KEY = 'gtt_admin_custom_pin';
-const TG_CONFIG_KEY = 'gtt_admin_tg_config';
-const SECRET_URL_TOKEN = 'gtt_atelier_2026_x71k';
-const VALID_SECRET_TOKENS = ['gtt_atelier_2026_x71k', 'gtt_atelier_2026', 'gtt_secret_atelier_2026_unlim'];
-const TOKEN_SESSION_KEY = 'gtt_token_authorized_session';
-const TOKEN_DEVICE_KEY = 'gtt_authorized_device_token';
+try { localStorage.removeItem('gtt_admin_tg_config'); } catch (error) { /* Storage can be disabled. */ }
+
+// Immediately scrub ?token= from URL bar & browser history
+const _initUrlParams = new URLSearchParams(window.location.search);
+let inMemoryGateToken = (_initUrlParams.get('token') || '').trim();
+if (_initUrlParams.has('token')) {
+  window.history.replaceState({}, document.title, window.location.pathname + window.location.hash);
+}
+
+const activeUploadPromises = new Set();
+
+function trackUploadPromise(p) {
+  activeUploadPromises.add(p);
+  const cleanup = () => activeUploadPromises.delete(p);
+  p.then(cleanup, cleanup);
+  return p;
+}
+
+async function waitForPendingUploads() {
+  if (activeUploadPromises.size > 0) {
+    await Promise.allSettled(Array.from(activeUploadPromises));
+  }
+}
 
 function isStaticDeployment() {
   return window.location.hostname.includes('github.io') || window.location.protocol === 'file:';
@@ -30,7 +47,6 @@ function isNetworkOrOfflineError(err) {
          msg.includes('load failed') ||
          msg.includes('econnrefused') ||
          msg.includes('connection refused') ||
-         msg.includes('http error 404') ||
          msg.includes('http error 502') ||
          msg.includes('http error 503') ||
          msg.includes('http error 504') ||
@@ -56,6 +72,7 @@ function copySecretAdminUrl(btn) {
   const urlDisplay = document.getElementById('secretUrlDisplay');
   if (!urlDisplay) return;
   const text = urlDisplay.textContent.trim();
+  if (!text || text.includes('Загрузка')) return;
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(text).then(() => {
       showToast('Ссылка скопирована', 'Секретная ссылка доступа скопирована в буфер обмена', 'success');
@@ -72,53 +89,14 @@ function copySecretAdminUrl(btn) {
   }
 }
 
-
-// Secret URL Token Gate
 function isGateAccessGranted() {
-  try {
-    // 1. Local development environment and GitHub Pages (online staging) always grant gate access
-    if (isStaticDeployment() || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-      sessionStorage.setItem(TOKEN_SESSION_KEY, 'granted');
-      if (!sessionStorage.getItem('gtt_gate_token')) sessionStorage.setItem('gtt_gate_token', 'gtt_atelier_2026_x71k');
-      return true;
-    }
-
-    // 2. Direct click from official website (referrer check)
-    if (document.referrer && (document.referrer.includes(window.location.host) || document.referrer.includes('index.html'))) {
-      sessionStorage.setItem(TOKEN_SESSION_KEY, 'granted');
-      if (!sessionStorage.getItem('gtt_gate_token')) sessionStorage.setItem('gtt_gate_token', 'gtt_atelier_2026_x71k');
-      return true;
-    }
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get('token');
-
-    if (token && VALID_SECRET_TOKENS.includes(token)) {
-      sessionStorage.setItem(TOKEN_SESSION_KEY, 'granted');
-      sessionStorage.setItem('gtt_gate_token', token);
-      localStorage.setItem(TOKEN_DEVICE_KEY, token);
-      const cleanPath = window.location.pathname;
-      window.history.replaceState({}, document.title, cleanPath);
-      return true;
-    }
-
-    if (sessionStorage.getItem(TOKEN_SESSION_KEY) === 'granted') {
-      return true;
-    }
-
-    const devToken = localStorage.getItem(TOKEN_DEVICE_KEY);
-    if (devToken && VALID_SECRET_TOKENS.includes(devToken)) {
-      sessionStorage.setItem('gtt_gate_token', devToken);
-      return true;
-    }
-  } catch (e) {
-    console.error('Security token verification note:', e);
-  }
-  return false;
+  if (isStaticDeployment()) return true;
+  // Server already gates /admin HTML with HttpOnly cookie or ?token=; keep gate active in-session
+  return true;
 }
 
 function getSecretGatewayToken() {
-  return sessionStorage.getItem('gtt_gate_token') || localStorage.getItem(TOKEN_DEVICE_KEY) || SECRET_URL_TOKEN;
+  return inMemoryGateToken || '';
 }
 
 // 1. Initial Cars Seed
@@ -127,11 +105,11 @@ const defaultProjects = [
     "id": "gtr_lucifer",
     "brand": "NISSAN & GTT",
     "type": "gtr",
-    "nameRu": "GT-R R35 «LUCIFER» GTT #71 CHAMPION",
-    "nameEn": "GT-R R35 «LUCIFER» GTT #71 CHAMPION",
+    "nameRu": "GT-R R35 «LUCIFER» GTT #71",
+    "nameEn": "GT-R R35 «LUCIFER» GTT #71",
     "hp": "1,850+ HP",
     "quarterMile": "8.400 сек",
-    "topSpeed": "343.67 км/ч",
+    "topSpeed": "262.00 км/ч",
     "img": "assets/cars/gtr_lucifer_solo.jpg",
     "videoSrc": "assets/videos/gosha_na_svoem_lucifer_web.mp4",
     "descRu": "Победоносный огненный болид Гоши Перцхелия, борт №71. Личный драг-монстр в культовой ливрее адского пламени — триумфатор и победитель чемпионата России RDRC (лучшее время 8.400 сек / 1/2 мили 13.690 с / 343.67 км/ч).",
@@ -142,11 +120,11 @@ const defaultProjects = [
     "id": "draco_promod",
     "brand": "NISSAN & DRACO",
     "type": "gtr",
-    "nameRu": "GT-R R35 DRACO PRO-MOD GTT #300",
-    "nameEn": "GT-R R35 DRACO PRO-MOD GTT #300",
+    "nameRu": "GT-R R35 «DRACO» GTT #300",
+    "nameEn": "GT-R R35 «DRACO» GTT #300",
     "hp": "3,000+ HP",
     "quarterMile": "7.694 сек",
-    "topSpeed": "323.88 км/ч",
+    "topSpeed": "304.44 км/ч",
     "img": "assets/cars/gtr_draco_promod_front.jpg",
     "videoSrc": "assets/videos/draco_gtr_action.mp4",
     "descRu": "Легендарный белый флагман дрэг-стрипа RDRC под управлением Руслана Арефьева (борт №300). Официальное время 7.694 сек со скоростью 304.44 км/ч на 1/4 мили (RDRC этап 5, заезд №537) и 323.88 км/ч на 1/2 мили. Специально построенное трубчатое шасси и свыше 3000 л.с.",
@@ -161,7 +139,7 @@ const defaultProjects = [
     "nameEn": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT",
     "hp": "1,600+ HP",
     "quarterMile": "7.877 сек",
-    "topSpeed": "350+ км/ч",
+    "topSpeed": "288.35 км/ч",
     "img": "assets/cars/audi_r8_tsmr_launch.jpg",
     "videoSrc": "assets/videos/r8_rokot_action.mp4",
     "videoTitle": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT» GTT",
@@ -193,8 +171,8 @@ const defaultProjects = [
     "nameEn": "HURACAN TWIN TURBO GTT-BEZZUBIK",
     "hp": "1,500+ HP",
     "quarterMile": "8.054 сек",
-    "topSpeed": "353.02 км/ч",
-    "img": "assets/photos/huracan_rdrc_stage_line.jpg",
+    "topSpeed": "283.46 км/ч",
+    "img": "assets/archive_tilda/huracan_bezzubik.webp",
     "videoSrc": "",
     "descRu": "Культовый европейский триумфатор Race 1000 в Германии и звезда RDRC. Официальный рекорд Европы со скоростью 353.02 км/ч на дистанции 804 метра и лучший квотер 8.054 сек. Построен и настроен в ателье GoshaTurboTech.",
     "is_featured": 0
@@ -207,7 +185,7 @@ const defaultProjects = [
     "nameEn": "PORSCHE 911 TURBO S (992) GTT-IMBA",
     "hp": "1,050+ HP",
     "quarterMile": "9.167 сек",
-    "topSpeed": "345+ км/ч",
+    "topSpeed": "236.92 км/ч",
     "img": "assets/cars/porsche_992_imba_silver.jpg",
     "videoSrc": "",
     "descRu": "Официальный рекордсмен RDRC среди Porsche поколения 992 под управлением Марии Кутычкиной. Подтвержденное время 9.167 сек со скоростью 236.92 км/ч на 1/4 мили (RDRC 2025, заезд 528). Кастомный интеркулер GTT и метаноловый впрыск.",
@@ -223,8 +201,8 @@ const defaultProjects = [
     "nameRu": "BMW M5 G90 COMPETITION GTT-STAGE 3",
     "nameEn": "BMW M5 G90 COMPETITION GTT-STAGE 3",
     "hp": "1,050+ HP",
-    "quarterMile": "9.420 сек",
-    "topSpeed": "340+ км/ч",
+    "quarterMile": "10.212 сек",
+    "topSpeed": "224.37 км/ч",
     "img": "assets/cars/bmw_m5_rdrc_race.jpg",
     "videoSrc": "",
     "descRu": "Заряженная боевая BMW M5 поколения G90 от GoshaTurboTech, выступающая в чемпионате России по дрэг-рейсингу RDRC. Полный привод M xDrive, гибридные турбины GTT и усиленная поршневая группа.",
@@ -237,8 +215,8 @@ const defaultProjects = [
     "nameRu": "DODGE CHALLENGER SRT DEMON GTT",
     "nameEn": "DODGE CHALLENGER SRT DEMON GTT",
     "hp": "1,200+ HP",
-    "quarterMile": "9.748 сек",
-    "topSpeed": "330+ км/ч",
+    "quarterMile": "9.533 сек",
+    "topSpeed": "257.23 км/ч",
     "img": "assets/cars/dodge_burnout_sunset.jpg",
     "videoSrc": "",
     "descRu": "Черный компрессорный монстр Dodge Challenger SRT Demon от GoshaTurboTech под управлением И. Кардана и М. Шония. Подтвержденное время 9.748 сек со скоростью 233.24 км/ч на 1/4 мили RDRC 2026.",
@@ -265,8 +243,8 @@ const defaultProjects = [
     "nameRu": "AUDI R8 V10 PLUS TWIN TURBO «ZLAYAZAYA»",
     "nameEn": "AUDI R8 V10 PLUS TWIN TURBO «ZLAYAZAYA»",
     "hp": "1,200+ HP",
-    "quarterMile": "10.060 сек",
-    "topSpeed": "340+ км/ч",
+    "quarterMile": "9.048 сек",
+    "topSpeed": "237.39 км/ч",
     "img": "assets/cars/audi_r8_zlayazaya_launch.jpg",
     "videoSrc": "",
     "descRu": "Культовая Audi R8 «Злая Зая» Руслана Арефьева (борт №6303). Призер этапов чемпионата RDRC, стабильный запуск на полном приводе quattro и двухтурбинный пакет GTT.",
@@ -283,7 +261,7 @@ const defaultProjects = [
     "nameEn": "HURACAN TWIN TURBO «ZELENKA» GTT",
     "hp": "1,500+ HP",
     "quarterMile": "8.373 сек",
-    "topSpeed": "355+ км/ч",
+    "topSpeed": "275.26 км/ч",
     "img": "assets/photos/huracan_zelenka_gtt.jpg",
     "videoSrc": "",
     "descRu": "Знаменитая ядовито-зеленая Lamborghini Huracan Twin Turbo «Зеленка» — легенда паддока RDRC и уличных дуэлей. Кастомный твин-турбо кит от GoshaTurboTech, задние бедлоки и выстрел за 8 секунд (1/2 мили 14.041 с / 327.86 км/ч).",
@@ -314,7 +292,7 @@ const defaultProjects = [
     "nameEn": "HURACAN SPYDER GTT-800 STAGE 2",
     "hp": "850+ HP",
     "quarterMile": "9.988 сек",
-    "topSpeed": "335+ км/ч",
+    "topSpeed": "222.35 км/ч",
     "img": "assets/cars/huracan_spyder_orange.jpg",
     "videoSrc": "",
     "descRu": "Открытый родстер Huracan Spyder с доработанной выхлопной трассой Inconel и пакетом GTT Stage 2. Официальное 2-е место на Чемпионате ПФО с результатом 9.988 сек на 402 метра.",
@@ -331,7 +309,7 @@ const defaultProjects = [
     "nameEn": "GT-R R35 GTT-1800 «MOSES» #712",
     "hp": "1,800+ HP",
     "quarterMile": "7.526 сек",
-    "topSpeed": "360+ км/ч",
+    "topSpeed": "304.36 км/ч",
     "img": "assets/archive_tilda/gtr_moses.png",
     "videoSrc": "",
     "descRu": "Культовый белый Nissan GT-R R35 «MOSES» борт №712. Европейский рекорд времени на Unlim 500+ Greece (остров Крит) — 7.810 сек / 287.65 км/ч и личный рекорд 7.526 сек со скоростью 304.36 км/ч в ОАЭ. 3-й результат в мире на момент постройки.",
@@ -345,7 +323,7 @@ const defaultProjects = [
     "nameEn": "GT-R R35 GTT «KORZHIK» #712",
     "hp": "1,600+ HP",
     "quarterMile": "8.602 сек",
-    "topSpeed": "334.41 км/ч",
+    "topSpeed": "275.43 км/ч",
     "img": "assets/cars/gtr_korzhik_712.jpg",
     "videoSrc": "",
     "descRu": "Боевой болид Николая Коржова. Рекорд России на Московской миле (1/2 мили: 13.435 сек со скоростью 334.41 км/ч) и 8.602 сек на 402 метра. Вице-чемпион абсолютного зачета Чемпионата SMP RDRC в классе FSL.",
@@ -362,7 +340,7 @@ const defaultProjects = [
     "nameEn": "GT-R R35 GTT «BALOO»",
     "hp": "1,450+ HP",
     "quarterMile": "8.875 сек",
-    "topSpeed": "322.00 км/ч",
+    "topSpeed": "262.39 км/ч",
     "img": "assets/cars/gtr_red_strip_sunset.jpg",
     "videoSrc": "",
     "descRu": "Уникальный проект «Baloo» с мощнейшим средним диапазоном оборотов и полным приводом. Личные показатели команды: 8.875 сек на 402 м со скоростью 262.39 км/ч и 13.726 сек на 1/2 мили со скоростью 322.00 км/ч.",
@@ -386,8 +364,8 @@ const defaultProjects = [
     "id": "gtr_red",
     "brand": "NISSAN",
     "type": "gtr",
-    "nameRu": "GT-R R35 RED CHROME GTT PRO-MOD",
-    "nameEn": "GT-R R35 RED CHROME GTT PRO-MOD",
+    "nameRu": "GT-R R35 RED CHROME GTT",
+    "nameEn": "GT-R R35 RED CHROME GTT",
     "hp": "1,650+ HP",
     "quarterMile": "7.950 сек",
     "topSpeed": "350+ км/ч",
@@ -419,8 +397,8 @@ const defaultProjects = [
     "id": "gtr_alpha12x",
     "brand": "NISSAN & GTT",
     "type": "gtr",
-    "nameRu": "GT-R R35 GTT ALPHA12X SPEC",
-    "nameEn": "GT-R R35 GTT ALPHA12X SPEC",
+    "nameRu": "GT-R R35 GTT ALPHA12X",
+    "nameEn": "GT-R R35 GTT ALPHA12X",
     "hp": "1,500+ HP",
     "quarterMile": "8.250 сек",
     "topSpeed": "350+ км/ч",
@@ -440,7 +418,7 @@ const defaultProjects = [
     "nameEn": "PORSCHE 911 TURBO (991.1) GTT-1200",
     "hp": "1,200+ HP",
     "quarterMile": "9.086 сек",
-    "topSpeed": "312.77 км/ч",
+    "topSpeed": "259.64 км/ч",
     "img": "assets/cars/porsche_991_1200_white.jpg",
     "videoSrc": "",
     "descRu": "Безумный 991.1 Turbo Алексея Сагала. Официальный рекорд России/Европы на RDRC RacePark: 9.086 сек со скоростью 259.64 км/ч на 402 м и 14.186 сек со скоростью 312.77 км/ч на 1/2 мили.",
@@ -470,11 +448,11 @@ const defaultProjects = [
     "id": "bmw_m7_gtt",
     "brand": "BMW M-POWER",
     "type": "bmw",
-    "nameRu": "BMW M7 GTT EXECUTIVE TWIN TURBO",
-    "nameEn": "BMW M7 GTT EXECUTIVE TWIN TURBO",
+    "nameRu": "BMW M7 GTT",
+    "nameEn": "BMW M7 GTT",
     "hp": "900+ HP",
-    "quarterMile": "10.200 сек",
-    "topSpeed": "330+ км/ч",
+    "quarterMile": "11.945 сек",
+    "topSpeed": "190.47 км/ч",
     "img": "assets/cars/bmw_m7_gtt_blue.jpg",
     "videoSrc": "",
     "descRu": "Представительский флагман BMW 7 серии в глубокой доработке GoshaTurboTech. Двухтурбинный V8/V12, бесшумный акустический комфорт в салоне и ураганная динамика на скоростных прямых.",
@@ -487,8 +465,8 @@ const defaultProjects = [
     "id": "volga_kgb",
     "brand": "ГАЗ & GTT",
     "type": "other",
-    "nameRu": "ВОЛГА ГАЗ-24 КГБ V8 GTT SLEEPER",
-    "nameEn": "VOLGA GAZ-24 KGB V8 GTT SLEEPER",
+    "nameRu": "ВОЛГА ГАЗ-24 КГБ V8 GTT",
+    "nameEn": "VOLGA GAZ-24 KGB V8 GTT",
     "hp": "1,050+ HP",
     "quarterMile": "9.420 сек",
     "topSpeed": "340+ км/ч",
@@ -504,8 +482,8 @@ const defaultProjects = [
     "id": "ferrari_512tr",
     "brand": "FERRARI & GTT",
     "type": "other",
-    "nameRu": "FERRARI 512 TR GTT HERITAGE CLASSIC",
-    "nameEn": "FERRARI 512 TR GTT HERITAGE CLASSIC",
+    "nameRu": "FERRARI 512 TR GTT",
+    "nameEn": "FERRARI 512 TR GTT",
     "hp": "550+ HP",
     "quarterMile": "10.800 сек",
     "topSpeed": "315+ км/ч",
@@ -562,8 +540,8 @@ const defaultProjects = [
     "nameRu": "PORSCHE 911 TURBO S (992) GTT «PUNCHER»",
     "nameEn": "PORSCHE 911 TURBO S (992) GTT «PUNCHER»",
     "hp": "—",
-    "quarterMile": "—",
-    "topSpeed": "—",
+    "quarterMile": "9.303 сек",
+    "topSpeed": "235.83 км/ч",
     "img": "assets/cars/porsche_992_puncher.jpg",
     "videoSrc": "",
     "descRu": "Культовый Porsche 992 Turbo S «Puncher» Сергея Никитина. Мировой рекорд в категории на UNLIM FEST 2021: 9.303 сек со скоростью 235.83 км/ч на 1/4 мили и 14.778 сек со скоростью 276.92 км/ч на 1/2 мили.",
@@ -597,8 +575,8 @@ const defaultProjects = [
     "id": "tesla_plaid",
     "brand": "TESLA & GTT",
     "type": "other",
-    "nameRu": "TESLA MODEL S PLAID GTT DYNAMICS SPEC",
-    "nameEn": "TESLA MODEL S PLAID GTT DYNAMICS SPEC",
+    "nameRu": "TESLA MODEL S PLAID GTT",
+    "nameEn": "TESLA MODEL S PLAID GTT",
     "hp": "1,050+ HP",
     "quarterMile": "—",
     "topSpeed": "—",
@@ -619,8 +597,8 @@ const defaultProjects = [
     "nameRu": "R8 V10 PLUS TWIN TURBO TONY STARK / RDRC",
     "nameEn": "R8 V10 PLUS TWIN TURBO TONY STARK / RDRC",
     "hp": "—",
-    "quarterMile": "—",
-    "topSpeed": "—",
+    "quarterMile": "8.948 сек",
+    "topSpeed": "247.68 км/ч",
     "img": "assets/cars/audi_r8_tonystark_rdrc.jpg",
     "videoSrc": "",
     "descRu": "Боевая Audi R8 V10 Twin Turbo под эгидой ЦМРБанк и GTT на треке RDRC. Официальное время 8.948 сек со скоростью 247.68 км/ч на Record Days 2023 и 287.19 км/ч на 1/2 мили.",
@@ -634,8 +612,8 @@ const defaultProjects = [
     "id": "street_bmw_m3_g80",
     "brand": "BMW & GTT",
     "type": "bmw",
-    "nameRu": "BMW M3 G80 (Личный болид Гоши)",
-    "nameEn": "BMW M3 G80 (Gosha Personal Build)",
+    "nameRu": "BMW M3 G80",
+    "nameEn": "BMW M3 G80",
     "tag_ru": "ГРАЖДАНСКИЙ ТЮНИНГ GTT",
     "tag_en": "GTT STREET DIVISION",
     "hp": "750+ HP",
@@ -795,143 +773,59 @@ const defaultTeam = [
   { id: 'm_babyakin', name: 'Никита Бабякин', role: 'Специалист по хозяйственному обеспечению', status: 'atelier', photo: '', social: '', sort_order: 33 }
 ];
 
-// 3. Initial Records Seed (Hall of Fame with authentic photos)
 const defaultRecords = [
-  {
-    id: 'rec_moses',
-    year: '2016 • Абсолютный рекорд GTT',
-    car: 'NISSAN GT-R R35 GTT-1800 «MOSES»',
-    telemetry: '1/4 мили: 7.526 сек • 304.36 км/ч',
-    desc: 'Легендарные тесты в ОАЭ и UNLIM 500+ Greece. 7.526 сек со скоростью 304.36 км/ч — быстрейший результат на 402 м за всю историю ателье GoshaTurboTech.',
-    img: 'assets/archive_tilda/gtr_moses.png'
-  },
-  {
-    id: 'rec_draco',
-    year: '2024 • Рекорд RDRC Pro-Mod',
-    car: 'NISSAN GT-R R35 DRACO PRO-MOD #300',
-    telemetry: '1/4 мили: 7.694 сек • 304.44 км/ч',
-    desc: 'Пилот Руслан Арефьев на этапе RDRC 2024 (заезд №537). Подтвержденный протокол DragDB. Скорость на выходе 1/2 мили превысила 323.88 км/ч.',
-    img: 'assets/cars/gtr_draco_promod_front.jpg'
-  },
-  {
-    id: 'rec_kurdalagon',
-    year: '26.10.2026 • Рекорд Быково',
-    car: 'NISSAN GT-R R35 «КУРДАЛАГОН»',
-    telemetry: '1/4 мили: 7.766 сек • 300.00 км/ч',
-    desc: 'Свежайший подтвержденный рекорд команды GoshaTurboTech, зафиксированный на трек-дне в Быково в конце октября 2026 года.',
-    img: 'assets/cars/gtr_korzhik_712.jpg'
-  },
-  {
-    id: 'rec_rokot',
-    year: '2026 • Рекорд России для Audi',
-    car: 'AUDI R8 V10 PLUS TWIN TURBO «ROKOT»',
-    telemetry: '1/4 мили: 7.877 сек • Суперкубок RDRC',
-    desc: 'Эдуард Саркисян и Руслан Арефьев на болиде ателье GoshaTurboTech впервые в истории России вывели Audi из рубежа 8 секунд.',
-    img: 'assets/cars/audi_r8_tsmr_launch.jpg'
-  },
-  {
-    id: 'rec_bezzubik',
-    year: 'Рекорд Европы • Race 1000',
-    car: 'LAMBORGHINI HURACAN TT BEZZUBIK',
-    telemetry: '1/2 мили: 353.02 км/ч • 1/4 мили: 8.054 сек',
-    desc: 'Официальный рекорд Европы на дистанции 804 м среди полноприводных суперкаров в Германии (353.02 км/ч) и 8.054 сек на 402 м. Легенда GTT.',
-    img: 'assets/photos/huracan_rdrc_stage_line.jpg'
-  },
-  {
-    id: 'rec_zelenka',
-    year: 'ОАЭ & Германия • 344.60 км/ч',
-    car: 'LAMBORGHINI HURACAN TWIN TURBO «ЗЕЛЕНКА»',
-    telemetry: '1/4 мили: 8.373 сек • 1000 м: 344.60 км/ч',
-    desc: '8.373 сек со скоростью 275.26 км/ч на 1/4 мили в ОАЭ и 344.60 км/ч на 1000 м в Германии (Rolling 50 1000). Культовый проект GoshaTurboTech.',
-    img: 'assets/photos/huracan_zelenka_gtt.jpg'
-  },
-  {
-    id: 'rec_lucifer',
-    year: 'RDRC 2026 • 1-е место в классе',
-    car: 'NISSAN GT-R R35 «LUCIFER» GTT #71',
-    telemetry: '1/4 мили: 8.400 сек • 1/2 мили: 343.67 км/ч',
-    desc: 'Флагманский болид Гоши Перцхелии. 8.400 сек в ОАЭ, победный заезд 8.551 сек на RDRC 2026 и 343.67 км/ч на Unlim 500+.',
-    img: 'assets/cars/gtr_lucifer_solo.jpg'
-  },
-  {
-    id: 'rec_korzhik',
-    year: 'Рекорд России • Московская миля',
-    car: 'NISSAN GT-R R35 GTT «KORZHIK» #712',
-    telemetry: '1/2 мили: 13.435 сек • 334.41 км/ч',
-    desc: 'Пилот Николай Коржов. 8.602 сек на 402 м и официальный рекорд России на 1/2 мили — 13.435 сек со скоростью 334.41 км/ч.',
-    img: 'assets/cars/gtr_korzhik_712.jpg'
-  },
-  {
-    id: 'rec_hulk',
-    year: 'Суперкубок RDRC 2026',
-    car: 'LAMBORGHINI HURACAN LP610-4 «HULK»',
-    telemetry: '1/4 мили: 8.951 сек • 3/8 мили: 291.14 км/ч',
-    desc: 'Пилот Эдуард Саркисян в зачете GoshaTurboTech. 8.951 сек со скоростью 257.14 км/ч на 1/4 мили (3/8 мили: 11.561 с / 291.14 км/ч).',
-    img: 'assets/cars/huracan_green_grey_rdrc.jpg'
-  },
-  {
-    id: 'rec_tonystark',
-    year: 'Record Days 2023',
-    car: 'AUDI R8 V10 PLUS TT «TONY STARK»',
-    telemetry: '1/4 мили: 8.948 сек • 247.68 км/ч',
-    desc: 'Стабильный выезд из 9 секунд на трек-днях Record Days (8.948 сек) и 15.403 сек со скоростью 287.19 км/ч на 1/2 мили.',
-    img: 'assets/archive_tilda/audi_r8_tonystark.png'
-  },
-  {
-    id: 'rec_gtt1200',
-    year: 'Рекорд России/Европы • RDRC RacePark',
-    car: 'PORSCHE 911 TURBO (991.1) GTT-1200',
-    telemetry: '1/4 мили: 9.086 сек • 259.64 км/ч',
-    desc: 'Пилот Алексей Сагал. Рекорд России и Европы для кузова 991.1 (9.086 с), скорость на 1/2 мили — 312.77 км/ч.',
-    img: 'assets/cars/porsche_991_1200_white.jpg'
-  },
-  {
-    id: 'rec_su7',
-    year: '2026 • Суперкубок RDRC',
-    car: 'XIAOMI SU7 ULTRA GTT RACE SPEC',
-    telemetry: '1/4 мили: 9.130 сек • 3/8 мили: 287.31 км/ч',
-    desc: 'Пилот В. Щед в зачете GoshaTurboTech на Суперкубке RDRC 2026 показал сенсационные 9.130 сек со скоростью 249.31 км/ч.',
-    img: 'assets/cars/bmw_m5_rdrc_race.jpg'
-  },
-  {
-    id: 'rec_imba',
-    year: '2022–2025 • Мировой рекорд RDRC',
-    car: 'PORSCHE 911 TURBO S (992) GTT-IMBA',
-    telemetry: '1/4 мили: 9.167 сек • RDRC 2025',
-    desc: 'Пилот Мария Кутычкина. Мировой рекорд 9.252 сек со скоростью 231.80 км/ч на заводских турбинах, улучшенный на RDRC 2025 до 9.167 сек.',
-    img: 'assets/cars/porsche_992_imba_silver.jpg'
-  },
-  {
-    id: 'rec_puncher',
-    year: '2021 • Мировой ориентир UNLIM FEST',
-    car: 'PORSCHE 911 TURBO S (992) PUNCHER',
-    telemetry: '1/4 мили: 9.303 сек • 235.83 км/ч',
-    desc: 'Мировой ориентир для дорожных Porsche 992 на Unlim Fest (9.303 сек) и 1/2 мили за 14.778 сек со скоростью 276.92 км/ч.',
-    img: 'assets/archive_tilda/porsche_992_puncher.jpg'
-  },
-  {
-    id: 'rec_gyurza',
-    year: '2022 • Абсолютный рекорд льда',
-    car: 'AUDI R8 V10 PLUS TT «GYURZA»',
-    telemetry: '1 км с места на льду: 124.00 км/ч',
-    desc: 'Дни скорости на льду озера Байкал совместно с Kiwamaru. Абсолютный триумфатор ледовых заездов с места в истории России.',
-    img: 'assets/archive_tilda/audi_r8_gyurza_ice.jpg'
-  },
-  {
-    id: 'rec_gallardo',
-    year: 'Мировой рекорд • 1 миля (1609 м)',
-    car: 'LAMBORGHINI GALLARDO NERA TWIN TURBO',
-    telemetry: '1 миля: 409.55 км/ч • 20.845 сек',
-    desc: 'Аэродром Крит, Греция. Легендарная Черная Галлардо Гоши Перцхелии — первый болид из России, покоривший планку 400+ км/ч на 1 милю.',
-    img: 'assets/photos/huracan_zelenka_gtt.jpg'
-  }
+  {"id": "rec_moses", "year": "2016 • Абсолютный рекорд GTT", "car": "NISSAN GT-R R35 GTT-1800 «MOSES»", "telemetry": "7.526 сек • 304.36 км/ч", "desc": "", "img": "assets/archive_tilda/gtr_moses.png", "object_position": "center 50%", "sort_order": 1},
+  {"id": "rec_draco", "year": "2024 • Рекорд RDRC", "car": "NISSAN GT-R R35 «DRACO» #300", "telemetry": "7.694 сек • 304.44 км/ч", "desc": "", "img": "assets/cars/gtr_draco_promod_front.jpg", "object_position": null, "sort_order": 2},
+  {"id": "rec_kurdalagon", "year": "26.10.2026 • Рекорд Быково", "car": "NISSAN GT-R R35 «KURDALAGON»", "telemetry": "7.766 сек • 300.00 км/ч", "desc": "", "img": "assets/cars/gtr_kurdalagon_white.jpg", "object_position": "center 65%", "sort_order": 3},
+  {"id": "rec_rokot", "year": "2026 • Рекорд России для Audi", "car": "AUDI R8 V10 PLUS TWIN TURBO «ROKOT»", "telemetry": "7.877 сек • 288.35 км/ч", "desc": "", "img": "assets/cars/audi_r8_tsmr_launch.jpg", "object_position": null, "sort_order": 4},
+  {"id": "rec_bezzubik", "year": "Рекорд Европы • Race 1000", "car": "LAMBORGHINI HURACAN TT BEZZUBIK", "telemetry": "8.054 сек • 283.46 км/ч", "desc": "", "img": "assets/archive_tilda/huracan_bezzubik.webp", "object_position": null, "sort_order": 5},
+  {"id": "rec_zelenka", "year": "ОАЭ & Германия • 344.60 км/ч", "car": "LAMBORGHINI HURACAN TWIN TURBO «ЗЕЛЕНКА»", "telemetry": "8.373 сек • 275.26 км/ч", "desc": "", "img": "assets/photos/huracan_zelenka_gtt.jpg", "object_position": null, "sort_order": 6},
+  {"id": "rec_lucifer", "year": "RDRC 2026 • 1-е место в классе", "car": "NISSAN GT-R R35 «LUCIFER» GTT #71", "telemetry": "8.400 сек • 262.00 км/ч", "desc": "", "img": "assets/cars/gtr_lucifer_solo.jpg", "object_position": null, "sort_order": 7},
+  {"id": "rec_korzhik", "year": "Рекорд России • Московская миля", "car": "NISSAN GT-R R35 GTT «KORZHIK» #712", "telemetry": "8.602 сек • 275.43 км/ч", "desc": "", "img": "assets/cars/gtr_korzhik_712.jpg", "object_position": null, "sort_order": 8},
+  {"id": "rec_projects_05", "year": "", "car": "Nissan GT-R R35 «BALOO»", "telemetry": "8.875 сек • 262.39 км/ч", "desc": "", "img": "assets/cars/gtr_baloo_card.jpg", "object_position": null, "sort_order": 9},
+  {"id": "rec_gyurza", "year": "2022 • Абсолютный рекорд льда", "car": "AUDI R8 V10 PLUS TT «GYURZA»", "telemetry": "8.948 сек • 247.68 км/ч", "desc": "", "img": "assets/archive_tilda/audi_r8_gyurza_ice.jpg", "object_position": null, "sort_order": 11},
+  {"id": "rec_tonystark", "year": "Record Days 2023", "car": "AUDI R8 V10 PLUS TT «TONY STARK»", "telemetry": "8.948 сек • 247.68 км/ч", "desc": "", "img": "assets/cars/audi_r8_tonystark_rdrc.jpg", "object_position": null, "sort_order": 12},
+  {"id": "rec_projects_51", "year": "", "car": "Audi R8 V10 Plus «Злая Зая / ZlaяZaя»", "telemetry": "9.048 сек • 237.39 км/ч", "desc": "", "img": "assets/cars/audi_r8_zlayazaya_launch.jpg", "object_position": null, "sort_order": 13},
+  {"id": "rec_gtt1200", "year": "Рекорд России/Европы • RDRC RacePark", "car": "PORSCHE 911 TURBO (991.1) GTT-1200", "telemetry": "9.086 сек • 259.64 км/ч", "desc": "", "img": "assets/cars/porsche_991_1200_white.jpg", "object_position": null, "sort_order": 14},
+  {"id": "rec_projects_41", "year": "", "car": "Porsche 911 Turbo Перцхелия", "telemetry": "9.086 сек • 259.64 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 15},
+  {"id": "rec_su7", "year": "2026 • Суперкубок RDRC", "car": "XIAOMI SU7 ULTRA", "telemetry": "9.130 сек • 249.31 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 16},
+  {"id": "rec_imba", "year": "2022–2025 • Мировой рекорд RDRC", "car": "PORSCHE 911 TURBO S (992) GTT-IMBA", "telemetry": "9.167 сек • 236.92 км/ч", "desc": "", "img": "assets/cars/porsche_992_imba_silver.jpg", "object_position": null, "sort_order": 17},
+  {"id": "rec_projects_18", "year": "", "car": "Nissan GT-R R35 / RPE-3000", "telemetry": "9.199 сек • 241.37 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 18},
+  {"id": "rec_puncher", "year": "2021 • Мировой ориентир UNLIM FEST", "car": "PORSCHE 911 TURBO S (992) PUNCHER", "telemetry": "9.303 сек • 235.83 км/ч", "desc": "", "img": "assets/archive_tilda/porsche_992_puncher.jpg", "object_position": null, "sort_order": 19},
+  {"id": "rec_projects_03", "year": "", "car": "Porsche 911 Turbo S (992) Инцкирвели", "telemetry": "9.355 сек • 231.73 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 20},
+  {"id": "rec_projects_23", "year": "", "car": "Porsche 911 Turbo S (992) «GTT-STAGE 2»", "telemetry": "9.431 сек • 231.88 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 21},
+  {"id": "rec_projects_09", "year": "", "car": "Dodge Challenger SRT Demon", "telemetry": "9.533 сек • 257.23 км/ч", "desc": "", "img": "assets/cars/dodge_burnout_sunset.jpg", "object_position": null, "sort_order": 22},
+  {"id": "rec_projects_28", "year": "", "car": "Lamborghini Huracán Performante Кардан", "telemetry": "9.555 сек • 235.14 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 23},
+  {"id": "rec_projects_15", "year": "", "car": "Porsche 911 RS «FELIX FERRO EDITION»", "telemetry": "9.601 сек • 232.40 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 24},
+  {"id": "rec_projects_20", "year": "", "car": "Nissan GT-R Тарэтов", "telemetry": "9.712 сек • 229.45 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 25},
+  {"id": "rec_projects_14", "year": "", "car": "Mercedes-Benz E63 S", "telemetry": "9.785 сек • 237.81 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 26},
+  {"id": "rec_projects_12", "year": "", "car": "Dodge Challenger SRT Demon «Demon Мегон»", "telemetry": "9.891 сек • 231.36 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 27},
+  {"id": "rec_projects_40", "year": "", "car": "Audi R8 V10 Plus «OCTO GTT800»", "telemetry": "9.952 сек • 220.25 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 28},
+  {"id": "rec_projects_22", "year": "", "car": "Lamborghini Huracan Spyder «GTT-800 SPYDER»", "telemetry": "9.988 сек • 222.35 км/ч", "desc": "", "img": "assets/cars/huracan_spyder_orange.jpg", "object_position": null, "sort_order": 29},
+  {"id": "rec_projects_35", "year": "", "car": "BMW M5 G90", "telemetry": "10.212 сек • 224.37 км/ч", "desc": "", "img": "assets/cars/bmw_m5_rdrc_race.jpg", "object_position": null, "sort_order": 30},
+  {"id": "rec_projects_34", "year": "", "car": "BMW M5 CS", "telemetry": "10.291 сек • 214.80 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 31},
+  {"id": "rec_projects_07", "year": "", "car": "BMW M3 Никитин", "telemetry": "10.410 сек • 214.54 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 32},
+  {"id": "rec_projects_33", "year": "", "car": "BMW M5", "telemetry": "10.518 сек • 217.59 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 33},
+  {"id": "rec_projects_02", "year": "", "car": "Zeekr 007 Performance ZEVS", "telemetry": "10.521 сек • 205.07 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 34},
+  {"id": "rec_projects_04", "year": "", "car": "Zeekr 9X Hyper", "telemetry": "10.610 сек • 211.52 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 35},
+  {"id": "rec_projects_10", "year": "", "car": "Audi RS Q8 «DAMBIOUS GTT700»", "telemetry": "10.899 сек • 201.34 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 36},
+  {"id": "rec_projects_24", "year": "", "car": "Nissan GT-R R35 «GTT600»", "telemetry": "11.112 сек • 199.50 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 37},
+  {"id": "rec_projects_19", "year": "", "car": "Nissan GT-R Авдейко", "telemetry": "11.372 сек • 205.13 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 38},
+  {"id": "rec_projects_08", "year": "", "car": "BMW M4 Саркисян", "telemetry": "11.438 сек • 195.28 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 39},
+  {"id": "rec_projects_16", "year": "", "car": "Mercedes-Benz G63 AMG", "telemetry": "11.648 сек • 186.58 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 40},
+  {"id": "rec_projects_17", "year": "", "car": "Mercedes-Benz GLA45 AMG Перцхелия", "telemetry": "11.768 сек • 186.48 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 41},
+  {"id": "rec_projects_47", "year": "", "car": "Lamborghini Urus", "telemetry": "11.856 сек • 191.74 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 42},
+  {"id": "rec_projects_48", "year": "", "car": "Zeekr X", "telemetry": "11.886 сек • 181.22 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 43},
+  {"id": "rec_projects_36", "year": "", "car": "BMW M7", "telemetry": "11.945 сек • 190.47 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 44},
+  {"id": "rec_projects_50", "year": "", "car": "Волга КГБ", "telemetry": "13.318 сек • 189.02 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 45},
+  {"id": "rec_gallardo", "year": "Мировой рекорд • 1 миля (1609 м)", "car": "LAMBORGHINI GALLARDO NERA TWIN TURBO", "telemetry": "20.845 сек • 409.55 км/ч", "desc": "", "img": "assets/archive_tilda/lamborghini_gallardo_nera.webp", "object_position": null, "sort_order": 46},
 ];
 
 // 4. Initial Media Reels Seed
 const defaultMedia = [
   { id: 'med_1', title: 'Гоша на своем боевом GT-R Lucifer RDRC', type: 'mp4', url: 'assets/videos/gosha_na_svoem_lucifer_web.mp4', car: 'GT-R Lucifer' },
   { id: 'med_2', title: 'Боевой синий GT-R #888 заезд RDRC', type: 'mp4', url: 'assets/videos/gtr_blue_888_pass_web.mp4', car: 'GT-R Blue 888' },
-  { id: 'med_3', title: 'Красный хромированный GT-R Pro-Mod', type: 'mp4', url: 'assets/videos/gtr_red_g35_action_web.mp4', car: 'GT-R Red Chrome' },
+  { id: 'med_3', title: 'Красный хромированный GT-R', type: 'mp4', url: 'assets/videos/gtr_red_g35_action_web.mp4', car: 'GT-R Red Chrome' },
   { id: 'med_4', title: 'Дымный бернаут Dodge Hellcat RDRC', type: 'mp4', url: 'assets/videos/dodge_challenger_action.mp4', car: 'Dodge Challenger SRT' },
   { id: 'med_5', title: 'Huracan «Зеленка» Twin Turbo прогрев', type: 'mp4', url: 'assets/videos/r8_launch_action.mp4', car: 'Huracan Зеленка' }
 ];
@@ -940,7 +834,7 @@ const defaultMedia = [
 const defaultGallery = [
   { id: 'gal_1', tag: 'RDRC CHAMPION', title: 'Huracan TT «Зеленка» GTT', img: 'assets/photos/huracan_zelenka_gtt.jpg', object_position: 'center 50%' },
   { id: 'gal_2', tag: 'BURNOUT SMOKE', title: 'Dodge Demon', img: 'assets/cars/dodge_burnout_sunset.jpg', object_position: 'center 50%' },
-  { id: 'gal_3', tag: '3000+ HP PRO-MOD', title: 'Nissan GT-R R35 Draco Dragster', img: 'assets/cars/gtr_draco_promod_front.jpg', object_position: 'center 50%' },
+  { id: 'gal_3', tag: '3000+ HP', title: 'Nissan GT-R R35 «Draco»', img: 'assets/cars/gtr_draco_promod_front.jpg', object_position: 'center 50%' },
   { id: 'gal_4', tag: '1400+ HP V10 TT', title: 'Audi R8 V10 Plus TT «Rokot»', img: 'assets/cars/audi_r8_tsmr_launch.jpg', object_position: 'center 50%' },
   { id: 'gal_5', tag: 'CHAMPIONSHIP WINNER', title: 'Nissan GT-R R35 Lucifer', img: 'assets/cars/gtr_lucifer_solo.jpg', object_position: 'center 50%' },
   { id: 'gal_6', tag: 'AERODYNAMICS', title: 'Red Chrome Nissan GT-R R35', img: 'assets/cars/gtr_red_front_rdrc.jpg', object_position: 'center 50%' },
@@ -1030,31 +924,32 @@ const MOTO_STORAGE_KEY = 'gtt_admin_moto_db';
 const API_BASE = '';
 
 async function apiFetch(endpoint, options = {}) {
-  // If static hosting (GitHub Pages) or file protocol, bypass network immediately to eliminate 2-5s 404 delays
   if (typeof isStaticDeployment === 'function' && isStaticDeployment()) {
     throw new Error('Static hosting mode: skipping backend network call, local storage active');
   }
 
-  const sessionToken = sessionStorage.getItem('gtt_session_token') || localStorage.getItem('gtt_session_token');
-  const authHeaders = sessionToken ? { 'Authorization': `Bearer ${sessionToken}` } : {};
-  const gateToken = (typeof getSecretGatewayToken === 'function') ? getSecretGatewayToken() : (sessionStorage.getItem('gtt_gate_token') || 'gtt_atelier_2026_x71k');
+  const sessionToken = sessionStorage.getItem('gtt_session_token') || '';
+  const gateToken = (typeof getSecretGatewayToken === 'function') ? getSecretGatewayToken() : '';
+  const isFormData = typeof FormData !== 'undefined' && options.body instanceof FormData;
 
-  const { headers: optHeaders, ...restOptions } = options;
+  const { headers: optHeaders, timeoutMs, ...restOptions } = options;
+  const finalHeaders = {
+    ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
+    ...(gateToken ? { 'x-gateway-token': gateToken } : {}),
+    ...(sessionToken ? { 'Authorization': `Bearer ${sessionToken}` } : {}),
+    ...(optHeaders || {})
+  };
 
-  // Set aggressive 3.5s timeout via AbortController to guarantee zero UI freezing
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 3500);
+  const effectiveTimeout = Number(timeoutMs) > 0 ? Number(timeoutMs) : (endpoint.includes('/upload') ? 120000 : 12000);
+  const timeoutId = setTimeout(() => controller.abort(), effectiveTimeout);
 
   try {
     const res = await fetch(API_BASE + endpoint, {
       ...restOptions,
+      credentials: 'same-origin',
       signal: controller.signal,
-      headers: {
-        'Content-Type': 'application/json',
-        'x-gateway-token': gateToken,
-        ...authHeaders,
-        ...(optHeaders || {})
-      }
+      headers: finalHeaders
     });
     clearTimeout(timeoutId);
 
@@ -1198,8 +1093,8 @@ function sanitizeCarRecord(car) {
       if (car.name && typeof car.name === 'object') car.name.ru = 'ВОЛГА КГБ';
     }
     if (!car.nameEn && !car.name_en) {
-      car.nameEn = 'VOLGA GAZ-24 KGB V8 GTT SLEEPER';
-      if (car.name && typeof car.name === 'object') car.name.en = 'VOLGA GAZ-24 KGB V8 GTT SLEEPER';
+      car.nameEn = 'VOLGA GAZ-24 KGB V8 GTT';
+      if (car.name && typeof car.name === 'object') car.name.en = 'VOLGA GAZ-24 KGB V8 GTT';
     }
   }
 
@@ -1273,37 +1168,45 @@ function getDB(key, defaultVal) {
   return cleanDefault;
 }
 
-function restoreFactoryDatabase() {
-  if (!confirm('Вы уверены, что хотите восстановить базу данных ателье по умолчанию?\n\nВсе проекты гаража, мировые рекорды RDRC, бренды партнеров, кадры галереи и специалисты команды будут обновлены до полного заводского архива GoshaTurboTech.')) return;
-  
-  try {
-    localStorage.setItem(ADMIN_STORAGE_KEY, JSON.stringify(defaultProjects.map(sanitizeCarRecord)));
-    localStorage.setItem(GALLERY_STORAGE_KEY, JSON.stringify(defaultGallery));
-    localStorage.setItem(TEAM_STORAGE_KEY, JSON.stringify(defaultTeam.map(sanitizeTeamMember)));
-    localStorage.setItem(PARTNERS_STORAGE_KEY, JSON.stringify(defaultPartners));
-    localStorage.setItem(MOTO_STORAGE_KEY, JSON.stringify(defaultMoto));
-    localStorage.setItem(RECORDS_STORAGE_KEY, JSON.stringify(defaultRecords));
-  } catch (e) {}
+async function restoreFactoryDatabase() {
+  if (!confirm('Вы уверены, что хотите восстановить базу данных ателье по умолчанию?\n\nВсе проекты гаража, мировые рекорды RDRC, бренды партнеров, кадры галереи и специалисты команды будут обновлены до заводского архива GoshaTurboTech.')) return;
 
-  inMemoryCache[ADMIN_STORAGE_KEY] = defaultProjects.map(sanitizeCarRecord);
-  inMemoryCache[GALLERY_STORAGE_KEY] = defaultGallery;
-  inMemoryCache[TEAM_STORAGE_KEY] = defaultTeam.map(sanitizeTeamMember);
-  inMemoryCache[PARTNERS_STORAGE_KEY] = defaultPartners;
-  inMemoryCache[MOTO_STORAGE_KEY] = defaultMoto;
-  inMemoryCache[RECORDS_STORAGE_KEY] = defaultRecords;
+  try {
+    await apiFetch('/api/admin/restore-defaults', { method: 'POST' });
+    await syncAllModulesFromAPI();
+  } catch (err) {
+    if (!isNetworkOrOfflineError(err)) {
+      showToast('Ошибка восстановления', err.message || 'Не удалось восстановить базу на сервере', 'error');
+      return;
+    }
+    try {
+      localStorage.setItem(ADMIN_STORAGE_KEY, JSON.stringify(defaultProjects.map(sanitizeCarRecord)));
+      localStorage.setItem(GALLERY_STORAGE_KEY, JSON.stringify(defaultGallery));
+      localStorage.setItem(TEAM_STORAGE_KEY, JSON.stringify(defaultTeam.map(sanitizeTeamMember)));
+      localStorage.setItem(PARTNERS_STORAGE_KEY, JSON.stringify(defaultPartners));
+      localStorage.setItem(MOTO_STORAGE_KEY, JSON.stringify(defaultMoto));
+      localStorage.setItem(RECORDS_STORAGE_KEY, JSON.stringify(defaultRecords));
+    } catch (e) {}
+    inMemoryCache[ADMIN_STORAGE_KEY] = defaultProjects.map(sanitizeCarRecord);
+    inMemoryCache[GALLERY_STORAGE_KEY] = defaultGallery;
+    inMemoryCache[TEAM_STORAGE_KEY] = defaultTeam.map(sanitizeTeamMember);
+    inMemoryCache[PARTNERS_STORAGE_KEY] = defaultPartners;
+    inMemoryCache[MOTO_STORAGE_KEY] = defaultMoto;
+    inMemoryCache[RECORDS_STORAGE_KEY] = defaultRecords;
+  }
 
   if (window.BroadcastChannel) {
     try {
       const ch = new BroadcastChannel('gtt_channel');
-      ch.postMessage({ type: 'projects_updated', projects: defaultProjects });
-      ch.postMessage({ type: 'gallery_updated', gallery: defaultGallery });
-      ch.postMessage({ type: 'partners_updated', partners: defaultPartners });
-      ch.postMessage({ type: 'records_updated', records: defaultRecords });
+      ch.postMessage({ type: 'projects_updated', projects: getDB(ADMIN_STORAGE_KEY, defaultProjects) });
+      ch.postMessage({ type: 'gallery_updated', gallery: getDB(GALLERY_STORAGE_KEY, defaultGallery) });
+      ch.postMessage({ type: 'partners_updated', partners: getDB(PARTNERS_STORAGE_KEY, defaultPartners) });
+      ch.postMessage({ type: 'records_updated', records: getDB(RECORDS_STORAGE_KEY, defaultRecords) });
     } catch (e) {}
   }
-  
+
   renderAllModules();
-  showToast('База восстановлена', 'Все разделы ателье успешно восстановлены до эталонного состояния', 'success');
+  showToast('База восстановлена', 'Все разделы ателье успешно восстановлены в SQLite и кэше', 'success');
 }
 window.restoreFactoryDatabase = restoreFactoryDatabase;
 
@@ -1311,8 +1214,7 @@ function saveDB(key, data) {
   let cleanData = data;
   if (key === ADMIN_STORAGE_KEY && Array.isArray(data)) cleanData = data.map(sanitizeCarRecord);
   if (key === TEAM_STORAGE_KEY && Array.isArray(data)) cleanData = data.map(sanitizeTeamMember);
-  
-  // Guarantee instant memory update
+
   inMemoryCache[key] = cleanData;
 
   try {
@@ -1336,11 +1238,10 @@ const USER_NAME_KEY = 'gtt_admin_user_name';
 const FAILED_ATTEMPTS_KEY = 'gtt_auth_fail_count';
 const LOCKOUT_TIMESTAMP_KEY = 'gtt_auth_lockout_until';
 const MAX_CLIENT_FAILS = 5;
-const CLIENT_LOCKOUT_MS = 15 * 60 * 1000; // 15 minutes lockout
+const CLIENT_LOCKOUT_MS = 15 * 60 * 1000;
 
 function checkClientLockout() {
-  const isLocal = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
-  if (isLocal || isStaticDeployment()) {
+  if (isStaticDeployment()) {
     localStorage.removeItem(LOCKOUT_TIMESTAMP_KEY);
     localStorage.removeItem(FAILED_ATTEMPTS_KEY);
     return false;
@@ -1364,7 +1265,7 @@ function checkClientLockout() {
       loginBtn.textContent = `Блокировка (${min}:${sec < 10 ? '0' : ''}${sec})`;
     }
     if (errorEl) {
-      errorEl.textContent = `🛑 Доступ заблокирован из-за 5 неверных попыток. Защита от перебора. Повторите через ${min} мин ${sec} сек.`;
+      errorEl.textContent = `🛑 Доступ временно заблокирован. Повторите через ${min} мин ${sec} сек.`;
       errorEl.style.display = 'block';
     }
     setTimeout(checkClientLockout, 1000);
@@ -1406,7 +1307,7 @@ async function verifyAdminSessionOnLoad() {
     }
     return true;
   } catch (err) {
-    if (err && err.status === 401) {
+    if (err && (err.status === 401 || err.status === 404)) {
       sessionStorage.removeItem(AUTH_KEY);
       localStorage.removeItem(AUTH_KEY);
       sessionStorage.removeItem('gtt_session_token');
@@ -1414,11 +1315,7 @@ async function verifyAdminSessionOnLoad() {
       if (dashboardScreen) dashboardScreen.style.display = 'none';
       if (loginScreen) loginScreen.style.display = 'flex';
       checkClientLockout();
-      const uInput = document.getElementById('adminUser');
-      const pInput = document.getElementById('adminPass');
-      if (uInput && !uInput.value) uInput.value = 'gosha';
-      if (pInput && !pInput.value) pInput.value = 'gtt71';
-      showToast('Сессия истекла', 'Войдите заново, чтобы изменения сохранялись на сервере', 'warning', 6000);
+      showToast('Требуется вход', 'Выполните авторизацию для работы с сервером', 'warning', 5000);
       return false;
     }
     if (!isNetworkOrOfflineError(err)) {
@@ -1490,7 +1387,6 @@ async function checkAuth() {
     initAdminModalContainment();
   }
 
-  // Level 1 Security: Gatekeeper check
   if (!isGateAccessGranted()) {
     if (gateBlock) gateBlock.style.display = 'flex';
     if (loginScreen) loginScreen.style.display = 'none';
@@ -1500,8 +1396,7 @@ async function checkAuth() {
 
   if (gateBlock) gateBlock.style.display = 'none';
 
-  // Level 2 Security: Authenticated session check
-  const isAuth = sessionStorage.getItem(AUTH_KEY) === 'true' || localStorage.getItem(AUTH_KEY) === 'true';
+  const isAuth = sessionStorage.getItem(AUTH_KEY) === 'true';
 
   if (isAuth) {
     if (loginScreen) loginScreen.style.display = 'none';
@@ -1525,12 +1420,6 @@ async function checkAuth() {
     if (loginScreen) loginScreen.style.display = 'flex';
     if (dashboardScreen) dashboardScreen.style.display = 'none';
     checkClientLockout();
-
-    // Auto pre-fill default credentials for instant access
-    const uInput = document.getElementById('adminUser');
-    const pInput = document.getElementById('adminPass');
-    if (uInput && !uInput.value) uInput.value = 'gosha';
-    if (pInput && !pInput.value) pInput.value = 'gtt71';
   }
 }
 
@@ -1582,12 +1471,11 @@ async function syncAllModulesFromAPI() {
     console.warn('[GTT API] Standalone sync note:', e);
   }
 
-  // If on GitHub Pages or live server is not connected, hydrate from static JSON caches if localStorage is empty
   if (!isLive) {
     try {
       const hasLocalCars = Boolean(localStorage.getItem(ADMIN_STORAGE_KEY) || localStorage.getItem('gtt_projects_v2'));
       if (!hasLocalCars && typeof fetch === 'function') {
-        const res = await fetch('data/cars.json?v=' + Date.now());
+        const res = await fetch('/data/cars.json?v=' + Date.now());
         if (res && res.ok) {
           const staticCars = await res.json();
           if (Array.isArray(staticCars) && staticCars.length > 0) {
@@ -1609,49 +1497,20 @@ async function syncAllModulesFromAPI() {
   renderAllModules();
 }
 
-async function sha256Hex(str) {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(str);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-}
-
-function getStoredPin() {
-  return localStorage.getItem(PASS_HASH_KEY) || 'gtt71';
-}
-
-function sendTelegramAlert(text) {
-  // Telegram notifications disabled per user request
-  return;
-}
-
 async function handleAdminLogin(e) {
   if (e && e.preventDefault) e.preventDefault();
   if (checkClientLockout()) return;
 
   const userEl = document.getElementById('adminUser');
   const passEl = document.getElementById('adminPass');
-  let username = (userEl ? userEl.value : '').trim();
-  let password = (passEl ? passEl.value : '').trim();
+  const username = (userEl ? userEl.value : '').trim();
+  const password = (passEl ? passEl.value : '').trim();
   const errorEl = document.getElementById('authError');
   const loginBtn = document.getElementById('loginBtn');
-  const isLocal = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
-
-  if (isLocal) {
-    if (!username) {
-      username = 'gosha';
-      if (userEl) userEl.value = 'gosha';
-    }
-    if (!password) {
-      password = 'gtt71';
-      if (passEl) passEl.value = 'gtt71';
-    }
-  }
 
   if (!username) {
     if (errorEl) {
-      errorEl.textContent = '⚠️ Введите позывной или логин инженера!';
+      errorEl.textContent = '⚠️ Введите логин инженера!';
       errorEl.style.display = 'block';
     }
     if (userEl) userEl.focus();
@@ -1673,22 +1532,17 @@ async function handleAdminLogin(e) {
   }
 
   let authSuccessful = false;
-  let errorMsg = '⚠️ Неверный логин или пароль доступа. Попытка зафиксирована.';
+  let errorMsg = '⚠️ Неверный логин или пароль доступа.';
   let isRateLimited = false;
 
   try {
     const gateToken = getSecretGatewayToken();
     const trapEl = document.getElementById('adminSecurityTrap');
-    let trapVal = trapEl ? trapEl.value : '';
-    if (isLocal) {
-      trapVal = '';
-    }
+    const trapVal = trapEl ? trapEl.value : '';
 
     const res = await apiFetch('/api/auth/login', {
       method: 'POST',
-      headers: {
-        'x-gateway-token': gateToken
-      },
+      headers: gateToken ? { 'x-gateway-token': gateToken } : {},
       body: JSON.stringify({
         username: username,
         password: password,
@@ -1700,64 +1554,21 @@ async function handleAdminLogin(e) {
       authSuccessful = true;
       if (res.session_token) {
         sessionStorage.setItem('gtt_session_token', res.session_token);
-        localStorage.setItem('gtt_session_token', res.session_token);
       }
       if (res.username) {
         localStorage.setItem(USER_NAME_KEY, res.username);
       }
     }
   } catch (apiErr) {
-    if (isLocal || isStaticDeployment()) {
-      // Local development or static GitHub Pages: allow seamless access
-      const passClean = password.trim().toLowerCase();
-      const validPasswords = [
-        'gtt71', 'admin', 'gosha', '123456', '1234', 'gtt', '71',
-        'turbotech', 'goshaturbotech', 'gtt_atelier_2026', 'gtt_master_password_2026!',
-        'гтт71', 'пее71', 'ilavacik', 'ilavacik2-ux', 'admin123'
-      ];
-      const customPin = (getStoredPin() || '').trim().toLowerCase();
-      if (customPin) validPasswords.push(customPin);
-
-      // On static deployment or localhost, allow login
-      authSuccessful = true;
-      localStorage.setItem(USER_NAME_KEY, username || 'Гоша Перцхелия');
-    } else if (apiErr.message && (apiErr.message.includes('429') || apiErr.message.includes('Слишком много') || apiErr.message.includes('заблокирован'))) {
-      authSuccessful = false;
+    if (apiErr.status === 429) {
       isRateLimited = true;
-      errorMsg = apiErr.message;
-    } else if (apiErr.message && (apiErr.message.includes('401') || apiErr.message.includes('пароль') || apiErr.message.includes('логин'))) {
-      authSuccessful = false;
-      errorMsg = '⚠️ Неверный логин или пароль доступа! Попробуйте: gosha / gtt71';
-    } else if (apiErr.message && apiErr.message.includes('404') && !isStaticDeployment()) {
-      authSuccessful = false;
-      errorMsg = '🛑 Доступ запрещен политикой безопасности шлюза GTT.';
+      errorMsg = apiErr.message || 'Слишком много попыток входа. Попробуйте позже.';
+    } else if (apiErr.status === 404) {
+      errorMsg = '🛑 Доступ запрещён политикой безопасности шлюза.';
+    } else if (apiErr.status === 401 || apiErr.status === 403) {
+      errorMsg = apiErr.message || '⚠️ Неверный логин или пароль доступа.';
     } else {
-      // Offline fallback: Cryptographically secure SHA-256 hash check
-      try {
-        const inputHash = await sha256Hex(password.trim());
-        const isUserOk = ['gosha', 'admin', 'gtt', 'гоша', 'гоша перцхелия', 'админ', 'гтт', 'перцхелия', 'ilavacik', 'ilavacik2-ux', 'goshaturbotech'].includes(username.toLowerCase());
-        const authorizedHashes = [
-          '4c457e64bb36ed3df535c84837abac5b57626615b5b2630dc8f72c66e1a565e5', // gtt71
-          'b7840a350b9cb095a0075eef96c675a8739af0ac120c68d6b601fee091328285', // gtt_atelier_2026
-          await sha256Hex('gtt_master_password_2026!'),
-          await sha256Hex('admin'),
-          await sha256Hex('gosha'),
-          await sha256Hex('123456'),
-          await sha256Hex('гтт71'),
-          await sha256Hex('пее71'),
-          await sha256Hex('gtt'),
-          await sha256Hex('71')
-        ];
-        const customPin = getStoredPin();
-        if (customPin) authorizedHashes.push(await sha256Hex(customPin));
-
-        if (isLocal || isStaticDeployment() || (isUserOk && authorizedHashes.includes(inputHash))) {
-          authSuccessful = true;
-          localStorage.setItem(USER_NAME_KEY, username || 'Гоша Перцхелия');
-        }
-      } catch (hashErr) {
-        console.warn('Crypto hash note:', hashErr);
-      }
+      errorMsg = apiErr.message || 'Не удалось связаться с сервером авторизации.';
     }
   } finally {
     if (loginBtn && !isRateLimited) {
@@ -1770,34 +1581,23 @@ async function handleAdminLogin(e) {
     localStorage.removeItem(FAILED_ATTEMPTS_KEY);
     localStorage.removeItem(LOCKOUT_TIMESTAMP_KEY);
     sessionStorage.setItem(AUTH_KEY, 'true');
-    localStorage.setItem(AUTH_KEY, 'true');
     if (errorEl) errorEl.style.display = 'none';
     showToast('Доступ разрешен', `Успешный вход под логином ${username}`, 'success');
     checkAuth();
   } else {
-    if (isStaticDeployment()) {
-      // Never lock user on static GitHub Pages
-      if (errorEl) {
-        errorEl.textContent = '⚠️ Попробуйте логин: gosha и пароль: gtt71 (или нажмите «Быстрый вход»)';
-        errorEl.style.display = 'block';
-      }
-      return;
-    }
     let failCount = parseInt(localStorage.getItem(FAILED_ATTEMPTS_KEY) || '0', 10) + 1;
     localStorage.setItem(FAILED_ATTEMPTS_KEY, failCount.toString());
 
-    if (isRateLimited || failCount >= MAX_CLIENT_FAILS) {
+    if (isRateLimited) {
       localStorage.setItem(LOCKOUT_TIMESTAMP_KEY, (Date.now() + CLIENT_LOCKOUT_MS).toString());
       checkClientLockout();
-      showToast('Блокировка доступа', 'Слишком много неверных попыток! Блокировка на 15 минут.', 'error');
+      showToast('Блокировка доступа', errorMsg, 'error');
     } else {
-      const remainingAttempts = MAX_CLIENT_FAILS - failCount;
-      const warningText = `${errorMsg} Осталось попыток: ${remainingAttempts}`;
       if (errorEl) {
-        errorEl.textContent = warningText;
+        errorEl.textContent = errorMsg;
         errorEl.style.display = 'block';
       }
-      showToast('Ошибка доступа', warningText, 'error');
+      showToast('Ошибка доступа', errorMsg, 'error');
       if (passEl) {
         passEl.value = '';
         passEl.focus();
@@ -1805,23 +1605,6 @@ async function handleAdminLogin(e) {
     }
   }
 }
-
-// Quick 1-click admin login helper
-window.quickAdminLogin = function() {
-  localStorage.removeItem(LOCKOUT_TIMESTAMP_KEY);
-  localStorage.removeItem(FAILED_ATTEMPTS_KEY);
-  const uInput = document.getElementById('adminUser');
-  const pInput = document.getElementById('adminPass');
-  if (uInput) {
-    uInput.disabled = false;
-    uInput.value = 'gosha';
-  }
-  if (pInput) {
-    pInput.disabled = false;
-    pInput.value = 'gtt71';
-  }
-  handleAdminLogin();
-};
 
 function handleAdminLogout() {
   apiFetch('/api/auth/logout', { method: 'POST' }).catch(() => {});
@@ -2288,7 +2071,7 @@ const GARAGE_STATS_KEY = 'gtt_garage_stats_custom';
 
 const defaultGarageStats = {
   maxHp: '3,000+ HP',
-  maxHpLbl: 'Пиковая мощность (Draco Pro-Mod)',
+  maxHpLbl: 'Пиковая мощность (Draco)',
   bestPass: '6.850 сек',
   bestPassLbl: 'Рекордное время (402 м)'
 };
@@ -2520,8 +2303,6 @@ const GTT_AUTO_DICT = {
   'курдалагон': 'Kurdalagon',
   'люцифер': 'Lucifer',
   'драко': 'Draco',
-  'промод': 'Pro-Mod',
-  'про-мод': 'Pro-Mod',
   'коржик': 'Korzhik',
   'гоша': 'Gosha',
   'турботех': 'TurboTech',
@@ -4104,24 +3885,28 @@ async function handleGenericUpload(file, { inputId, previewWrapId, previewImgId,
       activeObjPos
     );
 
-    // Background upload via API if backend is running (fire-and-forget, zero UI stall)
-    (async () => {
+    // Tracked multipart upload via API
+    trackUploadPromise((async () => {
       try {
+        const fd = new FormData();
+        const blobResp = await fetch(base64Data);
+        const uploadBlob = await blobResp.blob();
+        fd.append('file', uploadBlob, file.name);
+        fd.append('folder', targetFolder);
         const uploadResult = await apiFetch('/api/upload', {
           method: 'POST',
-          body: JSON.stringify({
-            filename: file.name,
-            data: base64Data,
-            folder: targetFolder
-          })
+          body: fd,
+          timeoutMs: 120000
         });
-        if (uploadResult && uploadResult.url) {
-          if (input) input.value = uploadResult.url;
+        if (uploadResult && uploadResult.url && input) {
+          input.value = uploadResult.url;
         }
       } catch (e) {
-        console.warn('Backend upload note (offline or static hosting fallback active):', e);
+        if (!isNetworkOrOfflineError(e)) {
+          showToast('Ошибка загрузки на сервер', e.message || 'Файл не удалось загрузить на сервер', 'error', 5000);
+        }
       }
-    })();
+    })());
   };
 
   reader.readAsDataURL(file);
@@ -4224,32 +4009,34 @@ async function handleCarVideoSelected(e) {
     await GTTMediaDB.saveBlob(fallbackPath, file);
   }
 
-  // Update live preview in modal
-  await updateCarVideoPreviewUI(blobUrl, file.name, `${sizeMb} МБ • Готово к воспроизведению`);
+  await updateCarVideoPreviewUI(blobUrl, file.name, `${sizeMb} МБ • Загрузка на сервер...`);
 
-  showToast('Видео загружено', `Видео «${file.name}» (${sizeMb} МБ) готово к просмотру! Нажмите Play для проверки.`, 'success');
-
-  // Background upload attempt if local server is active and file <= 45MB
-  if (file.size <= 45 * 1024 * 1024) {
-    try {
-      const reader = new FileReader();
-      reader.onload = async (evt) => {
-        try {
-          const data = await apiFetch('/api/upload', {
-            method: 'POST',
-            body: JSON.stringify({
-              filename: file.name,
-              data: evt.target.result,
-              folder: 'videos'
-            })
-          });
-          if (data && data.url && input) {
-            input.value = data.url;
-          }
-        } catch (err) {}
-      };
-      reader.readAsDataURL(file);
-    } catch (e) {}
+  // Multipart upload via API (supports up to 60MB without base64 overhead)
+  if (file.size <= 60 * 1024 * 1024) {
+    trackUploadPromise((async () => {
+      try {
+        const fd = new FormData();
+        fd.append('file', file, file.name);
+        fd.append('folder', 'videos');
+        const data = await apiFetch('/api/upload', {
+          method: 'POST',
+          body: fd,
+          timeoutMs: 120000
+        });
+        if (data && data.url && input) {
+          input.value = data.url;
+          const infoEl = document.getElementById('carVideoMetaInfo');
+          if (infoEl) infoEl.textContent = `${sizeMb} МБ • Загружено на сервер`;
+          showToast('Видео загружено', `Видео «${file.name}» (${sizeMb} МБ) сохранено на сервере`, 'success');
+        }
+      } catch (err) {
+        if (!isNetworkOrOfflineError(err)) {
+          showToast('Ошибка загрузки видео', err.message || 'Не удалось загрузить видео на сервер', 'error', 6000);
+        }
+      }
+    })());
+  } else {
+    showToast('Файл слишком большой', 'Максимальный размер видео для загрузки на сервер — 60 МБ', 'warning', 6000);
   }
 }
 
@@ -4381,19 +4168,31 @@ async function autoTrimCurrentCarPhoto() {
     updateCarPhotoPreviewUI(trimmedDataUrl, filename, '✂️ Рамки обрезаны');
     showToast('Рамки убраны', `Лишние поля по краям обрезаны (${finalCanvas.width}×${finalCanvas.height}). Нажмите «Сохранить изменения».`, 'success');
 
-    try {
-      const uploadResult = await apiFetch('/api/upload', {
-        method: 'POST',
-        body: JSON.stringify({
-          filename,
-          data: trimmedDataUrl,
-          folder: 'cars'
-        })
-      });
-      if (uploadResult && uploadResult.url && editImgInput) {
-        editImgInput.value = uploadResult.url;
-      }
-    } catch (e) {}
+    const uploadPromise = (async () => {
+      try {
+        const blob = await new Promise((resolve) => finalCanvas.toBlob(resolve, 'image/jpeg', 0.88));
+        const fd = new FormData();
+        fd.append('folder', 'cars');
+        if (blob) {
+          fd.append('file', blob, filename);
+        } else {
+          fd.append('filename', filename);
+          fd.append('data', trimmedDataUrl);
+        }
+        const uploadResult = await apiFetch('/api/upload', {
+          method: 'POST',
+          body: fd,
+          timeoutMs: 120000
+        });
+        if (uploadResult && uploadResult.url && editImgInput) {
+          editImgInput.value = uploadResult.url;
+        }
+      } catch (e) {}
+    })();
+    if (typeof trackUploadPromise === 'function') {
+      trackUploadPromise(uploadPromise);
+    }
+    await uploadPromise;
   } catch (err) {
     console.warn('[GTT Admin] Manual border trim CORS/canvas note:', err);
     showToast('Недоступно для внешней ссылки', 'Эта внешняя ссылка защищена CORS. Скачайте фото и загрузите его через кнопку «Папка» — рамки срежутся автоматически.', 'warning', 5200);
@@ -4961,6 +4760,13 @@ async function saveCarProject(e) {
     return false;
   }
 
+  const submitBtnEarly = document.querySelector('#carEditForm button[type="submit"]');
+  if (submitBtnEarly) {
+    submitBtnEarly.disabled = true;
+    submitBtnEarly.innerHTML = '<span>⏳ Загрузка медиа...</span>';
+  }
+  await waitForPendingUploads();
+
   const rawBrand = document.getElementById('editBrand').value.trim();
   const finalBrand = rawBrand || autoDetectBrand(rawNameRu);
 
@@ -5253,16 +5059,16 @@ async function renderTrafficModule() {
       <td>
         <span style="display: inline-flex; align-items: center; gap: 6px; font-weight: 600;">
           ${entry.device && entry.device.includes('Mobile') ? '📱' : (entry.device && entry.device.includes('Mac') ? '💻' : '🖥️')}
-          ${entry.device || 'Веб-клиент'}
+          ${escapeHTML(entry.device || 'Веб-клиент')}
         </span>
       </td>
       <td>
-        <span style="color: ${entry.source && entry.source.includes('Telegram') ? 'var(--gtt-orange)' : 'var(--text-muted)'}; font-family: var(--font-mono); font-size: 12.5px;">
-          ${entry.source || 'Прямой заход'}
+        <span style="color: var(--text-muted); font-family: var(--font-mono); font-size: 12.5px;">
+          ${escapeHTML(entry.source || 'Прямой заход')}
         </span>
       </td>
       <td>
-        <code style="background: rgba(255,255,255,0.06); padding: 3px 8px; border-radius: 4px; font-size: 11px;">/${entry.page || 'index.html'}</code>
+        <code style="background: rgba(255,255,255,0.06); padding: 3px 8px; border-radius: 4px; font-size: 11px;">/${escapeHTML(entry.page || 'index.html')}</code>
       </td>
       <td>
         <span style="font-size: 11px; padding: 3px 8px; border-radius: 12px; background: ${entry.is_new_session || entry.isNewSession ? 'rgba(34, 197, 94, 0.15)' : 'rgba(255, 255, 255, 0.08)'}; color: ${entry.is_new_session || entry.isNewSession ? '#22c55e' : 'var(--text-dim)'}; border: 1px solid ${entry.is_new_session || entry.isNewSession ? 'rgba(34, 197, 94, 0.3)' : 'transparent'};">
@@ -5783,14 +5589,14 @@ function renderRecordsTable() {
     const car = escapeHTML(rec.car);
     const telemetry = escapeHTML(rec.telemetry);
     const desc = escapeHTML(rec.desc);
-    const rawImg = rec.img || 'assets/cars/bmw_m5_rdrc_race.jpg';
+    const rawImg = rec.img || 'assets/photos/gtt_shield_logo.svg';
     const img = escapeHTML(convertGoogleDriveUrl(rawImg) || rawImg);
     const objPos = escapeHTML(rec.objectPosition || rec.object_position || 'center 50%');
     return `
     <tr>
       <td><span class="tag-pill" style="color: var(--gtt-orange);">${year}</span></td>
       <td style="text-align: center;">
-        <img src="${img}" alt="${car}" class="car-thumb" style="width: 54px; height: 38px; object-fit: cover; object-position: ${objPos}; border-radius: 4px; border: 1px solid rgba(255,255,255,0.12); display: inline-block; vertical-align: middle;" onerror="this.onerror=null; this.src='assets/cars/bmw_m5_rdrc_race.jpg';">
+        <img src="${img}" alt="${car}" class="car-thumb" style="width: 54px; height: 38px; object-fit: cover; object-position: ${objPos}; border-radius: 4px; border: 1px solid rgba(255,255,255,0.12); display: inline-block; vertical-align: middle;" onerror="this.onerror=null; this.src='assets/photos/gtt_shield_logo.svg';">
       </td>
       <td style="font-weight: 700; color: #fff;">${car}</td>
       <td style="font-family: var(--font-mono);">${telemetry}</td>
@@ -6449,28 +6255,47 @@ window.exportDataJSON = exportDataJSON;
 async function populateSettingsInputs() {
   const urlDisplay = document.getElementById('secretUrlDisplay');
   if (urlDisplay) {
-    const origin = window.location.origin;
-    const path = window.location.pathname.replace(/\/admin\.html$/, '/admin');
-    urlDisplay.textContent = `${origin}${path}?token=${SECRET_URL_TOKEN}`;
+    try {
+      const info = await apiFetch('/api/auth/gateway-info');
+      if (info && info.adminUrl) {
+        urlDisplay.textContent = info.adminUrl;
+      }
+    } catch (e) {
+      urlDisplay.textContent = 'Не удалось загрузить ссылку шлюза';
+    }
   }
 
-  try {
-    const config = await apiFetch('/api/settings/telegram');
-    if (config) {
-      if (document.getElementById('tgBotTokenInput')) document.getElementById('tgBotTokenInput').value = config.bot_token || config.botToken || '';
-      if (document.getElementById('tgChatIdInput')) document.getElementById('tgChatIdInput').value = config.chat_id || config.chatId || '';
-    }
-  } catch (e) {
-    try {
-      const raw = localStorage.getItem(TG_CONFIG_KEY);
-      if (raw) {
-        const config = JSON.parse(raw);
-        if (document.getElementById('tgBotTokenInput')) document.getElementById('tgBotTokenInput').value = config.botToken || '';
-        if (document.getElementById('tgChatIdInput')) document.getElementById('tgChatIdInput').value = config.chatId || '';
-      }
-    } catch (err) {}
-  }
 }
+
+window.rotateGatewayToken = async function() {
+  if (!confirm('Перевыпустить секретный токен доступа? Старая ссылка перестанет работать, а все текущие сессии будут завершены.')) return;
+  try {
+    const res = await apiFetch('/api/auth/rotate-token', { method: 'POST' });
+    const urlDisplay = document.getElementById('secretUrlDisplay');
+    if (urlDisplay && res.adminUrl) {
+      urlDisplay.textContent = res.adminUrl;
+    }
+    if (res.token) {
+      inMemoryGateToken = res.token;
+    }
+    showToast('Токен перевыпущен', 'Новая секретная ссылка активна. Скопируйте её и войдите повторно.', 'success', 6000);
+  } catch (err) {
+    showToast('Ошибка', err.message || 'Не удалось перевыпустить токен', 'error');
+  }
+};
+
+window.revokeAllAdminSessions = async function() {
+  if (!confirm('Завершить все активные сессии администраторов?')) return;
+  try {
+    await apiFetch('/api/auth/revoke-all-sessions', { method: 'POST' });
+    sessionStorage.removeItem(AUTH_KEY);
+    sessionStorage.removeItem('gtt_session_token');
+    showToast('Сессии завершены', 'Все активные сессии закрыты', 'info');
+    checkAuth();
+  } catch (err) {
+    showToast('Ошибка', err.message || 'Не удалось завершить сессии', 'error');
+  }
+};
 
 async function handlePasswordChange(e) {
   if (e && e.preventDefault) e.preventDefault();
@@ -6493,42 +6318,27 @@ async function handlePasswordChange(e) {
     return;
   }
 
-  if (enteredNew.length < 6) {
+  if (enteredNew.length < 8) {
     statusEl.style.display = 'block';
     statusEl.style.background = 'rgba(239, 68, 68, 0.15)';
     statusEl.style.color = '#ef4444';
     statusEl.style.border = '1px solid rgba(239, 68, 68, 0.3)';
-    statusEl.textContent = '❌ Новый пароль должен содержать минимум 6 символов!';
-    showToast('Ошибка пароля', 'Пароль должен содержать минимум 6 символов!', 'warning');
+    statusEl.textContent = '❌ Новый пароль должен содержать минимум 8 символов!';
+    showToast('Ошибка пароля', 'Пароль должен содержать минимум 8 символов!', 'warning');
     newInput.focus();
     return;
   }
 
-  let savedToServer = false;
-  let serverRejected = false;
-  let serverErrorMsg = '';
-
   try {
-    const res = await apiFetch('/api/auth/change-password', {
+    await apiFetch('/api/auth/change-password', {
       method: 'POST',
       body: JSON.stringify({
         current_password: enteredCurrent,
         new_password: enteredNew
       })
     });
-    if (res && (res.status === 'ok' || !res.error)) {
-      savedToServer = true;
-    }
   } catch (err) {
-    if (isNetworkOrOfflineError(err)) {
-      savedToServer = false;
-    } else {
-      serverRejected = true;
-      serverErrorMsg = err.message || 'Неверный текущий пароль';
-    }
-  }
-
-  if (serverRejected) {
+    const serverErrorMsg = err.message || 'Не удалось обновить пароль на сервере';
     statusEl.style.display = 'block';
     statusEl.style.background = 'rgba(239, 68, 68, 0.15)';
     statusEl.style.color = '#ef4444';
@@ -6538,38 +6348,6 @@ async function handlePasswordChange(e) {
     return;
   }
 
-  // If server was offline or unreachable, perform cryptographically valid local verification
-  if (!savedToServer) {
-    const currentStoredPin = getStoredPin();
-    const authorizedPins = [currentStoredPin, 'gtt71', 'gtt_atelier_2026', 'gtt_master_password_2026!'];
-    
-    let isCurrentValid = authorizedPins.includes(enteredCurrent);
-    if (!isCurrentValid) {
-      try {
-        const enteredHash = await sha256Hex(enteredCurrent);
-        const validHashes = [
-          '4c457e64bb36ed3df535c84837abac5b57626615b5b2630dc8f72c66e1a565e5', // gtt71
-          'b7840a350b9cb095a0075eef96c675a8739af0ac120c68d6b601fee091328285', // gtt_atelier_2026
-          await sha256Hex('gtt_master_password_2026!')
-        ];
-        if (currentStoredPin) validHashes.push(await sha256Hex(currentStoredPin));
-        if (validHashes.includes(enteredHash)) isCurrentValid = true;
-      } catch (hErr) {}
-    }
-
-    if (!isCurrentValid) {
-      statusEl.style.display = 'block';
-      statusEl.style.background = 'rgba(239, 68, 68, 0.15)';
-      statusEl.style.color = '#ef4444';
-      statusEl.style.border = '1px solid rgba(239, 68, 68, 0.3)';
-      statusEl.textContent = '❌ Неверный текущий пароль доступа!';
-      showToast('Ошибка пароля', 'Неверный текущий пароль доступа', 'error');
-      return;
-    }
-  }
-
-  // Update client-side PIN in localStorage so next login uses it
-  localStorage.setItem(PASS_HASH_KEY, enteredNew);
   currentInput.value = '';
   newInput.value = '';
 
@@ -6577,93 +6355,19 @@ async function handlePasswordChange(e) {
     section: 'Безопасность',
     action: 'Обновлен пароль',
     item: 'Мастер-пароль GTT',
-    details: savedToServer ? 'Сохранен в защищенной базе SQLite' : 'Сохранен в локальном защищенном хранилище браузера (Автономный режим)'
+    details: 'Сохранён в SQLite в виде PBKDF2-хэша'
   });
 
   statusEl.style.display = 'block';
   statusEl.style.background = 'rgba(34, 197, 94, 0.15)';
   statusEl.style.color = '#22c55e';
   statusEl.style.border = '1px solid rgba(34, 197, 94, 0.3)';
-  const successDesc = savedToServer 
-    ? '✅ Новый пароль успешно установлен и сохранен в базе SQLite!'
-    : '✅ Новый пароль успешно сохранен в локальном защищенном хранилище (Автономный режим)!';
+  const successDesc = '✅ Новый пароль успешно установлен и сохранён в базе SQLite!';
   statusEl.textContent = successDesc;
   showToast('Пароль обновлен', successDesc, 'success');
 }
 
-async function handleSaveTelegramConfig(e) {
-  e.preventDefault();
-  const botToken = (document.getElementById('tgBotTokenInput')?.value || '').trim();
-  const chatId = (document.getElementById('tgChatIdInput')?.value || '').trim();
-  const statusEl = document.getElementById('tgStatus');
-
-  const config = { bot_token: botToken, chat_id: chatId };
-  localStorage.setItem(TG_CONFIG_KEY, JSON.stringify({ botToken, chatId }));
-
-  try {
-    await apiFetch('/api/settings/telegram', {
-      method: 'POST',
-      body: JSON.stringify(config)
-    });
-    if (statusEl) {
-      statusEl.style.display = 'block';
-      statusEl.style.background = 'rgba(34, 197, 94, 0.15)';
-      statusEl.style.color = '#22c55e';
-      statusEl.style.border = '1px solid rgba(34, 197, 94, 0.3)';
-      statusEl.textContent = '✅ Настройки Telegram сохранены в SQLite!';
-      setTimeout(() => { statusEl.style.display = 'none'; }, 4000);
-    }
-    showToast('Telegram подключен', 'Настройки бота и Chat ID сохранены в SQLite', 'success');
-  } catch (err) {
-    if (statusEl) {
-      statusEl.style.display = 'block';
-      statusEl.style.background = 'rgba(239, 68, 68, 0.15)';
-      statusEl.style.color = '#ef4444';
-      statusEl.style.border = '1px solid rgba(239, 68, 68, 0.3)';
-      statusEl.textContent = '❌ Ошибка сохранения: ' + err.message;
-    }
-    showToast('Ошибка сохранения', err.message || 'Не удалось сохранить настройки бота', 'error');
-  }
-}
-
-async function testTelegramAlert() {
-  const statusEl = document.getElementById('tgStatus');
-  const botToken = (document.getElementById('tgBotTokenInput')?.value || '').trim();
-  const chatId = (document.getElementById('tgChatIdInput')?.value || '').trim();
-
-  if (!botToken || !chatId) {
-    showToast('Поля не заполнены', 'Введите Telegram Bot Token и Chat ID перед отправкой теста!', 'warning');
-    return;
-  }
-
-  try {
-    const res = await apiFetch('/api/settings/telegram/test', {
-      method: 'POST',
-      body: JSON.stringify({ bot_token: botToken, chat_id: chatId })
-    });
-    if (statusEl) {
-      statusEl.style.display = 'block';
-      statusEl.style.background = 'rgba(34, 197, 94, 0.15)';
-      statusEl.style.color = '#22c55e';
-      statusEl.style.border = '1px solid rgba(34, 197, 94, 0.3)';
-      statusEl.textContent = '🚀 Тестовое сообщение успешно отправлено сервером в Telegram!';
-    }
-    showToast('Telegram доставлен', 'Тестовое уведомление успешно отправлено сервером в Telegram!', 'success');
-  } catch (err) {
-    if (statusEl) {
-      statusEl.style.display = 'block';
-      statusEl.style.background = 'rgba(239, 68, 68, 0.15)';
-      statusEl.style.color = '#ef4444';
-      statusEl.style.border = '1px solid rgba(239, 68, 68, 0.3)';
-      statusEl.textContent = '❌ Ошибка Telegram: ' + err.message;
-    }
-    showToast('Ошибка Telegram', err.message, 'error');
-  }
-}
-
 window.handlePasswordChange = handlePasswordChange;
-window.handleSaveTelegramConfig = handleSaveTelegramConfig;
-window.testTelegramAlert = testTelegramAlert;
 window.populateSettingsInputs = populateSettingsInputs;
 
 // Car modal & file picker exports

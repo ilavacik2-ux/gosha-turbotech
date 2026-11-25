@@ -55,7 +55,7 @@ let gttProjects = [
     },
     "hp": "1,600+ HP",
     "quarterMile": "7.877 сек",
-    "topSpeed": "350+ км/ч",
+    "topSpeed": "288.35 км/ч",
     "badge": {
       "ru": "Рекорд России для Audi 7.877s",
       "en": "Russia Audi Record 7.877s"
@@ -98,7 +98,7 @@ let gttProjects = [
     },
     "hp": "3,000+ HP",
     "quarterMile": "7.694 сек",
-    "topSpeed": "323.88 км/ч",
+    "topSpeed": "304.44 км/ч",
     "badge": {
       "ru": "Белый Рекордный GT-R #300",
       "en": "White Record GT-R #300"
@@ -129,8 +129,8 @@ let gttProjects = [
     "brand": "NISSAN & GTT",
     "type": "gtr",
     "name": {
-      "ru": "GT-R R35 «LUCIFER» GTT #71 CHAMPION",
-      "en": "GT-R R35 «LUCIFER» GTT #71 CHAMPION"
+      "ru": "GT-R R35 «LUCIFER» GTT #71",
+      "en": "GT-R R35 «LUCIFER» GTT #71"
     },
     "tag": {
       "ru": "ЧЕМПИОН RDRC • ПИЛОТ ГОША ПЕРЦХЕЛИЯ #71",
@@ -138,7 +138,7 @@ let gttProjects = [
     },
     "hp": "1,850+ HP",
     "quarterMile": "8.400 сек",
-    "topSpeed": "343.67 км/ч",
+    "topSpeed": "262.00 км/ч",
     "badge": {
       "ru": "Боевой Огненный Болид Гоши #71",
       "en": "Gosha Fire Drag Weapon #71"
@@ -187,10 +187,10 @@ let gttProjects = [
     "fallbackImg": "assets/cars/gtr_red_front_rdrc.jpg",
     "isPhoto": true,
     "objectPosition": "center 65%",
-    "videoSrc": "assets/videos/gtr_kurdalagon_action.mp4",
+    "videoSrc": "assets/videos/gtr_kurdalagon_776.mp4",
     "videoTitle": "GT-R R35 GTT «KURDALAGON»",
     "desc": {
-      "ru": "Боевой болид Nissan GT-R R35 «Курдалагон» — имя древнего осетинского бога-кузнеца. 26 октября 2026 года на трек-дне в Быково установил новый личный рекорд команды: 7.766 сек на 402 метра со скоростью на выходе 300.00 км/ч.",
+      "ru": "Боевой болид Nissan GT-R R35 «Kurdalagon» — имя древнего осетинского бога-кузнеца. 26 октября 2026 года на трек-дне в Быково установил новый личный рекорд команды: 7.766 сек на 402 метра со скоростью на выходе 300.00 км/ч.",
       "en": "Mythical Kurdalagon GT-R named after the ancient blacksmith deity. Set a brand new personal best of 7.766 sec at 300.00 km/h on October 26, 2026 at Bykovo Drag Track."
     },
     "specs": {
@@ -218,13 +218,13 @@ let gttProjects = [
     },
     "hp": "1,500+ HP",
     "quarterMile": "8.054 сек",
-    "topSpeed": "353.02 км/ч",
+    "topSpeed": "283.46 км/ч",
     "badge": {
       "ru": "Рекорд Европы 353 км/ч",
       "en": "Race 1000 Europe Record"
     },
-    "img": "assets/photos/huracan_rdrc_stage_line.jpg",
-    "fallbackImg": "assets/cars/huracan_green_grey_rdrc.jpg",
+    "img": "assets/archive_tilda/huracan_bezzubik.webp",
+    "fallbackImg": "assets/archive_tilda/huracan_bezzubik.webp",
     "isPhoto": true,
     "objectPosition": "center 50%",
     "videoSrc": "",
@@ -257,7 +257,7 @@ let gttProjects = [
     },
     "hp": "1,050+ HP",
     "quarterMile": "9.167 сек",
-    "topSpeed": "345+ км/ч",
+    "topSpeed": "236.92 км/ч",
     "badge": {
       "ru": "Рекорд RDRC 992 • 9.167s",
       "en": "RDRC 992 Record • 9.167s"
@@ -295,8 +295,8 @@ let gttProjects = [
       "en": "RDRC DRAG WEAPON • GTT G90 BULLET"
     },
     "hp": "1,050+ HP",
-    "quarterMile": "9.420 сек",
-    "topSpeed": "340+ км/ч",
+    "quarterMile": "10.212 сек",
+    "topSpeed": "224.37 км/ч",
     "badge": {
       "ru": "Боевая BMW G90 Гоши Турботех",
       "en": "GoshaTurboTech Race BMW G90"
@@ -335,8 +335,8 @@ let gttProjects = [
       "en": "RDRC BURNOUT KING • 9.748 SEC"
     },
     "hp": "1,200+ HP",
-    "quarterMile": "9.748 сек",
-    "topSpeed": "330+ км/ч",
+    "quarterMile": "9.533 сек",
+    "topSpeed": "257.23 км/ч",
     "badge": {
       "ru": "SRT Demon 1200+ HP",
       "en": "SRT Demon 1200+ HP"
@@ -413,8 +413,8 @@ let gttProjects = [
       "en": "RDRC WEAPON • PILOT R. AREFYEV"
     },
     "hp": "1,200+ HP",
-    "quarterMile": "10.060 сек",
-    "topSpeed": "340+ км/ч",
+    "quarterMile": "9.048 сек",
+    "topSpeed": "237.39 км/ч",
     "badge": {
       "ru": "R8 «Злая Зая» GTT",
       "en": "R8 «ZlayaZaya» GTT"
@@ -453,7 +453,7 @@ let gttProjects = [
     },
     "hp": "1,500+ HP",
     "quarterMile": "8.373 сек",
-    "topSpeed": "355+ км/ч",
+    "topSpeed": "275.26 км/ч",
     "badge": {
       "ru": "Легендарная «Зеленка» GTT",
       "en": "Legendary «Zelenka» GTT"
@@ -531,7 +531,7 @@ let gttProjects = [
     },
     "hp": "850+ HP",
     "quarterMile": "9.988 сек",
-    "topSpeed": "335+ км/ч",
+    "topSpeed": "222.35 км/ч",
     "badge": {
       "ru": "Spyder GTT-800",
       "en": "Spyder GTT-800"
@@ -569,7 +569,7 @@ let gttProjects = [
     },
     "hp": "1,800+ HP",
     "quarterMile": "7.526 сек",
-    "topSpeed": "360+ км/ч",
+    "topSpeed": "304.36 км/ч",
     "badge": {
       "ru": "Легендарный Moses #712",
       "en": "Legendary Moses #712"
@@ -608,7 +608,7 @@ let gttProjects = [
     },
     "hp": "1,600+ HP",
     "quarterMile": "8.602 сек",
-    "topSpeed": "334.41 км/ч",
+    "topSpeed": "275.43 км/ч",
     "badge": {
       "ru": "Рекорд России 334 км/ч",
       "en": "Russian Record 334 km/h"
@@ -646,7 +646,7 @@ let gttProjects = [
     },
     "hp": "1,450+ HP",
     "quarterMile": "8.875 сек",
-    "topSpeed": "322.00 км/ч",
+    "topSpeed": "262.39 км/ч",
     "badge": {
       "ru": "GT-R Baloo GTT",
       "en": "GT-R Baloo GTT"
@@ -715,8 +715,8 @@ let gttProjects = [
     "brand": "NISSAN",
     "type": "gtr",
     "name": {
-      "ru": "GT-R R35 RED CHROME GTT PRO-MOD",
-      "en": "GT-R R35 RED CHROME GTT PRO-MOD"
+      "ru": "GT-R R35 RED CHROME GTT",
+      "en": "GT-R R35 RED CHROME GTT"
     },
     "tag": {
       "ru": "RDRC ЧЕМПИОНАТ РОССИИ • КРАСНЫЙ ХРОМ",
@@ -792,8 +792,8 @@ let gttProjects = [
     "brand": "NISSAN & GTT",
     "type": "gtr",
     "name": {
-      "ru": "GT-R R35 GTT ALPHA12X SPEC",
-      "en": "GT-R R35 GTT ALPHA12X SPEC"
+      "ru": "GT-R R35 GTT ALPHA12X",
+      "en": "GT-R R35 GTT ALPHA12X"
     },
     "tag": {
       "ru": "КУЛЬТОВАЯ АЛЬФА GTT • 1500 HP",
@@ -839,7 +839,7 @@ let gttProjects = [
     },
     "hp": "1,200+ HP",
     "quarterMile": "9.086 сек",
-    "topSpeed": "312.77 км/ч",
+    "topSpeed": "259.64 км/ч",
     "badge": {
       "ru": "991.1 GTT-1200",
       "en": "991.1 GTT-1200"
@@ -906,16 +906,16 @@ let gttProjects = [
     "brand": "BMW M-POWER",
     "type": "bmw",
     "name": {
-      "ru": "BMW M7 GTT EXECUTIVE TWIN TURBO",
-      "en": "BMW M7 GTT EXECUTIVE TWIN TURBO"
+      "ru": "BMW M7 GTT",
+      "en": "BMW M7 GTT"
     },
     "tag": {
       "ru": "EXECUTIVE FLAGSHIP • 900 HP V12",
       "en": "EXECUTIVE FLAGSHIP • 900 HP V12"
     },
     "hp": "900+ HP",
-    "quarterMile": "10.200 сек",
-    "topSpeed": "330+ км/ч",
+    "quarterMile": "11.945 сек",
+    "topSpeed": "190.47 км/ч",
     "badge": {
       "ru": "M7 Executive GTT",
       "en": "M7 Executive GTT"
@@ -944,8 +944,8 @@ let gttProjects = [
     "brand": "ГАЗ & GTT",
     "type": "other",
     "name": {
-      "ru": "ВОЛГА ГАЗ-24 КГБ V8 GTT SLEEPER",
-      "en": "VOLGA GAZ-24 KGB V8 GTT SLEEPER"
+      "ru": "ВОЛГА ГАЗ-24 КГБ V8 GTT",
+      "en": "VOLGA GAZ-24 KGB V8 GTT"
     },
     "tag": {
       "ru": "ЛЕГЕНДАРНЫЙ СЛИПЕР • V8 TWIN TURBO",
@@ -982,8 +982,8 @@ let gttProjects = [
     "brand": "FERRARI & GTT",
     "type": "other",
     "name": {
-      "ru": "FERRARI 512 TR GTT HERITAGE CLASSIC",
-      "en": "FERRARI 512 TR GTT HERITAGE CLASSIC"
+      "ru": "FERRARI 512 TR GTT",
+      "en": "FERRARI 512 TR GTT"
     },
     "tag": {
       "ru": "ИТАЛЬЯНСКАЯ ИКОНА • FLAT-12 ENGINE",
@@ -1069,8 +1069,8 @@ let gttProjects = [
       "en": "WORLD CATEGORY RECORD • 9.303 SEC"
     },
     "hp": "—",
-    "quarterMile": "—",
-    "topSpeed": "—",
+    "quarterMile": "9.303 сек",
+    "topSpeed": "235.83 км/ч",
     "badge": {
       "ru": "Puncher 992 GTT",
       "en": "Puncher 992 GTT"
@@ -1141,8 +1141,8 @@ let gttProjects = [
     "brand": "TESLA & GTT",
     "type": "other",
     "name": {
-      "ru": "TESLA MODEL S PLAID GTT DYNAMICS SPEC",
-      "en": "TESLA MODEL S PLAID GTT DYNAMICS SPEC"
+      "ru": "TESLA MODEL S PLAID GTT",
+      "en": "TESLA MODEL S PLAID GTT"
     },
     "tag": {
       "ru": "ЭЛЕКТРО-ГИПЕРКАР • 1020 HP • 9.230 СЕК",
@@ -1189,8 +1189,8 @@ let gttProjects = [
       "en": "BAIKAL ICE & RDRC FIGHTER • 8.948 SEC"
     },
     "hp": "—",
-    "quarterMile": "—",
-    "topSpeed": "—",
+    "quarterMile": "8.948 сек",
+    "topSpeed": "247.68 км/ч",
     "badge": {
       "ru": "Tony Stark 1400+ HP",
       "en": "Tony Stark 1400+ HP"
@@ -1222,8 +1222,8 @@ let gttProjects = [
     "brand": "BMW & GTT",
     "type": "bmw",
     "name": {
-      "ru": "BMW M3 G80 (Личный болид Гоши)",
-      "en": "BMW M3 G80 (Gosha Personal Build)"
+      "ru": "BMW M3 G80",
+      "en": "BMW M3 G80"
     },
     "tag": {
       "ru": "ГРАЖДАНСКИЙ ТЮНИНГ GTT",
@@ -1396,19 +1396,19 @@ const i18n = {
     contact_vk_hint: "Официальное сообщество, видео заездов и тесты",
     contact_mail_title: "Электронная почта",
     contact_mail_hint: "Технические задания и коммерческие запросы",
+    contact_media_title: "Реклама и сотрудничество",
     contact_spec_hours_lbl: "ГРАФИК РАБОТЫ",
-    contact_spec_hours_val: "Пн – Сб: 10:00 — 20:00",
-    contact_spec_hours_sub: "Воскресенье — по записи",
+    contact_spec_hours_val: "Ежедневно: 09:00–20:00",
     contact_spec_park_lbl: "ТЕРРИТОРИЯ И ПАРКИНГ",
     contact_spec_park_val: "Закрытая стоянка GTT",
     contact_spec_park_sub: "Круглосуточная охрана",
-    contact_center_name: "ИНЖИНИРИНГОВЫЙ ЦЕНТР GTT",
     contact_center_addr: "Можайское шоссе, 168",
     contact_btn_copy: "Скопировать адрес",
     contact_btn_route: "Построить маршрут",
     contact_sub_yandex: "Яндекс Карты",
     contact_sub_2gis: "2ГИС",
     contact_guidance_text: "Заезд осуществляется с дублёра Можайского шоссе при движении из центра в область (р.п. Новоивановское). Для автовозов и прицепов с гоночной техникой открыт широкий въездной створ.",
+    contact_map_loading: "Загрузка карты ателье...",
     contact_phone_lbl: "Телефон мастерской",
     contact_tg_lbl: "Официальный Telegram канал",
     contact_media_lbl: "Реклама и сотрудничество",
@@ -1422,7 +1422,7 @@ const i18n = {
     // Records
     records_tag: "03 // ЗАЛ СЛАВЫ И РЕКОРДЫ",
     records_title: "Мировые рекорды и победы RDRC",
-    records_subtitle: "Более 15 лет непрерывных побед на дистанциях 402 м, 804 м, 1000 м и ледовых трассах.",
+    records_subtitle: "Более 15 лет непрерывных побед на дистанциях 402 м, 804 м и 1000 м.",
     records_stream_label: "GTT RECORD STREAM",
     records_stream_hint: "Наведите курсор для паузы • Свайп или стрелки для перелистывания",
     rec1_badge: "2022 • Мировой рекорд",
@@ -1468,8 +1468,8 @@ const i18n = {
     founder_achieve_tag: "// КЛЮЧЕВЫЕ ВЕХИ И ИНЖЕНЕРНЫЕ ЗАСЛУГИ",
     achieve1_title: "Абсолютные рекорды RDRC",
     achieve1_desc: "Многократные абсолютные чемпионы России в классе 1/4 мили (7.1 сек)",
-    achieve2_title: "3000+ HP Pro-Mod «Draco»",
-    achieve2_desc: "Постройка быстрейшего кастомного дрэгстера в СНГ на VR38 Billet",
+    achieve2_title: "3000+ HP «Draco»",
+    achieve2_desc: "Гоночный Nissan GT-R R35 с двигателем VR38 Billet",
     achieve3_title: "Европейский триумф на Unlim 500+",
     achieve3_desc: "Nissan GT-R Moses 7.810 сек на Крите и 353 км/ч Huracan в Германии",
     achieve4_title: "Собственная разработка Twin Turbo",
@@ -1557,9 +1557,9 @@ const i18n = {
     gallery_subtitle: "Живые кадры с трассы Чемпионата России RDRC и из ателье GoshaTurboTech.",
     gallery_cap_zelenka: "Легендарная Lamborghini Huracan TT «Зеленка» RDRC",
     gallery_cap_dodge: "Dodge Demon: дымный прогрев сликов на закате RDRC",
-    gallery_cap_draco: "3000+ HP Nissan GT-R Draco Pro-Mod на сликах RDRC",
+    gallery_cap_draco: "3000+ HP Nissan GT-R Draco на сликах RDRC",
     gallery_cap_r8: "Audi R8 V10 Plus TT «Rokot» на стартовой черте RDRC",
-    gallery_cap_gtr_red: "Красный хромированный Nissan GT-R R35 GTT Pro-Mod",
+    gallery_cap_gtr_red: "Красный хромированный Nissan GT-R R35 GTT",
     gallery_cap_gtr_blue: "Боевой синий Nissan GT-R R35 #888 на закате RDRC",
     gallery_cap_box: "Бокс GTT: Паддок команды и Nissan GT-R",
     gallery_cap_track: "Гоша Перцхелия контролирует подготовку трассы RDRC",
@@ -1631,19 +1631,19 @@ const i18n = {
     contact_vk_hint: "Official community, race footage & test passes",
     contact_mail_title: "Email Direct",
     contact_mail_hint: "Technical specifications & project inquiries",
+    contact_media_title: "Advertising and partnerships",
     contact_spec_hours_lbl: "OPERATING HOURS",
-    contact_spec_hours_val: "Mon – Sat: 10:00 — 20:00",
-    contact_spec_hours_sub: "Sunday — by appointment",
+    contact_spec_hours_val: "Daily: 09:00–20:00",
     contact_spec_park_lbl: "FACILITY & PARKING",
     contact_spec_park_val: "Secured GTT Parking",
     contact_spec_park_sub: "24/7 Security Patrol",
-    contact_center_name: "GTT ENGINEERING CENTER",
     contact_center_addr: "168 Mozhayskoye Hwy, Moscow",
     contact_btn_copy: "Copy Address",
     contact_btn_route: "Get Directions",
     contact_sub_yandex: "Yandex Maps",
     contact_sub_2gis: "2GIS",
     contact_guidance_text: "Access via Mozhayskoye Highway service lane outbound from central Moscow (Novoivanovskoye). Wide commercial gate available for car haulers and race trailers.",
+    contact_map_loading: "Loading workshop map...",
     contact_phone_lbl: "Workshop Direct Line",
     contact_tg_lbl: "Official Telegram Channel",
     contact_media_lbl: "PR, Media & Partnerships",
@@ -1657,7 +1657,7 @@ const i18n = {
     // Records
     records_tag: "03 // HALL OF FAME",
     records_title: "World Records & RDRC Victories",
-    records_subtitle: "Over 15 years of uninterrupted victories across 1/4 mile, 1/2 mile, 1000m and ice tracks.",
+    records_subtitle: "Over 15 years of uninterrupted victories across 1/4 mile, 1/2 mile and 1000 m.",
     records_stream_label: "GTT RECORD STREAM",
     records_stream_hint: "Hover to pause • Swipe or use arrows to navigate",
     rec1_badge: "2022 • World Record",
@@ -1703,8 +1703,8 @@ const i18n = {
     founder_achieve_tag: "// KEY MILESTONES & ENGINEERING ACCOLADES",
     achieve1_title: "Absolute RDRC National Records",
     achieve1_desc: "Multiple all-time Russian national champions in 1/4-mile drag racing (7.1 sec)",
-    achieve2_title: "3,000+ HP Pro-Mod «Draco»",
-    achieve2_desc: "Crafted the fastest custom tube-chassis drag weapon in CIS on VR38 Billet",
+    achieve2_title: "3,000+ HP «Draco»",
+    achieve2_desc: "Nissan GT-R R35 race car with a billet VR38 engine",
     achieve3_title: "European Glory at Unlim 500+",
     achieve3_desc: "Nissan GT-R Moses 7.810s in Crete and 353 km/h Huracan in Germany",
     achieve4_title: "Proprietary Twin Turbo Kits",
@@ -1792,9 +1792,9 @@ const i18n = {
     gallery_subtitle: "Raw action footage from the Russian Drag Racing Championship and inside the GoshaTurboTech skunkworks.",
     gallery_cap_zelenka: "Legendary Lamborghini Huracan TT «Zelenka» RDRC",
     gallery_cap_dodge: "Dodge Demon: Smoky Burnout at Sunset RDRC",
-    gallery_cap_draco: "3,000+ HP Nissan GT-R Draco Pro-Mod on RDRC Slicks",
+    gallery_cap_draco: "3,000+ HP Nissan GT-R Draco on RDRC Slicks",
     gallery_cap_r8: "Audi R8 V10 Plus TT «Rokot» on the RDRC Starting Line",
-    gallery_cap_gtr_red: "Red Chrome Nissan GT-R R35 GTT Pro-Mod",
+    gallery_cap_gtr_red: "Red Chrome Nissan GT-R R35 GTT",
     gallery_cap_gtr_blue: "GTT Race Midnight Blue Nissan GT-R R35 #888 at RDRC",
     gallery_cap_box: "GTT Garage Pit: Team Paddock & Nissan GT-R",
     gallery_cap_track: "Georgy Pertskheliya Supervising RDRC Track Glue Preparation",
@@ -2018,7 +2018,7 @@ function sanitizeCarRecord(c) {
     if (!c.top_speed && !c.topSpeed) c.topSpeed = '340+ км/ч';
     if (c.name && typeof c.name === 'object') {
       if (c.name.ru === 'ВОЛГА КГБНА' || c.name.ru === 'Волга КГБна') c.name.ru = 'ВОЛГА КГБ';
-      if (!c.name.en) c.name.en = 'VOLGA GAZ-24 KGB V8 GTT SLEEPER';
+      if (!c.name.en) c.name.en = 'VOLGA GAZ-24 KGB V8 GTT';
     }
   }
 
@@ -2049,8 +2049,8 @@ function applyCarsData(carList) {
       id: "street_bmw_m3_g80",
       brand: "BMW & GTT",
       type: "bmw",
-      name_ru: "BMW M3 G80 (Личный болид Гоши)",
-      name_en: "BMW M3 G80 (Gosha Personal Build)",
+      name_ru: "BMW M3 G80",
+      name_en: "BMW M3 G80",
       tag_ru: "ГРАЖДАНСКИЙ ТЮНИНГ GTT",
       tag_en: "GTT STREET DIVISION",
       hp: "750+ HP",
@@ -2164,8 +2164,8 @@ function applyCarsData(carList) {
       quarterMile: c.quarter_mile || c.quarterMile || '',
       topSpeed: c.top_speed || c.topSpeed || '',
       badge: {
-        ru: c.badge_ru || c.badgeRu || (c.badge && c.badge.ru) || c.badge || 'GTT Spec',
-        en: c.badge_en || c.badgeEn || (c.badge && c.badge.en) || c.badge || 'GTT Spec'
+        ru: c.badge_ru || c.badgeRu || (c.badge && c.badge.ru) || c.badge || '',
+        en: c.badge_en || c.badgeEn || (c.badge && c.badge.en) || c.badge || ''
       },
       img: c.img || '',
       fallbackImg: c.fallback_img || c.fallbackImg || c.img || '',
@@ -2888,7 +2888,6 @@ function renderMotoGrid(motoList) {
         <div class="moto-card-teaser-media">
           <div class="moto-teaser-glow-orbit"></div>
           <div class="moto-teaser-icon-wrap">
-            <span class="moto-teaser-qmark">🏍️</span>
             <span class="moto-teaser-radar"></span>
           </div>
           <span class="moto-card-teaser-status">${isEn ? 'MOSCOW FLEET' : 'МОСКВА // GTT FLEET'}</span>
@@ -3066,14 +3065,14 @@ function getGalleryBilingual(rawTitle, rawTag) {
       ru: 'Audi R8 V10 Plus TT «Rokot» на стартовой черте RDRC',
       en: 'Audi R8 V10 Plus TT «Rokot» on RDRC Starting Line'
     },
-    // Nissan GT-R R35 Draco Dragster
-    'Nissan GT-R R35 Draco Dragster': {
-      ru: 'Nissan GT-R R35 Draco Dragster',
-      en: 'Nissan GT-R R35 Draco Dragster'
+    // Nissan GT-R R35 «Draco»
+    'Nissan GT-R R35 «Draco»': {
+      ru: 'Nissan GT-R R35 «Draco»',
+      en: 'Nissan GT-R R35 «Draco»'
     },
-    '3000+ HP Nissan GT-R R35 Draco Pro-Mod на сликах RDRC': {
-      ru: '3000+ HP Nissan GT-R R35 Draco Pro-Mod на сликах RDRC',
-      en: '3000+ HP Nissan GT-R R35 Draco Pro-Mod on RDRC Slicks'
+    '3000+ HP Nissan GT-R R35 Draco на сликах RDRC': {
+      ru: '3000+ HP Nissan GT-R R35 Draco на сликах RDRC',
+      en: '3000+ HP Nissan GT-R R35 Draco on RDRC Slicks'
     },
     // Nissan GT-R R35 Lucifer
     'Nissan GT-R R35 Lucifer': {
@@ -3131,7 +3130,7 @@ function getGalleryBilingual(rawTitle, rawTag) {
     },
     'Пилот Саркисян и дрэгстер Draco в закрытом парке': {
       ru: 'Пилот Саркисян и дрэгстер Draco в закрытом парке',
-      en: 'Pilot Sarkisyan & Draco Dragster in Parc Fermé'
+      en: 'Pilot Sarkisyan & Draco in Parc Fermé'
     },
 
     // 7. Huracan on staging
@@ -3260,13 +3259,14 @@ function renderGalleryTrack(items) {
     const rawTitle = (g.title || '').replace(/\s*проверка/gi, '').trim();
     const rawTag = g.tag || 'RDRC';
     const bilingual = getGalleryBilingual(rawTitle, rawTag);
-    const objPos = g.object_position || g.objectPosition || 'center 50%';
+    const objPos = escapeHtml(g.object_position || g.objectPosition || 'center 50%');
+    const safeImg = escapeHtml(g.img || '');
     return `
-    <div class="marquee-card" data-raw-title="${rawTitle.replace(/"/g, '&quot;')}" data-raw-tag="${rawTag.replace(/"/g, '&quot;')}" onclick="openGalleryLightbox('${g.img}', '${rawTitle.replace(/'/g, "\\'")}')">
-      <img src="${g.img}" alt="${bilingual.title || 'GTT'}" style="object-position: ${objPos} !important;" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='assets/photos/gtt_shield_logo.svg';">
+    <div class="marquee-card" data-raw-title="${escapeHtml(rawTitle)}" data-raw-tag="${escapeHtml(rawTag)}" onclick="openGalleryLightbox('${escapeJS(g.img || '')}', '${escapeJS(rawTitle)}')">
+      <img src="${safeImg}" alt="${escapeHtml(bilingual.title || 'GTT')}" style="object-position: ${objPos} !important;" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='assets/photos/gtt_shield_logo.svg';">
       <div class="marquee-card-meta">
-        <span class="marquee-card-tag">${bilingual.tag}</span>
-        <div class="marquee-card-title">${bilingual.title}</div>
+        <span class="marquee-card-tag">${escapeHtml(bilingual.tag)}</span>
+        <div class="marquee-card-title">${escapeHtml(bilingual.title)}</div>
       </div>
     </div>
   `;
@@ -3276,284 +3276,6 @@ function renderGalleryTrack(items) {
 
 // Dynamic Records Synchronization
 let cachedRecordsData = null;
-
-const defaultRecords = [
-  {
-    id: 'rec_moses',
-    year: 'UNLIM 500+ • 2016',
-    eventPill: 'UNLIM 500+ • 2016',
-    heroTime: '7.526',
-    heroUnit: 'СЕК',
-    heroSpeed: '304.36 КМ/Ч • 1/4 МИЛИ',
-    car: 'NISSAN GT-R R35 «MOSES»',
-    telemetry: '1/4 мили: 7.526 сек • 304.36 км/ч',
-    desc: 'Абсолютный рекорд 402 м за всю историю ателье GoshaTurboTech.',
-    img: 'assets/archive_tilda/gtr_moses.png'
-  },
-  {
-    id: 'rec_draco',
-    year: 'RDRC PRO-MOD • 2024',
-    eventPill: 'RDRC PRO-MOD • 2024',
-    heroTime: '7.694',
-    heroUnit: 'СЕК',
-    heroSpeed: '304.44 КМ/Ч • 1/4 МИЛИ',
-    car: 'NISSAN GT-R DRACO PRO-MOD #300',
-    telemetry: '1/4 мили: 7.694 сек • 304.44 км/ч',
-    desc: 'Флагман дрэг-рейсинга России. Выход из 1/2 мили 323.88 км/ч.',
-    img: 'assets/cars/gtr_draco_promod_front.jpg'
-  },
-  {
-    id: 'rec_kurdalagon',
-    year: 'RDRC БЫКОВО • 2026',
-    eventPill: 'RDRC БЫКОВО • 2026',
-    heroTime: '7.766',
-    heroUnit: 'СЕК',
-    heroSpeed: '300.00 КМ/Ч • 1/4 МИЛИ',
-    car: 'NISSAN GT-R R35 «КУРДАЛАГОН»',
-    telemetry: '1/4 мили: 7.766 сек • 300.00 км/ч',
-    desc: 'Официальный рекорд трек-дня в Быково конца октября 2026.',
-    img: 'assets/archive_tilda/gtr_kurdalagon.png'
-  },
-  {
-    id: 'rec_rokot',
-    year: 'РЕКОРД РОССИИ • 2026',
-    eventPill: 'РЕКОРД РОССИИ • 2026',
-    heroTime: '7.877',
-    heroUnit: 'СЕК',
-    heroSpeed: 'СУПЕРКУБОК RDRC • 1/4 МИЛИ',
-    car: 'AUDI R8 V10 PLUS TT «ROKOT»',
-    telemetry: '1/4 мили: 7.877 сек • Суперкубок RDRC',
-    desc: 'Первый и единственный болид Audi в России быстрее 8 секунд.',
-    img: 'assets/cars/audi_r8_tsmr_launch.jpg'
-  },
-  {
-    id: 'rec_bezzubik',
-    year: 'RACE 1000 • ГЕРМАНИЯ',
-    eventPill: 'RACE 1000 • ГЕРМАНИЯ',
-    heroTime: '353.02',
-    heroUnit: 'КМ/Ч',
-    heroSpeed: '1/2 МИЛИ • 8.054 СЕК НА 402 М',
-    car: 'HURACAN TT «BEZZUBIK»',
-    telemetry: '1/2 мили: 353.02 км/ч • 1/4 мили: 8.054 сек',
-    desc: 'Официальный рекорд Европы на дистанции 804 м среди полноприводных суперкаров.',
-    img: 'assets/photos/huracan_rdrc_stage_line.jpg'
-  },
-  {
-    id: 'rec_zelenka',
-    year: 'ROLLING 50 1000',
-    eventPill: 'ROLLING 50 1000',
-    heroTime: '344.60',
-    heroUnit: 'КМ/Ч',
-    heroSpeed: '1000 М • 8.373 СЕК 1/4 МИЛИ',
-    car: 'HURACAN TT «ЗЕЛЕНКА»',
-    telemetry: '1/4 мили: 8.373 сек • 1000 м: 344.60 км/ч',
-    desc: 'Культовый 2000+ сильный болид GoshaTurboTech в ОАЭ и Германии.',
-    img: 'assets/photos/huracan_zelenka_gtt.jpg'
-  },
-  {
-    id: 'rec_lucifer',
-    year: 'RDRC 2026 • ЧЕМПИОН',
-    eventPill: 'RDRC 2026 • ЧЕМПИОН',
-    heroTime: '8.400',
-    heroUnit: 'СЕК',
-    heroSpeed: '343.67 КМ/Ч • 1/2 МИЛИ',
-    car: 'NISSAN GT-R R35 «LUCIFER» #71',
-    telemetry: '1/4 мили: 8.400 сек • 1/2 мили: 343.67 км/ч',
-    desc: 'Личный флагманский боевой болид Гоши Перцхелии.',
-    img: 'assets/cars/gtr_lucifer_solo.jpg'
-  },
-  {
-    id: 'rec_korzhik',
-    year: 'МОСКОВСКАЯ МИЛЯ',
-    eventPill: 'МОСКОВСКАЯ МИЛЯ',
-    heroTime: '13.435',
-    heroUnit: 'СЕК',
-    heroSpeed: '334.41 КМ/Ч • 1/2 МИЛИ',
-    car: 'NISSAN GT-R R35 «KORZHIK» #712',
-    telemetry: '1/2 мили: 13.435 сек • 334.41 км/ч',
-    desc: 'Пилот Николай Коржов. Официальный рекорд России на 1/2 мили.',
-    img: 'assets/cars/gtr_korzhik_712.jpg'
-  },
-  {
-    id: 'rec_hulk',
-    year: 'СУПЕРКУБОК RDRC',
-    eventPill: 'СУПЕРКУБОК RDRC',
-    heroTime: '8.951',
-    heroUnit: 'СЕК',
-    heroSpeed: '257.14 КМ/Ч • 1/4 МИЛИ',
-    car: 'HURACAN LP610-4 «HULK»',
-    telemetry: '1/4 мили: 8.951 сек • 3/8 мили: 291.14 км/ч',
-    desc: 'Пилот Эдуард Саркисян. Победный заезд на Суперкубке RDRC.',
-    img: 'assets/cars/huracan_green_grey_rdrc.jpg'
-  },
-  {
-    id: 'rec_tonystark',
-    year: 'RECORD DAYS',
-    eventPill: 'RECORD DAYS',
-    heroTime: '8.948',
-    heroUnit: 'СЕК',
-    heroSpeed: '287.19 КМ/Ч • 1/2 МИЛИ',
-    car: 'AUDI R8 V10 PLUS «TONY STARK»',
-    telemetry: '1/4 мили: 8.948 сек • 247.68 км/ч',
-    desc: 'Стабильный выезд из 9 секунд на трек-днях Record Days.',
-    img: 'assets/archive_tilda/audi_r8_tonystark.png'
-  },
-  {
-    id: 'rec_gtt1200',
-    year: 'РЕКОРД ЕВРОПЫ 991',
-    eventPill: 'РЕКОРД ЕВРОПЫ 991',
-    heroTime: '9.086',
-    heroUnit: 'СЕК',
-    heroSpeed: '312.77 КМ/Ч • 1/2 МИЛИ',
-    car: 'PORSCHE 911 TURBO GTT-1200',
-    telemetry: '1/4 мили: 9.086 сек • 259.64 км/ч',
-    desc: 'Пилот Алексей Сагал. Рекорд России и Европы для кузова 991.1.',
-    img: 'assets/cars/porsche_991_1200_white.jpg'
-  },
-  {
-    id: 'rec_su7',
-    year: 'СУПЕРКУБОК 2026',
-    eventPill: 'СУПЕРКУБОК 2026',
-    heroTime: '9.130',
-    heroUnit: 'СЕК',
-    heroSpeed: '249.31 КМ/Ч • 1/4 МИЛИ',
-    car: 'XIAOMI SU7 ULTRA GTT SPEC',
-    telemetry: '1/4 мили: 9.130 сек • 3/8 мили: 287.31 км/ч',
-    desc: 'Сенсационный рекорд команды для электрических гиперкаров.',
-    img: 'assets/cars/bmw_m5_rdrc_race.jpg'
-  },
-  {
-    id: 'rec_imba',
-    year: 'МИРОВОЙ ОРИЕНТИР 992',
-    eventPill: 'МИРОВОЙ ОРИЕНТИР 992',
-    heroTime: '9.167',
-    heroUnit: 'СЕК',
-    heroSpeed: '231.80 КМ/Ч • 1/4 МИЛИ',
-    car: 'PORSCHE 911 TURBO S IMBA',
-    telemetry: '1/4 мили: 9.167 сек • RDRC 2025',
-    desc: 'Пилот Мария Кутычкина. Быстрейший 992 на заводских турбинах.',
-    img: 'assets/cars/porsche_992_imba_silver.jpg'
-  },
-  {
-    id: 'rec_puncher',
-    year: 'UNLIM FEST',
-    eventPill: 'UNLIM FEST',
-    heroTime: '9.303',
-    heroUnit: 'СЕК',
-    heroSpeed: '276.92 КМ/Ч • 1/2 МИЛИ',
-    car: 'PORSCHE 911 TURBO S PUNCHER',
-    telemetry: '1/4 мили: 9.303 сек • 235.83 км/ч',
-    desc: 'Триумф Сергея Никитина в зачетах дорожных Porsche 992.',
-    img: 'assets/archive_tilda/porsche_992_puncher.jpg'
-  },
-  {
-    id: 'rec_gyurza',
-    year: 'РЕКОРД ЛЬДА БАЙКАЛА',
-    eventPill: 'РЕКОРД ЛЬДА БАЙКАЛА',
-    heroTime: '124.00',
-    heroUnit: 'КМ/Ч',
-    heroSpeed: '1 КМ С МЕСТА ПО ЛЬДУ',
-    car: 'AUDI R8 V10 PLUS «GYURZA»',
-    telemetry: '1 км с места на льду: 124.00 км/ч',
-    desc: 'Дни скорости на льду озера Байкал совместно с Kiwamaru.',
-    img: 'assets/archive_tilda/audi_r8_gyurza_ice.jpg'
-  },
-  {
-    id: 'rec_gallardo',
-    year: 'МИРОВОЙ РЕКОРД 1 МИЛЯ',
-    eventPill: 'МИРОВОЙ РЕКОРД 1 МИЛЯ',
-    heroTime: '409.55',
-    heroUnit: 'КМ/Ч',
-    heroSpeed: '20.845 СЕК НА 1 МИЛЮ (1609 М)',
-    car: 'LAMBORGHINI GALLARDO NERA TT',
-    telemetry: '1 миля: 409.55 км/ч • 20.845 сек',
-    desc: 'Первый болид из России, покоривший планку 400+ км/ч в Греции.',
-    img: 'assets/photos/huracan_zelenka_gtt.jpg'
-  }
-];
-
-const recordTranslationsEn = {
-  'rec_moses': {
-    year: '2016 • Absolute GTT Benchmark',
-    title: 'All-Time 1/4-Mile Record',
-    desc: 'Legendary passes in UAE and UNLIM 500+ Greece. 7.526 sec at 304.36 km/h — fastest drag time in GoshaTurboTech history.'
-  },
-  'rec_draco': {
-    year: '2024 • RDRC Pro-Mod Record',
-    title: 'Flagship of Russian Drag Racing',
-    desc: 'Driver Ruslan Arefyev at RDRC 2024 (pass #537). Verified DragDB telemetry. Half-mile exit speed surpassed 323.88 km/h.'
-  },
-  'rec_kurdalagon': {
-    year: '2026 • Bykovo Track Record',
-    title: 'Latest GTT Track Day Record',
-    desc: 'Fresh official track day benchmark established by the GoshaTurboTech skunkworks at Bykovo in late October 2026.'
-  },
-  'rec_rokot': {
-    year: '2026 • Russian National Record for Audi',
-    title: 'First Audi in Russia Sub-8 Seconds',
-    desc: 'Eduard Sarkisyan and Ruslan Arefyev shattered the national barrier, becoming the first Audi in Russia to clock under 8 seconds.'
-  },
-  'rec_bezzubik': {
-    year: 'European Record • Race 1000',
-    title: 'European Triumph in Germany',
-    desc: 'Official 804-meter European record among AWD supercars in Germany (353.02 km/h) and 8.054 sec quarter-mile.'
-  },
-  'rec_zelenka': {
-    year: 'UAE & Germany • 344.60 km/h',
-    title: 'Legendary Green GTT Hypercar',
-    desc: '8.373 sec at 275.26 km/h on quarter mile in UAE and 344.60 km/h over 1000 meters in Germany (Rolling 50 1000).'
-  },
-  'rec_lucifer': {
-    year: 'RDRC 2026 • 1st Place Champion',
-    title: "Gosha's Personal Flagship Build",
-    desc: 'Gosha Pertskheliya personal race weapon. 8.400 sec in UAE, 8.551 sec class win on RDRC 2026, and 343.67 km/h half-mile.'
-  },
-  'rec_korzhik': {
-    year: 'Russian Record • Moscow Mile',
-    title: 'Moscow Mile Record Holder',
-    desc: 'Piloted by Nikolay Korzhov. 8.602 sec 1/4-mile and verified Russian 1/2-mile national record: 13.435 sec at 334.41 km/h.'
-  },
-  'rec_hulk': {
-    year: 'RDRC Supercup 2026',
-    title: 'RDRC Supercup Victory',
-    desc: 'Driver Eduard Sarkisyan for GoshaTurboTech. 8.951 sec at 257.14 km/h on 1/4 mile (3/8 mile: 11.561 sec / 291.14 km/h).'
-  },
-  'rec_tonystark': {
-    year: 'Record Days 2023',
-    title: 'Turbo Monster R8 Tony Stark',
-    desc: 'Consistent sub-9 second passes on Record Days track events (8.948 sec) and 15.403 sec at 287.19 km/h half-mile.'
-  },
-  'rec_gtt1200': {
-    year: 'Russian & European Record • RacePark',
-    title: 'Record Pass Porsche 991',
-    desc: 'Driver Alexey Sagal. Russian and European benchmark for 991.1 body (9.086 sec) with 312.77 km/h half-mile.'
-  },
-  'rec_su7': {
-    year: '2026 • RDRC Supercup',
-    title: 'Electric Hyper-Sedan 1548 HP',
-    desc: 'Driver V. Shched piloting for GoshaTurboTech at RDRC Supercup 2026 clocked an electric record 9.130 sec at 249.31 km/h.'
-  },
-  'rec_imba': {
-    year: '2022–2025 • World RDRC Benchmark',
-    title: 'Fastest 992 on Stock Turbos',
-    desc: 'Driver Maria Kutychkina. World benchmark 9.252 sec at 231.80 km/h on stock turbos, lowered on RDRC 2025 to 9.167 sec.'
-  },
-  'rec_puncher': {
-    year: '2021 • World Benchmark UNLIM FEST',
-    title: 'Sergey Nikitin Triumph',
-    desc: 'Street-legal Porsche 992 benchmark at Unlim Fest (9.303 sec) and half-mile in 14.778 sec at 276.92 km/h.'
-  },
-  'rec_gyurza': {
-    year: '2022 • Absolute Ice Record',
-    title: 'Days of Speed on Lake Baikal Ice',
-    desc: 'Built by GTT in collaboration with Kiwamaru. All-time standing-start ice racing record in Russian motorsport history.'
-  },
-  'rec_gallardo': {
-    year: 'World Record • 1 Mile (1609 m)',
-    title: 'All-Time Speed Record 409+ km/h',
-    desc: 'Crete Airfield, Greece. Gosha Pertskheliya legendary Black Gallardo — first car from Russia to conquer 400+ km/h on 1 mile.'
-  }
-};
 
 // ============================================================================
 // GOSHA TURBOTECH: ULTRA-SMOOTH EDITORIAL RECORDS GALLERY ENGINE
@@ -3724,94 +3446,41 @@ window.goToRecordSlide = function(idx) {
 
 function renderRecordsEditorial(recordsList) {
   const track = document.getElementById('recordsCarouselTrack');
-  if (!track || !Array.isArray(recordsList) || recordsList.length === 0) return;
+  if (!track || !Array.isArray(recordsList)) return;
   cachedRecordsData = recordsList;
 
   const renderSingle = (rec, idx, isDup) => {
-    const photo = rec.img || 'assets/photos/huracan_rdrc_stage_line.jpg';
-    const enMeta = (typeof recordTranslationsEn !== 'undefined' && recordTranslationsEn[rec.id]) ? recordTranslationsEn[rec.id] : {};
-    const carName = rec.car || 'GTT Spec';
-    const descText = (typeof currentLang !== 'undefined' && currentLang === 'en' && enMeta.desc) ? enMeta.desc : (rec.desc || '');
-    const num = String((idx % 16) + 1).padStart(2, '0');
+    const photo = rec.img || 'assets/photos/gtt_shield_logo.svg';
+    const carName = rec.car || '';
     const dupAttr = isDup ? '_dup' : '';
+    const telemetry = rec.telemetry || '';
+    const time = telemetry.match(/([\d.,]+)\s*(?:сек|sec|с(?=\s|$))/i)?.[1];
+    const speed = telemetry.match(/([\d.,]+)\s*(?:км\/ч|km\/h)/i)?.[1];
+    const english = currentLang === 'en';
+    const timeUnit = english ? 'SEC' : 'СЕК';
+    const speedUnit = english ? 'KM/H' : 'КМ/Ч';
 
-    let eventPill = rec.eventPill || rec.year || 'GTT RECORD';
-    if (typeof currentLang !== 'undefined' && currentLang === 'en' && enMeta.year) {
-      eventPill = enMeta.year;
-    }
-
-    let heroTime = rec.heroTime;
-    let heroUnit = rec.heroUnit || 'СЕК';
-    let heroSpeed = rec.heroSpeed;
-
-    if (!heroTime || !heroSpeed) {
-      const tel = rec.telemetry || '';
-      const secMatch = tel.match(/([\d\.]+)\s*сек/i);
-      const kmhMatch = tel.match(/([\d\.]+)\s*км\/ч/i);
-      if (secMatch) {
-        heroTime = secMatch[1];
-        heroUnit = 'СЕК';
-        if (kmhMatch) {
-          heroSpeed = `${kmhMatch[1]} КМ/Ч • ${tel.includes('1/2') ? '1/2 МИЛИ' : tel.includes('1 миля') ? '1 МИЛЯ' : '1/4 МИЛИ'}`;
-        } else {
-          heroSpeed = tel.replace(/1\/4\s*мили:?\s*/i, '').replace(/1\/2\s*мили:?\s*/i, '').trim();
-        }
-      } else if (kmhMatch) {
-        heroTime = kmhMatch[1];
-        heroUnit = 'КМ/Ч';
-        heroSpeed = tel.replace(/[\d\.]+\s*км\/ч/i, '').replace(/^[•:\s]+|[•:\s]+$/g, '').trim() || 'МАКСИМАЛЬНАЯ СКОРОСТЬ';
-      } else {
-        heroTime = 'GTT';
-        heroUnit = 'RECORD';
-        heroSpeed = tel || 'OFFICIAL TELEMETRY';
-      }
-    }
-
-    if (typeof currentLang !== 'undefined' && currentLang === 'en') {
-      if (heroUnit === 'СЕК') heroUnit = 'SEC';
-      if (heroUnit === 'КМ/Ч') heroUnit = 'KM/H';
-
-      if (heroSpeed) {
-        heroSpeed = heroSpeed
-          .replace(/КМ\/Ч/gi, 'KM/H')
-          .replace(/1\/4\s*МИЛИ/gi, '1/4 MILE')
-          .replace(/1\/2\s*МИЛИ/gi, '1/2 MILE')
-          .replace(/1\s*МИЛЯ/gi, '1 MILE')
-          .replace(/1\s*КМ\s*С\s*МЕСТА(\s*ПО\s*ЛЬДУ|\s*НА\s*ЛЬДУ)?/gi, '1 KM STANDING START')
-          .replace(/СУПЕРКУБОК\s*RDRC/gi, 'RDRC SUPERCUP')
-          .replace(/РЕКОРД\s*РОССИИ/gi, 'RUSSIAN RECORD')
-          .replace(/РЕКОРД\s*ЕВРОПЫ/gi, 'EUROPEAN RECORD')
-          .replace(/МИРОВОЙ\s*РЕКОРД/gi, 'WORLD RECORD')
-          .replace(/РЕКОРД\s*БЫКОВО/gi, 'BYKOVO TRACK RECORD')
-          .replace(/МАКСИМАЛЬНАЯ\s*СКОРОСТЬ/gi, 'TOP SPEED');
-      }
-    }
-
-    const customPos = rec.object_position || rec.objectPosition || '';
+    const customPos = escapeHtml(rec.object_position || rec.objectPosition || '');
     const posAttr = customPos ? ` style="object-position: ${customPos};" data-custom-pos="true"` : '';
 
     return `
-      <div class="record-item" data-id="${rec.id || idx}${dupAttr}">
+      <div class="record-item" data-id="${escapeHtml(rec.id || idx)}${dupAttr}">
         <div class="record-photo-wrapper">
-          <img src="${photo}" 
-               alt="${carName}" 
-               class="record-photo-img"${posAttr}
+          <img src="${escapeHtml(photo)}"
+               alt="${rec.img ? escapeHtml(carName) : ''}"
+               class="record-photo-img${rec.img ? '' : ' record-photo-placeholder'}"${posAttr}
                loading="lazy"
                decoding="async"
                onload="handleRecordImgLoad(this)"
-               onerror="this.src='assets/photos/huracan_rdrc_stage_line.jpg'">
+               onerror="this.onerror=null; this.alt=''; this.classList.add('record-photo-placeholder'); this.src='assets/photos/gtt_shield_logo.svg'">
           <div class="record-photo-overlay"></div>
-          <div class="record-photo-badges">
-            <span class="record-event-pill">${eventPill}</span>
-          </div>
         </div>
         <div class="record-content-box">
           <div class="record-stat-row">
-            <span class="record-hero-time">${heroTime} <span class="record-hero-unit">${heroUnit}</span></span>
-            <span class="record-hero-speed">${heroSpeed}</span>
+            ${time ? `<span class="record-hero-time">${escapeHtml(time)} <span class="record-hero-unit">${timeUnit}</span></span>` : ''}
+            ${speed ? `<span class="record-hero-speed">${escapeHtml(speed)} ${speedUnit}</span>` : ''}
           </div>
-          <h3 class="record-car-title">${carName}</h3>
-          <p class="record-car-desc">${descText}</p>
+          <h3 class="record-car-title">${escapeHtml(carName)}</h3>
         </div>
       </div>
     `;
@@ -4046,50 +3715,18 @@ function initRecordsCarousel() {
 }
 
 async function syncRecordsFromAPI() {
-  let recordsToUse = defaultRecords;
-  try {
-    const local = localStorage.getItem('gtt_admin_records_db') || localStorage.getItem('gtt_records_v2');
-    if (local) {
-      const parsed = JSON.parse(local);
-      if (Array.isArray(parsed) && parsed.length >= 10) {
-        recordsToUse = parsed;
-      }
-    }
-  } catch (e) {}
-
-  cachedRecordsData = recordsToUse;
-  try {
-    localStorage.setItem('gtt_admin_records_db', JSON.stringify(recordsToUse));
-    localStorage.setItem('gtt_records_v2', JSON.stringify(recordsToUse));
-  } catch (e) {}
-  renderRecordsEditorial(recordsToUse);
-
-  try {
-    let serverRecs = null;
-    let isLiveBackend = false;
+  for (const url of ['/api/records', 'data/records.json']) {
     try {
-      const res = await fetch('/api/records');
-      if (res.ok) {
-        serverRecs = await res.json();
-        isLiveBackend = true;
-      }
-    } catch (e) {}
-
-    const hasCustomRecords = recordsToUse !== defaultRecords;
-    if ((!serverRecs || !Array.isArray(serverRecs) || serverRecs.length === 0) && !hasCustomRecords) {
-      try {
-        const res = await fetch('data/records.json');
-        if (res.ok) serverRecs = await res.json();
-      } catch (e) {}
+      const response = await fetch(url);
+      if (!response.ok) continue;
+      const records = await response.json();
+      if (!Array.isArray(records)) continue;
+      renderRecordsEditorial(records);
+      return;
+    } catch (error) {
+      // A static deployment uses the JSON export when the API is unavailable.
     }
-
-    if (Array.isArray(serverRecs) && serverRecs.length > 0 && (isLiveBackend || !hasCustomRecords)) {
-      cachedRecordsData = serverRecs;
-      localStorage.setItem('gtt_admin_records_db', JSON.stringify(serverRecs));
-      localStorage.setItem('gtt_records_v2', JSON.stringify(serverRecs));
-      renderRecordsEditorial(serverRecs);
-    }
-  } catch (err) {}
+  }
 }
 
 // Multi-Tab Real-Time Sync Listener
@@ -4371,30 +4008,32 @@ function renderTeamGrid(teamList) {
       if (m.role) displayRole = m.role;
     }
 
-    const objPos = m.object_position || m.objectPosition || 'center 20%';
+    const objPos = escapeHtml(m.object_position || m.objectPosition || 'center 20%');
+    const safePhoto = escapeHtml(rawPhoto);
+    const safeName = escapeHtml(displayName);
     const photoMarkup = hasPhoto
-      ? `<img src="${rawPhoto}" alt="${displayName}" class="team-card-img" style="object-position: ${objPos} !important;" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'team-card-placeholder-photo\\'><div class=\\'team-placeholder-crest\\'><img src=\\'assets/photos/gtt_shield_logo.svg\\' alt=\\'GTT\\' class=\\'team-placeholder-crest-icon\\'><span class=\\'team-placeholder-id\\'>#${num}</span></div><span class=\\'team-placeholder-hint\\'>GTT Crew</span></div>'">`
+      ? `<img src="${safePhoto}" alt="${safeName}" class="team-card-img" style="object-position: ${objPos} !important;" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'team-card-placeholder-photo\\'><div class=\\'team-placeholder-crest\\'><img src=\\'assets/photos/gtt_shield_logo.svg\\' alt=\\'GTT\\' class=\\'team-placeholder-crest-icon\\'><span class=\\'team-placeholder-id\\'>#${escapeHtml(num)}</span></div><span class=\\'team-placeholder-hint\\'>GTT Crew</span></div>'">`
       : `<div class="team-card-placeholder-photo">
           <div class="team-placeholder-crest">
             <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
-            <span class="team-placeholder-id">#${num}</span>
+            <span class="team-placeholder-id">#${escapeHtml(num)}</span>
           </div>
           <span class="team-placeholder-hint">GTT Atelier</span>
         </div>`;
 
     return `
-      <div class="team-card team-card-fade-in ${hasPhoto ? 'has-photo' : 'has-placeholder'}" data-team-dept="${dept}" style="animation-delay: ${(idx % 10) * 0.06}s">
+      <div class="team-card team-card-fade-in ${hasPhoto ? 'has-photo' : 'has-placeholder'}" data-team-dept="${escapeHtml(dept)}" style="animation-delay: ${(idx % 10) * 0.06}s">
         <div class="team-card-photo">
           ${photoMarkup}
         </div>
         <div class="team-card-body">
           <div class="team-badge-header">
-            <span class="team-dept-pill">${deptLabel}</span>
-            <span class="team-badge-id">#${num}</span>
+            <span class="team-dept-pill">${escapeHtml(deptLabel)}</span>
+            <span class="team-badge-id">#${escapeHtml(num)}</span>
           </div>
-          <h3 class="team-name">${displayName}</h3>
-          <span class="team-role">${displayRole}</span>
-          ${social ? `<span class="team-social">${social}</span>` : ''}
+          <h3 class="team-name">${safeName}</h3>
+          <span class="team-role">${escapeHtml(displayRole)}</span>
+          ${social ? `<span class="team-social">${escapeHtml(social)}</span>` : ''}
         </div>
       </div>
     `;
@@ -4472,21 +4111,6 @@ function setupHeroVideo() {
     };
     events.forEach(evt => window.addEventListener(evt, onAction, { passive: true, once: true }));
   }
-
-  // Resilient error recovery: fallback to secondary stream if needed
-  function handleVideoError() {
-    if (!heroVideo.dataset.retried) {
-      heroVideo.dataset.retried = 'true';
-      heroVideo.src = 'assets/videos/hero_burnout_action.mp4';
-      heroVideo.load();
-      attemptPlay();
-    }
-  }
-
-  heroVideo.addEventListener('error', handleVideoError);
-  heroVideo.querySelectorAll('source').forEach(source => {
-    source.addEventListener('error', handleVideoError);
-  });
 
   heroVideo.addEventListener('loadedmetadata', attemptPlay, { once: true });
   heroVideo.addEventListener('canplay', attemptPlay, { once: true });
@@ -5111,37 +4735,18 @@ function renderGarageGrid(filterType) {
         if (expandWrap) expandWrap.style.display = 'none';
       }
 
-      const featuredCarsSet = new Set(gttProjects.filter(c => c.isFeatured || c.is_featured === 1 || c.is_featured === true).map(c => c.id));
-      if (featuredCarsSet.size === 0) {
-        gttProjects.slice(0, 4).forEach(c => featuredCarsSet.add(c.id));
-      }
-
       container.innerHTML = displayList.map((car, idx) => {
         const name = (typeof car.name === 'object') ? (car.name[currentLang] || car.name.ru) : car.name;
-        const desc = (typeof car.desc === 'object') ? (car.desc[currentLang] || car.desc.ru) : car.desc;
-        const badge = (typeof car.badge === 'object') ? (car.badge[currentLang] || car.badge.ru) : car.badge;
-        const tag = (typeof car.tag === 'object') ? (car.tag[currentLang] || car.tag.ru) : car.tag;
         const isClass = car.isClassified || (car.img && (car.img.includes('classified') || car.img.endsWith('.svg')));
 
-        const isNewCar = Boolean(car.isNew);
-        const isTopFeatured = featuredCarsSet.has(car.id);
         const showVideoBtn = Boolean(car.videoSrc || car.video_src || car.youtubeId);
 
         return `
-        <div class="car-card car-card-fade-in ${isClass ? 'is-classified' : ''} ${isNewCar ? 'is-new-car-pending' : ''}" data-id="${car.id}" onclick="openCarModal('${car.id}')" style="cursor: pointer; animation-delay: ${(idx % 8) * 0.07}s">
-          ${isNewCar 
-            ? `<span class="car-card-badge is-new-badge">${currentLang === 'ru' ? 'НОВЫЙ ПРОЕКТ // ВЫБОР ФОТО' : 'NEW BUILD // PENDING PHOTO'}</span>` 
-            : ''
-          }
+        <div class="car-card car-card-fade-in ${isClass ? 'is-classified' : ''}" data-id="${escapeHtml(car.id)}" onclick="openCarModal('${escapeJS(car.id)}')" style="cursor: pointer; animation-delay: ${(idx % 8) * 0.07}s">
           <div class="car-card-media ${isClass ? 'classified-media' : ''}" style="position: relative;">
-            ${isNewCar ? `
-              <div class="card-question-overlay">
-                <div class="card-question-icon">?</div>
-              </div>
-            ` : ''}
-            <img class="car-card-img ${car.isPhoto ? 'photo-fit' : ''}" 
-                 src="${withLocalAssetVersion(convertGoogleDriveUrl(car.img))}" 
-                 alt="${name}" 
+            <img class="car-card-img ${car.isPhoto ? 'photo-fit' : ''}"
+                 src="${escapeHtml(withLocalAssetVersion(convertGoogleDriveUrl(car.img)))}"
+                 alt="${escapeHtml(name)}"
                  ${idx < 4 ? 'fetchpriority="high"' : 'loading="lazy"'}
                  decoding="async"
                  data-configured-pos="${escapeHtml(car.objectPosition || '')}"
@@ -5150,27 +4755,21 @@ function renderGarageGrid(filterType) {
                  onerror="this.onerror=null; this.src='${escapeJS(withLocalAssetVersion(convertGoogleDriveUrl(car.fallbackImg || 'assets/cars/gtt_classified_car.svg')))}'; if(this.parentElement) this.parentElement.classList.add('is-img-loaded');">
           </div>
           <div class="car-card-info">
-            <div class="car-brand">${tag || car.brand}</div>
-            <h3 class="car-model-title">${name}</h3>
-            <p class="car-card-desc">${desc}</p>
+            <h3 class="car-model-title">${escapeHtml(name)}</h3>
             <div class="car-specs-row">
-              <div class="spec-cell">
-                <div class="spec-val">${formatSpecVal(car.hp, currentLang, 'hp', true)}</div>
-                <div class="spec-lbl">${i18n[currentLang].spec_power}</div>
-              </div>
               <div class="spec-cell">
                 <div class="spec-val">${formatSpecVal(car.quarterMile, currentLang, 'quarterMile', true)}</div>
                 <div class="spec-lbl">${i18n[currentLang].spec_402}</div>
               </div>
               <div class="spec-cell">
                 <div class="spec-val">${formatSpecVal(car.topSpeed, currentLang, 'topSpeed', true)}</div>
-                <div class="spec-lbl">${i18n[currentLang].spec_speed}</div>
+                <div class="spec-lbl">${currentLang === 'ru' ? 'Скорость' : 'Speed'}</div>
               </div>
             </div>
             <div class="car-card-footer">
-              <button class="btn-card-details btn-card-passport" onclick="event.stopPropagation(); openCarModal('${car.id}')">${i18n[currentLang].btn_passport}</button>
+              <button class="btn-card-details btn-card-passport" onclick="event.stopPropagation(); openCarModal('${escapeJS(car.id)}')">${i18n[currentLang].btn_passport}</button>
               ${showVideoBtn ? `
-                <button class="btn-card-details btn-card-video" onclick="event.stopPropagation(); openCarVideo('${car.id}')">
+                <button class="btn-card-details btn-card-video" onclick="event.stopPropagation(); openCarVideo('${escapeJS(car.id)}')">
                   <span>▶</span> ${currentLang === 'ru' ? 'Видео заезда' : 'Race Video'}
                 </button>
               ` : ''}
@@ -5483,15 +5082,18 @@ window.openCarModal = function(carId) {
     <div class="carmodal-header">
       <div class="carmodal-badges">
         <span class="carmodal-passport-tag">GTT MOTORSPORT PASSPORT</span>
-        <span class="carmodal-car-badge">${badge}</span>
+        <span class="carmodal-car-badge">${escapeHtml(badge)}</span>
       </div>
-      <h2 class="carmodal-title">${name}</h2>
+      <h2 class="carmodal-title">${escapeHtml(name)}</h2>
     </div>
 
     <!-- Hero Media Stage (Widescreen + Atmosphere Glow) -->
     <div class="carmodal-hero-stage">
       <div class="carmodal-glow"></div>
-      <img src="${withLocalAssetVersion(convertGoogleDriveUrl(car.img))}" alt="${name}" class="carmodal-hero-img" onerror="this.onerror=null; this.src='${escapeJS(withLocalAssetVersion(convertGoogleDriveUrl(car.fallbackImg || 'assets/cars/gtt_classified_car.svg')))}';">
+      <button type="button" class="carmodal-photo-button" onclick="const photo = this.querySelector('img'); openGalleryLightbox(photo.currentSrc || photo.src, photo.alt, true);" aria-label="${currentLang === 'ru' ? 'Открыть фото на весь экран' : 'View full-size photo'}">
+        <img src="${escapeHtml(withLocalAssetVersion(convertGoogleDriveUrl(car.img)))}" alt="${escapeHtml(name)}" class="carmodal-hero-img" onerror="this.onerror=null; this.src='${escapeJS(withLocalAssetVersion(convertGoogleDriveUrl(car.fallbackImg || 'assets/cars/gtt_classified_car.svg')))}';">
+        <span class="carmodal-photo-label">${currentLang === 'ru' ? 'На весь экран' : 'Full screen'}</span>
+      </button>
     </div>
 
     <!-- Big 3 Telemetry Metrics Grid -->
@@ -5522,20 +5124,19 @@ window.openCarModal = function(carId) {
     <!-- Description & Engineering Story -->
     <div class="carmodal-desc-box">
       <div class="carmodal-desc-lbl">${currentLang === 'ru' ? 'Инженерная концепция' : 'Engineering Concept'}</div>
-      <p class="carmodal-desc-text">${desc}</p>
+      <p class="carmodal-desc-text">${escapeHtml(desc)}</p>
     </div>
 
     <!-- Technical Specification Passport -->
     <div class="carmodal-specs-section">
       <div class="carmodal-specs-header">
         <span class="carmodal-specs-title">${currentLang === 'ru' ? 'Конфигурация и компоненты' : 'Configuration & Components'}</span>
-        <span class="carmodal-specs-badge">GTT RACE SPEC</span>
       </div>
       <div class="carmodal-specs-grid">
         ${Object.entries(car.specs || {}).map(([key, val]) => `
           <div class="carmodal-spec-row">
-            <span class="carmodal-spec-key">${key}</span>
-            <span class="carmodal-spec-val">${val}</span>
+            <span class="carmodal-spec-key">${escapeHtml(key)}</span>
+            <span class="carmodal-spec-val">${escapeHtml(val)}</span>
           </div>
         `).join('')}
       </div>
@@ -5544,7 +5145,7 @@ window.openCarModal = function(carId) {
     <!-- Modal Actions Footer -->
     <div class="carmodal-footer-actions">
       ${(car.videoSrc || car.video_src || car.youtubeId) ? `
-        <button class="carmodal-btn-video" onclick="openCarVideo('${car.id}')">
+        <button class="carmodal-btn-video" onclick="openCarVideo('${escapeJS(car.id)}')">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
           ${currentLang === 'ru' ? 'Смотреть видео заезда' : 'Watch Race Video'}
         </button>
@@ -5625,7 +5226,6 @@ window.openVideoPlayer = async function(videoSrc, title) {
       </div>
 
       <div id="videoErrorFallback" style="display: none; position: absolute; inset: 0; z-index: 5; background: #0a0d14; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 24px;">
-        <div style="font-size: 32px; margin-bottom: 10px;">🏁</div>
         <div style="font-family: var(--font-display); font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px;">Видео заезда недоступно на удаленном сервере</div>
         <p style="font-size: 12px; color: var(--text-muted); max-width: 380px; line-height: 1.5; margin-bottom: 16px;">
           Файл не найден на сервере GitHub. Включите официальное видео ателье:
@@ -5821,13 +5421,14 @@ function getActiveGalleryList() {
   });
 }
 
-window.openGalleryLightbox = function(src, rawCaption) {
+window.openGalleryLightbox = function(src, rawCaption, singlePhoto = false) {
   const modal = document.getElementById('galleryLightbox');
   const img = document.getElementById('lightboxImg');
   const cap = document.getElementById('lightboxCaption');
   if (!modal || !img) return;
 
-  const list = getActiveGalleryList();
+  modal.classList.toggle('single-photo', singlePhoto);
+  const list = singlePhoto ? [] : getActiveGalleryList();
   const norm = s => (s || '').replace(/^(\.?\/|https?:\/\/[^\/]+\/)/, '').trim();
   const idx = list.findIndex(item => norm(item.src) === norm(src));
   if (idx !== -1) {
@@ -5844,7 +5445,14 @@ window.openGalleryLightbox = function(src, rawCaption) {
   document.body.classList.add('modal-open');
 };
 
+document.addEventListener('click', (event) => {
+  const photo = event.target.closest('.record-photo-img');
+  if (!photo || photo.getAttribute('src')?.endsWith('.svg')) return;
+  window.openGalleryLightbox(photo.currentSrc || photo.src, photo.alt || '', true);
+});
+
 window.navigateLightbox = function(direction) {
+  if (document.getElementById('galleryLightbox')?.classList.contains('single-photo')) return;
   const list = getActiveGalleryList();
   if (!list.length) return;
   currentLightboxIndex = (currentLightboxIndex + direction + list.length) % list.length;
@@ -5865,7 +5473,9 @@ window.navigateLightbox = function(direction) {
 window.closeGalleryLightbox = function() {
   const modal = document.getElementById('galleryLightbox');
   if (modal) modal.classList.remove('active');
-  document.body.classList.remove('modal-open');
+  if (!document.querySelector('.modal-overlay.active, .video-modal-overlay.active')) {
+    document.body.classList.remove('modal-open');
+  }
 };
 
 // Global Lightbox Keyboard Shortcuts
@@ -6536,6 +6146,7 @@ function initMobileStickyBar() {
     }
   }
 
+  let isThrottled = false;
   window.addEventListener('scroll', () => {
     if (isThrottled) return;
     isThrottled = true;
