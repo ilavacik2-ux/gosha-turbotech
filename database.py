@@ -275,6 +275,16 @@ def init_db():
             seed_default_moto(cursor)
             conn.commit()
 
+        # Hide the existing photo-less cards once, while preserving future admin choices.
+        cursor.execute("INSERT OR IGNORE INTO settings (key, value) VALUES ('moto_visibility_v1', '1')")
+        if cursor.rowcount:
+            cursor.execute(
+                "UPDATE moto SET img = ? WHERE id = 'moto_bmw_m1000rr' "
+                "AND img LIKE 'data:application/x-photoshop;%'",
+                ("assets/moto/bmw_m1000rr_gtt.jpg",),
+            )
+            cursor.execute("UPDATE moto SET is_active = 0 WHERE TRIM(COALESCE(img, '')) = ''")
+
  # Security migration: remove legacy weak plaintext admin_password / secret_url_token
         legacy_weak = {"gtt71", "gtt", "71", "admin", "gtt_atelier_2026", "gtt_master_password_2026!", ""}
         cursor.execute("SELECT value FROM settings WHERE key = 'admin_password_hash'")
@@ -1199,37 +1209,37 @@ def seed_initial_data(cursor):
 
     if not default_team:
         default_team = [
-            {"id": "m_gosha", "name": "Гоша Перцхелия", "role": "Основатель & Главный конструктор GTT", "status": "active", "photo": "assets/archive_tilda/team_gosha.jpg", "social": "@goshaturbotech"},
+            {"id": "m_gosha", "name": "Гоша Перцхелия", "role": "Основатель & Главный конструктор GTT", "status": "active", "photo": "", "social": "@goshaturbotech"},
             {"id": "m_pertskheliya_givi", "name": "Гиви Перцхелия", "role": "Босс", "status": "active", "photo": "", "social": None},
             {"id": "m_pertskheliya_mikhail", "name": "Михаил Перцхелия", "role": "Исполнительный директор", "status": "active", "photo": "", "social": None},
-            {"id": "m_sarkisyan", "name": "Эдуард Саркисян", "role": "Технический директор", "status": "active", "photo": "assets/archive_tilda/team_edik.jpg", "social": None},
+            {"id": "m_sarkisyan", "name": "Эдуард Саркисян", "role": "Технический директор", "status": "active", "photo": "", "social": None},
             {"id": "m_pertskheliya_zurab", "name": "Зураб Перцхелия", "role": "Помощник руководителя", "status": "active", "photo": "", "social": None},
             {"id": "m_pashchenko", "name": "Даниил Пащенко", "role": "Руководитель Медиа отдела", "status": "active", "photo": "", "social": None},
             {"id": "m_gurov", "name": "Дмитрий Гуров", "role": "Инженер-проектировщик", "status": "atelier", "photo": "", "social": None},
-            {"id": "m_shevtsov", "name": "Георгий Шевцов", "role": "Ст. Электрик", "status": "active", "photo": "assets/archive_tilda/team_georgy.jpg", "social": None},
+            {"id": "m_shevtsov", "name": "Георгий Шевцов", "role": "Ст. Электрик", "status": "active", "photo": "", "social": None},
             {"id": "m_nikolaev", "name": "Артем Николаев", "role": "Мл. Электрик", "status": "atelier", "photo": "", "social": None},
-            {"id": "m_labkovich", "name": "Евгений Лабкович", "role": "Диагност", "status": "active", "photo": "assets/archive_tilda/team_evgeny.jpg", "social": None},
+            {"id": "m_labkovich", "name": "Евгений Лабкович", "role": "Диагност", "status": "active", "photo": "", "social": None},
             {"id": "m_stotsky", "name": "Сергей Стоцкий", "role": "Моторист-агрегатчик", "status": "active", "photo": "", "social": None},
             {"id": "m_turdibaev", "name": "Рустам Турдибаев", "role": "Моторист-агрегатчик", "status": "active", "photo": "", "social": None},
             {"id": "m_mazhnunov", "name": "Солехджон Мажнунов", "role": "Помощник моториста", "status": "atelier", "photo": "", "social": None},
             {"id": "m_petrushin", "name": "Павел Петрушин", "role": "Помощник моториста", "status": "atelier", "photo": "", "social": None},
             {"id": "m_mamsurov", "name": "Ксанти Мамсуров", "role": "Сварщик-фабрикатор", "status": "active", "photo": "", "social": None},
-            {"id": "m_fetkulin", "name": "Роман Феткулин", "role": "Сварщик-фабрикатор", "status": "active", "photo": "assets/archive_tilda/team_roman.jpg", "social": None},
+            {"id": "m_fetkulin", "name": "Роман Феткулин", "role": "Сварщик-фабрикатор", "status": "active", "photo": "", "social": None},
             {"id": "m_bagdasaryan", "name": "Микаел Багдасарян", "role": "Механик", "status": "paddock", "photo": "", "social": None},
             {"id": "m_burnashov", "name": "Эрик Бурнашов", "role": "Механик", "status": "paddock", "photo": "", "social": None},
-            {"id": "m_ivanov", "name": "Никита Иванов", "role": "Механик", "status": "paddock", "photo": "assets/archive_tilda/team_nikita.jpg", "social": None},
-            {"id": "m_mazhorov", "name": "Иван Мажоров", "role": "Механик", "status": "paddock", "photo": "assets/archive_tilda/team_ivan.jpg", "social": None},
+            {"id": "m_ivanov", "name": "Никита Иванов", "role": "Механик", "status": "paddock", "photo": "", "social": None},
+            {"id": "m_mazhorov", "name": "Иван Мажоров", "role": "Механик", "status": "paddock", "photo": "", "social": None},
             {"id": "m_malofeev", "name": "Алексей Малофеев", "role": "Механик", "status": "paddock", "photo": "", "social": None},
             {"id": "m_marin", "name": "Вадим Марин", "role": "Механик", "status": "atelier", "photo": "", "social": None},
             {"id": "m_osipov", "name": "Артем Осипов", "role": "Механик", "status": "atelier", "photo": "", "social": None},
             {"id": "m_ponomarev", "name": "Николай Пономарев", "role": "Механик", "status": "atelier", "photo": "", "social": None},
             {"id": "m_sergeev", "name": "Андрей Сергеев", "role": "Механик", "status": "atelier", "photo": "", "social": None},
-            {"id": "m_shinkarenko", "name": "Степан Шинкаренко", "role": "Механик", "status": "atelier", "photo": "assets/archive_tilda/team_stepan.jpg", "social": None},
+            {"id": "m_shinkarenko", "name": "Степан Шинкаренко", "role": "Механик", "status": "atelier", "photo": "", "social": None},
             {"id": "m_yakovlev", "name": "Алексей Яковлев", "role": "Мото-механик", "status": "atelier", "photo": "", "social": None},
             {"id": "m_barankin", "name": "Дмитрий Баранкин", "role": "Менеджер по закупкам", "status": "atelier", "photo": "", "social": None},
             {"id": "m_gazaryan", "name": "Павел Газарьян", "role": "Менеджер по закупкам", "status": "atelier", "photo": "", "social": None},
             {"id": "m_gusarov", "name": "Илья Гусаров", "role": "Заведующий складом", "status": "atelier", "photo": "", "social": None},
-            {"id": "m_zolotareva", "name": "Мария Золотарева", "role": "Делопроизводитель", "status": "atelier", "photo": "assets/archive_tilda/team_maria.jpg", "social": None},
+            {"id": "m_zolotareva", "name": "Мария Золотарева", "role": "Делопроизводитель", "status": "atelier", "photo": "", "social": None},
             {"id": "m_kopyl", "name": "Ульяна Копыл", "role": "Контент-Мейкер", "status": "atelier", "photo": "", "social": None},
             {"id": "m_babyakin", "name": "Никита Бабякин", "role": "Специалист по хозяйственному обеспечению", "status": "atelier", "photo": "", "social": None}
         ]
@@ -2319,7 +2329,7 @@ def seed_default_moto(cursor):
             "code": "BMW MOTORSPORT // M-PERFORMANCE",
             "desc": "Флагманский супербайк литрового класса. 4-цилиндровый двигатель BMW ShiftCam, титановая выпускная трасса Akrapovič, карбоновые аэродинамические винглеты M-Winglets и комплексная трековая калибровка блока управления.",
             "bullets": "212 л.с. // 14 500 об/мин\nКарбоновые винглеты M-Winglets\nСухой вес 170 кг",
-            "img": "",
+            "img": "assets/moto/bmw_m1000rr_gtt.jpg",
             "sort_order": 1,
             "is_active": 1
         },
@@ -2331,7 +2341,7 @@ def seed_default_moto(cursor):
             "bullets": "215.5 л.с. // 13 000 об/мин\nПодвеска Öhlins Smart EC 2.0\nСухое гоночное сцепление",
             "img": "",
             "sort_order": 2,
-            "is_active": 1
+            "is_active": 0
         },
         {
             "id": "moto_mv_superveloce_800",
@@ -2341,7 +2351,7 @@ def seed_default_moto(cursor):
             "bullets": "147 л.с. // 13 000 об/мин\n3-цилиндровый мотор с обратным вращением коленвала\nКастомный выпуск SC-Project",
             "img": "",
             "sort_order": 3,
-            "is_active": 1
+            "is_active": 0
         },
         {
             "id": "moto_mv_superveloce_1000",
@@ -2351,7 +2361,7 @@ def seed_default_moto(cursor):
             "bullets": "208 л.с. // 13 200 об/мин\n4-ствольный титановый выхлоп Arrow\nОграниченный тираж Serie Oro",
             "img": "",
             "sort_order": 4,
-            "is_active": 1
+            "is_active": 0
         },
         {
             "id": "moto_kawasaki_zx10r",
@@ -2361,7 +2371,7 @@ def seed_default_moto(cursor):
             "bullets": "203 л.с. (213 л.с. с Ram-Air)\nИнтегрированные винглеты\nГоночная вилка Showa BFF",
             "img": "",
             "sort_order": 5,
-            "is_active": 1
+            "is_active": 0
         },
         {
             "id": "moto_honda_cbr1000rrr",
@@ -2371,7 +2381,7 @@ def seed_default_moto(cursor):
             "bullets": "217 л.с. // 14 500 об/мин\nДНК формульного болида RC213V-S\nЭлектронная подвеска Öhlins Smart-EC",
             "img": "",
             "sort_order": 6,
-            "is_active": 1
+            "is_active": 0
         },
         {
             "id": "moto_yamaha_r1m",
@@ -2381,7 +2391,7 @@ def seed_default_moto(cursor):
             "bullets": "200 л.с. // 13 500 об/мин\nКрестообразный коленвал Crossplane CP4\nКузов из сухого карбона",
             "img": "",
             "sort_order": 7,
-            "is_active": 1
+            "is_active": 0
         },
         {
             "id": "moto_suzuki_gsxr1000r",
@@ -2391,7 +2401,7 @@ def seed_default_moto(cursor):
             "bullets": "202 л.с. // 13 200 об/мин\nСистема изменения фаз SR-VVT MotoGP\nТормозные моноблоки Brembo",
             "img": "",
             "sort_order": 8,
-            "is_active": 1
+            "is_active": 0
         }
     ]
     for m in default_moto:
@@ -2460,7 +2470,7 @@ def upsert_moto(item: Dict[str, Any]) -> Dict[str, Any]:
             item.get("bullets", ""),
             item.get("img", ""),
             int(item.get("sort_order", 0)),
-            int(item.get("is_active", 1)),
+            int(item.get("is_active", 0)),
             obj_pos
         ))
         conn.commit()
@@ -2573,8 +2583,16 @@ def verify_admin_password(password: str) -> bool:
     return False
 
 
-def update_admin_password(new_password: str):
-    set_setting("admin_password_hash", hash_password(new_password))
+def update_admin_password(new_password: str, keep_token_hash: Optional[str] = None):
+    password_hash = hash_password(new_password)
+    with get_db() as conn:
+        conn.execute(
+            "INSERT OR REPLACE INTO settings (key, value) VALUES ('admin_password_hash', ?)",
+            (password_hash,),
+        )
+        if keep_token_hash is not None:
+            conn.execute("DELETE FROM admin_sessions WHERE token <> ?", (keep_token_hash,))
+        conn.commit()
 
 
 def check_rate_limit(key: str) -> Tuple[bool, int]:

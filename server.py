@@ -251,8 +251,8 @@ def verify_admin_session(request: Request) -> Dict[str, Any]:
         )
     db_session = database.get_session(token)
     if db_session:
-        database.touch_session(token, SESSION_LIFETIME_SECONDS)
-        db_session["raw_token"] = token
+        if db_session["expires_at"] < time.time() + SESSION_LIFETIME_SECONDS - 300:
+            database.touch_session(token, SESSION_LIFETIME_SECONDS)
         return db_session
     raise HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -359,6 +359,13 @@ class SecurityShieldMiddleware:
                 await resp(scope, receive, send)
                 return
 
+        if method in {"POST", "PUT", "PATCH", "DELETE"} and lower_path.startswith("/api/") and lower_path != "/api/traffic/visit":
+            request = Request(scope)
+            origin = request.headers.get("origin")
+            if (origin and origin != str(request.base_url).rstrip("/")) or request.headers.get("sec-fetch-site") == "cross-site":
+                await JSONResponse({"detail": "Запрос с другого сайта отклонён"}, status_code=403)(scope, receive, send)
+                return
+
         async def send_wrapper(message):
             if message["type"] == "http.response.start":
                 hdrs = list(message.get("headers", []))
@@ -373,10 +380,26 @@ class SecurityShieldMiddleware:
                         (b"x-robots-tag", b"noindex, nofollow"),
                         (b"cache-control", b"no-store, no-cache, must-revalidate"),
                     ])
-                elif lower_path.endswith((".css", ".js", ".html")) or lower_path in ("", "/"):
+                if lower_path in (GTT_ADMIN_PATH.lower(), GTT_ADMIN_PATH.lower() + "/"):
+                    hdrs.append((b"content-security-policy", b"frame-ancestors 'none'; base-uri 'self'; object-src 'none'; form-action 'self'"))
+                if lower_path in ("/api/traffic", "/api/backup/export") or lower_path.startswith("/api/settings/"):
+                    hdrs.append((b"cache-control", b"no-store"))
+                elif not any(k == b"cache-control" for k, _ in hdrs) and (lower_path.endswith((".css", ".js", ".html")) or lower_path in ("", "/")):
                     hdrs.append((b"cache-control", b"no-cache, must-revalidate"))
                 message["headers"] = hdrs
             await send(message)
+
+        if method == "POST" and lower_path == "/api/upload":
+            original_receive = receive
+            received = 0
+
+            async def receive():
+                nonlocal received
+                message = await original_receive()
+                received += len(message.get("body", b""))
+                if received > 81 * 1024 * 1024:
+                    raise HTTPException(status_code=413, detail="Превышен лимит размера загрузки")
+                return message
 
         await self.app(scope, receive, send_wrapper)
 
@@ -563,13 +586,13 @@ async def verify_session_endpoint(session: Dict[str, Any] = Depends(verify_admin
 
 @app.post("/api/auth/change-password")
 async def change_password(req: ChangePasswordRequest, session: Dict[str, Any] = Depends(verify_admin_session)):
-    if not database.verify_admin_password(req.current_password):
+    if not await asyncio.to_thread(database.verify_admin_password, req.current_password):
         raise HTTPException(status_code=400, detail="Неверный текущий пароль")
     new_pass = req.new_password.strip()
     if len(new_pass) < 8:
         raise HTTPException(status_code=400, detail="Новый пароль должен содержать минимум 8 символов")
 
-    database.update_admin_password(new_pass)
+    await asyncio.to_thread(database.update_admin_password, new_pass, session["token_hash"])
     return {"status": "ok", "message": "Пароль успешно обновлен"}
 
 
@@ -941,30 +964,41 @@ async def upload_file(request: Request, session: Dict[str, Any] = Depends(verify
     folder: Optional[str] = None
     file_bytes = b""
 
+    max_body_size = (61 if "multipart/form-data" in content_type else 81) * 1024 * 1024
+    content_length = request.headers.get("content-length", "")
+    if content_length.isascii() and content_length.isdecimal() and int(content_length) > max_body_size:
+        raise HTTPException(status_code=413, detail="Превышен лимит размера загрузки")
+
     if "multipart/form-data" in content_type:
-        form = await request.form()
-        upload_item = form.get("file")
-        if upload_item is None or not hasattr(upload_item, "read"):
-            raise HTTPException(status_code=400, detail="Файл не передан")
-        filename = getattr(upload_item, "filename", None) or "file_upload"
-        folder = str(form.get("folder") or "") or None
-        file_bytes = await upload_item.read()
+        async with request.form(max_files=1, max_fields=4) as form:
+            upload_item = form.get("file")
+            if upload_item is None or not hasattr(upload_item, "read"):
+                raise HTTPException(status_code=400, detail="Файл не передан")
+            filename = upload_item.filename or "file_upload"
+            folder = str(form.get("folder") or "") or None
+            is_video = os.path.splitext(filename)[1].lower() in {".mp4", ".mov", ".webm", ".m4v"}
+            max_file_size = (60 if is_video else 15) * 1024 * 1024
+            if upload_item.size is not None and upload_item.size > max_file_size:
+                raise HTTPException(status_code=413, detail="Превышен лимит размера файла")
+            file_bytes = await upload_item.read(max_file_size + 1)
     else:
+        chunks = bytearray()
+        async for chunk in request.stream():
+            if len(chunks) + len(chunk) > max_body_size:
+                raise HTTPException(status_code=413, detail="Превышен лимит размера загрузки")
+            chunks.extend(chunk)
         try:
-            body = await request.json()
-        except Exception:
+            body = json.loads(chunks)
+            if not isinstance(body, dict):
+                raise ValueError("Upload payload must be an object")
+            filename = str(body.get("filename") or "file_upload")
+            folder = str(body.get("folder") or "") or None
+            data_str = str(body.get("data") or "")
+            if "," in data_str:
+                data_str = data_str.split(",", 1)[1]
+            file_bytes = base64.b64decode(data_str, validate=True)
+        except (ValueError, TypeError):
             raise HTTPException(status_code=400, detail="Некорректный формат загрузки")
-        filename = str(body.get("filename") or "file_upload")
-        folder = body.get("folder")
-        data_str = str(body.get("data") or "")
-        if len(data_str) > 90 * 1024 * 1024:
-            raise HTTPException(status_code=413, detail="Размер файла превышает допустимый лимит (макс. 60 МБ)")
-        if "," in data_str:
-            data_str = data_str.split(",", 1)[1]
-        try:
-            file_bytes = base64.b64decode(data_str)
-        except Exception:
-            raise HTTPException(status_code=400, detail="Некорректные данные base64")
 
     if not file_bytes:
         raise HTTPException(status_code=400, detail="Пустой файл")

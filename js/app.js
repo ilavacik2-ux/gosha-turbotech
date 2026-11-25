@@ -2591,84 +2591,100 @@ async function syncPartnersFromAPI() {
 
 const defaultMotoList = [
   {
-    id: 'moto_bmw_m1000rr',
-    title: 'BMW M 1000 RR',
-    code: 'BMW MOTORSPORT // M-PERFORMANCE',
-    desc: 'Флагманский супербайк литрового класса. 4-цилиндровый двигатель BMW ShiftCam, титановая выпускная трасса Akrapovič, карбоновые аэродинамические винглеты M-Winglets и комплексная трековая калибровка блока управления.',
-    bullets: '212 л.с. // 14 500 об/мин\nКарбоновые винглеты M-Winglets\nСухой вес 170 кг',
-    img: '',
-    sort_order: 1,
-    is_active: 1
+    "id": "moto_bmw_m1000rr",
+    "title": "BMW M 1000 RR",
+    "code": "BMW MOTORSPORT // M-PERFORMANCE",
+    "desc": "Флагманский супербайк литрового класса. 4-цилиндровый двигатель BMW ShiftCam, титановая выпускная трасса Akrapovič, карбоновые аэродинамические винглеты M-Winglets и комплексная трековая калибровка блока управления.",
+    "bullets": "212 л.с. // 14 500 об/мин\nКарбоновые винглеты M-Winglets\nСухой вес 170 кг",
+    "img": "assets/moto/bmw_m1000rr_gtt.jpg",
+    "sort_order": 1,
+    "is_active": 1,
+    "object_position": "center 50%",
+    "objectPosition": "center 50%"
   },
   {
-    id: 'moto_ducati_v4s',
-    title: 'Ducati Panigale V4 S',
-    code: 'BORGO PANIGALE // DESMOSEDICI',
-    desc: 'Итальянский трековый шедевр с мотором Desmosedici Stradale V4 1103 см³. Активная электронная подвеска Öhlins Smart EC 2.0, сухое сцепление STM EVO и титановый спортивный выпуск.',
-    bullets: '215.5 л.с. // 13 000 об/мин\nПодвеска Öhlins Smart EC 2.0\nСухое гоночное сцепление',
-    img: '',
-    sort_order: 2,
-    is_active: 1
+    "id": "moto_ducati_v4s",
+    "title": "Ducati Panigale V4 S",
+    "code": "BORGO PANIGALE // DESMOSEDICI",
+    "desc": "Итальянский трековый шедевр с мотором Desmosedici Stradale V4 1103 см³. Активная электронная подвеска Öhlins Smart EC 2.0, сухое сцепление STM EVO и титановый спортивный выпуск.",
+    "bullets": "215.5 л.с. // 13 000 об/мин\nПодвеска Öhlins Smart EC 2.0\nСухое гоночное сцепление",
+    "img": "",
+    "sort_order": 2,
+    "is_active": 0,
+    "object_position": "center 50%",
+    "objectPosition": "center 50%"
   },
   {
-    id: 'moto_mv_superveloce_800',
-    title: 'MV Agusta Superveloce 800',
-    code: 'SCHIRANNA // NEO-RETRO RACER',
-    desc: 'Эксклюзивный нео-классический спортбайк. Трехцилиндровый двигатель с противовращающимся коленвалом, фирменный выпуск SC-Project, кастомные фрезерованные детали и утонченная аэродинамика.',
-    bullets: '147 л.с. // 13 000 об/мин\n3-цилиндровый мотор с обратным вращением коленвала\nКастомный выпуск SC-Project',
-    img: '',
-    sort_order: 3,
-    is_active: 1
+    "id": "moto_mv_superveloce_800",
+    "title": "MV Agusta Superveloce 800",
+    "code": "SCHIRANNA // NEO-RETRO RACER",
+    "desc": "Эксклюзивный нео-классический спортбайк. Трехцилиндровый двигатель с противовращающимся коленвалом, фирменный выпуск SC-Project, кастомные фрезерованные детали и утонченная аэродинамика.",
+    "bullets": "147 л.с. // 13 000 об/мин\n3-цилиндровый мотор с обратным вращением коленвала\nКастомный выпуск SC-Project",
+    "img": "",
+    "sort_order": 3,
+    "is_active": 0,
+    "object_position": "center 50%",
+    "objectPosition": "center 50%"
   },
   {
-    id: 'moto_mv_superveloce_1000',
-    title: 'MV Agusta Superveloce 1000 Serie Oro',
-    code: 'LIMITED EDITION // HYPERBIKE',
-    desc: 'Лимитированный коллекционный гипербайк Schiranna. 4-цилиндровый мотор мощностью 208 л.с., титановый 4-ствольный выхлоп Arrow, карбоновый аэропакет с активными крыльями и титановые клапаны.',
-    bullets: '208 л.с. // 13 200 об/мин\n4-ствольный титановый выхлоп Arrow\nОграниченный тираж Serie Oro',
-    img: '',
-    sort_order: 4,
-    is_active: 1
+    "id": "moto_mv_superveloce_1000",
+    "title": "MV Agusta Superveloce 1000 Serie Oro",
+    "code": "LIMITED EDITION // HYPERBIKE",
+    "desc": "Лимитированный коллекционный гипербайк Schiranna. 4-цилиндровый мотор мощностью 208 л.с., титановый 4-ствольный выхлоп Arrow, карбоновый аэропакет с активными крыльями и титановые клапаны.",
+    "bullets": "208 л.с. // 13 200 об/мин\n4-ствольный титановый выхлоп Arrow\nОграниченный тираж Serie Oro",
+    "img": "",
+    "sort_order": 4,
+    "is_active": 0,
+    "object_position": "center 50%",
+    "objectPosition": "center 50%"
   },
   {
-    id: 'moto_kawasaki_zx10r',
-    title: 'Kawasaki Ninja ZX-10R',
-    code: 'WSBK CHAMPION // NINJA',
-    desc: 'Многократный триумфатор мирового супербайка WSBK. Высокооборотистый рядный 4-цилиндровый мотор, аэродинамические винглеты в переднем обтекателе, вилка Showa BFF и гоночная калибровка ланч-контроля.',
-    bullets: '203 л.с. (213 л.с. с Ram-Air)\nИнтегрированные винглеты\nГоночная вилка Showa BFF',
-    img: '',
-    sort_order: 5,
-    is_active: 1
+    "id": "moto_kawasaki_zx10r",
+    "title": "Kawasaki Ninja ZX-10R",
+    "code": "WSBK CHAMPION // NINJA",
+    "desc": "Многократный триумфатор мирового супербайка WSBK. Высокооборотистый рядный 4-цилиндровый мотор, аэродинамические винглеты в переднем обтекателе, вилка Showa BFF и гоночная калибровка ланч-контроля.",
+    "bullets": "203 л.с. (213 л.с. с Ram-Air)\nИнтегрированные винглеты\nГоночная вилка Showa BFF",
+    "img": "",
+    "sort_order": 5,
+    "is_active": 0,
+    "object_position": "center 50%",
+    "objectPosition": "center 50%"
   },
   {
-    id: 'moto_honda_cbr1000rrr',
-    title: 'Honda CBR1000RR-R Fireblade SP',
-    code: 'HRC RACING // TRIPLE-R',
-    desc: 'Бескомпромиссный болид с технологиями MotoGP. Диаметр цилиндров и ход поршня как у RC213V-S, титановый глушитель Akrapovič, подвеска Öhlins Smart-EC и прижимные аэродинамические крылья HRC.',
-    bullets: '217 л.с. // 14 500 об/мин\nДНК формульного болида RC213V-S\nЭлектронная подвеска Öhlins Smart-EC',
-    img: '',
-    sort_order: 6,
-    is_active: 1
+    "id": "moto_honda_cbr1000rrr",
+    "title": "Honda CBR1000RR-R Fireblade SP",
+    "code": "HRC RACING // TRIPLE-R",
+    "desc": "Бескомпромиссный болид с технологиями MotoGP. Диаметр цилиндров и ход поршня как у RC213V-S, титановый глушитель Akrapovič, подвеска Öhlins Smart-EC и прижимные аэродинамические крылья HRC.",
+    "bullets": "217 л.с. // 14 500 об/мин\nДНК формульного болида RC213V-S\nЭлектронная подвеска Öhlins Smart-EC",
+    "img": "",
+    "sort_order": 6,
+    "is_active": 0,
+    "object_position": "center 50%",
+    "objectPosition": "center 50%"
   },
   {
-    id: 'moto_yamaha_r1m',
-    title: 'Yamaha YZF-R1M',
-    code: 'FACTORY RACING // CROSSPLANE CP4',
-    desc: 'Заводская спецверсия с крестообразным коленвалом Crossplane CP4. Полный кузов из сухого автоклавного карбона, электронная подвеска Öhlins ERS NPX и телеметрия гоночного трека Y-TRAC.',
-    bullets: '200 л.с. // 13 500 об/мин\nКрестообразный коленвал Crossplane CP4\nКузов из сухого карбона',
-    img: '',
-    sort_order: 7,
-    is_active: 1
+    "id": "moto_yamaha_r1m",
+    "title": "Yamaha YZF-R1M",
+    "code": "FACTORY RACING // CROSSPLANE CP4",
+    "desc": "Заводская спецверсия с крестообразным коленвалом Crossplane CP4. Полный кузов из сухого автоклавного карбона, электронная подвеска Öhlins ERS NPX и телеметрия гоночного трека Y-TRAC.",
+    "bullets": "200 л.с. // 13 500 об/мин\nКрестообразный коленвал Crossplane CP4\nКузов из сухого карбона",
+    "img": "",
+    "sort_order": 7,
+    "is_active": 0,
+    "object_position": "center 50%",
+    "objectPosition": "center 50%"
   },
   {
-    id: 'moto_suzuki_gsxr1000r',
-    title: 'Suzuki GSX-R1000R',
-    code: 'LEGENDARY GIXER // SR-VVT',
-    desc: 'Легендарный литровый «Джиксер» в топовой модификации R. Система изменения фаз газораспределения Suzuki Racing VVT из MotoGP, вилка Showa BFF, двусторонний квикшифтер и тормоза Brembo Monobloc.',
-    bullets: '202 л.с. // 13 200 об/мин\nСистема изменения фаз SR-VVT MotoGP\nТормозные моноблоки Brembo',
-    img: '',
-    sort_order: 8,
-    is_active: 1
+    "id": "moto_suzuki_gsxr1000r",
+    "title": "Suzuki GSX-R1000R",
+    "code": "LEGENDARY GIXER // SR-VVT",
+    "desc": "Легендарный литровый «Джиксер» в топовой модификации R. Система изменения фаз газораспределения Suzuki Racing VVT из MotoGP, вилка Showa BFF, двусторонний квикшифтер и тормоза Brembo Monobloc.",
+    "bullets": "202 л.с. // 13 200 об/мин\nСистема изменения фаз SR-VVT MotoGP\nТормозные моноблоки Brembo",
+    "img": "",
+    "sort_order": 8,
+    "is_active": 0,
+    "object_position": "center 50%",
+    "objectPosition": "center 50%"
   }
 ];
 
@@ -2761,15 +2777,11 @@ function renderMotoGrid(motoList) {
   const container = document.getElementById('motoCardsGrid');
   if (!container) return;
 
-  const rawList = Array.isArray(motoList) && motoList.length > 0 ? motoList : defaultMotoList;
+  const rawList = Array.isArray(motoList) ? motoList : defaultMotoList;
   const list = rawList;
   const activeMoto = list
     .filter(m => m.is_active === 1 || m.is_active === true || m.is_active === '1' || m.is_active === undefined)
     .sort((a, b) => (parseInt(a.sort_order || 0) - parseInt(b.sort_order || 0)));
-
-  if (activeMoto.length === 0) {
-    return;
-  }
 
   const isEn = (typeof currentLang !== 'undefined' && currentLang === 'en');
 
@@ -2849,51 +2861,20 @@ function renderMotoGrid(motoList) {
 }
 
 async function syncMotoFromAPI() {
-  let hasValidLocal = false;
-  // 1. Instant check from localStorage
-  try {
-    const local = localStorage.getItem('gtt_admin_moto_db');
-    if (local) {
-      const parsed = JSON.parse(local);
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        cachedMotoData = parsed;
-        renderMotoGrid(parsed);
-        hasValidLocal = true;
-      }
-    }
-  } catch (e) {}
-
-  // 2. Fetch from backend API or static data fallback
-  try {
-    let serverMoto = null;
-    let isLiveBackend = false;
+  for (const url of ['/api/moto', 'data/moto.json']) {
     try {
-      const res = await fetch('/api/moto');
-      if (res.ok) {
-        serverMoto = await res.json();
-        isLiveBackend = true;
-      }
-    } catch (e) {}
-
-    if ((!serverMoto || !Array.isArray(serverMoto) || serverMoto.length === 0) && !hasValidLocal) {
-      try {
-        const res = await fetch('data/moto.json');
-        if (res.ok) serverMoto = await res.json();
-      } catch (e) {}
-    }
-
-    if (Array.isArray(serverMoto) && serverMoto.length > 0 && (isLiveBackend || !hasValidLocal)) {
-      cachedMotoData = serverMoto;
-      localStorage.setItem('gtt_admin_moto_db', JSON.stringify(serverMoto));
-      renderMotoGrid(serverMoto);
-    } else if (!cachedMotoData) {
-      renderMotoGrid(defaultMotoList);
-    }
-  } catch (err) {
-    if (!cachedMotoData) {
-      renderMotoGrid(defaultMotoList);
+      const response = await fetch(url, { cache: 'no-cache' });
+      if (!response.ok) continue;
+      const moto = await response.json();
+      if (!Array.isArray(moto)) continue;
+      cachedMotoData = moto;
+      renderMotoGrid(moto);
+      return;
+    } catch (error) {
+      // Static hosting uses the JSON export when the API is unavailable.
     }
   }
+  if (!cachedMotoData) renderMotoGrid(defaultMotoList);
 }
 
 function applyMotoBanners(data) {
@@ -3191,7 +3172,7 @@ function renderGalleryTrack(items) {
     const safeImg = escapeHtml(g.img || '');
     return `
     <div class="marquee-card" data-raw-title="${escapeHtml(rawTitle)}" data-raw-tag="${escapeHtml(rawTag)}" onclick="openGalleryLightbox('${escapeJS(g.img || '')}', '${escapeJS(rawTitle)}')">
-      <img src="${safeImg}" alt="${escapeHtml(bilingual.title || 'GTT')}" style="object-position: ${objPos} !important;" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='assets/photos/gtt_shield_logo.svg';">
+      <img src="${safeImg}" alt="${escapeHtml(bilingual.title || 'GTT')}" style="object-position: ${objPos} !important;" loading="lazy" decoding="async" onerror="this.onerror=null; this.src='assets/photos/gtt_shield_2025.svg';">
       <div class="marquee-card-meta">
         <span class="marquee-card-tag">${escapeHtml(bilingual.tag)}</span>
         <div class="marquee-card-title">${escapeHtml(bilingual.title)}</div>
@@ -3378,7 +3359,7 @@ function renderRecordsEditorial(recordsList) {
   cachedRecordsData = recordsList;
 
   const renderSingle = (rec, idx, isDup) => {
-    const photo = rec.img || 'assets/photos/gtt_shield_logo.svg';
+    const photo = rec.img || 'assets/photos/gtt_shield_2025.svg';
     const carName = rec.car || '';
     const dupAttr = isDup ? '_dup' : '';
     const telemetry = rec.telemetry || '';
@@ -3400,7 +3381,7 @@ function renderRecordsEditorial(recordsList) {
                loading="lazy"
                decoding="async"
                onload="handleRecordImgLoad(this)"
-               onerror="this.onerror=null; this.alt=''; this.classList.add('record-photo-placeholder'); this.src='assets/photos/gtt_shield_logo.svg'">
+               onerror="this.onerror=null; this.alt=''; this.classList.add('record-photo-placeholder'); this.src='assets/photos/gtt_shield_2025.svg'">
           <div class="record-photo-overlay"></div>
         </div>
         <div class="record-content-box">
@@ -3939,13 +3920,21 @@ function renderTeamGrid(teamList) {
     const objPos = escapeHtml(m.object_position || m.objectPosition || 'center 20%');
     const safePhoto = escapeHtml(rawPhoto);
     const safeName = escapeHtml(displayName);
+    const photoMarkup = hasPhoto
+      ? `<img src="${safePhoto}" alt="${safeName}" class="team-card-img" style="object-position: ${objPos} !important;" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'team-card-placeholder-photo\\'><div class=\\'team-placeholder-crest\\'><img src=\\'assets/photos/gtt_shield_2025.svg\\' alt=\\'GTT\\' class=\\'team-placeholder-crest-icon\\'><span class=\\'team-placeholder-id\\'>#${escapeHtml(num)}</span></div><span class=\\'team-placeholder-hint\\'>GTT Crew</span></div>'">`
+      : `<div class="team-card-placeholder-photo">
+          <div class="team-placeholder-crest">
+            <img src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+            <span class="team-placeholder-id">#${escapeHtml(num)}</span>
+          </div>
+          <span class="team-placeholder-hint">GTT Atelier</span>
+        </div>`;
+
     return `
       <div class="team-card team-card-fade-in ${hasPhoto ? 'has-photo' : 'has-placeholder'}" data-team-dept="${escapeHtml(dept)}" style="animation-delay: ${(idx % 10) * 0.06}s">
-        ${hasPhoto ? `
-          <div class="team-card-photo">
-            <img src="${safePhoto}" alt="${safeName}" class="team-card-img" style="object-position: ${objPos} !important;" loading="lazy" onerror="this.closest('.team-card').classList.replace('has-photo', 'has-placeholder'); this.parentElement.remove();">
-          </div>
-        ` : ''}
+        <div class="team-card-photo">
+          ${photoMarkup}
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">${escapeHtml(deptLabel)}</span>
@@ -4459,7 +4448,8 @@ window.toggleGarageExpand = function() {
     // Smoothly scroll back to garage section header
     const garageEl = document.getElementById('garage');
     if (garageEl) {
-      const topOffset = garageEl.getBoundingClientRect().top + window.pageYOffset - 80;
+      const navHeight = document.querySelector('.navbar')?.getBoundingClientRect().height || 80;
+      const topOffset = garageEl.getBoundingClientRect().top + window.pageYOffset - navHeight;
       window.scrollTo({ top: topOffset, behavior: 'smooth' });
     }
   } else {
@@ -4938,7 +4928,7 @@ function initNavigation() {
             toggleMobileNav(false);
           }
           setTimeout(() => {
-            const navHeight = window.innerWidth <= 768 ? 64 : 80;
+            const navHeight = navbar.getBoundingClientRect().height;
             const targetTop = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
             window.scrollTo({
               top: Math.max(0, targetTop),

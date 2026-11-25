@@ -15,12 +15,12 @@
   <meta property="og:description" content="Центр мощностного тюнинга гиперкаров и супербайков. Мировые рекорды 402м, 804м и ледовых трасс. Основатель: Гоша Перцхелия.">
   <meta property="og:image" content="https://goshaturbotech.ru/assets/photos/hero_atelier_backdrop.jpg">
   <meta property="og:url" content="https://goshaturbotech.ru/">
-  <link rel="icon" type="image/svg+xml" href="assets/photos/gtt_shield_logo.svg">
-  <link rel="mask-icon" href="assets/photos/gtt_shield_logo.svg" color="#EA5B0C">
-  <link rel="icon" type="image/png" sizes="32x32" href="assets/photos/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="assets/photos/favicon-192x192.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="assets/photos/apple-touch-icon.png">
-  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="assets/photos/gtt_shield_2025.svg">
+  <link rel="mask-icon" href="assets/photos/gtt_shield_2025.svg" color="#EA5B0C">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/photos/favicon-32x32.png?v=2025">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/photos/favicon-192x192.png?v=2025">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/photos/apple-touch-icon.png?v=2025">
+  <link rel="shortcut icon" href="favicon.ico?v=2025">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -28,7 +28,7 @@
   <link rel="dns-prefetch" href="https://api-maps.yandex.ru">
   <link rel="preconnect" href="https://yandex.ru">
   <link rel="preconnect" href="https://api-maps.yandex.ru" crossorigin>
-  <link rel="stylesheet" href="css/style.css?v=20261125_team">
+  <link rel="stylesheet" href="css/style.css?v=20261125_team_uniform">
   <style>
     html, body { background-color: #070709 !important; color: #fff; margin: 0; }
  #preloader { position: fixed; inset: 0; z-index: 999999; background: #070709; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.5s ease; }
@@ -42,10 +42,7 @@
   <!-- Original Cinematic Preloader -->
   <div id="preloader">
     <div class="preloader-inner">
-      <div class="preloader-logo-wrap">
-        <img src="assets/photos/gtt_shield_logo.svg" alt="GoshaTurboTech Shield Logo" class="preloader-shield-img" width="110" height="110">
-        <img class="brand-text-img" src="assets/photos/gtt_wordmark_brandbook.svg" alt="GoshaTurboTech" width="288" height="109">
-      </div>
+      <img src="assets/photos/gtt_logo_2025_compact.svg" alt="GoshaTurboTech" class="preloader-brand-mark" width="141" height="50">
       <div class="preloader-progress-bar">
         <div class="preloader-progress-fill" id="preloaderFill"></div>
       </div>
@@ -55,8 +52,7 @@
   <!-- Navigation -->
   <header class="navbar">
     <a href="#" class="brand-logo" aria-label="GoshaTurboTech Главная">
-      <img src="assets/photos/gtt_shield_logo.svg" alt="GoshaTurboTech" class="brand-shield-img" width="44" height="44">
-      <img class="brand-text-img" src="assets/photos/gtt_wordmark_brandbook.svg" alt="GoshaTurboTech" width="288" height="109">
+      <img src="assets/photos/gtt_logo_2025_compact.svg" alt="GoshaTurboTech" class="brand-mark" width="141" height="50">
     </a>
 
     <nav>
@@ -116,8 +112,7 @@
     <div class="mobile-drawer-content">
       <div class="mobile-drawer-header">
         <a href="#" class="brand-logo" onclick="toggleMobileNav(false)" aria-label="GoshaTurboTech">
-          <img src="assets/photos/gtt_shield_logo.svg" alt="GTT Shield Logo" class="brand-shield-img" width="44" height="44">
-          <img class="brand-text-img" src="assets/photos/gtt_wordmark_brandbook.svg" alt="GoshaTurboTech" width="288" height="109">
+          <img src="assets/photos/gtt_logo_2025_compact.svg" alt="GoshaTurboTech" class="brand-mark" width="141" height="50">
         </a>
         <button class="mobile-drawer-close" onclick="toggleMobileNav(false)" aria-label="Закрыть меню">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -383,9 +378,15 @@
 
     <div class="team-grid" id="teamGrid">
       <!-- 1. Гоша Перцхелия -->
-      <div class="team-card has-photo" data-team-dept="management">
+      <div class="team-card has-placeholder" data-team-dept="management">
         <div class="team-card-photo">
-          <img loading="lazy" decoding="async" src="assets/archive_tilda/team_gosha.jpg" alt="Гоша Перцхелия" class="team-card-img">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#01</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
         </div>
         <div class="team-card-body">
           <div class="team-badge-header">
@@ -400,6 +401,15 @@
 
       <!-- 2. Гиви Перцхелия -->
       <div class="team-card has-placeholder" data-team-dept="management">
+        <div class="team-card-photo">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#02</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">РУКОВОДСТВО</span>
@@ -412,6 +422,15 @@
 
       <!-- 3. Михаил Перцхелия -->
       <div class="team-card has-placeholder" data-team-dept="management">
+        <div class="team-card-photo">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#03</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">РУКОВОДСТВО</span>
@@ -423,9 +442,15 @@
       </div>
 
       <!-- 4. Эдуард Саркисян -->
-      <div class="team-card has-photo" data-team-dept="management">
+      <div class="team-card has-placeholder" data-team-dept="management">
         <div class="team-card-photo">
-          <img loading="lazy" decoding="async" src="assets/archive_tilda/team_edik.jpg" alt="Эдуард Саркисян" class="team-card-img">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#04</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
         </div>
         <div class="team-card-body">
           <div class="team-badge-header">
@@ -439,6 +464,15 @@
 
       <!-- 5. Зураб Перцхелия -->
       <div class="team-card has-placeholder" data-team-dept="management">
+        <div class="team-card-photo">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#05</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">РУКОВОДСТВО</span>
@@ -451,6 +485,15 @@
 
       <!-- 6. Даниил Пащенко -->
       <div class="team-card has-placeholder" data-team-dept="media">
+        <div class="team-card-photo">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#06</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">МЕДИА & ДИЗАЙН</span>
@@ -463,6 +506,15 @@
 
       <!-- 7. Дмитрий Гуров -->
       <div class="team-card has-placeholder" data-team-dept="engineers">
+        <div class="team-card-photo">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#07</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">ИНЖИНИРИНГ</span>
@@ -474,9 +526,15 @@
       </div>
 
       <!-- 8. Георгий Шевцов -->
-      <div class="team-card has-photo" data-team-dept="engineers">
+      <div class="team-card has-placeholder" data-team-dept="engineers">
         <div class="team-card-photo">
-          <img loading="lazy" decoding="async" src="assets/archive_tilda/team_georgy.jpg" alt="Георгий Шевцов" class="team-card-img">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#08</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
         </div>
         <div class="team-card-body">
           <div class="team-badge-header">
@@ -490,6 +548,15 @@
 
       <!-- 9. Артем Николаев -->
       <div class="team-card has-placeholder" data-team-dept="engineers">
+        <div class="team-card-photo">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#09</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">ИНЖИНИРИНГ</span>
@@ -501,9 +568,15 @@
       </div>
 
       <!-- 10. Евгений Лабкович -->
-      <div class="team-card has-photo" data-team-dept="engineers">
+      <div class="team-card has-placeholder" data-team-dept="engineers">
         <div class="team-card-photo">
-          <img loading="lazy" decoding="async" src="assets/archive_tilda/team_evgeny.jpg" alt="Евгений Лабкович" class="team-card-img">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#10</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
         </div>
         <div class="team-card-body">
           <div class="team-badge-header">
@@ -517,6 +590,15 @@
 
       <!-- 11. Сергей Стоцкий -->
       <div class="team-card has-placeholder" data-team-dept="mechanics">
+        <div class="team-card-photo">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#11</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">СЕРВИС & МОТОРЫ</span>
@@ -529,6 +611,15 @@
 
       <!-- 12. Рустам Турдибаев -->
       <div class="team-card has-placeholder" data-team-dept="mechanics">
+        <div class="team-card-photo">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#12</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">СЕРВИС & МОТОРЫ</span>
@@ -541,6 +632,15 @@
 
       <!-- 13. Солехджон Мажнунов -->
       <div class="team-card has-placeholder" data-team-dept="mechanics">
+        <div class="team-card-photo">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#13</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">СЕРВИС & МОТОРЫ</span>
@@ -553,6 +653,15 @@
 
       <!-- 14. Павел Петрушин -->
       <div class="team-card has-placeholder" data-team-dept="mechanics">
+        <div class="team-card-photo">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#14</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">СЕРВИС & МОТОРЫ</span>
@@ -565,6 +674,15 @@
 
       <!-- 15. Ксанти Мамсуров -->
       <div class="team-card has-placeholder" data-team-dept="fab">
+        <div class="team-card-photo">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#15</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">СВАРКА & ФАБРИКАЦИЯ</span>
@@ -576,9 +694,15 @@
       </div>
 
       <!-- 16. Роман Феткулин -->
-      <div class="team-card has-photo" data-team-dept="fab">
+      <div class="team-card has-placeholder" data-team-dept="fab">
         <div class="team-card-photo">
-          <img loading="lazy" decoding="async" src="assets/archive_tilda/team_roman.jpg" alt="Роман Феткулин" class="team-card-img">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#16</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
         </div>
         <div class="team-card-body">
           <div class="team-badge-header">
@@ -592,6 +716,15 @@
 
       <!-- 17. Микаел Багдасарян -->
       <div class="team-card has-placeholder" data-team-dept="mechanics">
+        <div class="team-card-photo">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#17</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">СЕРВИС & МОТОРЫ</span>
@@ -604,6 +737,15 @@
 
       <!-- 18. Эрик Бурнашов -->
       <div class="team-card has-placeholder" data-team-dept="mechanics">
+        <div class="team-card-photo">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#18</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">СЕРВИС & МОТОРЫ</span>
@@ -615,9 +757,15 @@
       </div>
 
       <!-- 19. Никита Иванов -->
-      <div class="team-card has-photo" data-team-dept="mechanics">
+      <div class="team-card has-placeholder" data-team-dept="mechanics">
         <div class="team-card-photo">
-          <img loading="lazy" decoding="async" src="assets/archive_tilda/team_nikita.jpg" alt="Никита Иванов" class="team-card-img">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#19</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
         </div>
         <div class="team-card-body">
           <div class="team-badge-header">
@@ -630,9 +778,15 @@
       </div>
 
       <!-- 20. Иван Мажоров -->
-      <div class="team-card has-photo" data-team-dept="mechanics">
+      <div class="team-card has-placeholder" data-team-dept="mechanics">
         <div class="team-card-photo">
-          <img loading="lazy" decoding="async" src="assets/archive_tilda/team_ivan.jpg" alt="Иван Мажоров" class="team-card-img">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#20</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
         </div>
         <div class="team-card-body">
           <div class="team-badge-header">
@@ -646,6 +800,15 @@
 
       <!-- 21. Алексей Малофеев -->
       <div class="team-card has-placeholder" data-team-dept="mechanics">
+        <div class="team-card-photo">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#21</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">СЕРВИС & МОТОРЫ</span>
@@ -658,6 +821,15 @@
 
       <!-- 22. Вадим Марин -->
       <div class="team-card has-placeholder" data-team-dept="mechanics">
+        <div class="team-card-photo">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#22</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">СЕРВИС & МОТОРЫ</span>
@@ -670,6 +842,15 @@
 
       <!-- 23. Артем Осипов -->
       <div class="team-card has-placeholder" data-team-dept="mechanics">
+        <div class="team-card-photo">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#23</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">СЕРВИС & МОТОРЫ</span>
@@ -682,6 +863,15 @@
 
       <!-- 24. Николай Пономарев -->
       <div class="team-card has-placeholder" data-team-dept="mechanics">
+        <div class="team-card-photo">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#24</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">СЕРВИС & МОТОРЫ</span>
@@ -694,6 +884,15 @@
 
       <!-- 25. Андрей Сергеев -->
       <div class="team-card has-placeholder" data-team-dept="mechanics">
+        <div class="team-card-photo">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#25</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">СЕРВИС & МОТОРЫ</span>
@@ -705,9 +904,15 @@
       </div>
 
       <!-- 26. Степан Шинкаренко -->
-      <div class="team-card has-photo" data-team-dept="mechanics">
+      <div class="team-card has-placeholder" data-team-dept="mechanics">
         <div class="team-card-photo">
-          <img loading="lazy" decoding="async" src="assets/archive_tilda/team_stepan.jpg" alt="Степан Шинкаренко" class="team-card-img">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#26</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
         </div>
         <div class="team-card-body">
           <div class="team-badge-header">
@@ -721,6 +926,15 @@
 
       <!-- 27. Алексей Яковлев -->
       <div class="team-card has-placeholder" data-team-dept="mechanics">
+        <div class="team-card-photo">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#27</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">СЕРВИС & МОТОРЫ</span>
@@ -733,6 +947,15 @@
 
       <!-- 28. Дмитрий Баранкин -->
       <div class="team-card has-placeholder" data-team-dept="logistics">
+        <div class="team-card-photo">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#28</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">ЛОГИСТИКА & СКЛАД</span>
@@ -745,6 +968,15 @@
 
       <!-- 29. Павел Газарьян -->
       <div class="team-card has-placeholder" data-team-dept="logistics">
+        <div class="team-card-photo">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#29</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">ЛОГИСТИКА & СКЛАД</span>
@@ -757,6 +989,15 @@
 
       <!-- 30. Илья Гусаров -->
       <div class="team-card has-placeholder" data-team-dept="logistics">
+        <div class="team-card-photo">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#30</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">ЛОГИСТИКА & СКЛАД</span>
@@ -768,9 +1009,15 @@
       </div>
 
       <!-- 31. Мария Золотарева -->
-      <div class="team-card has-photo" data-team-dept="management">
+      <div class="team-card has-placeholder" data-team-dept="management">
         <div class="team-card-photo">
-          <img loading="lazy" decoding="async" src="assets/archive_tilda/team_maria.jpg" alt="Мария Золотарева" class="team-card-img">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#31</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
         </div>
         <div class="team-card-body">
           <div class="team-badge-header">
@@ -784,6 +1031,15 @@
 
       <!-- 32. Ульяна Копыл -->
       <div class="team-card has-placeholder" data-team-dept="media">
+        <div class="team-card-photo">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#32</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">МЕДИА & ДИЗАЙН</span>
@@ -796,6 +1052,15 @@
 
       <!-- 33. Никита Бабякин -->
       <div class="team-card has-placeholder" data-team-dept="logistics">
+        <div class="team-card-photo">
+          <div class="team-card-placeholder-photo">
+            <div class="team-placeholder-crest">
+              <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="team-placeholder-crest-icon">
+              <span class="team-placeholder-id">#33</span>
+            </div>
+            <span class="team-placeholder-hint">GTT Atelier</span>
+          </div>
+        </div>
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">ЛОГИСТИКА & СКЛАД</span>
@@ -877,183 +1142,7 @@
 
 
 
-    <div class="moto-cards-grid" id="motoCardsGrid">
-      <!-- 01 BMW M 1000 RR -->
-      <div class="moto-card" data-moto-id="moto_bmw_m1000rr">
-        <div class="moto-card-teaser-media">
-          <div class="moto-teaser-glow-orbit"></div>
-          <div class="moto-teaser-icon-wrap">
-            <span class="moto-teaser-radar"></span>
-          </div>
-          <span class="moto-card-teaser-status">МОСКВА // GTT FLEET</span>
-        </div>
-        <div class="moto-card-header">
-          <span class="moto-card-num">01</span>
-          <span class="moto-card-pill">M-PERFORMANCE // 212 HP</span>
-        </div>
-        <h3 class="moto-card-title">BMW M 1000 RR</h3>
-        <p class="moto-card-desc">Флагманский супербайк литрового класса. 4-цилиндровый двигатель BMW ShiftCam, титановая выпускная трасса Akrapovič, карбоновые аэродинамические винглеты M-Winglets и комплексная трековая калибровка блока управления.</p>
-        <div class="moto-spec-strip">
-          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">212 л.с. // 14 500 об/мин</span></div>
-          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Карбоновые винглеты M-Winglets</span></div>
-          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Сухой вес 170 кг</span></div>
-        </div>
-      </div>
-
-      <!-- 02 Ducati Panigale V4 S -->
-      <div class="moto-card" data-moto-id="moto_ducati_v4s">
-        <div class="moto-card-teaser-media">
-          <div class="moto-teaser-glow-orbit"></div>
-          <div class="moto-teaser-icon-wrap">
-            <span class="moto-teaser-radar"></span>
-          </div>
-          <span class="moto-card-teaser-status">МОСКВА // GTT FLEET</span>
-        </div>
-        <div class="moto-card-header">
-          <span class="moto-card-num">02</span>
-          <span class="moto-card-pill">DESMOSEDICI // 215.5 HP</span>
-        </div>
-        <h3 class="moto-card-title">Ducati Panigale V4 S</h3>
-        <p class="moto-card-desc">Итальянский трековый шедевр с мотором Desmosedici Stradale V4 1103 см³. Активная электронная подвеска Öhlins Smart EC 2.0, сухое сцепление STM EVO и титановый спортивный выпуск.</p>
-        <div class="moto-spec-strip">
-          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">215.5 л.с. // 13 000 об/мин</span></div>
-          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Подвеска Öhlins Smart EC 2.0</span></div>
-          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Сухое гоночное сцепление</span></div>
-        </div>
-      </div>
-
-      <!-- 03 MV Agusta Superveloce 800 -->
-      <div class="moto-card" data-moto-id="moto_mv_superveloce_800">
-        <div class="moto-card-teaser-media">
-          <div class="moto-teaser-glow-orbit"></div>
-          <div class="moto-teaser-icon-wrap">
-            <span class="moto-teaser-radar"></span>
-          </div>
-          <span class="moto-card-teaser-status">МОСКВА // GTT FLEET</span>
-        </div>
-        <div class="moto-card-header">
-          <span class="moto-card-num">03</span>
-          <span class="moto-card-pill">NEO-RETRO // SC-PROJECT</span>
-        </div>
-        <h3 class="moto-card-title">MV Agusta Superveloce 800</h3>
-        <p class="moto-card-desc">Эксклюзивный нео-классический спортбайк. Трехцилиндровый двигатель с противовращающимся коленвалом, фирменный выпуск SC-Project, кастомные фрезерованные детали и утонченная аэродинамика.</p>
-        <div class="moto-spec-strip">
-          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">147 л.с. // 13 000 об/мин</span></div>
-          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">3-цилиндровый мотор с обратным вращением коленвала</span></div>
-          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Кастомный выпуск SC-Project</span></div>
-        </div>
-      </div>
-
-      <!-- 04 MV Agusta Superveloce 1000 Serie Oro -->
-      <div class="moto-card" data-moto-id="moto_mv_superveloce_1000">
-        <div class="moto-card-teaser-media">
-          <div class="moto-teaser-glow-orbit"></div>
-          <div class="moto-teaser-icon-wrap">
-            <span class="moto-teaser-radar"></span>
-          </div>
-          <span class="moto-card-teaser-status">МОСКВА // GTT FLEET</span>
-        </div>
-        <div class="moto-card-header">
-          <span class="moto-card-num">04</span>
-          <span class="moto-card-pill">SERIE ORO // 208 HP</span>
-        </div>
-        <h3 class="moto-card-title">MV Agusta Superveloce 1000 Serie Oro</h3>
-        <p class="moto-card-desc">Лимитированный коллекционный гипербайк Schiranna. 4-цилиндровый мотор мощностью 208 л.с., титановый 4-ствольный выхлоп Arrow, карбоновый аэропакет с активными крыльями и титановые клапаны.</p>
-        <div class="moto-spec-strip">
-          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">208 л.с. // 13 200 об/мин</span></div>
-          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">4-ствольный титановый выхлоп Arrow</span></div>
-          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Ограниченный тираж Serie Oro</span></div>
-        </div>
-      </div>
-
-      <!-- 05 Kawasaki Ninja ZX-10R -->
-      <div class="moto-card" data-moto-id="moto_kawasaki_zx10r">
-        <div class="moto-card-teaser-media">
-          <div class="moto-teaser-glow-orbit"></div>
-          <div class="moto-teaser-icon-wrap">
-            <span class="moto-teaser-radar"></span>
-          </div>
-          <span class="moto-card-teaser-status">МОСКВА // GTT FLEET</span>
-        </div>
-        <div class="moto-card-header">
-          <span class="moto-card-num">05</span>
-          <span class="moto-card-pill">WSBK CHAMPION // 203 HP</span>
-        </div>
-        <h3 class="moto-card-title">Kawasaki Ninja ZX-10R</h3>
-        <p class="moto-card-desc">Многократный триумфатор мирового супербайка WSBK. Высокооборотистый рядный 4-цилиндровый мотор, аэродинамические винглеты в переднем обтекателе, вилка Showa BFF и гоночная калибровка ланч-контроля.</p>
-        <div class="moto-spec-strip">
-          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">203 л.с. (213 л.с. с Ram-Air)</span></div>
-          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Интегрированные винглеты</span></div>
-          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Гоночная вилка Showa BFF</span></div>
-        </div>
-      </div>
-
-      <!-- 06 Honda CBR1000RR-R Fireblade SP -->
-      <div class="moto-card" data-moto-id="moto_honda_cbr1000rrr">
-        <div class="moto-card-teaser-media">
-          <div class="moto-teaser-glow-orbit"></div>
-          <div class="moto-teaser-icon-wrap">
-            <span class="moto-teaser-radar"></span>
-          </div>
-          <span class="moto-card-teaser-status">МОСКВА // GTT FLEET</span>
-        </div>
-        <div class="moto-card-header">
-          <span class="moto-card-num">06</span>
-          <span class="moto-card-pill">TRIPLE-R SP // 217 HP</span>
-        </div>
-        <h3 class="moto-card-title">Honda CBR1000RR-R Fireblade SP</h3>
-        <p class="moto-card-desc">Бескомпромиссный болид с технологиями MotoGP. Диаметр цилиндров и ход поршня как у RC213V-S, титановый глушитель Akrapovič, подвеска Öhlins Smart-EC и прижимные аэродинамические крылья HRC.</p>
-        <div class="moto-spec-strip">
-          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">217 л.с. // 14 500 об/мин</span></div>
-          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">ДНК формульного болида RC213V-S</span></div>
-          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Электронная подвеска Öhlins Smart-EC</span></div>
-        </div>
-      </div>
-
-      <!-- 07 Yamaha YZF-R1M -->
-      <div class="moto-card" data-moto-id="moto_yamaha_r1m">
-        <div class="moto-card-teaser-media">
-          <div class="moto-teaser-glow-orbit"></div>
-          <div class="moto-teaser-icon-wrap">
-            <span class="moto-teaser-radar"></span>
-          </div>
-          <span class="moto-card-teaser-status">МОСКВА // GTT FLEET</span>
-        </div>
-        <div class="moto-card-header">
-          <span class="moto-card-num">07</span>
-          <span class="moto-card-pill">CROSSPLANE CP4 // 200 HP</span>
-        </div>
-        <h3 class="moto-card-title">Yamaha YZF-R1M</h3>
-        <p class="moto-card-desc">Заводская спецверсия с крестообразным коленвалом Crossplane CP4. Полный кузов из сухого автоклавного карбона, электронная подвеска Öhlins ERS NPX и телеметрия гоночного трека Y-TRAC.</p>
-        <div class="moto-spec-strip">
-          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">200 л.с. // 13 500 об/мин</span></div>
-          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Крестообразный коленвал Crossplane CP4</span></div>
-          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Кузов из сухого карбона</span></div>
-        </div>
-      </div>
-
-      <!-- 08 Suzuki GSX-R1000R -->
-      <div class="moto-card" data-moto-id="moto_suzuki_gsxr1000r">
-        <div class="moto-card-teaser-media">
-          <div class="moto-teaser-glow-orbit"></div>
-          <div class="moto-teaser-icon-wrap">
-            <span class="moto-teaser-radar"></span>
-          </div>
-          <span class="moto-card-teaser-status">МОСКВА // GTT FLEET</span>
-        </div>
-        <div class="moto-card-header">
-          <span class="moto-card-num">08</span>
-          <span class="moto-card-pill">SR-VVT // 202 HP</span>
-        </div>
-        <h3 class="moto-card-title">Suzuki GSX-R1000R</h3>
-        <p class="moto-card-desc">Легендарный литровый «Джиксер» в топовой модификации R. Система изменения фаз газораспределения Suzuki Racing VVT из MotoGP, вилка Showa BFF, двусторонний квикшифтер и тормоза Brembo Monobloc.</p>
-        <div class="moto-spec-strip">
-          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">202 л.с. // 13 200 об/мин</span></div>
-          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Система изменения фаз SR-VVT MotoGP</span></div>
-          <div class="moto-spec-item"><span class="spec-bullet">—</span><span class="spec-label">Тормозные моноблоки Brembo</span></div>
-        </div>
-      </div>
-    </div>
+    <div class="moto-cards-grid" id="motoCardsGrid"></div>
   </section>
 
   <!-- Atelier Life & RDRC Track Gallery (Flagship Large Marquee Stream) -->
@@ -1748,7 +1837,7 @@
           <div class="route-card-header">
             <div class="route-header-main">
               <div class="route-pin-badge">
-                <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="route-shield-img">
+                <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg" alt="GTT" class="route-shield-img">
                 <div>
                   <div class="route-complex-address" data-i18n="contact_center_addr">Можайское шоссе, 168</div>
                 </div>
@@ -1876,7 +1965,7 @@
   <footer class="official-footer">
     <div class="footer-inner-container">
       <div class="footer-center-content">
-        <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_logo.svg" 
+        <img decoding="async" loading="lazy" src="assets/photos/gtt_shield_2025.svg"
              alt="GoshaTurboTech" 
              class="footer-mini-shield">
         <span class="footer-copy-text" id="footerCopyStaffTrigger" data-i18n="footer_copy">© GOSHATURBOTECH. TRY TO CATCH UP.</span>
@@ -1960,7 +2049,7 @@
   </button>
 
   <script src="js/media-db.js?v=20261107_v4"></script>
-  <script src="js/app.js?v=20261125_shoniya"></script>
+  <script src="js/app.js?v=20261125_team_uniform"></script>
   <script>
     // Safeguard fallback: ensure preloader never hangs if external scripts fail
     setTimeout(function() {

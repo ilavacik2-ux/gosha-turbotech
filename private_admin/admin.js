@@ -9,7 +9,11 @@ const MEDIA_STORAGE_KEY = 'gtt_admin_media_db';
 const PARTNERS_STORAGE_KEY = 'gtt_admin_partners_db';
 const TRAFFIC_STORAGE_KEY = 'gtt_traffic_telemetry';
 const AUTH_KEY = 'gtt_admin_authenticated';
-try { localStorage.removeItem('gtt_admin_tg_config'); } catch (error) { /* Storage can be disabled. */ }
+try {
+  localStorage.removeItem('gtt_admin_tg_config');
+  localStorage.removeItem('gtt_session_token');
+  sessionStorage.removeItem('gtt_session_token');
+} catch (error) { /* Storage can be disabled. */ }
 
 // Immediately scrub ?token= from URL bar & browser history
 const _initUrlParams = new URLSearchParams(window.location.search);
@@ -686,73 +690,73 @@ const defaultProjects = [
 
 // 2. Initial Team Seed (33 Members from Atelier Roster)
 const defaultTeamPhotos = {
-  m_gosha: 'assets/archive_tilda/team_gosha.jpg',
+  m_gosha: '',
   m_pertskheliya_givi: '',
   m_pertskheliya_mikhail: '',
-  m_sarkisyan: 'assets/archive_tilda/team_edik.jpg',
+  m_sarkisyan: '',
   m_pertskheliya_zurab: '',
   m_pashchenko: '',
   m_gurov: '',
-  m_shevtsov: 'assets/archive_tilda/team_georgy.jpg',
+  m_shevtsov: '',
   m_nikolaev: '',
-  m_labkovich: 'assets/archive_tilda/team_evgeny.jpg',
+  m_labkovich: '',
   m_stotsky: '',
   m_turdibaev: '',
   m_mazhnunov: '',
   m_petrushin: '',
   m_mamsurov: '',
-  m_fetkulin: 'assets/archive_tilda/team_roman.jpg',
+  m_fetkulin: '',
   m_bagdasaryan: '',
   m_burnashov: '',
-  m_ivanov: 'assets/archive_tilda/team_nikita.jpg',
-  m_mazhorov: 'assets/archive_tilda/team_ivan.jpg',
+  m_ivanov: '',
+  m_mazhorov: '',
   m_malofeev: '',
   m_marin: '',
   m_osipov: '',
   m_ponomarev: '',
   m_sergeev: '',
-  m_shinkarenko: 'assets/archive_tilda/team_stepan.jpg',
+  m_shinkarenko: '',
   m_yakovlev: '',
   m_barankin: '',
   m_gazaryan: '',
   m_gusarov: '',
-  m_zolotareva: 'assets/archive_tilda/team_maria.jpg',
+  m_zolotareva: '',
   m_kopyl: '',
   m_babyakin: ''
 };
 
 const defaultTeam = [
-  { id: 'm_gosha', name: 'Гоша Перцхелия', role: 'Основатель & Главный конструктор GTT', status: 'active', photo: 'assets/archive_tilda/team_gosha.jpg', social: '@goshaturbotech', sort_order: 1 },
+  { id: 'm_gosha', name: 'Гоша Перцхелия', role: 'Основатель & Главный конструктор GTT', status: 'active', photo: '', social: '@goshaturbotech', sort_order: 1 },
   { id: 'm_pertskheliya_givi', name: 'Гиви Перцхелия', role: 'Босс', status: 'active', photo: '', social: '', sort_order: 2 },
   { id: 'm_pertskheliya_mikhail', name: 'Михаил Перцхелия', role: 'Исполнительный директор', status: 'active', photo: '', social: '', sort_order: 3 },
-  { id: 'm_sarkisyan', name: 'Эдуард Саркисян', role: 'Технический директор', status: 'active', photo: 'assets/archive_tilda/team_edik.jpg', social: '', sort_order: 4 },
+  { id: 'm_sarkisyan', name: 'Эдуард Саркисян', role: 'Технический директор', status: 'active', photo: '', social: '', sort_order: 4 },
   { id: 'm_pertskheliya_zurab', name: 'Зураб Перцхелия', role: 'Помощник руководителя', status: 'active', photo: '', social: '', sort_order: 5 },
   { id: 'm_pashchenko', name: 'Даниил Пащенко', role: 'Руководитель Медиа отдела', status: 'active', photo: '', social: '', sort_order: 6 },
   { id: 'm_gurov', name: 'Дмитрий Гуров', role: 'Инженер-проектировщик', status: 'atelier', photo: '', social: '', sort_order: 7 },
-  { id: 'm_shevtsov', name: 'Георгий Шевцов', role: 'Ст. Электрик', status: 'active', photo: 'assets/archive_tilda/team_georgy.jpg', social: '', sort_order: 8 },
+  { id: 'm_shevtsov', name: 'Георгий Шевцов', role: 'Ст. Электрик', status: 'active', photo: '', social: '', sort_order: 8 },
   { id: 'm_nikolaev', name: 'Артем Николаев', role: 'Мл. Электрик', status: 'atelier', photo: '', social: '', sort_order: 9 },
-  { id: 'm_labkovich', name: 'Евгений Лабкович', role: 'Диагност', status: 'active', photo: 'assets/archive_tilda/team_evgeny.jpg', social: '', sort_order: 10 },
+  { id: 'm_labkovich', name: 'Евгений Лабкович', role: 'Диагност', status: 'active', photo: '', social: '', sort_order: 10 },
   { id: 'm_stotsky', name: 'Сергей Стоцкий', role: 'Моторист-агрегатчик', status: 'active', photo: '', social: '', sort_order: 11 },
   { id: 'm_turdibaev', name: 'Рустам Турдибаев', role: 'Моторист-агрегатчик', status: 'active', photo: '', social: '', sort_order: 12 },
   { id: 'm_mazhnunov', name: 'Солехджон Мажнунов', role: 'Помощник моториста', status: 'atelier', photo: '', social: '', sort_order: 13 },
   { id: 'm_petrushin', name: 'Павел Петрушин', role: 'Помощник моториста', status: 'atelier', photo: '', social: '', sort_order: 14 },
   { id: 'm_mamsurov', name: 'Ксанти Мамсуров', role: 'Сварщик-фабрикатор', status: 'active', photo: '', social: '', sort_order: 15 },
-  { id: 'm_fetkulin', name: 'Роман Феткулин', role: 'Сварщик-фабрикатор', status: 'active', photo: 'assets/archive_tilda/team_roman.jpg', social: '', sort_order: 16 },
+  { id: 'm_fetkulin', name: 'Роман Феткулин', role: 'Сварщик-фабрикатор', status: 'active', photo: '', social: '', sort_order: 16 },
   { id: 'm_bagdasaryan', name: 'Микаел Багдасарян', role: 'Механик', status: 'paddock', photo: '', social: '', sort_order: 17 },
   { id: 'm_burnashov', name: 'Эрик Бурнашов', role: 'Механик', status: 'paddock', photo: '', social: '', sort_order: 18 },
-  { id: 'm_ivanov', name: 'Никита Иванов', role: 'Механик', status: 'paddock', photo: 'assets/archive_tilda/team_nikita.jpg', social: '', sort_order: 19 },
-  { id: 'm_mazhorov', name: 'Иван Мажоров', role: 'Механик', status: 'paddock', photo: 'assets/archive_tilda/team_ivan.jpg', social: '', sort_order: 20 },
+  { id: 'm_ivanov', name: 'Никита Иванов', role: 'Механик', status: 'paddock', photo: '', social: '', sort_order: 19 },
+  { id: 'm_mazhorov', name: 'Иван Мажоров', role: 'Механик', status: 'paddock', photo: '', social: '', sort_order: 20 },
   { id: 'm_malofeev', name: 'Алексей Малофеев', role: 'Механик', status: 'paddock', photo: '', social: '', sort_order: 21 },
   { id: 'm_marin', name: 'Вадим Марин', role: 'Механик', status: 'atelier', photo: '', social: '', sort_order: 22 },
   { id: 'm_osipov', name: 'Артем Осипов', role: 'Механик', status: 'atelier', photo: '', social: '', sort_order: 23 },
   { id: 'm_ponomarev', name: 'Николай Пономарев', role: 'Механик', status: 'atelier', photo: '', social: '', sort_order: 24 },
   { id: 'm_sergeev', name: 'Андрей Сергеев', role: 'Механик', status: 'atelier', photo: '', social: '', sort_order: 25 },
-  { id: 'm_shinkarenko', name: 'Степан Шинкаренко', role: 'Механик', status: 'atelier', photo: 'assets/archive_tilda/team_stepan.jpg', social: '', sort_order: 26 },
+  { id: 'm_shinkarenko', name: 'Степан Шинкаренко', role: 'Механик', status: 'atelier', photo: '', social: '', sort_order: 26 },
   { id: 'm_yakovlev', name: 'Алексей Яковлев', role: 'Мото-механик', status: 'atelier', photo: '', social: '', sort_order: 27 },
   { id: 'm_barankin', name: 'Дмитрий Баранкин', role: 'Менеджер по закупкам', status: 'atelier', photo: '', social: '', sort_order: 28 },
   { id: 'm_gazaryan', name: 'Павел Газарьян', role: 'Менеджер по закупкам', status: 'atelier', photo: '', social: '', sort_order: 29 },
   { id: 'm_gusarov', name: 'Илья Гусаров', role: 'Заведующий складом', status: 'atelier', photo: '', social: '', sort_order: 30 },
-  { id: 'm_zolotareva', name: 'Мария Золотарева', role: 'Делопроизводитель', status: 'atelier', photo: 'assets/archive_tilda/team_maria.jpg', social: '', sort_order: 31 },
+  { id: 'm_zolotareva', name: 'Мария Золотарева', role: 'Делопроизводитель', status: 'atelier', photo: '', social: '', sort_order: 31 },
   { id: 'm_kopyl', name: 'Ульяна Копыл', role: 'Контент-Мейкер', status: 'atelier', photo: '', social: '', sort_order: 32 },
   { id: 'm_babyakin', name: 'Никита Бабякин', role: 'Специалист по хозяйственному обеспечению', status: 'atelier', photo: '', social: '', sort_order: 33 }
 ];
@@ -869,34 +873,100 @@ const defaultPartners = [
 // 7. Initial Moto Seed (Superbikes & Customization)
 const defaultMoto = [
   {
-    id: 'moto_1',
-    title: 'Superbike Stage 1 / 2',
-    code: 'SUPERBIKE // STAGE 2',
-    desc: 'Программное раскрытие потенциала литровых спортбайков BMW S1000RR / M1000RR, Ducati Panigale V4, Yamaha R1. Индивидуальные карты зажигания, снятие ограничителей и калибровка квикшифтера на диностенде.',
-    bullets: 'Индивидуальная калибровка на диностенде\nОптимизация Wheelie & Launch Control\nКалибровка электронного дросселя без задержек',
-    img: '',
-    sort_order: 1,
-    is_active: 1
+    "id": "moto_bmw_m1000rr",
+    "title": "BMW M 1000 RR",
+    "code": "BMW MOTORSPORT // M-PERFORMANCE",
+    "desc": "Флагманский супербайк литрового класса. 4-цилиндровый двигатель BMW ShiftCam, титановая выпускная трасса Akrapovič, карбоновые аэродинамические винглеты M-Winglets и комплексная трековая калибровка блока управления.",
+    "bullets": "212 л.с. // 14 500 об/мин\nКарбоновые винглеты M-Winglets\nСухой вес 170 кг",
+    "img": "assets/moto/bmw_m1000rr_gtt.jpg",
+    "sort_order": 1,
+    "is_active": 1,
+    "object_position": "center 50%",
+    "objectPosition": "center 50%"
   },
   {
-    id: 'moto_2',
-    title: 'Титановый выпуск GTT Moto',
-    code: 'TITANIUM // EXH',
-    desc: 'Ручная аргоновая сварка титана и инконеля для мотоциклов. Экстремальное снижение веса, породистый акустический звук и прибавка крутящего момента во всем диапазоне.',
-    bullets: 'Ультралегкие коллекторы из сплава Titan-Gr5\nКастомная фрезеровка насадок\nОгненные отстрелы и сочный басовитый тон',
-    img: '',
-    sort_order: 2,
-    is_active: 1
+    "id": "moto_ducati_v4s",
+    "title": "Ducati Panigale V4 S",
+    "code": "BORGO PANIGALE // DESMOSEDICI",
+    "desc": "Итальянский трековый шедевр с мотором Desmosedici Stradale V4 1103 см³. Активная электронная подвеска Öhlins Smart EC 2.0, сухое сцепление STM EVO и титановый спортивный выпуск.",
+    "bullets": "215.5 л.с. // 13 000 об/мин\nПодвеска Öhlins Smart EC 2.0\nСухое гоночное сцепление",
+    "img": "",
+    "sort_order": 2,
+    "is_active": 0,
+    "object_position": "center 50%",
+    "objectPosition": "center 50%"
   },
   {
-    id: 'moto_3',
-    title: 'Bespoke кастомизация',
-    code: 'BESPOKE // CNC',
-    desc: 'Полный цикл доработки премиальной мототехники: кованые сверхлегкие диски, сухое сцепление, карбоновое оперение и комплексное предсезонное ТО.',
-    bullets: 'Сухой автоклавный карбон 3K/12K\nТормозные системы Brembo Racing / GP4\nИндивидуальный дизайн и покраска',
-    img: '',
-    sort_order: 3,
-    is_active: 1
+    "id": "moto_mv_superveloce_800",
+    "title": "MV Agusta Superveloce 800",
+    "code": "SCHIRANNA // NEO-RETRO RACER",
+    "desc": "Эксклюзивный нео-классический спортбайк. Трехцилиндровый двигатель с противовращающимся коленвалом, фирменный выпуск SC-Project, кастомные фрезерованные детали и утонченная аэродинамика.",
+    "bullets": "147 л.с. // 13 000 об/мин\n3-цилиндровый мотор с обратным вращением коленвала\nКастомный выпуск SC-Project",
+    "img": "",
+    "sort_order": 3,
+    "is_active": 0,
+    "object_position": "center 50%",
+    "objectPosition": "center 50%"
+  },
+  {
+    "id": "moto_mv_superveloce_1000",
+    "title": "MV Agusta Superveloce 1000 Serie Oro",
+    "code": "LIMITED EDITION // HYPERBIKE",
+    "desc": "Лимитированный коллекционный гипербайк Schiranna. 4-цилиндровый мотор мощностью 208 л.с., титановый 4-ствольный выхлоп Arrow, карбоновый аэропакет с активными крыльями и титановые клапаны.",
+    "bullets": "208 л.с. // 13 200 об/мин\n4-ствольный титановый выхлоп Arrow\nОграниченный тираж Serie Oro",
+    "img": "",
+    "sort_order": 4,
+    "is_active": 0,
+    "object_position": "center 50%",
+    "objectPosition": "center 50%"
+  },
+  {
+    "id": "moto_kawasaki_zx10r",
+    "title": "Kawasaki Ninja ZX-10R",
+    "code": "WSBK CHAMPION // NINJA",
+    "desc": "Многократный триумфатор мирового супербайка WSBK. Высокооборотистый рядный 4-цилиндровый мотор, аэродинамические винглеты в переднем обтекателе, вилка Showa BFF и гоночная калибровка ланч-контроля.",
+    "bullets": "203 л.с. (213 л.с. с Ram-Air)\nИнтегрированные винглеты\nГоночная вилка Showa BFF",
+    "img": "",
+    "sort_order": 5,
+    "is_active": 0,
+    "object_position": "center 50%",
+    "objectPosition": "center 50%"
+  },
+  {
+    "id": "moto_honda_cbr1000rrr",
+    "title": "Honda CBR1000RR-R Fireblade SP",
+    "code": "HRC RACING // TRIPLE-R",
+    "desc": "Бескомпромиссный болид с технологиями MotoGP. Диаметр цилиндров и ход поршня как у RC213V-S, титановый глушитель Akrapovič, подвеска Öhlins Smart-EC и прижимные аэродинамические крылья HRC.",
+    "bullets": "217 л.с. // 14 500 об/мин\nДНК формульного болида RC213V-S\nЭлектронная подвеска Öhlins Smart-EC",
+    "img": "",
+    "sort_order": 6,
+    "is_active": 0,
+    "object_position": "center 50%",
+    "objectPosition": "center 50%"
+  },
+  {
+    "id": "moto_yamaha_r1m",
+    "title": "Yamaha YZF-R1M",
+    "code": "FACTORY RACING // CROSSPLANE CP4",
+    "desc": "Заводская спецверсия с крестообразным коленвалом Crossplane CP4. Полный кузов из сухого автоклавного карбона, электронная подвеска Öhlins ERS NPX и телеметрия гоночного трека Y-TRAC.",
+    "bullets": "200 л.с. // 13 500 об/мин\nКрестообразный коленвал Crossplane CP4\nКузов из сухого карбона",
+    "img": "",
+    "sort_order": 7,
+    "is_active": 0,
+    "object_position": "center 50%",
+    "objectPosition": "center 50%"
+  },
+  {
+    "id": "moto_suzuki_gsxr1000r",
+    "title": "Suzuki GSX-R1000R",
+    "code": "LEGENDARY GIXER // SR-VVT",
+    "desc": "Легендарный литровый «Джиксер» в топовой модификации R. Система изменения фаз газораспределения Suzuki Racing VVT из MotoGP, вилка Showa BFF, двусторонний квикшифтер и тормоза Brembo Monobloc.",
+    "bullets": "202 л.с. // 13 200 об/мин\nСистема изменения фаз SR-VVT MotoGP\nТормозные моноблоки Brembo",
+    "img": "",
+    "sort_order": 8,
+    "is_active": 0,
+    "object_position": "center 50%",
+    "objectPosition": "center 50%"
   }
 ];
 
@@ -910,7 +980,6 @@ async function apiFetch(endpoint, options = {}) {
     throw new Error('Static hosting mode: skipping backend network call, local storage active');
   }
 
-  const sessionToken = sessionStorage.getItem('gtt_session_token') || '';
   const gateToken = (typeof getSecretGatewayToken === 'function') ? getSecretGatewayToken() : '';
   const isFormData = typeof FormData !== 'undefined' && options.body instanceof FormData;
 
@@ -918,7 +987,6 @@ async function apiFetch(endpoint, options = {}) {
   const finalHeaders = {
     ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
     ...(gateToken ? { 'x-gateway-token': gateToken } : {}),
-    ...(sessionToken ? { 'Authorization': `Bearer ${sessionToken}` } : {}),
     ...(optHeaders || {})
   };
 
@@ -963,11 +1031,9 @@ function escapeHTML(str) {
 }
 
 function escapeJS(str) {
-  if (str === null || str === undefined) return '';
-  return String(str)
-    .replace(/\\/g, '\\\\')
-    .replace(/'/g, "\\'")
-    .replace(/"/g, '&quot;');
+  return JSON.stringify(String(str ?? '')).slice(1, -1).replace(/[&<>"']/g, c =>
+    '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0')
+  );
 }
 
 // ==========================================================================
@@ -1007,10 +1073,10 @@ function showToast(title, message = '', type = 'info', duration = 4000, previewI
     ${iconOrThumbHtml}
     <div class="gtt-toast-body">
       <div class="gtt-toast-title">
-        <span>${title}</span>
+        <span>${escapeHTML(title)}</span>
         ${badgeHtml}
       </div>
-      ${message ? `<div class="gtt-toast-desc">${message}</div>` : ''}
+      ${message ? `<div class="gtt-toast-desc">${escapeHTML(message)}</div>` : ''}
     </div>
     <button class="gtt-toast-close" aria-label="Закрыть">&times;</button>
     <div class="gtt-toast-progress" style="animation-duration: ${duration}ms;"></div>
@@ -1106,14 +1172,6 @@ function getDB(key, defaultVal) {
     try {
       const parsed = JSON.parse(saved);
       if (Array.isArray(parsed)) {
-        if (parsed.length === 0 && Array.isArray(defaultVal) && defaultVal.length > 0) {
-          let cleanDefault = defaultVal;
-          if (key === ADMIN_STORAGE_KEY) cleanDefault = defaultVal.map(sanitizeCarRecord);
-          if (key === TEAM_STORAGE_KEY) cleanDefault = defaultVal.map(sanitizeTeamMember);
-          inMemoryCache[key] = cleanDefault;
-          try { localStorage.setItem(key, JSON.stringify(cleanDefault)); } catch (e) {}
-          return cleanDefault;
-        }
         if (key === ADMIN_STORAGE_KEY) {
           const res = parsed.map(sanitizeCarRecord);
           inMemoryCache[key] = res;
@@ -1192,15 +1250,16 @@ function saveDB(key, data) {
 
   inMemoryCache[key] = cleanData;
 
+  const serialized = JSON.stringify(cleanData);
   try {
-    localStorage.setItem(key, JSON.stringify(cleanData));
+    if (localStorage.getItem(key) !== serialized) localStorage.setItem(key, serialized);
   } catch (err) {
     console.warn('LocalStorage save error (using memory cache):', err);
     if (err && err.name === 'QuotaExceededError') {
       try {
         localStorage.removeItem('gtt_traffic_stats');
         localStorage.removeItem('gtt_audit_logs');
-        localStorage.setItem(key, JSON.stringify(cleanData));
+        localStorage.setItem(key, serialized);
         return;
       } catch (retryErr) {}
       showToast('Память браузера', 'Память LocalStorage заполнена. Кадр сохранен в активной сессии.', 'warning');
@@ -1293,10 +1352,10 @@ async function verifyAdminSessionOnLoad() {
       showToast('Требуется вход', 'Выполните авторизацию для работы с сервером', 'warning', 5000);
       return false;
     }
-    if (!isNetworkOrOfflineError(err)) {
-      console.warn('[GTT Auth] Verify note:', err);
-    }
-    return true;
+    if (dashboardScreen) dashboardScreen.style.display = 'none';
+    if (loginScreen) loginScreen.style.display = 'flex';
+    showToast('Не удалось проверить сессию', 'Повторите вход после восстановления связи с сервером', 'warning');
+    return false;
   }
 }
 
@@ -1374,6 +1433,7 @@ async function checkAuth() {
   const isAuth = sessionStorage.getItem(AUTH_KEY) === 'true';
 
   if (isAuth) {
+    if (!await verifyAdminSessionOnLoad()) return;
     if (loginScreen) loginScreen.style.display = 'none';
     if (dashboardScreen) dashboardScreen.style.display = 'block';
 
@@ -1385,12 +1445,8 @@ async function checkAuth() {
     migrateLegacyR8RokotVideoStorage();
     scrubLegacyTeamPlaceholders();
     initDraggableAdminTabs();
-    renderAllModules();
     updateAdminBellUI();
-    const sessionOk = await verifyAdminSessionOnLoad();
-    if (sessionOk) {
-      syncAllModulesFromAPI();
-    }
+    await syncAllModulesFromAPI();
   } else {
     if (loginScreen) loginScreen.style.display = 'flex';
     if (dashboardScreen) dashboardScreen.style.display = 'none';
@@ -1411,34 +1467,34 @@ async function syncAllModulesFromAPI() {
       apiFetch('/api/moto')
     ]);
 
-    if (cars.status === 'fulfilled' && Array.isArray(cars.value) && cars.value.length > 0) {
+    if (cars.status === 'fulfilled' && Array.isArray(cars.value)) {
       saveDB(ADMIN_STORAGE_KEY, cars.value);
       try {
         localStorage.setItem('gtt_projects_v2', JSON.stringify(cars.value));
       } catch (e) {}
       isLive = true;
     }
-    if (gallery.status === 'fulfilled' && Array.isArray(gallery.value) && gallery.value.length > 0) {
+    if (gallery.status === 'fulfilled' && Array.isArray(gallery.value)) {
       saveDB(GALLERY_STORAGE_KEY, gallery.value);
       isLive = true;
     }
-    if (team.status === 'fulfilled' && Array.isArray(team.value) && team.value.length > 0) {
+    if (team.status === 'fulfilled' && Array.isArray(team.value)) {
       saveDB(TEAM_STORAGE_KEY, team.value);
       isLive = true;
     }
-    if (records.status === 'fulfilled' && Array.isArray(records.value) && records.value.length > 0) {
+    if (records.status === 'fulfilled' && Array.isArray(records.value)) {
       saveDB(RECORDS_STORAGE_KEY, records.value);
       isLive = true;
     }
-    if (media.status === 'fulfilled' && Array.isArray(media.value) && media.value.length > 0) {
+    if (media.status === 'fulfilled' && Array.isArray(media.value)) {
       saveDB(MEDIA_STORAGE_KEY, media.value);
       isLive = true;
     }
-    if (partners.status === 'fulfilled' && Array.isArray(partners.value) && partners.value.length > 0) {
+    if (partners.status === 'fulfilled' && Array.isArray(partners.value)) {
       saveDB(PARTNERS_STORAGE_KEY, partners.value);
       isLive = true;
     }
-    if (moto.status === 'fulfilled' && Array.isArray(moto.value) && moto.value.length > 0) {
+    if (moto.status === 'fulfilled' && Array.isArray(moto.value)) {
       saveDB(MOTO_STORAGE_KEY, moto.value);
       isLive = true;
     }
@@ -1527,9 +1583,6 @@ async function handleAdminLogin(e) {
     });
     if (res && res.status === 'ok') {
       authSuccessful = true;
-      if (res.session_token) {
-        sessionStorage.setItem('gtt_session_token', res.session_token);
-      }
       if (res.username) {
         localStorage.setItem(USER_NAME_KEY, res.username);
       }
@@ -1581,8 +1634,15 @@ async function handleAdminLogin(e) {
   }
 }
 
-function handleAdminLogout() {
-  apiFetch('/api/auth/logout', { method: 'POST' }).catch(() => {});
+async function handleAdminLogout() {
+  try {
+    await apiFetch('/api/auth/logout', { method: 'POST' });
+  } catch (err) {
+    if (err.status !== 401 && err.status !== 404) {
+      showToast('Выход не подтверждён', 'Повторите выход после восстановления связи с сервером', 'warning');
+      return;
+    }
+  }
   sessionStorage.removeItem(AUTH_KEY);
   localStorage.removeItem(AUTH_KEY);
   sessionStorage.removeItem('gtt_session_token');
@@ -2032,14 +2092,8 @@ function initAdminModalContainment() {
 
 // Render All
 function renderAllModules() {
-  try { renderCarsTable(); } catch (e) { console.error('Error in renderCarsTable:', e); }
-  try { renderTrafficModule(); } catch (e) { console.error('Error in renderTrafficModule:', e); }
-  try { renderGalleryTable(); } catch (e) { console.error('Error in renderGalleryTable:', e); }
-  try { renderTeamTable(); } catch (e) { console.error('Error in renderTeamTable:', e); }
-  try { renderPartnersTable(); } catch (e) { console.error('Error in renderPartnersTable:', e); }
-  try { renderMotoTable(); } catch (e) { console.error('Error in renderMotoTable:', e); }
-  try { renderRecordsTable(); } catch (e) { console.error('Error in renderRecordsTable:', e); }
-  try { renderMediaTable(); } catch (e) { console.error('Error in renderMediaTable:', e); }
+  const activeTab = document.querySelector('.admin-tab-btn.active')?.dataset.tab || 'cars';
+  switchAdminTab(activeTab);
 }
 
 const GARAGE_STATS_KEY = 'gtt_garage_stats_custom';
@@ -3116,7 +3170,7 @@ function renderFeaturedSlots() {
         </div>
 
         <div class="featured-slot-img-wrap">
-          <img src="${img}" alt="${name}" class="featured-slot-img" style="object-position: ${objPos};" data-obj-pos="${objPos}" onload="applyAdminCarFraming(this, this.dataset.objPos, 1.6)" onerror="this.onerror=null; this.src='assets/cars/gtt_classified_car.svg';">
+          <img src="${img}" alt="${name}" class="featured-slot-img" loading="lazy" decoding="async" style="object-position: ${objPos};" data-obj-pos="${objPos}" onload="applyAdminCarFraming(this, this.dataset.objPos, 1.6)" onerror="this.onerror=null; this.src='assets/cars/gtt_classified_car.svg';">
           <div class="featured-slot-video-tag ${hasVideo ? 'active' : ''}">
             ${hasVideo ? '● Видео активно' : '○ Без видео'}
           </div>
@@ -3448,7 +3502,7 @@ function renderCarsTable() {
             </svg>
           </span>
           <div class="car-thumb-wrap ${isJustUpdated ? 'car-thumb-just-updated' : ''}">
-            <img src="${img}" alt="${name}" class="car-thumb" style="object-position: ${objPos};" data-obj-pos="${objPos}" onload="applyAdminCarFraming(this, this.dataset.objPos, 1.53)" onerror="this.onerror=null; this.src='assets/cars/gtt_classified_car.svg';">
+            <img src="${img}" alt="${name}" class="car-thumb" loading="lazy" decoding="async" style="object-position: ${objPos};" data-obj-pos="${objPos}" onload="applyAdminCarFraming(this, this.dataset.objPos, 1.53)" onerror="this.onerror=null; this.src='assets/cars/gtt_classified_car.svg';">
           </div>
           <div>
             <div class="car-title-text">${name}</div>
@@ -4265,7 +4319,7 @@ function handleTeamPhotoInput(val) {
   const trimmed = (val || '').trim();
   const img = document.getElementById('teamImgPreview');
   if (img) {
-    img.src = trimmed || 'assets/photos/gtt_shield_logo.svg';
+    img.src = trimmed || 'assets/photos/gtt_shield_2025.svg';
   }
   updateTeamLiveCardPreview();
 }
@@ -4294,7 +4348,7 @@ function updateTeamLiveCardPreview() {
   }
   if (imgPrev && photoInput) {
     const p = photoInput.value.trim();
-    imgPrev.src = p || 'assets/photos/gtt_shield_logo.svg';
+    imgPrev.src = p || 'assets/photos/gtt_shield_2025.svg';
     const pos = document.getElementById('editMemberObjectPosition')?.value || 'center 20%';
     if (!p) {
       imgPrev.style.objectFit = 'contain';
@@ -4312,7 +4366,7 @@ function clearTeamPhotoPreview() {
   const input = document.getElementById('editMemberPhoto');
   const fileInput = document.getElementById('teamPhotoFileInput');
   const img = document.getElementById('teamImgPreview');
-  const fallback = 'assets/photos/gtt_shield_logo.svg';
+  const fallback = 'assets/photos/gtt_shield_2025.svg';
 
   if (input) input.value = '';
   if (fileInput) fileInput.value = '';
@@ -4321,7 +4375,7 @@ function clearTeamPhotoPreview() {
     img.style.objectFit = 'contain';
     img.style.padding = '12px';
     img.style.objectPosition = 'center center';
-    img.onerror = () => { img.src = 'assets/photos/gtt_shield_logo.svg'; };
+    img.onerror = () => { img.src = 'assets/photos/gtt_shield_2025.svg'; };
   }
   handleTeamPhotoPositionChange(20);
   updateTeamLiveCardPreview();
@@ -5088,7 +5142,7 @@ function renderGalleryTable(directList) {
     return `
     <tr>
       <td>
-        <img src="${img}" alt="${title}" class="car-thumb" style="width: 54px; height: 38px; object-fit: cover; object-position: ${objPos}; border-radius: 4px; border: 1px solid rgba(255,255,255,0.12);" onerror="this.onerror=null; this.src='assets/photos/huracan_zelenka_gtt.jpg'">
+        <img src="${img}" alt="${title}" class="car-thumb" loading="lazy" decoding="async" style="width: 54px; height: 38px; object-fit: cover; object-position: ${objPos}; border-radius: 4px; border: 1px solid rgba(255,255,255,0.12);" onerror="this.onerror=null; this.src='assets/photos/huracan_zelenka_gtt.jpg'">
       </td>
       <td><span class="tag-pill" style="color: var(--gtt-orange);">${tag}</span></td>
       <td style="font-weight: 600; color: #fff;">${title}</td>
@@ -5289,7 +5343,7 @@ function selectTeamMemberForInspection(id) {
   const editBtn = document.getElementById('inspectorEditBtn');
 
   const hasPhoto = Boolean(m.photo && m.photo.trim());
-  const photo = hasPhoto ? m.photo : 'assets/photos/gtt_shield_logo.svg';
+  const photo = hasPhoto ? m.photo : 'assets/photos/gtt_shield_2025.svg';
   const objPos = m.object_position || m.objectPosition || 'center 20%';
   if (img) {
     img.src = photo;
@@ -5341,7 +5395,7 @@ function renderTeamTable() {
 
   tbody.innerHTML = team.map((m, idx) => {
     const hasPhoto = Boolean(m.photo && m.photo.trim());
-    const photoUrl = escapeHTML(hasPhoto ? m.photo : 'assets/photos/gtt_shield_logo.svg');
+    const photoUrl = escapeHTML(hasPhoto ? m.photo : 'assets/photos/gtt_shield_2025.svg');
     const name = escapeHTML(m.name);
     const role = escapeHTML(m.role);
     const id = escapeJS(m.id);
@@ -5354,7 +5408,7 @@ function renderTeamTable() {
     <tr data-team-id="${id}" onclick="selectTeamMemberForInspection('${id}')" style="cursor: pointer;" title="Кликните для просмотра профиля сотрудника">
       <td style="color: var(--text-dim); font-family: var(--font-mono);">${idx + 1}</td>
       <td>
-        <img src="${photoUrl}" alt="${name}" class="team-member-thumb" style="${thumbStyle}" onerror="this.src='assets/photos/gtt_shield_logo.svg'">
+        <img src="${photoUrl}" alt="${name}" class="team-member-thumb" loading="lazy" decoding="async" style="${thumbStyle}" onerror="this.src='assets/photos/gtt_shield_2025.svg'">
       </td>
       <td style="font-weight: 700; color: #fff;">${name}</td>
       <td>${role}</td>
@@ -5561,14 +5615,14 @@ function renderRecordsTable() {
     const car = escapeHTML(rec.car);
     const telemetry = escapeHTML(rec.telemetry);
     const desc = escapeHTML(rec.desc);
-    const rawImg = rec.img || 'assets/photos/gtt_shield_logo.svg';
+    const rawImg = rec.img || 'assets/photos/gtt_shield_2025.svg';
     const img = escapeHTML(convertGoogleDriveUrl(rawImg) || rawImg);
     const objPos = escapeHTML(rec.objectPosition || rec.object_position || 'center 50%');
     return `
     <tr>
       <td><span class="tag-pill" style="color: var(--gtt-orange);">${year}</span></td>
       <td style="text-align: center;">
-        <img src="${img}" alt="${car}" class="car-thumb" style="width: 54px; height: 38px; object-fit: cover; object-position: ${objPos}; border-radius: 4px; border: 1px solid rgba(255,255,255,0.12); display: inline-block; vertical-align: middle;" onerror="this.onerror=null; this.src='assets/photos/gtt_shield_logo.svg';">
+        <img src="${img}" alt="${car}" class="car-thumb" loading="lazy" decoding="async" style="width: 54px; height: 38px; object-fit: cover; object-position: ${objPos}; border-radius: 4px; border: 1px solid rgba(255,255,255,0.12); display: inline-block; vertical-align: middle;" onerror="this.onerror=null; this.src='assets/photos/gtt_shield_2025.svg';">
       </td>
       <td style="font-weight: 700; color: #fff;">${car}</td>
       <td style="font-family: var(--font-mono);">${telemetry}</td>
@@ -5796,12 +5850,12 @@ function renderMediaTable() {
       <td style="text-align: center;">
         <div style="width: 54px; height: 38px; border-radius: 4px; overflow: hidden; background: #000; border: 1px solid rgba(255,255,255,0.12); display: inline-flex; align-items: center; justify-content: center; position: relative;">
           ${isVideo ? `
-            <video src="${url}" preload="metadata" muted playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
+            <video src="${url}" preload="none" muted playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
             <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center;">
               <span style="font-size: 10px; color: #fff;">▶</span>
             </div>
           ` : `
-            <img src="${url}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.src='assets/photos/gtt_shield_logo.svg';">
+            <img src="${url}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.onerror=null; this.src='assets/photos/gtt_shield_2025.svg';">
           `}
         </div>
       </td>
@@ -6471,7 +6525,7 @@ function renderPartnersTable() {
     const hasRealLogo = logoSrc && logoSrc !== '#' && !logoSrc.includes('partners_banner.png');
     const logoHtml = hasRealLogo
       ? `<div style="width: 44px; height: 44px; border-radius: 8px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; padding: 4px; overflow: hidden; margin: 0 auto;">
-           <img src="${logoSrc}" alt="${name}" style="max-width: 100%; max-height: 100%; object-fit: contain;" onerror="this.onerror=null; this.parentElement.innerHTML='<span style=\\'font-family:var(--font-mono);font-size:11px;font-weight:700;color:var(--gtt-orange);\\'>${monogram}</span>';">
+           <img src="${logoSrc}" alt="${name}" style="max-width: 100%; max-height: 100%; object-fit: contain;" onerror="this.parentElement.replaceChildren(document.createTextNode(this.alt.slice(0, 2).toUpperCase()));">
          </div>`
       : `<div style="width: 44px; height: 44px; border-radius: 8px; background: rgba(234, 91, 12, 0.1); border: 1px dashed rgba(234, 91, 12, 0.35); display: flex; align-items: center; justify-content: center; margin: 0 auto;">
            <span style="font-family: var(--font-mono); font-size: 12px; font-weight: 800; color: var(--gtt-orange);">${monogram}</span>
@@ -6483,7 +6537,7 @@ function renderPartnersTable() {
       <td style="text-align: center;">${logoHtml}</td>
       <td>
         <div style="font-weight: 700; color: #fff;">${name}</div>
-        ${p.link && p.link !== '#' ? `<a href="${escapeHTML(p.link)}" target="_blank" rel="noopener" style="font-size: 11px; color: #38bdf8; text-decoration: none;">Перейти ↗</a>` : ''}
+        ${/^https?:\/\//i.test(p.link || '') ? `<a href="${escapeHTML(p.link)}" target="_blank" rel="noopener" style="font-size: 11px; color: #38bdf8; text-decoration: none;">Перейти ↗</a>` : ''}
       </td>
       <td><span class="tag-pill" style="color: var(--gtt-orange); border-color: rgba(255,100,37,0.3); font-size: 10.5px;">${category}</span></td>
       <td style="font-size: 12.5px; color: var(--text-muted); line-height: 1.45; max-width: 300px;">
@@ -6863,7 +6917,7 @@ function renderMotoTable() {
     const sortOrder = parseInt(m.sort_order || idx + 1);
     const isActive = (m.is_active === 1 || m.is_active === true || m.is_active === '1');
     const statusHtml = isActive 
-      ? '<span style="color: #22c55e; font-size: 11.5px; font-weight: 600;">● Активен</span>'
+      ? '<span style="color: #22c55e; font-size: 11.5px; font-weight: 600;">● Опубликован</span>'
       : '<span style="color: #64748b; font-size: 11.5px;">Скрыт</span>';
 
     return `
@@ -7051,7 +7105,7 @@ function openMotoModal(id) {
     document.getElementById('editMotoImg').value = '';
     handleMotoPhotoPositionChange(50);
     updateMotoPhotoPreview('');
-    document.getElementById('editMotoIsActive').checked = true;
+    document.getElementById('editMotoIsActive').checked = false;
   }
 }
 
@@ -7077,7 +7131,7 @@ async function saveMoto(e) {
     return;
   }
 
-  const motoList = getDB(MOTO_STORAGE_KEY, defaultMoto);
+  const motoList = getDB(MOTO_STORAGE_KEY, defaultMoto).slice();
   let payload;
 
   if (id) {
@@ -7116,17 +7170,6 @@ async function saveMoto(e) {
     motoList.push(payload);
   }
 
-  saveDB(MOTO_STORAGE_KEY, motoList);
-  renderMotoTable();
-  closeMotoModal();
-
-  if (window.BroadcastChannel) {
-    try {
-      const ch = new BroadcastChannel('gtt_channel');
-      ch.postMessage({ type: 'moto_updated', moto: motoList });
-    } catch (bcErr) {}
-  }
-
   try {
     const method = id ? 'PUT' : 'POST';
     const url = id ? `/api/moto/${id}` : '/api/moto';
@@ -7135,11 +7178,21 @@ async function saveMoto(e) {
       body: JSON.stringify(payload)
     });
     if (res && (res.id || res.status === 'ok' || !res.error)) {
+      saveDB(MOTO_STORAGE_KEY, motoList);
+      renderMotoTable();
+      closeMotoModal();
+
+      if (window.BroadcastChannel) {
+        try {
+          const ch = new BroadcastChannel('gtt_channel');
+          ch.postMessage({ type: 'moto_updated', moto: motoList });
+        } catch (bcErr) {}
+      }
       showToast('Успешно', `Мотопроект "${title}" сохранен в БД`, 'success');
       addAuditNotification('updated', `Мотопроект: ${title} (${code})`);
     }
   } catch (err) {
-    showToast('Сохранено локально', 'Синхронизация с сервером будет повторена позже', 'warning');
+    showToast('Ошибка', err.message || 'Мотопроект не сохранён', 'error');
   }
 }
 

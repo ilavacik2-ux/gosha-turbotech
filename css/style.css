@@ -187,41 +187,6 @@ body.is-loading {
   transition: transform 0.6s ease;
 }
 
-.preloader-logo-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  position: relative;
-}
-
-/* Luxury ambient backlight behind shield without blurring the SVG itself */
-.preloader-logo-wrap::before {
-  content: '';
-  position: absolute;
-  top: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 140px;
-  height: 140px;
-  background: radial-gradient(circle, rgba(255, 80, 20, 0.32) 0%, rgba(255, 80, 20, 0.1) 48%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  animation: pulseLogoBacklight 2.4s infinite ease-in-out;
-}
-
-@keyframes pulseLogoBacklight {
-  0%, 100% {
-    opacity: 0.7;
-    transform: translateX(-50%) scale(0.95);
-  }
-  50% {
-    opacity: 1;
-    transform: translateX(-50%) scale(1.12);
-  }
-}
-
 .preloader-shield-img {
   width: 110px;
   height: 110px;
@@ -295,7 +260,7 @@ body.is-loading {
 }
 
 .preloader-progress-bar {
-  width: 260px;
+  width: min(132px, 42vw);
   height: 3px;
   background: rgba(255, 255, 255, 0.08);
   border-radius: 4px;
@@ -307,8 +272,7 @@ body.is-loading {
 .preloader-progress-fill {
   width: 0%;
   height: 100%;
-  background: linear-gradient(90deg, #ff6425, #ff9e42);
-  box-shadow: 0 0 15px var(--gtt-orange);
+  background: var(--gtt-orange);
   transition: width 0.12s linear;
 }
 
@@ -2788,10 +2752,6 @@ body.is-loading {
   font-weight: 700;
   letter-spacing: 0.06em;
   color: var(--text-dim);
-}
-
-.team-grid .team-card.has-placeholder {
-  align-self: start;
 }
 
 .team-card-photo {
@@ -6099,13 +6059,13 @@ body.modal-open {
   }
 }
 
-@media (min-width: 1301px) {
+@media (min-width: 769px) {
   .mobile-burger-btn {
     display: none !important;
   }
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 768px) {
   .nav-links {
     display: none;
   }
@@ -7899,7 +7859,6 @@ body.modal-open {
 .navbar .nav-links { gap: clamp(9px, 1.15vw, 22px); }
 .navbar .nav-link { white-space: nowrap; }
 .navbar .brand-text-img { margin-left: 4px; }
-.preloader-logo-wrap .brand-text-img { margin-left: 10px; }
 .record-photo-img { cursor: zoom-in; }
 
 .carmodal-photo-button {
@@ -7939,3 +7898,61 @@ body.modal-open {
 }
 #galleryLightbox.single-photo .lightbox-caption,
 #galleryLightbox.single-photo .lightbox-nav-btn { display: none; }
+
+@media (min-width: 769px) and (max-width: 1300px) {
+  .navbar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 64px 43px;
+    height: 108px;
+    background: rgba(7, 7, 9, 0.94);
+  }
+
+  .navbar nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    min-width: 0;
+    align-self: stretch;
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
+  }
+
+  .navbar .nav-actions {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .navbar .nav-links {
+    justify-content: space-between;
+    gap: 12px;
+    height: 100%;
+  }
+
+  .navbar .nav-link {
+    font-size: clamp(10px, 1.05vw, 12.5px);
+  }
+
+  section[id] {
+    scroll-margin-top: 108px;
+  }
+
+  .hero {
+    padding-top: 148px;
+  }
+}
+
+
+.brand-mark {
+  display: block;
+  width: auto;
+  height: 46px;
+}
+
+.preloader-brand-mark {
+  display: block;
+  width: clamp(156px, 17vw, 218px);
+  height: auto;
+}
+
+@media (max-width: 680px) {
+  .brand-mark { height: 36px; }
+}

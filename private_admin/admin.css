@@ -3057,3 +3057,17 @@ tr:hover .car-row-drag-handle {
 
 
 
+
+
+.auth-brand-mark {
+  display: block;
+  width: min(260px, 100%);
+  height: auto;
+  margin: 0 auto 14px;
+}
+
+.topbar-brand-mark {
+  display: block;
+  width: auto;
+  height: 38px;
+}
