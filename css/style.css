@@ -2790,6 +2790,10 @@ body.is-loading {
   color: var(--text-dim);
 }
 
+.team-grid .team-card.has-placeholder {
+  align-self: start;
+}
+
 .team-card-photo {
   height: 220px;
   width: 100%;

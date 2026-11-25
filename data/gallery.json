@@ -40,14 +40,6 @@
     "object_position": null
   },
   {
-    "id": "gal_6",
-    "tag": "AERODYNAMICS",
-    "title": "Red Chrome Nissan GT-R R35",
-    "img": "assets/cars/gtr_red_front_rdrc.jpg",
-    "sort_order": 6,
-    "object_position": null
-  },
-  {
     "id": "gal_7",
     "tag": "MIDNIGHT BLUE",
     "title": "Nissan GT-R R35 #888 Sunset Pass",

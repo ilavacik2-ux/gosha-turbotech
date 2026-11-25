@@ -85,7 +85,7 @@
     "car": "Nissan GT-R R35 «BALOO»",
     "telemetry": "8.875 сек • 262.39 км/ч",
     "desc": "",
-    "img": "assets/cars/gtr_baloo_card.jpg",
+    "img": "assets/archive_tilda/nissan_gtr_baloo.webp",
     "object_position": null,
     "sort_order": 9
   },
@@ -205,7 +205,7 @@
     "car": "Dodge Challenger SRT Demon",
     "telemetry": "9.533 сек • 257.23 км/ч",
     "desc": "",
-    "img": "assets/cars/dodge_burnout_sunset.jpg",
+    "img": "",
     "object_position": null,
     "sort_order": 22
   },
@@ -255,7 +255,7 @@
     "car": "Dodge Challenger SRT Demon «Demon Мегон»",
     "telemetry": "9.891 сек • 231.36 км/ч",
     "desc": "",
-    "img": "",
+    "img": "assets/cars/dodge_burnout_sunset.jpg",
     "object_position": null,
     "sort_order": 27
   },

@@ -215,11 +215,11 @@ const defaultProjects = [
     "nameRu": "DODGE CHALLENGER SRT DEMON GTT",
     "nameEn": "DODGE CHALLENGER SRT DEMON GTT",
     "hp": "1,200+ HP",
-    "quarterMile": "9.533 сек",
-    "topSpeed": "257.23 км/ч",
+    "quarterMile": "9.891 сек",
+    "topSpeed": "231.36 км/ч",
     "img": "assets/cars/dodge_burnout_sunset.jpg",
     "videoSrc": "",
-    "descRu": "Черный компрессорный монстр Dodge Challenger SRT Demon от GoshaTurboTech под управлением И. Кардана и М. Шония. Подтвержденное время 9.748 сек со скоростью 233.24 км/ч на 1/4 мили RDRC 2026.",
+    "descRu": "Dodge Challenger SRT Demon.",
     "is_featured": 0
   },
   {
@@ -341,7 +341,7 @@ const defaultProjects = [
     "hp": "1,450+ HP",
     "quarterMile": "8.875 сек",
     "topSpeed": "262.39 км/ч",
-    "img": "assets/cars/gtr_red_strip_sunset.jpg",
+    "img": "assets/archive_tilda/nissan_gtr_baloo.webp",
     "videoSrc": "",
     "descRu": "Уникальный проект «Baloo» с мощнейшим средним диапазоном оборотов и полным приводом. Личные показатели команды: 8.875 сек на 402 м со скоростью 262.39 км/ч и 13.726 сек на 1/2 мили со скоростью 322.00 км/ч.",
     "is_featured": 0
@@ -358,22 +358,6 @@ const defaultProjects = [
     "img": "assets/photos/gtr_blue_888_rdrc.jpg",
     "videoSrc": "",
     "descRu": "Знаменитый синий Nissan GT-R R35 со стартовым номером #888, постоянный участник и призер этапов Чемпионата России RDRC. Калибровка лаунч-контроля GTT и кованый 3.8L VR38.",
-    "is_featured": 0
-  },
-  {
-    "id": "gtr_red",
-    "brand": "NISSAN",
-    "type": "gtr",
-    "nameRu": "GT-R R35 RED CHROME GTT",
-    "nameEn": "GT-R R35 RED CHROME GTT",
-    "hp": "1,650+ HP",
-    "quarterMile": "7.950 сек",
-    "topSpeed": "350+ км/ч",
-    "img": "assets/cars/gtr_red_front_card.jpg",
-    "fallbackImg": "assets/cars/gtr_red_front_rdrc.jpg",
-    "objectPosition": "center 50%",
-    "videoSrc": "",
-    "descRu": "Один из самых ярких Nissan GT-R в российском дрэг-рейсинге под управлением Гоши Перцхелия. Кастомный хром-дизайн, усиленная подвеска и боевая трансмиссия GTT.",
     "is_featured": 0
   },
   {
@@ -465,14 +449,14 @@ const defaultProjects = [
     "id": "volga_kgb",
     "brand": "ГАЗ & GTT",
     "type": "other",
-    "nameRu": "ВОЛГА ГАЗ-24 КГБ V8 GTT",
-    "nameEn": "VOLGA GAZ-24 KGB V8 GTT",
-    "hp": "1,050+ HP",
-    "quarterMile": "9.420 сек",
-    "topSpeed": "340+ км/ч",
+    "nameRu": "ВОЛГА ГАЗ-24 «КГБ» GTT",
+    "nameEn": "VOLGA GAZ-24 «KGB» GTT",
+    "hp": "",
+    "quarterMile": "",
+    "topSpeed": "",
     "img": "assets/cars/volga_kgb_v8_workshop.jpg",
     "videoSrc": "",
-    "descRu": "Легендарный советский проект в кузове ГАЗ-24 «Догонялка». Внешне аутентичный хромированный силуэт спецслужб, внутри — современный турбированный V8 и кастомное спортивное шасси.",
+    "descRu": "ГАЗ-24 с двигателем 2JZ-GTE и пустым салоном с каркасом безопасности.",
     "is_featured": 0,
     "fallbackImg": "assets/cars/volga_kgb_v8_workshop.jpg",
     "objectPosition": "center center",
@@ -484,12 +468,12 @@ const defaultProjects = [
     "type": "other",
     "nameRu": "FERRARI 512 TR GTT",
     "nameEn": "FERRARI 512 TR GTT",
-    "hp": "550+ HP",
-    "quarterMile": "10.800 сек",
-    "topSpeed": "315+ км/ч",
+    "hp": "",
+    "quarterMile": "",
+    "topSpeed": "",
     "img": "assets/cars/ferrari_512tr_dyno_red.jpg",
     "videoSrc": "",
-    "descRu": "Итальянская икона с 12-цилиндровым оппозитным двигателем Flat-12. Комплексная механическая доработка в цехах GTT, индивидуальный титановый выпуск и филигранная калибровка впрыска.",
+    "descRu": "Ferrari 512 TR",
     "is_featured": 0,
     "fallbackImg": "assets/cars/ferrari_512tr_dyno_red.jpg",
     "objectPosition": "center center",
@@ -577,12 +561,12 @@ const defaultProjects = [
     "type": "other",
     "nameRu": "TESLA MODEL S PLAID GTT",
     "nameEn": "TESLA MODEL S PLAID GTT",
-    "hp": "1,050+ HP",
-    "quarterMile": "—",
-    "topSpeed": "—",
+    "hp": "",
+    "quarterMile": "",
+    "topSpeed": "",
     "img": "assets/cars/tesla_model_s_plaid.jpg",
     "videoSrc": "",
-    "descRu": "Трековый проект на базе трехмоторного седана Tesla Model S Plaid. Спортивная карбон-керамическая тормозная система GTT, оптимизация охлаждения инверторов и аэродинамический сплиттер.",
+    "descRu": "Tesla Model S Plaid",
     "is_featured": 0,
     "fallbackImg": "assets/cars/tesla_model_s_plaid.jpg",
     "objectPosition": "center center",
@@ -702,73 +686,73 @@ const defaultProjects = [
 
 // 2. Initial Team Seed (33 Members from Atelier Roster)
 const defaultTeamPhotos = {
-  m_gosha: '',
+  m_gosha: 'assets/archive_tilda/team_gosha.jpg',
   m_pertskheliya_givi: '',
   m_pertskheliya_mikhail: '',
-  m_sarkisyan: '',
+  m_sarkisyan: 'assets/archive_tilda/team_edik.jpg',
   m_pertskheliya_zurab: '',
   m_pashchenko: '',
   m_gurov: '',
-  m_shevtsov: '',
+  m_shevtsov: 'assets/archive_tilda/team_georgy.jpg',
   m_nikolaev: '',
-  m_labkovich: '',
+  m_labkovich: 'assets/archive_tilda/team_evgeny.jpg',
   m_stotsky: '',
   m_turdibaev: '',
   m_mazhnunov: '',
   m_petrushin: '',
   m_mamsurov: '',
-  m_fetkulin: '',
+  m_fetkulin: 'assets/archive_tilda/team_roman.jpg',
   m_bagdasaryan: '',
   m_burnashov: '',
-  m_ivanov: '',
-  m_mazhorov: '',
+  m_ivanov: 'assets/archive_tilda/team_nikita.jpg',
+  m_mazhorov: 'assets/archive_tilda/team_ivan.jpg',
   m_malofeev: '',
   m_marin: '',
   m_osipov: '',
   m_ponomarev: '',
   m_sergeev: '',
-  m_shinkarenko: '',
+  m_shinkarenko: 'assets/archive_tilda/team_stepan.jpg',
   m_yakovlev: '',
   m_barankin: '',
   m_gazaryan: '',
   m_gusarov: '',
-  m_zolotareva: '',
+  m_zolotareva: 'assets/archive_tilda/team_maria.jpg',
   m_kopyl: '',
   m_babyakin: ''
 };
 
 const defaultTeam = [
-  { id: 'm_gosha', name: 'Гоша Перцхелия', role: 'Основатель & Главный конструктор GTT', status: 'active', photo: '', social: '@goshaturbotech', sort_order: 1 },
+  { id: 'm_gosha', name: 'Гоша Перцхелия', role: 'Основатель & Главный конструктор GTT', status: 'active', photo: 'assets/archive_tilda/team_gosha.jpg', social: '@goshaturbotech', sort_order: 1 },
   { id: 'm_pertskheliya_givi', name: 'Гиви Перцхелия', role: 'Босс', status: 'active', photo: '', social: '', sort_order: 2 },
   { id: 'm_pertskheliya_mikhail', name: 'Михаил Перцхелия', role: 'Исполнительный директор', status: 'active', photo: '', social: '', sort_order: 3 },
-  { id: 'm_sarkisyan', name: 'Эдуард Саркисян', role: 'Технический директор', status: 'active', photo: '', social: '', sort_order: 4 },
+  { id: 'm_sarkisyan', name: 'Эдуард Саркисян', role: 'Технический директор', status: 'active', photo: 'assets/archive_tilda/team_edik.jpg', social: '', sort_order: 4 },
   { id: 'm_pertskheliya_zurab', name: 'Зураб Перцхелия', role: 'Помощник руководителя', status: 'active', photo: '', social: '', sort_order: 5 },
   { id: 'm_pashchenko', name: 'Даниил Пащенко', role: 'Руководитель Медиа отдела', status: 'active', photo: '', social: '', sort_order: 6 },
   { id: 'm_gurov', name: 'Дмитрий Гуров', role: 'Инженер-проектировщик', status: 'atelier', photo: '', social: '', sort_order: 7 },
-  { id: 'm_shevtsov', name: 'Георгий Шевцов', role: 'Ст. Электрик', status: 'active', photo: '', social: '', sort_order: 8 },
+  { id: 'm_shevtsov', name: 'Георгий Шевцов', role: 'Ст. Электрик', status: 'active', photo: 'assets/archive_tilda/team_georgy.jpg', social: '', sort_order: 8 },
   { id: 'm_nikolaev', name: 'Артем Николаев', role: 'Мл. Электрик', status: 'atelier', photo: '', social: '', sort_order: 9 },
-  { id: 'm_labkovich', name: 'Евгений Лабкович', role: 'Диагност', status: 'active', photo: '', social: '', sort_order: 10 },
+  { id: 'm_labkovich', name: 'Евгений Лабкович', role: 'Диагност', status: 'active', photo: 'assets/archive_tilda/team_evgeny.jpg', social: '', sort_order: 10 },
   { id: 'm_stotsky', name: 'Сергей Стоцкий', role: 'Моторист-агрегатчик', status: 'active', photo: '', social: '', sort_order: 11 },
   { id: 'm_turdibaev', name: 'Рустам Турдибаев', role: 'Моторист-агрегатчик', status: 'active', photo: '', social: '', sort_order: 12 },
   { id: 'm_mazhnunov', name: 'Солехджон Мажнунов', role: 'Помощник моториста', status: 'atelier', photo: '', social: '', sort_order: 13 },
   { id: 'm_petrushin', name: 'Павел Петрушин', role: 'Помощник моториста', status: 'atelier', photo: '', social: '', sort_order: 14 },
   { id: 'm_mamsurov', name: 'Ксанти Мамсуров', role: 'Сварщик-фабрикатор', status: 'active', photo: '', social: '', sort_order: 15 },
-  { id: 'm_fetkulin', name: 'Роман Феткулин', role: 'Сварщик-фабрикатор', status: 'active', photo: '', social: '', sort_order: 16 },
+  { id: 'm_fetkulin', name: 'Роман Феткулин', role: 'Сварщик-фабрикатор', status: 'active', photo: 'assets/archive_tilda/team_roman.jpg', social: '', sort_order: 16 },
   { id: 'm_bagdasaryan', name: 'Микаел Багдасарян', role: 'Механик', status: 'paddock', photo: '', social: '', sort_order: 17 },
   { id: 'm_burnashov', name: 'Эрик Бурнашов', role: 'Механик', status: 'paddock', photo: '', social: '', sort_order: 18 },
-  { id: 'm_ivanov', name: 'Никита Иванов', role: 'Механик', status: 'paddock', photo: '', social: '', sort_order: 19 },
-  { id: 'm_mazhorov', name: 'Иван Мажоров', role: 'Механик', status: 'paddock', photo: '', social: '', sort_order: 20 },
+  { id: 'm_ivanov', name: 'Никита Иванов', role: 'Механик', status: 'paddock', photo: 'assets/archive_tilda/team_nikita.jpg', social: '', sort_order: 19 },
+  { id: 'm_mazhorov', name: 'Иван Мажоров', role: 'Механик', status: 'paddock', photo: 'assets/archive_tilda/team_ivan.jpg', social: '', sort_order: 20 },
   { id: 'm_malofeev', name: 'Алексей Малофеев', role: 'Механик', status: 'paddock', photo: '', social: '', sort_order: 21 },
   { id: 'm_marin', name: 'Вадим Марин', role: 'Механик', status: 'atelier', photo: '', social: '', sort_order: 22 },
   { id: 'm_osipov', name: 'Артем Осипов', role: 'Механик', status: 'atelier', photo: '', social: '', sort_order: 23 },
   { id: 'm_ponomarev', name: 'Николай Пономарев', role: 'Механик', status: 'atelier', photo: '', social: '', sort_order: 24 },
   { id: 'm_sergeev', name: 'Андрей Сергеев', role: 'Механик', status: 'atelier', photo: '', social: '', sort_order: 25 },
-  { id: 'm_shinkarenko', name: 'Степан Шинкаренко', role: 'Механик', status: 'atelier', photo: '', social: '', sort_order: 26 },
+  { id: 'm_shinkarenko', name: 'Степан Шинкаренко', role: 'Механик', status: 'atelier', photo: 'assets/archive_tilda/team_stepan.jpg', social: '', sort_order: 26 },
   { id: 'm_yakovlev', name: 'Алексей Яковлев', role: 'Мото-механик', status: 'atelier', photo: '', social: '', sort_order: 27 },
   { id: 'm_barankin', name: 'Дмитрий Баранкин', role: 'Менеджер по закупкам', status: 'atelier', photo: '', social: '', sort_order: 28 },
   { id: 'm_gazaryan', name: 'Павел Газарьян', role: 'Менеджер по закупкам', status: 'atelier', photo: '', social: '', sort_order: 29 },
   { id: 'm_gusarov', name: 'Илья Гусаров', role: 'Заведующий складом', status: 'atelier', photo: '', social: '', sort_order: 30 },
-  { id: 'm_zolotareva', name: 'Мария Золотарева', role: 'Делопроизводитель', status: 'atelier', photo: '', social: '', sort_order: 31 },
+  { id: 'm_zolotareva', name: 'Мария Золотарева', role: 'Делопроизводитель', status: 'atelier', photo: 'assets/archive_tilda/team_maria.jpg', social: '', sort_order: 31 },
   { id: 'm_kopyl', name: 'Ульяна Копыл', role: 'Контент-Мейкер', status: 'atelier', photo: '', social: '', sort_order: 32 },
   { id: 'm_babyakin', name: 'Никита Бабякин', role: 'Специалист по хозяйственному обеспечению', status: 'atelier', photo: '', social: '', sort_order: 33 }
 ];
@@ -782,7 +766,7 @@ const defaultRecords = [
   {"id": "rec_zelenka", "year": "ОАЭ & Германия • 344.60 км/ч", "car": "LAMBORGHINI HURACAN TWIN TURBO «ЗЕЛЕНКА»", "telemetry": "8.373 сек • 275.26 км/ч", "desc": "", "img": "assets/photos/huracan_zelenka_gtt.jpg", "object_position": null, "sort_order": 6},
   {"id": "rec_lucifer", "year": "RDRC 2026 • 1-е место в классе", "car": "NISSAN GT-R R35 «LUCIFER» GTT #71", "telemetry": "8.400 сек • 262.00 км/ч", "desc": "", "img": "assets/cars/gtr_lucifer_solo.jpg", "object_position": null, "sort_order": 7},
   {"id": "rec_korzhik", "year": "Рекорд России • Московская миля", "car": "NISSAN GT-R R35 GTT «KORZHIK» #712", "telemetry": "8.602 сек • 275.43 км/ч", "desc": "", "img": "assets/cars/gtr_korzhik_712.jpg", "object_position": null, "sort_order": 8},
-  {"id": "rec_projects_05", "year": "", "car": "Nissan GT-R R35 «BALOO»", "telemetry": "8.875 сек • 262.39 км/ч", "desc": "", "img": "assets/cars/gtr_baloo_card.jpg", "object_position": null, "sort_order": 9},
+  {"id": "rec_projects_05", "year": "", "car": "Nissan GT-R R35 «BALOO»", "telemetry": "8.875 сек • 262.39 км/ч", "desc": "", "img": "assets/archive_tilda/nissan_gtr_baloo.webp", "object_position": null, "sort_order": 9},
   {"id": "rec_gyurza", "year": "2022 • Абсолютный рекорд льда", "car": "AUDI R8 V10 PLUS TT «GYURZA»", "telemetry": "8.948 сек • 247.68 км/ч", "desc": "", "img": "assets/archive_tilda/audi_r8_gyurza_ice.jpg", "object_position": null, "sort_order": 11},
   {"id": "rec_tonystark", "year": "Record Days 2023", "car": "AUDI R8 V10 PLUS TT «TONY STARK»", "telemetry": "8.948 сек • 247.68 км/ч", "desc": "", "img": "assets/cars/audi_r8_tonystark_rdrc.jpg", "object_position": null, "sort_order": 12},
   {"id": "rec_projects_51", "year": "", "car": "Audi R8 V10 Plus «Злая Зая / ZlaяZaя»", "telemetry": "9.048 сек • 237.39 км/ч", "desc": "", "img": "assets/cars/audi_r8_zlayazaya_launch.jpg", "object_position": null, "sort_order": 13},
@@ -794,12 +778,12 @@ const defaultRecords = [
   {"id": "rec_puncher", "year": "2021 • Мировой ориентир UNLIM FEST", "car": "PORSCHE 911 TURBO S (992) PUNCHER", "telemetry": "9.303 сек • 235.83 км/ч", "desc": "", "img": "assets/archive_tilda/porsche_992_puncher.jpg", "object_position": null, "sort_order": 19},
   {"id": "rec_projects_03", "year": "", "car": "Porsche 911 Turbo S (992) Инцкирвели", "telemetry": "9.355 сек • 231.73 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 20},
   {"id": "rec_projects_23", "year": "", "car": "Porsche 911 Turbo S (992) «GTT-STAGE 2»", "telemetry": "9.431 сек • 231.88 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 21},
-  {"id": "rec_projects_09", "year": "", "car": "Dodge Challenger SRT Demon", "telemetry": "9.533 сек • 257.23 км/ч", "desc": "", "img": "assets/cars/dodge_burnout_sunset.jpg", "object_position": null, "sort_order": 22},
+  {"id": "rec_projects_09", "year": "", "car": "Dodge Challenger SRT Demon", "telemetry": "9.533 сек • 257.23 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 22},
   {"id": "rec_projects_28", "year": "", "car": "Lamborghini Huracán Performante Кардан", "telemetry": "9.555 сек • 235.14 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 23},
   {"id": "rec_projects_15", "year": "", "car": "Porsche 911 RS «FELIX FERRO EDITION»", "telemetry": "9.601 сек • 232.40 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 24},
   {"id": "rec_projects_20", "year": "", "car": "Nissan GT-R Тарэтов", "telemetry": "9.712 сек • 229.45 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 25},
   {"id": "rec_projects_14", "year": "", "car": "Mercedes-Benz E63 S", "telemetry": "9.785 сек • 237.81 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 26},
-  {"id": "rec_projects_12", "year": "", "car": "Dodge Challenger SRT Demon «Demon Мегон»", "telemetry": "9.891 сек • 231.36 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 27},
+  {"id": "rec_projects_12", "year": "", "car": "Dodge Challenger SRT Demon «Demon Мегон»", "telemetry": "9.891 сек • 231.36 км/ч", "desc": "", "img": "assets/cars/dodge_burnout_sunset.jpg", "object_position": null, "sort_order": 27},
   {"id": "rec_projects_40", "year": "", "car": "Audi R8 V10 Plus «OCTO GTT800»", "telemetry": "9.952 сек • 220.25 км/ч", "desc": "", "img": "", "object_position": null, "sort_order": 28},
   {"id": "rec_projects_22", "year": "", "car": "Lamborghini Huracan Spyder «GTT-800 SPYDER»", "telemetry": "9.988 сек • 222.35 км/ч", "desc": "", "img": "assets/cars/huracan_spyder_orange.jpg", "object_position": null, "sort_order": 29},
   {"id": "rec_projects_35", "year": "", "car": "BMW M5 G90", "telemetry": "10.212 сек • 224.37 км/ч", "desc": "", "img": "assets/cars/bmw_m5_rdrc_race.jpg", "object_position": null, "sort_order": 30},
@@ -825,7 +809,6 @@ const defaultRecords = [
 const defaultMedia = [
   { id: 'med_1', title: 'Гоша на своем боевом GT-R Lucifer RDRC', type: 'mp4', url: 'assets/videos/gosha_na_svoem_lucifer_web.mp4', car: 'GT-R Lucifer' },
   { id: 'med_2', title: 'Боевой синий GT-R #888 заезд RDRC', type: 'mp4', url: 'assets/videos/gtr_blue_888_pass_web.mp4', car: 'GT-R Blue 888' },
-  { id: 'med_3', title: 'Красный хромированный GT-R', type: 'mp4', url: 'assets/videos/gtr_red_g35_action_web.mp4', car: 'GT-R Red Chrome' },
   { id: 'med_4', title: 'Дымный бернаут Dodge Hellcat RDRC', type: 'mp4', url: 'assets/videos/dodge_challenger_action.mp4', car: 'Dodge Challenger SRT' },
   { id: 'med_5', title: 'Huracan «Зеленка» Twin Turbo прогрев', type: 'mp4', url: 'assets/videos/r8_launch_action.mp4', car: 'Huracan Зеленка' }
 ];
@@ -837,7 +820,6 @@ const defaultGallery = [
   { id: 'gal_3', tag: '3000+ HP', title: 'Nissan GT-R R35 «Draco»', img: 'assets/cars/gtr_draco_promod_front.jpg', object_position: 'center 50%' },
   { id: 'gal_4', tag: '1400+ HP V10 TT', title: 'Audi R8 V10 Plus TT «Rokot»', img: 'assets/cars/audi_r8_tsmr_launch.jpg', object_position: 'center 50%' },
   { id: 'gal_5', tag: 'CHAMPIONSHIP WINNER', title: 'Nissan GT-R R35 Lucifer', img: 'assets/cars/gtr_lucifer_solo.jpg', object_position: 'center 50%' },
-  { id: 'gal_6', tag: 'AERODYNAMICS', title: 'Red Chrome Nissan GT-R R35', img: 'assets/cars/gtr_red_front_rdrc.jpg', object_position: 'center 50%' },
   { id: 'gal_7', tag: 'MIDNIGHT BLUE', title: 'Nissan GT-R R35 #888 Sunset Pass', img: 'assets/photos/gtr_blue_888_rdrc.jpg', object_position: 'center 50%' },
   { id: 'gal_8', tag: 'CHIEF MOTORSPORT ENGINEER', title: 'Гоша Перцхелия на стрипе RDRC', img: 'assets/photos/gosha_on_track.jpg', object_position: 'center 50%' },
   { id: 'gal_9', tag: 'ATELIER GARAGE', title: 'Бокс GTT: Паддок команды & Nissan GT-R', img: 'assets/cars/bmw_m5_paddock_front.jpg', object_position: 'center 50%' },
@@ -1085,16 +1067,13 @@ function sanitizeCarRecord(car) {
       car.img = 'assets/cars/volga_kgb_v8_sleeper.jpg';
     }
     car.fallbackImg = 'assets/cars/volga_kgb_v8_sleeper.jpg';
-    if (!car.hp || car.hp === '-' || car.hp === '- HP' || car.hp === '—') car.hp = '1,050+ HP';
-    if (!car.quarterMile || car.quarterMile === '-' || car.quarterMile === '- сек' || car.quarterMile === '—') car.quarterMile = '9.420 сек';
-    if (!car.topSpeed || car.topSpeed === '-' || car.topSpeed === '- км/ч' || car.topSpeed === '—') car.topSpeed = '340+ км/ч';
     if (car.nameRu === 'ВОЛГА КГБНА' || car.name_ru === 'ВОЛГА КГБНА' || car.nameRu === 'Волга КГБна' || car.name_ru === 'Волга КГБна') {
       car.nameRu = 'ВОЛГА КГБ';
       if (car.name && typeof car.name === 'object') car.name.ru = 'ВОЛГА КГБ';
     }
     if (!car.nameEn && !car.name_en) {
-      car.nameEn = 'VOLGA GAZ-24 KGB V8 GTT';
-      if (car.name && typeof car.name === 'object') car.name.en = 'VOLGA GAZ-24 KGB V8 GTT';
+      car.nameEn = 'VOLGA GAZ-24 «KGB» GTT';
+      if (car.name && typeof car.name === 'object') car.name.en = 'VOLGA GAZ-24 «KGB» GTT';
     }
   }
 
@@ -1103,10 +1082,6 @@ function sanitizeCarRecord(car) {
     car.img = 'assets/cars/volga_kgb_v8_sleeper.jpg';
   }
 
-  // 3. Clear placeholder dashes on any car
-  if (car.hp === '-' || car.hp === '- HP') car.hp = '1,050+ HP';
-  if (car.quarterMile === '-' || car.quarterMile === '- сек') car.quarterMile = '9.420 сек';
-  if (car.topSpeed === '-' || car.topSpeed === '- км/ч') car.topSpeed = '340+ км/ч';
 
   return car;
 }
@@ -3435,11 +3410,8 @@ function renderCarsTable() {
   tbody.innerHTML = projects.map((car, idx) => {
     const rawName = car.nameRu || car.name_ru || (car.name && (car.name.ru || car.name.en)) || car.id;
     const name = escapeHTML(rawName);
-    const isClass = Boolean(car.isClassified || car.is_classified || (car.img && (car.img.includes('classified') || car.img.endsWith('.svg'))));
-    const rawHp = (car.hp || '').trim();
-    const hp = escapeHTML(isClass ? (rawHp || '—') : ((!rawHp || rawHp === '-' || rawHp === '- HP' || rawHp === '—') ? '1,050+ HP' : rawHp));
-    const rawQ = (car.quarterMile || car.quarter_mile || '').trim();
-    const quarter = escapeHTML(isClass ? (rawQ || '—') : ((!rawQ || rawQ === '-' || rawQ === '- сек' || rawQ === '—') ? '9.420 сек' : rawQ));
+    const hp = escapeHTML((car.hp || '').trim() || '—');
+    const quarter = escapeHTML((car.quarterMile || car.quarter_mile || '').trim() || '—');
     const img = escapeHTML(withLocalAssetVersion(convertGoogleDriveUrl(car.img) || 'assets/cars/bmw_m5_rdrc_race.jpg'));
     const objPos = escapeHTML(car.object_position || car.objectPosition || 'center 50%');
     const carId = escapeHTML(car.id);
@@ -4777,13 +4749,13 @@ async function saveCarProject(e) {
   const finalNameEn = rawNameEn || rawNameRu;
 
   const rawHp = document.getElementById('editHp').value.trim();
-  const finalHp = rawHp ? (rawHp.includes('HP') || rawHp.includes('л.с.') ? rawHp : rawHp + ' HP') : '1,050+ HP';
+  const finalHp = rawHp ? (rawHp.includes('HP') || rawHp.includes('л.с.') ? rawHp : rawHp + ' HP') : '';
 
   const rawQuarter = document.getElementById('editQuarter').value.trim();
-  const finalQuarter = rawQuarter ? (rawQuarter.includes('сек') ? rawQuarter : rawQuarter + ' сек') : '9.420 сек';
+  const finalQuarter = rawQuarter ? (rawQuarter.includes('сек') ? rawQuarter : rawQuarter + ' сек') : '';
 
   const rawTopSpeed = document.getElementById('editTopSpeed').value.trim();
-  const finalTopSpeed = rawTopSpeed ? (rawTopSpeed.includes('км/ч') ? rawTopSpeed : rawTopSpeed + ' км/ч') : '340+ км/ч';
+  const finalTopSpeed = rawTopSpeed ? (rawTopSpeed.includes('км/ч') ? rawTopSpeed : rawTopSpeed + ' км/ч') : '';
 
   const rawImg = convertGoogleDriveUrl(document.getElementById('editImg').value.trim());
   const isVolgaName = rawNameRu.toUpperCase().includes('ВОЛГА') || rawNameRu.toUpperCase().includes('VOLGA') || rawNameRu.toUpperCase().includes('ГАЗ');

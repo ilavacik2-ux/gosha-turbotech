@@ -184,7 +184,7 @@ let gttProjects = [
       "en": "Track-Day Record 7.766s"
     },
     "img": "assets/cars/gtr_kurdalagon_white.jpg",
-    "fallbackImg": "assets/cars/gtr_red_front_rdrc.jpg",
+    "fallbackImg": "assets/cars/gtr_kurdalagon_white.jpg",
     "isPhoto": true,
     "objectPosition": "center 65%",
     "videoSrc": "assets/videos/gtr_kurdalagon_776.mp4",
@@ -331,12 +331,12 @@ let gttProjects = [
       "en": "DODGE CHALLENGER SRT DEMON GTT"
     },
     "tag": {
-      "ru": "RDRC БЕРНАУТ КИНГ • 9.748 СЕК",
-      "en": "RDRC BURNOUT KING • 9.748 SEC"
+      "ru": "",
+      "en": ""
     },
     "hp": "1,200+ HP",
-    "quarterMile": "9.533 сек",
-    "topSpeed": "257.23 км/ч",
+    "quarterMile": "9.891 сек",
+    "topSpeed": "231.36 км/ч",
     "badge": {
       "ru": "SRT Demon 1200+ HP",
       "en": "SRT Demon 1200+ HP"
@@ -348,8 +348,8 @@ let gttProjects = [
     "videoSrc": "",
     "videoTitle": "Dodge Challenger SRT Demon GTT — дымный бернаут RDRC",
     "desc": {
-      "ru": "Черный компрессорный монстр Dodge Challenger SRT Demon от GoshaTurboTech под управлением И. Кардана и М. Шония. Подтвержденное время 9.748 сек со скоростью 233.24 км/ч на 1/4 мили RDRC 2026.",
-      "en": "Supercharged black Dodge Challenger SRT Demon built by GoshaTurboTech, piloted by I. Kardan and M. Shoniya. Verified 9.748 sec at 233.24 km/h on RDRC 2026."
+      "ru": "Dodge Challenger SRT Demon.",
+      "en": "Dodge Challenger SRT Demon."
     },
     "specs": {
       "engine": "6.2L Supercharged HEMI V8 Built by GTT",
@@ -651,8 +651,8 @@ let gttProjects = [
       "ru": "GT-R Baloo GTT",
       "en": "GT-R Baloo GTT"
     },
-    "img": "assets/cars/gtr_red_strip_sunset.jpg",
-    "fallbackImg": "assets/cars/gtr_draco_connections.jpg",
+    "img": "assets/archive_tilda/nissan_gtr_baloo.webp",
+    "fallbackImg": "assets/archive_tilda/nissan_gtr_baloo.webp",
     "isPhoto": true,
     "objectPosition": "center center",
     "desc": {
@@ -709,45 +709,6 @@ let gttProjects = [
     "is_featured": 0,
     "isFeatured": false,
     "sort_order": 17
-  },
-  {
-    "id": "gtr_red",
-    "brand": "NISSAN",
-    "type": "gtr",
-    "name": {
-      "ru": "GT-R R35 RED CHROME GTT",
-      "en": "GT-R R35 RED CHROME GTT"
-    },
-    "tag": {
-      "ru": "RDRC ЧЕМПИОНАТ РОССИИ • КРАСНЫЙ ХРОМ",
-      "en": "RDRC RUSSIAN CHAMPIONSHIP • RED CHROME"
-    },
-    "hp": "1,650+ HP",
-    "quarterMile": "7.950 сек",
-    "topSpeed": "350+ км/ч",
-    "badge": {
-      "ru": "Красный Хром RDRC",
-      "en": "Red Chrome RDRC"
-    },
-    "img": "assets/cars/gtr_red_front_card.jpg",
-    "fallbackImg": "assets/cars/gtr_red_front_rdrc.jpg",
-    "isPhoto": true,
-    "objectPosition": "center 50%",
-    "videoSrc": "",
-    "videoTitle": "Nissan GT-R GTT Red Chrome G35 — боевой заезд RDRC",
-    "desc": {
-      "ru": "Один из самых ярких Nissan GT-R в российском дрэг-рейсинге под управлением Гоши Перцхелия. Кастомный хром-дизайн, усиленная подвеска и боевая трансмиссия GTT.",
-      "en": "One of the most striking Nissan GT-R cars in Russian drag racing piloted by Gosha Pertskheliya. Custom red chrome livery, reinforced suspension and bulletproof GTT race transmission."
-    },
-    "specs": {
-      "engine": "3.8L VR38DETT Custom GTT Billet Assembly",
-      "turbos": "Garrett G35-1050 Turbochargers",
-      "cooling": "Front Mount Massive Intercooler Core",
-      "ecu": "Syvecs S8 ECU with Launch & Traction Control"
-    },
-    "is_featured": 0,
-    "isFeatured": false,
-    "sort_order": 18
   },
   {
     "id": "gtr_rocket",
@@ -944,33 +905,31 @@ let gttProjects = [
     "brand": "ГАЗ & GTT",
     "type": "other",
     "name": {
-      "ru": "ВОЛГА ГАЗ-24 КГБ V8 GTT",
-      "en": "VOLGA GAZ-24 KGB V8 GTT"
+      "ru": "ВОЛГА ГАЗ-24 «КГБ» GTT",
+      "en": "VOLGA GAZ-24 «KGB» GTT"
     },
     "tag": {
-      "ru": "ЛЕГЕНДАРНЫЙ СЛИПЕР • V8 TWIN TURBO",
-      "en": "LEGENDARY SLEEPER • V8 TWIN TURBO"
+      "ru": "2JZ-GTE",
+      "en": "2JZ-GTE"
     },
-    "hp": "1,050+ HP",
-    "quarterMile": "9.420 сек",
-    "topSpeed": "340+ км/ч",
+    "hp": "",
+    "quarterMile": "",
+    "topSpeed": "",
     "badge": {
-      "ru": "Волга КГБ V8",
-      "en": "Volga KGB V8"
+      "ru": "Волга «КГБ»",
+      "en": "Volga «KGB»"
     },
     "img": "assets/cars/volga_kgb_v8_workshop.jpg",
     "fallbackImg": "assets/cars/volga_kgb_v8_workshop.jpg",
     "isPhoto": true,
     "objectPosition": "center center",
     "desc": {
-      "ru": "Легендарный советский проект в кузове ГАЗ-24 «Догонялка». Внешне аутентичный хромированный силуэт спецслужб, внутри — современный турбированный V8 и кастомное спортивное шасси.",
-      "en": "Legendary Soviet KGB interceptor GAZ-24 sleeper. Factory classic exterior concealing modern twin-turbo V8 and motorsport chassis."
+      "ru": "ГАЗ-24 с двигателем 2JZ-GTE и пустым салоном с каркасом безопасности.",
+      "en": "GAZ-24 with a 2JZ-GTE engine and a stripped interior with a roll cage."
     },
     "specs": {
-      "engine": "V8 Twin Turbo Restomod Powertrain",
-      "chassis": "Bespoke Independent Suspension & Wilwood Brakes",
-      "transmission": "Reinforced 6-Speed Manual",
-      "interior": "Restored Factory Soviet Cockpit"
+      "engine": "2JZ-GTE",
+      "interior": "Пустой салон с каркасом безопасности"
     },
     "videoSrc": "",
     "is_featured": 0,
@@ -986,12 +945,12 @@ let gttProjects = [
       "en": "FERRARI 512 TR GTT"
     },
     "tag": {
-      "ru": "ИТАЛЬЯНСКАЯ ИКОНА • FLAT-12 ENGINE",
-      "en": "ITALIAN ICON • FLAT-12 ENGINE"
+      "ru": "",
+      "en": ""
     },
-    "hp": "550+ HP",
-    "quarterMile": "10.800 сек",
-    "topSpeed": "315+ км/ч",
+    "hp": "",
+    "quarterMile": "",
+    "topSpeed": "",
     "badge": {
       "ru": "Ferrari 512 TR",
       "en": "Ferrari 512 TR"
@@ -1002,15 +961,10 @@ let gttProjects = [
     "isClassified": true,
     "objectPosition": "center center",
     "desc": {
-      "ru": "Итальянская икона с 12-цилиндровым оппозитным двигателем Flat-12. Комплексная механическая доработка в цехах GTT, индивидуальный титановый выпуск и филигранная калибровка впрыска.",
-      "en": "Italian legend powered by Flat-12 engine. Complete mechanical overhaul by GTT, bespoke titanium exhaust and precision injection mapping."
+      "ru": "Ferrari 512 TR",
+      "en": "Ferrari 512 TR"
     },
-    "specs": {
-      "engine": "4.9L Flat-12 Naturally Aspirated Maranello",
-      "exhaust": "Handmade Titanium Valved Exhaust",
-      "clutch": "GTT Heavy Duty Multi-Plate Clutch",
-      "brakes": "Brembo Racing High-Friction Setup"
-    },
+    "specs": {},
     "videoSrc": "",
     "is_featured": 0,
     "isFeatured": false,
@@ -1145,12 +1099,12 @@ let gttProjects = [
       "en": "TESLA MODEL S PLAID GTT"
     },
     "tag": {
-      "ru": "ЭЛЕКТРО-ГИПЕРКАР • 1020 HP • 9.230 СЕК",
-      "en": "ELECTRIC HYPERCAR • 1020 HP • 9.230 SEC"
+      "ru": "",
+      "en": ""
     },
-    "hp": "1,050+ HP",
-    "quarterMile": "—",
-    "topSpeed": "—",
+    "hp": "",
+    "quarterMile": "",
+    "topSpeed": "",
     "badge": {
       "ru": "Tesla Plaid GTT",
       "en": "Tesla Plaid GTT"
@@ -1161,15 +1115,10 @@ let gttProjects = [
     "isClassified": false,
     "objectPosition": "center center",
     "desc": {
-      "ru": "Трековый проект на базе трехмоторного седана Tesla Model S Plaid. Спортивная карбон-керамическая тормозная система GTT, оптимизация охлаждения инверторов и аэродинамический сплиттер.",
-      "en": "Track project based on tri-motor Tesla Model S Plaid. GTT carbon-ceramic braking package, inverter thermal optimization and high-downforce aero."
+      "ru": "Tesla Model S Plaid",
+      "en": "Tesla Model S Plaid"
     },
-    "specs": {
-      "engine": "Tri-Motor Carbon-Sleeved Electric Powertrain",
-      "power": "1,020 HP / 1,420 Nm Instant Torque",
-      "brakes": "GTT Carbon Ceramic 410mm Track Rotors",
-      "suspension": "Lowered Active Air Suspension Calibration"
-    },
+    "specs": {},
     "videoSrc": "",
     "is_featured": 0,
     "isFeatured": false,
@@ -1559,7 +1508,6 @@ const i18n = {
     gallery_cap_dodge: "Dodge Demon: дымный прогрев сликов на закате RDRC",
     gallery_cap_draco: "3000+ HP Nissan GT-R Draco на сликах RDRC",
     gallery_cap_r8: "Audi R8 V10 Plus TT «Rokot» на стартовой черте RDRC",
-    gallery_cap_gtr_red: "Красный хромированный Nissan GT-R R35 GTT",
     gallery_cap_gtr_blue: "Боевой синий Nissan GT-R R35 #888 на закате RDRC",
     gallery_cap_box: "Бокс GTT: Паддок команды и Nissan GT-R",
     gallery_cap_track: "Гоша Перцхелия контролирует подготовку трассы RDRC",
@@ -1794,7 +1742,6 @@ const i18n = {
     gallery_cap_dodge: "Dodge Demon: Smoky Burnout at Sunset RDRC",
     gallery_cap_draco: "3,000+ HP Nissan GT-R Draco on RDRC Slicks",
     gallery_cap_r8: "Audi R8 V10 Plus TT «Rokot» on the RDRC Starting Line",
-    gallery_cap_gtr_red: "Red Chrome Nissan GT-R R35 GTT",
     gallery_cap_gtr_blue: "GTT Race Midnight Blue Nissan GT-R R35 #888 at RDRC",
     gallery_cap_box: "GTT Garage Pit: Team Paddock & Nissan GT-R",
     gallery_cap_track: "Georgy Pertskheliya Supervising RDRC Track Glue Preparation",
@@ -2013,12 +1960,9 @@ function sanitizeCarRecord(c) {
       c.img = 'assets/cars/volga_kgb_v8_workshop.jpg';
     }
     c.fallbackImg = 'assets/cars/volga_kgb_v8_workshop.jpg';
-    if (!c.hp || c.hp === '-' || c.hp === '- HP' || c.hp === '—') c.hp = '1,050+ HP';
-    if (!c.quarter_mile && !c.quarterMile) c.quarterMile = '9.420 сек';
-    if (!c.top_speed && !c.topSpeed) c.topSpeed = '340+ км/ч';
     if (c.name && typeof c.name === 'object') {
       if (c.name.ru === 'ВОЛГА КГБНА' || c.name.ru === 'Волга КГБна') c.name.ru = 'ВОЛГА КГБ';
-      if (!c.name.en) c.name.en = 'VOLGA GAZ-24 KGB V8 GTT';
+      if (!c.name.en) c.name.en = 'VOLGA GAZ-24 «KGB» GTT';
     }
   }
 
@@ -2027,13 +1971,6 @@ function sanitizeCarRecord(c) {
     c.img = 'assets/cars/volga_kgb_v8_workshop.jpg';
   }
 
-  // 3. Clear placeholder dashes on any car ONLY if not classified
-  const isClassifiedCar = Boolean(c.isClassified || c.is_classified || c.isTeaser || (c.img && (c.img.includes('classified') || c.img.endsWith('.svg'))));
-  if (!isClassifiedCar) {
-    if (c.hp === '-' || c.hp === '- HP') c.hp = '1,050+ HP';
-    if (c.quarterMile === '-' || c.quarterMile === '- сек') c.quarterMile = '9.420 сек';
-    if (c.topSpeed === '-' || c.topSpeed === '- км/ч') c.topSpeed = '340+ км/ч';
-  }
 
   return c;
 }
@@ -2141,7 +2078,7 @@ function applyCarsData(carList) {
   const originalCarIds = new Set([
     'gtr_lucifer', 'draco_promod', 'r8_rokot', 'gtr_kurdalagon',
     'bezzubik', 'moses', 'zelenka', 'tonystark', 'dodge_srt',
-    'gtr_blue_888', 'gtr_red', 'bmw_m5'
+    'gtr_blue_888', 'bmw_m5'
   ]);
 
   gttProjects = listToUse.map(c => {
@@ -3083,15 +3020,6 @@ function getGalleryBilingual(rawTitle, rawTag) {
       ru: 'Nissan GT-R R35 Lucifer: чемпионский победный болид RDRC',
       en: 'Nissan GT-R R35 Lucifer: RDRC Championship Winner'
     },
-    // Red Chrome Nissan GT-R R35
-    'Red Chrome Nissan GT-R R35': {
-      ru: 'Red Chrome Nissan GT-R R35',
-      en: 'Red Chrome Nissan GT-R R35'
-    },
-    'Красный хромированный Nissan GT-R R35 GTT': {
-      ru: 'Красный хромированный Nissan GT-R R35 GTT',
-      en: 'Red Chrome Nissan GT-R R35 GTT'
-    },
     // 2. Bezzubik
     'Huracan Twin Turbo «Беззубик»': {
       ru: 'Huracan Twin Turbo «Беззубик»',
@@ -4011,21 +3939,13 @@ function renderTeamGrid(teamList) {
     const objPos = escapeHtml(m.object_position || m.objectPosition || 'center 20%');
     const safePhoto = escapeHtml(rawPhoto);
     const safeName = escapeHtml(displayName);
-    const photoMarkup = hasPhoto
-      ? `<img src="${safePhoto}" alt="${safeName}" class="team-card-img" style="object-position: ${objPos} !important;" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'team-card-placeholder-photo\\'><div class=\\'team-placeholder-crest\\'><img src=\\'assets/photos/gtt_shield_logo.svg\\' alt=\\'GTT\\' class=\\'team-placeholder-crest-icon\\'><span class=\\'team-placeholder-id\\'>#${escapeHtml(num)}</span></div><span class=\\'team-placeholder-hint\\'>GTT Crew</span></div>'">`
-      : `<div class="team-card-placeholder-photo">
-          <div class="team-placeholder-crest">
-            <img src="assets/photos/gtt_shield_logo.svg" alt="GTT" class="team-placeholder-crest-icon">
-            <span class="team-placeholder-id">#${escapeHtml(num)}</span>
-          </div>
-          <span class="team-placeholder-hint">GTT Atelier</span>
-        </div>`;
-
     return `
       <div class="team-card team-card-fade-in ${hasPhoto ? 'has-photo' : 'has-placeholder'}" data-team-dept="${escapeHtml(dept)}" style="animation-delay: ${(idx % 10) * 0.06}s">
-        <div class="team-card-photo">
-          ${photoMarkup}
-        </div>
+        ${hasPhoto ? `
+          <div class="team-card-photo">
+            <img src="${safePhoto}" alt="${safeName}" class="team-card-img" style="object-position: ${objPos} !important;" loading="lazy" onerror="this.closest('.team-card').classList.replace('has-photo', 'has-placeholder'); this.parentElement.remove();">
+          </div>
+        ` : ''}
         <div class="team-card-body">
           <div class="team-badge-header">
             <span class="team-dept-pill">${escapeHtml(deptLabel)}</span>
@@ -4756,6 +4676,7 @@ function renderGarageGrid(filterType) {
           </div>
           <div class="car-card-info">
             <h3 class="car-model-title">${escapeHtml(name)}</h3>
+            ${car.quarterMile || car.topSpeed ? `
             <div class="car-specs-row">
               <div class="spec-cell">
                 <div class="spec-val">${formatSpecVal(car.quarterMile, currentLang, 'quarterMile', true)}</div>
@@ -4766,6 +4687,7 @@ function renderGarageGrid(filterType) {
                 <div class="spec-lbl">${currentLang === 'ru' ? 'Скорость' : 'Speed'}</div>
               </div>
             </div>
+            ` : ''}
             <div class="car-card-footer">
               <button class="btn-card-details btn-card-passport" onclick="event.stopPropagation(); openCarModal('${escapeJS(car.id)}')">${i18n[currentLang].btn_passport}</button>
               ${showVideoBtn ? `
@@ -5077,6 +4999,7 @@ window.openCarModal = function(carId) {
   const desc = (typeof car.desc === 'object') ? (car.desc[currentLang] || car.desc.ru) : car.desc;
   const badge = (typeof car.badge === 'object') ? (car.badge[currentLang] || car.badge.ru) : car.badge;
 
+  const specRows = Object.entries(car.specs || {});
   modalBody.innerHTML = `
     <!-- Top Header & Badges -->
     <div class="carmodal-header">
@@ -5096,6 +5019,7 @@ window.openCarModal = function(carId) {
       </button>
     </div>
 
+    ${car.hp || car.quarterMile || car.topSpeed ? `
     <!-- Big 3 Telemetry Metrics Grid -->
     <div class="carmodal-metrics-grid">
       <div class="carmodal-metric-card">
@@ -5121,19 +5045,21 @@ window.openCarModal = function(carId) {
       </div>
     </div>
 
+    ` : ''}
     <!-- Description & Engineering Story -->
     <div class="carmodal-desc-box">
       <div class="carmodal-desc-lbl">${currentLang === 'ru' ? 'Инженерная концепция' : 'Engineering Concept'}</div>
       <p class="carmodal-desc-text">${escapeHtml(desc)}</p>
     </div>
 
+    ${specRows.length ? `
     <!-- Technical Specification Passport -->
     <div class="carmodal-specs-section">
       <div class="carmodal-specs-header">
         <span class="carmodal-specs-title">${currentLang === 'ru' ? 'Конфигурация и компоненты' : 'Configuration & Components'}</span>
       </div>
       <div class="carmodal-specs-grid">
-        ${Object.entries(car.specs || {}).map(([key, val]) => `
+        ${specRows.map(([key, val]) => `
           <div class="carmodal-spec-row">
             <span class="carmodal-spec-key">${escapeHtml(key)}</span>
             <span class="carmodal-spec-val">${escapeHtml(val)}</span>
@@ -5142,6 +5068,7 @@ window.openCarModal = function(carId) {
       </div>
     </div>
 
+    ` : ''}
     <!-- Modal Actions Footer -->
     <div class="carmodal-footer-actions">
       ${(car.videoSrc || car.video_src || car.youtubeId) ? `
